@@ -1,0 +1,150 @@
+<?php
+    session_start();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>에디터 - 파일 첨부</title>
+<link rel="stylesheet" href="/_lib/htmleditor/css/popup.css" type="text/css"  charset="utf-8"/>
+<link href="/_lib/swfupload/default.css" rel="stylesheet" type="text/css" />
+<script src="/_lib/htmleditor/js/popup.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/_lib/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="/_lib/swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="/_lib/swfupload/fileprogress.js"></script>
+<script type="text/javascript" src="/_lib/swfupload/handlers.js"></script>
+<script type="text/javascript">
+<!--
+
+    var upload1;
+
+    window.onload = function() {
+        upload1 = new SWFUpload({
+            // Backend Settings
+            upload_url: "/_lib/swfupload/upload.php",
+            post_params: {
+                "bo_no" : "111",
+                "file_type" : "attach"
+            },
+
+            // File Upload Settings
+            file_size_limit : "10240000",	// 10MB
+            file_types : "*.*",
+            file_types_description : "All files",
+            file_upload_limit : "20",
+            file_queue_limit : "0",
+
+            // Event Handler Settings
+            file_dialog_start_handler : fileDialogStart,
+            file_queued_handler : fileQueued,
+            file_queue_error_handler : fileQueueError,
+            file_dialog_complete_handler : fileDialogComplete,
+            upload_start_handler : uploadStart,
+            upload_progress_handler : uploadProgress,
+            upload_error_handler : uploadError,
+            upload_success_handler : uploadSuccess,
+            upload_complete_handler : uploadComplete,
+
+            // Button Settings
+            button_image_url : "/_lib/swfupload/img/seek.png",
+            button_placeholder_id : "spanButtonPlaceholder1",
+            button_width: 68,
+            button_height: 27,
+
+            // Flash Settings
+            flash_url : "/_lib/swfupload/swfupload.swf",
+
+            // Custom Settings
+            custom_settings : {
+                progressTarget : "fsUploadProgress1",
+                uploadButtonId : "btnUpload",
+                file_type      : "attach",
+                uploadDir      : '/admincenter/files/_files/'
+            },
+
+            // Debug Settings
+            debug: false
+        });
+
+     }
+
+//-->
+</script>
+</head>
+
+<body>
+
+<table width=100% height=100% border=0 cellspacing=0 cellpadding=0>
+<form id=form name=form method=post>
+<tr>
+    <td valign=top height=204>
+
+    <div class="wrapper">
+        <div class="header">
+            <h1>파일 첨부</h1>
+        </div>
+        <div class="body" style='height:170px;overflow:auto'>
+            <dl class="alert">
+                <dt>파일 첨부</dt>
+                <dd>
+                    <table width=100% border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width=68 height=25 valign=top><span id="spanButtonPlaceholder1" style='float:left'></span></td>
+                        <td height=25><div id="fsUploadProgress1" style='width:100%;height:100%;border:1px #d9e4ff solid;line-height:18px;'></div></td>
+                    </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    </td>
+</tr>
+<tr>
+    <td height=42>
+
+    <div class="footer">
+        <p><a href="#" onclick="closeWindow();" title="닫기" class="close">닫기</a></p>
+        <ul>
+            <li class="submit"><a href="#" onclick="done();" title="등록" class="btnlink">등록</a> </li>
+            <li class="cancel"><a href="#" onclick="closeWindow();" title="취소" class="btnlink">취소</a></li>
+        </ul>
+    </div>
+
+    </td>
+</tr>
+</form>
+</table>
+
+<script type="text/javascript">
+// <![CDATA[
+var _mockdata = new Array();
+
+function done() {
+
+    if (typeof(execAttach) == 'undefined')
+        return;
+
+    for (var i=0; i<_mockdata.length; i++)
+        execAttach(_mockdata[i]);
+
+    closeWindow();
+}
+
+function initUploader(){
+    var _opener = PopupUtil.getOpener();
+    if (!_opener) {
+        alert('잘못된 경로로 접근하셨습니다.');
+        return;
+    }
+
+    var _attacher = getAttacher('file', _opener);
+    registerAction(_attacher);
+}
+
+initUploader();
+// ]]>
+</script>
+
+</body>
+</html>

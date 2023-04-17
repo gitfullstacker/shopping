@@ -1,0 +1,320 @@
+<HTML>
+<HEAD>
+<TITLE> 테이블생성 </TITLE>
+<META http-equiv="content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<style>
+td{font-size:9pt;FONT-FAMILY:돋움;}
+body{font-size:9pt;FONT-FAMILY:돋움;}
+img{border: none;}
+input
+{
+	font-size:9pt;
+	border-style:solid;
+	padding:1pt;
+	border-width:1px 1px 1px 1px;
+	border-color:#8B8B8B #8B8B8B #8B8B8B #8B8B8B;
+	font-family:돋움;
+}
+select{font-size:8pt;}
+.bl_btn
+{
+	background-color:#9EC7FF;FONT-FAMILY:돋움;FONT-SIZE:9pt;
+}
+</style>
+<script language="JavaScript" src="we_path.asp"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	try
+	{
+		var str_Param = location.search;
+		str_Param = str_Param.substring(1, str_Param.length);
+
+		var arr_P1 = str_Param.split("&");
+		var arr_P2 = new Array();
+
+		for(var i=0; i<arr_P1.length; i++)
+			arr_P2[i] = arr_P1[i].split("=");
+
+		var str_Bd = arr_P2[0][1];
+		var str_Info = arr_P2[1][1];
+		var arr_Img_Info = str_Info.split("|");
+	}catch(e){}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var gbl_Width = parseInt(unescape(arr_Img_Info[5]));
+	var gbl_Height = parseInt(unescape(arr_Img_Info[6]));
+
+	function fncCheckDigit(sVal)
+	{
+		var bln_Flag = false;
+		var regDigitChk = /[^0-9]/;
+		bln_Flag = (regDigitChk.test(sVal)==true)? false : true;
+		return bln_Flag;
+	}
+
+	function fnc_Out_Icon()
+	{
+		var str_Icon_Tag = '';
+		//str_Icon_Tag += '<img src="'+str_Icon_Path+'ed_image.gif" align="absMiddle" border="0">';
+
+		document.write(str_Icon_Tag);
+	}
+
+	function fncClose()
+	{
+		var objSetTable = parent.document.all.layAddBrow;
+		with(objSetTable)
+		{
+			//style.zIndex = 0;
+			style.display = "none";
+		}
+	}
+
+	function fnc_Auto_Rate(it)
+	{
+		var obj_Lbl = eval("lbl_Height");
+		var obj_Form = it.form;
+		var int_Height = fnc_Auto_Height(obj_Form);
+		if(it.checked==true)
+		{
+			obj_Lbl.innerHTML = '<input type="hidden" name="txt_Height" value="'+int_Height+'">&nbsp;'+int_Height;
+		}
+		else
+		{
+			obj_Lbl.innerHTML = '<input type="text" name="txt_Height" value="'+int_Height+'" size="5" maxlength="4" onkeyup="fnc_Num_Chk(this, 1);">';
+		}
+	}
+
+	function fnc_Auto_Height(form)
+	{
+		var int_Height = form.txt_Height.value;
+		int_Height = parseInt(int_Height);
+
+		var int_Width = form.txt_Width.value;
+		int_Width = parseInt(int_Width);
+
+		int_Height = parseInt((gbl_Height*int_Width)/gbl_Width);
+		return int_Height;
+	}
+
+	function fnc_Num_Chk(it, type)
+	{
+		var obj_Form = it.form;
+		var regNum = new RegExp("(^0{1,})+([0-9])", "gi");
+		var arrPatten = regNum.exec(it.value);
+		it.value = (it.value.replace(regNum, "$2"));
+
+		if(!fncCheckDigit(it.value))
+		{
+			alert("숫자 이외의 값은 입력하실 수 없습니다.");
+			it.value="";
+			it.select();
+			return false;
+		}
+
+		if((type==0) && (obj_Form.chk_Auto.checked==true))
+		{
+			fnc_Auto_Rate(obj_Form.chk_Auto);
+		}
+	}
+
+	function fnc_Image_Add(form)
+	{
+		var str_File_Url = arr_Img_Info[7]+'egofiledata.php';
+		var int_Seq = arr_Img_Info[0];
+		var str_Key = arr_Img_Info[1];
+		var str_Alt = form.txt_Alt.value;
+		var int_Border = form.sel_Border.options[form.sel_Border.options.selectedIndex].value;
+		var str_Align = form.sel_Align.options[form.sel_Align.options.selectedIndex].value;
+		var int_Horizontal = form.sel_Horizontal.options[form.sel_Horizontal.options.selectedIndex].value;
+		var int_Vertical = form.sel_Vertical.options[form.sel_Vertical.options.selectedIndex].value;
+		var int_Width = form.txt_Width.value;
+		var int_Height = form.txt_Height.value;
+
+		var strHtml = "";
+
+		strHtml += '<img src="'+str_File_Url+'?bd='+str_Bd+'&iseq='+int_Seq+'&ikey='+str_Key+'" border="'+int_Border+'" alt="'+str_Alt+'" width="'+int_Width+'" height="'+int_Height+'" vspace="'+int_Vertical+'" hspace="'+int_Horizontal+'"';
+		strHtml += (str_Align=='')? '': ' align="'+str_Align+'" ';
+		strHtml += '>';
+
+
+		var objSetTable = parent.document.all.layAddBrow;
+		var objInEditor = parent.document.frames.I_Editor;
+		objInEditor.focus();
+
+		try
+		{
+			var objRange = objInEditor.document.selection.createRange();
+			objRange.pasteHTML(strHtml);
+			objRange.select();
+			objSetTable.style.display = "none";
+
+		}catch(e){alert(e);}
+		finally{objInEditor.focus();}
+	}
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY topmargin="0" leftmargin="0">
+
+<table border="0" cellpadding="0" cellspacing="1" bgcolor="gray" width="100%" height="100%">
+	<tr>
+		<td align="center" class="bl_btn" style="padding:3px;">
+			<SCRIPT LANGUAGE="JavaScript">
+			<!--
+				fnc_Out_Icon();
+			//-->
+			</SCRIPT>
+			&nbsp;&nbsp;이미지 등록
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="white" align="center" valign="top">
+
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="white">
+			<form name="frmSend">
+				<tr>
+					<td width="54">
+						파일명
+					</td>
+					<td colspan="3" height="25" style="font-size:8pt;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							document.write(unescape(arr_Img_Info[3]));
+						//-->
+						</SCRIPT>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						대체문자
+					</td>
+					<td colspan="3">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							document.write('<input type="text" name="txt_Alt" value="'+unescape(arr_Img_Info[2])+'" size="20">');
+						//-->
+						</SCRIPT>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						border
+					</td>
+					<td>
+						<select name="sel_Border" size="1" style="width:40;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<10; i++)
+							{
+								document.write('<option value="'+i+'">'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+					<td>
+						align
+					</td>
+					<td>
+						<select name="sel_Align" size="1" style="width:70;">
+							<OPTION value="">없음</OPTION>
+							<OPTION value="left" selected>왼쪽</OPTION>
+							<OPTION value="right">오른쪽</OPTION>
+							<OPTION value="textTop">문자열윗쪽</OPTION>
+							<OPTION value="absMiddle">선택영역가운데</OPTION>
+							<OPTION value="baseline">기준선</OPTION>
+							<OPTION value="absBottom">선택영역아래</OPTION>
+							<OPTION value="bottom">아랫쪽</OPTION>
+							<OPTION value="middle">가운데</OPTION>
+							<OPTION value="top">위쪽</OPTION>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						수평
+					</td>
+					<td>
+						<select name="sel_Horizontal" size="1" style="width:40;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<100; i++)
+							{
+								document.write('<option value="'+i+'"');
+								if(i==0)
+									document.write(' selected ');
+								document.write('>'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+					<td>
+						수직
+					</td>
+					<td>
+						<select name="sel_Vertical" size="1" style="width:40;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<100; i++)
+							{
+								document.write('<option value="'+i+'"');
+								if(i==0)
+									document.write(' selected ');
+								document.write('>'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Width
+					</td>
+					<td>
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							document.write('<input type="text" name="txt_Width" value="'+unescape(arr_Img_Info[5])+'" size="5" maxlength="4" onkeyup="fnc_Num_Chk(this, 0);">');
+						//-->
+						</SCRIPT>
+					</td>
+					<td>
+						Height
+					</td>
+					<td id="lbl_Height">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							document.write('<input type="text" name="txt_Height" value="'+unescape(arr_Img_Info[6])+'" size="5" maxlength="4" onkeyup="fnc_Num_Chk(this, 1);">');
+						//-->
+						</SCRIPT>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						자동비율
+					</td>
+					<td colspan="3">
+						<input type="checkbox" name="chk_Auto" value="1" style="border:0px;" onclick="fnc_Auto_Rate(this);">
+					</td>
+				</tr>
+				<tr>
+					<td align="right" colspan="4">
+						<input type="button" style="cursor:hand;" value="생성" onclick="fnc_Image_Add(this.form);">
+						<input type="button" style="cursor:hand;" value="닫기" onclick="fncClose();">
+					</td>
+				</tr>
+			</form>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+</BODY>
+</HTML>

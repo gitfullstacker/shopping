@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY>
+<div id="Frames"></div>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	vIframe=eval("Frames");
+			vIframe.innerHTML='<iframe scrolling="yes" src="about:blank" name="I_Editor" id="html_Editor" style="width:100%;height:300px;"></iframe>';
+
+			html_Editor.document.designMode = 'on';
+			html_Editor.document.open();
+			html_Editor.document.write();
+			html_Editor.document.close();
+
+function fnc_edit()
+{
+  var globalDoc = window.frames['I_Editor'].document;
+  var grngMaster = globalDoc.selection.createRange();
+  grngMaster.execCommand("InsertImage", true, 'http://img.empas.com/search/2004/logo/empas_logo.gif');
+}
+//-->
+</SCRIPT>
+<input type="button" value="click" onclick="fnc_edit();">
+</BODY>
+</HTML>

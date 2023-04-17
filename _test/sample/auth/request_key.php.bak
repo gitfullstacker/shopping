@@ -1,0 +1,259 @@
+<?
+    /* ============================================================================== */
+    /* =   PAGE : 인증 요청 PAGE                                                    = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   신용카드 자동과금 인증을 요청 하는 페이지입니다.                         = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   연동시 오류가 발생하는 경우 아래의 주소로 접속하셔서 확인하시기 바랍니다.= */
+    /* =   접속 주소 : http://kcp.co.kr/technique.requestcode.do                    = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
+    /* ============================================================================== */
+
+    /* ============================================================================== */
+    /* =   환경 설정 파일 Include                                                   = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ※ 주의 ※                                                               = */
+    /* =   테스트 및 실결제 연동시 site_conf_inc.php파일을 수정하시기 바랍니다.     = */
+    /* = -------------------------------------------------------------------------- = */
+?>
+
+<? include "../../cfg/site_conf_inc.php"; ?>
+
+<?
+    /* = -------------------------------------------------------------------------- = */
+    /* =   환경 설정 파일 Include End                                               = */
+    /* ============================================================================== */
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
+
+<?
+    /* ============================================================================== */
+    /* =   Javascript source Include                                                = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ※ 필수                                                                  = */
+    /* =   테스트 및 실결제 연동시 site_conf_inc.jsp파일을 수정하시기 바랍니다.     = */
+    /* = -------------------------------------------------------------------------- = */
+?>
+    <script type="text/javascript" src="<?=$g_conf_js_url ?>"></script>
+<?
+    /* = -------------------------------------------------------------------------- = */
+    /* =   Javascript source Include END                                            = */
+    /* ============================================================================== */
+?>
+
+    <script type="text/javascript">
+        /* 플러그인 설치(확인) */
+        StartSmartUpdate();
+
+        /*  해당 스크립트는 타브라우져에서 적용이 되지 않습니다.
+        if( document.Payplus.object == null )
+        {
+            openwin = window.open( "chk_plugin.html", "chk_plugin", "width=420, height=100, top=300, left=300" );
+        }
+        */
+
+        /* Payplus Plug-in 실행 */
+        function  jsf__pay( form )
+        {
+            var RetVal = false;
+
+            /* Payplus Plugin 실행 */
+            if ( MakePayMessage( form ) == true )
+            {
+                RetVal = true ;
+            }
+            
+            else
+            {
+                /*  res_cd와 res_msg변수에 해당 오류코드와 오류메시지가 설정됩니다.
+                    ex) 고객이 Payplus Plugin에서 취소 버튼 클릭시 res_cd=3001, res_msg=사용자 취소
+                    값이 설정됩니다.
+                */
+                res_cd  = document.formOrder.res_cd.value ;
+                res_msg = document.formOrder.res_msg.value ;
+
+            }
+
+            return RetVal ;
+        }
+
+        // Payplus Plug-in 설치 안내 
+        function init_pay_button()
+        {
+            if (navigator.userAgent.indexOf('MSIE') > 0)
+            {
+                try
+                {
+                    if( document.Payplus.object == null )
+                    {
+                        document.getElementById("display_setup_message").style.display = "block" ;
+                    }
+                    else{
+                        document.getElementById("display_pay_button").style.display = "block" ;
+                    }
+                }
+                catch (e)
+                {
+                    document.getElementById("display_setup_message").style.display = "block" ;
+                }
+            }
+            else
+            {
+                try
+                {
+                    if( Payplus == null )
+                    {
+                        document.getElementById("display_setup_message").style.display = "block" ;
+                    }
+                    else{
+                        document.getElementById("display_pay_button").style.display = "block" ;
+                    }
+                }
+                catch (e)
+                {
+                    document.getElementById("display_setup_message").style.display = "block" ;
+                }
+            }
+        }
+
+        function jsf__chk( form )
+        {
+            if ( form.buyr_name.value == "" )
+            {
+                alert("요청자 이름을 정확히 입력해 주시기 바랍니다.");
+                form.buyr_name.focus();
+                return false;
+            }
+            else if ( form.kcpgroup_id.value.length = "" )
+            {
+                alert("그룹 아이디를 정확히 입력해 주시기 바랍니다.");
+                form.kcpgroup_id.focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        // 주문번호 생성 예제
+        function init_orderid()
+        {
+            var today = new Date();
+            var year  = today.getFullYear();
+            var month = today.getMonth()+ 1;
+            var date  = today.getDate();
+            var time  = today.getTime();
+
+            if(parseInt(month) < 10) { month = "0" + month; }
+            if(parseInt(date) < 10) { date = "0" + date; }
+
+            var vOrderID = year + "" + month + "" + date + "" + time;
+
+            document.forms[0].ordr_idxx.value = vOrderID;
+
+            setTimeout("init_pay_button();",300);
+        }
+
+        /* onLoad 이벤트 시 Payplus Plug-in이 실행되도록 구성하시려면 다음의 구문을 onLoad 이벤트에 넣어주시기 바랍니다. */
+        function onload_pay()
+        {
+             if( jsf__pay(document.formOrder) )
+                document.formOrder.submit();
+        }
+
+    </script>
+</head>
+
+<body onload="init_orderid();" >
+
+<div id="sample_wrap">
+
+    <form name="formOrder" method="post" action="pp_ax_hub.php">
+
+                    <h1>[신용카드 정기과금] <span> 신용카드 정기과금 인증요청 샘플 페이지</span></h1>
+                    <!-- 상단 문구 -->
+                    <div class="sample">
+                            <p>이 페이지는 요청자의 신원정보와 신용카드 정보를 입력하여, 신용카드의 인증을 요청하는 페이지입니다.</br>
+                            요청자의 신원정보인 주민등록 번호와 카드사에 등록된 신원정보의 일치여부까지 인증된 경우, 과금을 신청 할 수 있는 인증키가 리턴됩니다.</br></br>
+                            리턴된 인증키로 결제요청 페이지를 통해 정기과금 결제를 요청 할 수 있습니다.</p>
+                    <!-- 상단 테이블 End -->
+
+                    <!-- 인증 정보 타이틀 -->
+                    <h2>&sdot; 인증 정보</h2>
+                    <table class="tbl" cellpadding="0" cellspacing="0">
+
+                    <!-- 주문 번호 -->
+                    <tr>
+                        <th>주문 번호</th>
+                        <td><input type="text" name="ordr_idxx" class="w200" value="" maxlength="40"/></td>
+                    </tr>
+                    <!-- 주문자 이름 -->
+                    <tr>
+                        <th>주문자명</th>
+                        <td><input type="text" name="buyr_name" class="w100" value="홍길동"/></td>
+                    </tr>
+                    <!-- 그룹아이디 : 테스트 결제시 설정 값 으로 설정, 리얼 결제시 관리자 생성 그룹아이디 입력 -->
+                    <tr>
+                        <th>그룹 아이디</th>
+                        <td><input type="text" name="kcpgroup_id" value="BA0011000348" class="w100" /></td>
+                    </tr>
+                    </table>
+
+                    <!-- 결제 요청/처음으로 이미지 -->
+                    <div class="btnset" id="display_pay_button" style="display:block">
+                      <input name="" type="submit" class="submit" value="인증요청" onclick="return jsf__pay(this.form);"/>
+                      <a href="../index.html" class="home">처음으로</a>
+                    </div>
+                    <!-- Payplus Plug-in 설치 안내 -->
+                    <div id="display_setup_message" style="display:none">
+                       <p class="txt">
+                       결제를 계속 하시려면 상단의 노란색 표시줄을 클릭 하시거나 <a href="http://pay.kcp.co.kr/plugin_new/file/KCPUXWizard.exe"><span>[수동설치]</span></a>를 눌러
+                       Payplus Plug-in을 설치하시기 바랍니다.
+                       [수동설치]를 눌러 설치하신 경우 새로고침(F5)키를 눌러 진행하시기 바랍니다.
+                       </p>
+                     </div>
+                   </div>
+                  <div class="footer">
+                    Copyright (c) KCP INC. All Rights reserved.
+                  </div>
+
+    <!-- 필수 항목 : 요청구분 -->
+    <input type="hidden" name="req_tx"         value="pay"/>
+    <input type="hidden" name="site_cd"        value="<?=$g_conf_site_cd   ?>" />
+
+    <!-- 결제 방법 : 인증키 요청(AUTH:CARD) -->
+    <input type='hidden' name='pay_method'     value='AUTH:CARD'>
+
+    <!-- 인증 방식 : 공인인증(BCERT) -->
+    <input type='hidden' name='card_cert_type' value='BATCH'>
+
+    <!-- 필수 항목 : PULGIN 설정 정보 변경하지 마세요 -->
+    <input type='hidden' name='module_type'    value='01'>
+
+    <!-- 필수 항목 : PLUGIN에서 값을 설정하는 부분으로 반드시 포함되어야 합니다. ※수정하지 마십시오.-->
+    <input type='hidden' name='res_cd'         value=''>
+    <input type='hidden' name='res_msg'        value=''>
+    <input type='hidden' name='trace_no'       value=''>
+    <input type='hidden' name='enc_info'       value=''>
+    <input type='hidden' name='enc_data'       value=''>
+    <input type='hidden' name='tran_cd'        value=''>
+
+    <!-- 배치키 발급시 주민번호 입력을 결제창 안에서 진행 -->
+    <input type='hidden' name='batch_soc'      value='Y'>
+
+    <!-- 상품제공기간 설정 -->
+    <input type='hidden' name='good_expr' value='2:1m'>
+
+    </form>
+</div>
+</body>
+</html>

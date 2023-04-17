@@ -1,0 +1,105 @@
+0207-014138.499 - 16760 - A7EPP271fc5GhffB - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST202102071612629633709]+log_level=[3]+opt=[0]
+0207-014138.520 - 16760 - A7EPP271fc5GhffB - MSG : PG_SERVER_CONN__SUCC
+0207-014138.531 - 16760 - A7EPP271fc5GhffB - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-014138.769 - 16760 - A7EPP271fc5GhffB - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-014138.770 - 16760 - A7EPP271fc5GhffB - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPP271fc5GhffBpay_method=PACAorder_no=TEST202102071612629633709card_no=5409260000001060mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST202102071612629633709cert_no=21288455209026tno=21288455209026amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207014138van_apptime=20210207014138app_no=30046662bizx_numb=00091379948quota=06noinf=Ynoinf_type=CARDpg_txid=0207014138MNU1EE045N9P0000000990000630046662res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0341isp_issuer_cd=KM04isp_issuer_nm=KB 국민카드isp_partner_cd=050204040091701join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+0207-140700.070 -  4630 - A7EPQ27E7077OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674417162]+log_level=[3]+opt=[0]
+0207-140700.092 -  4630 - A7EPQ27E7077OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140700.103 -  4630 - A7EPQ27E7077OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140700.349 -  4630 - A7EPQ27E7077OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140700.350 -  4630 - A7EPQ27E7077OI2H - MSG : TX_ENDED - res=[res_cd=CC45res_msg=정지카드res_en_msg=Suspended credit card.trace_no=A7EPQ27E7077OI2Hpay_method=PACAorder_no=20210271612674417162trade_seq=21288460493559card_cd=CCKEcard_name=하나카드(외환)]
+0207-140706.941 -  5232 - A7EPQ27E7677OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674424274]+log_level=[3]+opt=[0]
+0207-140706.948 -  5232 - A7EPQ27E7677OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140706.959 -  5232 - A7EPQ27E7677OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140707.109 -  5232 - A7EPQ27E7677OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140707.110 -  5232 - A7EPQ27E7677OI2H - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ27E7677OI2Hpay_method=PACAorder_no=20210271612674424274trade_seq=21288460495335card_cd=CCLOcard_name=롯데카드]
+0207-140713.224 -  5445 - A7EPQ27E7D77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674430381]+log_level=[3]+opt=[0]
+0207-140713.230 -  5445 - A7EPQ27E7D77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140713.241 -  5445 - A7EPQ27E7D77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140713.897 -  5445 - A7EPQ27E7D77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140713.898 -  5445 - A7EPQ27E7D77OI2H - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQ27E7D77OI2Hpay_method=PACAorder_no=20210271612674430381trade_seq=21288460497388card_cd=CCBCcard_name=BC카드]
+0207-140720.127 -  5491 - A7EPQ27E7K77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674437344]+log_level=[3]+opt=[0]
+0207-140720.133 -  5491 - A7EPQ27E7K77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140720.144 -  5491 - A7EPQ27E7K77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140720.494 -  5491 - A7EPQ27E7K77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140720.495 -  5491 - A7EPQ27E7K77OI2H - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ27E7K77OI2Hpay_method=PACAorder_no=20210271612674437344trade_seq=21288460499252card_cd=CCKMcard_name=KB국민카드]
+0207-140727.029 -  5664 - A7EPQ27E7R77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674444100]+log_level=[3]+opt=[0]
+0207-140727.036 -  5664 - A7EPQ27E7R77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140727.047 -  5664 - A7EPQ27E7R77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140727.500 -  5664 - A7EPQ27E7R77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140727.501 -  5664 - A7EPQ27E7R77OI2H - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ27E7R77OI2Hpay_method=PACAorder_no=20210271612674444100trade_seq=21288460501210card_cd=CCKMcard_name=KB국민카드]
+0207-140736.987 -  6003 - A7EPQ27E7a77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674454083]+log_level=[3]+opt=[0]
+0207-140736.994 -  6003 - A7EPQ27E7a77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140737.005 -  6003 - A7EPQ27E7a77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140737.460 -  6003 - A7EPQ27E7a77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140737.461 -  6003 - A7EPQ27E7a77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E7a77OI2Hpay_method=PACAorder_no=20210271612674454083card_no=4336920000008969mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674454083cert_no=21288460503689tno=21288460503689amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140738van_apptime=20210207140738app_no=28288528bizx_numb=00993773340quota=00noinf=Npg_txid=0207140738MNU5DD0UT0AI0000000890000028288528res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=1card_bin_type_02=0join_cd=0000card_cd=CCKEcard_name=하나카드(외환)acqu_cd=CCKEacqu_name=하나카드(외환)]
+0207-140745.320 -  6081 - A7EPQ27E7j77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674462515]+log_level=[3]+opt=[0]
+0207-140745.326 -  6081 - A7EPQ27E7j77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140745.338 -  6081 - A7EPQ27E7j77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140745.880 -  6081 - A7EPQ27E7j77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140745.881 -  6081 - A7EPQ27E7j77OI2H - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ27E7j77OI2Hpay_method=PACAorder_no=20210271612674462515trade_seq=21288460506039card_cd=CCKMcard_name=KB국민카드]
+0207-140751.317 -  6273 - A7EPQ27E7p77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674468577]+log_level=[3]+opt=[0]
+0207-140751.325 -  6273 - A7EPQ27E7p77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140751.336 -  6273 - A7EPQ27E7p77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140751.593 -  6273 - A7EPQ27E7p77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140751.594 -  6273 - A7EPQ27E7p77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E7p77OI2Hpay_method=PACAorder_no=20210271612674468577card_no=9409150000001519mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674468577cert_no=21288460507825tno=21288460507825amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140753van_apptime=20210207140753app_no=50373048bizx_numb=9950802495quota=00noinf=Npg_txid=0207140753MNU5CG0UTBCO0000000890000050373048res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCLOcard_name=롯데카드acqu_cd=CCAMacqu_name=롯데아멕스카드]
+0207-140759.284 -  6559 - A7EPQ27E7x77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674476735]+log_level=[3]+opt=[0]
+0207-140759.291 -  6559 - A7EPQ27E7x77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140759.302 -  6559 - A7EPQ27E7x77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140759.661 -  6559 - A7EPQ27E7x77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140759.662 -  6559 - A7EPQ27E7x77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E7x77OI2Hpay_method=PACAorder_no=20210271612674476735card_no=4028220000001920mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674476735cert_no=21288460509975tno=21288460509975amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140801van_apptime=20210207140801app_no=00812770bizx_numb=880345448quota=00noinf=Npg_txid=0207140801MNU5CE0UTHI20000000890000000812770use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCDIcard_name=현대카드acqu_cd=CCDIacqu_name=현대카드]
+0207-140807.195 -  6901 - A7EPQ27E8777OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674484522]+log_level=[3]+opt=[0]
+0207-140807.204 -  6901 - A7EPQ27E8777OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140807.215 -  6901 - A7EPQ27E8777OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140807.464 -  6901 - A7EPQ27E8777OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140807.465 -  6901 - A7EPQ27E8777OI2H - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ27E8777OI2Hpay_method=PACAorder_no=20210271612674484522trade_seq=21288460511767card_cd=CCKMcard_name=KB국민카드]
+0207-140819.504 -  7433 - A7EPQ27E8J77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674496698]+log_level=[3]+opt=[0]
+0207-140819.509 -  7433 - A7EPQ27E8J77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140819.521 -  7433 - A7EPQ27E8J77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140820.071 -  7433 - A7EPQ27E8J77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140820.072 -  7433 - A7EPQ27E8J77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E8J77OI2Hpay_method=PACAorder_no=20210271612674496698card_no=5387200000005788mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674496698cert_no=21288460515064tno=21288460515064amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140821van_apptime=20210207140821app_no=33485384bizx_numb=712148865quota=00noinf=Npg_txid=0207140821MNU5DA0UTX3D0000000890000033485384res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0020join_cd=0000card_cd=CCBCcard_name=BC카드acqu_cd=CCBCacqu_name=BC카드]
+0207-140827.993 -  7614 - A7EPQ27E8R77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674505247]+log_level=[3]+opt=[0]
+0207-140827.998 -  7614 - A7EPQ27E8R77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140828.010 -  7614 - A7EPQ27E8R77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140828.453 -  7614 - A7EPQ27E8R77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140828.455 -  7614 - A7EPQ27E8R77OI2H - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQ27E8R77OI2Hpay_method=PACAorder_no=20210271612674505247trade_seq=21288460517220card_cd=CCBCcard_name=BC카드]
+0207-140838.644 -  7816 - A7EPQ27E8c77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674514835]+log_level=[3]+opt=[0]
+0207-140838.650 -  7816 - A7EPQ27E8c77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140838.662 -  7816 - A7EPQ27E8c77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140838.906 -  7816 - A7EPQ27E8c77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140838.907 -  7816 - A7EPQ27E8c77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E8c77OI2Hpay_method=PACAorder_no=20210271612674514835card_no=6258040000006066mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674514835cert_no=21288460519927tno=21288460519927amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140840van_apptime=20210207140840app_no=30046608bizx_numb=00091380028quota=00noinf=Npg_txid=0207140840MNU5CA0UUBV00000000890000030046608res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0341join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+0207-140848.325 -  8156 - A7EPQ27E8m77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674525098]+log_level=[3]+opt=[0]
+0207-140848.331 -  8156 - A7EPQ27E8m77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140848.342 -  8156 - A7EPQ27E8m77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140848.598 -  8156 - A7EPQ27E8m77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140848.599 -  8156 - A7EPQ27E8m77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E8m77OI2Hpay_method=PACAorder_no=20210271612674525098card_no=4518420000003442mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674525098cert_no=21288460522532tno=21288460522532amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140850van_apptime=20210207140850app_no=20338007bizx_numb=0112039482quota=00noinf=Npg_txid=0207140850MNU5DI0UUJC80000000890000020338007use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCLGcard_name=신한카드acqu_cd=CCLGacqu_name=신한카드]
+0207-140858.103 -  8225 - A7EPQ27E8w77OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674535201]+log_level=[3]+opt=[0]
+0207-140858.108 -  8225 - A7EPQ27E8w77OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140858.119 -  8225 - A7EPQ27E8w77OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140858.561 -  8225 - A7EPQ27E8w77OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140858.562 -  8225 - A7EPQ27E8w77OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E8w77OI2Hpay_method=PACAorder_no=20210271612674535201card_no=5531790000007738mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674535201cert_no=21288460525159tno=21288460525159amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140859van_apptime=20210207140859app_no=29298217bizx_numb=00993773340quota=00noinf=Npg_txid=0207140859MNU5DH0UUQVF0000000890000029298217res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+0207-140909.876 -  8799 - A7EPQ27E9977OI2H - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612674547075]+log_level=[3]+opt=[0]
+0207-140909.885 -  8799 - A7EPQ27E9977OI2H - MSG : PG_SERVER_CONN__SUCC
+0207-140909.896 -  8799 - A7EPQ27E9977OI2H - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-140910.548 -  8799 - A7EPQ27E9977OI2H - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-140910.550 -  8799 - A7EPQ27E9977OI2H - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27E9977OI2Hpay_method=PACAorder_no=20210271612674547075card_no=9411810000006488mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612674547075cert_no=21288460528280tno=21288460528280amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207140911van_apptime=20210207140911app_no=21298193bizx_numb=00993773340quota=00noinf=Npg_txid=0207140911MNU5CG0UUZYU0000000890000021298193res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+0207-152117.260 - 52019 - A7EPQ27FLH7g0meH - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202102071612678787489]+log_level=[3]+opt=[0]
+0207-152117.268 - 52019 - A7EPQ27FLH7g0meH - MSG : PG_SERVER_CONN__SUCC
+0207-152117.279 - 52019 - A7EPQ27FLH7g0meH - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-152117.654 - 52019 - A7EPQ27FLH7g0meH - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-152117.655 - 52019 - A7EPQ27FLH7g0meH - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=210207456448920Dcard_cd=CCDIbatch_limit_dt=20260331235959card_name=현대카드join_cd=card_bank_cd=card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+0207-152118.700 - 52062 - A7EPQ27FLI7g0meH - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612678879198]+log_level=[3]+opt=[0]
+0207-152118.705 - 52062 - A7EPQ27FLI7g0meH - MSG : PG_SERVER_CONN__SUCC
+0207-152118.717 - 52062 - A7EPQ27FLI7g0meH - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-152119.084 - 52062 - A7EPQ27FLI7g0meH - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-152119.085 - 52062 - A7EPQ27FLI7g0meH - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27FLI7g0meHpay_method=PACAorder_no=20210271612678879198card_no=9490190000002135mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612678879198cert_no=21288461562032tno=21288461562032amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207152120van_apptime=20210207152120app_no=00973919bizx_numb=880345448quota=00noinf=Npg_txid=0207152120MNU5FJ0XFS3I0000000890000000973919use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCDIcard_name=현대카드acqu_cd=CCDIacqu_name=현대카드]
+0207-215246.750 -  1730 - A7EPQ27Lqk5ahF8D - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202102071612702296267]+log_level=[3]+opt=[0]
+0207-215246.756 -  1730 - A7EPQ27Lqk5ahF8D - MSG : PG_SERVER_CONN__SUCC
+0207-215246.767 -  1730 - A7EPQ27Lqk5ahF8D - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-215247.137 -  1730 - A7EPQ27Lqk5ahF8D - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-215247.138 -  1730 - A7EPQ27Lqk5ahF8D - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=210207456479307Dcard_cd=CCLObatch_limit_dt=20250430235959card_name=롯데카드join_cd=card_bank_cd=card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+0207-215248.321 -  1781 - A7EPQ27Lqm5ahF8D - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20210271612702369828]+log_level=[3]+opt=[0]
+0207-215248.327 -  1781 - A7EPQ27Lqm5ahF8D - MSG : PG_SERVER_CONN__SUCC
+0207-215248.339 -  1781 - A7EPQ27Lqm5ahF8D - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0207-215248.585 -  1781 - A7EPQ27Lqm5ahF8D - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0207-215248.587 -  1781 - A7EPQ27Lqm5ahF8D - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ27Lqm5ahF8Dpay_method=PACAorder_no=20210271612702369828card_no=5137920000007847mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=20210271612702369828cert_no=21288468333518tno=21288468333518amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210207215250van_apptime=20210207215250app_no=37082038bizx_numb=9950802495quota=00noinf=Npg_txid=0207215250MNU5CJ1BF8TN0000000890000037082038res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCLOcard_name=롯데카드acqu_cd=CCAMacqu_name=롯데아멕스카드]

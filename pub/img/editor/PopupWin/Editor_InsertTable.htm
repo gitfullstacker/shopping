@@ -1,0 +1,554 @@
+<html style="width:410; height:435;">
+<head>
+<meta http-equiv="Content-Language" content="ko">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>표 삽입　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　.</title>
+</head>
+
+<style type="text/css">
+	body	{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	td		{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	pre		{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	input, select, textarea, button	{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	
+	input, select	{width:90%;}
+	textarea		{width:100%; height:50;}
+	button			{width:75; cursor:hand;}
+	
+	.threedface	{background-color: threedface;}
+</style>
+
+<script language="JScript">
+	//**	기본 환경 불러 오기
+		var opener = window.dialogArguments;
+		var Editor_Root_Dir	= opener.Editor_Root_Dir;
+		var ObjName			= location.search.substring(1,location.search.length);
+		
+		var Config			= opener.document.all[ObjName].Config;						//**	설정 정보
+		var EditorObj		= opener.document.all['Editor__'+ ObjName +'__EditorPad'];	//**	에디터 객체
+		var EditorDoc		= EditorObj.contentWindow.document;
+		
+	//**	취소
+		function FUN_Cancle(){
+			window.close();
+			return;
+		}
+		
+	//**	확인
+		function FUN_Ok(){
+			var FormObj	=	document.forms[0];
+			
+			var Rows		=	FormObj.Rows.value;			//**	행
+			var	Cols		=	FormObj.Cols.value;			//**	열
+			var	Align		=	FormObj.Align.value;		//**	맞춤 - 0:기본값, left:왼쪽, right:오른쪽, center:가운데
+			var	Border		=	FormObj.Border.value;		//**	테두리크기
+			var Bordercolor	=	FormObj.Bordercolor.value;		//**	보더 컬러
+			var Bordercolorlight	=	FormObj.Bordercolorlight.value;		//**	밝은 보더 컬러
+			var Bordercolordark		=	FormObj.Bordercolordark.value;		//**	어두운 보더 컬러
+			var	Cellpadding	=	FormObj.Cellpadding.value;	//**	셀안쪽 여백
+			var	Cellspacing	=	FormObj.Cellspacing.value;	//**	셀간격
+			var	WidthUse	=	FormObj.WidthUse.checked;	//**	너비지정 유무
+			var	Width		=	FormObj.Width.value;		//**	너비값
+			var	WidthType	=	(FormObj.WidthType[0].checked ? FormObj.WidthType[0].value : FormObj.WidthType[1].value);	//**	너비단위 - '':픽셀, %:백분률
+			var	HeightUse	=	FormObj.HeightUse.checked;	//**	높이지정 유무
+			var	Height		=	FormObj.Height.value;		//**	높이값
+			var	HeightType	=	(FormObj.HeightType[0].checked ? FormObj.HeightType[0].value : FormObj.HeightType[1].value);	//**	높이단위 - '':픽셀, %:백분률
+			var	StyleUse	=	FormObj.StyleUse.checked;	//**	스타일 삽입 유무
+			var	Style		=	FormObj.Style.value;		//**	스타일
+			
+			var TableHtml, TableHtmlStart, TableHtmlEnd;
+			
+			//**	테이블 테그 작성
+				TableHtml		=	'<table ';
+				TableHtmlStart	=	'';
+				TableHtmlEnd	=	'</table>\n';
+				
+				
+				//**	맞춤 작성
+					if(Align != 0){
+						TableHtmlStart	+=	'<div align="'+ Align +'">\n';
+						TableHtmlEnd	+=	'</div>\n';
+					}
+				//**	테두리 크기 작성
+					if(!isNaN(Border) && Border>=0){
+						TableHtml	+=	'border="'+ Border +'" ';
+					}
+				//**	테두리 컬러 작성
+					if(Bordercolor.substring(0,1) == '#' && Bordercolor.length == 7){
+						TableHtml	+=	'bordercolor="'+ Bordercolor +'" ';
+					}
+				//**	옅은 테두리 컬러 작성
+					if(Bordercolorlight.substring(0,1) == '#' && Bordercolorlight.length == 7){
+						TableHtml	+=	'bordercolorlight="'+ Bordercolorlight +'" ';
+					}
+				//**	짙은 테두리 컬러 작성
+					if(Bordercolordark.substring(0,1) == '#' && Bordercolordark.length == 7){
+						TableHtml	+=	'bordercolordark="'+ Bordercolordark +'" ';
+					}
+				//**	셀안쪽여백 작성
+					if(!isNaN(Cellpadding) && Cellpadding>=0){
+						TableHtml	+=	'cellpadding="'+ Cellpadding+'" ';
+					}
+				//**	셀간격 작성
+					if(!isNaN(Cellspacing) && Cellspacing>=0){
+						TableHtml	+=	'cellspacing="'+ Cellspacing +'" ';
+					}
+				//**	너비 지정
+					if(WidthUse && !isNaN(Width) && Width>=0){
+						TableHtml	+=	'width="'+ Width + WidthType +'" ';
+					}
+				//**	높이 지정
+					if(HeightUse && !isNaN(Height) && Height>=0){
+						TableHtml	+=	'height="'+ Height+ HeightType +'" ';
+					}
+				//**	스타일 지정
+					if(StyleUse && Style!=''){
+						TableHtml	+=	'style="'+ Style +'" ';
+					}
+				TableHtml	+=	'>\n';
+				
+				//**	tr, td 작성
+					if(!isNaN(Rows) && Rows>0 && !isNaN(Cols) && Cols>0){
+						for(i=1; i<=Rows; i++){
+							TableHtml	+=	'	<tr>\n';
+							
+							for(j=1; j<=Cols; j++){
+								TableHtml	+=	'		<td> </td>\n';
+							}
+							
+							TableHtml	+=	'	</tr>\n';
+						}
+					}else{
+						alert('테이블의 행, 열의 값이 잘못되어 있습니다.\n0보다 큰 숫자를 입력 하시기 바랍니다.');
+						return;
+					}
+				
+				//**	테이블 테그 조합
+					TableHtml	=	TableHtmlStart + TableHtml + TableHtmlEnd;
+				
+			//**	에디터 창에 HTML 소스 삽입
+				opener.Editor_InsertHTML(ObjName, TableHtml);
+			
+			//**	창닫기
+				window.close();
+		}
+	
+	//**	너비 지정 유무
+		function FUN_WidthUse(This){
+				
+			var FormObj	= This.form;
+			//**	체크가 되어 있을때
+				if(This.checked){
+					FormObj.Width.disabled			= false;
+					FormObj.Width.className			= '';
+					FormObj.WidthType[0].disabled	= false;
+					FormObj.WidthType[1].disabled	= false;
+			
+			//**	체크가 되어 있지 않을때
+				}else{
+					FormObj.Width.disabled			= true;
+					FormObj.Width.className			= 'threedface';
+					FormObj.WidthType[0].disabled	= true;
+					FormObj.WidthType[1].disabled	= true;
+				}
+		}
+
+	//**	높이 지정 유무
+		function FUN_HeightUse(This){
+				
+			var FormObj	= This.form;
+			//**	체크가 되어 있을때
+				if(This.checked){
+					FormObj.Height.disabled				= false;
+					FormObj.Height.className			= '';
+					FormObj.HeightType[0].disabled		= false;
+					FormObj.HeightType[1].disabled		= false;
+			
+			//**	체크가 되어 있지 않을때
+				}else{
+					FormObj.Height.disabled				= true;
+					FormObj.Height.className			= 'threedface';
+					FormObj.HeightType[0].disabled		= true;
+					FormObj.HeightType[1].disabled		= true;
+				}
+		}
+	
+	//**	스타일 삽입 유무
+		function FUN_StyleUse(This){
+			var FormObj	= This.form;
+			
+			//**	체크가 되어 있을때
+				if(This.checked){
+					FormObj.Style.disabled	= false;
+					FormObj.Style.className	= '';
+					FormObj.Style.value		= '';
+			
+			//**	체크가 안되어 있을때
+				}else{
+					FormObj.Style.disabled	= true;
+					FormObj.Style.className	= 'threedface';
+					FormObj.Style.value		= '스타일을 적어주세요.';
+				}
+		}
+	
+	
+	//**	보더 컬러 지정
+		function FUN_Bordercolor(){
+		
+			var OldColor	=	document.all['Bordercolor'].value;
+			var NewColor	=	showModalDialog('./Editor_SelectColor.htm', OldColor, 'resizable: no; help: no; status: no; scroll: no;');
+			
+			NewColor	=	'#' + NewColor;
+			
+			document.all['Bordercolor'].value	=	NewColor;
+			
+			if(NewColor.substring(0,1) != '#' || NewColor.length != 7){
+				document.all['Bordercolor'].value	=	'자동';
+				document.all['Bordercolor'].style.backgroundColor	=	'#FFFFFF';
+				document.all['Bordercolor'].style.color	=	'#000000';
+				
+				return;
+			}
+			
+			document.all['Bordercolor'].style.backgroundColor	=	NewColor;
+			document.all['Bordercolor'].style.color	=	FUN_Complementary(NewColor);
+		
+		}
+	
+	
+	//**	옅은 테두리 컬러 지정
+		function FUN_Bordercolorlight(){
+		
+			var OldColor	=	document.all['Bordercolorlight'].value;
+			var NewColor	=	showModalDialog('./Editor_SelectColor.htm', OldColor, 'resizable: no; help: no; status: no; scroll: no;');
+			
+			NewColor	=	'#' + NewColor;
+			
+			document.all['Bordercolorlight'].value	=	NewColor;
+			
+			if(NewColor.substring(0,1) != '#' || NewColor.length != 7){
+				document.all['Bordercolorlight'].value	=	'자동';
+				document.all['Bordercolorlight'].style.backgroundColor	=	'#FFFFFF';
+				document.all['Bordercolorlight'].style.color	=	'#000000';
+				
+				return;
+			}
+			
+			document.all['Bordercolorlight'].style.backgroundColor	=	NewColor;
+			document.all['Bordercolorlight'].style.color	=	FUN_Complementary(NewColor);
+		
+		}
+	
+	
+	//**	짙은 테두리 컬러 지정
+		function FUN_Bordercolordark(){
+		
+			var OldColor	=	document.all['Bordercolordark'].value;
+			var NewColor	=	showModalDialog('./Editor_SelectColor.htm', OldColor, 'resizable: no; help: no; status: no; scroll: no;');
+			
+			NewColor	=	'#' + NewColor;
+			
+			document.all['Bordercolordark'].value	=	NewColor;
+			
+			if(NewColor.substring(0,1) != '#' || NewColor.length != 7){
+				document.all['Bordercolordark'].value	=	'자동';
+				document.all['Bordercolordark'].style.backgroundColor	=	'#FFFFFF';
+				document.all['Bordercolordark'].style.color	=	'#000000';
+				
+				return;
+			}
+			
+			document.all['Bordercolordark'].style.backgroundColor	=	NewColor;
+			document.all['Bordercolordark'].style.color	=	FUN_Complementary(NewColor);
+		
+		}
+	
+	//**	보색 구하기
+		function FUN_Complementary(HexRGB){
+			
+			if(HexRGB.substring(0,1) == '#'){
+				HexRGB	=	HexRGB.substring(1);
+			}
+			
+			//**	대문자로 변환
+				HexRGB	=	HexRGB.toUpperCase();
+			
+			//**	RGB 분리
+				var Red		=	HexRGB.substring(0, 2);
+				var Green	=	HexRGB.substring(2, 4);
+				var Blue	=	HexRGB.substring(4, 6);
+			
+			//**	Hex -> Dec 변환
+				Red		=	parseInt(Red, 16);
+				Green	=	parseInt(Green, 16);
+				Blue	=	parseInt(Blue, 16);
+			
+			//**	보색 추출
+				Red		=	255 - Red;
+				Green	=	255 - Green;
+				Blue	=	255 - Blue;
+			
+			
+			
+			//**	보색을 Dec -> Hex 로 변환
+				if(Red < 16){
+					Red		= '0' + Red.toString(16);
+				}else{
+					Red		= Red.toString(16);
+				}
+			
+				if(Green < 16){
+					Green	= '0' + Green.toString(16);
+				}else{
+					Green	= Green.toString(16);
+				}
+			
+				if(Blue < 16){
+					Blue	= '0' + Blue.toString(16);
+				}else{
+					Blue	= Blue.toString(16);
+				}
+			
+			//**	보색 대문자로 변환
+				HexRGB	=	'#' + Red + Green + Blue;
+				HexRGB	=	HexRGB.toUpperCase();
+				
+			//**	보색 반환
+				return HexRGB;
+		}
+	
+	//**	입력창에 HexRGB 입력시 처리
+		function FUN_InputHexRGB(This){
+			
+			var HexRGB	=	This.value;
+			
+			if(HexRGB.substring(0,1) != '#' || HexRGB.length != 7){
+				return;
+			}
+			
+			//**	입력창에서 esc누룰때 자동으로 변경
+				if(event.keyCode == 27){
+					This.value	=	'자동';
+					This.style.backgroundColor	=	'#FFFFFF';
+					This.style.color	=	'#000000';
+				}
+			
+			HexRGB		=	HexRGB.toUpperCase();
+			
+			This.value	=	HexRGB;
+			
+			This.style.backgroundColor	=	HexRGB;
+			This.style.color	=	FUN_Complementary(HexRGB);
+		
+		}
+</script>
+
+<body style="background: threedface; color: windowtext; margin: 0px; border-style: none;">
+
+<form name="InsertTable">
+
+<table border="0" cellpadding="5" cellspacing="0" style="border-collapse: collapse" width="400" height="300">
+	<tr>
+		<td valign="top">
+		<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="390">
+			<tr>
+				<td width="100%" height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="30">크기</td>
+						<td width="360"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="25%">행:</td>
+						<td width="25%">
+						<input type="text" name="Rows" size="20" value="2"></td>
+						<td width="25%">열</td>
+						<td width="25%">
+						<input type="text" name="Cols" size="20" value="2"></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="52">레이아웃</td>
+						<td width="338"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="25%">맞춤:</td>
+						<td width="25%"><select size="1" name="DivAlign">
+						<option value="0">기본값</option>
+						<option value="left">왼쪽</option>
+						<option value="right">오른쪽</option>
+						<option value="center">가로 가운데</option>
+						</select></td>
+						<td width="25%">
+						<input type="checkbox" name="WidthUse" value="1" style="width:20; cursor:hand;" checked OnClick="javascript:FUN_WidthUse(this);" unselectable="on">너비지정:</td>
+						<td width="25%" valign="bottom">
+						<input type="radio" value="" name="WidthType" style="width:20; cursor:hand;" unselectable="on">픽셀 
+						단위</td>
+					</tr>
+					<tr>
+						<td width="25%">배치:</td>
+						<td width="25%">
+						<select size="1" name="Align">
+						<option value="0">기본값</option>
+						<option value="left">왼쪽</option>
+						<option value="right">오른쪽</option>
+						<option value="center">가로 가운데</option>
+						</select></td>
+						<td width="25%">
+						<input type="text" name="Width" size="20" value="100" style="width: 90%; font-size: 9pt; font-family: 굴림, 돋음; font-style: normal; font-weight: normal"></td>
+						<td width="25%" valign="bottom">
+						<input type="radio" value="%" checked name="WidthType" style="width:20; cursor:hand;" unselectable="on">백분율</td>
+					</tr>
+					<tr>
+						<td width="25%">셀 안쪽 여백:</td>
+						<td width="25%">
+						<input type="text" name="Cellpadding" size="20" value="0"></td>
+						<td width="25%">
+						<input type="checkbox" name="HeightUse" value="1" style="width:20; cursor:hand;" OnClick="javascript:FUN_HeightUse(this);" unselectable="on">높이지정:</td>
+						<td width="25%" valign="bottom">
+						<input type="radio" value="" name="HeightType" style="width:20; cursor:hand;" unselectable="on" disabled>픽셀 
+						단위</td>
+					</tr>
+					<tr>
+						<td width="25%">셀 간격:</td>
+						<td width="25%">
+						<input type="text" name="Cellspacing" size="20" value="0"></td>
+						<td width="25%">
+						<input type="text" name="Height" size="20" value="100" class="threedface" disabled></td>
+						<td width="25%" valign="bottom">
+						<input type="radio" value="%" checked name="HeightType" style="width:20; cursor:hand;" unselectable="on" disabled>백분율</td>
+					</tr>
+					<tr>
+						<td width="25%">　</td>
+						<td width="25%">　</td>
+						<td width="25%">　</td>
+						<td width="25%">
+						　</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="44">테두리</td>
+						<td width="346"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" height="20" align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="25%">크기:</td>
+						<td width="25%">
+						<input type="text" name="Border" size="20" value="1"></td>
+						<td width="25%">옅은 테두리:</td>
+						<td width="25%">
+						<table border="1" width="90%" style="border-style: inset; border-width: 0;" bgcolor="threedface">
+							<tr>
+								<td>
+								<input type="text" name="Bordercolorlight" size="20" value="자동" style="border-style:solid; border-width:0; width:70%" OnKeyUp="javascript:FUN_InputHexRGB(this);" maxlength="7">
+								<button name="BordercolorlightSelect" style="width:30%; height:17; paddimg:0 0 0 0;" unselectable="on" OnCliCk="javascript:FUN_Bordercolorlight();">▼</button></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">색:</td>
+						<td width="25%">
+						<table border="1" width="90%" style="border-style: inset; border-width: 0;" bgcolor="threedface">
+							<tr>
+								<td>
+								<input type="text" name="Bordercolor" size="20" value="자동" style="border-style:solid; border-width:0; width:70%" OnKeyUp="javascript:FUN_InputHexRGB(this);" maxlength="7"><button name="BordercolorSelect" style="width:30%; height:17; paddimg:0 0 0 0;" unselectable="on" OnCliCk="javascript:FUN_Bordercolor();">▼</button></td>
+							</tr>
+						</table>
+						</td>
+						<td width="25%">짙은 테두리:</td>
+						<td width="25%">
+						<table border="1" width="90%" style="border-style: inset; border-width: 0;" bgcolor="threedface">
+							<tr>
+								<td>
+								<input type="text" name="Bordercolordark" size="20" value="자동" style="border-style:solid; border-width:0; width:70%" OnKeyUp="javascript:FUN_InputHexRGB(this);" maxlength="7">
+								<button name="BordercolordarkSelect" style="width:30%; height:17; paddimg:0 0 0 0;" unselectable="on" OnCliCk="javascript:FUN_Bordercolordark();">▼</button></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td width="100%" colspan="4">
+						<input type="checkbox" name="StyleUse1" value="border-collapse: collapse;" style="width:20; cursor:hand;" unselectable="on"> 
+						셀과 테두리 모두 표시</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="30">설정</td>
+						<td width="360"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="100%">
+						<input type="checkbox" name="StyleUse" value="1" style="width:20; cursor:hand;" OnClick="javascript:FUN_StyleUse(this);" unselectable="on">새표에 
+						스타일 삽입</td>
+					</tr>
+					<tr>
+						<td width="100%">
+						<textarea rows="2" name="Style" cols="20" class="threedface" disabled>스타일을 적어주세요.</textarea></td>
+					</tr>
+					<tr>
+						<td width="100%">　</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%"><hr></td>
+			</tr>
+			<tr>
+				<td width="100%" align="right">
+				<button name="InsertTable_Ok" OnCLick="javascript:FUN_Ok();" unselectable="on">확인</button>
+				&nbsp;
+				<button name="InsertTable_Calcle" OnClick="javascript:FUN_Cancle();" unselectable="on">취소</button>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+</form>
+
+</body>
+
+</html>

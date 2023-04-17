@@ -1,0 +1,86 @@
+/* for div where treeview is placed */
+div.ob_tree	{
+	border:3px solid #eeeeee;
+	background-color: #f6eedd;
+	overflow: auto;
+}
+
+/* for node text */
+td.ob_t2 {
+	color:navy;
+	font: 11px Verdana;
+	vertical-align: middle;
+	border: 0px solid #eeeeee;
+	background-color: none;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/* for node text highlighted/selected */
+td.ob_t3 {
+	color:navy;
+	font: 11px Verdana; 
+	vertical-align: middle;
+	border: 0px solid #3399cc;
+	background-color: #ccddee;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/* for node when edited */
+input.ob_t3		{
+	font: 8pt Tahoma; 
+}
+
+/* links in all nodes */
+td.ob_t2 A		{
+	color: #3366cc;
+}
+
+/* link in selected node */
+td.ob_t3 A		{
+	color: crimson;
+}
+
+/* for icons */
+td.ob_t4 {
+	display:none;
+	vertical-align: top;
+}
+
+/* for icons */
+div.ob_d4 {
+	width: 18px;
+	font: 6pt Tahoma;
+}
+
+/* for vertical lines (indent) */
+div.ob_d5 {
+	width: 9px;
+	vertical-align: top;
+}
+		
+/* for plus-minus images */
+td.ob_t6 {
+	width:12px;
+	vertical-align: top;
+}
+
+/* for message "Loading ..." */
+td.ob_t7 {
+	font: 8pt Tahoma; 
+	background-color: #ffffff; 
+	border: 1px solid #666666; 
+	color: #666666; 
+	width: 80px; 
+	text-align: center; 
+	padding-left: 15px;
+}
+
+/* for links */
+A.ob_a2 {
+	font: 11px Verdana;
+	color: #0000cd;
+	TEXT-DECORATION: none;
+}
+

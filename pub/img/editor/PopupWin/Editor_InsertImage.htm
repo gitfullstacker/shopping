@@ -1,0 +1,469 @@
+<html style="width:410; height:460;">
+
+
+<!--
+//****************************************************************************************
+//*
+//*		프로그램명	: HTML 에디터 Ver2.0.0.1 그림 삽입 파일
+//*		제작자		: 이원문 (Knhead , 큰머리)
+//*		제작일		: 2003년 10월 21일
+//*		수정		: 
+//*		
+//*		특징		: 순수 Javascript로 위직 에디터 구현
+//*		저작권		: 저작권은 이원문(Knhead, 큰머리)에 있음.
+//*					  소스 수정 사용시 제작자의 허락이 있어야 함.
+//*					  원본 그대로 사용시는 허락 없어도 사용 가능
+//*
+//*		주의		: 이 소스로 인한 피해 및 손해 배상은 제작자가 아닌 사용자에게 있습니다.
+//*		
+//****************************************************************************************
+-->
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>그림삽입　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　.
+</title>
+<style type="text/css">
+	body	{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	td		{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	pre		{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	input, select, textarea, button	{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	
+	input, select	{width:90%;}
+	textarea		{width:100%; height:50;}
+	button			{width:75; cursor:hand;}
+	
+	image			{cursor:hand;}
+	
+	.threedface	{background-color: threedface;}
+	.align_select	{border: 2px solid #000080;}
+</style>
+</head>
+
+<script language="JScript">
+	//**	기본 환경 불러 오기
+		var opener = window.dialogArguments;
+		var Editor_Root_Dir	= opener.Editor_Root_Dir;
+		var ObjName			= location.search.substring(1,location.search.length);
+		alert(location.search)
+
+
+		
+		var Config			= opener.document.all[ObjName].Config;						//**	설정 정보
+		var EditorObj		= opener.document.all['Editor__'+ ObjName +'__EditorPad'];	//**	에디터 객체
+		var EditorDoc		= EditorObj.contentWindow.document;
+		
+	//**	취소
+		function FUN_Cancle(){
+			window.close();
+			return;
+		}
+
+
+	//**	확인
+		function FUN_Ok(){
+			var FormObj	=	document.forms[0];
+			Src			=	FormObj.Src.value;
+			Alt			=	FormObj.Alt.value;
+			Align		=	FormObj.Align.value;
+			Border		=	FormObj.Border.value;
+			Hspace		=	FormObj.Hspace.value;
+			Vspace		=	FormObj.Vspace.value;
+			Sizeappoint	=	FormObj.Sizeappoint.checked;
+			Width		=	FormObj.Width.value;
+			WidthType	=	FormObj.WidthType[0].checked ? FormObj.WidthType[0].value : FormObj.WidthType[1].value;
+			Height		=	FormObj.Height.value;
+			HeightType	=	FormObj.HeightType[0].checked ? FormObj.HeightType[0].value : FormObj.HeightType[1].value;
+			Link		=	FormObj.Link.value;
+			Target		=	FormObj.Target.value;
+			
+			var ImageHTML = '';
+			var ImageLink = '';
+			
+			if(!document.images['tmpImage'].complete){
+				var Answer = confirm('입력하신 경로에 그림 파일이 없습니다.\n다시 입력 하시겠습니까?');
+				if(Answer){
+					FormObj.Src.focus();
+					return;
+				}else{
+					window.close();
+					return;
+				}
+			}else{
+				//**	경로 삽입
+					ImageHTML += '<img src="'+ Src +'" ';
+				//**	대체글자 삽입
+					if(Alt != ''){
+						ImageHTML += 'alt="'+ Alt +'" ';
+					}
+				//**	맞춤 삽입
+					if(Align != ''){
+						ImageHTML += 'align="'+ Align +'" ';
+					}
+				//**	두께 삽입
+					if(!isNaN(Border) && Border >= 0){
+						ImageHTML += 'Border="'+ Border +'" ';
+					}
+				//**	가로 간격 조정
+					if(!isNaN(Hspace) && Hspace > 0){
+						ImageHTML += 'hspace="'+ Hspace +'" ';
+					}
+				//**	세로간격 조정
+					if(!isNaN(Vspace) && Vspace > 0){
+						ImageHTML += 'vspace="'+ Vspace +'" ';
+					}
+				//**	크기 지정
+					if(Sizeappoint){
+						if(Width > 0){
+							ImageHTML += 'width="'+ Width + WidthType +'" ';
+						}
+						if(Height > 0){
+							ImageHTML += 'height="'+ Height + HeightType +'" ';
+						}
+					}
+					
+					ImageHTML += '>';
+				
+				//**	링크 삽입
+					if(Link != '' && Link.toLowerCase() != 'http://'){
+						ImageLink = '<a href="'+ Link +'" ';
+						
+						if(Target != ''){
+							ImageLink	+= 'target="'+ Target +'">';
+						}else{
+							ImageLink	+= 'target="_blank">';
+						}
+						
+						ImageHTML = ImageLink + ImageHTML + '</a>';
+					}
+				
+				//**	에디터 창에 HTML 소스 삽입
+				alert(ObjName);
+					opener.Editor_InsertHTML(ObjName, ImageHTML);
+			
+				//**	창닫기
+					window.close();
+			}
+			
+		}
+	
+	//**	크기 지정
+		function FUN_Sizeappoint(This){
+			var FormObj	=	This.form;
+			
+			if(This.checked){
+				FormObj.Width.disabled			= false;
+				FormObj.Width.className			= '';
+				FormObj.Height.disabled			= false;
+				FormObj.Height.className		= '';
+				FormObj.WidthType[0].disabled	= false;
+				FormObj.WidthType[1].disabled	= false;
+				FormObj.HeightType[0].disabled	= false;
+				FormObj.HeightType[1].disabled	= false;
+				FormObj.Sizemaintain.disabled	= false;
+			}else{
+				FormObj.Width.disabled			= true;
+				FormObj.Width.className			= 'threedface';
+				FormObj.Height.disabled			= true;
+				FormObj.Height.className		= 'threedface';
+				FormObj.WidthType[0].disabled	= true;
+				FormObj.WidthType[1].disabled	= true;
+				FormObj.HeightType[0].disabled	= true;
+				FormObj.HeightType[1].disabled	= true;
+				FormObj.Sizemaintain.disabled	= true;
+			}
+		
+		}
+	//**	정렬 선택
+		function FUN_AlignSelect(This, Align){
+			var FormObj		=	document.forms[0];
+
+			document.images['ImageAlign_'].className	= '';
+			document.images['ImageAlign_left'].className	= '';
+			document.images['ImageAlign_right'].className	= '';
+			
+			This.className	= 'align_select';
+			
+			for(i=0; FormObj.Align.length; i++){
+				if(FormObj.Align.options[i].value == Align){
+					FormObj.Align.options[i].selected	= true;
+					break;
+				}
+			}
+		}
+		
+		function FUN_AlignChange(Value){
+			
+			for(i=0; i<document.images.length; i++){
+				if(document.images[i].id == 'ImageAlign_'+ Value){
+					document.images[i].className	= 'align_select';
+				}else{
+					document.images[i].className	= '';
+				}
+			}
+		}
+		
+	//**	이미지 주소
+		function FUN_ImageSrc(This){
+			var ImageSrc	= This.value;
+			
+			if(ImageSrc != 'http://'){
+				document.images['tmpImage'].src	=	ImageSrc;
+			}
+		}
+	
+	//**	이미지 로딩 완료
+		function FUN_ImageOnLoad(){
+			var FormObj		=	document.forms[0];
+			var ImageObj	=	document.images['tmpImage'];
+						
+			FormObj.Width.value		= ImageObj.width;
+			FormObj.Height.value	= ImageObj.height;
+		}
+	
+	//**	이미지 로딩 실패
+		function FUN_ImageOnError(){
+			var FormObj	=	document.forms[0];
+			
+			if(document.readyState == 'complete'){
+				FormObj.Width.value		= '';
+				FormObj.Height.value	= '';
+			}
+		}
+
+	//**	이미지 사이즈 조정
+		var Edit_Times = 0;
+		
+		function FUN_ImageResize(This, Type){
+			
+			var FormObj		=	document.forms[0];
+			var ImageObj	=	document.images['tmpImage'];
+			var SizemaintainObj	= FormObj.Sizemaintain;
+
+			if(Edit_Times != Type || !SizemaintainObj.checked){
+				return;
+			}
+						
+				var ImageWidth	= ImageObj.width;
+				var ImageHeight	= ImageObj.height;
+			
+			var WidthObj		= FormObj.Width;
+			var HeightObj		= FormObj.Height;
+			
+			if(This.name=='Width'){
+				HeightObj.value	= parseInt(ImageHeight * This.value / ImageWidth);
+			}else if(This.name=='Height'){
+				WidthObj.value	= parseInt(ImageWidth * This.value / ImageHeight);
+			}
+		}
+
+</script>
+
+<body style="background: threedface; color: windowtext; margin: 0px; border-style: none;">
+
+<form name="Insert_Image">
+
+<table border="0" cellpadding="5" cellspacing="1" width="400">
+	<tr>
+		<td valign="top">
+		<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="390">
+			<tr>
+				<td height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="30">일반</td>
+						<td width="360"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table border="0" cellpadding="0" cellspacing="0" width="90%" style="border-collapse: collapse" bordercolor="#111111">
+					<tr>
+						<td width="20%">경로:</td>
+						<td width="80%">
+						<input type="text" name="Src" size="20" value="http://" style="width:100%;" OnPropertyChange="javascript:FUN_ImageSrc(this);" OnFocus="javascript:this.select();"></td>
+					</tr>
+					<tr>
+						<td width="20%">대체 글자:</td>
+						<td width="80%">
+						<input type="text" name="Alt" size="20" style="width:100%;"></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="59">화면 표시</td>
+						<td width="331"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="100%" colspan="3" height="20">배치스타일</td>
+					</tr>
+					<tr>
+						<td width="33%" align="center" height="60">
+						<img border="0" id="ImageAlign_" src="/pub/image/editor/icon_img_align_none.gif" class="align_select" OnClick="javascript:FUN_AlignSelect(this, '');" width="51" height="52"></td>
+						<td width="33%" align="center" height="60">
+						<img border="0" id="ImageAlign_left" src="/pub/image/editor/icon_img_align_left.gif" OnClick="javascript:FUN_AlignSelect(this, 'left');" width="51" height="52"></td>
+						<td width="34%" align="center" height="60">
+						<img border="0" id="ImageAlign_right" src="/pub/image/editor/icon_img_align_right.gif" OnClick="javascript:FUN_AlignSelect(this, 'right');" width="51" height="52"></td>
+					</tr>
+					<tr>
+						<td width="33%" align="center">없음</td>
+						<td width="33%" align="center">왼쪽</td>
+						<td width="34%" align="center">오른쪽</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="55">레이아웃</td>
+						<td width="335"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="12%">맞춤:</td>
+						<td width="37%" colspan="2">
+						<select size="1" name="Align" OnChange="javascript:FUN_AlignChange(this.options[this.selectedIndex].value);">
+								<option value="">기본값</option>
+								<option value="left">왼쪽</option>
+								<option value="right">오른쪽</option>
+								<option value="top">위쪽</option>
+								<option value="texttop">텍스트 위쪽</option>
+								<option value="middle">세로 가운데</option>
+								<option value="absmiddle">선택 영역의 가운데</option>
+								<option value="baseline">영어글꼴 기준선</option>
+								<option value="bottom">아래쪽</option>
+								<option value="absbottom">선택 영역의 아래쪽</option>
+								<option value="center">가로 가운데</option>
+								</select></td>
+						<td width="25%">가로 간격 조정:</td>
+						<td width="25%">
+						<input type="text" name="Hspace" size="20" value="0"></td>
+					</tr>
+					<tr>
+						<td width="25%" colspan="2">테두리 두께:</td>
+						<td width="25%">
+						<input type="text" name="Border" size="20" value="0"></td>
+						<td width="25%">세로 간격 조정:</td>
+						<td width="25%">
+						<input type="text" name="Vspace" size="20" value="0"></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="31">크기</td>
+						<td width="359"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+					<tr>
+						<td width="33%">
+						<input type="checkbox" name="Sizeappoint" value="1" style="width:20; cursor:hand;" unselectable="on" OnClick="javascript:FUN_Sizeappoint(this);">크기지정</td>
+						<td width="10%">너비:</td>
+						<td width="23%">
+						<input type="text" name="Width" size="20" class="threedface" OnPropertyChange="javascript:FUN_ImageResize(this, 1)" OnFocus="javascript:Edit_Times=1;" disabled></td>
+						<td width="10%">높이:</td>
+						<td width="24%">
+						<input type="text" name="Height" size="20" class="threedface" OnPropertyChange="javascript:FUN_ImageResize(this, 2)" OnFocus="javascript:Edit_Times=2;" disabled></td>
+					</tr>
+					<tr>
+						<td width="33%">　</td>
+						<td width="33%" colspan="2">
+						<input type="radio" value="" name="WidthType" style="width:20; cursor:hand;" unselectable="on" disabled checked>픽셀 
+						단위</td>
+						<td width="34%" colspan="2">
+						<input type="radio" value="" name="HeightType" style="width:20; cursor:hand;" unselectable="on" disabled checked>픽셀 
+						단위</td>
+					</tr>
+					<tr>
+						<td width="33%">　</td>
+						<td width="33%" colspan="2">
+						<input type="radio" value="%" name="WidthType" style="width:20; cursor:hand;" unselectable="on" disabled>백분율</td>
+						<td width="34%" colspan="2">
+						<input type="radio" value="%" name="HeightType" style="width:20; cursor:hand;" unselectable="on" disabled>백분율</td>
+					</tr>
+					<tr>
+						<td width="100%" colspan="5">
+						<input type="checkbox" name="Sizemaintain" value="1" style="width:20; cursor:hand;" unselectable="on" disabled checked>가로 
+						세로 비율 유지</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="20">
+				<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="390">
+					<tr>
+						<td width="101">기본 하이퍼 링크</td>
+						<td width="289"><hr></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="center">
+						<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="90%">
+							<tr>
+								<td width="70%">
+						<input type="text" name="Link" size="20" value="http://"></td>
+								<td width="30%"><select size="1" name="Target">
+								<option value="_self">같은 프레임</option>
+								<option value="_top">전체 페이지</option>
+								<option value="_blank" selected>새 창</option>
+								<option value="_parent">상위 프레임</option>
+								</select></td>
+							</tr>
+						</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%"><hr></td>
+			</tr>
+			<tr>
+				<td width="100%" align="right">
+				<button name="InsertTable_Ok" OnCLick="javascript:FUN_Ok();" unselectable="on">확인</button>
+				&nbsp;
+				<button name="InsertTable_Calcle" OnClick="javascript:FUN_Cancle();" unselectable="on">취소</button>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+</form>
+
+<!--	이미지	-->
+	<img id="tmpImage" border="0" src="" OnLoad="javascript:FUN_ImageOnLoad();" OnError="javascript:FUN_ImageOnError();">
+<!--	이미지	-->
+
+</body>
+
+</html>

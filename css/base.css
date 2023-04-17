@@ -1,0 +1,51 @@
+@charset "utf-8";
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+@font-face {
+font-family : "NanumGothicWeb";
+    src: url('../font/NanumGothic.eot');
+    src: url('../font/NanumGothic.eot?#iefix') format('embedded-opentype'), url('../font/NanumGothic.woff') format('woff'), url('../font/NanumGothic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+}
+
+@font-face {
+font-family : "NanumGothicBoldWeb";
+    src: url('../font/NanumGothicBold.eot');
+    src: url('../font/NanumGothicBold.eot?#iefix') format('embedded-opentype'), url('../font/NanumGothicBold.woff') format('woff'), url('../font/NanumGothicBold.ttf') format('truetype');
+}
+
+@font-face {
+font-family : "Renner400BookWeb";
+    src: url('/font/Renner400Book.eot');
+    src: url('/font/Renner400Book.eot?#iefix') format('embedded-opentype'), url('/font/Renner400Book.woff') format('woff'), url('/font/Renner400Book.ttf') format('truetype');
+}
+
+/* reset */
+html, body, div, object,iframe, h1, h2, h3, h4, h5, h6, p, blockquote,address, dl, dt, dd, ol, ul,li, fieldset, form, legend, table, cation, tbody, tfoot, thead, tr, th, td, input, seclect, textarea{margin:0; padding:0;}
+h1, h2, h3, h4, h5, h6{font-size:100%;}
+img, fieldset{border:none;}
+table{border-collapse:collapse;}
+ul, ol, li{list-style:none;}
+address, em, optgroup{font-style:normal;}
+li img, object{vertical-align:top;}
+input, select, textarea, form img{vertical-align:middle;}
+i{font-style:normal;}
+
+/* -----base------ */
+/* font */
+body{color:#666; font:14px  'Renner400BookWeb','Nanum Gothic',NanumGothicWeb,NanumGothic,dotum,Helvetica,돋움,Dotum,굴림,Gulim,Arial,sans-serif;/*overflow-y:scroll; _overflow-y:hidden; *overflow-y:hidden;*/}
+input, select, textarea{color:#666; font:100% 'Renner400BookWeb',NanumGothicWeb,NanumGothic,dotum,Helvetica,돋움,Dotum,굴림,Gulim,Arial,sans-serif;}
+
+/* anchor */
+a{color:#666; text-decoration:none;}
+a:hover, a:active, a:focus{color:#000;text-decoration:none;}
+
+/* skip */
+.screen_out{display: block;font-size: 0;height: 1px;left: -9999px;line-height: 0;overflow: hidden;position: absolute;text-indent: -9999px;width: 1px;}
+.screen_hide{font-size:0;line-height:0;visibility:hidden;}
+
+/* skipNavi */
+#skipNavi{width:100%; position:absolute; left:0; top:0; z-index:2;}
+#skipNavi li{width:100%; position:absolute; left:0; top:0; z-index:2;}
+#skipNavi a{display:block; height:0; overflow:hidden;}
+#skipNavi a:active, #skipNavi a:focus{top:1px; width:100%; height:20px; padding-top:4px; text-align:center; font-size:1em; font-weight:bold; background-color:#8285ec; color:#fff; text-decoration:none; position:absolute; top:0; left:0; }

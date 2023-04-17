@@ -1,0 +1,59 @@
+img{border: none;}
+
+select
+{
+	font-size:9pt;
+	border-width:1px;
+	border-style:solid;
+	font-family:돋움;
+}
+
+option
+{
+	font-size:9pt;
+	border-width:1px;
+	border-style:solid;
+	font-family:돋움;
+}
+
+/*textarea
+{ 
+	font-size:10pt;
+	border-width:1px;
+	border-style:solid;
+	background-image:url(/_cmfiles/image/edit/line.gif);
+	background-position:left top;
+	background-repeat:repeat;
+	background-attachment:scroll;
+	font-family:돋움;
+}*/
+
+/*input
+{
+	font-size:9pt;
+	border-style:solid;
+	padding:1pt;
+	border-width:1px 1px 1px 1px;
+	border-color:#8B8B8B #8B8B8B #8B8B8B #8B8B8B;
+	font-family:돋움;
+}*/
+
+.layer_brow
+{
+	position:absolute;
+	z-index:0;
+	top:0;
+	left:0;
+	visibility:hidden;
+	background-color:gainsboro;
+	border-top:1pt solid white;
+	border-bottom:1pt solid gray;
+	border-left:1pt solid white;
+	border-right:1pt solid gray;
+	margin:1pt 1pt 1pt 1pt;
+	padding:1pt 1pt 1pt 1pt;
+}
+
+.w_row_height{height:30px;}
+.font_adjust{line-height:1.8;}
+

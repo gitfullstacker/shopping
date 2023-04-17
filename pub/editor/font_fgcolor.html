@@ -1,0 +1,159 @@
+<HTML>
+<HEAD>
+<TITLE> 폰트색상선택 </TITLE>
+<META http-equiv="content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<style> 
+td{font-size:9pt;FONT-FAMILY:돋움;}
+body{font-size:9pt;FONT-FAMILY:돋움;}
+img{border: none;}
+input
+{
+	font-size:9pt;
+	border-style:solid;
+	padding:1pt;
+	border-width:1px 1px 1px 1px;
+	border-color:#8B8B8B #8B8B8B #8B8B8B #8B8B8B;
+	font-family:돋움;
+}
+.bl_btn
+{
+	background-color:#9EC7FF;FONT-FAMILY:돋움;FONT-SIZE:9pt;
+}
+</style>
+<script language="JavaScript" src="we_path.asp"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function fnc_Out_Icon()
+	{
+		var str_Icon_Path = '/pub/editor/img/';
+		var str_Icon_Tag = '';
+		str_Icon_Tag += '<img src="'+str_Icon_Path+'ed_color.gif" align="absMiddle" border="0">';
+		str_Icon_Tag += '<img src="'+str_Icon_Path+'ed_fontcolor.gif" align="absMiddle" border="0">';
+
+		document.write(str_Icon_Tag);
+	}
+
+	function fncClose()
+	{
+		var objSetTable = parent.document.all.layAddBrow;
+		with(objSetTable)
+		{
+			//style.zIndex = 0;
+			style.display = "none";
+		}
+	}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var tab1 = new Array(6);
+	tab1[0] = "33";
+	tab1[1] = "66";
+	tab1[2] = "ff";
+	tab1[3] = "00";
+	tab1[4] = "99";
+	tab1[5] = "cc";
+
+	var tab2 = new Array(6);
+	tab2[0] = "00";
+	tab2[1] = "33";
+	tab2[2] = "66";
+	tab2[3] = "99";
+	tab2[4] = "cc";
+	tab2[5] = "ff";
+	tab2[6] = "ff";
+	tab2[7] = "cc";
+	tab2[8] = "99";
+	tab2[9] = "66";
+	tab2[10] = "33";
+	tab2[11] = "00";
+
+	function display(triplet){
+		var objSetTable = parent.document.all.layAddBrow;
+		var objInEditor = parent.document.frames.I_Editor;
+		objInEditor.focus();
+		try
+		{	
+			var objRange = objInEditor.document.selection.createRange();
+			var setCol = triplet;
+			objRange.execCommand('ForeColor', 0, setCol);
+			objSetTable.style.display = "none";
+		}catch(e){}
+		finally{objInEditor.focus();}
+	}
+
+	function drawCell(red,green,blue){
+		document.write("<td bgcolor='#"+red+green+blue+"'>");
+		document.write('<a href="javascript:display(\''+(red+green+blue)+'\')">');
+		document.write("<img border='0' height='12' src=' ' width='12'>");
+		document.write("</a>");
+		document.write("</td>");
+	}
+
+	function drawRow(red,blue){
+		document.write("<tr>");
+		var k = 0;
+		for(var i=1;i<4;++i){
+			for(var j=1;j<7;++j){
+				if(red < 6){
+					drawCell(tab1[i-1], tab2[k%12], blue);
+				}else{
+					drawCell(tab1[i+2], tab2[k%12], blue);
+				}
+			k += 1;
+			}
+		}
+		document.write("</tr>");
+	}
+
+	function drawTable(){
+		//document.writeln("<center>");
+		document.write("<table cellpadding='0' cellspacing='0' border='0'>");
+			for(var i=0;i<12;++i){
+				drawRow(i,tab2[i]);
+			}
+			document.write("</table>")
+	}
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY topmargin="0" leftmargin="0">
+
+<table border="0" cellpadding="0" cellspacing="1" bgcolor="gray" width="100%" height="100%">
+	<tr>
+		<td align="center" class="bl_btn" style="padding:3px;">
+			<SCRIPT LANGUAGE="JavaScript">
+			<!--
+				fnc_Out_Icon();
+			//-->
+			</SCRIPT>
+			&nbsp;&nbsp;폰트색상선택
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="white" align="center" valign="top">
+
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="white">
+				<tr>
+					<td>
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							drawTable();
+						//-->
+						</SCRIPT>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<input type="button" style="cursor:hand;" value="닫기" onclick="fncClose();">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+</BODY>
+</HTML>

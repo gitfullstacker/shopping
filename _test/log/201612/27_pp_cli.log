@@ -1,0 +1,20 @@
+1227-181149.136 -   778 - T0000CRIBn1eEaj5 - MSG : TX_START - site_cd=[T0000]+tx_cd=[00100000]+ordr_idxx=[TEST201612271482829725770]+log_level=[3]+opt=[0]
+1227-181149.141 -   778 - T0000CRIBn1eEaj5 - MSG : PG_SERVER_CONN__SUCC
+1227-181149.153 -   778 - T0000CRIBn1eEaj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1227-181149.196 -   778 - T0000CRIBn1eEaj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1227-181149.197 -   778 - T0000CRIBn1eEaj5 - MSG : TX_ENDED - res=[res_cd=8059res_msg=포맷에러(지불정보-공통:결제금액 불일치)res_en_msg=Format Error (Inconsistency in payment amount)]
+1227-181321.334 -  1581 - T0000CRIDL1eEaj5 - MSG : TX_START - site_cd=[T0000]+tx_cd=[00100000]+ordr_idxx=[TEST201612271482829725770]+log_level=[3]+opt=[0]
+1227-181321.338 -  1581 - T0000CRIDL1eEaj5 - MSG : PG_SERVER_CONN__SUCC
+1227-181321.349 -  1581 - T0000CRIDL1eEaj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1227-181321.586 -  1581 - T0000CRIDL1eEaj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1227-181321.586 -  1581 - T0000CRIDL1eEaj5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=T0000CRIDL1eEaj5pay_method=PACAorder_no=TEST201612271482829725770card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드card_no=4579730000007095mcht_taxno=1138202144mall_taxno=1138521083ca_order_id=TEST201612271482829725770tno=16612901377966amount=1004card_mny=1004coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20161227181320van_apptime=20161227181320app_no=36558876bizx_numb=00034146821quota=00noinf=Npg_txid=1227181320M122ACI3YDDU0000000010040036558876res_tax_flag=TG03res_tax_mny=912res_free_mny=0res_vat_mny=92partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000]
+1227-181339.286 -  1679 - T0000CRIDd1eEaj5 - MSG : TX_START - site_cd=[T0000]+tx_cd=[00100000]+ordr_idxx=[TEST201612271482829725770]+log_level=[3]+opt=[0]
+1227-181339.290 -  1679 - T0000CRIDd1eEaj5 - MSG : PG_SERVER_CONN__SUCC
+1227-181339.301 -  1679 - T0000CRIDd1eEaj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1227-181339.326 -  1679 - T0000CRIDd1eEaj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1227-181339.326 -  1679 - T0000CRIDd1eEaj5 - MSG : TX_ENDED - res=[res_cd=8094res_msg=중복 거래요청, 처음부터 재시도 요망res_en_msg=Repeated payment request. Please try again from the beginning.]
+1227-181556.572 -  4940 - T0000CRIFu1eEaj5 - MSG : TX_START - site_cd=[T0000]+tx_cd=[00100000]+ordr_idxx=[TEST201612271482830059761]+log_level=[3]+opt=[0]
+1227-181556.578 -  4940 - T0000CRIFu1eEaj5 - MSG : PG_SERVER_CONN__SUCC
+1227-181556.589 -  4940 - T0000CRIFu1eEaj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1227-181556.861 -  4940 - T0000CRIFu1eEaj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1227-181556.861 -  4940 - T0000CRIFu1eEaj5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=T0000CRIFu1eEaj5pay_method=PACAorder_no=TEST201612271482830059761card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드card_no=4579730000007095mcht_taxno=1138202144mall_taxno=1138521083ca_order_id=TEST201612271482830059761tno=16612901377993amount=1004card_mny=1004coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20161227181556van_apptime=20161227181556app_no=02530997bizx_numb=00034146821quota=00noinf=Npg_txid=1227181556M122AFI41P600000000010040002530997res_tax_flag=TG03res_tax_mny=912res_free_mny=0res_vat_mny=92partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000]

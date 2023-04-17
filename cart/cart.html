@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ABLANC</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script language="javascript" src="../js/common_gnb.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script>
+	  $( function() {
+		// run the currently selected effect
+		function runEffect() {
+		  // get effect type from
+		  var selectedEffect = $( "#effectTypes" ).val();
+	 
+		  // Most effect types need no options passed by default
+		  var options = {};
+		  // some effects have required parameters
+		  if ( selectedEffect === "scale" ) {
+			options = { percent: 50 };
+		  } else if ( selectedEffect === "size" ) {
+			options = { to: { width: 200, height: 60 } };
+		  }
+	 
+		  // Run the effect
+		  $( "#search_menu" ).toggle( selectedEffect, options, 500 );
+			$(".search_close").click(function(){
+				$("#search_menu").hide();
+			});
+		};
+	 
+		// Set effect from select menu value
+		$( "#button" ).on( "click", function() {
+		  runEffect();
+		});
+	  } );
+	</script>
+	<script type="text/javascript" src="../js/jquery.sumoselect.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+			window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
+		});
+	</script>
+</head>
+<body onload="InitializeStaticMenu();">
+	
+	<div id="wrap">
+		<!-- header -->
+		<div id="header_w">
+			<div class="top_bx01">
+				<h1 class="logo"><a href="#;"><img src="../images/common/logo.png" alt="" /></a></h1>
+				<div class="util_sns">
+					<a href="#;"><img src="../images/common/btn_facebook.png" alt="" /></a>
+					<a href="#;"><img src="../images/common/btn_instagram.png" alt="" /></a>
+				</div>
+				<div class="util_menu">
+					<a href="#;">후기</a>
+					<a href="#;">로그인</a>
+					<a href="#;">회원가입</a>
+					<a href="#;">마이페이지</a>
+				</div>
+				<p class="top_search"><img id="button" src="../images/common/btn_top_search.png" alt="" /></p>
+			</div>		
+			<div class="gnb">
+				<ul>
+					<li><a href="#;">ALL</a></li>
+					<li><a href="#;">NEW</a></li>
+					<li><a href="#;">SMALL</a></li>
+					<li><a href="#;">MEDIUM</a></li>
+					<li><a href="#;">BIG</a></li>
+					<li><a href="#;">WEDDING</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		<!-- //header -->
+		<!--search-->
+		<div id="search_menu">
+			<div class="bg_search_menu"></div>
+			<form>
+				<div class="search_inbx">		
+					<div class="search_border">
+						<input type="text" class="inp_search" /> 
+						<input type="image" class="btn_search" src="../images/common/btn_top_search02.png"/>
+					</div>		
+				</div>
+				<p class="search_close"><img src="../images/common/btn_serch_close.png" alt="" /></p>
+			</form>
+		</div>
+		<!--//search-->
+		<!-- STATICMENU -->
+		<div id="STATICMENU">
+			<div class="q_menu">
+				<p class="mypage"><a href="#;">마이페이지</a></p>
+				<p><a href="#;">이용방법</a></p>
+				<p><a href="#;">자주묻는 질문</a></p>
+				<p><a href="#;">문의하기(Q&amp;A)</a></p>
+				<p><a href="#;">반납</a></p>
+				<p><a href="#;">GET한 가방</a></p>
+				<p><a href="#;">입고알림 가방</a></p>
+				<p><a href="#;">좋아요 가방</a></p>
+				<p><a href="#;">가방 요청</a></p>
+				<p><a href="#;">내가 쓴 이용후기</a></p>
+				<p><a href="#;">내 스탬프</a></p>
+				<p><a href="#;">멤버쉽 정보</a></p>
+				<p><a href="#;">개인 정보</a></p>
+			</div>
+			
+			<div class="q_tit02">
+				<dl>
+					<dt>최근본상품<span>2</span></dt>
+					<dd>
+						<p class="list_bx">
+							<a href="#;"><img src="../images/main/ex01.jpg" alt="" style="width:85px;height:85px;" /></a>
+							<a href="#;"><img src="../images/main/ex02.jpg" alt="" style="width:85px;height:85px;" /></a>
+						</p>
+						<p class="btn_bx">
+							<a href="#;"><img src="../images/common/w_btn_p.gif" alt="" /></a>
+							<a href="#;"><img src="../images/common/w_btn_n.gif" alt="" /></a>
+						</p>
+					</dd>
+				</dl>
+			</div>
+			
+		</div>
+		<!-- //STATICMENU -->
+		<div id="container">
+			
+			<div class="sub_container">
+				<div class="contents_w">
+					<p class="nav_a">HOME   >   GET CART</p>
+					<div class="tit_h2 mt10">GET CART</div>
+					<p class="tit_desc">고객님께서 GET 주신 상품들 입니다. 최종 1개 선택 후에 확정을 해 주세요. </p>
+					<div class="cart_w mt35">
+						<div class="cart_l">
+							<div class="t_cover01 mt15">
+								<table class="t_type01">
+									<colgroup>
+										<col style="width:125px;" />
+										<col />
+									</colgroup>
+									<tbody>
+										<tr>
+											<th class="left">이름</th>
+											<td class="left">박용훈</td>
+										</tr>
+										<tr>
+											<th class="left">주소</th>
+											<td class="left">
+												<p><input type="text" class="inp01 w75" /> - <input type="text" class="inp01 w75" /> <a href="#;" class="btn btn_bk btn_m w95">우편번호</a></p>
+												<p class="mt15"><input type="text" class="inp01 w270" /> <input type="text" class="inp01 w270" /></p>
+											</td>
+										</tr>
+										<tr>
+											<th class="left">맡길 곳</th>
+											<td class="left">
+												<div class="t_cover03 t_cart_in">
+													<table class="t_type01">
+														<colgroup>
+															<col style="width:105px;" />
+															<col style="width:170px;" />
+															<col style="width:105px;" />
+															<col />
+														</colgroup>
+														<tbody>
+															<tr>
+																<th>경비실</th>
+																<td class="line_r">
+																	<label><input type="radio" /> 있다</label>
+																	<label><input type="radio" /> 없다</label>
+																</td>
+																<th>무인택배함</th>
+																<td>
+																	<label><input type="radio" /> 있다</label>
+																	<label><input type="radio" /> 없다</label>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th class="left">기타 메모</th>
+											<td class="left"><input type="text" class="inp01 w545" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="get_check">
+									<dl>
+										<dt>* GET 확정시 유의사항 : <br />멤버십 기간 만료 하루 전까지 반납신청 해주셔야 하며, <br />가방 오염/파손 발생 시 절대 수선 및 세탁 하지 마시고 에이블랑에 알려주시기 바랍니다. </dt>
+										<dd><label><input type="checkbox" name="str_agree" /> 확인하였습니다.</label></dd>
+									</dl>
+								</div>
+								<dl class="get_check">
+									<dt>* 반납 시 유의사항 : <br />반납 스티커 하단의 포장 방법대로 가방 및 구성품의 누락 없이 반납해주세요.<br />선택하신 날에 택배 기사님을 보내드리니 별도의 택배 예약은 하지 않으셔도 됩니다.</dt>
+									<dd><label><input type="checkbox" name="str_agree" /> 확인하였습니다.</label></dd>
+								</dl>
+							</div>
+						</div>
+						<div class="cart_r">
+							<div class="t_cover01 mt15">
+								<table class="t_type01">
+									<colgroup>
+										<col style="width:60px;" />
+										<col style="width:120px;" />
+										<col />
+									</colgroup>
+									<thead>
+										<tr>
+											<th colspan="3">GET 예정 상품</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="radio" /></td>
+											<td><img src="../images/sub/item01.jpg" alt="" style="width:120px;height:120px;" class="img_bd" /></td>
+											<td class="left v_top">
+												<p class="f_bd f_bk mt10">샤넬 2.55 클래식 </p>
+												<p class="mt10">MEDEIUM</p>
+											</td>
+										</tr>
+										<tr>
+											<td><input type="radio" /></td>
+											<td><img src="../images/sub/item01.jpg" alt="" style="width:120px;height:120px;" class="img_bd" /></td>
+											<td class="left v_top">
+												<p class="f_bd f_bk mt10">샤넬 2.55 클래식 </p>
+												<p class="mt10">MEDEIUM</p>
+											</td>
+										</tr>
+										<tr>
+											<td><input type="radio" /></td>
+											<td><img src="../images/sub/item01.jpg" alt="" style="width:120px;height:120px;" class="img_bd" /></td>
+											<td class="left v_top">
+												<p class="f_bd f_bk mt10">샤넬 2.55 클래식 </p>
+												<p class="mt10">MEDEIUM</p>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="center mt50"><a href="#;" class="btn btn_l btn_bk w w270 f_bd"><em>GET</em> 확정</a></div>
+
+					
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div id="footer_wrap">
+		<div class="footer">
+			<ul class="f_menu">
+				<li><a href="#;">회사소개</a></li>
+				<li><a href="#;">고객센터</a></li>
+				<li><a href="#;">제휴문의</a></li>
+				<li><a href="#;">개인정보취급방침</a></li>
+				<li><a href="#;">이용약관</a></li>
+			</ul>
+			<div class="f_box_w">
+				<div class="f_box01">
+					<p><img src="../images/common/logo_f.png" alt="" /></p>
+					<ul>
+						<li>에이블랑ㅣ대표 박용훈</li>
+						<li>개인정보관리 책임자 박용훈 ablancpm@gmail.comㅣ사업자등록번호 120-00-12345ㅣ통신판매번호 제2016-서초1234</li>
+						<li>서울시 서초구 방배선행길2 108 - 502호</li>
+						<li>Copyrightⓒablanc.com All Rights Reserved.</li>
+					</ul>
+				</div>
+				<div class="f_box02">
+					<dl>
+						<dt>고객센터</dt>
+						<dd class="num"><img src="../images/common/cs_num.png" alt="" /></dd>
+						<dd>FAX 02.8737.6733</dd>
+						<dd>평일 09:00~18:00ㅣ점심 12:00~13:00</dd>
+						<dd>주말/공휴일은 휴무</dd>
+					</dl>
+				</div>
+				<div class="f_box03">
+					<p><img src="../images/common/share_logo.png" alt="" /><a href="#;"><img src="../images/common/btn_share01.png" alt="" /></a><a href="#;"><img src="../images/common/btn_share02.png" alt="" /></a></p>
+					<dl>
+						<dt><img src="../images/common/btn_share03.png" alt="" /></dt>
+						<dd><span>@에이블랑컴퍼니</span> 친구추가 하세요.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+
+</body>
+</html>

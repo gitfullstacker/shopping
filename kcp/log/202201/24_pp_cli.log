@@ -1,0 +1,40 @@
+0124-101303.194 - 36226 - A7EPQ1OAD392eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202201241642986765315]+log_level=[3]+opt=[0]
+0124-101303.200 - 36226 - A7EPQ1OAD392eNP8 - MSG : PG_SERVER_CONN__SUCC
+0124-101303.211 - 36226 - A7EPQ1OAD392eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-101303.864 - 36226 - A7EPQ1OAD392eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-101303.866 - 36226 - A7EPQ1OAD392eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ1OAD392eNP8pay_method=PACAorder_no=202201241642986765315card_no=5188310000002961mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202201241642986765315cert_no=22654041810009tno=22654041810009amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220124101303van_apptime=20220124101303app_no=40678680bizx_numb=172169270quota=00noinf=Npg_txid=0124101303MNU5041810000000000890000040678680res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0311join_cd=0000card_cd=CCSScard_name=삼성카드acqu_cd=CCSSacqu_name=삼성카드]
+0124-101604.141 - 44375 - A7EPQ1OAG44alb98 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202201241642986904677]+log_level=[3]+opt=[0]
+0124-101604.146 - 44375 - A7EPQ1OAG44alb98 - MSG : PG_SERVER_CONN__SUCC
+0124-101604.157 - 44375 - A7EPQ1OAG44alb98 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-101604.517 - 44375 - A7EPQ1OAG44alb98 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-101604.518 - 44375 - A7EPQ1OAG44alb98 - MSG : TX_ENDED - res=[res_cd=CC55res_msg=유효기간 오류]
+0124-101605.492 - 44425 - A7EPQ1OAG54alb98 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202201241642986965153]+log_level=[3]+opt=[0]
+0124-101605.497 - 44425 - A7EPQ1OAG54alb98 - MSG : PG_SERVER_CONN__SUCC
+0124-101605.508 - 44425 - A7EPQ1OAG54alb98 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-101605.535 - 44425 - A7EPQ1OAG54alb98 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-101605.536 - 44425 - A7EPQ1OAG54alb98 - MSG : TX_ENDED - res=[res_cd=8824res_msg=FORMAT ERROR(지불정보|배치결제|배치키)res_en_msg=refer to kcp]
+0124-101720.270 - 46602 - A7EPQ1OAHK4alb98 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202201241642987008117]+log_level=[3]+opt=[0]
+0124-101720.276 - 46602 - A7EPQ1OAHK4alb98 - MSG : PG_SERVER_CONN__SUCC
+0124-101720.288 - 46602 - A7EPQ1OAHK4alb98 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-101720.653 - 46602 - A7EPQ1OAHK4alb98 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-101720.654 - 46602 - A7EPQ1OAHK4alb98 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2201240583160545card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+0124-101721.879 - 46701 - A7EPQ1OAHL4alb98 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202201241642987041307]+log_level=[3]+opt=[0]
+0124-101721.886 - 46701 - A7EPQ1OAHL4alb98 - MSG : PG_SERVER_CONN__SUCC
+0124-101721.897 - 46701 - A7EPQ1OAHL4alb98 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-101722.239 - 46701 - A7EPQ1OAHL4alb98 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-101722.240 - 46701 - A7EPQ1OAHL4alb98 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ1OAHL4alb98pay_method=PACAorder_no=202201241642987041307card_no=5461120000002843mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202201241642987041307cert_no=22654041901471tno=22654041901471amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220124101721van_apptime=20220124101721app_no=61507836bizx_numb=148036642quota=00noinf=Npg_txid=0124101721MNU5041901470000000890000061507836use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0362join_cd=0000card_cd=CCNHcard_name=NH카드acqu_cd=CCNHacqu_name=NH카드]
+0124-154954.179 - 23445 - A7EPQ1OFns1knmj5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202201241643006939351]+log_level=[3]+opt=[0]
+0124-154954.191 - 23445 - A7EPQ1OFns1knmj5 - MSG : PG_SERVER_CONN__SUCC
+0124-154954.202 - 23445 - A7EPQ1OFns1knmj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-154954.583 - 23445 - A7EPQ1OFns1knmj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-154954.585 - 23445 - A7EPQ1OFns1knmj5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2201240585461011card_cd=CCKEbatch_limit_dt=20240731235959card_name=하나카드(외환)join_cd=card_bank_cd=0331card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+0124-154955.636 - 23494 - A7EPQ1OFnt1knmj5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202201241643006994830]+log_level=[3]+opt=[0]
+0124-154955.642 - 23494 - A7EPQ1OFnt1knmj5 - MSG : PG_SERVER_CONN__SUCC
+0124-154955.653 - 23494 - A7EPQ1OFnt1knmj5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-154956.504 - 23494 - A7EPQ1OFnt1knmj5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-154956.506 - 23494 - A7EPQ1OFnt1knmj5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ1OFnt1knmj5pay_method=PACAorder_no=202201241643006994830card_no=4655830000003972mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202201241643006994830cert_no=22654050334699tno=22654050334699amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220124154955van_apptime=20220124154955app_no=10569426bizx_numb=00993773340quota=00noinf=Npg_txid=0124154955MNU5050334690000000890000010569426res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0331join_cd=0000card_cd=CCKEcard_name=하나카드(외환)acqu_cd=CCKEacqu_name=하나카드(외환)]
+0124-212941.587 - 24229 - A7EPQ1OLTf3378C5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202201241643027317927]+log_level=[3]+opt=[0]
+0124-212941.593 - 24229 - A7EPQ1OLTf3378C5 - MSG : PG_SERVER_CONN__SUCC
+0124-212941.604 - 24229 - A7EPQ1OLTf3378C5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0124-212942.178 - 24229 - A7EPQ1OLTf3378C5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0124-212942.179 - 24229 - A7EPQ1OLTf3378C5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=220124058654048Dcard_cd=CCLGbatch_limit_dt=20220430235959card_name=신한카드join_cd=card_bank_cd=0301card_bin_type_02=1card_bin_type_01=0van_tx_id=]

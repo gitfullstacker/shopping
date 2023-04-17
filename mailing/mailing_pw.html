@@ -1,0 +1,84 @@
+<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?
+	$str_name = Fnc_Om_Conv_Default($_REQUEST[str_name],"");
+	$str_passwd = Fnc_Om_Conv_Default($_REQUEST[str_passwd],"");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ABLANC</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+</head>
+<body style="margin:0;padding:0;">
+<table width="800" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+  <tr style="padding:0;margin:0;">
+    <td width="50" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;">&nbsp;</td>
+    <td width="700" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/mail_logo.gif" /></td>
+    <td width="50" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;">&nbsp;</td>
+  </tr>
+  <tr style="padding:0;margin:0;">
+    <td style="padding:30px 0 50px 0;margin:0;">&nbsp;</td>
+    <td style="padding:30px 0 50px 0;margin:0;">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+          <tr style="padding:0;margin:0;">
+            <td align="right" style="padding:0;margin:0;color:#888;font-size:13px;font-family:'Malgun Gothic';">본 메일은 발신 전용 메일이며 회신하실 경우 답변되지 않습니다.</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="20" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:25px;margin:0;color:#000;font-size:18px;font-family:'Malgun Gothic';border:1px solid #000;">회원님께서 요청하신 비밀번호는 아래와 같습니다.</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="55" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center"" style="padding:0;margin:0;color:#000;font-size:14px;font-family:'Malgun Gothic';"><span style="font-size:14px;font-family:'Malgun Gothic';font-weight:bold;text-decoration:underline;"><?=$str_name?></span>님,  고객님의 비밀번호는 <span style="color:#faaa32;text-decoration:underline;"><?=$str_passwd?></span>입니다.</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="25" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center"" style="padding:0;margin:0;color:#000;font-size:14px;font-family:'Malgun Gothic';">
+						임시 비밀번호를 발급해드렸습니다.<br />로그인 하신 후 반드시 비밀번호를 수정하신 후 <br />에이블랑을 이용하시기 바랍니다.</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="25" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;color:#000;font-weight:bold;font-size:18px;font-family:'Malgun Gothic';">에이블랑과 함께 언제나 행복한 나날들 되세요.  </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="40" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;color:#000;"><a href="http://<?=$loc_I_Pg_Domain?>/" target="_blank"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/btn_gosite.gif" style="border:0px;" /></a>
+            </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="50" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/mail_ban.gif" /></td>
+          </tr>
+        </table>
+
+    </td>
+    <td style="padding:30px 0 50px 0;margin:0;">&nbsp;</td>
+  </tr>
+  <tr style="padding:0;margin:0;">
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">&nbsp;</td>
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">
+    	<p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">에이블랑ㅣ대표 박용훈ㅣ서울시 서초구 방배선행길2  108 - 502호</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">사업자등록번호 120-00-12345ㅣ통신판매번호 제2016-서초1234 ㅣ개인정보관리책임자  박용훈</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">고객센터 070.8737.6733 ㅣ 팩스 02.8737.6733</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">Copyrightⓒablanc.com All Rights Reserved.</p>
+    </td>
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,69 @@
+a.lnk0:link{color:black;text-decoration:none;font-family:µ¸¿ò;}
+a.lnk0:visited{color:black;text-decoration:none;font-family:µ¸¿ò;}
+a.lnk0:hover{color:blue;text-decoration:underline;font-family:µ¸¿ò;}
+td{font-size:9pt;FONT-FAMILY:µ¸¿ò;}
+body{font-size:9pt;FONT-FAMILY:µ¸¿ò;}
+img{border: none;}
+
+select
+{
+	font-size:9pt;
+	border-width:1px;
+	border-style:solid;
+	font-family:µ¸¿ò;
+}
+
+option
+{
+	font-size:9pt;
+	border-width:1px;
+	border-style:solid;
+	font-family:µ¸¿ò;
+}
+
+/*textarea
+{
+	font-size:10pt;
+	border-width:1px;
+	border-style:solid;
+	background-image:url(/_cmfiles/image/edit/line.gif);
+	background-position:left top;
+	background-repeat:repeat;
+	background-attachment:scroll;
+	font-family:µ¸¿ò;
+}*/
+
+/*input
+{
+	font-size:9pt;
+	border-style:solid;
+	padding:1pt;
+	border-width:1px 1px 1px 1px;
+	border-color:#8B8B8B #8B8B8B #8B8B8B #8B8B8B;
+	font-family:µ¸¿ò;
+}*/
+
+.layer_brow
+{
+	position:absolute;
+	z-index:0;
+	top:0;
+	left:0;
+	visibility:hidden;
+	background-color:gainsboro;
+	border-top:1pt solid white;
+	border-bottom:1pt solid gray;
+	border-left:1pt solid white;
+	border-right:1pt solid gray;
+	margin:1pt 1pt 1pt 1pt;
+	padding:1pt 1pt 1pt 1pt;
+}
+
+.w_row_height{height:30px;}
+.font_adjust{line-height:1.8;}
+
+.title
+{
+	background-color:#6385BC;FONT-FAMILY:µ¸¿ò;FONT-SIZE:9pt;
+	font-weight:bold;text-align:center;color:white;
+}

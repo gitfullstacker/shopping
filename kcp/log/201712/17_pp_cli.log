@@ -1,0 +1,20 @@
+1217-092943.860 - 28296 - A7EPQCH9ThAGLHc2 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[201712171513470582054]+log_level=[3]+opt=[0]
+1217-092943.880 - 28296 - A7EPQCH9ThAGLHc2 - MSG : PG_SERVER_CONN__SUCC
+1217-092943.893 - 28296 - A7EPQCH9ThAGLHc2 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1217-092944.149 - 28296 - A7EPQCH9ThAGLHc2 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1217-092944.150 - 28296 - A7EPQCH9ThAGLHc2 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQCH9ThAGLHc2pay_method=PACAorder_no=201712171513470582054trade_seq=17601559776985card_cd=CCHNcard_name=하나카드]
+1217-140652.527 - 11570 - A7EPQCHE6q1LP28p - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST201712171513487044453]+log_level=[3]+opt=[0]
+1217-140652.535 - 11570 - A7EPQCHE6q1LP28p - MSG : PG_SERVER_CONN__SUCC
+1217-140652.547 - 11570 - A7EPQCHE6q1LP28p - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1217-140652.928 - 11570 - A7EPQCHE6q1LP28p - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1217-140652.928 - 11570 - A7EPQCHE6q1LP28p - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리card_cd=CCSScard_bank_cd=van_tx_id=batch_limit_dt=20200430235959card_bin_type_01=0batch_key=17121720077432A2join_cd=card_name=삼성카드]
+1217-140653.969 - 11620 - A7EPQCHE6r1LP28p - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[201712171513487213888]+log_level=[3]+opt=[0]
+1217-140653.973 - 11620 - A7EPQCHE6r1LP28p - MSG : PG_SERVER_CONN__SUCC
+1217-140653.985 - 11620 - A7EPQCHE6r1LP28p - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1217-140654.525 - 11620 - A7EPQCHE6r1LP28p - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1217-140654.525 - 11620 - A7EPQCHE6r1LP28p - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCHE6r1LP28ppay_method=PACAorder_no=201712171513487213888card_cd=CCSScard_name=삼성카드acqu_cd=CCSSacqu_name=삼성카드card_no=379183000000082mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=201712171513487213888tno=17601561332881amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20171217140654van_apptime=20171217140654app_no=59029402bizx_numb=113479404quota=00noinf=Npg_txid=1217140654MK28FHAPY71W0000000890000059029402res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000]
+1217-144905.297 - 22390 - A7EPPCHEn5DR4chk - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST201712171513489693217]+log_level=[3]+opt=[0]
+1217-144905.301 - 22390 - A7EPPCHEn5DR4chk - MSG : PG_SERVER_CONN__SUCC
+1217-144905.315 - 22390 - A7EPPCHEn5DR4chk - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1217-144906.057 - 22390 - A7EPPCHEn5DR4chk - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1217-144906.057 - 22390 - A7EPPCHEn5DR4chk - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPPCHEn5DR4chkpay_method=PACAorder_no=TEST201712171513489693217card_cd=CCLGcard_name=신한카드acqu_cd=CCLGacqu_name=신한카드card_no=4364200000005770mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST201712171513489693217tno=17601561585526amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20171217144906van_apptime=20171217144906app_no=27344229bizx_numb=0013425574quota=00noinf=Npg_txid=1217144906MP01FGARGG8K0000000990000027344229use_point=0res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1join_cd=0000]

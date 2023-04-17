@@ -1,0 +1,10 @@
+0107-081323.824 - 27207 - A7EPQ178DNCjRdde - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202301071673046671163]+log_level=[3]+opt=[0]
+0107-081323.842 - 27207 - A7EPQ178DNCjRdde - MSG : PG_SERVER_CONN__SUCC
+0107-081323.853 - 27207 - A7EPQ178DNCjRdde - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0107-081324.332 - 27207 - A7EPQ178DNCjRdde - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0107-081324.333 - 27207 - A7EPQ178DNCjRdde - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=230107158802755Acard_cd=CCNHbatch_limit_dt=20271130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+0107-081325.384 - 27226 - A7EPQ178DPCjRdde - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20230171673046804143]+log_level=[3]+opt=[0]
+0107-081325.390 - 27226 - A7EPQ178DPCjRdde - MSG : PG_SERVER_CONN__SUCC
+0107-081325.401 - 27226 - A7EPQ178DPCjRdde - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0107-081326.045 - 27226 - A7EPQ178DPCjRdde - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0107-081326.046 - 27226 - A7EPQ178DPCjRdde - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQ178DPCjRddepay_method=PACAorder_no=20230171673046804143res_green_deposit_mny=0trade_seq=23257424980501card_cd=CCNHcard_name=NH카드]

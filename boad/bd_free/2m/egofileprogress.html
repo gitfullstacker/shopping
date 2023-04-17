@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> 파일저장 </TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT ="-1">
+<style>
+td{font-size:8pt;FONT-FAMILY:돋움;}
+body{font-size:8pt;FONT-FAMILY:돋움;}
+</style>
+<HEAD>
+<BODY topmargin="0" leftmargin="0">
+<table border="0" cellpadding="0" cellspacing="1" bgcolor="gray" width="100%" height="100%">
+	<tr>
+	<td bgcolor="white" align="center" valign="middle">
+		<table border="0" cellpadding="0" cellspacing="0" width="130">
+		<tr><td>
+		잠시만 기다려주세요<br><br>
+		<b style="color:red;">저장중 입니다<span id="lbl_Prog_Bar"></span></b>
+		<SCRIPT LANGUAGE="JavaScript">
+		<!--
+			var str_Bar = "*";
+			function fnc_Save_Progress()
+			{
+				var obj_Lbl = eval("lbl_Prog_Bar");
+
+				if(str_Bar.length>7)
+					str_Bar = "*";
+				else
+					str_Bar += "*";
+
+				obj_Lbl.innerHTML = str_Bar;
+
+				timer = setTimeout("fnc_Save_Progress()", 1000);
+			}
+			fnc_Save_Progress();
+		//-->
+		</SCRIPT>
+		</td></tr>
+		</table>
+	</td>
+	</tr>
+</table>
+</BODY>
+</HTML>

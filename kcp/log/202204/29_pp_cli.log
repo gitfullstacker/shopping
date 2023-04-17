@@ -1,0 +1,20 @@
+0429-145949.213 - 62916 - A7EPQ4TExnE9GG4R - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202204291651211905241]+log_level=[3]+opt=[0]
+0429-145949.252 - 62916 - A7EPQ4TExnE9GG4R - MSG : PG_SERVER_CONN__SUCC
+0429-145949.264 - 62916 - A7EPQ4TExnE9GG4R - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0429-145949.536 - 62916 - A7EPQ4TExnE9GG4R - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0429-145949.537 - 62916 - A7EPQ4TExnE9GG4R - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2204290866360383card_cd=CCDIbatch_limit_dt=20261231235959card_name=현대카드join_cd=card_bank_cd=0321card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+0429-145950.532 - 62968 - A7EPQ4TExoE9GG4R - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204291651211989602]+log_level=[3]+opt=[0]
+0429-145950.539 - 62968 - A7EPQ4TExoE9GG4R - MSG : PG_SERVER_CONN__SUCC
+0429-145950.550 - 62968 - A7EPQ4TExoE9GG4R - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0429-145950.688 - 62968 - A7EPQ4TExoE9GG4R - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0429-145950.689 - 62968 - A7EPQ4TExoE9GG4R - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ4TExoE9GG4Rpay_method=PACAorder_no=202204291651211989602card_no=4890160000009809mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202204291651211989602cert_no=22369226788335tno=22369226788335amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220429145950van_apptime=20220429145950app_no=00443993bizx_numb=880345448quota=00noinf=Npg_txid=0429145950MNU5226788330000000890000000443993use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0321join_cd=0000card_cd=CCDIcard_name=현대카드acqu_cd=CCDIacqu_name=현대카드]
+0429-165410.289 - 59709 - A7EPQ4TGsA92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204291651218846531]+log_level=[3]+opt=[0]
+0429-165410.294 - 59709 - A7EPQ4TGsA92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0429-165410.306 - 59709 - A7EPQ4TGsA92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0429-165410.950 - 59709 - A7EPQ4TGsA92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0429-165410.951 - 59709 - A7EPQ4TGsA92eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ4TGsA92eNP8pay_method=PACAorder_no=202204291651218846531trade_seq=22369228913801card_cd=CCLGcard_name=신한카드]
+0429-165457.696 - 60853 - A7EPQ4TGsv92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204291651218894701]+log_level=[3]+opt=[0]
+0429-165457.702 - 60853 - A7EPQ4TGsv92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0429-165457.713 - 60853 - A7EPQ4TGsv92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0429-165458.361 - 60853 - A7EPQ4TGsv92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0429-165458.362 - 60853 - A7EPQ4TGsv92eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ4TGsv92eNP8pay_method=PACAorder_no=202204291651218894701trade_seq=22369228929468card_cd=CCLGcard_name=신한카드]

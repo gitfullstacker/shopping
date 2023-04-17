@@ -1,0 +1,128 @@
+<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?
+	$str_ocode = Fnc_Om_Conv_Default($_REQUEST[str_ocode],"201611150000002");
+
+	$SQL_QUERY =	" SELECT
+					A.*,B.STR_CODE,C.STR_NAME,B.STR_URL1
+				FROM "
+					.$Tname."comm_goods_cart AS A
+					LEFT JOIN
+					".$Tname."comm_com_code AS B
+					ON
+					A.INT_DELICODE=B.INT_NUMBER
+					LEFT JOIN
+					".$Tname."comm_member AS C
+					ON
+					A.STR_USERID=C.STR_USERID
+				WHERE
+					A.INT_NUMBER='$str_ocode' ";
+
+	$arr_Rlt_Data=mysql_query($SQL_QUERY);
+	if (!$arr_Rlt_Data) {
+  		echo 'Could not run query: ' . mysql_error();
+  		exit;
+	}
+	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ABLANC</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+</head>
+<body style="margin:0;padding:0;">
+<table width="800" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+  <tr style="padding:0;margin:0;">
+    <td width="50" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;">&nbsp;</td>
+    <td width="700" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/mail_logo.gif" /></td>
+    <td width="50" align="center" valign="middle" bgcolor="#000000" style="padding:22px 0;margin:0;">&nbsp;</td>
+  </tr>
+  <tr style="padding:0;margin:0;">
+    <td style="padding:30px 0 50px 0;margin:0;">&nbsp;</td>
+    <td style="padding:30px 0 50px 0;margin:0;">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+          <tr style="padding:0;margin:0;">
+            <td align="right" style="padding:0;margin:0;color:#888;font-size:13px;font-family:'Malgun Gothic';">본 메일은 발신 전용 메일이며 회신하실 경우 답변되지 않습니다.</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="20" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:25px;margin:0;color:#000;font-size:18px;font-family:'Malgun Gothic';border:1px solid #000;">신청하신 가방이 발송되었습니다. </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="55" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center"" style="padding:0;margin:0;color:#000;font-size:14px;font-family:'Malgun Gothic';"><span style="font-size:14px;font-family:'Malgun Gothic';font-weight:bold;text-decoration:underline;"><?=$arr_Data['STR_NAME']?></span>님,  신청하신 가방의 배송이 시작되었습니다. </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="25" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;color:#000;font-weight:bold;font-size:18px;font-family:'Malgun Gothic';">고객님의 주문번호 : <span style="color:#faaa32;font-weight:bold;font-size:18px;font-family:'Malgun Gothic';"><?=$arr_Data['INT_NUMBER']?> </span></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="50" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td style="padding:0;margin:0;">
+							<div style="border-top:2px solid #000;border-bottom:1px solid #000;">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+									<tr style="padding:0;margin:0;">
+										<td width="160" align="left" style="padding:20px;margin:0;color:#000;font-weight:bold;font-size:14px;font-family:'Malgun Gothic';border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;">발송일 </td>
+										<td width="540" align="left" style="padding:20px;margin:0;color:#555;font-size:14px;font-family:'Malgun Gothic';border-bottom:1px solid #dddddd;"><?=date("Y")?>년 <?=date("m")?>월 <?=date("d")?>일 </td>
+									</tr>
+									<tr style="padding:0;margin:0;">
+										<td width="160" align="left" style="padding:20px;margin:0;color:#000;font-weight:bold;font-size:14px;font-family:'Malgun Gothic';border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;">택배사</td>
+										<td width="540" align="left" style="padding:20px;margin:0;color:#000;font-size:14px;font-family:'Malgun Gothic';border-bottom:1px solid #dddddd;"><?=$arr_Data['STR_CODE']?></td>
+									</tr>
+									<tr style="padding:0;margin:0;">
+										<td width="160" align="left" style="padding:20px;margin:0;color:#000;font-weight:bold;font-size:14px;font-family:'Malgun Gothic';border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;">송장번호</td>
+										<td width="540" align="left" style="padding:20px;margin:0;color:#000;font-size:14px;font-family:'Malgun Gothic';border-bottom:1px solid #dddddd;"><?=$arr_Data['STR_DELICODE']?></td>
+									</tr>
+								</table>
+							</div>
+						
+						</td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="35" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;color:#555;font-size:14px;line-height:20px;font-family:'Malgun Gothic';">고객님이 주문하신 가방의 배송이 시작되었습니다. <br />발송일로부터 1~2일 후에 수령하실 수 있으며 지역 택배사 사정이나 도서/산간지역인 경우 <br />다소 지연될 수 있습니다. </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="40" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;color:#000;"><a href="<?if ($arr_Data["STR_DELICODE"]!="") {?><?=str_replace("__INVOICENO__",$arr_Data["STR_DELICODE"],$arr_Data["STR_URL1"])?><?}else{?>#<?}?>" target="_blank"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/btn_mail02.gif" /></a>
+            </td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td height="50" style="padding:0;margin:0;"></td>
+          </tr>
+          <tr style="padding:0;margin:0;">
+            <td align="center" style="padding:0;margin:0;"><img src="http://<?=$loc_I_Pg_Domain?>/mailing/img/mail_ban.gif" /></td>
+          </tr>
+        </table>
+
+    </td>
+    <td style="padding:30px 0 50px 0;margin:0;">&nbsp;</td>
+  </tr>
+  <tr style="padding:0;margin:0;">
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">&nbsp;</td>
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">
+    	<p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">에이블랑ㅣ대표 박용훈ㅣ서울시 서초구 방배선행길2  108 - 502호</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">사업자등록번호 120-00-12345ㅣ통신판매번호 제2016-서초1234 ㅣ개인정보관리책임자  박용훈</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">고객센터 070.8737.6733 ㅣ 팩스 02.8737.6733</p>
+        <p style="padding:0;margin:0;color:#777;line-height:18px;font-size:12px;font-family:'Malgun Gothic';">Copyrightⓒablanc.com All Rights Reserved.</p>
+    </td>
+    <td bgcolor="#222" style="padding:28px 0;margin:0;">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

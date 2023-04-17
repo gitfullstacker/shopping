@@ -1,0 +1,15 @@
+1028-113733.237 -  5017 - A7EPQASBbX9It0KQ - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202210281666924604650]+log_level=[3]+opt=[0]
+1028-113733.255 -  5017 - A7EPQASBbX9It0KQ - MSG : PG_SERVER_CONN__SUCC
+1028-113733.267 -  5017 - A7EPQASBbX9It0KQ - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1028-113733.895 -  5017 - A7EPQASBbX9It0KQ - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1028-113733.896 -  5017 - A7EPQASBbX9It0KQ - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=22102813919044B2card_cd=CCHNbatch_limit_dt=20241031235959card_name=하나카드join_cd=card_bank_cd=0081card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+1028-113734.938 -  5075 - A7EPQASBbY9It0KQ - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202210281666924654006]+log_level=[3]+opt=[0]
+1028-113734.944 -  5075 - A7EPQASBbY9It0KQ - MSG : PG_SERVER_CONN__SUCC
+1028-113734.955 -  5075 - A7EPQASBbY9It0KQ - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1028-113735.295 -  5075 - A7EPQASBbY9It0KQ - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1028-113735.296 -  5075 - A7EPQASBbY9It0KQ - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQASBbY9It0KQpay_method=PACAorder_no=202210281666924654006res_green_deposit_mny=0card_no=5531790000000780mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202210281666924654006cert_no=22931132471306tno=22931132471306amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20221028113734van_apptime=20221028113734app_no=45218100bizx_numb=00993773340quota=00noinf=Npg_txid=1028113734MNU5132471300000000890000045218100res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0081join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+1028-131009.802 - 40434 - A7EPQASDA95B5mgo - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202210281666930197221]+log_level=[3]+opt=[0]
+1028-131009.808 - 40434 - A7EPQASDA95B5mgo - MSG : PG_SERVER_CONN__SUCC
+1028-131009.819 - 40434 - A7EPQASDA95B5mgo - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1028-131010.472 - 40434 - A7EPQASDA95B5mgo - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1028-131010.473 - 40434 - A7EPQASDA95B5mgo - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQASDA95B5mgopay_method=PACAorder_no=202210281666930197221res_green_deposit_mny=0trade_seq=22931134671405card_cd=CCSScard_name=삼성카드]

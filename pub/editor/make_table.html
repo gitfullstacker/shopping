@@ -1,0 +1,274 @@
+<HTML>
+<HEAD>
+<TITLE> 테이블생성 </TITLE>
+<META http-equiv="content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<style>
+td{font-size:9pt;FONT-FAMILY:돋움;}
+body{font-size:9pt;FONT-FAMILY:돋움;}
+img{border: none;}
+input
+{
+	font-size:9pt;
+	border-style:solid;
+	padding:1pt;
+	border-width:1px 1px 1px 1px;
+	border-color:#8B8B8B #8B8B8B #8B8B8B #8B8B8B;
+	font-family:돋움;
+}
+select{font-size:8pt;}
+.bl_btn
+{
+	background-color:#9EC7FF;FONT-FAMILY:돋움;FONT-SIZE:9pt;
+}
+</style>
+<script language="JavaScript" src="we_path.asp"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function fnc_Out_Icon()
+	{
+		var str_Icon_Tag = '';
+		str_Icon_Tag += '<img src="'+str_Icon_Path+'ed_table.gif" align="absMiddle" border="0">';
+
+		document.write(str_Icon_Tag);
+	}
+
+	function fnc_View_Color(pr_Color, pr_Lbl)
+	{
+		var obj_Lbl = eval(pr_Lbl);
+		obj_Lbl.style.background = (pr_Color=="none")? "white": pr_Color;
+	}
+
+	function fncClose()
+	{
+		var objSetTable = parent.document.all.layAddBrow;
+		with(objSetTable)
+		{
+			//style.zIndex = 0;
+			style.display = "none";
+		}
+	}
+
+	function fncCreateTable(form)
+	{
+		var intRow = form.txtRowCnt.value;
+		var intLine = form.txtLineCnt.value;
+		var int_Border = parseInt(form.sel_Border.value);
+		var int_Padding = parseInt(form.sel_Padding.value);
+		var int_Spacing = parseInt(form.sel_Spacing.value);
+		var str_Align = form.sel_Align.value;
+		var str_Valign = form.sel_Valign.value;
+		var str_Color = form.sel_Color.value;
+
+		var str_Bg_Color = (str_Color=="none")? "": " bgcolor="+str_Color+" ";
+
+		var strHtml = "";
+		if(isNaN(intRow) || isNaN(intLine))
+		{
+			alert("열 및 행은 숫자만 입력 하셔야 합니다.");
+			return false;
+		}
+		intRow = parseInt(intRow);
+		intLine = parseInt(intLine);
+		if((intRow<1 || intRow>30) || (intLine<1 || intLine>99))
+		{
+			alert("열값은 0 이상 30 이하로 입력하시고,\n\n행값은 0 이상 99 이하로 입력해야 합니다.");
+			return false;
+		}
+		var intPercent = parseFloat(100/intRow);
+
+		strHtml += '<table border="'+int_Border+'" cellpadding="'+int_Padding+'" cellspacing="'+int_Spacing+'" width="100%" '+str_Bg_Color+'>';
+		for(var i=0; i<intLine; i++)
+		{
+			strHtml += '<tr bgcolor="white">';
+			for(var j=0; j<intRow; j++)
+			{
+				strHtml += '<td width="'+intPercent+'%" align="'+str_Align+'" valign="'+str_Valign+'"></td>';
+			}
+			strHtml += '</tr>';
+		}
+		strHtml += '</table>';
+
+		var objSetTable = parent.document.all.layAddBrow;
+		var objInEditor = parent.document.frames.I_Editor;
+		objInEditor.focus();
+
+		try
+		{
+			var objRange = objInEditor.document.selection.createRange();
+			objRange.pasteHTML(strHtml);
+			objRange.select();
+			objSetTable.style.display = "none";
+
+		}catch(e){alert(e);}
+		finally{objInEditor.focus();}
+	}
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY topmargin="0" leftmargin="0">
+
+<table border="0" cellpadding="0" cellspacing="1" bgcolor="gray" width="100%" height="100%">
+	<tr>
+		<td align="center" class="bl_btn" style="padding:3px;">
+			<SCRIPT LANGUAGE="JavaScript">
+			<!--
+				//fnc_Out_Icon();
+			//-->
+			</SCRIPT>
+			&nbsp;&nbsp;테이블 생성
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="white" align="center" valign="top">
+
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="white">
+			<form name="frmSend">
+				<tr>
+					<td width="54">
+						열개수
+					</td>
+					<td>
+						<input type="text" name="txtRowCnt" size="3" maxlength="2" value="3">
+					</td>
+					<td>
+						행개수
+					</td>
+					<td>
+						<input type="text" name="txtLineCnt" size="3" maxlength="2" value="2">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						border
+					</td>
+					<td colspan="3">
+						<select name="sel_Border" size="1" style="width:50;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<10; i++)
+							{
+								document.write('<option value="'+i+'">'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						border color
+					</td>
+					<td colspan="2">
+						<select name="sel_Color" size="1" style="width:100;" onchange="fnc_View_Color(this.options[this.selectedIndex].value, 'lbl_Color');">
+							<option value="none">== none ==</option>
+							<option value="aquamarine">aquamarine</option>
+							<option value="blue">blue</option>
+							<option value="black">black</option>
+							<option value="brown">brown</option>
+							<option value="cadetblue">cadet blue</option>
+							<option value="chocolate">chocolate</option>
+							<option value="darkgoldenrod">dark goldenrod</option>
+							<option value="darkkhaki">dark khaki</option>
+							<option value="darkred">dark red</option>
+							<option value="darksalmon">dark salmon</option>
+							<option value="darkslateblue">dark slate blue</option>
+							<option value="deeppink">deep pink</option>
+							<option value="gold">gold</option>
+							<option value="gray" selected>gray</option>
+							<option value="green">green</option>
+							<option value="hotpink">hotpink</option>
+							<option value="lime">lime</option>
+							<option value="red">red</option>
+							<option value="salmon">salmon</option>
+							<option value="springgreen">springgreen</option>
+							<option value="tan">tan</option>
+							<option value="tomato">tomato</option>
+							<option value="turquoise">turquoise</option>
+							<option value="wheat">wheat</option>
+							<option value="white">white</option>
+							<option value="yellow">yellow</option>
+						</select>
+					</td>
+					<td>
+						<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td id="lbl_Color" bgcolor="gray" style="border-width:1px;border-style:solid;border-color:gray white white gray;background-color:#DDDDDD;FONT-FAMILY:돋움;FONT-SIZE:9pt;" width="15" height="15">&nbsp;</td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						padding
+					</td>
+					<td>
+						<select name="sel_Padding" size="1" style="width:50;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<10; i++)
+							{
+								document.write('<option value="'+i+'"');
+								if(i==2)
+									document.write(' selected ');
+								document.write('>'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+					<td>
+						spacing
+					</td>
+					<td>
+						<select name="sel_Spacing" size="1" style="width:50;">
+						<SCRIPT LANGUAGE="JavaScript">
+						<!--
+							for(var i=0; i<10; i++)
+							{
+								document.write('<option value="'+i+'"');
+								if(i==1)
+									document.write(' selected ');
+								document.write('>'+i+'</option>');
+							}
+						//-->
+						</SCRIPT>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						align
+					</td>
+					<td>
+						<select name="sel_Align" size="1" style="width:50;">
+							<option value="left">left</option>
+							<option value="center">center</option>
+							<option value="right">right</option>
+						</select>
+					</td>
+					<td>
+						valign
+					</td>
+					<td>
+						<select name="sel_Valign" size="1" style="width:50;">
+							<option value="top">top</option>
+							<option value="middle">middle</option>
+							<option value="bottom">bottom</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right" colspan="4">
+						<input type="button" style="cursor:hand;" value="생성" onclick="fncCreateTable(this.form);">
+						<input type="button" style="cursor:hand;" value="닫기" onclick="fncClose();">
+					</td>
+				</tr>
+			</form>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+</BODY>
+</HTML>

@@ -1,0 +1,30 @@
+0430-124629.504 - 43393 - A7EPP4UCkTD9o8mh - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST202204301651290318816]+log_level=[3]+opt=[0]
+0430-124629.523 - 43393 - A7EPP4UCkTD9o8mh - MSG : PG_SERVER_CONN__SUCC
+0430-124629.534 - 43393 - A7EPP4UCkTD9o8mh - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-124630.081 - 43393 - A7EPP4UCkTD9o8mh - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-124630.083 - 43393 - A7EPP4UCkTD9o8mh - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPP4UCkTD9o8mhpay_method=PACAorder_no=TEST202204301651290318816card_no=5365100000008323mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST202204301651290318816cert_no=22750246279064tno=22750246279064amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220430124629van_apptime=20220430124629app_no=22009539bizx_numb=00091379948quota=00noinf=Npg_txid=0430124629MNU1246279060000000990000022009539res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0090isp_issuer_cd=KM90isp_issuer_nm=카카오뱅크isp_partner_cd=050204900094661join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+0430-194911.266 - 28550 - A7EPQ4UJnB92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204301651315749424]+log_level=[3]+opt=[0]
+0430-194911.273 - 28550 - A7EPQ4UJnB92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0430-194911.284 - 28550 - A7EPQ4UJnB92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-194911.537 - 28550 - A7EPQ4UJnB92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-194911.538 - 28550 - A7EPQ4UJnB92eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ4UJnB92eNP8pay_method=PACAorder_no=202204301651315749424trade_seq=22750255791197card_cd=CCKMcard_name=KB국민카드]
+0430-195255.417 - 38003 - A7EPQ4UJqt92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204301651315972910]+log_level=[3]+opt=[0]
+0430-195255.423 - 38003 - A7EPQ4UJqt92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0430-195255.434 - 38003 - A7EPQ4UJqt92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-195255.880 - 38003 - A7EPQ4UJqt92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-195255.881 - 38003 - A7EPQ4UJqt92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ4UJqt92eNP8pay_method=PACAorder_no=202204301651315972910card_no=5365100000007374mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202204301651315972910cert_no=22750255889252tno=22750255889252amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220430195255van_apptime=20220430195255app_no=21125235bizx_numb=00091380028quota=00noinf=Npg_txid=0430195255MNU5255889250000000890000021125235res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0090join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+0430-195307.583 - 38297 - A7EPQ4UJr792eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204301651315985550]+log_level=[3]+opt=[0]
+0430-195307.591 - 38297 - A7EPQ4UJr792eNP8 - MSG : PG_SERVER_CONN__SUCC
+0430-195307.602 - 38297 - A7EPQ4UJr792eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-195308.045 - 38297 - A7EPQ4UJr792eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-195308.046 - 38297 - A7EPQ4UJr792eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ4UJr792eNP8pay_method=PACAorder_no=202204301651315985550trade_seq=22750255894546card_cd=CCLGcard_name=신한카드]
+0430-195314.218 - 38588 - A7EPQ4UJrE92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204301651315992244]+log_level=[3]+opt=[0]
+0430-195314.225 - 38588 - A7EPQ4UJrE92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0430-195314.236 - 38588 - A7EPQ4UJrE92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-195314.893 - 38588 - A7EPQ4UJrE92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-195314.894 - 38588 - A7EPQ4UJrE92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQ4UJrE92eNP8pay_method=PACAorder_no=202204301651315992244trade_seq=22750255897701card_cd=CCKEcard_name=하나카드(외환)]
+0430-195320.509 - 38744 - A7EPQ4UJrK92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202204301651315998583]+log_level=[3]+opt=[0]
+0430-195320.516 - 38744 - A7EPQ4UJrK92eNP8 - MSG : PG_SERVER_CONN__SUCC
+0430-195320.527 - 38744 - A7EPQ4UJrK92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0430-195320.881 - 38744 - A7EPQ4UJrK92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0430-195320.882 - 38744 - A7EPQ4UJrK92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQ4UJrK92eNP8pay_method=PACAorder_no=202204301651315998583trade_seq=22750255900324card_cd=CCKMcard_name=KB국민카드]

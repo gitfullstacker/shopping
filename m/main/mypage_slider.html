@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<title>ABLANC</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
+
+
+	<link href="../css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/swiper.min.css">
+	<script src="../js/swiper.min.js"></script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<!-- jquery.mobilemenu -->
+	<link href="../css/jquery.mobilemenu.css" type="text/css" rel="stylesheet" />
+	<script src="../js/jquery.mobilemenu.js" type="text/javascript"></script>
+	<script src="../js/main.js" type="text/javascript"></script>
+	
+	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	<script>
+	  $( function() {
+		// run the currently selected effect
+		function runEffect() {
+		  // get effect type from
+		  var selectedEffect = $( "#effectTypes" ).val();
+	 
+		  // Most effect types need no options passed by default
+		  var options = {};
+		  // some effects have required parameters
+		  if ( selectedEffect === "scale" ) {
+			options = { percent: 50 };
+		  } else if ( selectedEffect === "size" ) {
+			options = { to: { width: 200, height: 60 } };
+		  }
+	 
+		  // Run the effect
+		  $( "#search_menu" ).toggle( selectedEffect, options, 500 );
+		};
+	 
+		// Set effect from select menu value
+		$( "#button" ).on( "click", function() {
+		  runEffect();
+		});
+	  } );
+	</script>
+
+</head>
+
+<body>
+
+
+	
+
+
+ 
+
+		
+
+		<div class="m_visual">
+			<div class="swiper-container2">
+				 <div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="../images/main_visual01.jpg" alt="" /></div>
+					<div class="swiper-slide"><img src="../images/main_visual01.jpg" alt="" /></div>
+					<div class="swiper-slide"><img src="../images/main_visual01.jpg" alt="" /></div>
+					<div class="swiper-slide"><img src="../images/main_visual01.jpg" alt="" /></div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination2"></div>
+				<!-- Add Arrows -->
+				
+			</div>
+			<script>
+				var swiper = new Swiper('.swiper-container2', {
+					pagination: '.swiper-pagination2',
+					paginationClickable: true,
+					spaceBetween: 0,
+					centeredSlides: true,
+					autoplay: 2500,
+					autoplayDisableOnInteraction: false,
+					loop: true
+				});
+			</script>
+		</div>
+		
+		
+		
+
+		
+
+
+	
+
+
+</body>
+</html>

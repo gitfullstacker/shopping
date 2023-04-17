@@ -1,0 +1,20 @@
+0730-210447.770 - 55662 - A7EPQ7UL4l75hego - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202207301659182607336]+log_level=[3]+opt=[0]
+0730-210447.806 - 55662 - A7EPQ7UL4l75hego - MSG : PG_SERVER_CONN__SUCC
+0730-210447.817 - 55662 - A7EPQ7UL4l75hego - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0730-210448.285 - 55662 - A7EPQ7UL4l75hego - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0730-210448.286 - 55662 - A7EPQ7UL4l75hego - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2207301141389669card_cd=CCKMbatch_limit_dt=20270331235959card_name=KB국민카드join_cd=card_bank_cd=0090card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+0730-210449.687 - 55736 - A7EPQ7UL4n75hego - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202207301659182687924]+log_level=[3]+opt=[0]
+0730-210449.693 - 55736 - A7EPQ7UL4n75hego - MSG : PG_SERVER_CONN__SUCC
+0730-210449.704 - 55736 - A7EPQ7UL4n75hego - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0730-210450.149 - 55736 - A7EPQ7UL4n75hego - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0730-210450.150 - 55736 - A7EPQ7UL4n75hego - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ7UL4n75hegopay_method=PACAorder_no=202207301659182687924res_green_deposit_mny=0trade_seq=22841443934855card_cd=CCKMcard_name=KB국민카드]
+0730-213500.214 - 55751 - A7EPQ7ULZ075hego - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202207301659184124378]+log_level=[3]+opt=[0]
+0730-213500.219 - 55751 - A7EPQ7ULZ075hego - MSG : PG_SERVER_CONN__SUCC
+0730-213500.231 - 55751 - A7EPQ7ULZ075hego - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0730-213500.596 - 55751 - A7EPQ7ULZ075hego - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0730-213500.597 - 55751 - A7EPQ7ULZ075hego - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2207301141417369card_cd=CCKMbatch_limit_dt=20270331235959card_name=KB국민카드join_cd=card_bank_cd=0090card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+0730-213501.742 - 55846 - A7EPQ7ULZ175hego - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202207301659184500050]+log_level=[3]+opt=[0]
+0730-213501.747 - 55846 - A7EPQ7ULZ175hego - MSG : PG_SERVER_CONN__SUCC
+0730-213501.759 - 55846 - A7EPQ7ULZ175hego - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0730-213502.001 - 55846 - A7EPQ7ULZ175hego - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0730-213502.002 - 55846 - A7EPQ7ULZ175hego - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ7ULZ175hegopay_method=PACAorder_no=202207301659184500050res_green_deposit_mny=0card_no=5365100000008336mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202207301659184500050cert_no=22841444609716tno=22841444609716amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20220730213501van_apptime=20220730213501app_no=20195008bizx_numb=00091380028quota=00noinf=Npg_txid=0730213501MNU5444609710000000890000020195008res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0090join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]

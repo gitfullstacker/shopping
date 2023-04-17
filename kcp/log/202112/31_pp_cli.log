@@ -1,0 +1,140 @@
+1231-024446.328 - 38221 - A7EPPCV2ik8Sp1Ag - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST202112311640886243195]+log_level=[3]+opt=[0]
+1231-024446.348 - 38221 - A7EPPCV2ik8Sp1Ag - MSG : PG_SERVER_CONN__SUCC
+1231-024446.359 - 38221 - A7EPPCV2ik8Sp1Ag - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-024446.694 - 38221 - A7EPPCV2ik8Sp1Ag - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-024446.696 - 38221 - A7EPPCV2ik8Sp1Ag - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPPCV2ik8Sp1Agpay_method=PACAorder_no=TEST202112311640886243195card_no=6258040000009069mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST202112311640886243195cert_no=21615494610559tno=21615494610559amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231024447van_apptime=20211231024447app_no=30026410bizx_numb=00091379948quota=02noinf=Ynoinf_type=CARDpg_txid=1231024447MNU1CHO1ZS8V0000000990000230026410res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0341isp_issuer_cd=KM04isp_issuer_nm=KB 국민카드isp_partner_cd=080204040091571join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+1231-104304.322 - 61637 - A7EPQCVAh492eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640914982540]+log_level=[3]+opt=[0]
+1231-104304.329 - 61637 - A7EPQCVAh492eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104304.340 - 61637 - A7EPQCVAh492eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104305.292 - 61637 - A7EPQCVAh492eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104305.293 - 61637 - A7EPQCVAh492eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVAh492eNP8pay_method=PACAorder_no=202112311640914982540trade_seq=21615497650628card_cd=CCBCcard_name=BC카드]
+1231-104311.704 - 61951 - A7EPQCVAhB92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640914989387]+log_level=[3]+opt=[0]
+1231-104311.710 - 61951 - A7EPQCVAhB92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104311.721 - 61951 - A7EPQCVAhB92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104312.065 - 61951 - A7EPQCVAhB92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104312.066 - 61951 - A7EPQCVAhB92eNP8 - MSG : TX_ENDED - res=[res_cd=CC39res_msg=기타거래불가카드res_en_msg=Invalid credit card.trace_no=A7EPQCVAhB92eNP8pay_method=PACAorder_no=202112311640914989387trade_seq=21615497652927card_cd=CCKMcard_name=KB국민카드]
+1231-104322.177 - 62433 - A7EPQCVAhM92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915000382]+log_level=[3]+opt=[0]
+1231-104322.182 - 62433 - A7EPQCVAhM92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104322.193 - 62433 - A7EPQCVAhM92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104322.431 - 62433 - A7EPQCVAhM92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104322.432 - 62433 - A7EPQCVAhM92eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQCVAhM92eNP8pay_method=PACAorder_no=202112311640915000382trade_seq=21615497655614card_cd=CCKMcard_name=KB국민카드]
+1231-104331.792 - 62556 - A7EPQCVAhV92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915010125]+log_level=[3]+opt=[0]
+1231-104331.798 - 62556 - A7EPQCVAhV92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104331.809 - 62556 - A7EPQCVAhV92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104332.155 - 62556 - A7EPQCVAhV92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104332.156 - 62556 - A7EPQCVAhV92eNP8 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQCVAhV92eNP8pay_method=PACAorder_no=202112311640915010125trade_seq=21615497658523card_cd=CCLGcard_name=신한카드]
+1231-104337.804 - 62791 - A7EPQCVAhb92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915016017]+log_level=[3]+opt=[0]
+1231-104337.810 - 62791 - A7EPQCVAhb92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104337.821 - 62791 - A7EPQCVAhb92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104338.269 - 62791 - A7EPQCVAhb92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104338.270 - 62791 - A7EPQCVAhb92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVAhb92eNP8pay_method=PACAorder_no=202112311640915016017trade_seq=21615497660281card_cd=CCNHcard_name=NH카드]
+1231-104348.072 - 63119 - A7EPQCVAhm92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915026135]+log_level=[3]+opt=[0]
+1231-104348.077 - 63119 - A7EPQCVAhm92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104348.088 - 63119 - A7EPQCVAhm92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104348.640 - 63119 - A7EPQCVAhm92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104348.642 - 63119 - A7EPQCVAhm92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAhm92eNP8pay_method=PACAorder_no=202112311640915026135card_no=9410340000002114mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915026135cert_no=21615497663260tno=21615497663260amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104348van_apptime=20211231104348app_no=64746790bizx_numb=172169270quota=00noinf=Npg_txid=1231104348MNU5CBOJ3T3S0000000890000064746790res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0311join_cd=0000card_cd=CCSScard_name=삼성카드acqu_cd=CCSSacqu_name=삼성카드]
+1231-104401.814 - 63358 - A7EPQCVAi192eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915037152]+log_level=[3]+opt=[0]
+1231-104401.820 - 63358 - A7EPQCVAi192eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104401.831 - 63358 - A7EPQCVAi192eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104402.577 - 63358 - A7EPQCVAi192eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104402.579 - 63358 - A7EPQCVAi192eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVAi192eNP8pay_method=PACAorder_no=202112311640915037152trade_seq=21615497667284card_cd=CCHNcard_name=하나카드]
+1231-104407.605 - 63773 - A7EPQCVAi792eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915045986]+log_level=[3]+opt=[0]
+1231-104407.611 - 63773 - A7EPQCVAi792eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104407.622 - 63773 - A7EPQCVAi792eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104408.077 - 63773 - A7EPQCVAi792eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104408.079 - 63773 - A7EPQCVAi792eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAi792eNP8pay_method=PACAorder_no=202112311640915045986card_no=4899300000003001mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915045986cert_no=21615497668928tno=21615497668928amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104407van_apptime=20211231104407app_no=61871982bizx_numb=712148865quota=00noinf=Npg_txid=1231104407MNU5CAOJ486E0000000890000061871982res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0020join_cd=0000card_cd=CCBCcard_name=BC카드acqu_cd=CCBCacqu_name=BC카드]
+1231-104415.652 - 64036 - A7EPQCVAiF92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915053869]+log_level=[3]+opt=[0]
+1231-104415.657 - 64036 - A7EPQCVAiF92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104415.669 - 64036 - A7EPQCVAiF92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104416.021 - 64036 - A7EPQCVAiF92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104416.022 - 64036 - A7EPQCVAiF92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVAiF92eNP8pay_method=PACAorder_no=202112311640915053869trade_seq=21615497671302card_cd=CCKMcard_name=KB국민카드]
+1231-104421.566 - 64275 - A7EPQCVAiL92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915059834]+log_level=[3]+opt=[0]
+1231-104421.572 - 64275 - A7EPQCVAiL92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104421.583 - 64275 - A7EPQCVAiL92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104421.930 - 64275 - A7EPQCVAiL92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104421.931 - 64275 - A7EPQCVAiL92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAiL92eNP8pay_method=PACAorder_no=202112311640915059834card_no=6244350000001984mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915059834cert_no=21615497673212tno=21615497673212amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104421van_apptime=20211231104421app_no=01288055bizx_numb=00993773340quota=00noinf=Npg_txid=1231104421MNU5FIOJ4IY40000000890000001288055res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0081join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+1231-104429.350 - 64459 - A7EPQCVAiT92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915067800]+log_level=[3]+opt=[0]
+1231-104429.356 - 64459 - A7EPQCVAiT92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104429.368 - 64459 - A7EPQCVAiT92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104429.908 - 64459 - A7EPQCVAiT92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104429.909 - 64459 - A7EPQCVAiT92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAiT92eNP8pay_method=PACAorder_no=202112311640915067800card_no=5365100000009372mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915067800cert_no=21615497675742tno=21615497675742amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104429van_apptime=20211231104429app_no=25026346bizx_numb=00091380028quota=00noinf=Npg_txid=1231104429MNU5FHOJ4OY40000000890000025026346res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0090join_cd=0000card_cd=CCKMcard_name=KB국민카드acqu_cd=CCKMacqu_name=KB국민카드]
+1231-104439.025 - 64811 - A7EPQCVAid92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915077052]+log_level=[3]+opt=[0]
+1231-104439.030 - 64811 - A7EPQCVAid92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104439.041 - 64811 - A7EPQCVAid92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104439.988 - 64811 - A7EPQCVAid92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104439.989 - 64811 - A7EPQCVAid92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAid92eNP8pay_method=PACAorder_no=202112311640915077052card_no=5118450000000555mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915077052cert_no=21615497678819tno=21615497678819amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104439van_apptime=20211231104439app_no=48147870bizx_numb=00993773340quota=00noinf=Npg_txid=1231104439MNU5FJOJ4WF00000000890000048147870res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0081join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+1231-104447.994 - 65008 - A7EPQCVAil92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640915086195]+log_level=[3]+opt=[0]
+1231-104448.000 - 65008 - A7EPQCVAil92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-104448.011 - 65008 - A7EPQCVAil92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-104448.766 - 65008 - A7EPQCVAil92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-104448.768 - 65008 - A7EPQCVAil92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVAil92eNP8pay_method=PACAorder_no=202112311640915086195card_no=6360940000008864mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640915086195cert_no=21615497681646tno=21615497681646amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231104448van_apptime=20211231104448app_no=61873983bizx_numb=712148865quota=00noinf=Npg_txid=1231104448MNU5EGOJ53CF0000000890000061873983res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0020join_cd=0000card_cd=CCBCcard_name=BC카드acqu_cd=CCBCacqu_name=BC카드]
+1231-114043.470 - 10410 - A7EPQCVBeh92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640918420759]+log_level=[3]+opt=[0]
+1231-114043.476 - 10410 - A7EPQCVBeh92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-114043.487 - 10410 - A7EPQCVBeh92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-114044.433 - 10410 - A7EPQCVBeh92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-114044.434 - 10410 - A7EPQCVBeh92eNP8 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVBeh92eNP8pay_method=PACAorder_no=202112311640918420759card_no=4089660000004239mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640918420759cert_no=21615499026764tno=21615499026764amount=84000card_mny=84000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231114043van_apptime=20211231114043app_no=27477918bizx_numb=00993773340quota=00noinf=Npg_txid=1231114043MNU5FDOL50IO0000000840000027477918res_tax_flag=TG01res_tax_mny=76363res_free_mny=0res_vat_mny=7637partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0081join_cd=0000card_cd=CCHNcard_name=하나카드acqu_cd=CCKEacqu_name=하나카드(외환)]
+1231-123915.370 - 21655 - A7EPQCVCdF6mBbc7 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640921897983]+log_level=[3]+opt=[0]
+1231-123915.377 - 21655 - A7EPQCVCdF6mBbc7 - MSG : PG_SERVER_CONN__SUCC
+1231-123915.388 - 21655 - A7EPQCVCdF6mBbc7 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-123915.866 - 21655 - A7EPQCVCdF6mBbc7 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-123915.867 - 21655 - A7EPQCVCdF6mBbc7 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512429795card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-124112.335 - 28689 - A7EPQCVCfC6mBbc7 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640922041307]+log_level=[3]+opt=[0]
+1231-124112.341 - 28689 - A7EPQCVCfC6mBbc7 - MSG : PG_SERVER_CONN__SUCC
+1231-124112.352 - 28689 - A7EPQCVCfC6mBbc7 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-124112.719 - 28689 - A7EPQCVCfC6mBbc7 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-124112.720 - 28689 - A7EPQCVCfC6mBbc7 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512436995card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-124309.719 - 32391 - A7EPQCVCh96mBbc7 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640922157168]+log_level=[3]+opt=[0]
+1231-124309.725 - 32391 - A7EPQCVCh96mBbc7 - MSG : PG_SERVER_CONN__SUCC
+1231-124309.736 - 32391 - A7EPQCVCh96mBbc7 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-124310.312 - 32391 - A7EPQCVCh96mBbc7 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-124310.313 - 32391 - A7EPQCVCh96mBbc7 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512444695card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-124314.483 - 32512 - A7EPQCVChE6mBbc7 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640922157168]+log_level=[3]+opt=[0]
+1231-124314.488 - 32512 - A7EPQCVChE6mBbc7 - MSG : PG_SERVER_CONN__SUCC
+1231-124314.499 - 32512 - A7EPQCVChE6mBbc7 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-124314.966 - 32512 - A7EPQCVChE6mBbc7 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-124314.967 - 32512 - A7EPQCVChE6mBbc7 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512445295card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-130358.418 - 18178 - A7EPQCVD3w7a3fg5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640923389385]+log_level=[3]+opt=[0]
+1231-130358.424 - 18178 - A7EPQCVD3w7a3fg5 - MSG : PG_SERVER_CONN__SUCC
+1231-130358.435 - 18178 - A7EPQCVD3w7a3fg5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-130358.909 - 18178 - A7EPQCVD3w7a3fg5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-130358.910 - 18178 - A7EPQCVD3w7a3fg5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512522795card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-131049.575 - 36418 - A7EPQCVDAn7a3fg5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640923813848]+log_level=[3]+opt=[0]
+1231-131049.580 - 36418 - A7EPQCVDAn7a3fg5 - MSG : PG_SERVER_CONN__SUCC
+1231-131049.591 - 36418 - A7EPQCVDAn7a3fg5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-131050.054 - 36418 - A7EPQCVDAn7a3fg5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-131050.055 - 36418 - A7EPQCVDAn7a3fg5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512549295card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-131354.189 - 42025 - A7EPQCVDDs7a3fg5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640923813848]+log_level=[3]+opt=[0]
+1231-131354.197 - 42025 - A7EPQCVDDs7a3fg5 - MSG : PG_SERVER_CONN__SUCC
+1231-131354.208 - 42025 - A7EPQCVDDs7a3fg5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-131354.674 - 42025 - A7EPQCVDDs7a3fg5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-131354.675 - 42025 - A7EPQCVDDs7a3fg5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112310512559295card_cd=CCNHbatch_limit_dt=20221130235959card_name=NH카드join_cd=card_bank_cd=0362card_bin_type_02=1card_bin_type_01=0van_tx_id=]
+1231-131356.152 - 42103 - A7EPQCVDDu7a3fg5 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640924035391]+log_level=[3]+opt=[0]
+1231-131356.157 - 42103 - A7EPQCVDDu7a3fg5 - MSG : PG_SERVER_CONN__SUCC
+1231-131356.168 - 42103 - A7EPQCVDDu7a3fg5 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-131356.624 - 42103 - A7EPQCVDDu7a3fg5 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-131356.625 - 42103 - A7EPQCVDDu7a3fg5 - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVDDu7a3fg5pay_method=PACAorder_no=202112311640924035391card_no=5461120000007684mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640924035391cert_no=21615001215390tno=21615001215390amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231131356van_apptime=20211231131356app_no=62295409bizx_numb=148036642quota=00noinf=Npg_txid=1231131356MNU5CCOOGVSJ0000000890000062295409use_point=0res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=1card_bin_bank_cd=0362join_cd=0000card_cd=CCNHcard_name=NH카드acqu_cd=CCNHacqu_name=NH카드]
+1231-135424.642 - 10367 - A7EPQCVDsO92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640926462697]+log_level=[3]+opt=[0]
+1231-135424.649 - 10367 - A7EPQCVDsO92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-135424.660 - 10367 - A7EPQCVDsO92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-135425.302 - 10367 - A7EPQCVDsO92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-135425.303 - 10367 - A7EPQCVDsO92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVDsO92eNP8pay_method=PACAorder_no=202112311640926462697trade_seq=21615002001411card_cd=CCNHcard_name=NH카드]
+1231-135848.242 - 20886 - A7EPQCVDwm92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640926726619]+log_level=[3]+opt=[0]
+1231-135848.248 - 20886 - A7EPQCVDwm92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-135848.260 - 20886 - A7EPQCVDwm92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-135849.106 - 20886 - A7EPQCVDwm92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-135849.107 - 20886 - A7EPQCVDwm92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVDwm92eNP8pay_method=PACAorder_no=202112311640926726619trade_seq=21615002088580card_cd=CCBCcard_name=BC카드]
+1231-173230.756 - 26871 - A7EPQCVHWU92eNP8 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640939548564]+log_level=[3]+opt=[0]
+1231-173230.762 - 26871 - A7EPQCVHWU92eNP8 - MSG : PG_SERVER_CONN__SUCC
+1231-173230.774 - 26871 - A7EPQCVHWU92eNP8 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-173231.717 - 26871 - A7EPQCVHWU92eNP8 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-173231.718 - 26871 - A7EPQCVHWU92eNP8 - MSG : TX_ENDED - res=[res_cd=CC10res_msg=통장 잔액부족res_en_msg=Insufficient funds in the account.trace_no=A7EPQCVHWU92eNP8pay_method=PACAorder_no=202112311640939548564trade_seq=21615006385870card_cd=CCNHcard_name=NH카드]
+1231-175418.234 - 12829 - A7EPQCVHsIDI74Pc - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112311640940820716]+log_level=[3]+opt=[0]
+1231-175418.240 - 12829 - A7EPQCVHsIDI74Pc - MSG : PG_SERVER_CONN__SUCC
+1231-175418.251 - 12829 - A7EPQCVHsIDI74Pc - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-175418.518 - 12829 - A7EPQCVHsIDI74Pc - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-175418.519 - 12829 - A7EPQCVHsIDI74Pc - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=211231051419799Dcard_cd=CCLObatch_limit_dt=20240430235959card_name=롯데카드join_cd=card_bank_cd=0351card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+1231-175419.622 - 12844 - A7EPQCVHsJDI74Pc - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112311640940860234]+log_level=[3]+opt=[0]
+1231-175419.627 - 12844 - A7EPQCVHsJDI74Pc - MSG : PG_SERVER_CONN__SUCC
+1231-175419.638 - 12844 - A7EPQCVHsJDI74Pc - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1231-175420.037 - 12844 - A7EPQCVHsJDI74Pc - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1231-175420.039 - 12844 - A7EPQCVHsJDI74Pc - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQCVHsJDI74Pcpay_method=PACAorder_no=202112311640940860234card_no=5197510000002687mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202112311640940860234cert_no=21615007060783tno=21615007060783amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20211231175419van_apptime=20211231175419app_no=32632765bizx_numb=9950802495quota=00noinf=Npg_txid=1231175419MNU5CHOYHGV90000000890000032632765res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0351join_cd=0000card_cd=CCLOcard_name=롯데카드acqu_cd=CCAMacqu_name=롯데아멕스카드]

@@ -1,0 +1,10 @@
+0113-092355.036 - 26008 - A7EPP1D9Nt5lg16P - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST201801131515802995005]+log_level=[3]+opt=[0]
+0113-092355.049 - 26008 - A7EPP1D9Nt5lg16P - MSG : PG_SERVER_CONN__SUCC
+0113-092355.060 - 26008 - A7EPP1D9Nt5lg16P - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0113-092355.606 - 26008 - A7EPP1D9Nt5lg16P - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0113-092355.607 - 26008 - A7EPP1D9Nt5lg16P - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPP1D9Nt5lg16Ppay_method=PACAorder_no=TEST201801131515802995005card_cd=CCBCcard_name=BC카드acqu_cd=CCBCacqu_name=BC카드card_no=9100200000003746mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST201801131515802995005tno=18263751664564amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20180113092355van_apptime=20180113092355app_no=67649108bizx_numb=785170369quota=06noinf=Ynoinf_type=CARDpg_txid=0113092355MGI3CED0Q9WE0000000990000667649108res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0card_bin_bank_cd=0020isp_issuer_cd=BC20isp_issuer_nm=우리비씨isp_partner_cd=040100202027981join_cd=0000]
+0113-212908.400 -  8884 - A7EPQ1DLT81Mghpk - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[201801131515846544256]+log_level=[3]+opt=[0]
+0113-212908.405 -  8884 - A7EPQ1DLT81Mghpk - MSG : PG_SERVER_CONN__SUCC
+0113-212908.417 -  8884 - A7EPQ1DLT81Mghpk - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0113-212908.670 -  8884 - A7EPQ1DLT81Mghpk - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0113-212908.671 -  8884 - A7EPQ1DLT81Mghpk - MSG : TX_ENDED - res=[res_cd=CC54res_msg=카드유효기간만료 또는 불일치res_en_msg=The expiry date has passed, or the date does not match.trace_no=A7EPQ1DLT81Mghpkpay_method=PACAorder_no=201801131515846544256trade_seq=18263755783520card_cd=CCBCcard_name=BC카드]

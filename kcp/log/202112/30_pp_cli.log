@@ -1,0 +1,10 @@
+1230-154748.181 - 60552 - A7EPQCUFlm1cEDPt - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202112301640846792813]+log_level=[3]+opt=[0]
+1230-154748.196 - 60552 - A7EPQCUFlm1cEDPt - MSG : PG_SERVER_CONN__SUCC
+1230-154748.208 - 60552 - A7EPQCUFlm1cEDPt - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1230-154748.777 - 60552 - A7EPQCUFlm1cEDPt - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1230-154748.779 - 60552 - A7EPQCUFlm1cEDPt - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=2112300509503666card_cd=CCHNbatch_limit_dt=20260430235959card_name=하나카드join_cd=card_bank_cd=0081card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+1230-154749.781 - 60621 - A7EPQCUFln1cEDPt - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202112301640846869319]+log_level=[3]+opt=[0]
+1230-154749.786 - 60621 - A7EPQCUFln1cEDPt - MSG : PG_SERVER_CONN__SUCC
+1230-154749.798 - 60621 - A7EPQCUFln1cEDPt - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+1230-154750.149 - 60621 - A7EPQCUFln1cEDPt - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+1230-154750.150 - 60621 - A7EPQCUFln1cEDPt - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQCUFln1cEDPtpay_method=PACAorder_no=202112301640846869319trade_seq=21994482413009card_cd=CCHNcard_name=하나카드]

@@ -1,0 +1,20 @@
+0327-002820.511 - 22215 - A7EPQ3R0SK4eDBsD - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00300001]+ordr_idxx=[TEST202103271616771961943]+log_level=[3]+opt=[0]
+0327-002820.528 - 22215 - A7EPQ3R0SK4eDBsD - MSG : PG_SERVER_CONN__SUCC
+0327-002820.540 - 22215 - A7EPQ3R0SK4eDBsD - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0327-002820.817 - 22215 - A7EPQ3R0SK4eDBsD - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0327-002820.819 - 22215 - A7EPQ3R0SK4eDBsD - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리batch_key=210327468742795Ccard_cd=CCAMbatch_limit_dt=20240731235959card_name=롯데아멕스카드join_cd=card_bank_cd=card_bin_type_02=0card_bin_type_01=0van_tx_id=]
+0327-002821.783 - 22224 - A7EPQ3R0SL4eDBsD - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[202103271616772501537]+log_level=[3]+opt=[0]
+0327-002821.789 - 22224 - A7EPQ3R0SL4eDBsD - MSG : PG_SERVER_CONN__SUCC
+0327-002821.800 - 22224 - A7EPQ3R0SL4eDBsD - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0327-002822.050 - 22224 - A7EPQ3R0SL4eDBsD - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0327-002822.051 - 22224 - A7EPQ3R0SL4eDBsD - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPQ3R0SL4eDBsDpay_method=PACAorder_no=202103271616772501537card_no=376277000000279mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=202103271616772501537cert_no=21336258488866tno=21336258488866amount=89000card_mny=89000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210327002822van_apptime=20210327002822app_no=62623882bizx_numb=9950802495quota=00noinf=Npg_txid=0327002822MNU5FJXLK9590000000890000062623882res_tax_flag=TG01res_tax_mny=80909res_free_mny=0res_vat_mny=8091partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCAMcard_name=롯데아멕스카드acqu_cd=CCAMacqu_name=롯데아멕스카드]
+0327-153950.507 - 27428 - A7EPP3RFdo30lopi - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST202103271616827140260]+log_level=[3]+opt=[0]
+0327-153950.533 - 27428 - A7EPP3RFdo30lopi - MSG : PG_SERVER_CONN__SUCC
+0327-153950.544 - 27428 - A7EPP3RFdo30lopi - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0327-153950.781 - 27428 - A7EPP3RFdo30lopi - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0327-153950.782 - 27428 - A7EPP3RFdo30lopi - MSG : TX_ENDED - res=[res_cd=CC16res_msg=할부개월수 오류res_en_msg=Error in installment months.trace_no=A7EPP3RFdo30lopipay_method=PACAorder_no=TEST202103271616827140260trade_seq=21336266189784card_cd=CCLGcard_name=신한카드]
+0327-154034.715 - 31951 - A7EPP3RFeY30lopi - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[TEST202103271616827204399]+log_level=[3]+opt=[0]
+0327-154034.720 - 31951 - A7EPP3RFeY30lopi - MSG : PG_SERVER_CONN__SUCC
+0327-154034.731 - 31951 - A7EPP3RFeY30lopi - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0327-154035.276 - 31951 - A7EPP3RFeY30lopi - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0327-154035.277 - 31951 - A7EPP3RFeY30lopi - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPP3RFeY30lopipay_method=PACAorder_no=TEST202103271616827204399card_no=4518420000003671mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=TEST202103271616827204399cert_no=21336266200582tno=21336266200582amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20210327154035van_apptime=20210327154035app_no=18385043bizx_numb=0112039425quota=03noinf=Ynoinf_type=CARDpg_txid=0327154035MNU1CJYI5CZT0000000990000318385043use_point=0res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000card_cd=CCLGcard_name=신한카드acqu_cd=CCLGacqu_name=신한카드]

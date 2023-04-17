@@ -1,0 +1,90 @@
+
+/* for div where treeview is placed */
+div.ob_tree		{
+	background-color_____:#f9f9f9; 
+	background-image_____: url('/images/sky.gif'); 
+	overflow:auto;
+	border_____:1px solid #999999;
+}
+
+/* for node text */
+td.ob_t2	{
+	FONT: 8pt Tahoma;
+	vertical-align:middle;
+	border: 1px solid #ffffff;
+	background-color:none;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/* for selected node text highlighted/selected */
+td.ob_t3		{
+	font: 8pt Tahoma; 
+	vertical-align:middle;
+	border:1px solid #6699cc;
+	background-color:ccddee;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+/* for node when edited */
+input.ob_t3		{
+	font: 8pt Tahoma; 
+}
+
+/* links in all nodes */
+td.ob_t2 A		{
+	color: #3366cc;
+}
+
+/* link in selected node */
+td.ob_t3 A		{
+	color: crimson;
+}
+
+/* for icons */
+td.ob_t4	 	{
+	vertical-align:top;
+}
+
+/* for icons */
+div.ob_d4 		{
+	width: 19px;
+	font: 6pt Tahoma;
+}
+
+/* for children */
+td.ob_t5	{
+	width:100%;
+}
+
+/* for vertical lines (indent) */
+div.ob_d5		{
+	width:18px;
+}
+
+/* for plus-minus images */
+td.ob_t6		{
+	width:16px;
+	vertical-align:top;
+}
+
+/* for message "Loading ..." */
+td.ob_t7		{
+	FONT:8pt Tahoma;
+	background-color:#ffffff;
+	border:1px solid #666666; 
+	color:#666666;
+	width:80px;
+	text-align:center;
+	padding-left:20px;
+}
+
+/* for links */
+A.ob_a2		{
+	FONT: 8pt Tahoma; 
+	COLOR: #0000cd; 
+	TEXT-DECORATION: none;
+}
+		
+

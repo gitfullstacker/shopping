@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ABLANC</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script language="javascript" src="../js/common_gnb.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script>
+	  $( function() {
+		// run the currently selected effect
+		function runEffect() {
+		  // get effect type from
+		  var selectedEffect = $( "#effectTypes" ).val();
+	 
+		  // Most effect types need no options passed by default
+		  var options = {};
+		  // some effects have required parameters
+		  if ( selectedEffect === "scale" ) {
+			options = { percent: 50 };
+		  } else if ( selectedEffect === "size" ) {
+			options = { to: { width: 200, height: 60 } };
+		  }
+	 
+		  // Run the effect
+		  $( "#search_menu" ).toggle( selectedEffect, options, 500 );
+			$(".search_close").click(function(){
+				$("#search_menu").hide();
+			});
+		};
+	 
+		// Set effect from select menu value
+		$( "#button" ).on( "click", function() {
+		  runEffect();
+		});
+	  } );
+	</script>
+	<script type="text/javascript" src="../js/jquery.sumoselect.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+			window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
+		});
+	</script>
+</head>
+<body onload="InitializeStaticMenu();">
+	
+	<div id="wrap">
+		<!-- header -->
+		<div id="header_w">
+			<div class="top_bx01">
+				<h1 class="logo"><a href="#;"><img src="../images/common/logo.png" alt="" /></a></h1>
+				<div class="util_sns">
+					<a href="#;"><img src="../images/common/btn_facebook.png" alt="" /></a>
+					<a href="#;"><img src="../images/common/btn_instagram.png" alt="" /></a>
+				</div>
+				<div class="util_menu">
+					<a href="#;">후기</a>
+					<a href="#;">로그인</a>
+					<a href="#;">회원가입</a>
+					<a href="#;">마이페이지</a>
+				</div>
+				<p class="top_search"><img id="button" src="../images/common/btn_top_search.png" alt="" /></p>
+			</div>		
+			<div class="gnb">
+				<ul>
+					<li><a href="#;">ALL</a></li>
+					<li><a href="#;">NEW</a></li>
+					<li><a href="#;">SMALL</a></li>
+					<li><a href="#;">MEDIUM</a></li>
+					<li><a href="#;">BIG</a></li>
+					<li><a href="#;">WEDDING</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		<!-- //header -->
+		<!--search-->
+		<div id="search_menu">
+			<div class="bg_search_menu"></div>
+			<form>
+				<div class="search_inbx">		
+					<div class="search_border">
+						<input type="text" class="inp_search" /> 
+						<input type="image" class="btn_search" src="../images/common/btn_top_search02.png"/>
+					</div>		
+				</div>
+				<p class="search_close"><img src="../images/common/btn_serch_close.png" alt="" /></p>
+			</form>
+		</div>
+		<!--//search-->
+		<!-- STATICMENU -->
+		<div id="STATICMENU">
+			<div class="q_menu">
+				<p class="mypage"><a href="#;">마이페이지</a></p>
+				<p><a href="#;">이용방법</a></p>
+				<p><a href="#;">자주묻는 질문</a></p>
+				<p><a href="#;">문의하기(Q&amp;A)</a></p>
+				<p><a href="#;">반납</a></p>
+				<p><a href="#;">GET한 가방</a></p>
+				<p><a href="#;">입고알림 가방</a></p>
+				<p><a href="#;">좋아요 가방</a></p>
+				<p><a href="#;">가방 요청</a></p>
+				<p><a href="#;">내가 쓴 이용후기</a></p>
+				<p><a href="#;">내 스탬프</a></p>
+				<p><a href="#;">멤버쉽 정보</a></p>
+				<p><a href="#;">개인 정보</a></p>
+			</div>
+			
+			<div class="q_tit02">
+				<dl>
+					<dt>최근본상품<span>2</span></dt>
+					<dd>
+						<p class="list_bx">
+							<a href="#;"><img src="../images/main/ex01.jpg" alt="" style="width:85px;height:85px;" /></a>
+							<a href="#;"><img src="../images/main/ex02.jpg" alt="" style="width:85px;height:85px;" /></a>
+						</p>
+						<p class="btn_bx">
+							<a href="#;"><img src="../images/common/w_btn_p.gif" alt="" /></a>
+							<a href="#;"><img src="../images/common/w_btn_n.gif" alt="" /></a>
+						</p>
+					</dd>
+				</dl>
+			</div>
+			
+		</div>
+		<!-- //STATICMENU -->
+		<div id="container">
+			
+			<div class="sub_container">
+				<div class="contents_w">
+					<p class="nav_a">HOME   >   가방찾기</p>
+					<div class="tit_h2 mt10">가방찾기</div>
+					<div>
+						<span class="tit_h3">가방 빨리 찾아보기</span>  
+						<span>원하는 조건으로 찾아보세요.</span>
+					</div>
+					<div class="t_cover01 mt15">
+						<table class="t_type02">
+							<colgroup>
+								<col style="width:25%;" />
+								<col style="width:25%;" />
+								<col style="width:25%;" />
+								<col />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>카테고리</th>
+									<th>브랜드</th>
+									<th>크기</th>
+									<th class="no_l_r">컬러</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="v_top">
+										<ul class="sc_list">
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+										</ul>
+									</td>
+									<td class="v_top">
+										<ul class="sc_list">
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+										</ul>
+									</td>
+									<td class="v_top">
+										<ul class="sc_list">
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+										</ul>
+									</td>
+									<td class="v_top no_l_r">
+										<ul class="sc_list">
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+											<li><label><input type="checkbox" /> BRNAD NAME</label></li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="t_type01 t_top_line">
+							<colgroup>
+								<col style="width:25%;" />
+								<col />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th class="left">키워드</th>
+									<td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="center mt35">
+						<a href="#;" class="btn btn_l btn_bk w w270 f_bd">검색 초기화</a>
+						<a href="#;" class="btn btn_l btn_ylw w w270 f_bd">선택 조건으로 검색하기</a>
+					</div>
+
+					
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div id="footer_wrap">
+		<div class="footer">
+			<ul class="f_menu">
+				<li><a href="#;">회사소개</a></li>
+				<li><a href="#;">고객센터</a></li>
+				<li><a href="#;">제휴문의</a></li>
+				<li><a href="#;">개인정보취급방침</a></li>
+				<li><a href="#;">이용약관</a></li>
+			</ul>
+			<div class="f_box_w">
+				<div class="f_box01">
+					<p><img src="../images/common/logo_f.png" alt="" /></p>
+					<ul>
+						<li>에이블랑ㅣ대표 박용훈</li>
+						<li>개인정보관리 책임자 박용훈 ablancpm@gmail.comㅣ사업자등록번호 120-00-12345ㅣ통신판매번호 제2016-서초1234</li>
+						<li>서울시 서초구 방배선행길2 108 - 502호</li>
+						<li>Copyrightⓒablanc.com All Rights Reserved.</li>
+					</ul>
+				</div>
+				<div class="f_box02">
+					<dl>
+						<dt>고객센터</dt>
+						<dd class="num"><img src="../images/common/cs_num.png" alt="" /></dd>
+						<dd>FAX 02.8737.6733</dd>
+						<dd>평일 09:00~18:00ㅣ점심 12:00~13:00</dd>
+						<dd>주말/공휴일은 휴무</dd>
+					</dl>
+				</div>
+				<div class="f_box03">
+					<p><img src="../images/common/share_logo.png" alt="" /><a href="#;"><img src="../images/common/btn_share01.png" alt="" /></a><a href="#;"><img src="../images/common/btn_share02.png" alt="" /></a></p>
+					<dl>
+						<dt><img src="../images/common/btn_share03.png" alt="" /></dt>
+						<dd><span>@에이블랑컴퍼니</span> 친구추가 하세요.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+
+</body>
+</html>

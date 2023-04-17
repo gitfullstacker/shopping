@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" debug="true">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Daum에디터</title>
+	<script src="../js/global.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		function getURLParam(strParamName){
+			var strReturn = "";
+			var strHref = window.location.href;
+
+			if ( strHref.indexOf("?") > -1 ){
+
+	 			var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+	 			var aQueryString = strQueryString.split("&");
+
+				for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+	      			if ( aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+	        			var aParam = aQueryString[iParam].split("=");
+	        			strReturn = aParam[1];
+	        			break;
+	     			}
+	    		}
+	 		}
+	 		return unescape(strReturn);
+		}
+		function init() {
+			prefix = getURLParam("prefix");
+			if (prefix) {
+				parent.Editor.prototype.switchEditor(prefix);
+			}
+			try{
+				if (parent.Editor && parent.Editor.getCanvas()) {
+					parent.Editor.getCanvas().fireJobs('canvas.panel.iframe.load', document);
+				}
+			}catch(e){
+				
+			}
+		}
+		
+		var UI = {};
+		UI.toolTip = function(){}
+
+		function ciaCallback() {}
+	</script>
+	<link rel="stylesheet" href="../css/contents4view.css" type="text/css" />
+	<link rel="stylesheet" href="../css/contents4edit.css" type="text/css" />
+</head>
+<body onload="init()">
+<p></p>
+</body></html>

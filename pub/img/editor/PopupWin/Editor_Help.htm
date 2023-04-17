@@ -1,0 +1,203 @@
+<html style="width:422; height:350;">
+
+
+<!--
+//****************************************************************************************
+//*
+//*		프로그램명	: HTML 에디터 Ver2.0.0.1 의 도움말 파일
+//*		제작자		: 이원문 (Knhead , 큰머리)
+//*		제작일		: 2003년 10월 23일
+//*		수정		: 
+//*		
+//*		특징		: 순수 Javascript로 위직 에디터 구현
+//*		저작권		: 저작권은 이원문(Knhead, 큰머리)에 있음.
+//*					  소스 수정 사용시 제작자의 허락이 있어야 함.
+//*					  원본 그대로 사용시는 허락 없어도 사용 가능
+//*
+//*		주의		: 이 소스로 인한 피해 및 손해 배상은 제작자가 아닌 사용자에게 있습니다.
+//*		
+//****************************************************************************************
+-->
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>도움말　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　.</title>
+
+<style type="text/css">
+	body		{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	td, select	{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+	pre			{font-size: 9pt; font-family: 굴림, 돋음; font-style:  normal; font-weight: normal;}
+</style>
+
+</head>
+
+<body onload="javascript:this.focus();">
+
+<table border="0" cellpadding="5" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="400" height="100%">
+	<tr>
+		<td width="100%" bgcolor="#E5E5E5" height="50" style="font-size: 10pt; font-family: 굴림, 돋음; font-style: normal; font-weight: normal"><b>
+		<font color="#808080" face="Arial Black" style="font-size: 20pt">HELP</font></b></td>
+	</tr>
+	<tr>
+		<td width="100%" height="*">KNEditor Ver 2.0.0.1 도움말입니다.<br>
+		<br>
+		이 프로그램은 위지위그로 쉽게글을 입력할수 있는 에디터 입니다.<br>
+　<table border="0" cellspacing="1" style="border-collapse: collapse" width="100%">
+			<tr>
+				<td align="center" bgcolor="#E5E5E5" height="20">그림</td>
+				<td align="center" bgcolor="#E5E5E5" height="20">이름</td>
+				<td bgcolor="#E5E5E5" height="20">설명</td>
+			</tr>
+			<tr>
+				<td align="center"><select class="Editor_Select">
+<option value="굴림체" selected>굴림체</option>
+</select></td>
+				<td align="center" bgcolor="#F0F0F0">글자체 선택</td>
+				<td>글자 모양을 선택</td>
+			</tr>
+			<tr>
+				<td align="center"><select class="Editor_Select">
+<option value="3">3(12pt)</option>
+</select></td>
+				<td align="center" bgcolor="#F0F0F0">글자 크기 선택</td>
+				<td>글자의 크기를 선택</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_numberlist.gif" width="14" height="14"></td>
+				<td align="center" bgcolor="#F0F0F0">번호 메기기</td>
+				<td>글자를 숫자가 붙은 목록으로 정렬</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_balllist.gif" width="14" height="13"></td>
+				<td align="center" bgcolor="#F0F0F0">글머리 기호</td>
+				<td>글자를 <font style="font-size: 5pt">●</font>가 붙은 목록으로 정렬</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_outdent.gif" width="16" height="15"></td>
+				<td align="center" bgcolor="#F0F0F0">내어쓰기</td>
+				<td>글자를 내어씀</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_indent.gif" width="16" height="15"></td>
+				<td align="center" bgcolor="#F0F0F0">들여쓰기</td>
+				<td>글자를 들여씀</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_left.gif" width="14" height="11"></td>
+				<td align="center" bgcolor="#F0F0F0">왼쪽 맞춤</td>
+				<td>글을 왼쪽에 맞춤</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_center.gif" width="14" height="11"></td>
+				<td align="center" bgcolor="#F0F0F0">가운데 맞춤</td>
+				<td>글을 가운데 맞춤</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_right.gif" width="13" height="11"></td>
+				<td align="center" bgcolor="#F0F0F0">오른쪽 맞춤</td>
+				<td>글을 오른쪽에 맞춤</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_cut.gif" width="9" height="14"></td>
+				<td align="center" bgcolor="#F0F0F0">잘라내기</td>
+				<td>선택된 영역의 내용을 잘라내기</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_copy.gif" width="15" height="13"></td>
+				<td align="center" bgcolor="#F0F0F0">복사하기</td>
+				<td>선택된 영역의 내용을 복사하기</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_paste.gif" width="16" height="14"></td>
+				<td align="center" bgcolor="#F0F0F0">붙여넣기</td>
+				<td>복사, 잘라내기한 내용을 붙여넣기</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_b.gif" width="9" height="9"></td>
+				<td align="center" bgcolor="#F0F0F0">굵게</td>
+				<td>선택된 글자를 굵게 처리</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_i.gif" width="9" height="9"></td>
+				<td align="center" bgcolor="#F0F0F0">기울임꼴</td>
+				<td>선택된 글자에 기울임 처리</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_u.gif" width="9" height="11"></td>
+				<td align="center" bgcolor="#F0F0F0">밑줄</td>
+				<td>선택된 글자에 밑줄 처리</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_fontcolor.gif" width="17" height="15"></td>
+				<td align="center" bgcolor="#F0F0F0">글꼴 색</td>
+				<td>글꼴의 색을 지정</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_backcolor.gif" width="17" height="15"></td>
+				<td align="center" bgcolor="#F0F0F0">강조</td>
+				<td>글꼴의 배경에 색을 지정</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_hr.gif" width="12" height="2"></td>
+				<td align="center" bgcolor="#F0F0F0">가로줄</td>
+				<td>가로줄 삽입</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_link.gif" width="16" height="16"></td>
+				<td align="center" bgcolor="#F0F0F0">하이퍼 링크</td>
+				<td>하이퍼 링크 지정</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_image.gif" width="15" height="14"></td>
+				<td align="center" bgcolor="#F0F0F0">그림 삽입</td>
+				<td>해당 그림을 삽입</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_table.gif" width="16" height="13"></td>
+				<td align="center" bgcolor="#F0F0F0">테이블 삽입</td>
+				<td>테이블을 삽입</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_info.gif" width="20" height="11"></td>
+				<td align="center" bgcolor="#F0F0F0">버전 표시</td>
+				<td>에디터의 버전 표시</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<img border="0" src="../Images/icon_help.gif" width="14" height="16"></td>
+				<td align="center" bgcolor="#F0F0F0">도움말</td>
+				<td>에디터의 기본 도움말</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" height="25" bgcolor="#E5E5E5" align="center" style="font-size: 10pt; font-family: 굴림, 돋음; font-style: normal; font-weight: normal">Copyright 
+		2001-2003 knhead.pe.kr All Rights Reserved.</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

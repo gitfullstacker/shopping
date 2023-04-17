@@ -1,0 +1,1 @@
+<?=date("Y-m-d", strtotime(date("Y-m-d", strtotime($month."1month"))."-1day"));?>

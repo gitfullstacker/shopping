@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ABLANC</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script language="javascript" src="../js/common_gnb.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script>
+	  $( function() {
+		// run the currently selected effect
+		function runEffect() {
+		  // get effect type from
+		  var selectedEffect = $( "#effectTypes" ).val();
+	 
+		  // Most effect types need no options passed by default
+		  var options = {};
+		  // some effects have required parameters
+		  if ( selectedEffect === "scale" ) {
+			options = { percent: 50 };
+		  } else if ( selectedEffect === "size" ) {
+			options = { to: { width: 200, height: 60 } };
+		  }
+	 
+		  // Run the effect
+		  $( "#search_menu" ).toggle( selectedEffect, options, 500 );
+			$(".search_close").click(function(){
+				$("#search_menu").hide();
+			});
+		};
+	 
+		// Set effect from select menu value
+		$( "#button" ).on( "click", function() {
+		  runEffect();
+		});
+	  } );
+	</script>
+	<script type="text/javascript" src="../js/jquery.sumoselect.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+			window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
+		});
+	</script>
+</head>
+<body onload="InitializeStaticMenu();">
+	
+	<div id="wrap">
+		<!-- header -->
+		<div id="header_w">
+			<div class="top_bx01">
+				<h1 class="logo"><a href="#;"><img src="../images/common/logo.png" alt="" /></a></h1>
+				<div class="util_sns">
+					<a href="#;"><img src="../images/common/btn_facebook.png" alt="" /></a>
+					<a href="#;"><img src="../images/common/btn_instagram.png" alt="" /></a>
+				</div>
+				<div class="util_menu">
+					<a href="#;">후기</a>
+					<a href="#;">로그인</a>
+					<a href="#;">회원가입</a>
+					<a href="#;">마이페이지</a>
+				</div>
+				<p class="top_search"><img id="button" src="../images/common/btn_top_search.png" alt="" /></p>
+			</div>		
+			<div class="gnb">
+				<ul>
+					<li><a href="#;">ALL</a></li>
+					<li><a href="#;">NEW</a></li>
+					<li><a href="#;">SMALL</a></li>
+					<li><a href="#;">MEDIUM</a></li>
+					<li><a href="#;">BIG</a></li>
+					<li><a href="#;">WEDDING</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		<!-- //header -->
+		<!--search-->
+		<div id="search_menu">
+			<div class="bg_search_menu"></div>
+			<form>
+				<div class="search_inbx">		
+					<div class="search_border">
+						<input type="text" class="inp_search" /> 
+						<input type="image" class="btn_search" src="../images/common/btn_top_search02.png"/>
+					</div>		
+				</div>
+				<p class="search_close"><img src="../images/common/btn_serch_close.png" alt="" /></p>
+			</form>
+		</div>
+		<!--//search-->
+		<!-- STATICMENU -->
+		<div id="STATICMENU">
+			<div class="q_menu">
+				<p class="mypage"><a href="#;">마이페이지</a></p>
+				<p><a href="#;">이용방법</a></p>
+				<p><a href="#;">자주묻는 질문</a></p>
+				<p><a href="#;">문의하기(Q&amp;A)</a></p>
+				<p><a href="#;">반납</a></p>
+				<p><a href="#;">GET한 가방</a></p>
+				<p><a href="#;">입고알림 가방</a></p>
+				<p><a href="#;">좋아요 가방</a></p>
+				<p><a href="#;">가방 요청</a></p>
+				<p><a href="#;">내가 쓴 이용후기</a></p>
+				<p><a href="#;">내 스탬프</a></p>
+				<p><a href="#;">멤버쉽 정보</a></p>
+				<p><a href="#;">개인 정보</a></p>
+			</div>
+			
+			<div class="q_tit02">
+				<dl>
+					<dt>최근본상품<span>2</span></dt>
+					<dd>
+						<p class="list_bx">
+							<a href="#;"><img src="../images/main/ex01.jpg" alt="" style="width:85px;height:85px;" /></a>
+							<a href="#;"><img src="../images/main/ex02.jpg" alt="" style="width:85px;height:85px;" /></a>
+						</p>
+						<p class="btn_bx">
+							<a href="#;"><img src="../images/common/w_btn_p.gif" alt="" /></a>
+							<a href="#;"><img src="../images/common/w_btn_n.gif" alt="" /></a>
+						</p>
+					</dd>
+				</dl>
+			</div>
+			
+		</div>
+		<!-- //STATICMENU -->
+		<div id="container">
+			
+			<div class="sub_container">
+				<div class="contents_w">
+					<p class="nav_a">HOME   >   고객센터   >   공지사항</p>
+					<div class="tit_h2 mt10">고객센터</div>
+					<div class="lnb_tab">
+						<ul>
+							<li><a href="notice.html">공지사항</a></li>
+							<li><a href="qna.html">문의하기(Q&amp;A)</a></li>
+							<li><a href="faq.html">자주묻는 질문</a></li>
+							<li><a href="review.html">이용후기</a></li>
+							<li class="on"><a href="guide.html">이용방법</a></li>
+							<li><a href="today.html">최근 본 가방</a></li>
+						</ul>
+					</div>
+					<div class="faq_category mt30">
+						<a href="#;" class="on">GET하기</a>
+						<span class="icn icn_bar"></span>
+						<a href="#;">사용하기</a>
+						<span class="icn icn_bar"></span>
+						<a href="#;">입고하기</a>
+						<span class="icn icn_bar"></span>
+						<a href="#;">CHANGE</a>
+						<span class="icn icn_bar"></span>
+						<a href="#;">입고알림받기</a>
+						<span class="icn icn_bar"></span>
+						<a href="#;">이용 주의 사항</a>
+					</div>
+					<div class="guide_w mt30">
+						<div class="guide_bx">
+							<p class="g_img"><img src="../images/sub/img_guide01.jpg" alt="" /></p>
+							<dl>
+								<dt>GET하기</dt>
+								<dd><i class="icn icn_f_bk24">1</i>회원가입을 한다.</dd>
+								<dd><i class="icn icn_f_bk24">2</i>쇼핑을 한다.</dd>
+								<dd class="con_img"><i class="icn icn_f_bk24">3</i>원하는 가방을 발견하고 <img src="../images/sub/icn_guide_btn01.gif" alt="" /> 클릭!</dd>
+								<dd><i class="icn icn_f_bk24">4</i>배송지 및 카드정보 입력 하면 GET 완료! <br />(카드정보 입력해도 바로 결제되지 않으며, 언제든 수정이 가능하니 안심하고 이용하세요.)</dd>
+								<dd><i class="icn icn_f_bk24">5</i>오전 11시 이전 GET 한 가방은 당일발송! (왕복배송비 무료)</dd>
+							</dl>
+						</div>
+						<div class="guide_bx mt30">
+							<p class="g_img"><img src="../images/sub/img_guide02.jpg" alt="" /></p>
+							<dl>
+								<dt>사용하기</dt>
+								<dd><i class="icn icn_f_bk24">1</i>배송 온 박스는 그대로 두고 가방을 마음껏 이용한다.</dd>
+								<dd><i class="icn icn_f_bk24">2</i>가방을 사용하지 않을 때에는 아이나 애완동물의 손이 닿지 않는 곳에 보관한다.</dd>
+								<dd><i class="icn icn_f_bk24">3</i>가방이 훼손/분실 되었을 경우 즉시 에이블랑에 연락해 조치를 취한다.</dd>
+							</dl>
+						</div>
+						<div class="guide_bx mt30">
+							<p class="g_img"><img src="../images/sub/img_guide03.jpg" alt="" /></p>
+							<dl>
+								<dt>반납하기</dt>
+								<dd class="con_img"><i class="icn icn_f_bk24">1</i>앱이나 홈페이지에서  <img src="../images/sub/icn_guide_btn02.gif" alt="" /> 클릭한다.</dd>
+								<dd><i class="icn icn_f_bk24">2</i>반납방법과 날짜를 선택하면 반납신청 완료</dd>
+								<dd><i class="icn icn_f_bk24">3</i>배송 시 받은 박스에 가방을 다시 넣고 반품스티커를 붙인다.</dd>
+								<dd><i class="icn icn_f_bk24">4</i>선택한 날짜에, 원하는 반납 방법으로 입고하면 끝!(왕복배송비 무료)</dd>
+							</dl>
+						</div>
+						<div class="guide_bx mt30">
+							<p class="g_img"><img src="../images/sub/img_guide04.jpg" alt="" /></p>
+							<dl>
+								<dt>CHANGE</dt>
+								<dd><i class="icn icn_f_bk24">1</i>사용하던 가방을 입고신청 한다.</dd>
+								<dd><i class="icn icn_f_bk24">2</i>새로운 가방을 쇼핑한다.</dd>
+								<dd class="con_img"><i class="icn icn_f_bk24">3</i>원하는 가방을 발견하고 <img src="../images/sub/icn_guide_btn03.gif" alt="" />를 클릭하면 끝!</dd>
+								<dd><i class="icn icn_f_bk24">4</i>기존에 사용하던 가방의 반납승인이 완료되는 즉시 새로 선택한 가방 발송! </dd>
+							</dl>
+						</div>
+						<div class="guide_bx mt30">
+							<p class="g_img"><img src="../images/sub/img_guide05.jpg" alt="" /></p>
+							<dl>
+								<dt>입고알림 받기 <span class="desc">*원하는 가방이 RENTED 상태일 때, 입고알림받기 신청 가능합니다. </span></dt>
+								<dd><i class="icn icn_f_bk24">1</i>입고알림받기 클릭</dd>
+								<dd><i class="icn icn_f_bk24">2</i>한 ID당 하나의 가방에 입고알림 신청 가능</dd>
+								<dd><i class="icn icn_f_bk24">3</i>입고 알림 신청이 되어 있는 가방이 입고되는 즉시, 대기 고객들에게 순차적으로 문자메시지 발송 (1시간 간격)</dd>
+								<dd><i class="icn icn_f_bk24">4</i>1시간 내로 앱이나 홈페이지에 접속하여 GET 혹은 CHANGE 신청!</dd>
+								<dd class="etc">※1시간이 지나면 다음 고객에게 알림 메시지가 발송되며, 입고알림을 받았으나 시간차로 인해 <br />해당 가방을 GET하지 못했을 경우, 고객이 직접 입고알림을 취소하지 않는 한 대기 순서는 <br />계속 유지됩니다.</dd>
+							</dl>
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div id="footer_wrap">
+		<div class="footer">
+			<ul class="f_menu">
+				<li><a href="#;">회사소개</a></li>
+				<li><a href="#;">고객센터</a></li>
+				<li><a href="#;">제휴문의</a></li>
+				<li><a href="#;">개인정보취급방침</a></li>
+				<li><a href="#;">이용약관</a></li>
+			</ul>
+			<div class="f_box_w">
+				<div class="f_box01">
+					<p><img src="../images/common/logo_f.png" alt="" /></p>
+					<ul>
+						<li>에이블랑ㅣ대표 박용훈</li>
+						<li>개인정보관리 책임자 박용훈 ablancpm@gmail.comㅣ사업자등록번호 120-00-12345ㅣ통신판매번호 제2016-서초1234</li>
+						<li>서울시 서초구 방배선행길2 108 - 502호</li>
+						<li>Copyrightⓒablanc.com All Rights Reserved.</li>
+					</ul>
+				</div>
+				<div class="f_box02">
+					<dl>
+						<dt>고객센터</dt>
+						<dd class="num"><img src="../images/common/cs_num.png" alt="" /></dd>
+						<dd>FAX 02.8737.6733</dd>
+						<dd>평일 09:00~18:00ㅣ점심 12:00~13:00</dd>
+						<dd>주말/공휴일은 휴무</dd>
+					</dl>
+				</div>
+				<div class="f_box03">
+					<p><img src="../images/common/share_logo.png" alt="" /><a href="#;"><img src="../images/common/btn_share01.png" alt="" /></a><a href="#;"><img src="../images/common/btn_share02.png" alt="" /></a></p>
+					<dl>
+						<dt><img src="../images/common/btn_share03.png" alt="" /></dt>
+						<dd><span>@에이블랑컴퍼니</span> 친구추가 하세요.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //footer -->
+
+</body>
+</html>

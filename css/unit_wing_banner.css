@@ -1,0 +1,102 @@
+/* BASIC css start */
+.fix_rt_menu {
+	position:fixed;
+	top:95px;
+	right:-117px;
+	z-index:9999;
+	bottom:0px;
+	width:117px; /*border-left:1px solid #cccccc;background:#fff;*/
+	
+}
+.fix_rt_menu .fix_rt_content {
+	position:relative;
+	z-index:40;
+	width:232px;
+}
+.fix_rt_menu .fix_rt_content .fixclose_bt {
+	position:absolute;
+	top:-200px;
+	left:100px;
+	z-index:50;
+	color:#000000;
+	font-size:13px;
+	padding:4px 27px 4px 0px;
+	background:url(/design/yamiyami/wib2015/top/fix_closebtn.gif) no-repeat right 2px;
+	cursor:pointer;
+}
+.fix_rt_menu .fix_rt_content .rt_btn {
+	width:23px;
+	height:63px;
+	position:absolute;
+	top:194px;
+	left:-23px;
+	z-index:20;
+	cursor:pointer;
+}
+a {
+	text-decoration:none;
+}
+.rbanner_wrap {
+	width:124px;
+	height:558px;
+	background:#fff;
+	border:1px solid #d4d4d4;
+}
+.rbanner_1 {
+	width:124px;
+	height:33px;
+	background:#fff;
+	border-bottom:1px solid #d4d4d4;
+}
+.rbanner_crema {
+	width:124px;
+	height:85px;
+	background:#fff;
+	border-bottom:1px solid #d4d4d4;
+}
+.rbanner_text {
+	height:36px;
+	background:#fff;
+	border-bottom:1px solid #d4d4d4;
+	font-size:10pt;
+	font-family:돋움;
+	color:#000;
+	padding-left:13px;
+	line-height:36px;
+}
+.rbanner_icon {
+	width:124px;
+	height:44px;
+	background:#fff;
+	border-bottom:4px solid #595959;
+}
+.rbanner_beecon {
+	width:124px;
+	height:42px;
+	background:#fff;
+	border-bottom:1px solid #d4d4d4;
+}
+.rbanner_bn {
+	width:124px;
+	height:95px;
+	background:#fff;
+	border-bottom:1px solid #d4d4d4;
+}
+.rbanner_topbt {
+	width:124px;
+	height:31px;
+	background:#efefef;
+	text-align:center;
+	font-size:10pt;
+	color:#939393;
+	font-weight:bold;
+	line-height:32px;
+}
+.icon {
+	width:28px;
+	height:28px;
+	float:left;
+	padding:9px 4px 0px 8px;
+}
+/* BASIC css end */
+

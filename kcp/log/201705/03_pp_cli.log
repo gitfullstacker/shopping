@@ -1,0 +1,10 @@
+0503-012353.496 - 11664 - A7EPP531NrFjPKho - MSG : TX_START - site_cd=[A7EPP]+tx_cd=[00100000]+ordr_idxx=[201705031493742189473]+log_level=[3]+opt=[0]
+0503-012353.500 - 11664 - A7EPP531NrFjPKho - MSG : PG_SERVER_CONN__SUCC
+0503-012353.512 - 11664 - A7EPP531NrFjPKho - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0503-012353.964 - 11664 - A7EPP531NrFjPKho - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0503-012353.964 - 11664 - A7EPP531NrFjPKho - MSG : TX_ENDED - res=[res_cd=0000res_msg=정상처리res_en_msg=processing completedtrace_no=A7EPP531NrFjPKhopay_method=PACAorder_no=201705031493742189473card_cd=CCNHcard_name=NH카드acqu_cd=CCNHacqu_name=NH카드card_no=9411170000000458mcht_taxno=1138521083mall_taxno=6988600719ca_order_id=201705031493742189473tno=17373826821048amount=99000card_mny=99000coupon_mny=0escw_yn=Nvan_cd=VNKCapp_time=20170503012354van_apptime=20170503012354app_no=30001765bizx_numb=103001131quota=00noinf=Npg_txid=0503012354MP01EJCEO4MN0000000990000030001765use_point=0res_tax_flag=TG01res_tax_mny=90000res_free_mny=0res_vat_mny=9000partcanc_yn=Ycard_bin_type_01=0card_bin_type_02=0join_cd=0000]
+0503-144742.806 - 23583 - A7EPQ53ElgAQSR87 - MSG : TX_START - site_cd=[A7EPQ]+tx_cd=[00100000]+ordr_idxx=[20170531493790452624]+log_level=[3]+opt=[0]
+0503-144742.844 - 23583 - A7EPQ53ElgAQSR87 - MSG : PG_SERVER_CONN__SUCC
+0503-144742.856 - 23583 - A7EPQ53ElgAQSR87 - MSG : PG_SERVER_REQ_MSG_SEND__SUCC
+0503-144743.577 - 23583 - A7EPQ53ElgAQSR87 - MSG : PG_SERVER_RES_MSG_RECV__SUCC
+0503-144743.577 - 23583 - A7EPQ53ElgAQSR87 - MSG : TX_ENDED - res=[res_cd=CC61res_msg=거래금액 한도초과res_en_msg=The card holder has exceeded his or her credit limit.trace_no=A7EPQ53ElgAQSR87pay_method=PACAorder_no=20170531493790452624trade_seq=17373829734187card_cd=CCBCcard_name=BC카드]
