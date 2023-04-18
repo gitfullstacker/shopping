@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 
@@ -55,7 +55,7 @@
 	}
 	$total_record_limit=mysql_num_rows($result);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 		<div id="container">
 			
@@ -64,7 +64,7 @@
 					<p class="nav_a">HOME   >   마이페이지   >   멤버십 정보</p>
 					<!-- <div class="tit_h2 mt10">마이페이지</div> -->
 					<div class="lnb_tab">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/mypage/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/mypage/tab.php"; ?>
 					</div>
 					<dl class="membership_bx04 center mt30">
 						<dt>
@@ -290,4 +290,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

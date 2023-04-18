@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?   
 	Fnc_Acc_Admin();
 	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -9,7 +9,7 @@
 ?>
 <html>
 <head>
-<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
+<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php";?>
 <script language="JavaScript" src="js/comm_editor_list.js"></script>
 </head>
 <body class=scroll>

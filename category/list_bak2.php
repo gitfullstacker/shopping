@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$page = Fnc_Om_Conv_Default($_REQUEST[page],1);
 	$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow],9);
@@ -81,7 +81,7 @@
 
 	$str_String = "?Page=".$page."&displayrow=".urlencode($displayrow)."&Txt_bcode=".urlencode($Txt_bcode);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 		<div id="container">
 			
@@ -264,4 +264,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$str_Ini_Group_Table = "@01";
 	$str_Board_Icon_Img = "/pub/img/board/";
@@ -61,7 +61,7 @@
 	}
 	$arr_Get_Data_Cnt5=mysql_num_rows($arr_Get_Data5);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 
 		<div class="m_visual">
 			<div class="swiper-container1">
@@ -373,4 +373,4 @@
 		</div>
 
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>

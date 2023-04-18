@@ -97,7 +97,7 @@
 
 
 			$Temp = mysql_result($arr_Del_File,$int_I,CONF_ATT_URL).mysql_result($arr_Del_File,$int_I,CONF_SEQ)."/" ;
-			$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$Temp;
+			$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$Temp;
 			Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_Del_File,$int_I,F_NICK));
 
 			$Sql_Query = "DELETE FROM `".$Tname."b_".$str_Db_Type."_data".$str_Ini_Group_Table."` WHERE ".$str_Db_Type."_SEQ=".mysql_result($arr_Del_File,$int_I,SEQ);

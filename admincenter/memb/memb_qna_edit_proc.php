@@ -1,5 +1,5 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/Snoopy.class.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>
@@ -23,7 +23,7 @@
 
 	$chkItem1 = Fnc_Om_Conv_Default($_REQUEST[chkItem1],"");
 
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/qna/";
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/qna/";
 
 	if (!is_dir($str_Add_Tag)){
 		mkdir($str_Add_Tag,0777);

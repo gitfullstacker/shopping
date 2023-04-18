@@ -4,7 +4,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   마이페이지   >   내가 쓴 이용후기</p>
 					<div class="lnb_tab mt10"> 
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/mypage/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/mypage/tab.php"; ?>
 					</div>
 					<!-- <div class="tit_h2_2 mt45">내가 쓴 이용후기</div>
 					<p class="tit_desc mt20">고객님의 소중한 후기로 많은 분들이 좋은 선택을 할 수 있게 도와주세요.</p> -->

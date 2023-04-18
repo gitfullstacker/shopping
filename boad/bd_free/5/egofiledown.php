@@ -54,7 +54,7 @@
 	$str_File_Name = mysql_result($arr_Rlt_Data,0,F_NAME);
 	$str_Content_Type  = mysql_result($arr_Rlt_Data,0,F_MIME);
 	$str_Content_Type = "application/x-msdownload";
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_Ini_File_Path;
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_Ini_File_Path;
 
 	$str_Real_File_Name=iconv("UTF-8","EUC-KR",$str_Real_File_Name) ? iconv("UTF-8","EUC-KR",$str_Real_File_Name) : $str_Real_File_Name;
 	$str_File_Name=iconv("UTF-8","EUC-KR",$str_File_Name) ? iconv("UTF-8","EUC-KR",$str_File_Name) : $str_File_Name;

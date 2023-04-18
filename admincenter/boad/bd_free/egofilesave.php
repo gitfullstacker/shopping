@@ -4,7 +4,7 @@
 ?>
 <?include "inc/ego_bd_ini.php";?>
 <?
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_Ini_File_Path;
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_Ini_File_Path;
 
 	if (!is_dir($str_Add_Tag)){
 		mkdir($str_Add_Tag,0777);

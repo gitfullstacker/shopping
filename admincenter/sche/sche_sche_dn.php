@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	header("Content-Type: text/html; charset=UTF-8");
 ?>
@@ -18,7 +18,7 @@
 	$arr_Rlt_Data=mysql_query($Sql_Query);
 	$arr_Rlt_Data_Cnt=mysql_num_rows($arr_Rlt_Data);
 	
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/sche/";
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/sche/";
 	
 	$str_Real_File_Name=mysql_result($arr_Rlt_Data,0,STR_SIMAGE1);
 	$str_File_Name=mysql_result($arr_Rlt_Data,0,STR_SIMAGE1);

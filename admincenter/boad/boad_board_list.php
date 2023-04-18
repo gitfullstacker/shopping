@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -13,7 +13,8 @@
 	switch ($str_gubun){
 		case "1" : $conf_type="0";break;
 		case "2" : $conf_type="2"; break;
-		case "3" :$conf_type="4"; break;
+		case "3" :
+$conf_type="4"; break;
 	}
 
 	$Txt_conf_title  = Fnc_Om_Conv_Default($_REQUEST[Txt_conf_title],"");
@@ -73,26 +74,26 @@
 	$total_record_limit=mysql_num_rows($result);
 ?>
 <html>
-<head>
+<head>['DOCUMENT_ROOT']
 <?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
 <script language="javascript" src="js/boad_board_list.js"></script>
 </head>
 <body class=scroll>
 <table width=100% height=100% cellpadding=0 cellspacing=0 border=0>
-	<tr>
+	<tr>['DOCUMENT_ROOT']
 		<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_logo_info.php";?>
-		<td width=100%>
+		<td width=100%>['DOCUMENT_ROOT']
 			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_tmenu_info.php";?>
 		</td>
 	</tr>
-	<tr>
+	<tr>['DOCUMENT_ROOT']
 		<td colspan="3"><?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_tmenu.php";?></td>
 	</tr>
 	<tr>
-		<td valign=top id=leftMenu>
+		<td valign=top id=l['DOCUMENT_ROOT']
 			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_lmenu_info.php";?>
 		</td>
-		<td colspan=2 valign=top height=100%> 
+		<td colspan=2 valig['DOCUMENT_ROOT']0%> 
 			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_stitle_info.php";?>
 			<table width=100%>
 				<tr>
@@ -269,7 +270,7 @@
 						</div>
 
 						</form>
-
+['DOCUMENT_ROOT']
 						<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_btip_info.php";?>
 					</td>
 				</tr>
@@ -277,7 +278,7 @@
 		</td>
 	</tr>
 
-	<tr><td height=3 bgcolor="#E6E6E6" colspan=2></td></tr>
+	<tr><td height=3 b['DOCUMENT_ROOT']" colspan=2></td></tr>
 	<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_copyright_info.php";?>
 </table>
 <script>table_design_load();</script>

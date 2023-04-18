@@ -1,5 +1,5 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="JavaScript" src="js/idpw_search.js"></script>
 
 		<form id="frm" name="frm" target="_self" method="POST">
@@ -7,7 +7,7 @@
 		<input type="hidden" name="gbn">
 		
 		<div class="con_width">
-			<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/submenu_memberjoin.php"; ?>
+			<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/submenu_memberjoin.php"; ?>
 			<div class="idpw_bx">
 				<div class="idpw_tit">아이디 찾기</div>
 				<div class="idpw_f">
@@ -69,4 +69,4 @@
 		
 		</form>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>

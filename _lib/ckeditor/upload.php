@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$CKEditorFuncNum=$_REQUEST[CKEditorFuncNum];
 	$str_dimage1 = Fnc_Om_Conv_Default($_REQUEST[upload],"");
@@ -10,7 +10,7 @@
 	
 		$str_Img_Tag = "/admincenter/files/editer/";
 	
-		$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_Img_Tag;
+		$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_Img_Tag;
 		
 		$str_Temp=Fnc_Om_File_Save($str_image1,$str_image1_name,$str_dimage1,0,0,"",$str_Add_Tag);
 	

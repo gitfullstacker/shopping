@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_MLogin_Chk();
 
@@ -69,7 +69,7 @@
 
 	$str_String = "?Page=".$page."&displayrow=".urlencode($displayrow)."&Txt_bcode=".urlencode($Txt_bcode);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/like.js"></script>
 		
 		<form id="frm" name="frm" target="_self" method="POST" action="like.php">
@@ -144,4 +144,4 @@
 		
 		</form>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>

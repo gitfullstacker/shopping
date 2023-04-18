@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?
 	Fnc_Acc_Admin();

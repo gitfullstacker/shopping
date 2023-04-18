@@ -24,7 +24,7 @@
     /* =   log 경로 지정                                                            = */
     /* ============================================================================== */
     //$g_conf_log_path = "/data1/newpg/pay/kimhj/ax_hub_linux_jsp/bin/log";
-    $g_conf_log_path  = $_SERVER[DOCUMENT_ROOT]."/kcp/log";
+    $g_conf_log_path  = $_SERVER['DOCUMENT_ROOT']."/kcp/log";
 
 
     /* ============================================================================== */

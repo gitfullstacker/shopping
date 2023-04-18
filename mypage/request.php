@@ -1,8 +1,8 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/request.js"></script>
 
 		<div id="container">
@@ -11,7 +11,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   마이페이지   >   가방요청</p>
 					<div class="lnb_tab mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/mypage/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/mypage/tab.php"; ?>
 					</div>
 					
 					<form id="frm" name="frm" target="_self" method="POST" action="request.php" enctype="multipart/form-data">
@@ -215,4 +215,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

@@ -1,11 +1,11 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 		
 		
 	<div class="con_width" style="padding-top:1px;">
 			<div class="lin_tab mt20">
 			
-			<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/submenu_memberjoin.php"; ?>
+			<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/submenu_memberjoin.php"; ?>
 			<script>
 				function autosize(){
 					var oFrame = top.document.getElementById("clause01");
@@ -20,4 +20,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>

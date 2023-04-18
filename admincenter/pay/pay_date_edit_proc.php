@@ -1,5 +1,5 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/Snoopy.class.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>

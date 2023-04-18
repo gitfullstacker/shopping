@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 	
@@ -83,7 +83,7 @@
 	}
 	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/get.js"></script>
 
 		<div id="container">
@@ -92,7 +92,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   마이페이지   >   가방 내역</p>
 					<div class="lnb_tab mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/mypage/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/mypage/tab.php"; ?>
 					</div>
 					
 
@@ -273,4 +273,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

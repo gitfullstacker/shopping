@@ -1,5 +1,5 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 		<div id="container">
 			
@@ -7,7 +7,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   고객센터   >   이용방법</p>
 					<div class="lnb_tab lnb_tab6 mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/cscenter/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/cscenter/tab.php"; ?>
 					</div>
 			
 	 			</div>
@@ -34,4 +34,4 @@
 			
 
 		</div>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer02.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer02.php"; ?>

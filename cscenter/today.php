@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$page = Fnc_Om_Conv_Default($_REQUEST[page],1);
 	$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow],9);
@@ -53,7 +53,7 @@
 	
 	$sBuy = fnc_buy_info();
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 		<div id="container">
 			
@@ -61,7 +61,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   고객센터   >   최근 본 가방</p>
 					<div class="lnb_tab lnb_tab6 mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/cscenter/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/cscenter/tab.php"; ?>
 					</div>
 
 					<p class="mt30">총 <?=$total_record?> 개의 가방이 있습니다.</p>
@@ -217,4 +217,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

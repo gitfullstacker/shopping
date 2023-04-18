@@ -6,42 +6,42 @@
 ?>
 <?include "inc/ego_bd_ini.php";?>
 <?
-	$int_Bd_Seq = Fnc_Om_Conv_Default($_REQUEST[seq],"");	// --- ¼±ÅÃÇÑ °Ô½Ã¹° ¼ø¹ø
+	$int_Bd_Seq = Fnc_Om_Conv_Default($_REQUEST[seq],"");	// --- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-	//	= ÀÐ±â Àü¿ë °Ô½ÃÆÇÀÌ¶ó¸é °ü¸®ÀÚ ÀÌ¿ÜÀÇ ±Û¾²±â °ÅºÎ ½ÃÀÛ
+	//	= ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½
 	If ($arr_Ini_Board_Info[0][8]<2) {
 		If ($bln_Cur_Writer==False) {
-			echo "<Script Language='JavaScript'>alert('±Û ÀÛ¼º ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.');document.location.replace('egolist.php?bd=$int_Ini_Board_Seq');</Script>";
+			echo "<Script Language='JavaScript'>alert('ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');document.location.replace('egolist.php?bd=$int_Ini_Board_Seq');</Script>";
 			exit;
 		}
 	}
-	//	= ÀÐ±â Àü¿ë °Ô½ÃÆÇÀÌ¶ó¸é °ü¸®ÀÚ ÀÌ¿ÜÀÇ ±Û¾²±â °ÅºÎ Á¾·á
+	//	= ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½
 	// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 	// ==========================================
-	//	= ¼öÁ¤, ´ä±Û¾²±â °ü·Ã ¼³Á¤°ª º¯¼ö¿¡ ÀúÀå ½ÃÀÛ
-	$int_Mode = Fnc_Om_Conv_Default($_REQUEST[mode],"0");  // --- int_Mode [0:½Å±Ô±ÛÀÛ¼º, 1:±Û¼öÁ¤, 2:´äº¯±Û¾²±â]
+	//	= ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	$int_Mode = Fnc_Om_Conv_Default($_REQUEST[mode],"0");  // --- int_Mode [0:ï¿½Å±Ô±ï¿½ï¿½Û¼ï¿½, 1:ï¿½Û¼ï¿½ï¿½ï¿½, 2:ï¿½äº¯ï¿½Û¾ï¿½ï¿½ï¿½]
 	$str_String = Fnc_Om_Conv_Default($_REQUEST[txt_String],"");
 	$str_Doc_Pwd = Fnc_Om_Conv_Default($_REQUEST[txt_Pwd],"");
 
 	If ($str_String=="") {
 		$str_String = "?".$loc_I_Pg_Dstr;
 	}
-	//	= ¼öÁ¤, ´ä±Û¾²±â °ü·Ã ¼³Á¤°ª º¯¼ö¿¡ ÀúÀå Á¾·á
+	//	= ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ==========================================
 
 	// ============================================================
-	//	= ´äº¯ ±Û¾²±â°¡ ºÒ°¡´ÉÇÑ °Ô½ÃÆÇÀÌ¶ó¸é ´ä±Û¾²±â °ÅºÎ ½ÃÀÛ
+	//	= ï¿½äº¯ ï¿½Û¾ï¿½ï¿½â°¡ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½
 	If ($int_Mode==2 && $arr_Ini_Board_Info[0][9]==0) {
-		echo "<Script Language='JavaScript'>alert('´ä±Û¾²±â°¡ ºÒ°¡´ÉÇÑ °Ô½ÃÆÇ ÀÔ´Ï´Ù.');document.location.replace('egolist.php?bd=$int_Ini_Board_Seq');</Script>";
+		echo "<Script Language='JavaScript'>alert('ï¿½ï¿½Û¾ï¿½ï¿½â°¡ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.');document.location.replace('egolist.php?bd=$int_Ini_Board_Seq');</Script>";
 		exit;
 	}
-	//	= ´äº¯ ±Û¾²±â°¡ ºÒ°¡´ÉÇÑ °Ô½ÃÆÇÀÌ¶ó¸é ´ä±Û¾²±â °ÅºÎ Á¾·á
+	//	= ï¿½äº¯ ï¿½Û¾ï¿½ï¿½â°¡ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ============================================================
 
 	// ===============================
-	//	= Àß¸ø µî·ÏµÈ ÆÄÀÏ ¹× µ¥ÀÌÅÍ »èÁ¦ ½ÃÀÛ
+	//	= ï¿½ß¸ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	$Sql_Query = " SELECT
 					1 AS TYPE,
@@ -86,18 +86,18 @@
 	if($arr_Del_File_Cnt){
 		for($int_I = 0 ;$int_I < $arr_Del_File_Cnt; $int_I++) {
 			// =======================================================
-			//	= ÀÌ¹ÌÁö ÆÄÀÏÀÏ¶§ ÀÌ¹ÌÁö Å×ÀÌºí ¾Æ´Ò¶§ ÆÄÀÏÅ×ÀÌºí ¼³Á¤ ½ÃÀÛ
+			//	= ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Æ´Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			If (mysql_result($arr_Del_File,$int_I,TYPE)=="0") {
 				$str_Db_Type = "FILE";
 			}Else{
 				$str_Db_Type = "IMG" ;
 			}
-			//	= ÀÌ¹ÌÁö ÆÄÀÏÀÏ¶§ ÀÌ¹ÌÁö Å×ÀÌºí ¾Æ´Ò¶§ ÆÄÀÏÅ×ÀÌºí ¼³Á¤ Á¾·á
+			//	= ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Æ´Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			// =======================================================
 
 
 			$Temp = mysql_result($arr_Del_File,$int_I,CONF_ATT_URL).mysql_result($arr_Del_File,$int_I,CONF_SEQ)."/" ;
-			$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$Temp;
+			$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$Temp;
 			Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_Del_File,$int_I,F_NICK));
 
 			$Sql_Query = "DELETE FROM `".$Tname."b_".$str_Db_Type."_data".$str_Ini_Group_Table."` WHERE ".$str_Db_Type."_SEQ=".mysql_result($arr_Del_File,$int_I,SEQ);
@@ -105,24 +105,24 @@
 
 		}
 	}
-	//	= Àß¸ø µî·ÏµÈ ÆÄÀÏ ¹× µ¥ÀÌÅÍ »èÁ¦ Á¾·á
+	//	= ï¿½ß¸ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ===============================
 
 	// ===============================
-	//	= Àß¸ø µî·ÏµÈ °Ô½Ã¹° »èÁ¦ ½ÃÀÛ
+	//	= ï¿½ß¸ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	$Sql_Query =	" DELETE FROM `".$Tname."b_bd_data".$str_Ini_Group_Table."` WHERE BD_ID_KEY IS NULL AND BD_IDX IS NULL AND DATE_ADD(NOW(), INTERVAL -1 HOUR) > BD_REG_DATE ";
 	$result=mysql_query($Sql_Query);
-	//	= Àß¸ø µî·ÏµÈ °Ô½Ã¹° »èÁ¦ Á¾·á
+	//	= ï¿½ß¸ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ===============================
 
 	// =========================================
-	//	À¯ÀÏÅ°°ª »ý¼º ½ÃÀÛ
-	$str_Id_Key = Fnc_Om_Id_Key_Create();	//' --- À¯ÀÏÇÑ Å°°ª »ý¼º
-	//	À¯ÀÏÅ°°ª »ý¼º Á¾·á
+	//	ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	$str_Id_Key = Fnc_Om_Id_Key_Create();	//' --- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//	ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// =========================================
 
 	// =========================================
-	//	= ÀüÃ¼ °Ô½ÃÆÇ À¯¹« È®ÀÎ ½ÃÀÛ
+	//	= ï¿½ï¿½Ã¼ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	If ($bln_Main_Bd) {
 		If ($int_Bd_Seq>0) {
 			$Sql_Query = "SELECT CONF_SEQ FROM `".$Tname."b_bd_data".$str_Ini_Group_Table."` WHERE BD_SEQ=".$int_Bd_Seq;
@@ -132,11 +132,11 @@
 			$int_Ini_Board_Seq = $int_Main_Bd;
 		}
 	}
-	//	= ÀüÃ¼ °Ô½ÃÆÇ À¯¹« È®ÀÎ Á¾·á
+	//	= ï¿½ï¿½Ã¼ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// =========================================
 
 	// =================================================
-	//	= ±Û¼öÁ¤ÀÏ°æ¿ì ¹è¿­¿¡ µ¥ÀÌÅÍ ÀúÀå ½ÃÀÛ
+	//	= ï¿½Û¼ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	If ($int_Bd_Seq>0) {
 		$Sql_Query =	" SELECT
 						A.BD_SEQ,
@@ -179,11 +179,11 @@
 			$bln_Flag = True;
 		}
 	}
-	//	= ±Û¼öÁ¤ÀÏ°æ¿ì ¹è¿­¿¡ µ¥ÀÌÅÍ ÀúÀå Á¾·á
+	//	= ï¿½Û¼ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// =================================================
 
 	// ============================================
-	//	= ±Û ¼öÁ¤ ¹× ´äº¯ ±Û¾²±â Á¤º¸ º¯¼ö¿¡ ÀúÀå ½ÃÀÛ
+	//	= ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½äº¯ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	$int_Re_Idx = 0;
 	$int_Re_Order = 0;
 	$int_Re_Level = 0 ;
@@ -192,12 +192,12 @@
 	$int_Format = 0;
 
 	switch ($int_Mode) {
-		case 1 :	// @@@ ±Û¼öÁ¤
+		case 1 :	// @@@ ï¿½Û¼ï¿½ï¿½ï¿½
 			If ($arr_Get_Data[0][8]=="" && $bln_Cur_Admin==False) {
 				If ($arr_Get_Data[0][14]==$str_Doc_Pwd) {
 					$bln_Cur_Writer = True;
 				}Else{
-					echo "<Script Language='JavaScript'>alert('¾ÏÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.');document.location.replace(document.referrer);</Script>";
+					echo "<Script Language='JavaScript'>alert('ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.');document.location.replace(document.referrer);</Script>";
 					$bln_Cur_Writer = False;
 					exit;
 				}
@@ -205,13 +205,13 @@
 				If ($arr_Get_Data[0][8]==$arr_Auth[0]) {
 					$bln_Cur_Writer = True;
 				}Else{
-					echo "<Script Language='JavaScript'>alert('±Û ÀÛ¼ºÀÚ¸¸ ±Û¼öÁ¤ÀÌ °¡´ÉÇÕ´Ï´Ù.');document.location.replace(document.referrer);</Script>";
+					echo "<Script Language='JavaScript'>alert('ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ú¸ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.');document.location.replace(document.referrer);</Script>";
 					$bln_Cur_Writer = False;
 					exit;
 				}
 			}
 			break;
-		case 2 :	// @@@ ´äº¯±Û¾²±â
+		case 2 :	// @@@ ï¿½äº¯ï¿½Û¾ï¿½ï¿½ï¿½
 			$int_Re_Idx = $arr_Get_Data[0][3];
 			$int_Re_Order = $arr_Get_Data[0][4] ;
 			$int_Re_Level = $arr_Get_Data[0][5] ;
@@ -224,11 +224,11 @@
 			$bln_Flag = False;
 			break;
 	}
-	//	= ±Û ¼öÁ¤ ¹× ´äº¯ ±Û¾²±â Á¤º¸ º¯¼ö¿¡ ÀúÀå Á¾·á
+	//	= ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½äº¯ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ============================================
 
 	// ============================================
-	//	= ½Å±Ô ±Ûµî·ÏÀÏ¶§ ¹è¿­¿¡ °ª ¼³Á¤ ½ÃÀÛ
+	//	= ï¿½Å±ï¿½ ï¿½Ûµï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	If ($bln_Flag == False) {
 		$arr_Get_Data[0][21] = array();
 		$arr_Get_Data[0][0] = 0;
@@ -268,7 +268,7 @@
 			$arr_Get_Data[0][10] = $arr_Auth[6];
 		}
 	}
-	//	= ½Å±Ô ±Ûµî·ÏÀÏ¶§ ¹è¿­¿¡ °ª ¼³Á¤ Á¾·á
+	//	= ï¿½Å±ï¿½ ï¿½Ûµï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	// ============================================
 ?>
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
@@ -294,8 +294,8 @@
 	var obj_Email = new Function("x", "return fnc_Email_Conf(x)");
 
 	/* +++++++++++++++++++++++++++++++++++++++ *\
-		±â´É¼³¸í : ÀÔ·Â ¶óÀÎ Á¡¼±À¸·Î ºÐ¸®
-		¹ÝÈ¯°ª : str_Devide_Html[¶óÀÎºÐ¸®HTMLÅÂ±×]
+		ï¿½ï¿½É¼ï¿½ï¿½ï¿½ : ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
+		ï¿½ï¿½È¯ï¿½ï¿½ : str_Devide_Html[ï¿½ï¿½ï¿½ÎºÐ¸ï¿½HTMLï¿½Â±ï¿½]
 	\* +++++++++++++++++++++++++++++++++++++++ */
 	function fnc_Line_Divide()
 	{
@@ -308,7 +308,7 @@
 	}
 
 	/* +++++++++++++++++++++++++++++++++++++++ *\
-		±â´É¼³¸í : ÀÔ·Â Ãë¼Ò
+		ï¿½ï¿½É¼ï¿½ï¿½ï¿½ : ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½
 	\* +++++++++++++++++++++++++++++++++++++++ */
 	function fnc_Eb_Cancel(pr_Form)
 	{
@@ -342,8 +342,8 @@
 	}
 
 	/* +++++++++++++++++++++++++++++++++++++++ *\
-		±â´É¼³¸í : Æû Àü¼Û
-		¹ÝÈ¯°ª : true | false[Àü¼Û|°ÅºÎ]
+		ï¿½ï¿½É¼ï¿½ï¿½ï¿½ : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		ï¿½ï¿½È¯ï¿½ï¿½ : true | false[ï¿½ï¿½ï¿½ï¿½|ï¿½Åºï¿½]
 	\* +++++++++++++++++++++++++++++++++++++++ */
 	function fnc_Eb_Send(pr_Form, pr_Mtx)
 	{
@@ -353,24 +353,24 @@
 		var obj_Form = pr_Form;
 
 		if(!obj_Blank(obj_Form.txt_Name.value))
-			return obj_Alert(obj_Form.txt_Name, null, "ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+			return obj_Alert(obj_Form.txt_Name, null, "ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 
 		int_Byte = obj_Byte(obj_Form.txt_Name, null, 20);
 		if(int_Byte>20)
-			return obj_Alert(obj_Form.txt_Name, null, "ÀÌ¸§Àº 20 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+			return obj_Alert(obj_Form.txt_Name, null, "ï¿½Ì¸ï¿½ï¿½ï¿½ 20 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 
 		/*if(obj_Blank(obj_Form.txt_Email.value))
 		{
 			if(!obj_Email(obj_Form.txt_Email.value))
-				return obj_Alert(obj_Form.txt_Email, null, "¿Ã¹Ù¸¥ ÀÌ¸ÞÀÏ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù.");
+				return obj_Alert(obj_Form.txt_Email, null, "ï¿½Ã¹Ù¸ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Õ´Ï´ï¿½.");
 		}*/
 
 		if(!obj_Blank(obj_Form.txt_Subject.value))
-			return obj_Alert(obj_Form.txt_Subject, null, "±ÛÁ¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+			return obj_Alert(obj_Form.txt_Subject, null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 
 		int_Byte = obj_Byte(obj_Form.txt_Subject, null, 200);
 		if(int_Byte>200)
-			return obj_Alert(obj_Form.txt_Subject, null, "±ÛÁ¦¸ñÀº 200 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+			return obj_Alert(obj_Form.txt_Subject, null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 200 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 
 //		if(!obj_Blank(obj_Form.txt_Mem_Id.value))
 //		{
@@ -379,10 +379,10 @@
 				if(typeof(obj_Form.txt_Pwd)=="object")
 				{
 					if(!obj_Blank(obj_Form.txt_Pwd.value))
-						return obj_Alert(obj_Form.txt_Pwd, null, "±Û¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+						return obj_Alert(obj_Form.txt_Pwd, null, "ï¿½Û¾ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 
 					if((obj_Form.txt_Pwd.value.length)<4)
-						return obj_Alert(obj_Form.txt_Pwd, null, "±Û¾ÏÈ£´Â 4ÀÚ ÀÌ»ó ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+						return obj_Alert(obj_Form.txt_Pwd, null, "ï¿½Û¾ï¿½È£ï¿½ï¿½ 4ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼Å¾ï¿½ ï¿½Õ´Ï´ï¿½.");
 				}
 //			}catch(e){}
 //		}
@@ -399,12 +399,12 @@
 		int_Byte = obj_Byte(obj_Form.elements[pr_Mtx], null, 100000);
 
 		if(int_Byte>100000)
-			return obj_Alert(obj_Form.elements[pr_Mtx], null, "±Û³»¿ëÀº 100000 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+			return obj_Alert(obj_Form.elements[pr_Mtx], null, "ï¿½Û³ï¿½ï¿½ï¿½ï¿½ï¿½ 100000 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 		*/
 
 
 		//if(int_Byte>100000)
-		//	return obj_Alert(obj_Form.elements[pr_Mtx], null, "±Û³»¿ëÀº 100000 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+		//	return obj_Alert(obj_Form.elements[pr_Mtx], null, "ï¿½Û³ï¿½ï¿½ï¿½ï¿½ï¿½ 100000 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 
 		oEditors.getById["mtx_Content"].exec("UPDATE_CONTENTS_FIELD", []);
 		obj_Form.method		= "post";
@@ -415,7 +415,7 @@
 	}
 
 	/* +++++++++++++++++++++++++++++++++++++++++++ *\
-		±â´É : Ã·ºÎ ÀÌ¹ÌÁö ÀúÀå/¼öÁ¤/»èÁ¦
+		ï¿½ï¿½ï¿½ : Ã·ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
 	\* +++++++++++++++++++++++++++++++++++++++++++ */
 	function fnc_Image_Save(pr_Form, pr_Lbl, pr_Sel, pr_Type)
 	{
@@ -427,32 +427,32 @@
 		{
 			if((obj_Form.fil_File_Data.disabled==true) && (int_Type==0))
 			{
-				alert("ÇöÀç ÆíÁý¸ðµå ÀÔ´Ï´Ù.\n\n¼±ÅÃÃë¼Ò¸¦ ¼±ÅÃ ÇÏ½Å ÈÄ ÀÌ¹ÌÁö¸¦ µî·ÏÇÏ¼¼¿ä.");
+				alert("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				return false;
 			}
 
 			if((int_Type==1) && (obj_Form.txt_File_Idx.value==""))
 			{
-				alert("¼öÁ¤ÇÒ ÆÄÀÏÀÌ ¼±ÅÃµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+				alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 				return false;
 			}
 
 			var int_Byte = 0;
 			int_Byte = obj_Byte(obj_Form.txt_File_Subject, null, 200);
 			if(int_Byte>200)
-				return obj_Alert(obj_Form.txt_File_Subject, null, "ÀÌ¹ÌÁö Á¦¸ñÀº 200 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+				return obj_Alert(obj_Form.txt_File_Subject, null, "ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 200 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 
 			int_Byte = obj_Byte(obj_Form.mtx_File_Content, null, 500);
 			if(int_Byte>500)
-				return obj_Alert(obj_Form.mtx_File_Content, null, "ÀÌ¹ÌÁö ¼³¸íÀº 500 ByteÀÌ»ó ÀÔ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.\n\nÇöÀç : "+int_Byte+" Byte");
+				return obj_Alert(obj_Form.mtx_File_Content, null, "ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 500 Byteï¿½Ì»ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ : "+int_Byte+" Byte");
 
 			if(!obj_Blank(obj_Form.fil_File_Data.value) && (int_Type==0))
-				return obj_Alert(obj_Form.fil_File_Data, null, "ÀÌ¹ÌÁö ÆÄÀÏÀÌ ¼±ÅÃµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+				return obj_Alert(obj_Form.fil_File_Data, null, "ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 
 			var str_File_Name = obj_Form.fil_File_Data.value;
 			str_File_Name = str_File_Name.substring(str_File_Name.lastIndexOf("\\")+1, str_File_Name.length);
 
-			// @@@@@@ µî·Ï °ÅºÎ ÆÄÀÏ µî·Ï°ÅºÎ Ã³¸® ½ÃÀÛ
+			// @@@@@@ ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï°Åºï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			var arr_Deny_File = str_Deny_File.split(",");
 			var str_File_Ext = "";
 			if(str_File_Name.indexOf('.')>-1)
@@ -466,17 +466,17 @@
 				{
 					if((str_File_Ext==arr_Deny_File[int_I])&&(arr_Deny_File[int_I]!=""))
 					{
-						alert(str_Deny_File+" ÆÄÀÏÀº µî·ÏÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+						alert(str_Deny_File+" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 						return false;
 					}
 				}
 			}catch(e){}
-			// µî·Ï °ÅºÎ ÆÄÀÏ µî·Ï°ÅºÎ Ã³¸® Á¾·á @@@@@@
+			// ï¿½ï¿½ï¿½ ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï°Åºï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ @@@@@@
 
 			var str_Pattern = /[\\/:*?\"<>|%]/;
 			if(str_Pattern.test(str_File_Name))
 			{
-				alert("ÆÄÀÏÀÌ¸§¿¡ \\ / : * ? \" < > | % ¹®ÀÚ´Â ¿Ã ¼ö ¾ø½À´Ï´Ù.");
+				alert("ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ \\ / : * ? \" < > | % ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 				return false;
 			}
 		}
@@ -484,19 +484,19 @@
 		{
 			if(obj_Sel.options.selectedIndex<0)
 			{
-				alert("»èÁ¦ÇÒ ÆÄÀÏÀ» ¼±ÅÃÇÏ¼¼¿ä.");
+				alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				return false;
 			}
 
 			if((obj_Sel.options[obj_Sel.options.selectedIndex].value)=="")
 			{
-				alert("µî·ÏµÈ ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				alert("ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 				return false;
 			}
 
 			var str_Img_Data = obj_Sel.options[obj_Sel.options.selectedIndex].text;
 
-			if(confirm((obj_Sel.options.selectedIndex+1)+" ¹øÂ° \""+str_Img_Data+"\" ÆÄÀÏÀ» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")==false)
+			if(confirm((obj_Sel.options.selectedIndex+1)+" ï¿½ï¿½Â° \""+str_Img_Data+"\" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?")==false)
 				return false;
 		}
 
@@ -575,7 +575,7 @@
 	}
 
 	/* +++++++++++++++++++++++++++++++++++++++++++ *\
-		±â´É : ¼±ÅÃÇÑ ÆÄÀÏ ¼öÁ¤¸ðµå·Î º¯È¯ ¶Ç´Â Ãë¼Ò
+		ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 	\* +++++++++++++++++++++++++++++++++++++++++++ */
 	function fnc_File_Edit_Mode(pr_Obj_Form_Name, pr_Str_Lbl_Name, pr_Int_Type)
 	{
@@ -589,12 +589,12 @@
 		{
 			if(obj_Sel.selectedIndex<0)
 			{
-				alert("¼öÁ¤ÇÒ ÆÄÀÏÀ» ¼±ÅÃÇÏ¼¼¿ä.");
+				alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				return false;
 			}
 			if(obj_Sel[obj_Sel.options.selectedIndex].value=="")
 			{
-				alert("Ã·ºÎ ÆÄÀÏÀ» µî·ÏÇÏ¼¼¿ä.");
+				alert("Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 				return false;
 			}
 
@@ -633,12 +633,12 @@
 
 		if(obj_Sel.selectedIndex<0)
 		{
-			alert("¿¡µðÅÍ¿¡ µî·ÏÇÒ ÆÄÀÏÀ» ¼±ÅÃÇÏ¼¼¿ä.");
+			alert("ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 			return false;
 		}
 		if(obj_Sel[obj_Sel.selectedIndex].value=="")
 		{
-			alert("ÆÄÀÏÀ» µî·ÏÇÏ¼¼¿ä.");
+			alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 			return false;
 		}
 		var str_Value = obj_Sel[obj_Sel.selectedIndex].value;
@@ -651,7 +651,7 @@
 			fncSetConvert(3, obj_Form, pr_Txt_Desc);
 		}
 		else
-			alert("µî·ÏÇÒ ¼ö ¾ø´Â ÆÄÀÏÀÔ´Ï´Ù.");
+			alert("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 	}
 //-->
 </SCRIPT>
@@ -703,7 +703,7 @@
 								$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								?>
 								<tr>
-									<th class="left">ÀÌ¿ë°¡¹æ</th>
+									<th class="left">ï¿½Ì¿ë°¡ï¿½ï¿½</th>
 									<td class="left" colspan="3">
 										<div class="prd_bx">
 											<p class="img" style="width:120px;height:120px;">
@@ -717,15 +717,15 @@
 									</td>
 								</tr>
 								<tr>
-									<th class="left">¾ÆÀÌµð</th>
+									<th class="left">ï¿½ï¿½ï¿½Ìµï¿½</th>
 									<td class="left line_r">
 										<?=$arr_Auth[0]?>
 									</td>
-									<th class="left">¼º¸í</th>
+									<th class="left">ï¿½ï¿½ï¿½ï¿½</th>
 									<td class="left">
 										<?
 											// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-											//	= »ç¿ëÀÚ ÀÌ¸§ Ãâ·Â ½ÃÀÛ
+											//	= ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 											If ($arr_Get_Data[0][9]=="") {
 										?>
 										<input type="text" name="txt_Name" style="width:161px;" maxlength="20" value="" class="board_input">
@@ -735,7 +735,7 @@
 										<?=$arr_Get_Data[0][9]?><input type="hidden" name="txt_Name" value="">
 										<?
 											}
-											//	= »ç¿ëÀÚ ÀÌ¸§ Ãâ·Â Á¾·á
+											//	= ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 											// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 										?>
 										<SCRIPT LANGUAGE="JavaScript">
@@ -746,7 +746,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th class="left">¸¸Á·µµ</th>
+									<th class="left">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
 									<td class="left" colspan="3">
 										<input type="radio" value="1" name="txt_item2" class=null <?If ($arr_Get_Data[0][20]=="1") {?> checked<?}?>> <img src="/images/board/icn_star1.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" />
 										<input type="radio" value="2" name="txt_item2" class=null <?If ($arr_Get_Data[0][20]=="2") {?> checked<?}?>> <img src="/images/board/icn_star1.gif" alt="" /><img src="/images/board/icn_star1.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" /><img src="/images/board/icn_star0.gif" alt="" />
@@ -756,7 +756,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th class="left">Á¦¸ñ</th>
+									<th class="left">ï¿½ï¿½ï¿½ï¿½</th>
 									<td class="left f_bk f_bd" colspan="3">
 										<input type="text" name="txt_Subject" style="width:470px;" maxlength="200" value="" class="inp01 w580">
 										<SCRIPT LANGUAGE="JavaScript">
@@ -768,14 +768,14 @@
 								</tr>
 								<input type="hidden" name="chk_Pre_View" value="<?=$arr_Get_Data[0][16]?>">
 								<tr>
-									<th class="left">³»¿ë</th>
+									<th class="left">ï¿½ï¿½ï¿½ï¿½</th>
 									<td class="left" colspan="3">
 										<p>
 											<textarea name="mtx_Content" id="mtx_Content" rows="10" cols="100" style="width:100%; height:412px; display:none;"><?php echo stripslashes($arr_Get_Data[0][13]); ?></textarea>
 											<script type="text/javascript">
 											var oEditors = [];
 											
-											// Ãß°¡ ±Û²Ã ¸ñ·Ï
+											// ï¿½ß°ï¿½ ï¿½Û²ï¿½ ï¿½ï¿½ï¿½
 											//var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];
 											
 											nhn.husky.EZCreator.createInIFrame({
@@ -783,12 +783,12 @@
 												elPlaceHolder: "mtx_Content",
 												sSkinURI: "/_lib/smart/SmartEditor2Skin.html",	
 												htParams : {
-													bUseToolbar : true,				// Åø¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
-													bUseVerticalResizer : true,		// ÀÔ·ÂÃ¢ Å©±â Á¶Àý¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
-													bUseModeChanger : true,			// ¸ðµå ÅÇ(Editor | HTML | TEXT) »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
-													//aAdditionalFontList : aAdditionalFontSet,		// Ãß°¡ ±Û²Ã ¸ñ·Ï
+													bUseToolbar : true,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (true:ï¿½ï¿½ï¿½/ false:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+													bUseVerticalResizer : true,		// ï¿½Ô·ï¿½Ã¢ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (true:ï¿½ï¿½ï¿½/ false:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+													bUseModeChanger : true,			// ï¿½ï¿½ï¿½ ï¿½ï¿½(Editor | HTML | TEXT) ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (true:ï¿½ï¿½ï¿½/ false:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+													//aAdditionalFontList : aAdditionalFontSet,		// ï¿½ß°ï¿½ ï¿½Û²ï¿½ ï¿½ï¿½ï¿½
 													fOnBeforeUnload : function(){
-														//alert("¿Ï·á!");
+														//alert("ï¿½Ï·ï¿½!");
 													}
 												}, //boolean
 												fOnAppLoad : function(){
@@ -823,12 +823,12 @@
 								<input type="hidden" name="txt_File_Type" value="">
 								<input type="hidden" name="txt_File_Desc" value="">
 								<tr>
-									<th class="left">ÆÄÀÏ¼±ÅÃ</th>
+									<th class="left">ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½</th>
 									<td class="left" colspan="3" id="lbl_File_Re_Write">
 									<input type="file" class="inp01 w580" name="fil_File_Data" style="width:265px;" id="demo-1"/>
 									<textarea class="textarea" name="mtx_File_Content" class="border_1" wrap="soft" cols="67" rows="2" style="display:none;"></textarea>
 									
-									<span class="btn btn_bk btn_m w75" align="absMiddle" style="cursor:pointer;" onclick="fnc_Image_Save('frm_File', 'lbl_File_Add_Brow', 'sel_Att_File', 0);">ÆÄÀÏµî·Ï</span>
+									<span class="btn btn_bk btn_m w75" align="absMiddle" style="cursor:pointer;" onclick="fnc_Image_Save('frm_File', 'lbl_File_Add_Brow', 'sel_Att_File', 0);">ï¿½ï¿½ï¿½Ïµï¿½ï¿½</span>
 									</td>
 								</tr>
 								<tr style="display:none;">
@@ -836,39 +836,39 @@
 									<td class="left" colspan="3"><input name="txt_File_Subject" type="text" style="width:265px;" class="board_input"></td>
 								</tr>
 								<tr>
-									<th class="left">Ã·ºÎ¸®½ºÆ®</th>
+									<th class="left">Ã·ï¿½Î¸ï¿½ï¿½ï¿½Æ®</th>
 									<td class="left" colspan="3">
 										<select name="sel_Att_File" size="3" style="width:300px;">
 											<option value="">== The attached file does not exist.</option>
 										</select>
-										<span class="btn btn_bk btn_m w75"  align="absMiddle" style="cursor:pointer; vertical-align:top;" onclick="fnc_Image_Save('frm_File', 'lbl_File_Add_Brow', 'sel_Att_File', 2);">ÆÄÀÏ»èÁ¦</span>
+										<span class="btn btn_bk btn_m w75"  align="absMiddle" style="cursor:pointer; vertical-align:top;" onclick="fnc_Image_Save('frm_File', 'lbl_File_Add_Brow', 'sel_Att_File', 2);">ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½</span>
 										
 									</td>
 								</tr>
 								<?
 									// ==========================================
-									//	= ÀÌ¹ÌÁö ¸ÖÆ¼ÄÞº¸¹Ú½º Àç ¼³Á¤ ½ÃÀÛ
+									//	= ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½Þºï¿½ï¿½Ú½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									$str_Tmp = "lbl_File_Add_Brow|frm_File|sel_Att_File";
 									$arr_Tmp = explode("|", $str_Tmp);
 									fnc_Image_Cbo_Re_Set($arr_Tmp, $arr_Get_Data[0][2], $str_Ini_Group_Table);
-									//	= ÀÌ¹ÌÁö ¸ÖÆ¼ÄÞº¸¹Ú½º Àç ¼³Á¤ ½ÃÀÛ
+									//	= ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½Þºï¿½ï¿½Ú½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									// ==========================================
 				
 									// ==========================================
-									//	ÇöÀç ÆÄÀÏ »ç¿ë·® È®ÀÎ ½ÃÀÛ
+									//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									$int_Cur_File_Size = fnc_Use_File_Size($str_Ini_Group_Table, $arr_Get_Data[0][2]);
-									//	ÇöÀç ÆÄÀÏ »ç¿ë·® È®ÀÎ Á¾·á
+									//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									// ==========================================
 								?>
 								<tr>
-									<th class="left">ÆÄÀÏ»ç¿ë·®</th>
+									<th class="left">ï¿½ï¿½ï¿½Ï»ï¿½ë·®</th>
 									<td class="left" colspan="3"><span id="lbl_File_Use_Graph"></span></td>
 								</tr>
 								<?
 									// ==========================================
-									//	= ÆÄÀÏ »ç¿ë·® Ãâ·Â ½ÃÀÛ
+									//	= ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									fnc_File_Use_Graph("lbl_File_Use_Graph", $int_Ini_Perm_File_Size, $int_Cur_File_Size);
-									//	= ÆÄÀÏ »ç¿ë·® Ãâ·Â Á¾·á
+									//	= ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 									// ==========================================
 								?>
 								<?}?>
@@ -877,8 +877,8 @@
 					</div>
 
 					<div class="center mt30">
-						<a href="#;" class="btn btn_l btn_bk w w270 f_bd" style="cursor:pointer;" onclick="fnc_Eb_Send(document.frm_Send, 'mtx_Content');">È®ÀÎ</a>
-						<a href="#;" class="btn btn_l btn_wt w w270 f_bd" style="cursor:pointer;" onclick="fnc_Eb_Cancel(document.frm_Send);">Ãë¼Ò</a>
+						<a href="#;" class="btn btn_l btn_bk w w270 f_bd" style="cursor:pointer;" onclick="fnc_Eb_Send(document.frm_Send, 'mtx_Content');">È®ï¿½ï¿½</a>
+						<a href="#;" class="btn btn_l btn_wt w w270 f_bd" style="cursor:pointer;" onclick="fnc_Eb_Cancel(document.frm_Send);">ï¿½ï¿½ï¿½</a>
 					</div>
 					
 				</form>

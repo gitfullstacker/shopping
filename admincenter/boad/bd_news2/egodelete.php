@@ -89,7 +89,7 @@
 
 				If ($arr_File_Data_Cnt) {
 					for($int_J = 0 ;$int_J < $arr_File_Data_Cnt; $int_J++) {
-						$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].mysql_result($arr_Conf_Data,0,CONF_ATT_URL).$int_Conf_Seq."/";
+						$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].mysql_result($arr_Conf_Data,0,CONF_ATT_URL).$int_Conf_Seq."/";
 						Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_File_Data,$int_J,F_NICK));
 					}
 				}
@@ -125,7 +125,7 @@
 				$arr_Data=mysql_query($SQL_QUERY);
 				$arr_Data_Cnt=mysql_num_rows($arr_Data);
 
-				$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/recruit/";
+				$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/recruit/";
 				
 				for($int_Z = 0 ;$int_Z < $arr_Data_Cnt; $int_Z++) {
 				   	if (mysql_result($arr_Data,$int_Z,str_image1) !="") {

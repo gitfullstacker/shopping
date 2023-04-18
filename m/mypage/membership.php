@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_MLogin_Chk();
 	
@@ -32,7 +32,7 @@
 	}
 	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/membership.js"></script>
 		
 		<div class="con_widthyong">
@@ -172,7 +172,7 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 
 
 

@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_conf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_conf_inc.php";?>
 <?
     /* ============================================================================== */
     /* =   Javascript source Include                                                = */

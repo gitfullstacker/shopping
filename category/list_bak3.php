@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$page = Fnc_Om_Conv_Default($_REQUEST[page],1);
 	$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow],9);
@@ -95,7 +95,7 @@
 	
 	$sBuy = fnc_pay_info();
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/list.js"></script>
 
 		<div id="container">
@@ -280,4 +280,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

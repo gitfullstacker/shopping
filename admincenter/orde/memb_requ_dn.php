@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 
@@ -23,7 +23,7 @@
 	$str_File_Name = $arr_Data["STR_IMAGE1"];
 	$str_Content_Type = "application/x-msdownload";
 	$str_Ini_File_Path = "/admincenter/files/requ/";
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_Ini_File_Path;
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_Ini_File_Path;
 
 	$str_Real_File_Name=iconv("UTF-8","EUC-KR",$str_Real_File_Name) ? iconv("UTF-8","EUC-KR",$str_Real_File_Name) : $str_Real_File_Name;
 	$str_File_Name=iconv("UTF-8","EUC-KR",$str_File_Name) ? iconv("UTF-8","EUC-KR",$str_File_Name) : $str_File_Name;

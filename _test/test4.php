@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 		$SQL_QUERY = "select ifnull(max(a.str_edate),'') as lastnumber from ".$Tname."comm_member_pay_info a inner join ".$Tname."comm_member_pay b on a.int_number=b.int_number where b.str_pass='0' and b.str_userid='joilya7' " ;
 		$arr_max_Data=mysql_query($SQL_QUERY);

@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?php
     //**************************************************************************************************************
     //NICE평가정보 Copyright(c) KOREA INFOMATION SERVICE INC. ALL RIGHTS RESERVED
@@ -13,7 +13,7 @@
     
     $sitecode = "AC430";				// NICE로부터 부여받은 사이트 코드
     $sitepasswd = "Gj9tUHSzgRBx";			// NICE로부터 부여받은 사이트 패스워드
-    $cb_encode_path = $_SERVER[DOCUMENT_ROOT] . "/_test/hp2/mo/CPClient";		// NICE로부터 받은 암호화 프로그램의 위치 (절대경로+모듈명)
+    $cb_encode_path = $_SERVER['DOCUMENT_ROOT'] . "/_test/hp2/mo/CPClient";		// NICE로부터 받은 암호화 프로그램의 위치 (절대경로+모듈명)
     
     $authtype = "";      	// 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
     	

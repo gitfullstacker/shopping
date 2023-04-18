@@ -1,12 +1,12 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$loc = Fnc_Om_Conv_Default($_REQUEST[loc],"");
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/login.js"></script>	
 		
 		<div class="con_width"style="padding-top: 1px;">
-			<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/submenu_memberjoin.php"; ?>
+			<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/submenu_memberjoin.php"; ?>
 			<div class="tit_login mt105">
 				<em>LOGIN</em>
 				
@@ -37,5 +37,5 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 

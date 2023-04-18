@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>
@@ -12,7 +12,7 @@
 	$str_Image=$_FILES['str_image']['tmp_name'];
 	$str_Image_name=$_FILES['str_image']['name'];
 
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_location;
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_location;
 
 	switch($RetrieveFlag){
      	case "UPLOAD" :
@@ -116,7 +116,7 @@
 
 				$result=mysql_query($SQL_QUERY);
 
-				$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_location.$str_dir."/";
+				$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_location.$str_dir."/";
 
 				if (!is_dir($str_Add_Tag)){
 					mkdir($str_Add_Tag,0777);
@@ -142,7 +142,7 @@
 
 			if($rcd_cnt){
 
-				$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/data/".mysql_result($arr_dir_Data,0,str_dir)."/";
+				$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/data/".mysql_result($arr_dir_Data,0,str_dir)."/";
 				Fnc_Om_Dir_Delete($str_Add_Tag);
 
 			}

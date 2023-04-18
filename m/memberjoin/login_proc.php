@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$NextPage= $_REQUEST[NextPage];
 	$str_userid = Fnc_Om_Conv_Default($_REQUEST[str_userid],$_REQUEST[str_userid2]);

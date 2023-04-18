@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 ?>
@@ -19,7 +19,7 @@
 	$str_Image1_name=$_FILES['str_Image1']['name'];
 	$str_sImage1 = $_FILES['str_sImage1'];
 	
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/requ/";
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/requ/";
 
 	if (!is_dir($str_Add_Tag)){
 		mkdir($str_Add_Tag,0777);

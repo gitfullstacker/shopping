@@ -1,23 +1,23 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
-    $authtype = "";      	// ¾øÀ¸¸é ±âº» ¼±ÅÃÈ­¸é, X: °øÀÎÀÎÁõ¼­, M: ÇÚµåÆù, C: Ä«µå
+    $authtype = "";      	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½, X: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, M: ï¿½Úµï¿½ï¿½ï¿½, C: Ä«ï¿½ï¿½
     	
-	$popgubun 	= "N";		//Y : Ãë¼Ò¹öÆ° ÀÖÀ½ / N : Ãë¼Ò¹öÆ° ¾øÀ½
-	$customize 	= "";			//¾øÀ¸¸é ±âº» À¥ÆäÀÌÁö / Mobile : ¸ð¹ÙÀÏÆäÀÌÁö
+	$popgubun 	= "N";		//Y : ï¿½ï¿½Ò¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ / N : ï¿½ï¿½Ò¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
+	$customize 	= "";			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ / Mobile : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     
-    $reqseq = "REQ_0123456789";     // ¿äÃ» ¹øÈ£, ÀÌ´Â ¼º°ø/½ÇÆÐÈÄ¿¡ °°Àº °ªÀ¸·Î µÇµ¹·ÁÁÖ°Ô µÇ¹Ç·Î
-                                    // ¾÷Ã¼¿¡¼­ ÀûÀýÇÏ°Ô º¯°æÇÏ¿© ¾²°Å³ª, ¾Æ·¡¿Í °°ÀÌ »ý¼ºÇÑ´Ù.
+    $reqseq = "REQ_0123456789";     // ï¿½ï¿½Ã» ï¿½ï¿½È£, ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½Ç¹Ç·ï¿½
+                                    // ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Å³ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     $reqseq = `$cb_encode_path SEQ $sitecode`;
     
-    // CheckPlus(º»ÀÎÀÎÁõ) Ã³¸® ÈÄ, °á°ú µ¥ÀÌÅ¸¸¦ ¸®ÅÏ ¹Þ±âÀ§ÇØ ´ÙÀ½¿¹Á¦¿Í °°ÀÌ httpºÎÅÍ ÀÔ·ÂÇÕ´Ï´Ù.
-    $returnurl = "http://".$_SERVER["HTTP_HOST"]."/m/memberjoin/checkplus_success.php";	// ¼º°ø½Ã ÀÌµ¿µÉ URL
-    $errorurl = "http://".$_SERVER["HTTP_HOST"]."/m/memberjoin/checkplus_fail.php";		// ½ÇÆÐ½Ã ÀÌµ¿µÉ URL
+    // CheckPlus(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) Ã³ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ httpï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Õ´Ï´ï¿½.
+    $returnurl = "http://".$_SERVER["HTTP_HOST"]."/m/memberjoin/checkplus_success.php";	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ URL
+    $errorurl = "http://".$_SERVER["HTTP_HOST"]."/m/memberjoin/checkplus_fail.php";		// ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ URL
 	
-    // reqseq°ªÀº ¼º°øÆäÀÌÁö·Î °¥ °æ¿ì °ËÁõÀ» À§ÇÏ¿© ¼¼¼Ç¿¡ ´ã¾ÆµÐ´Ù.
+    // reqseqï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ÆµÐ´ï¿½.
     
     $_SESSION["REQ_SEQ"] = $reqseq;
 
-    // ÀÔ·ÂµÉ plain µ¥ÀÌÅ¸¸¦ ¸¸µç´Ù.
+    // ï¿½Ô·Âµï¿½ plain ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
     $plaindata =  "7:REQ_SEQ" . strlen($reqseq) . ":" . $reqseq .
 			    			  "8:SITECODE" . strlen($sitecode) . ":" . $sitecode .
 			    			  "9:AUTH_TYPE" . strlen($authtype) . ":". $authtype .
@@ -30,26 +30,26 @@
 
     if( $enc_data == -1 )
     {
-        $returnMsg = "¾Ï/º¹È£È­ ½Ã½ºÅÛ ¿À·ùÀÔ´Ï´Ù.";
+        $returnMsg = "ï¿½ï¿½/ï¿½ï¿½È£È­ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
         $enc_data = "";
     }
     else if( $enc_data== -2 )
     {
-        $returnMsg = "¾ÏÈ£È­ Ã³¸® ¿À·ùÀÔ´Ï´Ù.";
+        $returnMsg = "ï¿½ï¿½È£È­ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
         $enc_data = "";
     }
     else if( $enc_data== -3 )
     {
-        $returnMsg = "¾ÏÈ£È­ µ¥ÀÌÅÍ ¿À·ù ÀÔ´Ï´Ù.";
+        $returnMsg = "ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.";
         $enc_data = "";
     }
     else if( $enc_data== -9 )
     {
-        $returnMsg = "ÀÔ·Â°ª ¿À·ù ÀÔ´Ï´Ù.";
+        $returnMsg = "ï¿½Ô·Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.";
         $enc_data = "";
     }
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/joinnew.js"></script>
 		
 		<div class="con_width" >
@@ -62,38 +62,38 @@
 			<input type="hidden" name="str_birth" id="str_birth" value="">
 			<input type="hidden" name="str_sex" id="str_sex" value="">
 			
-			<p class="f_bk mt105" style="text-align:center; font-size:17px;">È¸¿ø/±¸µ¶±Ç ¾à°ü µ¿ÀÇ</p>
-			<p class="f_bk mt105" style="font-size:20px; font-weight: bolder; margin-bottom: 0.7em; letter-spacing: -1.5px">È¸¿ø°¡ÀÔ</p>
-			<p style="font-size:17px; letter-spacing: -1.5px; margin-bottom: 0.7em">¾à°ü¿¡ µ¿ÀÇÇØ ÁÖ¼¼¿ä.</p>
+			<p class="f_bk mt105" style="text-align:center; font-size:17px;">È¸ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</p>
+			<p class="f_bk mt105" style="font-size:20px; font-weight: bolder; margin-bottom: 0.7em; letter-spacing: -1.5px">È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</p>
+			<p style="font-size:17px; letter-spacing: -1.5px; margin-bottom: 0.7em">ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.</p>
 		
 			<div class="join_agree_bx02 mt10" style="font-size:12px;">
 				
-				<!--p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree1" class="cform" /><a href="/m/memberjoin/agreement1.php"> [ÇÊ¼ö]&nbsp;¿¡ÀÌºí¶û ÀÌ¿ë ¾à°ü µ¿ÀÇ &nbsp;&nbsp; ></a></label></p-->
+				<!--p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree1" class="cform" /><a href="/m/memberjoin/agreement1.php"> [ï¿½Ê¼ï¿½]&nbsp;ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ &nbsp;&nbsp; ></a></label></p-->
 				
 				<div class="frame_bx" style="margin-top: 15px; height:120px; border: 0; background: #EEEEEE"><iframe src="agreement2.html" frameborder="0"></iframe></div>
-				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree2" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp;[ÇÊ¼ö]&nbsp;¿¡ÀÌºí¶û ÀÌ¿ë ¾à°ü µ¿ÀÇ </span><a href="/m/memberjoin/agreement2.php"><span style="font-size: 8px; color: #888888; float: right">ÀÚ¼¼È÷º¸±â</span></a></label></p>
+				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree2" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp;[ï¿½Ê¼ï¿½]&nbsp;ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ </span><a href="/m/memberjoin/agreement2.php"><span style="font-size: 8px; color: #888888; float: right">ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a></label></p>
 				<div class="frame_bx" style="margin-top: 15px; height:120px; border: 0; background: #EEEEEE"><iframe src="agreement3.html" frameborder="0"></iframe></div>
-				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree3" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp; [ÇÊ¼ö]&nbsp;°³ÀÎ(½Å¿ë)Á¤º¸ Á¦°ø µ¿ÀÇ</span><a href="/m/memberjoin/agreement3.php"><span style="font-size: 8px; color: #888888; float: right">ÀÚ¼¼È÷º¸±â</span></a></label></p>					
+				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree3" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp; [ï¿½Ê¼ï¿½]&nbsp;ï¿½ï¿½ï¿½ï¿½(ï¿½Å¿ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</span><a href="/m/memberjoin/agreement3.php"><span style="font-size: 8px; color: #888888; float: right">ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a></label></p>					
 				<div class="frame_bx" style="margin-top: 15px; height:120px; border: 0; background: #EEEEEE"><iframe src="agreement3.html" frameborder="0"></iframe></div>
-				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree4" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp;[ÇÊ¼ö]&nbsp;°³ÀÎ(½Å¿ë)Á¤º¸ Á¦°ø µ¿ÀÇ </span><a href="/m/memberjoin/agreement3.php"><span style="font-size: 8px; color: #888888; float: right">ÀÚ¼¼È÷º¸±â</span></a></label></p>		
+				<p class="frame_dk" style="margin-top:5px; margin-bottom:15px; margin-left:5px;"><label><input type="checkbox" name="str_agree4" class="cform" /><span style="font-size: 11px; font-weight: bold;">&nbsp;[ï¿½Ê¼ï¿½]&nbsp;ï¿½ï¿½ï¿½ï¿½(ï¿½Å¿ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ </span><a href="/m/memberjoin/agreement3.php"><span style="font-size: 8px; color: #888888; float: right">ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a></label></p>		
 			</div>
 			
 
 			<div class="personal_certification" style="margin: 46px 0; text-align: center; ">
 				<dl>
 					
-					<dd class="mt20"><a href="javascript:Save_Click();" class="btn btn_m btn_bk w100p">ÈÞ´ëÆù º»ÀÎÈ®ÀÎÇÏ±â</a></dd>
+					<dd class="mt20"><a href="javascript:Save_Click();" class="btn btn_m btn_bk w100p">ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½Ï±ï¿½</a></dd>
 				</dl>
 			</div>
 			
 			</form>
 			
 			<form name="form_chk" method="post">
-				<input type="hidden" name="m" id="m" value="checkplusSerivce">						<!-- ÇÊ¼ö µ¥ÀÌÅ¸·Î, ´©¶ôÇÏ½Ã¸é ¾ÈµË´Ï´Ù. -->
-				<input type="hidden" name="EncodeData" id="EncodeData" value="<?= $enc_data ?>">		<!-- À§¿¡¼­ ¾÷Ã¼Á¤º¸¸¦ ¾ÏÈ£È­ ÇÑ µ¥ÀÌÅ¸ÀÔ´Ï´Ù. -->
+				<input type="hidden" name="m" id="m" value="checkplusSerivce">						<!-- ï¿½Ê¼ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã¸ï¿½ ï¿½ÈµË´Ï´ï¿½. -->
+				<input type="hidden" name="EncodeData" id="EncodeData" value="<?= $enc_data ?>">		<!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ô´Ï´ï¿½. -->
 			    
-			    <!-- ¾÷Ã¼¿¡¼­ ÀÀ´ä¹Þ±â ¿øÇÏ´Â µ¥ÀÌÅ¸¸¦ ¼³Á¤ÇÏ±â À§ÇØ »ç¿ëÇÒ ¼ö ÀÖÀ¸¸ç, ÀÎÁõ°á°ú ÀÀ´ä½Ã ÇØ´ç °ªÀ» ±×´ë·Î ¼Û½ÅÇÕ´Ï´Ù.
-			    	 ÇØ´ç ÆÄ¶ó¹ÌÅÍ´Â Ãß°¡ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù. -->
+			    <!-- ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Þ±ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½Û½ï¿½ï¿½Õ´Ï´ï¿½.
+			    	 ï¿½Ø´ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ß°ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. -->
 				<input type="hidden" name="param_r1" id="param_r1" value="">
 				<input type="hidden" name="param_r2" id="param_r2" value="">
 				<input type="hidden" name="param_r3" id="param_r3" value="">
@@ -102,7 +102,7 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 
 
 

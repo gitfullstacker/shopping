@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 
@@ -48,7 +48,7 @@
 			session_destroy();
 			
 			//$subject="DOUBLEWIN 웹사이트의 회원 탈퇴 완료.";
-			//$str_Mail_Tag = $_SERVER[DOCUMENT_ROOT]."/mail/mail4.php";
+			//$str_Mail_Tag = $_SERVER['DOCUMENT_ROOT']."/mail/mail4.php";
 			//$mail_con = load_file ($str_Mail_Tag);
 			//$mail_con = str_replace("domain",$_SERVER["HTTP_HOST"],$mail_con);
 			//Fnc_Om_Sendmail($subject, $mail_con, Fnc_Om_Store_Info(2), $str_email);

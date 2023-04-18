@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_MLogin_Chk();
 
@@ -39,7 +39,7 @@
 
 
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/get_cart.js"></script>
 		
       	<form id="frm" name="frm" target="_self" method="POST">
@@ -194,7 +194,7 @@
 		
 		</form>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 
 <link rel="stylesheet" href="../css/radio_style.css" type="text/css">
 <script type="text/javascript" src="../js/custom.forms.jquery.js"></script> 

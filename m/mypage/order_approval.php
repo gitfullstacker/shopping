@@ -3,11 +3,11 @@
     header("Cache-Control: no-store");
     header("Pragma: no-cache");
 ?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_conf_inc.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/mobile/js/KCPComLibrary.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_conf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/mobile/js/KCPComLibrary.php";?>
 <?php
-    // ¼îÇÎ¸ô ÆäÀÌÁö¿¡ ¸Â´Â ¹®ÀÚ¼ÂÀ» ÁöÁ¤ÇØ ÁÖ¼¼¿ä.
-    $charSetType      = "euc-kr";             // UTF-8ÀÎ °æ¿ì "utf-8"·Î ¼³Á¤
+    // ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.
+    $charSetType      = "euc-kr";             // UTF-8ï¿½ï¿½ ï¿½ï¿½ï¿½ "utf-8"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     
     $siteCode         = $_GET[ "site_cd"     ];
     $orderID          = $_GET[ "ordr_idxx"   ];
@@ -15,16 +15,16 @@
     $escrow           = ( $_GET[ "escw_used"   ] == "Y" ) ? true : false;
     $productName      = $_GET[ "good_name"   ];
 
-    // ¾Æ·¡ µÎ°ªÀº POSTµÈ °ªÀ» »ç¿ëÇÏÁö ¾Ê°í ¼­¹ö¿¡ SESSION¿¡ ÀúÀåµÈ °ªÀ» »ç¿ëÇÏ¿©¾ß ÇÔ.
-    $paymentAmount    = $_GET[ "good_mny"    ]; // °áÁ¦ ±Ý¾×
+    // ï¿½Æ·ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ POSTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SESSIONï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½.
+    $paymentAmount    = $_GET[ "good_mny"    ]; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½
     $returnUrl        = $_GET[ "Ret_URL"     ];
 
-    // Access Credential ¼³Á¤
+    // Access Credential ï¿½ï¿½ï¿½ï¿½
     $accessLicense    = "";
     $signature        = "";
     $timestamp        = "";
 
-    // Base Request Type ¼³Á¤
+    // Base Request Type ï¿½ï¿½ï¿½ï¿½
     $detailLevel      = "0";
     $requestApp       = "WEB";
     $requestID        = $orderID;
@@ -49,6 +49,6 @@
     }
     catch (SoapFault $ex )
     {
-        printf( "%s,%s,%s,%s", "95XX", "", "", iconv("EUC-KR","UTF-8","¿¬µ¿ ¿À·ù (PHP SOAP ¸ðµâ ¼³Ä¡ ÇÊ¿ä)" ) );
+        printf( "%s,%s,%s,%s", "95XX", "", "", iconv("EUC-KR","UTF-8","ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (PHP SOAP ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ê¿ï¿½)" ) );
     }
 ?>

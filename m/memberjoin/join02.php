@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$str_cert = Fnc_Om_Conv_Default($_REQUEST[str_cert],$_SESSION['USERJ_CERT']);
 	$str_name = Fnc_Om_Conv_Default($_REQUEST[str_name],$_SESSION['USERJ_NAME']);
@@ -16,7 +16,7 @@
 		exit;
 	}
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/join02.js"></script>
 		
 		<div class="con_width">
@@ -236,5 +236,5 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 

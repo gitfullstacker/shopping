@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$page = Fnc_Om_Conv_Default($_REQUEST[page],1);
 	$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow],10);
@@ -53,7 +53,7 @@
 	
 	$sBuy = fnc_buy_info();
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/today.js"></script>
 
 		<form id="frm" name="frm" target="_self" method="POST" action="today.php">
@@ -123,4 +123,4 @@
 		
 		</form>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>

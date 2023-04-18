@@ -1,60 +1,60 @@
 <?
     /* ============================================================================== */
-    /* =   PAGE : ÁöºÒ ¿äÃ» PAGE                                                    = */
+    /* =   PAGE : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» PAGE                                                    = */
     /* = -------------------------------------------------------------------------- = */
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserved.                    = */
     /* ============================================================================== */
 ?>
 <?
     /* ============================================================================== */
-    /* = ¶óÀÌºê·¯¸® ¹× »çÀÌÆ® Á¤º¸ include                                          = */
+    /* = ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ include                                          = */
     /* = -------------------------------------------------------------------------- = */
 ?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/mo/pp_cli_hub_lib.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_mbconf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/mo/pp_cli_hub_lib.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_mbconf_inc.php";?>
 <?
     /* ============================================================================== */
 
     /* ============================================================================== */
-    /* =   01. ÁöºÒ ¿äÃ» Á¤º¸ ¼³Á¤                                                  = */
+    /* =   01. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½                                                  = */
     /* = -------------------------------------------------------------------------- = */
-    $pay_method = $_POST[ "pay_method" ];  // °áÁ¦ ¹æ¹ý
-    $ordr_idxx  = $_POST[ "ordr_idxx"  ];  // ÁÖ¹® ¹øÈ£
-    $good_name  = $_POST[ "good_name"  ];  // »óÇ° Á¤º¸
-    $good_mny   = $_POST[ "good_mny"   ];  // °áÁ¦ ±Ý¾×
-    $buyr_name  = $_POST[ "buyr_name"  ];  // ÁÖ¹®ÀÚ ÀÌ¸§
-    $buyr_mail  = $_POST[ "buyr_mail"  ];  // ÁÖ¹®ÀÚ E-Mail
-    $buyr_tel1  = $_POST[ "buyr_tel1"  ];  // ÁÖ¹®ÀÚ ÀüÈ­¹øÈ£
-    $buyr_tel2  = $_POST[ "buyr_tel2"  ];  // ÁÖ¹®ÀÚ ÈÞ´ëÆù¹øÈ£
-    $req_tx     = $_POST[ "req_tx"     ];  // ¿äÃ» Á¾·ù
-    $currency   = $_POST[ "currency"   ];  // È­Æó´ÜÀ§ (WON/USD)
+    $pay_method = $_POST[ "pay_method" ];  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    $ordr_idxx  = $_POST[ "ordr_idxx"  ];  // ï¿½Ö¹ï¿½ ï¿½ï¿½È£
+    $good_name  = $_POST[ "good_name"  ];  // ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
+    $good_mny   = $_POST[ "good_mny"   ];  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½
+    $buyr_name  = $_POST[ "buyr_name"  ];  // ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+    $buyr_mail  = $_POST[ "buyr_mail"  ];  // ï¿½Ö¹ï¿½ï¿½ï¿½ E-Mail
+    $buyr_tel1  = $_POST[ "buyr_tel1"  ];  // ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£
+    $buyr_tel2  = $_POST[ "buyr_tel2"  ];  // ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½È£
+    $req_tx     = $_POST[ "req_tx"     ];  // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
+    $currency   = $_POST[ "currency"   ];  // È­ï¿½ï¿½ï¿½ï¿½ï¿½ (WON/USD)
     /* = -------------------------------------------------------------------------- = */
-    $mod_type      = $_POST[ "mod_type"     ];                         // º¯°æTYPE(½ÂÀÎÃë¼Ò½Ã ÇÊ¿ä)
-    $mod_desc      = $_POST[ "mod_desc"     ];                         // º¯°æ»çÀ¯
-    $amount        = "";                                               // ÃÑ ±Ý¾×
-    $panc_mod_mny  = "";                                               // ºÎºÐÃë¼Ò ¿äÃ»±Ý¾×
-    $panc_rem_mny  = "";                                               // ºÎºÐÃë¼Ò °¡´É±Ý¾×
+    $mod_type      = $_POST[ "mod_type"     ];                         // ï¿½ï¿½ï¿½ï¿½TYPE(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½Ê¿ï¿½)
+    $mod_desc      = $_POST[ "mod_desc"     ];                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    $amount        = "";                                               // ï¿½ï¿½ ï¿½Ý¾ï¿½
+    $panc_mod_mny  = "";                                               // ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ý¾ï¿½
+    $panc_rem_mny  = "";                                               // ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É±Ý¾ï¿½
     /* = -------------------------------------------------------------------------- = */
-    $tran_cd       = "";                                               // Æ®·£Àè¼Ç ÄÚµå
-    $bSucc         = "";                                               // DB ÀÛ¾÷ ¼º°ø ¿©ºÎ
+    $tran_cd       = "";                                               // Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+    $bSucc         = "";                                               // DB ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     /* = -------------------------------------------------------------------------- = */
-    $res_cd        = "";                                               // °á°úÄÚµå
-    $res_msg       = "";                                               // °á°ú¸Þ½ÃÁö
-    $tno           = "";                                               // °Å·¡¹øÈ£
+    $res_cd        = "";                                               // ï¿½ï¿½ï¿½ï¿½Úµï¿½
+    $res_msg       = "";                                               // ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½
+    $tno           = "";                                               // ï¿½Å·ï¿½ï¿½ï¿½È£
     /* = -------------------------------------------------------------------------- = */
-    $card_pay_method = $_POST[ "card_pay_method" ];                    // Ä«µå °áÁ¦ ¹æ¹ý
-    $card_cd         = "";                                             // Ä«µå ÄÚµå
-    $card_no         = "";                                             // Ä«µå ¹øÈ£
-    $card_name       = "";                                             // Ä«µå¸í
-    $app_time        = "";                                             // ½ÂÀÎ½Ã°£
-    $app_no          = "";                                             // ½ÂÀÎ¹øÈ£
-    $noinf           = "";                                             // ¹«ÀÌÀÚ¿©ºÎ
-    $quota           = "";                                             // ÇÒºÎ°³¿ù
+    $card_pay_method = $_POST[ "card_pay_method" ];                    // Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    $card_cd         = "";                                             // Ä«ï¿½ï¿½ ï¿½Úµï¿½
+    $card_no         = "";                                             // Ä«ï¿½ï¿½ ï¿½ï¿½È£
+    $card_name       = "";                                             // Ä«ï¿½ï¿½ï¿½
+    $app_time        = "";                                             // ï¿½ï¿½ï¿½Î½Ã°ï¿½
+    $app_no          = "";                                             // ï¿½ï¿½ï¿½Î¹ï¿½È£
+    $noinf           = "";                                             // ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½
+    $quota           = "";                                             // ï¿½ÒºÎ°ï¿½ï¿½ï¿½
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   02. ÀÎ½ºÅÏ½º »ý¼º ¹× ÃÊ±âÈ­                                              = */
+    /* =   02. ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­                                              = */
     /* = -------------------------------------------------------------------------- = */
 
     $c_PayPlus  = new C_PAYPLUS_CLI;
@@ -64,14 +64,14 @@
 
 
     /* ============================================================================== */
-    /* =   03. Ã³¸® ¿äÃ» Á¤º¸ ¼³Á¤, ½ÇÇà                                            = */
+    /* =   03. Ã³ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½                                            = */
     /* = -------------------------------------------------------------------------- = */
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   03-1. ½ÂÀÎ ¿äÃ»                                                          = */
+    /* =   03-1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»                                                          = */
     /* = -------------------------------------------------------------------------- = */
-    // ¾÷Ã¼ È¯°æ Á¤º¸
-    $cust_ip = getenv( "REMOTE_ADDR" ); // ¿äÃ» IP (¿É¼Ç°ª)
+    // ï¿½ï¿½Ã¼ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    $cust_ip = getenv( "REMOTE_ADDR" ); // ï¿½ï¿½Ã» IP (ï¿½É¼Ç°ï¿½)
 
     if ( $req_tx == "pay" )
     {
@@ -86,7 +86,7 @@
 
     $c_PayPlus->mf_add_payx_data( "common", $common_data_set );
 
-    // ÁÖ¹® Á¤º¸
+    // ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½
     $c_PayPlus->mf_set_ordr_data( "ordr_idxx", $ordr_idxx );
     $c_PayPlus->mf_set_ordr_data( "good_name", $good_name );
     $c_PayPlus->mf_set_ordr_data( "good_mny",  $good_mny  );
@@ -99,7 +99,7 @@
         {
             $card_data_set;
 
-            $card_data_set .= $c_PayPlus->mf_set_data_us( "card_mny", $good_mny );        // °áÁ¦ ±Ý¾×
+            $card_data_set .= $c_PayPlus->mf_set_data_us( "card_mny", $good_mny );        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½
 
                 if ( $card_pay_method == "Batch" )
                 {
@@ -113,85 +113,85 @@
     }
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   03-2. Ãë¼Ò/¸ÅÀÔ ¿äÃ»                                                     = */
+    /* =   03-2. ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»                                                     = */
     /* = -------------------------------------------------------------------------- = */
         else if ( $req_tx == "mod" )
         {
 
             $tran_cd = "00200000";
 
-            $c_PayPlus->mf_set_modx_data( "tno",      $_POST[ "tno" ]      );      // KCP ¿ø°Å·¡ °Å·¡¹øÈ£
-            $c_PayPlus->mf_set_modx_data( "mod_type", $mod_type            );      // ¿ø°Å·¡ º¯°æ ¿äÃ» Á¾·ù
-            $c_PayPlus->mf_set_modx_data( "mod_ip",   $cust_ip             );      // º¯°æ ¿äÃ»ÀÚ IP
-            $c_PayPlus->mf_set_modx_data( "mod_desc", $_POST[ "mod_desc" ] );      // º¯°æ »çÀ¯
+            $c_PayPlus->mf_set_modx_data( "tno",      $_POST[ "tno" ]      );      // KCP ï¿½ï¿½ï¿½Å·ï¿½ ï¿½Å·ï¿½ï¿½ï¿½È£
+            $c_PayPlus->mf_set_modx_data( "mod_type", $mod_type            );      // ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
+            $c_PayPlus->mf_set_modx_data( "mod_ip",   $cust_ip             );      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ IP
+            $c_PayPlus->mf_set_modx_data( "mod_desc", $_POST[ "mod_desc" ] );      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-            if ( $mod_type == "STPC" ) // ºÎºÐÃë¼ÒÀÇ °æ¿ì
+            if ( $mod_type == "STPC" ) // ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             {
-                $c_PayPlus->mf_set_modx_data( "mod_mny", $_POST[ "mod_mny" ] ); // Ãë¼Ò¿äÃ»±Ý¾×
-                $c_PayPlus->mf_set_modx_data( "rem_mny", $_POST[ "rem_mny" ] ); // Ãë¼Ò°¡´ÉÀÜ¾×
+                $c_PayPlus->mf_set_modx_data( "mod_mny", $_POST[ "mod_mny" ] ); // ï¿½ï¿½Ò¿ï¿½Ã»ï¿½Ý¾ï¿½
+                $c_PayPlus->mf_set_modx_data( "rem_mny", $_POST[ "rem_mny" ] ); // ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½
             }
         }
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   03-3. ½ÇÇà                                                               = */
+    /* =   03-3. ï¿½ï¿½ï¿½ï¿½                                                               = */
     /* ------------------------------------------------------------------------------ */
         if ( $tran_cd != "" )
         {
             $c_PayPlus->mf_do_tx( $trace_no, $g_conf_home_dir, $g_conf_site_cd, "", $tran_cd, "",
                                   $g_conf_gw_url, $g_conf_gw_port, "payplus_cli_slib", $ordr_idxx,
-                                  $cust_ip, "3" , 0, 0, $g_conf_key_dir, $g_conf_log_dir); // ÀÀ´ä Àü¹® Ã³¸®
+                                  $cust_ip, "3" , 0, 0, $g_conf_key_dir, $g_conf_log_dir); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 
-            $res_cd  = $c_PayPlus->m_res_cd;  // °á°ú ÄÚµå
-            $res_msg = $c_PayPlus->m_res_msg; // °á°ú ¸Þ½ÃÁö
+            $res_cd  = $c_PayPlus->m_res_cd;  // ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+            $res_msg = $c_PayPlus->m_res_msg; // ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
         }
         else
         {
             $c_PayPlus->m_res_cd  = "9562";
-            $c_PayPlus->m_res_msg = "¿¬µ¿ ¿À·ù|Payplus PluginÀÌ ¼³Ä¡µÇÁö ¾Ê¾Ò°Å³ª tran_cd°ªÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.";
+            $c_PayPlus->m_res_msg = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½|Payplus Pluginï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò°Å³ï¿½ tran_cdï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.";
         }
 
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   04. ½ÂÀÎ °á°ú Ã³¸®                                                       = */
+    /* =   04. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½                                                       = */
     /* = -------------------------------------------------------------------------- = */
         if ( $req_tx == "pay" )
         {
             if ( $res_cd == "0000" )
             {
-                $tno   = $c_PayPlus->mf_get_res_data( "tno"       ); // KCP °Å·¡ °íÀ¯ ¹øÈ£
+                $tno   = $c_PayPlus->mf_get_res_data( "tno"       ); // KCP ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   04-1. ½Å¿ëÄ«µå ½ÂÀÎ °á°ú Ã³¸®                                            = */
+    /* =   04-1. ï¿½Å¿ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½                                            = */
     /* = -------------------------------------------------------------------------- = */
                 if ( $pay_method == "CARD" )
                 {
-                    $card_cd   = $c_PayPlus->mf_get_res_data( "card_cd"   ); // Ä«µå»ç ÄÚµå
-                    $card_no   = $c_PayPlus->mf_get_res_data( "card_no"   ); // Ä«µå ¹øÈ£
-                    $card_name = $c_PayPlus->mf_get_res_data( "card_name" ); // Ä«µå Á¾·ù
-                    $app_time  = $c_PayPlus->mf_get_res_data( "app_time"  ); // ½ÂÀÎ ½Ã°£
-                    $app_no    = $c_PayPlus->mf_get_res_data( "app_no"    ); // ½ÂÀÎ ¹øÈ£
-                    $noinf     = $c_PayPlus->mf_get_res_data( "noinf"     ); // ¹«ÀÌÀÚ ¿©ºÎ ( 'Y' : ¹«ÀÌÀÚ )
-                    $quota     = $c_PayPlus->mf_get_res_data( "quota"     ); // ÇÒºÎ °³¿ù ¼ö
+                    $card_cd   = $c_PayPlus->mf_get_res_data( "card_cd"   ); // Ä«ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+                    $card_no   = $c_PayPlus->mf_get_res_data( "card_no"   ); // Ä«ï¿½ï¿½ ï¿½ï¿½È£
+                    $card_name = $c_PayPlus->mf_get_res_data( "card_name" ); // Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    $app_time  = $c_PayPlus->mf_get_res_data( "app_time"  ); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+                    $app_no    = $c_PayPlus->mf_get_res_data( "app_no"    ); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+                    $noinf     = $c_PayPlus->mf_get_res_data( "noinf"     ); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( 'Y' : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ )
+                    $quota     = $c_PayPlus->mf_get_res_data( "quota"     ); // ï¿½Òºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 }
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   04-2. ½ÂÀÎ °á°ú¸¦ ¾÷Ã¼ ÀÚÃ¼ÀûÀ¸·Î DB Ã³¸® ÀÛ¾÷ÇÏ½Ã´Â ºÎºÐÀÔ´Ï´Ù.         = */
+    /* =   04-2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DB Ã³ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½Ï½Ã´ï¿½ ï¿½Îºï¿½ï¿½Ô´Ï´ï¿½.         = */
     /* = -------------------------------------------------------------------------- = */
-    /* =         ½ÂÀÎ °á°ú¸¦ DB ÀÛ¾÷ ÇÏ´Â °úÁ¤¿¡¼­ Á¤»óÀûÀ¸·Î ½ÂÀÎµÈ °Ç¿¡ ´ëÇØ      = */
-    /* =         DB ÀÛ¾÷À» ½ÇÆÐÇÏ¿© DB update °¡ ¿Ï·áµÇÁö ¾ÊÀº °æ¿ì, ÀÚµ¿À¸·Î       = */
-    /* =         ½ÂÀÎ Ãë¼Ò ¿äÃ»À» ÇÏ´Â ÇÁ·Î¼¼½º°¡ ±¸¼ºµÇ¾î ÀÖ½À´Ï´Ù.                = */
-    /* =         DB ÀÛ¾÷ÀÌ ½ÇÆÐ ÇÑ °æ¿ì, bSucc ¶ó´Â º¯¼ö(String)ÀÇ °ªÀ» "false"     = */
-    /* =         ·Î ¼¼ÆÃÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. (DB ÀÛ¾÷ ¼º°øÀÇ °æ¿ì¿¡´Â "false" ÀÌ¿ÜÀÇ = */
-    /* =         °ªÀ» ¼¼ÆÃÇÏ½Ã¸é µË´Ï´Ù.)                                           = */
+    /* =         ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ DB ï¿½Û¾ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½      = */
+    /* =         DB ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ DB update ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½       = */
+    /* =         ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.                = */
+    /* =         DB ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½, bSucc ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(String)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ "false"     = */
+    /* =         ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½. (DB ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ "false" ï¿½Ì¿ï¿½ï¿½ï¿½ = */
+    /* =         ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã¸ï¿½ ï¿½Ë´Ï´ï¿½.)                                           = */
     /* = -------------------------------------------------------------------------- = */
-		    $bSucc = "";             // DB ÀÛ¾÷ ½ÇÆÐÀÏ °æ¿ì "false" ·Î ¼¼ÆÃ
+		    $bSucc = "";             // DB ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ "false" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   04-3. DB ÀÛ¾÷ ½ÇÆÐÀÏ °æ¿ì ÀÚµ¿ ½ÂÀÎ Ãë¼Ò                                 = */
+    /* =   04-3. DB ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½                                 = */
     /* = -------------------------------------------------------------------------- = */
             if ( $req_tx == "pay" )
             {
@@ -203,10 +203,10 @@
 
                         $tran_cd = "00200000";
 
-                        $c_PayPlus->mf_set_modx_data( "tno",      $tno                         );  // KCP ¿ø°Å·¡ °Å·¡¹øÈ£
-                        $c_PayPlus->mf_set_modx_data( "mod_type", "STSC"                       );  // ¿ø°Å·¡ º¯°æ ¿äÃ» Á¾·ù
-                        $c_PayPlus->mf_set_modx_data( "mod_ip",   $cust_ip                     );  // º¯°æ ¿äÃ»ÀÚ IP (¿É¼Ç°ª)
-                        $c_PayPlus->mf_set_modx_data( "mod_desc", "°á°ú Ã³¸® ¿À·ù - ÀÚµ¿ Ãë¼Ò" );  // º¯°æ »çÀ¯
+                        $c_PayPlus->mf_set_modx_data( "tno",      $tno                         );  // KCP ï¿½ï¿½ï¿½Å·ï¿½ ï¿½Å·ï¿½ï¿½ï¿½È£
+                        $c_PayPlus->mf_set_modx_data( "mod_type", "STSC"                       );  // ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
+                        $c_PayPlus->mf_set_modx_data( "mod_ip",   $cust_ip                     );  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ IP (ï¿½É¼Ç°ï¿½)
+                        $c_PayPlus->mf_set_modx_data( "mod_desc", "ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Úµï¿½ ï¿½ï¿½ï¿½" );  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                         $c_PayPlus->mf_do_tx( $tno,  $g_conf_home_dir, $g_conf_site_cd,
                                               "",  $tran_cd,    "",
@@ -223,7 +223,7 @@
         }
 
     /* ============================================================================== */
-    /* =   05. Ãë¼Ò/¸ÅÀÔ °á°ú Ã³¸®                                                  = */
+    /* =   05. ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½                                                  = */
     /* = -------------------------------------------------------------------------- = */
         else if ( $req_tx == "mod" )
         {
@@ -231,16 +231,16 @@
             {
                 if ( $mod_type == "STPC" )
                 {
-                $amount       = $c_PayPlus->mf_get_res_data( "amount"       ); // ÃÑ ±Ý¾×
-                $panc_mod_mny = $c_PayPlus->mf_get_res_data( "panc_mod_mny" ); // ºÎºÐÃë¼Ò ¿äÃ»±Ý¾×
-                $panc_rem_mny = $c_PayPlus->mf_get_res_data( "panc_rem_mny" ); // ºÎºÐÃë¼Ò °¡´É±Ý¾×
+                $amount       = $c_PayPlus->mf_get_res_data( "amount"       ); // ï¿½ï¿½ ï¿½Ý¾ï¿½
+                $panc_mod_mny = $c_PayPlus->mf_get_res_data( "panc_mod_mny" ); // ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ý¾ï¿½
+                $panc_rem_mny = $c_PayPlus->mf_get_res_data( "panc_rem_mny" ); // ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É±Ý¾ï¿½
                 }
             }
         }
     /* ============================================================================== */
 
     /* ============================================================================== */
-    /* =   06. Æû ±¸¼º ¹× °á°úÆäÀÌÁö È£Ãâ                                           = */
+    /* =   06. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½                                           = */
     /* ============================================================================== */
 ?>
 
@@ -256,32 +256,32 @@
 
     <body onload="goResult();">
         <form name="pay_info" method="post" action="./result.php">
-            <input type="hidden" name="req_tx"     value="<?=$req_tx     ?>">  <!-- ¿äÃ» ±¸ºÐ -->
-            <input type="hidden" name="pay_method" value="<?=$pay_method ?>">  <!-- »ç¿ëÇÑ °áÁ¦ ¼ö´Ü -->
-            <input type="hidden" name="bSucc"      value="<?=$bSucc      ?>">  <!-- ¼îÇÎ¸ô DB Ã³¸® ¼º°ø ¿©ºÎ -->
+            <input type="hidden" name="req_tx"     value="<?=$req_tx     ?>">  <!-- ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ -->
+            <input type="hidden" name="pay_method" value="<?=$pay_method ?>">  <!-- ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
+            <input type="hidden" name="bSucc"      value="<?=$bSucc      ?>">  <!-- ï¿½ï¿½ï¿½Î¸ï¿½ DB Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
             <input type="hidden" name="mod_type"   value="<?=$mod_type   ?>">
-            <input type="hidden" name="amount"     value="<?=$amount     ?>">  <!-- ÃÑ ±Ý¾× -->
-            <input type="hidden" name="panc_mod_mny"   value="<?=$panc_mod_mny?>">  <!-- ºÎºÐÃë¼Ò ¿äÃ»±Ý¾× -->
-            <input type="hidden" name="panc_rem_mny"   value="<?=$panc_rem_mny?>">  <!-- ºÎºÐÃë¼Ò °¡´É±Ý¾× -->
+            <input type="hidden" name="amount"     value="<?=$amount     ?>">  <!-- ï¿½ï¿½ ï¿½Ý¾ï¿½ -->
+            <input type="hidden" name="panc_mod_mny"   value="<?=$panc_mod_mny?>">  <!-- ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ý¾ï¿½ -->
+            <input type="hidden" name="panc_rem_mny"   value="<?=$panc_rem_mny?>">  <!-- ï¿½Îºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É±Ý¾ï¿½ -->
 
-            <input type="hidden" name="res_cd"     value="<?=$res_cd     ?>">  <!-- °á°ú ÄÚµå -->
-            <input type="hidden" name="res_msg"    value="<?=$res_msg    ?>">  <!-- °á°ú ¸Þ¼¼Áö -->
-            <input type="hidden" name="ordr_idxx"  value="<?=$ordr_idxx  ?>">  <!-- ÁÖ¹®¹øÈ£ -->
-            <input type="hidden" name="tno"        value="<?=$tno        ?>">  <!-- KCP °Å·¡¹øÈ£ -->
-            <input type="hidden" name="good_mny"   value="<?=$good_mny   ?>">  <!-- °áÁ¦±Ý¾× -->
-            <input type="hidden" name="good_name"  value="<?=$good_name  ?>">  <!-- »óÇ°¸í -->
-            <input type="hidden" name="buyr_name"  value="<?=$buyr_name  ?>">  <!-- ÁÖ¹®ÀÚ¸í -->
-            <input type="hidden" name="buyr_tel1"  value="<?=$buyr_tel1  ?>">  <!-- ÁÖ¹®ÀÚ ÀüÈ­¹øÈ£ -->
-            <input type="hidden" name="buyr_tel2"  value="<?=$buyr_tel2  ?>">  <!-- ÁÖ¹®ÀÚ ÈÞ´ëÆù¹øÈ£ -->
-            <input type="hidden" name="buyr_mail"  value="<?=$buyr_mail  ?>">  <!-- ÁÖ¹®ÀÚ E-mail -->
+            <input type="hidden" name="res_cd"     value="<?=$res_cd     ?>">  <!-- ï¿½ï¿½ï¿½ ï¿½Úµï¿½ -->
+            <input type="hidden" name="res_msg"    value="<?=$res_msg    ?>">  <!-- ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ -->
+            <input type="hidden" name="ordr_idxx"  value="<?=$ordr_idxx  ?>">  <!-- ï¿½Ö¹ï¿½ï¿½ï¿½È£ -->
+            <input type="hidden" name="tno"        value="<?=$tno        ?>">  <!-- KCP ï¿½Å·ï¿½ï¿½ï¿½È£ -->
+            <input type="hidden" name="good_mny"   value="<?=$good_mny   ?>">  <!-- ï¿½ï¿½ï¿½ï¿½ï¿½Ý¾ï¿½ -->
+            <input type="hidden" name="good_name"  value="<?=$good_name  ?>">  <!-- ï¿½ï¿½Ç°ï¿½ï¿½ -->
+            <input type="hidden" name="buyr_name"  value="<?=$buyr_name  ?>">  <!-- ï¿½Ö¹ï¿½ï¿½Ú¸ï¿½ -->
+            <input type="hidden" name="buyr_tel1"  value="<?=$buyr_tel1  ?>">  <!-- ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£ -->
+            <input type="hidden" name="buyr_tel2"  value="<?=$buyr_tel2  ?>">  <!-- ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½È£ -->
+            <input type="hidden" name="buyr_mail"  value="<?=$buyr_mail  ?>">  <!-- ï¿½Ö¹ï¿½ï¿½ï¿½ E-mail -->
 
-            <input type="hidden" name="card_cd"    value="<?=$card_cd    ?>">  <!-- Ä«µåÄÚµå -->
-            <input type="hidden" name="card_no"    value="<?=$card_no    ?>">  <!-- Ä«µå¹øÈ£ -->
-            <input type="hidden" name="card_name"  value="<?=$card_name  ?>">  <!-- Ä«µå¸í -->
-            <input type="hidden" name="app_time"   value="<?=$app_time   ?>">  <!-- ½ÂÀÎ½Ã°£ -->
-            <input type="hidden" name="app_no"     value="<?=$app_no     ?>">  <!-- ½ÂÀÎ¹øÈ£ -->
-            <input type="hidden" name="quota"      value="<?=$quota      ?>">  <!-- ÇÒºÎ°³¿ù -->
-            <input type="hidden" name="noinf"      value="<?=$noinf      ?>">  <!-- ¹«ÀÌÀÚ¿©ºÎ -->
+            <input type="hidden" name="card_cd"    value="<?=$card_cd    ?>">  <!-- Ä«ï¿½ï¿½ï¿½Úµï¿½ -->
+            <input type="hidden" name="card_no"    value="<?=$card_no    ?>">  <!-- Ä«ï¿½ï¿½ï¿½È£ -->
+            <input type="hidden" name="card_name"  value="<?=$card_name  ?>">  <!-- Ä«ï¿½ï¿½ï¿½ -->
+            <input type="hidden" name="app_time"   value="<?=$app_time   ?>">  <!-- ï¿½ï¿½ï¿½Î½Ã°ï¿½ -->
+            <input type="hidden" name="app_no"     value="<?=$app_no     ?>">  <!-- ï¿½ï¿½ï¿½Î¹ï¿½È£ -->
+            <input type="hidden" name="quota"      value="<?=$quota      ?>">  <!-- ï¿½ÒºÎ°ï¿½ï¿½ï¿½ -->
+            <input type="hidden" name="noinf"      value="<?=$noinf      ?>">  <!-- ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ -->
 
         </form>
     </body>

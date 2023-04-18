@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>
@@ -27,7 +27,7 @@
 	$str_logo=$_FILES['str_logo']['tmp_name'];
 	$str_logo_name=$_FILES['str_logo']['name'];
 
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT]."/admincenter/files/site/";
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT']."/admincenter/files/site/";
 
 	if (!is_dir($str_Add_Tag)){
 		mkdir($str_Add_Tag,0777);

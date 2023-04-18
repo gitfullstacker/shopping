@@ -3,8 +3,8 @@
     header("Cache-Control: no-store");
     header("Pragma: no-cache");
 
-    include $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_mbconf_inc.php";
-    include $_SERVER[DOCUMENT_ROOT] . "/kcp/mo/KCPComLibrary.php";              // library [수정불가]
+    include $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_mbconf_inc.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/kcp/mo/KCPComLibrary.php";              // library [수정불가]
     
 ?>
 <?php

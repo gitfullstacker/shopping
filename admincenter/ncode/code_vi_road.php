@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>
@@ -9,7 +9,7 @@
 ?>
 <html>
 <head>
-<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
+<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php";?>
 <link rel="stylesheet" href="/admincenter/ncode/js/jquery.treeview.css" />
 <link rel="stylesheet" href="/admincenter/ncode/js/red-treeview.css" />
 <link rel="stylesheet" href="/admincenter/ncode/js/screen.css" />

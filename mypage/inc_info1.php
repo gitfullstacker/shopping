@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_bconf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_bconf_inc.php";?>
     
     <input type="hidden" name="ordr_idxx" value="" />
     <input type="hidden" name="buyr_name" value="<?=$arr_Auth[2]?>"/>

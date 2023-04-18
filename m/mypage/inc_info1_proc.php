@@ -1,6 +1,6 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_mbconf_inc.php";?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/mo/pp_cli_hub_lib.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_mbconf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/mo/pp_cli_hub_lib.php";?>
 <?
 	fnc_Login_Chk();
 	

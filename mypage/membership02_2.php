@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 	
@@ -31,7 +31,7 @@
 		exti;
 	}	
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/membership02_2.js"></script>
 
 		<div id="container">
@@ -41,7 +41,7 @@
 					<p class="nav_a">HOME   >   마이페이지   >   구독권 정보</p>
 					<div class="tit_h2 mt10">마이페이지</div>
 					<div class="lnb_tab">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/mypage/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/mypage/tab.php"; ?>
 					</div>
 					
 		          	<form id="frm" name="frm" target="_self" method="POST">
@@ -81,4 +81,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

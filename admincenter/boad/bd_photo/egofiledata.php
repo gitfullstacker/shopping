@@ -50,7 +50,7 @@
 	}
 
 	header("Content-type: ".$str_Content_Type);
-	$str_Add_Tag = $_SERVER[DOCUMENT_ROOT].$str_Ini_File_Path;
+	$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'].$str_Ini_File_Path;
 	$url = $str_Add_Tag . iconv( "UTF-8", "EUC-KR", $str_File_Name);
 
 	$fp = fopen($url,"r");

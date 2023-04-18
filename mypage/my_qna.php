@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_Login_Chk();
 
@@ -66,7 +66,7 @@
 
 	$str_String = "?Page=".$page."&displayrow=".urlencode($displayrow)."&Txt_bcode=".urlencode($Txt_bcode);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/my_qna.js"></script>
 
 		<div id="container">
@@ -75,7 +75,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   고객센터   >   문의하기(Q&amp;A)</p>
 					<div class="lnb_tab lnb_tab6 mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/cscenter/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/cscenter/tab.php"; ?>
 					</div>
 					<!-- <div class="tit_h2_2 mt45">문의하기(Q&amp;A)</div>
 					<p class="tit_desc mt45">궁금하신 내용을 빠르게 답변해 드립니다.</p> -->
@@ -253,4 +253,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

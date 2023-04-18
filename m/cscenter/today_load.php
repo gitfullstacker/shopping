@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag],"");
 	$Tpage = Fnc_Om_Conv_Default($_REQUEST[Tpage],"");
@@ -78,9 +78,9 @@
 						<?If ($arr_Auth[0]=="") {?>
 							<a href="/category/detail.php?Txt_bcode=<?=mysql_result($result,$i,str_bcode)?>&str_no=<?=mysql_result($result,$i,str_goodcode)?>" class="btn btn_get">GET</a>
 						<?}else{?>
-							<?if ($sBuy > 0) {//±¸¸Å°¡ ÀÖÀ»¶§?>
-								<?if ($sRent!=0) {//Ç°ÀýÀÌ ¾Æ´Ò¶§?>
-									<?if (mysql_result($result,$i,cartcnt)>0) {//³»°¡ ºô¸µ»óÇ°ÀÏ¶§?>
+							<?if ($sBuy > 0) {//ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?>
+								<?if ($sRent!=0) {//Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½?>
+									<?if (mysql_result($result,$i,cartcnt)>0) {//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ï¶ï¿½?>
 										<span class="btn btn_get" style="visibility:hidden;">&nbsp;</span>
 									<?}else{?>
 										<a href="/category/detail.php?Txt_bcode=<?=mysql_result($result,$i,str_bcode)?>&str_no=<?=mysql_result($result,$i,str_goodcode)?>" class="btn btn_get">CHANGE</a>
@@ -88,8 +88,8 @@
 								<?}else{?>
 										<span class="btn btn_get" style="visibility:hidden;">&nbsp;</span>
 								<?}?>
-							<?}else{//±¸¸Å°¡ ¾øÀ»¶§?>
-								<?if ($sRent!=0) {//Ç°ÀýÀÌ ¾Æ´Ò¶§?>
+							<?}else{//ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?>
+								<?if ($sRent!=0) {//Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½?>
 									<a href="/category/detail.php?Txt_bcode=<?=mysql_result($result,$i,str_bcode)?>&str_no=<?=mysql_result($result,$i,str_goodcode)?>" class="btn btn_get">GET</a>
 								<?}else{?>
 									<span class="btn btn_get" style="visibility:hidden;">&nbsp;</span>

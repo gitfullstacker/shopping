@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	$str_Ini_Group_Table = "@01";
 	$str_Board_Icon_Img = "/pub/img/board/";
@@ -61,7 +61,7 @@
 	}
 	$arr_Get_Data_Cnt1=mysql_num_rows($arr_Get_Data1);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 	
 
@@ -510,4 +510,4 @@
 
 	
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php"; ?>

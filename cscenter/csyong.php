@@ -1,5 +1,5 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 
 		<div id="container">
 			
@@ -7,7 +7,7 @@
 				<div class="contents_w">
 					<p class="nav_a">HOME   >   고객센터   </p>
 					<div class="lnb_tab lnb_tab6 mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/cscenter/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/cscenter/tab.php"; ?>
 					</div>
 				
 	 			</div>
@@ -93,7 +93,7 @@
 	}
 	$total_record_limit=mysql_num_rows($result);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php"; ?>
 <script language="javascript" src="js/faq.js"></script>
 
 		<div id="container">
@@ -102,7 +102,7 @@
 				<div class="contents_w">
 				
 					<div class="lnb_tab lnb_tab6 mt10">
-						<? require_once $_SERVER[DOCUMENT_ROOT]."/cscenter/tab.php"; ?>
+						<? require_once $_SERVER['DOCUMENT_ROOT']."/cscenter/tab.php"; ?>
 					</div>
 					
 					<form id="frm" name="frm" target="_self" method="POST" action="faq.php" onSubmit="return fnc_search();">
@@ -229,4 +229,4 @@
 
 		</div>
 
-<? require_once $_SERVER[DOCUMENT_ROOT]."/inc/footer02.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/inc/footer02.php"; ?>

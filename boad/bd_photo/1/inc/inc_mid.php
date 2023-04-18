@@ -1,7 +1,7 @@
 <div id="s_contents">
 
 	
-	<? include_once $_SERVER[DOCUMENT_ROOT] . "/inc/snb.php"; ?>
+	<? include_once $_SERVER['DOCUMENT_ROOT'] . "/inc/snb.php"; ?>
 
 
 	<div id="contents">

@@ -1,5 +1,5 @@
 </form>	
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_mbconf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_mbconf_inc.php";?>
 <?
     /* kcp와 통신후 kcp 서버에서 전송되는 결제 요청 정보 */
     $req_tx          = $_POST[ "req_tx"         ]; // 요청 종류         

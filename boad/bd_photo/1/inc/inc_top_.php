@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 switch (Fnc_Om_Conv_Default($_REQUEST[bd],"1")) {
 	case  "1" :
@@ -83,7 +83,7 @@ switch (Fnc_Om_Conv_Default($_REQUEST[bd],"1")) {
 		break;
 }
 ?>
-<? include_once $_SERVER[DOCUMENT_ROOT] . "/kor/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/kor/inc/header.php"; ?>
 
 <script type="text/javascript">
 //<![CDATA[

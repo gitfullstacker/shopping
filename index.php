@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script> 
 <script type="text/javascript"> 

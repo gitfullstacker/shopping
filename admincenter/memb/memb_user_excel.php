@@ -6,7 +6,7 @@
 	Header("Pragma: no-cache");
 	Header("Expires: 0");
 ?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>

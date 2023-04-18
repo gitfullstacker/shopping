@@ -1,11 +1,11 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 //	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <html>
 <head>
-<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
+<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php";?>
 <script language="javascript" src="js/comm_passwd.js"></script>
 </head>
 <body topmargin=5 margintop=5 leftmargin=10 rightmargin=10 marginwidth=10 marginheight=5 onLoad="document.frm.str_opasswd.focus();">

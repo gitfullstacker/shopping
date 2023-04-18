@@ -4,7 +4,7 @@
 
 			<div class="mt15" id="display_pay_button" style="display:block"><a href="#" onclick="Save_Click();" class="btn btn_ylw btn_ml f_bd w100p">신청/등록하기</a></div>
 
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_conf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_conf_inc.php";?>
 <?
     /* kcp와 통신후 kcp 서버에서 전송되는 결제 요청 정보 */
     $req_tx          = $_POST[ "req_tx"         ]; // 요청 종류         

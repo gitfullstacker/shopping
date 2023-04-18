@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	fnc_MLogin_Chk();
 ?>
@@ -19,7 +19,7 @@
 	}
 	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/header.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/membership02.js"></script>
 
 		
@@ -258,9 +258,9 @@
 			</div>
 			
 			<?if ($int_gubun=="1") {?>
-				<? require_once $_SERVER[DOCUMENT_ROOT]."/m/mypage/inc_info1.php"; ?>
+				<? require_once $_SERVER['DOCUMENT_ROOT']."/m/mypage/inc_info1.php"; ?>
 			<?}else{?>
-				<? require_once $_SERVER[DOCUMENT_ROOT]."/m/mypage/inc_info2.php"; ?>
+				<? require_once $_SERVER['DOCUMENT_ROOT']."/m/mypage/inc_info2.php"; ?>
 			<?}?>
 
 
@@ -275,7 +275,7 @@
 
 
 <div style = "padding-top:50px;"></div>
-<? require_once $_SERVER[DOCUMENT_ROOT]."/m/inc/footer.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/footer.php"; ?>
 
 
 

@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 switch (Fnc_Om_Conv_Default($_REQUEST[bd],"1")) {
 	case  "1" :
@@ -27,10 +27,10 @@ switch (Fnc_Om_Conv_Default($_REQUEST[bd],"1")) {
 		break;
 }
 ?>
-<? include_once $_SERVER[DOCUMENT_ROOT] . "/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/inc/header.php"; ?>
 
 <div id="wrapper_sub">
-<? include_once $_SERVER[DOCUMENT_ROOT] . "/inc/top.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/inc/top.php"; ?>
 
 <script type="text/javascript">
 $(function(){
@@ -41,4 +41,4 @@ $(function(){
 });
 </script>
 
-<? include_once $_SERVER[DOCUMENT_ROOT] . "/inc/s_visual.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/inc/s_visual.php"; ?>

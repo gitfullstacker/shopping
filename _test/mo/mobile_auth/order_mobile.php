@@ -1,47 +1,47 @@
 <?
     /* ============================================================================== */
-    /* =   PAGE : °áÁ¦ ¿äÃ» PAGE                                                    = */
+    /* =   PAGE : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» PAGE                                                    = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   ÀÌ ÆäÀÌÁö´Â Payplus Plug-inÀ» ÅëÇØ¼­ °áÁ¦ÀÚ°¡ °áÁ¦ ¿äÃ»À» ÇÏ´Â ÆäÀÌÁö    = */
-    /* =   ÀÔ´Ï´Ù. ¾Æ·¡ÀÇ ¡Ø ÇÊ¼ö, ¡Ø ¿É¼Ç ºÎºÐ°ú ¸Å´º¾óÀ» ÂüÁ¶ÇÏ¼Å¼­ ¿¬µ¿À»        = */
-    /* =   ÁøÇàÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.                                                = */
+    /* =   ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Payplus Plug-inï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    = */
+    /* =   ï¿½Ô´Ï´ï¿½. ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¼ï¿½, ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½ÎºÐ°ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Å¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        = */
+    /* =   ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ö½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.                                                = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   ¿¬µ¿½Ã ¿À·ù°¡ ¹ß»ýÇÏ´Â °æ¿ì ¾Æ·¡ÀÇ ÁÖ¼Ò·Î Á¢¼ÓÇÏ¼Å¼­ È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.= */
-    /* =   Á¢¼Ó ÁÖ¼Ò : http://kcp.co.kr/technique.requestcode.do			        = */
+    /* =   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö¼Ò·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Å¼ï¿½ È®ï¿½ï¿½ï¿½Ï½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.= */
+    /* =   ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ : http://kcp.co.kr/technique.requestcode.do			        = */
     /* = -------------------------------------------------------------------------- = */
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
     /* ============================================================================== */
 ?>
 <?
     /* ============================================================================== */
-    /* =   È¯°æ ¼³Á¤ ÆÄÀÏ Include                                                   = */
+    /* =   È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Include                                                   = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   ¡Ø ÇÊ¼ö                                                                  = */
-    /* =   Å×½ºÆ® ¹× ½Ç°áÁ¦ ¿¬µ¿½Ã site_conf_inc.jsp ÆÄÀÏÀ» ¼öÁ¤ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.    = */
+    /* =   ï¿½ï¿½ ï¿½Ê¼ï¿½                                                                  = */
+    /* =   ï¿½×½ï¿½Æ® ï¿½ï¿½ ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ site_conf_inc.jsp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.    = */
     /* = -------------------------------------------------------------------------- = */
 ?>
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/kcp/cfg/site_mbconf_inc.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/kcp/cfg/site_mbconf_inc.php";?>
 <?
     /* = -------------------------------------------------------------------------- = */
-    /* =   È¯°æ ¼³Á¤ ÆÄÀÏ Include END                                               = */
+    /* =   È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Include END                                               = */
     /* ============================================================================== */
 ?>
 <?
-    /* kcp¿Í Åë½ÅÈÄ kcp ¼­¹ö¿¡¼­ Àü¼ÛµÇ´Â °áÁ¦ ¿äÃ» Á¤º¸ */
-    $req_tx          = $_POST[ "req_tx"         ]; // ¿äÃ» Á¾·ù         
-    $res_cd          = $_POST[ "res_cd"         ]; // ÀÀ´ä ÄÚµå         
-    $tran_cd         = $_POST[ "tran_cd"        ]; // Æ®·£Àè¼Ç ÄÚµå     
-    $ordr_idxx       = $_POST[ "ordr_idxx"      ]; // ¼îÇÎ¸ô ÁÖ¹®¹øÈ£   
-    $buyr_name       = $_POST[ "buyr_name"      ]; // ÁÖ¹®ÀÚ¸í          
-    $enc_info        = $_POST[ "enc_info"       ]; // ¾ÏÈ£È­ Á¤º¸       
-    $enc_data        = $_POST[ "enc_data"       ]; // ¾ÏÈ£È­ µ¥ÀÌÅÍ     
-    /* ±âÅ¸ ÆÄ¶ó¸ÞÅÍ Ãß°¡ ºÎºÐ - Start - */
-    $param_opt_1    = $_POST[ "param_opt_1"     ]; // ±âÅ¸ ÆÄ¶ó¸ÞÅÍ Ãß°¡ ºÎºÐ
-    $param_opt_2    = $_POST[ "param_opt_2"     ]; // ±âÅ¸ ÆÄ¶ó¸ÞÅÍ Ãß°¡ ºÎºÐ
-    $param_opt_3    = $_POST[ "param_opt_3"     ]; // ±âÅ¸ ÆÄ¶ó¸ÞÅÍ Ãß°¡ ºÎºÐ
-    /* ±âÅ¸ ÆÄ¶ó¸ÞÅÍ Ãß°¡ ºÎºÐ - End -   */
+    /* kcpï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ kcp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ */
+    $req_tx          = $_POST[ "req_tx"         ]; // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½         
+    $res_cd          = $_POST[ "res_cd"         ]; // ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½         
+    $tran_cd         = $_POST[ "tran_cd"        ]; // Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½     
+    $ordr_idxx       = $_POST[ "ordr_idxx"      ]; // ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½È£   
+    $buyr_name       = $_POST[ "buyr_name"      ]; // ï¿½Ö¹ï¿½ï¿½Ú¸ï¿½          
+    $enc_info        = $_POST[ "enc_info"       ]; // ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½       
+    $enc_data        = $_POST[ "enc_data"       ]; // ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     
+    /* ï¿½ï¿½Å¸ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Îºï¿½ - Start - */
+    $param_opt_1    = $_POST[ "param_opt_1"     ]; // ï¿½ï¿½Å¸ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Îºï¿½
+    $param_opt_2    = $_POST[ "param_opt_2"     ]; // ï¿½ï¿½Å¸ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Îºï¿½
+    $param_opt_3    = $_POST[ "param_opt_3"     ]; // ï¿½ï¿½Å¸ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Îºï¿½
+    /* ï¿½ï¿½Å¸ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Îºï¿½ - End -   */
 
-  $tablet_size     = "1.0"; // È­¸é »çÀÌÁî °íÁ¤
+  $tablet_size     = "1.0"; // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   $url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 ?>
 
@@ -57,7 +57,7 @@
 
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
 
-<!-- °Å·¡µî·Ï ÇÏ´Â kcp ¼­¹ö¿Í Åë½ÅÀ» À§ÇÑ ½ºÅ©¸³Æ®-->
+<!-- ï¿½Å·ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ kcp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®-->
 <script type="text/javascript" src="js/approval_key.js"></script>
 
 <script type="text/javascript">
@@ -96,7 +96,7 @@
     }
 </script>
 <script type="text/javascript">
-    /* ÁÖ¹®¹øÈ£ »ý¼º ¿¹Á¦ */
+    /* ï¿½Ö¹ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     function init_orderid()
     {
         var today = new Date();
@@ -120,7 +120,7 @@
         document.order_info.ordr_idxx.value = order_idxx;
     }
 
-    /* kcp web °áÁ¦Ã¢ È£Ãú (º¯°æºÒ°¡) */
+    /* kcp web ï¿½ï¿½ï¿½ï¿½Ã¢ È£ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Ò°ï¿½) */
     function call_pay_form()
     {
         var v_frm = document.order_info;
@@ -133,8 +133,8 @@
 
         if (v_frm.Ret_URL.value == "")
         {
-            /* Ret_URL°ªÀº Çö ÆäÀÌÁöÀÇ URL ÀÔ´Ï´Ù. */
-            alert("¿¬µ¿½Ã Ret_URLÀ» ¹Ýµå½Ã ¼³Á¤ÇÏ¼Å¾ß µË´Ï´Ù.");
+            /* Ret_URLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL ï¿½Ô´Ï´ï¿½. */
+            alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ret_URLï¿½ï¿½ ï¿½Ýµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Å¾ï¿½ ï¿½Ë´Ï´ï¿½.");
             return false;
         }
         else
@@ -143,7 +143,7 @@
         }
     }
 
-    /* kcp Åë½ÅÀ» ÅëÇØ ¹ÞÀº ¾ÏÈ£È­ Á¤º¸ Ã¼Å© ÈÄ °áÁ¦ ¿äÃ» (º¯°æºÒ°¡) */
+    /* kcp ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» (ï¿½ï¿½ï¿½ï¿½Ò°ï¿½) */
     function chk_pay()
     {
         self.name = "tar_opener";
@@ -151,7 +151,7 @@
 
         if (pay_form.res_cd.value == "3001" )
         {
-            alert("»ç¿ëÀÚ°¡ Ãë¼ÒÇÏ¿´½À´Ï´Ù.");
+            alert("ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             pay_form.res_cd.value = "";
         }
 
@@ -169,48 +169,48 @@
 <body onload="init_orderid();chk_pay();">
 <div id="sample_wrap">
 <form name="order_info" method="post">
-    <!-- Å¸ÀÌÆ² -->
-    <h1>[°áÁ¦¿äÃ»] <span>ÀÌ ÆäÀÌÁö´Â °áÁ¦¸¦ ¿äÃ»ÇÏ´Â »ùÇÃ(¿¹½Ã) ÆäÀÌÁöÀÔ´Ï´Ù.</span></h1>
+    <!-- Å¸ï¿½ï¿½Æ² -->
+    <h1>[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»] <span>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.</span></h1>
 
     <div class="sample">
 
-    <!-- »ó´Ü ¹®±¸ -->
+    <!-- ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
     <p>
-        ÀÌ ÆäÀÌÁö´Â °áÁ¦¸¦ ¿äÃ»ÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù
+        ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½
     </p>
 
-    <!-- ÁÖ¹® Á¤º¸ -->
-    <h2>&sdot; ÁÖ¹® Á¤º¸</h2>
+    <!-- ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ -->
+    <h2>&sdot; ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½</h2>
     <table class="tbl" cellpadding="0" cellspacing="0">
         <tr>
-            <th>ÁÖ¹® ¹øÈ£</th>
+            <th>ï¿½Ö¹ï¿½ ï¿½ï¿½È£</th>
             <td><input type="text" name="ordr_idxx" class="w200" value=""></td>
         </tr>
         <tr>
-            <th>ÁÖ¹®ÀÚ¸í</th>
-            <td><input type="text" name="buyr_name" class="w100" value="È«±æµ¿"></td>
+            <th>ï¿½Ö¹ï¿½ï¿½Ú¸ï¿½</th>
+            <td><input type="text" name="buyr_name" class="w100" value="È«ï¿½æµ¿"></td>
         </tr>
         <tr>
-            <th>±×·ì ¾ÆÀÌµð</th>
+            <th>ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ìµï¿½</th>
             <td><input type="text" name="kcp_group_id" class="w100" value="A7EPQ1001835"></td> <!-- BA001 : BA0011000348 -->
         </tr>
         <tr>
-            <th>°áÁ¦ ±Ý¾×</th>
+            <th>ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½</th>
             <td><input type="text" name="good_mny" class="w100" value="1004"></td>
         </tr>
         <tr>
-            <th>»óÇ°¸í</th>
-            <td><input type="text" name="good_name" class="w100" value="ÇÚµåÆù"></td>
+            <th>ï¿½ï¿½Ç°ï¿½ï¿½</th>
+            <td><input type="text" name="good_name" class="w100" value="ï¿½Úµï¿½ï¿½ï¿½"></td>
         </tr>
     </table>
 
-    <!-- °áÁ¦ ¿äÃ»/Ã³À½À¸·Î ÀÌ¹ÌÁö -->
+    <!-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»/Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ -->
     <div class="footer">
-        <b>¡Ø PC¿¡¼­ °áÁ¦¿äÃ»½Ã ¿À·ù°¡ ¹ß»ýÇÕ´Ï´Ù. ¡Ø</b>
+        <b>ï¿½ï¿½ PCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Õ´Ï´ï¿½. ï¿½ï¿½</b>
     </div>
     <div class="btnset" id="display_pay_button" style="display:block">
-        <input name="" type="button" class="submit" value="°áÁ¦¿äÃ»" onclick="kcp_AJAX();">
-        <a href="../index.html" class="home">Ã³À½À¸·Î</a>
+        <input name="" type="button" class="submit" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»" onclick="kcp_AJAX();">
+        <a href="../index.html" class="home">Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a>
     </div>
     </div>
     <!--footer-->
@@ -219,39 +219,39 @@
     </div>
     <!--//footer-->
 
-    <!-- °øÅëÁ¤º¸ -->
-    <input type="hidden" name="req_tx"          value="pay">                           <!-- ¿äÃ» ±¸ºÐ -->
-    <input type="hidden" name="shop_name"       value="<?=$g_conf_site_name ?>">       <!-- »çÀÌÆ® ÀÌ¸§ --> 
-    <input type="hidden" name="site_cd"         value="<?=$g_conf_site_cd   ?>">       <!-- »çÀÌÆ® Å° -->
-    <input type="hidden" name="currency"        value="410"/>                          <!-- ÅëÈ­ ÄÚµå -->
-    <input type="hidden" name="eng_flag"        value="N"/>                            <!-- ÇÑ / ¿µ -->
+    <!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -->
+    <input type="hidden" name="req_tx"          value="pay">                           <!-- ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ -->
+    <input type="hidden" name="shop_name"       value="<?=$g_conf_site_name ?>">       <!-- ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½ --> 
+    <input type="hidden" name="site_cd"         value="<?=$g_conf_site_cd   ?>">       <!-- ï¿½ï¿½ï¿½ï¿½Æ® Å° -->
+    <input type="hidden" name="currency"        value="410"/>                          <!-- ï¿½ï¿½È­ ï¿½Úµï¿½ -->
+    <input type="hidden" name="eng_flag"        value="N"/>                            <!-- ï¿½ï¿½ / ï¿½ï¿½ -->
     <input type="hidden" name='kcp_cert_flag'   value="N"/>
-    <input type="text" name="kcp_bath_info_view"     value="Y"> »óÇ°¸í ³ëÃâÆÄ¶ó¹ÌÅÍ </br>
+    <input type="text" name="kcp_bath_info_view"     value="Y"> ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ </br>
 
-    <!-- °áÁ¦µî·Ï Å° -->
+    <!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å° -->
     <input type="hidden" name="approval_key"    id="approval">
-    <!-- ÀÎÁõ½Ã ÇÊ¿äÇÑ ÆÄ¶ó¹ÌÅÍ(º¯°æºÒ°¡)-->
+    <!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Ò°ï¿½)-->
     <input type="hidden" name="escw_used"       value="N">
     <input type="hidden" name="pay_method"      value="AUTH">
     <input type="hidden" name="ActionResult"    value="batch">
-    <!-- ¸®ÅÏ URL (kcp¿Í Åë½ÅÈÄ °áÁ¦¸¦ ¿äÃ»ÇÒ ¼ö ÀÖ´Â ¾ÏÈ£È­ µ¥ÀÌÅÍ¸¦ Àü¼Û ¹ÞÀ» °¡¸ÍÁ¡ÀÇ ÁÖ¹®ÆäÀÌÁö URL) -->
+    <!-- ï¿½ï¿½ï¿½ï¿½ URL (kcpï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL) -->
     <input type="hidden" name="Ret_URL"         value="<?=$url?>">
-    <!-- È­¸é Å©±âÁ¶Á¤ -->
+    <!-- È­ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -->
     <input type="hidden" name="tablet_size"     value="<?=$tablet_size?>">
 
-    <!-- Ãß°¡ ÆÄ¶ó¹ÌÅÍ ( °¡¸ÍÁ¡¿¡¼­ º°µµÀÇ °ªÀü´Þ½Ã param_opt ¸¦ »ç¿ëÇÏ¿© °ª Àü´Þ ) -->
+    <!-- ï¿½ß°ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ param_opt ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ) -->
     <input type="hidden" name="param_opt_1"     value="">
     <input type="hidden" name="param_opt_2"     value="">
     <input type="hidden" name="param_opt_3"     value="">
 
-    <!-- °áÁ¦ Á¤º¸ µî·Ï½Ã ÀÀ´ä Å¸ÀÔ ( ÇÊµå°¡ ¾ø°Å³ª °ªÀÌ '' ÀÏ°æ¿ì TEXT, °ªÀÌ XML ¶Ç´Â JSON Áö¿ø -->
+    <!-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ( ï¿½Êµå°¡ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ '' ï¿½Ï°ï¿½ï¿½ TEXT, ï¿½ï¿½ï¿½ï¿½ XML ï¿½Ç´ï¿½ JSON ï¿½ï¿½ï¿½ï¿½ -->
     <input type="hidden" name="response_type"  value="TEXT"/>
     <input type="hidden" name="PayUrl"   id="PayUrl"   value=""/>
     <input type="hidden" name="traceNo"  id="traceNo"  value=""/>
 </form>
 </div>
 
-<!-- ½º¸¶Æ®Æù¿¡¼­ KCP °áÁ¦Ã¢À» ·¹ÀÌ¾î ÇüÅÂ·Î ±¸Çö-->
+<!-- ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ KCP ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½-->
 <div id="layer_all" style="position:absolute; left:0px; top:0px; width:100%;height:100%; z-index:1; display:none;">
     <table height="100%" width="100%" border="-" cellspacing="0" cellpadding="0" style="text-align:center">
         <tr height="100%" width="100%">
@@ -262,15 +262,15 @@
     </table>
 </div>
 <form name="pay_form" method="post" action="pp_cli_hub.php">
-    <input type="hidden" name="req_tx"         value="<?=$req_tx?>">               <!-- ¿äÃ» ±¸ºÐ          -->
-    <input type="hidden" name="res_cd"         value="<?=$res_cd?>">               <!-- °á°ú ÄÚµå          -->
-    <input type="hidden" name="tran_cd"        value="<?=$tran_cd?>">              <!-- Æ®·£Àè¼Ç ÄÚµå      -->
-    <input type="hidden" name="ordr_idxx"      value="<?=$ordr_idxx?>">            <!-- ÁÖ¹®¹øÈ£           -->
-    <input type="hidden" name="buyr_name"      value="<?=$buyr_name?>">            <!-- ÁÖ¹®ÀÚ¸í           -->
+    <input type="hidden" name="req_tx"         value="<?=$req_tx?>">               <!-- ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½          -->
+    <input type="hidden" name="res_cd"         value="<?=$res_cd?>">               <!-- ï¿½ï¿½ï¿½ ï¿½Úµï¿½          -->
+    <input type="hidden" name="tran_cd"        value="<?=$tran_cd?>">              <!-- Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½      -->
+    <input type="hidden" name="ordr_idxx"      value="<?=$ordr_idxx?>">            <!-- ï¿½Ö¹ï¿½ï¿½ï¿½È£           -->
+    <input type="hidden" name="buyr_name"      value="<?=$buyr_name?>">            <!-- ï¿½Ö¹ï¿½ï¿½Ú¸ï¿½           -->
     <input type="hidden" name="enc_info"       value="<?=$enc_info?>">
     <input type="hidden" name="enc_data"       value="<?=$enc_data?>">
 
-    <!-- Ãß°¡ ÆÄ¶ó¹ÌÅÍ -->
+    <!-- ï¿½ß°ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ -->
     <input type="hidden" name="param_opt_1"	   value="<?=$param_opt_1?>">
     <input type="hidden" name="param_opt_2"	   value="<?=$param_opt_2?>">
     <input type="hidden" name="param_opt_3"	   value="<?=$param_opt_3?>">

@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -126,7 +126,7 @@
 ?>
 <html>
 <head>
-<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
+<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php";?>
 <script type="text/javascript" src="/comm/js/jquery.min.js"></script>
 <script language="javascript" src="js/sche_sche_list.js"></script>
 <SCRIPT LANGUAGE="JavaScript">
@@ -199,20 +199,20 @@
 
 <table width=100% height=100% cellpadding=0 cellspacing=0 border=0>
 	<tr>
-		<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_logo_info.php";?>
+		<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_logo_info.php";?>
 		<td width=100%>
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_tmenu_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_tmenu_info.php";?>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3"><?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_tmenu.php";?></td>
+		<td colspan="3"><?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_tmenu.php";?></td>
 	</tr>
 	<tr>
 		<td valign=top id=leftMenu>
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_lmenu_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_lmenu_info.php";?>
 		</td>
 		<td colspan=2 valign=top height=100%> 
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_stitle_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_stitle_info.php";?>
 			<table width=100%>
 				<tr>
 					<td style="padding:10px">
@@ -254,15 +254,15 @@
 						</table>
 						
 						<?if ($sgbn=="1"){?>
-							<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/sche/sche_include1.php";?>
+							<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/sche/sche_include1.php";?>
 						<?}else{?>
-							<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/sche/sche_include2.php";?>
+							<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/sche/sche_include2.php";?>
 						<?}?>
 						
 						</form>
 
 
-						<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_btip_info.php";?>
+						<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_btip_info.php";?>
 					</td>
 				</tr>
 			</table>
@@ -270,7 +270,7 @@
 	</tr>
 
 	<tr><td height=3 bgcolor="#E6E6E6" colspan=2></td></tr>
-	<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_copyright_info.php";?>
+	<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_copyright_info.php";?>
 </table>
 <script>table_design_load();</script>
 </body>

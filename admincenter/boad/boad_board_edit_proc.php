@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 ?>
@@ -36,9 +36,12 @@
 	$conf_auth="0" ;
 	$conf_img_width="150";
 	$conf_album_list_type="1";
-	$conf_group_code="";
-	$mem_code="";
-	$mem_id="";
+	$conf_group_code=""
+;
+	$mem_code=""
+;
+	$mem_id=""
+;
 
 
 	switch($RetrieveFlag){

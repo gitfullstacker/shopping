@@ -1,4 +1,4 @@
-<?include_once $_SERVER[DOCUMENT_ROOT] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 	//Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -47,24 +47,24 @@
 ?>
 <html>
 <head>
-<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_header_info.php";?>
+<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php";?>
 <script language="javascript" src="js/good_ranking_edit.js"></script>
 <script type="text/javascript" src="/_lib/smart/js/HuskyEZCreator.js" charset="utf-8"></script>
 </head>
 <body class=scroll>
 <table width=100% height=100% cellpadding=0 cellspacing=0 border=0>
 	<tr>
-		<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_logo_info.php";?>
+		<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_logo_info.php";?>
 		<td width=100%>
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_tmenu_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_tmenu_info.php";?>
 		</td>
 	</tr>
 	<tr>
 		<td valign=top id=leftMenu>
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_lmenu_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_lmenu_info.php";?>
 		</td>
 		<td colspan=2 valign=top height=100%>
-			<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_stitle_info.php";?>
+			<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_stitle_info.php";?>
 			<table width=100%>
 				<tr>
 					<td style="padding:10px">
@@ -159,7 +159,7 @@
 
 						</form>
 
-						<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_btip_info.php";?>
+						<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_btip_info.php";?>
 					</td>
 				</tr>
 			</table>
@@ -171,7 +171,7 @@
 	</tr>
 	<tr><td height=10></td></tr>
 	<tr><td height=3 bgcolor="#E6E6E6" colspan=2></td></tr>
-	<?include $_SERVER[DOCUMENT_ROOT] . "/admincenter/inc/inc_copyright_info.php";?>
+	<?include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_copyright_info.php";?>
 </table>
 <script>table_design_load();</script>
 <table border="0" style="display:none;">
