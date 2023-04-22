@@ -71,7 +71,54 @@
 
 	<div class="header-mobile">
 		<div class="header-alert">
-			<p class="alert-text">에이블랑 홈페이지 리뉴얼 오픈 기념 15% 할인</p>
+			<script type="text/javascript" src="/js/jquery.bxslider.js"></script>
+			<link type="text/css" rel="stylesheet" href="/css/jquery.bxslider.css" />
+			<ul class="bxslider">
+				<?
+				for ($int_I = 0; $int_I < $arr_Get_Data_Cnt5; $int_I++) {
+				?>
+					<li>
+						<a href="/boad/bd_news/m1/egoread.php?bd=<?= mysql_result($arr_Get_Data5, $int_I, conf_seq) ?>&seq=<?= mysql_result($arr_Get_Data5, $int_I, bd_seq) ?>">
+
+							<?
+							// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+							//	= 비공개글 표시 아이콘 변수에 저장 시작
+							$str_Tmp = "";
+							if (mysql_result($arr_Get_Data5, $int_I, bd_open_yn) > 0) {
+								$str_Tmp = "<img src='" . $str_Board_Icon_Img . "ic_key.gif' border='0' align='absMiddle' style='width:12px;height:14px;'> ";
+							}
+							//	= 비공개글 표시 아이콘 변수에 저장 종료
+							// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+							?>
+							<?= $str_Tmp ?>
+							<?
+							// ========================
+							//	= 메모글 갯수 출력 시작
+							if (mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) > 0) {
+								echo " (<img src='" . $str_Board_Icon_Img . "ic_memo.gif' align='absMiddle' border='0'> " . mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) . ") ";
+							}
+							//	= 메모글 갯수 출력 종료
+							// ========================
+
+							$str_Tmp = mb_strimwidth(stripslashes(mysql_result($arr_Get_Data5, $int_I, bd_title)), 0, 80, "...", "utf-8");
+							?>
+							<?= $str_Tmp ?>
+						</a>
+					</li>
+				<?
+				}
+				?>
+			</ul>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('.bxslider').bxSlider({
+						auto: true,
+						controls: false,
+						pager: false,
+						mode: 'vertical',
+					});
+				});
+			</script>
 		</div>
 		<div class="header-content">
 			<div class="body">
@@ -103,7 +150,7 @@
 	<div id="header" style="display: none;">
 		<div class="head01">
 			<h1><a href="/m/main/"><img src="/m/images/logo.gif" alt="" /></a></h1>
-			<!-- <p class="top_search"><button id="button" class="ui-state-default ui-corner-all icn" ><span class="screen_hide">검색</span></button></p> --> 
+			<!-- <p class="top_search"><button id="button" class="ui-state-default ui-corner-all icn" ><span class="screen_hide">검색</span></button></p> -->
 			<p class="top_search"><a href="/m/search/search.php" class="ui-state-default ui-corner-all icn"><span class="screen_hide">검색</span></a></p>
 			<p class="top_menu"><a href="#pageslide" id="openPageslide"><span class="icon2 icn"><span class="screen_hide">Menu</span></span></a></p>
 			<p class="top_mypage"><span class="icon3 icn"><span class="screen_hide">마이페이지</span></span></p>
@@ -116,6 +163,7 @@
 						width: 100%;
 						height: 100%;
 					}
+
 					.swiper-slide {
 						text-align: center;
 						width: auto;
@@ -133,22 +181,23 @@
 						-webkit-align-items: center;
 						align-items: center;
 					}
+
 					.swiper-slide:last-child {
-						margin-right:30px;
+						margin-right: 30px;
 					}
 				</style>
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide"><a href="/m/category/list.php"<?if ($Txt_bcode=="") {?> class="on"<?}?>>ALL</a></div>
-						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030110001"<?if ($Txt_bcode=="030110001") {?> class="on"<?}?>>NEW</a></div>
-						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030210001"<?if ($Txt_bcode=="030210001") {?> class="on"<?}?>>SMALL</a></div>
-						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030310001"<?if ($Txt_bcode=="030310001") {?> class="on"<?}?>>MEDIUM</a></div>
-						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030410001"<?if ($Txt_bcode=="030410001") {?> class="on"<?}?>>LARGE</a></div>
-						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030510001"<?if ($Txt_bcode=="030510001") {?> class="on"<?}?>>CLUTCH</a></div>
-						
+						<div class="swiper-slide"><a href="/m/category/list.php" <? if ($Txt_bcode == "") { ?> class="on" <? } ?>>ALL</a></div>
+						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030110001" <? if ($Txt_bcode == "030110001") { ?> class="on" <? } ?>>NEW</a></div>
+						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030210001" <? if ($Txt_bcode == "030210001") { ?> class="on" <? } ?>>SMALL</a></div>
+						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030310001" <? if ($Txt_bcode == "030310001") { ?> class="on" <? } ?>>MEDIUM</a></div>
+						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030410001" <? if ($Txt_bcode == "030410001") { ?> class="on" <? } ?>>LARGE</a></div>
+						<div class="swiper-slide"><a href="/m/category/list.php?Txt_bcode=030510001" <? if ($Txt_bcode == "030510001") { ?> class="on" <? } ?>>CLUTCH</a></div>
+
 					</div>
-					 <!-- Add Arrows -->
-					
+					<!-- Add Arrows -->
+
 				</div>
 				<script src="/m/js/swiper.min.js"></script>
 				<script>

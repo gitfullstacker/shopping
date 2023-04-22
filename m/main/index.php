@@ -63,6 +63,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php"; ?>
 
+<!-- Slider -->
 <div class="m_visual">
 	<div class="swiper-container1">
 		<div class="swiper-wrapper">
@@ -93,7 +94,6 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		<!-- Add Pagination -->
 		<div class="swiper-pagination"></div>
 		<!-- Add Arrows -->
-
 	</div>
 	<script>
 		var swiper = new Swiper('.swiper-container1', {
@@ -108,57 +108,26 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		});
 	</script>
 </div>
-<div class="m_event"><span class="tit">NOTICE</span>
-	<script type="text/javascript" src="/js/jquery.bxslider.js"></script>
-	<link type="text/css" rel="stylesheet" href="/css/jquery.bxslider.css" />
-	<ul class="bxslider">
-		<?
-		for ($int_I = 0; $int_I < $arr_Get_Data_Cnt5; $int_I++) {
-		?>
-			<li>
-				<a href="/boad/bd_news/m1/egoread.php?bd=<?= mysql_result($arr_Get_Data5, $int_I, conf_seq) ?>&seq=<?= mysql_result($arr_Get_Data5, $int_I, bd_seq) ?>">
 
-					<?
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					//	= 비공개글 표시 아이콘 변수에 저장 시작
-					$str_Tmp = "";
-					if (mysql_result($arr_Get_Data5, $int_I, bd_open_yn) > 0) {
-						$str_Tmp = "<img src='" . $str_Board_Icon_Img . "ic_key.gif' border='0' align='absMiddle' style='width:12px;height:14px;'> ";
-					}
-					//	= 비공개글 표시 아이콘 변수에 저장 종료
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					?>
-					<?= $str_Tmp ?>
-					<?
-					// ========================
-					//	= 메모글 갯수 출력 시작
-					if (mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) > 0) {
-						echo " (<img src='" . $str_Board_Icon_Img . "ic_memo.gif' align='absMiddle' border='0'> " . mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) . ") ";
-					}
-					//	= 메모글 갯수 출력 종료
-					// ========================
-
-					$str_Tmp = mb_strimwidth(stripslashes(mysql_result($arr_Get_Data5, $int_I, bd_title)), 0, 80, "...", "utf-8");
-					?>
-					<?= $str_Tmp ?>
-				</a>
-			</li>
-		<?
-		}
-		?>
-	</ul>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.bxslider').bxSlider({
-				auto: true,
-				controls: false,
-				pager: false,
-				mode: 'vertical',
-			});
-		});
-	</script>
+<!-- Sub menu -->
+<div class="sub-menu">
+	<a href="#" class="menu-item">
+		<img src="../images/menu_item1.png" alt="menu_item1" />
+		<p class="item-title">이용안내</p>
+	</a>
+	<a href="#" class="menu-item">
+		<img src="../images/menu_item2.png" alt="menu_item2" />
+		<p class="item-title">신규혜택</p>
+	</a>
+	<a href="#" class="menu-item">
+		<img src="../images/menu_item3.png" alt="menu_item3" />
+		<p class="item-title">리뷰</p>
+	</a>
+	<a href="#" class="menu-item">
+		<img src="../images/menu_item4.png" alt="menu_item4" />
+		<p class="item-title">기획전</p>
+	</a>
 </div>
-
 
 <div class="con_width">
 	<div class="main_tit2"><span>NEW</span></div>

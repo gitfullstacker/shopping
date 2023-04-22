@@ -723,6 +723,32 @@ body {
   border-radius: 100%;
 }
 
+.sub-menu {
+  margin-top: 36px;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 17px;
+}
+
+.sub-menu>.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.sub-menu>.menu-item>.item-title {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #444444;
+}
+
 .con_width {
   padding: 0 12px;
   position: relative;
@@ -790,19 +816,23 @@ body {
   position: relative;
 }
 
+.swiper-pagination-bullet {
+  border-radius: unset !important;
+}
+
 .m_visual .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
-  margin: 0 8px;
+  margin: 0 0px;
 }
 
 .m_visual .swiper-pagination-bullet {
-  width: 5px;
-  height: 5px;
+  width: 47px;
+  height: 1.55px;
   opacity: 1;
   background: #fff;
 }
 
 .m_visual .swiper-pagination-bullet-active {
-  background: #faaa32;
+  background: #000;
 }
 
 .m_event {

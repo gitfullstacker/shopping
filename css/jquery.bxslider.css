@@ -30,16 +30,28 @@
 ===================================*/
 
 .bx-wrapper .bx-viewport {
-	
+
 	left: 0;
-	background: #fff;
-	
+	background: #000;
+
+	font-family: 'NanumSquare';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 15px;
+	/* identical to box height */
+
+	text-align: center;
+
+	color: #FFFFFF;
+
+
 	/*fix other elements on the page moving (on Chrome)*/
 	-webkit-transform: translatez(0);
 	-moz-transform: translatez(0);
-    	-ms-transform: translatez(0);
-    	-o-transform: translatez(0);
-    	transform: translatez(0);
+	-ms-transform: translatez(0);
+	-o-transform: translatez(0);
+	transform: translatez(0);
 }
 
 .bx-wrapper .bx-pager,
