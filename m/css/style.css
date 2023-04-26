@@ -749,6 +749,73 @@ body {
   color: #444444;
 }
 
+.eventzone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 21px;
+  margin-top: 45px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.eventzone>.eventzone-top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.eventzone>.eventzone-top-bar>.eventzone-top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eventzone>.eventzone-top-bar>.eventzone-top-left>.title {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 20px;
+  color: #333333;
+}
+
+.eventzone>.eventzone-top-bar>.eventzone-top-left>.sub-title {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #333333;
+}
+
+.eventzone>.eventzone-scroll-list {
+  display: flex;
+  flex-direction: row;
+  gap: 13px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.eventzone>.eventzone-scroll-list::-webkit-scrollbar {
+  display: none;
+}
+
+.eventzone>.eventzone-scroll-list>.item {
+  width: 220px;
+  height: 273px;
+  border-radius: 15px;
+}
+
+.eventzone>.eventzone-scroll-list>.item>img {
+  width: 220px;
+  height: 273px;
+}
+
 .con_width {
   padding: 0 12px;
   position: relative;

@@ -63,7 +63,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php"; ?>
 
-<!-- Slider -->
+<!-- 슬라이더 -->
 <div class="m_visual">
 	<div class="swiper-container1">
 		<div class="swiper-wrapper">
@@ -109,7 +109,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 	</script>
 </div>
 
-<!-- Sub menu -->
+<!-- 안내메뉴 -->
 <div class="sub-menu">
 	<a href="#" class="menu-item">
 		<img src="../images/menu_item1.png" alt="menu_item1" />
@@ -127,6 +127,33 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		<img src="../images/menu_item4.png" alt="menu_item4" />
 		<p class="item-title">기획전</p>
 	</a>
+</div>
+
+<!-- 이벤트존 -->
+<div class="eventzone">
+	<div class="eventzone-top-bar">
+		<div class="eventzone-top-left">
+			<p class="title">이벤트존</p>
+			<p class="sub-title">에이블랑만의 큐레이션</p>
+		</div>
+		<a href="#" class="eventzone-top-right">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.02539L14.3332 5.9577L8.76416 10.691" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 5.95801H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</a>
+	</div>
+	<div class="eventzone-scroll-list">
+		<?php
+		for ($i = 0; $i < 5; $i++) {
+		?>
+			<div class="item">
+				<img src="../images/mockup/event_zone.png" alt="event_zone">
+			</div>
+		<?php
+		}
+		?>
+	</div>
 </div>
 
 <div class="con_width">
