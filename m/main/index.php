@@ -156,6 +156,56 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 	</div>
 </div>
 
+<!-- Category Pick -->
+<div class="categorypick">
+	<div class="categorypick-top-bar">
+		<div class="categorypick-top-left">
+			<p class="title">이벤트존</p>
+			<p class="sub-title">에이블랑만의 큐레이션</p>
+		</div>
+		<a href="#" class="categorypick-top-right">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.02539L14.3332 5.9577L8.76416 10.691" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 5.95801H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</a>
+	</div>
+	<div class="categorypick-scroll-list">
+		<?php
+		for ($i = 0; $i < 5; $i++) {
+		?>
+			<div class="section">
+				<div class="item">
+					<img src="../images/mockup/category.png" alt="event_zone">
+				</div>
+				<div class="bottom-section">
+					<?php
+					for ($j = 0; $j < 2; $j++) {
+					?>
+						<div class="item">
+							<div class="image-part">
+								<img src="../images/mockup/product.png" alt="event_zone">
+							</div>
+							<div class="text-part">
+								<p class="tag">BOTTEGA BENETA</p>
+								<p class="title">카세트 스몰</p>
+								<div class="price-section">
+									<p class="regular-price">일 35,920원</p>
+									<p class="origin-price">35,920원</p>
+								</div>
+							</div>
+						</div>
+					<?php
+					}
+					?>
+				</div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+</div>
+
 <div class="con_width">
 	<div class="main_tit2"><span>NEW</span></div>
 	<ul class="new_list">
