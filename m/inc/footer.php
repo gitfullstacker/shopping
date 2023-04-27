@@ -1,5 +1,28 @@
 </div> <!-- //#wrapper -->
 
+<div class="footer-section">
+	<div class="menu-list">
+		<a class="item" href="#">COMPANY</a>
+		<a class="item" href="#">AGREEMENT</a>
+		<a class="item" href="#">PRIVACY POLICY</a>
+		<a class="item" href="#">HELP</a>
+		<a class="item" href="#">PARTNERSHIP</a>
+	</div>
+	<div class="content">
+		<p class="title">ABLANC</p>
+		<p class="sub-title">(주)에이블랑</p>
+		<div class="info">
+			<p class="item">주소: 박용훈, 김율희</p>
+			<p class="item">소재지: 서울특별시 서대문구 연희로 27길 16 (연희동) 2층</p>
+			<p class="item">사업자등록번호: 698-86-00719</p>
+			<p class="item">통신판매업신고번호: 2021-서울송파-0251</p>
+			<p class="item">개인정보관리책임자: 박용훈</p>
+			<p class="item">ablancpm@gmail.com	I	02-6013-0616</p>
+		</div>
+		<p class="copyright">2021-2023 ABLANC CO. ALL RIGHTS RESERVED</p>
+	</div>
+</div>
+
 <div class="footer-mobile">
 	<div class="menu-item">
 		<svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">

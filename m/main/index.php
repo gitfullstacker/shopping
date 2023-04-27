@@ -352,6 +352,33 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 	</div>
 </div>
 
+<!-- Review -->
+<div class="review">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
+			<p class="title">REVIEW</p>
+		</div>
+		<div class="right-section">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</div>
+	</div>
+	<div class="image-grid">
+		<?php
+		for ($i = 0; $i < 8; $i++) {
+		?>
+			<div class="image <?= $i == 2 ? 'large' : '' ?>">
+				<img src="../images/mockup/review.png" alt="review">
+			</div>
+		<?php
+		}
+		?>
+	</div>
+	<button class="review-button">더 많은 리뷰 보러가기</button>
+</div>
+
 <div class="con_width">
 	<div class="main_tit2"><span>NEW</span></div>
 	<ul class="new_list">
