@@ -235,7 +235,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 	</div>
 </div>
 
-<!-- Lent Limit -->
+<!-- Rent Limit -->
 <div class="rentlimit">
 	<div class="sub-section-top-bar">
 		<div class="left-section">
@@ -249,13 +249,55 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 			</svg>
 		</div>
 	</div>
-	<div class="rentlimit-scroll-list">
+	<div class="rent-scroll-list">
 		<?php
 		for ($i = 0; $i < 5; $i++) {
 		?>
 			<div class="item">
 				<div class="image">
-					<img src="../images/mockup/rent_product.png" alt="rentlimit">
+					<img src="../images/mockup/rent_product.png" alt="rent">
+					<div class="discount">
+						<p class="value">20%</p>
+					</div>
+				</div>
+				<p class="brand">DIOR</p>
+				<p class="title">바비백 스몰</p>
+				<div class="price-section">
+					<p class="current-price">일 35,920원</p>
+					<p class="origin-price">35,920원</p>
+				</div>
+				<button class="rent-button">렌트</button>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+</div>
+
+<!-- Rent New -->
+<div class="rentnew">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
+			<p class="title">렌트 신규 입고</p>
+			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
+		</div>
+		<div class="right-section">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</div>
+	</div>
+	<div class="main-image">
+		<img src="../images/mockup/new_rent.png" alt="rentnew">
+	</div>
+	<div class="rent-scroll-list">
+		<?php
+		for ($i = 0; $i < 5; $i++) {
+		?>
+			<div class="item">
+				<div class="image">
+					<img src="../images/mockup/rent_product.png" alt="rent">
 					<div class="discount">
 						<p class="value">20%</p>
 					</div>

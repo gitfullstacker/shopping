@@ -1009,7 +1009,7 @@ body {
   margin-right: 16px;
 }
 
-.rentlimit>.rentlimit-scroll-list {
+.rent-scroll-list {
   display: flex;
   flex-direction: row;
   gap: 13px;
@@ -1019,18 +1019,18 @@ body {
   width: 100%;
 }
 
-.rentlimit>.rentlimit-scroll-list::-webkit-scrollbar {
+.rent-scroll-list::-webkit-scrollbar {
   display: none;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item {
+.rent-scroll-list>.item {
   width: 126px;
   display: flex;
   flex-direction: column;
   align-items: start;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.image {
+.rent-scroll-list>.item>.image {
   width: 126px;
   height: 126px;
   background: #F9F9F9;
@@ -1041,12 +1041,12 @@ body {
   position: relative;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.image>img {
+.rent-scroll-list>.item>.image>img {
   width: 96px;
   height: 106px;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.image>.discount {
+.rent-scroll-list>.item>.image>.discount {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -1058,7 +1058,7 @@ body {
   align-items: center;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.image>.discount>.value {
+.rent-scroll-list>.item>.image>.discount>.value {
   font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
@@ -1068,7 +1068,7 @@ body {
   color: #FFFFFF;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.brand {
+.rent-scroll-list>.item>.brand {
   margin-top: 11px;
   font-family: 'NanumSquare';
   font-style: normal;
@@ -1078,7 +1078,7 @@ body {
   color: #666666;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.title {
+.rent-scroll-list>.item>.title {
   margin-top: 3.15px;
   font-family: 'NanumSquare';
   font-style: normal;
@@ -1088,7 +1088,7 @@ body {
   color: #333333;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.price-section {
+.rent-scroll-list>.item>.price-section {
   margin-top: 6.7px;
   display: flex;
   flex-direction: row;
@@ -1096,7 +1096,7 @@ body {
   gap: 3px;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.price-section>.current-price {
+.rent-scroll-list>.item>.price-section>.current-price {
   font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
@@ -1105,7 +1105,7 @@ body {
   color: #000000;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.price-section>.origin-price {
+.rent-scroll-list>.item>.price-section>.origin-price {
   font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
@@ -1115,7 +1115,7 @@ body {
   color: #666666;
 }
 
-.rentlimit>.rentlimit-scroll-list>.item>.rent-button {
+.rent-scroll-list>.item>.rent-button {
   margin-top: 11px;
   background: #00402F;
   width: 30px;
@@ -1127,6 +1127,24 @@ body {
   line-height: 10px;
   text-align: center;
   color: #FFFFFF;
+}
+
+.rentnew {
+  display: flex;
+  flex-direction: column;
+  margin-top: 46px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.rentnew>.main-image {
+  margin-top: 21px;
+  width: 100vw;
+  margin-left: -16px;
+}
+
+.rentnew>.rent-scroll-list {
+  margin-top: 14.85px;
 }
 
 .con_width {
