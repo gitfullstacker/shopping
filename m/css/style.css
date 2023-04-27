@@ -749,17 +749,7 @@ body {
   color: #444444;
 }
 
-.eventzone {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 21px;
-  margin-top: 45px;
-  margin-left: 16px;
-  margin-right: 16px;
-}
-
-.eventzone>.eventzone-top-bar {
+.sub-section-top-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -767,13 +757,13 @@ body {
   width: 100%;
 }
 
-.eventzone>.eventzone-top-bar>.eventzone-top-left {
+.sub-section-top-bar>.left-section {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.eventzone>.eventzone-top-bar>.eventzone-top-left>.title {
+.sub-section-top-bar>.left-section>.title {
   font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
@@ -782,13 +772,23 @@ body {
   color: #333333;
 }
 
-.eventzone>.eventzone-top-bar>.eventzone-top-left>.sub-title {
+.sub-section-top-bar>.left-section>.description {
   font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
   color: #333333;
+}
+
+.eventzone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 21px;
+  margin-top: 45px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .eventzone>.eventzone-scroll-list {
@@ -814,6 +814,7 @@ body {
 .eventzone>.eventzone-scroll-list>.item>img {
   width: 220px;
   height: 273px;
+  border-radius: 15px;
 }
 
 .categorypick {
@@ -824,38 +825,6 @@ body {
   margin-top: 50px;
   margin-left: 16px;
   margin-right: 16px;
-}
-
-.categorypick>.categorypick-top-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.categorypick>.categorypick-top-bar>.categorypick-top-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.categorypick>.categorypick-top-bar>.categorypick-top-left>.title {
-  font-family: 'NanumSquare';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 20px;
-  color: #333333;
-}
-
-.categorypick>.categorypick-top-bar>.categorypick-top-left>.sub-title {
-  font-family: 'NanumSquare';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
-  color: #333333;
 }
 
 .categorypick>.categorypick-scroll-list {
@@ -888,6 +857,7 @@ body {
 .categorypick>.categorypick-scroll-list>.section>.item>img {
   width: 247px;
   height: 369px;
+  border-radius: 15px;
 }
 
 .categorypick>.categorypick-scroll-list>.section>.bottom-section {
@@ -969,6 +939,194 @@ body {
   line-height: 11px;
   text-decoration-line: line-through;
   color: #666666;
+}
+
+.topbrand {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  margin-top: 47px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.topbrand>.topbrand-scroll-list {
+  display: flex;
+  flex-direction: row;
+  gap: 13px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.topbrand>.topbrand-scroll-list::-webkit-scrollbar {
+  display: none;
+}
+
+.topbrand>.topbrand-scroll-list>.item {
+  width: 115px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topbrand>.topbrand-scroll-list>.item>img {
+  width: 115px;
+  height: 160px;
+  border-radius: 40px;
+}
+
+.topbrand>.topbrand-scroll-list>.item>.e-brand {
+  margin-top: 9.66px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12.6461px;
+  line-height: 14px;
+  text-align: center;
+  color: #333333;
+}
+
+.topbrand>.topbrand-scroll-list>.item>.k-brand {
+  margin-top: 2.66px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10.8396px;
+  line-height: 12px;
+  text-align: center;
+  color: #666666;
+}
+
+.rentlimit {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  margin-top: 46px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.rentlimit>.rentlimit-scroll-list {
+  display: flex;
+  flex-direction: row;
+  gap: 13px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.rentlimit>.rentlimit-scroll-list::-webkit-scrollbar {
+  display: none;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item {
+  width: 126px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.image {
+  width: 126px;
+  height: 126px;
+  background: #F9F9F9;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.image>img {
+  width: 96px;
+  height: 106px;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.image>.discount {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 8px;
+  top: 8.03px;
+  background: #00402F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.image>.discount>.value {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 7px;
+  line-height: 8px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.brand {
+  margin-top: 11px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 9px;
+  line-height: 10px;
+  color: #666666;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.title {
+  margin-top: 3.15px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8.5px;
+  line-height: 10px;
+  color: #333333;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.price-section {
+  margin-top: 6.7px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.price-section>.current-price {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.price-section>.origin-price {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 11px;
+  text-decoration-line: line-through;
+  color: #666666;
+}
+
+.rentlimit>.rentlimit-scroll-list>.item>.rent-button {
+  margin-top: 11px;
+  background: #00402F;
+  width: 30px;
+  height: 16.15px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 8.5px;
+  line-height: 10px;
+  text-align: center;
+  color: #FFFFFF;
 }
 
 .con_width {

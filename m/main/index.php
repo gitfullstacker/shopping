@@ -131,12 +131,12 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- 이벤트존 -->
 <div class="eventzone">
-	<div class="eventzone-top-bar">
-		<div class="eventzone-top-left">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
 			<p class="title">이벤트존</p>
-			<p class="sub-title">에이블랑만의 큐레이션</p>
+			<p class="description">에이블랑만의 큐레이션</p>
 		</div>
-		<a href="#" class="eventzone-top-right">
+		<a href="#" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.02539L14.3332 5.9577L8.76416 10.691" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 5.95801H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
@@ -158,12 +158,12 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- Category Pick -->
 <div class="categorypick">
-	<div class="categorypick-top-bar">
-		<div class="categorypick-top-left">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
 			<p class="title">이벤트존</p>
-			<p class="sub-title">에이블랑만의 큐레이션</p>
+			<p class="description">에이블랑만의 큐레이션</p>
 		</div>
-		<a href="#" class="categorypick-top-right">
+		<a href="#" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.02539L14.3332 5.9577L8.76416 10.691" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 5.95801H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
@@ -199,6 +199,74 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 					}
 					?>
 				</div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+</div>
+
+<!-- Top Brand -->
+<div class="topbrand">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
+			<p class="title">TOP BRAND</p>
+			<p class="description">주간 급상승, 이 브랜드에 주목하세요</p>
+		</div>
+		<div class="right-section">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</div>
+	</div>
+	<div class="topbrand-scroll-list">
+		<?php
+		for ($i = 0; $i < 5; $i++) {
+		?>
+			<div class="item">
+				<img src="../images/mockup/brand.png" alt="event_zone">
+				<p class="e-brand">CHANEL</p>
+				<p class="k-brand">샤넬</p>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+</div>
+
+<!-- Lent Limit -->
+<div class="rentlimit">
+	<div class="sub-section-top-bar">
+		<div class="left-section">
+			<p class="title">렌트 한정 기간 타임세일</p>
+			<p class="description">매주 만나볼 수 있는 특별한 기회를 놓치지마세요</p>
+		</div>
+		<div class="right-section">
+			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
+			</svg>
+		</div>
+	</div>
+	<div class="rentlimit-scroll-list">
+		<?php
+		for ($i = 0; $i < 5; $i++) {
+		?>
+			<div class="item">
+				<div class="image">
+					<img src="../images/mockup/rent_product.png" alt="rentlimit">
+					<div class="discount">
+						<p class="value">20%</p>
+					</div>
+				</div>
+				<p class="brand">DIOR</p>
+				<p class="title">바비백 스몰</p>
+				<div class="price-section">
+					<p class="current-price">일 35,920원</p>
+					<p class="origin-price">35,920원</p>
+				</div>
+				<button class="rent-button">렌트</button>
 			</div>
 		<?php
 		}
