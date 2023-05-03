@@ -64,11 +64,11 @@
         <?php
         for ($i = 0; $i < 5; $i++) {
         ?>
-            <div class="item">
+            <a href="detail/index.php" class="item">
                 <img src="images/mockup/event1.png" alt="event">
                 <p class="title">23 SEASON TREND</p>
                 <p class="tag">2023 시즌 패션 트렌드</p>
-            </div>
+            </a>
         <?php
         }
         ?>
