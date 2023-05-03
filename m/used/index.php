@@ -48,10 +48,9 @@
 
     <!-- ABLANC RENT -->
     <div class="ablanc-rent">
-        <p class="title">ABLANC RENT</p>
+        <p class="title">CHOICE IT BAG</p>
         <div class="filter-section">
-            <p class="description">이용하고 싶은 날짜를 선택해주세요!</p>
-            <button class="select-btn">시작 날짜 선택</button>
+            <p class="description">월 1회 무료교환으로 다양한 가방을 사용해보세요.</p>
             <div class="filter-list">
                 <button class="item-btn">브랜드</button>
                 <button class="item-btn">사이즈</button>
@@ -133,7 +132,7 @@
             <?php
             for ($i = 0; $i < 4; $i++) {
             ?>
-                <a href="detail/index.php" class="item">
+                <a href="detail/index.php" class="global-review-item">
                     <div class="image">
                         <img src="images/mockup/review.png" alt="review">
                         <div class="bottom-section">

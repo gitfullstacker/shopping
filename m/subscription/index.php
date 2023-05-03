@@ -132,7 +132,7 @@
             <?php
             for ($i = 0; $i < 4; $i++) {
             ?>
-                <a href="detail/index.php" class="item">
+                <a href="detail/index.php" class="global-review-item">
                     <div class="image">
                         <img src="images/mockup/review.png" alt="review">
                         <div class="bottom-section">
