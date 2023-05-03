@@ -73,7 +73,25 @@
         }
         ?>
         <div class="pagination">
-            
+            <a href="#">
+                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
+                </svg>
+            </a>
+            <div class="pages">
+                <?php
+                for ($i = 0; $i < 4; $i++) {
+                ?>
+                    <div class="item <?= $i == 0 ? 'actived' : '' ?>"><?= $i + 1 ?></div>
+                <?php
+                }
+                ?>
+            </div>
+            <a href="#">
+                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
+                </svg>
+            </a>
         </div>
     </div>
 </div>

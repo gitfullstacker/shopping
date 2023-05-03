@@ -76,5 +76,38 @@
     margin-top: 33.86px;
     display: flex;
     flex-direction: row;
-    
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+}
+
+.news-letter>.event-list>.pagination>a {
+    display: flex;
+}
+
+.news-letter>.event-list>.pagination>.pages {
+    display: flex;
+    flex-direction: row;
+    gap: 9.62px;
+}
+
+.news-letter>.event-list>.pagination>.pages>.item {
+    width: 25.28px;
+    height: 25.28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.72px solid #DDDDDD;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
+}
+
+.news-letter>.event-list>.pagination>.pages>.actived {
+    background-color: #000000;
+    color: #FFFFFF;
 }
