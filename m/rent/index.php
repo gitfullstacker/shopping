@@ -133,7 +133,7 @@
             <?php
             for ($i = 0; $i < 4; $i++) {
             ?>
-                <div class="item">
+                <a href="detail/index.php" class="item">
                     <div class="image">
                         <img src="images/mockup/review.png" alt="review">
                         <div class="bottom-section">
@@ -143,7 +143,7 @@
                     </div>
                     <div class="score">★★★★★</div>
                     <div class="content">디자인, 색상 모두 맘에들어요 자주 이용해야겠어요!</div>
-                </div>
+                </a>
             <?php
             }
             ?>

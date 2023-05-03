@@ -1226,6 +1226,47 @@ body {
   color: #000000;
 }
 
+.detail-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55px;
+  border-bottom: 1px solid #C6C6C6;
+  background-color: white;
+}
+
+.detail-header>.title {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+}
+
+.detail-header>.back-btn {
+  position: absolute;
+  left: 28px;
+  top: 20px;
+}
+
+.detail-header>.right-menu {
+  position: absolute;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-wrapper {
+  padding-top: 55px;
+}
+
 .footer-section {
   display: flex;
   flex-direction: column;
