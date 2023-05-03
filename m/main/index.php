@@ -111,7 +111,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- 안내메뉴 -->
 <div class="sub-menu">
-	<a href="../cscenter/guide.php" class="menu-item">
+	<a href="../guide" class="menu-item">
 		<img src="../images/menu_item1.png" alt="menu_item1" />
 		<p class="item-title">이용안내</p>
 	</a>

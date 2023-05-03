@@ -1,0 +1,518 @@
+.main-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-body>.main-image {
+    width: 100%;
+}
+
+.main-body>.menu-section {
+    width: 100%;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    background: #050303;
+}
+
+.main-body>.menu-section>.item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Rany';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 13px;
+    text-align: center;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.main-body>.menu-section .item:not(:last-child)::after {
+    position: absolute;
+    content: '|';
+    right: 0;
+}
+
+.main-body>.fashion-brand {
+    margin-top: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-body>.fashion-brand>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.fashion-brand>.description {
+    margin-top: 9px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.fashion-brand>.product-list {
+    width: 100%;
+    height: 50px;
+}
+
+.main-body>.review-section {
+    margin-top: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-body>.review-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.review-section>.description {
+    margin-top: 9px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.review-section>.review-list {
+    margin-top: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+.main-body>.review-section>.review-list::-webkit-scrollbar {
+    height: 1px;
+}
+
+.main-body>.review-section>.review-list::-webkit-scrollbar-thumb {
+    background-color: black;
+}
+
+.main-body>.review-section>.review-list::-webkit-scrollbar-track {
+    margin-left: 95px;
+    margin-right: 95px;
+    background-color: #C6C6C6;
+}
+
+.main-body>.review-section>.review-list>.item {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+}
+
+.main-body>.review-section>.review-list>.item>.image {
+    width: 200px;
+    height: 188px;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+}
+
+.main-body>.review-section>.review-list>.item>.image>img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.main-body>.review-section>.review-list>.item>.header-section {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 3.42px;
+    background: #F8F8F8;
+}
+
+.main-body>.review-section>.review-list>.item>.header-section>.brand {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 9px;
+    line-height: 10px;
+    color: #666666;
+}
+
+.main-body>.review-section>.review-list>.item>.header-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 10px;
+    color: #333333;
+}
+
+.main-body>.review-section>.review-list>.item>.content-section {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 14px;
+    padding-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5.04px;
+}
+
+.main-body>.review-section>.review-list>.item>.content-section>.user {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.main-body>.review-section>.review-list>.item>.content-section>.review-content {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 12px;
+    color: #333333;
+}
+
+.main-body>.review-section>.action {
+    margin-top: 24.45px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    width: 100%;
+}
+
+.main-body>.review-section>.action>.see-more-btn {
+    width: 100%;
+    height: 45px;
+    background: #010000;
+    border: 0.72px solid #DDDDDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.main-body>.subscription-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-body>.subscription-section>.header-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    background: #F5F5F5;
+    height: 132px;
+}
+
+.main-body>.subscription-section>.header-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.subscription-section>.header-section>.description {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.subscription-section>.menu-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.main-body>.subscription-section>.menu-section>.item {
+    position: relative;
+    height: 50px;
+    flex: 1 1 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.main-body>.subscription-section>.menu-section>.item>svg {
+    display: none;
+    position: absolute;
+    top: -4px;
+    left: 50% - 20px;
+}
+
+.main-body>.subscription-section>.menu-section>.item.active>svg {
+    display: block;
+}
+
+.main-body>.subscription-section>.menu-section>.item:nth-child(1) {
+    background: #00402F;
+}
+
+.main-body>.subscription-section>.menu-section>.item:nth-child(2) {
+    background: #EEAC4C;
+}
+
+.main-body>.subscription-section>.content-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-body>.subscription-section>.content-section>.header-section {
+    position: relative;
+    background-image: url('../images/subscription_main.png');
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+}
+
+.main-body>.subscription-section>.content-section>.header-section>.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.main-body>.subscription-section>.content-section>.header-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+.main-body>.subscription-section>.content-section>.header-section>.description {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+.main-body>.subscription-section>.content-section>.content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    background: #E5EAE3;
+    width: 100%;
+}
+
+.main-body>.subscription-section>.content-section>.content-list>.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 28px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+}
+
+.main-body>.subscription-section>.content-section>.content-list>.item>.icon {
+    width: 60px;
+    height: 60px;
+}
+
+.main-body>.subscription-section>.content-section>.content-list>.item>.item-content {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.main-body>.subscription-section>.content-section>.content-list>.item>.item-content>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.main-body>.subscription-section>.content-section>.content-list>.item>.item-content>.description {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #666666;
+}
+
+.main-body>.rent-system-section {
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.main-body>.rent-system-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #000000;
+}
+
+.main-body>.rent-system-section>.system-list {
+    margin-top: 28px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+}
+
+.main-body>.rent-system-section>.system-list>.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-body>.rent-system-section>.system-list>.item>.icon {
+    width: 95px;
+    height: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 100%;
+}
+
+.main-body>.rent-system-section>.system-list>.item>.title {
+    margin-top: 15px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #000000;
+}
+
+.main-body>.rent-system-section>.system-list>.item>.description {
+    margin-top: 5px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #666666;
+}
+
+.main-body>.rent-system-section>.system-list>.splitter {
+    padding-top: 47px;
+}
+
+.main-body>.rent-system-section>.guid-section {
+    margin-top: 25px;
+    background: #F5F5F5;
+    padding-top: 15px;
+    padding-bottom: 13px;
+    padding-left: 9px;
+    padding-right: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.main-body>.rent-system-section>.guid-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.main-body>.rent-system-section>.guid-section>.description {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 160%;
+    color: #999999;
+}
