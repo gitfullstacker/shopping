@@ -13,7 +13,7 @@
     <p class="title">NEWS LETTER</p>
 </div>
 
-<div class="body">
+<div class="body-section">
     <div class="header-section">
         <p class="title">2023 TREND CURATION</p>
         <p class="description">2023 패션 트렌드 미리보기</p>

@@ -26,13 +26,13 @@
     color: #333333;
 }
 
-.body {
+.body-section {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.body>.header-section {
+.body-section>.header-section {
     display: flex;
     flex-direction: column;
     gap: 9px;
@@ -40,7 +40,7 @@
     padding-right: 14px;
 }
 
-.body>.header-section>.title {
+.body-section>.header-section>.title {
     font-family: 'NanumSquare';
     font-style: normal;
     font-weight: 800;
@@ -49,7 +49,7 @@
     color: #333333;
 }
 
-.body>.header-section>.description {
+.body-section>.header-section>.description {
     font-family: 'NanumSquare';
     font-style: normal;
     font-weight: 700;
@@ -58,16 +58,16 @@
     color: #333333;
 }
 
-.body>.content {
+.body-section>.content {
     margin-top: 20px;
     width: 100%;
 }
 
-.body>.content>.img {
+.body-section>.content>.img {
     width: 100%;
 }
 
-.body>.content>.notification-section {
+.body-section>.content>.notification-section {
     margin-top: 40px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -76,13 +76,13 @@
     background: #EAEAEA;
 }
 
-.body>.content>.notification-section>.header-section {
+.body-section>.content>.notification-section>.header-section {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-.body>.content>.notification-section>.header-section>.title {
+.body-section>.content>.notification-section>.header-section>.title {
     font-family: 'NanumSquare';
     font-style: normal;
     font-weight: 800;
@@ -91,13 +91,13 @@
     color: #333333;
 }
 
-.body>.content>.notification-section>.notification-list {
+.body-section>.content>.notification-section>.notification-list {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
 }
 
-.body>.content>.notification-section>.notification-list>.item {
+.body-section>.content>.notification-section>.notification-list>.item {
     font-family: 'NanumSquare';
     font-style: normal;
     font-weight: 700;
@@ -106,7 +106,7 @@
     color: #333333;
 }
 
-.body>.relation-section {
+.body-section>.relation-section {
     margin-top: 40px;
     padding-top: 20px;
     padding-left: 14px;
@@ -117,7 +117,7 @@
     gap: 20px;
 }
 
-.body>.relation-section>.title {
+.body-section>.relation-section>.title {
     font-family: 'NanumSquare';
     font-style: normal;
     font-weight: 800;
@@ -126,7 +126,7 @@
     color: #333333;
 }
 
-.body>.relation-section>.relation-product-list {
+.body-section>.relation-section>.relation-product-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 13.5px;
