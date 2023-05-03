@@ -46,12 +46,11 @@
         </div>
     </div>
 
-    <!-- ABLANC RENT -->
+    <!-- CHOICE IT BAG -->
     <div class="ablanc-rent">
-        <p class="title">ABLANC RENT</p>
+        <p class="title">CHOICE IT BAG</p>
         <div class="filter-section">
-            <p class="description">이용하고 싶은 날짜를 선택해주세요!</p>
-            <button class="select-btn">시작 날짜 선택</button>
+            <p class="description">월 1회 무료교환으로 다양한 가방을 사용해보세요.</p>
             <div class="filter-list">
                 <button class="item-btn">브랜드</button>
                 <button class="item-btn">사이즈</button>
@@ -64,7 +63,7 @@
                     <div class="switch-box">
                         <div class="button"></div>
                     </div>
-                    <p>할인 상품보기</p>
+                    <p>구독 가능</p>
                 </div>
                 <div class="order-view">
                     <div class="icon">
@@ -89,9 +88,6 @@
                     <div class="item">
                         <div class="image">
                             <img src="images/mockup/product1.png" alt="">
-                            <div class="discount">
-                                <p class="value">20%</p>
-                            </div>
                         </div>
                         <p class="brand">CHANEL</p>
                         <p class="title">가브리엘 스몰 백팩</p>
