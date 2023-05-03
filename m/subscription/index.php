@@ -85,9 +85,12 @@
                 <?php
                 for ($i = 0; $i < 4; $i++) {
                 ?>
-                    <div class="item">
+                    <div class="global-product-item">
                         <div class="image">
                             <img src="images/mockup/product1.png" alt="">
+                            <div class="tag new">
+                                <p class="value">NEW</p>
+                            </div>
                         </div>
                         <p class="brand">CHANEL</p>
                         <p class="title">가브리엘 스몰 백팩</p>

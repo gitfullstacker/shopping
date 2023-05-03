@@ -1351,6 +1351,106 @@ body {
   color: #686868;
 }
 
+
+.global-product-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.global-product-item>.image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #F9F9F9;
+  border-radius: 10px;
+}
+
+.global-product-item>.image>.img {
+  width: 100%;
+}
+
+.global-product-item>.image>.tag {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 8.5px;
+  top: 7.87px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.global-product-item>.image>.tag>.value {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 9px;
+  line-height: 10px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.global-product-item>.image>.discount {
+  background: #00402F;
+}
+
+.global-product-item>.image>.new {
+  background: #EEAC4C;
+}
+
+.global-product-item>.image>.change {
+  background: #7E6B5A;
+}
+
+.global-product-item>.brand {
+  margin-top: 5.52px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 9px;
+  line-height: 10px;
+  color: #666666;
+}
+
+.global-product-item>.title {
+  margin-top: 3.27px;
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 10px;
+  color: #333333;
+}
+
+.global-product-item>.price-section {
+  margin-top: 7.87px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+}
+
+.global-product-item>.price-section>.current-price {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+
+.global-product-item>.price-section>.origin-price {
+  font-family: 'NanumSquare';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 11px;
+  text-decoration-line: line-through;
+  color: #666666;
+}
+
 .con_width {
   padding: 0 12px;
   position: relative;

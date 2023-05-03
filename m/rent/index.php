@@ -86,10 +86,10 @@
                 <?php
                 for ($i = 0; $i < 4; $i++) {
                 ?>
-                    <div class="item">
+                    <div class="global-product-item">
                         <div class="image">
                             <img src="images/mockup/product1.png" alt="">
-                            <div class="discount">
+                            <div class="tag discount">
                                 <p class="value">20%</p>
                             </div>
                         </div>
