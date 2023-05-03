@@ -82,7 +82,7 @@
                 <?php
                 for ($i = 0; $i < 4; $i++) {
                 ?>
-                    <div class="item <?= $i == 0 ? 'actived' : '' ?>"><?= $i + 1 ?></div>
+                    <a href="#" class="item <?= $i == 0 ? 'actived' : '' ?>"><?= $i + 1 ?></a>
                 <?php
                 }
                 ?>
