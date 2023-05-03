@@ -139,9 +139,9 @@
 			<div class="menu">
 				<a href="/m/main/" class="menu-item active">홈</a>
 				<a href="/m/rent/" class="menu-item">명품렌트</a>
-				<div class="menu-item">명품구독</div>
-				<div class="menu-item">홈중고명품</div>
-				<div class="menu-item">이벤트존</div>
+				<a href="/m/subscription/" class="menu-item">명품구독</a>
+				<a href="/m/used/" class="menu-item">홈중고명품</a>
+				<a href="/m/eventzone/" class="menu-item">이벤트존</a>
 			</div>
 		</div>
 	</div>
