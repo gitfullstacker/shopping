@@ -195,46 +195,13 @@
 }
 
 .ablanc-rent>.product-section>.top-section {
+    width: 100%;
     padding-left: 16px;
     padding-right: 16px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
-}
-
-.ablanc-rent>.product-section>.top-section>.discount-view {
-    display: flex;
-    flex-direction: row;
-    gap: 5.13px;
-    align-items: center;
-}
-
-.ablanc-rent>.product-section>.top-section>.discount-view>.switch-box {
-    width: 22.87px;
-    height: 13.24px;
-    padding: 1px;
-    border-radius: 13.24px;
-    background: #DDDDDD;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
-
-.ablanc-rent>.product-section>.top-section>.discount-view>.switch-box>.button {
-    width: 10.97px;
-    height: 10.97px;
-    border-radius: 100%;
-    background: #FFFFFF;
-}
-
-.ablanc-rent>.product-section>.top-section>.discount-view p {
-    font-family: 'NanumSquare';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 11px;
-    line-height: 12px;
-    color: #666666;
 }
 
 .ablanc-rent>.product-section>.top-section>.order-view {

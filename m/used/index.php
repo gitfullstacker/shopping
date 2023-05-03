@@ -59,12 +59,6 @@
         </div>
         <div class="product-section">
             <div class="top-section">
-                <div class="discount-view">
-                    <div class="switch-box">
-                        <div class="button"></div>
-                    </div>
-                    <p>할인 상품보기</p>
-                </div>
                 <div class="order-view">
                     <div class="icon">
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
