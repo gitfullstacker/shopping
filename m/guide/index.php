@@ -131,7 +131,7 @@
                     </svg>
                 </div>
                 <p class="title">상품 렌탈하기</p>
-                <p class="description">마음에 드는 가방을 <br />렌탈하기</p>
+                <p class="description">마음에 드는 가방을 렌탈하기</p>
             </div>
             <div class="splitter">
                 <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +148,7 @@
                     </svg>
                 </div>
                 <p class="title">배송수령 및 이용</p>
-                <p class="description">배송받은 가방을 <br />이용하기</p>
+                <p class="description">배송받은 가방을 이용하기</p>
             </div>
             <div class="splitter">
                 <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +164,7 @@
                     </svg>
                 </div>
                 <p class="title">반납하기</p>
-                <p class="description">반납일에 맞춰 <br />반납하기</p>
+                <p class="description">반납일에 맞춰 반납하기</p>
             </div>
         </div>
         <div class="guid-section">
@@ -177,6 +177,73 @@
                 -카드 등록이 안될 시 각 카드사에 문의 부탁드립니다. <br />
             </p>
         </div>
+    </div>
+
+    <!-- 서비스 알아보기 -->
+    <div class="service-findout-section">
+        <p class="title">서비스 알아보기</p>
+        <div class="service-list">
+            <div class="item">
+                <div class="image">
+                    <img src="images/notification-icon.png" alt="notification">
+                </div>
+                <div class="content-section">
+                    <p class="title">상품 현재 상태 확인 알림</p>
+                    <p class="description">모든 상품의 현재 상태는 알림톡으로 발송되어 수령 전에 확인 할 수 있어요 (마케팅 수신 미동의여도 알림은 수신됩니다)</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="images/export-icon.png" alt="export">
+                </div>
+                <div class="content-section">
+                    <p class="title">1시 이전 당일 출고</p>
+                    <p class="description">오후 1시 이전 주문건은 모두 당일 출고되는 에이블랑만의 더 빠른 배송 서비스를 만나보실 수 있어요 </p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="images/package-icon.png" alt="package">
+                </div>
+                <div class="content-section">
+                    <p class="title">프리미엄 패키지</p>
+                    <p class="description">렌트 상품도 선물처럼! 에이블랑만의 고급 포장 서비스로 상품을 안전하게 받아보실 수 있어요</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 자주 묻는 질문 -->
+    <div class="question-section">
+        <p class="title">자주 묻는 질문</p>
+        <div class="question-list">
+            <?php
+            for ($i = 0; $i < 5; $i++) {
+            ?>
+                <div class="item <?= $i == 0 ? 'collapsed' : '' ?>">
+                    <div class="header-section">
+                        <p class="question">Q 배송·교환과정이 궁금해요</p>
+                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
+                        </svg>
+                    </div>
+                    <div class="body-section">
+                        <p class="answer">
+                            오후 12시 이전 접수시 당일 출고되며,
+                            교환 시에는 기존 가방의 반납과 검수가 완료된 후
+                            교환 가방을 배송해 드리는 것을 원칙으로 하고 있습니다.
+
+                            급히 가방을 필요로 하실 경우 빠른 배송 서비스를 이용하세요.
+
+                            자세한 배송 과정과 기간은 하단의 FAQ를 참고해주세요.
+                        </p>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+        <button class="fag-btn">FAQ 보러가기</button>
     </div>
 </div>
 

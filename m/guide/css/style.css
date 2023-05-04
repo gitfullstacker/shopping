@@ -516,3 +516,175 @@
     line-height: 160%;
     color: #999999;
 }
+
+.main-body>.service-findout-section {
+    margin-top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main-body>.service-findout-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #000000;
+}
+
+.main-body>.service-findout-section>.service-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.main-body>.service-findout-section>.service-list>.item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+}
+
+.main-body>.service-findout-section>.service-list>.item>.image {
+    width: 100%;
+    height: 300px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.main-body>.service-findout-section>.service-list>.item>.image>img {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.main-body>.service-findout-section>.service-list>.item>.content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding-top: 24px;
+    padding-bottom: 21px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.main-body>.service-findout-section>.service-list>.item>.content-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.main-body>.service-findout-section>.service-list>.item>.content-section>.description {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #666666;
+}
+
+.main-body>.question-section {
+    margin-top: 100px;
+    margin-bottom: -57.5px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    background: #F5F5F5;
+    padding-top: 40px;
+    padding-bottom: 94px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main-body>.question-section>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: center;
+    color: #333333;
+}
+
+.main-body>.question-section>.question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    width: 100%;
+}
+
+.main-body>.question-section>.question-list>.item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    padding: 18px 15px 18px 15px;
+}
+
+.main-body>.question-section>.question-list>.item>.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-body>.question-section>.question-list>.item>.header-section>.question {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.main-body>.question-section>.question-list>.item>.body-section {
+    display: none;
+}
+
+.main-body>.question-section>.question-list>.item>.body-section>.answer {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    color: #666666;
+}
+
+.main-body>.question-section>.question-list>.item.collapsed>.body-section {
+    display: block;
+}
+
+.main-body>.question-section>.fag-btn {
+    margin-top: 9px;
+    width: 100%;
+    height: 45px;
+    background: #010000;
+    border: 0.72px solid #DDDDDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
