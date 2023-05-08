@@ -11,7 +11,6 @@
     <meta name="Description" content="" />
     <link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
 
-
     <link href="/m/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/m/css/swiper.min.css">
     <script src="/m/js/swiper.min.js"></script>
@@ -25,68 +24,23 @@
     <script src="/admincenter/js/common.js"></script>
     <script src="/pub/js/CommScript.js"></script>
     <script src="/pub/js/dhtml_calendar.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
 <body>
-    <div class="header-mobile">
-        <div class="header-alert">
-            <script type="text/javascript" src="/js/jquery.bxslider.js"></script>
-            <link type="text/css" rel="stylesheet" href="/css/jquery.bxslider.css" />
-            <ul class="bxslider">
-                <?
-                for ($int_I = 0; $int_I < $arr_Get_Data_Cnt5; $int_I++) {
-                ?>
-                    <li>
-                        <a href="/boad/bd_news/m1/egoread.php?bd=<?= mysql_result($arr_Get_Data5, $int_I, conf_seq) ?>&seq=<?= mysql_result($arr_Get_Data5, $int_I, bd_seq) ?>">
-
-                            <?
-                            // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-                            //	= 비공개글 표시 아이콘 변수에 저장 시작
-                            $str_Tmp = "";
-                            if (mysql_result($arr_Get_Data5, $int_I, bd_open_yn) > 0) {
-                                $str_Tmp = "<img src='" . $str_Board_Icon_Img . "ic_key.gif' border='0' align='absMiddle' style='width:12px;height:14px;'> ";
-                            }
-                            //	= 비공개글 표시 아이콘 변수에 저장 종료
-                            // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-                            ?>
-                            <?= $str_Tmp ?>
-                            <?
-                            // ========================
-                            //	= 메모글 갯수 출력 시작
-                            if (mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) > 0) {
-                                echo " (<img src='" . $str_Board_Icon_Img . "ic_memo.gif' align='absMiddle' border='0'> " . mysql_result($arr_Get_Data5, $int_I, bd_memo_cnt) . ") ";
-                            }
-                            //	= 메모글 갯수 출력 종료
-                            // ========================
-
-                            $str_Tmp = mb_strimwidth(stripslashes(mysql_result($arr_Get_Data5, $int_I, bd_title)), 0, 80, "...", "utf-8");
-                            ?>
-                            <?= $str_Tmp ?>
-                        </a>
-                    </li>
-                <?
-                }
-                ?>
-            </ul>
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('.bxslider').bxSlider({
-                        auto: true,
-                        controls: false,
-                        pager: false,
-                        mode: 'vertical',
-                    });
-                });
-            </script>
-        </div>
-        <div class="detail-header-content">
-            <a href="#" class="back-btn">
+    <div class="fixed top-0 left-0 flex flex-col w-full border-b border-[#C6C6C6] bg-white z-10">
+        <div class="relative flex justify-center items-center h-[55px]">
+            <!-- Back button -->
+            <a href="javascript:history.back();" class="absolute top-5 left-7">
                 <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.41475 14.2576L0.202765 7.81002C0.129032 7.73327 0.0769276 7.65012 0.0464514 7.56057C0.0154837 7.47102 0 7.37507 0 7.27273C0 7.17038 0.0154837 7.07444 0.0464514 6.98489C0.0769276 6.89534 0.129032 6.81218 0.202765 6.73543L6.41475 0.268649C6.58679 0.0895498 6.80184 0 7.05991 0C7.31797 0 7.53917 0.0959463 7.7235 0.287839C7.90783 0.479731 8 0.703606 8 0.959463C8 1.21532 7.90783 1.43919 7.7235 1.63109L2.30415 7.27273L7.7235 12.9144C7.89555 13.0935 7.98157 13.314 7.98157 13.576C7.98157 13.8385 7.8894 14.0657 7.70507 14.2576C7.52074 14.4495 7.30568 14.5455 7.05991 14.5455C6.81413 14.5455 6.59908 14.4495 6.41475 14.2576Z" fill="black" />
                 </svg>
             </a>
-            <p class="title">ABLANC</p>
-            <div class="right-menu">
+            <a href="/m/main/" class="font-normal text-xl flex items-center text-center text-black">ABLANC</a>
+            <!-- Menu -->
+            <div class="absolute flex gap-2.5 top-5 right-[34px]">
                 <a href="#">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.5 15.1818C14.1941 15.1818 18 11.7363 18 7.81967C18 3.90308 14.1941 1 9.5 1C4.80587 1 1 4.17482 1 8.09141C1 9.62007 1.58012 11.0365 2.56719 12.1937L1.53125 17L5.692 14.4327C6.89767 14.9318 8.19266 15.1866 9.5 15.1818Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -101,4 +55,4 @@
         </div>
     </div>
 
-    <div class="detail-wrapper">
+    <div class="flex flex-col w-full pt-[55px]">

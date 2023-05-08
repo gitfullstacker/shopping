@@ -1,0 +1,116 @@
+.news-letter {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.news-letter>.title {
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    color: #333333;
+}
+
+.news-letter>.top-menu {
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 76.7px;
+}
+
+.news-letter>.top-menu>a {
+    padding: 3px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #6A696C;
+}
+
+.news-letter>.top-menu>.actived {
+    border-bottom: solid 1px #6A696C;
+}
+
+.news-letter>.event-list {
+    margin-top: 33px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-letter>.event-list>.item {
+    padding: 13px;
+    border-bottom: 0.5px solid #E0E0E0;
+}
+
+.news-letter>.event-list>.item>img {
+    width: 100%;
+    height: 177px;
+    border-radius: 10px;
+}
+
+.news-letter>.event-list>.item>.title {
+    margin-top: 8.81px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 15px;
+    color: #000000;
+}
+
+.news-letter>.event-list>.item>.tag {
+    margin-top: 3.08px;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 10px;
+    color: #666666;
+}
+
+.news-letter>.event-list>.pagination {
+    margin-top: 33.86px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+}
+
+.news-letter>.event-list>.pagination>a {
+    display: flex;
+}
+
+.news-letter>.event-list>.pagination>.pages {
+    display: flex;
+    flex-direction: row;
+    gap: 9.62px;
+}
+
+.news-letter>.event-list>.pagination>.pages>.item {
+    width: 25.28px;
+    height: 25.28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.72px solid #DDDDDD;
+    font-family: 'NanumSquare';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
+}
+
+.news-letter>.event-list>.pagination>.pages>.actived {
+    background-color: #000000;
+    color: #FFFFFF;
+}

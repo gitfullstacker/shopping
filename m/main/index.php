@@ -115,7 +115,7 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		<img src="../images/menu_item1.png" alt="menu_item1" />
 		<p class="item-title">이용안내</p>
 	</a>
-	<a href="#" class="menu-item">
+	<a href="../benefits" class="menu-item">
 		<img src="../images/menu_item2.png" alt="menu_item2" />
 		<p class="item-title">신규혜택</p>
 	</a>
@@ -160,8 +160,8 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 <div class="categorypick">
 	<div class="sub-section-top-bar">
 		<div class="left-section">
-			<p class="title">이벤트존</p>
-			<p class="description">에이블랑만의 큐레이션</p>
+			<p class="title">CATEGORY PICK</p>
+			<p class="description">카테고리별 조회수 높은 상품</p>
 		</div>
 		<a href="#" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
