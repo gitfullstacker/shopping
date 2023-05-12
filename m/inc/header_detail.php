@@ -38,9 +38,11 @@
                     <path d="M6.41475 14.2576L0.202765 7.81002C0.129032 7.73327 0.0769276 7.65012 0.0464514 7.56057C0.0154837 7.47102 0 7.37507 0 7.27273C0 7.17038 0.0154837 7.07444 0.0464514 6.98489C0.0769276 6.89534 0.129032 6.81218 0.202765 6.73543L6.41475 0.268649C6.58679 0.0895498 6.80184 0 7.05991 0C7.31797 0 7.53917 0.0959463 7.7235 0.287839C7.90783 0.479731 8 0.703606 8 0.959463C8 1.21532 7.90783 1.43919 7.7235 1.63109L2.30415 7.27273L7.7235 12.9144C7.89555 13.0935 7.98157 13.314 7.98157 13.576C7.98157 13.8385 7.8894 14.0657 7.70507 14.2576C7.52074 14.4495 7.30568 14.5455 7.05991 14.5455C6.81413 14.5455 6.59908 14.4495 6.41475 14.2576Z" fill="black" />
                 </svg>
             </a>
-            <a href="/m/main/" class="font-normal text-xl flex items-center text-center text-black">ABLANC</a>
+            <a href="/m/main/" class="font-extrabold text-lg leading-5 text-center text-black">
+                <?= $title ? $title : 'ABLANC' ?>
+            </a>
             <!-- Menu -->
-            <div class="absolute flex gap-2.5 top-5 right-[34px]">
+            <div class="absolute <?= $hide_right_menu ? 'hidden' : 'flex' ?> gap-2.5 top-5 right-[34px]">
                 <a href="#">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.5 15.1818C14.1941 15.1818 18 11.7363 18 7.81967C18 3.90308 14.1941 1 9.5 1C4.80587 1 1 4.17482 1 8.09141C1 9.62007 1.58012 11.0365 2.56719 12.1937L1.53125 17L5.692 14.4327C6.89767 14.9318 8.19266 15.1866 9.5 15.1818Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

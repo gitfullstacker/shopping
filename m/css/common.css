@@ -43,16 +43,6 @@ input:-webkit-autofill {
 }
 select{font-size:1em;}
 
-
-section, nav, article, aside, header, footer, main {display:block;}
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="date"]::-webkit-inner-spin-button {display:none;}
-input[type="text"],
-input[type="search"],
-input[type="tel"],
-input[type="number"],
-input[type="password"]{-webkit-appearance:none;border-radius:0}
-
 /* display */
 .show { display:block; }
 .hide { display:none; }

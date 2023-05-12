@@ -31,34 +31,34 @@
     <!-- 신규 배송지 -->
     <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full">
         <div class="flex flex-col gap-[5px] w-full">
-            <p class="not-italic font-bold text-xs leading-[14px] text-black">이름</p>
-            <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="이름을 입력해 주세요">
+            <p class="font-bold text-xs leading-[14px] text-black">이름</p>
+            <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="이름을 입력해 주세요">
         </div>
         <div class="flex flex-col gap-[5px] w-full">
-            <p class="not-italic font-bold text-xs leading-[14px] text-black">연락처</p>
+            <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
             <div class="grid grid-cols-3 gap-[5px] w-full">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="010">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="1234">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="5678">
+                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="010">
+                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="1234">
+                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="5678">
             </div>
         </div>
         <div class="flex flex-col gap-[5px] w-full">
-            <p class="not-italic font-bold text-xs leading-[14px] text-black">주소</p>
+            <p class="font-bold text-xs leading-[14px] text-black">주소</p>
             <div class="flex flex-col gap-[5px] w-full">
                 <div class="flex gap-[5px]">
                     <div class="grow">
-                        <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="우편번호" disabled>
+                        <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="우편번호" disabled>
                     </div>
                     <button class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
-                        <p class="not-italic font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </button>
                 </div>
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="기본주소" disabled>
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] not-italic font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="상세 주소를 입력해 주세요">
+                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="기본주소" disabled>
+                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="상세 주소를 입력해 주세요">
             </div>
         </div>
         <button class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
-            <p class="not-italic font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
+            <p class="font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
         </button>
     </div>
 </div>
@@ -173,8 +173,8 @@
                 <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-[#666666]">마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 <br />카드 삭제 및 변경가능합니다.</p>
             </div>
             <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-                <p class="not-italic font-bold text-[10px] leading-[140%] text-black">블랑 렌트 멤버십 혜택 안내</p>
-                <p class="not-italic font-bold text-[10px] leading-[140%] text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
+                <p class="font-bold text-[10px] leading-[140%] text-black">블랑 렌트 멤버십 혜택 안내</p>
+                <p class="font-bold text-[10px] leading-[140%] text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
             </div>
         </div>
     </div>
@@ -195,33 +195,33 @@
     </div>
     <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">주문금액</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">3,900,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">3,900,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">3,860,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">3,860,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">-30,000원</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">-30,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">-10,000원</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">-10,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">5,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">5,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">1,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">1,000원</p>
         </div>
         <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
         <div class="mt-[5px] flex items-center justify-between">
-            <p class="not-italic font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
-            <p class="not-italic font-extrabold text-[15px] leading-[17px] text-right text-black">3,854,000원</p>
+            <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
+            <p class="font-extrabold text-[15px] leading-[17px] text-right text-black">3,854,000원</p>
         </div>
     </div>
 </div>
@@ -262,10 +262,10 @@
                 <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
             </svg>
         </button>
-        <p class="not-italic font-bold text-[15px] leading-[17px] text-center text-black">카드를 등록해주세요.</p>
-        <p class="mt-[11px] not-italic font-bold text-xs leading-[18px] text-center text-[#666666]">카드를 등록해주셔야 해당 상품 이용이 가능합니다. <br />하단 페이지에서 카드 등록을 완료해주세요.</p>
+        <p class="font-bold text-[15px] leading-[17px] text-center text-black">카드를 등록해주세요.</p>
+        <p class="mt-[11px] font-bold text-xs leading-[18px] text-center text-[#666666]">카드를 등록해주셔야 해당 상품 이용이 가능합니다. <br />하단 페이지에서 카드 등록을 완료해주세요.</p>
         <a class="mt-5 flex gap-[11px] items-center justify-center w-[144px] h-[30px] bg-white border border-solid border-[#D9D9D9]">
-            <p class="not-italic font-bold text-[10px] leading-[11px] text-center text-[#666666]">카드 등록 바로가기</p>
+            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">카드 등록 바로가기</p>
             <span>
                 <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.00296 9.92237L4.93324 5.83063C4.97989 5.78192 5.01285 5.72915 5.03213 5.67232C5.05173 5.61549 5.06152 5.5546 5.06152 5.48965C5.06152 5.4247 5.05173 5.36381 5.03213 5.30698C5.01285 5.25015 4.97989 5.19738 4.93324 5.14867L1.00296 1.04476C0.894112 0.931097 0.758049 0.874268 0.594774 0.874268C0.431499 0.874268 0.291548 0.935157 0.174922 1.05693C0.0582972 1.17871 -1.52588e-05 1.32079 -1.52588e-05 1.48316C-1.52588e-05 1.64553 0.0582972 1.7876 0.174922 1.90938L3.60371 5.48965L0.174922 9.06992C0.066072 9.18358 0.0116472 9.32355 0.0116472 9.48981C0.0116472 9.65641 0.0699596 9.80059 0.186585 9.92237C0.30321 10.0441 0.439273 10.105 0.594774 10.105C0.750274 10.105 0.886337 10.0441 1.00296 9.92237Z" fill="#666666" />

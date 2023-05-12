@@ -3,14 +3,14 @@
 
 <!-- 주문완료 -->
 <div class="mt-[30px] flex flex-col items-center w-full">
-    <p class="not-italic font-extrabold text-lg leading-5 text-center text-[#333333]">주문완료</p>
+    <p class="font-extrabold text-lg leading-5 text-center text-[#333333]">주문완료</p>
     <div class="mt-[25px] w-[280px] h-[163px]">
         <img class="w-full h-full" src="images/paid.png" alt="successful">
     </div>
-    <p class="mt-5 not-italic font-bold text-[15px] leading-[17px] text-center text-black">주문이 완료되었습니다.</p>
-    <p class="mt-2.5 not-italic font-bold text-xs leading-[140%] text-center text-[#666666]">2023. 02. 21 주문하신 상품의 주문번호는 <br /> <b>20230221100</b> 입니다.</p>
+    <p class="mt-5 font-bold text-[15px] leading-[17px] text-center text-black">주문이 완료되었습니다.</p>
+    <p class="mt-2.5 font-bold text-xs leading-[140%] text-center text-[#666666]">2023. 02. 21 주문하신 상품의 주문번호는 <br /> <b>20230221100</b> 입니다.</p>
     <button class="mt-5 flex justify-center items-center w-[178px] h-[45px] bg-white border border-solid border-[#DDDDDD]">
-        <p class="not-italic font-bold text-xs leading-[14px] text-center text-[#666666]">주문 상세보기</p>
+        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">주문 상세보기</p>
     </button>
 </div>
 
@@ -67,33 +67,33 @@
     </div>
     <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">주문금액</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">3,900,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">3,900,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">3,860,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">3,860,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">-30,000원</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">-30,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-            <p class="not-italic font-bold text-[11px] leading-3 text-[#666666]">-10,000원</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+            <p class="font-bold text-[11px] leading-3 text-[#666666]">-10,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">5,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">5,000원</p>
         </div>
         <div class="flex items-center justify-between">
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-            <p class="not-italic font-bold text-[15px] leading-[17px] text-black">1,000원</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black">1,000원</p>
         </div>
         <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
         <div class="mt-[5px] flex items-center justify-between">
-            <p class="not-italic font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
-            <p class="not-italic font-extrabold text-[15px] leading-[17px] text-right text-black">3,854,000원</p>
+            <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
+            <p class="font-extrabold text-[15px] leading-[17px] text-right text-black">3,854,000원</p>
         </div>
     </div>
 </div>

@@ -1234,8 +1234,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 57.5px;
-  margin-bottom: 65px;
   padding-bottom: 46px;
 }
 
@@ -3423,4 +3421,8 @@ body {
 #pop_alram .pop_con {
   padding: 15px 15px 0 15px;
   border: 0;
+}
+
+img, video {
+  max-width: fit-content!important;
 }
