@@ -19,9 +19,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 <button class="flex justify-center items-center w-16 h-[29px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <p class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">로그아웃</p>
                 </button>
-                <button class="flex justify-center items-center w-16 h-[29px] bg-white border border-solid border-[#DDDDDD] rounded-full">
+                <a href="grade.php" class="flex justify-center items-center w-16 h-[29px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <p class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">등급혜택</p>
-                </button>
+                </a>
             </div>
         </div>
         <div class="flex px-[14px] py-[15px] border-b border-[#E0E0E0]">

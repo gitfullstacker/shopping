@@ -6,12 +6,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
 <div class="mt-[30px] flex flex-col w-full px-[14px]">
     <div class="flex justify-center">
-        <p class="font-extrabold text-lg leading-5 text-center text-black">회원가입</p>
+        <p class="font-extrabold text-lg leading-5 text-center text-black">회원정보 수정</p>
     </div>
 
-    <!-- 계정 정보 -->
+    <!-- 회원 기본 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-[13px] leading-[15px] text-black">계정 정보 <span class="text-[#DA2727]">*</span></p>
+        <p class="font-extrabold text-[13px] leading-[15px] text-black">회원 기본 정보</p>
         <div class="flex flex-col gap-[15px] w-full">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">아이디</p>
@@ -19,13 +19,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 <p class="font-bold text-xs leading-[14px] text-[#DA2727]">* ablanc1234 는 사용중인 아이디 입니다.</p>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
-                <p class="font-bold text-xs leading-[14px] text-black">비밀번호</p>
+                <p class="font-bold text-xs leading-[14px] text-black">현재 비밀번호</p>
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="password" id="password" placeholder="비밀번호를 입력해 주세요">
+                <p class="font-bold text-xs leading-[14px] text-[#DA2727]">* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요</p>
+            </div>
+            <div class="flex flex-col gap-[5px] w-full">
+                <p class="font-bold text-xs leading-[14px] text-black">새 비밀번호</p>
                 <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="password" id="password" placeholder="영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요">
                 <p class="font-bold text-xs leading-[14px] text-[#DA2727]">* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요</p>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
-                <p class="font-bold text-xs leading-[14px] text-black">비밀번호 확인</p>
-                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="password_confirm" id="password_confirm" placeholder="비밀번호를 다시 입력해 주세요">
+                <p class="font-bold text-xs leading-[14px] text-black">새 비밀번호 확인</p>
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="password_confirm" id="password_confirm" placeholder="새 비밀번호를 다시 입력해 주세요">
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이메일</p>
@@ -77,7 +82,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     <div class="grow">
                         <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="delivery_postal_code" id="delivery_postal_code" placeholder="우편번호" disabled>
                     </div>
-                    <button class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]"  id="search_address">
+                    <button class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" id="search_address">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </button>
                 </div>
@@ -195,9 +200,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         </p>
     </div>
 
-    <button class="mt-[30px] flex justify-center items-center w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
-        <p class="font-bold text-xs leading-[14px] text-center text-white">가입하기</p>
-    </button>
+    <div class="mt-[30px] grid grid-cols-2 gap-[5px]">
+        <button class="flex justify-center items-center w-full h-[45px] bg-white border border-solid border-[#DDDDDD]">
+            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소</p>
+        </button>
+        <button class="flex justify-center items-center w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
+            <p class="font-bold text-xs leading-[14px] text-center text-white">수정</p>
+        </button>
+    </div>
 </div>
 
 <script>
