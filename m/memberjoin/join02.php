@@ -6,15 +6,15 @@
 	$str_birth = Fnc_Om_Conv_Default($_REQUEST[str_birth],$_SESSION['USERJ_BIRTH']);
 	$str_sex = Fnc_Om_Conv_Default($_REQUEST[str_sex],$_SESSION['USERJ_SEX']);
 	
-	If ($str_name=="") {
-		?>
-		<script language="javascript">
-			alert("비정상적 접속입니다.");
-			window.location.href="/m/main/index.php";
-		</script>
-		<?
-		exit;
-	}
+	// If ($str_name=="") {
+	// 	?>
+	// 	<script language="javascript">
+	// 		alert("비정상적 접속입니다.");
+	// 		window.location.href="/m/main/index.php";
+	// 	</script>
+	// 	<?
+	// 	exit;
+	// }
 ?>
 <? require_once $_SERVER['DOCUMENT_ROOT']."/m/inc/header.php"; ?>
 <script language="javascript" src="js/join02.js"></script>
