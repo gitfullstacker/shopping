@@ -222,7 +222,7 @@
 					<a href="/m/rent/" class="menu-item <?= $topmenu == 2 ? 'active' : ''; ?>">명품렌트</a>
 					<a href="/m/subscription/" class="menu-item <?= $topmenu == 3 ? 'active' : ''; ?>">명품구독</a>
 					<a href="/m/used/" class="menu-item <?= $topmenu == 4 ? 'active' : ''; ?>">홈중고명품</a>
-					<a href="/boad/bd_news/m1/egolist.php?bd=3&itm=&txt=&pg=1" class="menu-item <?= $topmenu == 4 ? 'active' : ''; ?>">이벤트존</a>
+					<a href="/boad/bd_news/m1/egolist.php?bd=3&itm=&txt=&pg=1" class="menu-item <?= $topmenu == 5 ? 'active' : ''; ?>">이벤트존</a>
 				</div>
 			</div>
 		<?php
