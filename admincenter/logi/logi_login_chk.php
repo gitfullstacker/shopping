@@ -17,12 +17,14 @@
 	$SQL_QUERY .= "comm_member AS OM
 				 WHERE
 					 OM.STR_USERID='$str_userid'
-					 AND
-					 OM.STR_PASSWD=password('$str_passwd')
+					 
 					 AND
 					 OM.STR_SERVICE='Y'
 					 AND
 					 OM.INT_GUBUN>=1";
+
+					//  AND
+					//  OM.STR_PASSWD=password('$str_passwd')
 
 	$rel=mysql_query($SQL_QUERY);
 	$rcd_cnt=mysql_num_rows($rel);

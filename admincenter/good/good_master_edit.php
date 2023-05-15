@@ -96,7 +96,7 @@
 										<col class=cellC style="width:12%;"><col style="padding-left:10px;width:38%;">
 										<col class=cellC style="width:12%;"><col style="padding-left:10px;width:38%;">
 										<tr>
-											<td>카테고리</td>
+											<td>사이즈</td>
 											<td colspan="3">
 
 												<?

@@ -208,6 +208,20 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- Top Brand -->
 <div class="topbrand">
+	<?
+	$SQL_QUERY = "SELECT 
+			A.*
+		FROM 
+			" . $Tname . "comm_com_code A 
+		WHERE 
+			A.STR_SERVICE='Y'
+		ORDER BY 
+			A.DTM_INDATE DESC 
+		LIMIT 10";
+
+	$arr_Data = mysql_query($SQL_QUERY);
+	$arr_Data_Cnt = mysql_num_rows($arr_Data);
+	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
 			<p class="title">TOP BRAND</p>
@@ -221,13 +235,13 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		</div>
 	</div>
 	<div class="topbrand-scroll-list">
-		<?php
-		for ($i = 0; $i < 5; $i++) {
+		<?
+		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
 		?>
 			<div class="item">
-				<img src="../images/mockup/brand.png" alt="event_zone">
-				<p class="e-brand">CHANEL</p>
-				<p class="k-brand">샤넬</p>
+				<img src="/admincenter/files/com/<?= mysql_result($arr_Data, $int_J, str_url1) ?>" alt="">
+				<p class="e-brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
+				<p class="k-brand"><?= mysql_result($arr_Data, $int_J, str_kcode) ?></p>
 			</div>
 		<?php
 		}
@@ -276,6 +290,32 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- 렌트 신규 입고 -->
 <div class="rentnew">
+	<?
+	$SQL_QUERY = "SELECT 
+			A.*,
+			(SELECT B.STR_BCODE FROM " . $Tname . "comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
+			(SELECT IFNULL(COUNT(Z.STR_USERID),0) AS CNT FROM " . $Tname . "comm_member_like Z WHERE Z.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT, 
+			(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM " . $Tname . "comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='" . $arr_Auth[0] . "' AND D.INT_STATE IN ('4')) AS CARTCNT,
+			E.STR_CODE
+		FROM 
+			" . $Tname . "comm_goods_master A
+			LEFT JOIN
+			" . $Tname . "comm_com_code E
+			ON
+			A.INT_BRAND=E.INT_NUMBER
+		WHERE 
+			A.STR_GOODCODE IS NOT NULL 
+			AND 
+			(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') 
+			AND 
+			A.STR_MMYN='Y' 
+		ORDER BY 
+			A.INT_SORT DESC 
+		LIMIT 10";
+
+	$arr_Data = mysql_query($SQL_QUERY);
+	$arr_Data_Cnt = mysql_num_rows($arr_Data);
+	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
 			<p class="title">렌트 신규 입고</p>
@@ -292,18 +332,18 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		<img src="../images/mockup/new_rent.png" alt="rentnew">
 	</div>
 	<div class="product-scroll-list">
-		<?php
-		for ($i = 0; $i < 5; $i++) {
+		<?
+		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
 		?>
 			<div class="item">
-				<div class="image">
-					<img src="../images/mockup/rent_product.png" alt="rent">
+				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+					<img class="w-full" src="/admincenter/files/good/<?= mysql_result($arr_Data, $int_J, str_image1) ?>" alt="rent">
 				</div>
-				<p class="brand">DIOR</p>
-				<p class="title">바비백 스몰</p>
+				<p class="brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
+				<p class="title"><?= mysql_result($arr_Data, $int_J, str_goodname) ?></p>
 				<div class="price-section">
-					<p class="current-price">일 35,920원</p>
-					<p class="origin-price">35,920원</p>
+					<p class="current-price">일 <?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
+					<p class="origin-price"><?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</div>
@@ -315,6 +355,32 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 
 <!-- 구독 신규 입고 -->
 <div class="subscriptionnew">
+	<?
+	$SQL_QUERY = "SELECT 
+			A.*,
+			(SELECT B.STR_BCODE FROM " . $Tname . "comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
+			(SELECT IFNULL(COUNT(Z.STR_USERID),0) AS CNT FROM " . $Tname . "comm_member_like Z WHERE Z.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT, 
+			(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM " . $Tname . "comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='" . $arr_Auth[0] . "' AND D.INT_STATE IN ('4')) AS CARTCNT,
+			E.STR_CODE
+		FROM 
+			" . $Tname . "comm_goods_master A
+			LEFT JOIN
+			" . $Tname . "comm_com_code E
+			ON
+			A.INT_BRAND=E.INT_NUMBER
+		WHERE 
+			A.STR_GOODCODE IS NOT NULL 
+			AND 
+			(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') 
+			AND 
+			A.STR_MMYN='Y' 
+		ORDER BY 
+			A.INT_SORT DESC 
+		LIMIT 10";
+
+	$arr_Data = mysql_query($SQL_QUERY);
+	$arr_Data_Cnt = mysql_num_rows($arr_Data);
+	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
 			<p class="title">구독 신규 입고</p>
@@ -331,18 +397,18 @@ $arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
 		<img src="../images/mockup/new_subscription.png" alt="subscriptionnew">
 	</div>
 	<div class="product-scroll-list">
-		<?php
-		for ($i = 0; $i < 5; $i++) {
+		<?
+		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
 		?>
 			<div class="item">
-				<div class="image">
-					<img src="../images/mockup/rent_product.png" alt="rent">
+				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+					<img class="w-full" src="/admincenter/files/good/<?= mysql_result($arr_Data, $int_J, str_image1) ?>" alt="rent">
 				</div>
-				<p class="brand">DIOR</p>
-				<p class="title">바비백 스몰</p>
+				<p class="brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
+				<p class="title"><?= mysql_result($arr_Data, $int_J, str_goodname) ?></p>
 				<div class="price-section">
-					<p class="current-price">일 35,920원</p>
-					<p class="origin-price">35,920원</p>
+					<p class="current-price">일 <?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
+					<p class="origin-price"><?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
 				</div>
 				<button class="subscription-button">구독</button>
 			</div>
