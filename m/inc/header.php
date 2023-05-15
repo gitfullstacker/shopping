@@ -74,6 +74,68 @@
 
 	<div class="header-mobile">
 		<div class="header-alert">
+			<?
+			$str_Ini_Group_Table = "@01";
+			$str_Board_Icon_Img = "/pub/img/board/";
+			$Sql_Query =	" SELECT
+					A.BD_SEQ,
+					A.CONF_SEQ,
+					A.BD_ID_KEY,
+					A.BD_IDX,
+					A.BD_ORDER,
+					A.BD_LEVEL,
+					A.MEM_CODE,
+					A.MEM_ID,
+					A.BD_W_NAME,
+					A.BD_W_EMAIL,
+					A.BD_TITLE,
+					A.BD_CONT,
+					A.BD_OPEN_YN,
+					A.BD_REG_DATE,
+					A.BD_DEL_YN,
+					A.BD_VIEW_CNT,
+					A.BD_GOOD_CNT,
+					A.BD_BAD_CNT,
+					IFNULL(A.BD_MEMO_CNT, 0) AS BD_MEMO_CNT,
+					IFNULL(C.IMG_SEQ, 0) AS IMG_SEQ,
+					IFNULL(C.IMG_ID_KEY, '') AS IMG_ID_KEY,
+					IFNULL(C.IMG_TITLE, '') AS IMG_TITLE,
+					IFNULL(C.IMG_CONT, '') AS IMG_CONT,
+					IFNULL(C.IMG_F_WIDTH, 0) AS IMG_F_WIDTH,
+					IFNULL(C.IMG_F_HEIGHT, 0) AS IMG_F_HEIGHT,
+					IFNULL(D.FILE_SEQ, 0) AS FILE_SEQ
+				FROM `"
+				. $Tname . "b_bd_data" . $str_Ini_Group_Table . "` AS A
+					LEFT JOIN `"
+				. $Tname . "b_img_data" . $str_Ini_Group_Table . "` AS C
+					ON
+					A.CONF_SEQ=C.CONF_SEQ
+					AND
+					A.BD_SEQ=C.BD_SEQ
+					AND
+					C.IMG_ALIGN=1
+					LEFT JOIN `"
+				. $Tname . "b_file_data" . $str_Ini_Group_Table . "` AS D
+					ON
+					A.CONF_SEQ=D.CONF_SEQ
+					AND
+					A.BD_SEQ=D.BD_SEQ
+					AND
+					D.FILE_ALIGN=1
+				WHERE ";
+			$Sql_Query .= " A.CONF_SEQ=3 AND ";
+			$Sql_Query .= " A.BD_ID_KEY IS NOT NULL ";
+			$Sql_Query .= " ORDER BY
+								BD_ORDER DESC ";
+			$Sql_Query .= "limit 3";
+
+			$arr_Get_Data5 = mysql_query($Sql_Query);
+			if (!$arr_Get_Data5) {
+				error("QUERY_ERROR");
+				exit;
+			}
+			$arr_Get_Data_Cnt5 = mysql_num_rows($arr_Get_Data5);
+			?>
 			<script type="text/javascript" src="/js/jquery.bxslider.js"></script>
 			<link type="text/css" rel="stylesheet" href="/css/jquery.bxslider.css" />
 			<ul class="bxslider">
@@ -156,11 +218,11 @@
 					</div>
 				</div>
 				<div class="menu">
-					<a href="/m/main/" class="menu-item active">홈</a>
-					<a href="/m/rent/" class="menu-item">명품렌트</a>
-					<a href="/m/subscription/" class="menu-item">명품구독</a>
-					<a href="/m/used/" class="menu-item">홈중고명품</a>
-					<a href="/boad/bd_news/m1/egolist.php?bd=3&itm=&txt=&pg=1" class="menu-item">이벤트존</a>
+					<a href="/m/main/" class="menu-item <?= $topmenu == 1 ? 'active' : ''; ?>">홈</a>
+					<a href="/m/rent/" class="menu-item <?= $topmenu == 2 ? 'active' : ''; ?>">명품렌트</a>
+					<a href="/m/subscription/" class="menu-item <?= $topmenu == 3 ? 'active' : ''; ?>">명품구독</a>
+					<a href="/m/used/" class="menu-item <?= $topmenu == 4 ? 'active' : ''; ?>">홈중고명품</a>
+					<a href="/boad/bd_news/m1/egolist.php?bd=3&itm=&txt=&pg=1" class="menu-item <?= $topmenu == 4 ? 'active' : ''; ?>">이벤트존</a>
 				</div>
 			</div>
 		<?php

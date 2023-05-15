@@ -1,5 +1,8 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php"; ?>
+<?
+$topmenu = 5;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
+?>
 
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink" />
 
