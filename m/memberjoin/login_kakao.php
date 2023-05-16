@@ -2,7 +2,7 @@
 
 <script>
     // 카카오 로그인 API 호출을 위한 정보
-    client_id = "카카오 애플리케이션 REST API 키";
+    client_id = "4a0157d4a176c25b8687827537ecd8dd";
     redirect_uri = "http://localhost/m/memberjoin/login_kakao_callback.php";
     state = "1234";
 

@@ -3,8 +3,8 @@
 $code = $_GET['code'];
 
 // 카카오 로그인 API를 호출할 때 사용한 정보
-$client_id = '카카오 애플리케이션 REST API 키';
-$client_secret = 'pE18Auqzs9';
+$client_id = '4a0157d4a176c25b8687827537ecd8dd';
+$client_secret = 'lVzqj1OIV5bvhqaMuBm9X8OdAA7AsgLt';
 $redirect_uri = 'http://localhost/m/memberjoin/login_kakao_callback.php';
 
 // 카카오 로그인 API를 호출하여 액세스 토큰 발급받기

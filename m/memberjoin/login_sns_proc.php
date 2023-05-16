@@ -27,13 +27,13 @@ switch ($type) {
 		$str_birth = $user['response']['birthyear'] . str_replace('-', '', $user['response']['birthday']);
 		break;
 	case 'kakao':
-		$str_userid = $user['response']['nickname'];
-		$str_email = $user['response']['email'];
-		$str_photo = $user['response']['profile_image'];
-		$str_sex = $user['response']['gender'] == "M" ? "1" : ($user['response']['gender'] == "F" ? "2" : "0");
-		$str_hp = $user['response']['mobile'];
-		$str_name = $user['response']['name'];
-		$str_birth = $user['response']['birthyear'] . str_replace('-', '', $user['response']['birthday']);
+		$str_userid = $user['kakao_account']['profile']['nickname'];
+		$str_email = $user['kakao_account']['email'];
+		$str_photo = $user['kakao_account']['profile']['thumbnail_image_url'];
+		$str_sex = $user['kakao_account']['gender'] == "male" ? "1" : ($user['kakao_account']['gender'] == "female" ? "2" : "0");
+		// $str_hp = $user['kakao_account']['profile']['mobile'];
+		// $str_name = $user['kakao_account']['profile']['name'];
+		// $str_birth = $user['kakao_account']['birthday'];
 		break;
 }
 
