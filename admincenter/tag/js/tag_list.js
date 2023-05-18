@@ -1,23 +1,23 @@
 	function RowClick(str_no) {
 		document.frm.str_no.value = str_no;
 		document.frm.RetrieveFlag.value="UPDATE";
-		document.frm.action = "com_com_edit.php"
+		document.frm.action = "tag_edit.php"
 		document.frm.submit();
 	}
 	function SelectClick(str_no) {
 		document.frm.str_no.value = str_no;
 		document.frm.RetrieveFlag.value="UPDATE";
-		document.frm.action = "com_com_select.php"
+		document.frm.action = "tag_select.php"
 		document.frm.submit();
 	}
 	function AddNew() {
 		document.frm.RetrieveFlag.value="INSERT";
-		document.frm.action = "com_com_edit.php";
+		document.frm.action = "tag_edit.php";
 		document.frm.submit();
 	}
 	function fnc_search() {
 		document.frm.page.value=1;
-		document.frm.action = "com_com_list.php";
+		document.frm.action = "tag_list.php";
 		document.frm.submit();
 	}
 	function Adelete_Click() {
@@ -47,7 +47,7 @@
 				return;
 	       	}else{
 	       		if (!confirm("한번 삭제한 데이터는 복구할 수 없습니다.\n정말로 삭제하시겠습니까?")) return
-				document.frm.action = "com_com_edit_proc.php";
+				document.frm.action = "tag_edit_proc.php";
 				document.frm.RetrieveFlag.value="ADELETE";
 				document.frm.submit();
 			}

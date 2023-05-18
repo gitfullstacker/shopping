@@ -7,7 +7,7 @@
 			if(!confirm("작성하신 데이터를 저장하시겠습니까?")) return;
 			document.frm.RetrieveFlag.value="INSERT"
 		}
-		oEditors.getById["str_contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		// oEditors.getById["str_contents"].exec("UPDATE_CONTENTS_FIELD", []);
 		document.frm.target = "_self";
 		document.frm.action = "good_master_edit_proc.php";
 		document.frm.submit();

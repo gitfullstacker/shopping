@@ -9,13 +9,13 @@ $displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow], 20);
 $displaypage = Fnc_Om_Conv_Default($_REQUEST[displaypage], 10);
 $int_gubun = Fnc_Om_Conv_Default($_REQUEST[int_gubun], "1");
 
-$Txt_code = Fnc_Om_Conv_Default($_REQUEST[Txt_code], "");
+$Txt_tag = Fnc_Om_Conv_Default($_REQUEST[Txt_tag], "");
 
 $Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
 $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
 
-if ($Txt_code != "") {
-	$Str_Query .= " and a.str_code like '%$Txt_code%' ";
+if ($Txt_tag != "") {
+	$Str_Query .= " and a.str_tag like '%$Txt_tag%' ";
 }
 
 if ($Txt_sindate != "") {
@@ -27,7 +27,7 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_com_code a where a.int_number is not null and a.int_gubun='$int_gubun' ";
+$SQL_QUERY .= "comm_tag a where a.int_number is not null and a.int_gubun='$int_gubun' ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -58,7 +58,7 @@ $l_limit = $last + 1;
 
 $SQL_QUERY = "select a.* from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_com_code a ";
+$SQL_QUERY .= "comm_tag a ";
 $SQL_QUERY .= "where a.int_number is not null and a.int_gubun='$int_gubun' ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.dtm_indate desc ";
@@ -75,7 +75,7 @@ $total_record_limit = mysql_num_rows($result);
 
 <head>
 	<? include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php"; ?>
-	<script language="javascript" src="js/com_com_list.js"></script>
+	<script language="javascript" src="js/tag_list.js"></script>
 </head>
 
 <body class=scroll>
@@ -100,7 +100,7 @@ $total_record_limit = mysql_num_rows($result);
 						<td style="padding:10px">
 							<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 
-							<form id="frm" name="frm" target="_self" method="POST" action="com_com_list.php">
+							<form id="frm" name="frm" target="_self" method="POST" action="tag_list.php">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="int_gubun" value="<?= $int_gubun ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
@@ -110,9 +110,9 @@ $total_record_limit = mysql_num_rows($result);
 									<col class=cellC style="width:12%">
 									<col class=cellL style="width:88%">
 									<tr>
-										<td>코드명</td>
+										<td>태그명</td>
 										<td colspan="3">
-											<input type="text" NAME="Txt_code" value="<?= $Txt_code ?>" style="width:300px;" onkeydown="javascript: if (event.keyCode == 13) {fnc_search();}">
+											<input type="text" NAME="Txt_tag" value="<?= $Txt_tag ?>" style="width:300px;" onkeydown="javascript: if (event.keyCode == 13) {fnc_search();}">
 										</td>
 									</tr>
 									<tr>
@@ -151,41 +151,23 @@ $total_record_limit = mysql_num_rows($result);
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=15></td>
+										<td class=rnd colspan=6></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
-										<th>코드명</th>
-										<th>배너1 (메인 탑 브랜드)</th>
-										<th>배너2 (명품렌트 미니)</th>
-										<th>배너3 (명품렌트 기본)</th>
-										<th>배너4 (명품구독 미니)</th>
-										<th>배너5 (명품구독 기본)</th>
-										<th>배너6 (빈티지 미니)</th>
-										<th>배너7 (빈티지 기본)</th>
-										<th>출력유무</th>
-										<th>메인출력유무</th>
-										<th>가방선택</th>
+										<th>태그명</th>
+										<th>이미지</th>
 										<th>등록일</th>
 										<th>수정</th>
 										<th>삭제</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=15></td>
+										<td class=rnd colspan=6></td>
 									</tr>
 									<col width=5% align=center>
-									<col width=4% align=left>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=8% align=center>
-									<col width=5% align=center>
-									<col width=5% align=center>
-									<col width=5% align=center>
-									<col width=10% align=center>
+									<col width=20% align=center>
+									<col width=50% align=center>
+									<col width=15% align=center>
 									<col width=5% align=center>
 									<col width=5% align=center>
 									<? $count = 0; ?>
@@ -196,35 +178,10 @@ $total_record_limit = mysql_num_rows($result);
 												<td>
 													<font class=ver81 color=616161><?= $article_num ?></font>
 												</td>
-												<td style="text-align:left;"><?= mysql_result($result, $i, str_code) ?></td>
+												<td style="text-align:left;"><?= mysql_result($result, $i, str_tag) ?></td>
 												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner1) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner1) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
+													<? if (mysql_result($result, $i, str_image) != "") { ?><img src="/admincenter/files/tag/<?= mysql_result($result, $i, str_image) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
 												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner2) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner2) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner3) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner3) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner4) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner4) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner5) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner5) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner6) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner6) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td height="100" align="center" valign="middle">
-													<? if (mysql_result($result, $i, str_banner7) != "") { ?><img src="/admincenter/files/com/<?= mysql_result($result, $i, str_banner7) ?>" width="80" height="80" border="0"><? } else { ?>&nbsp;<? } ?>
-												</td>
-												<td>
-													<font class=small color=616161><? if (mysql_result($result, $i, str_service) == "Y") { ?>출력<? } else { ?>미출력<? } ?></font>
-												</td>
-												<td>
-													<font class=small color=616161><? if (mysql_result($result, $i, str_show_main) == "Y") { ?>출력<? } else { ?>미출력<? } ?></font>
-												</td>
-												<td><a href="javascript:SelectClick('<?= mysql_result($result, $i, int_number) ?>');"><img src="/admincenter/img/btn_s_select.gif"></a></td>
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
 												</td>
@@ -232,7 +189,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=15 class=rndline></td>
+												<td colspan=6 class=rndline></td>
 											</tr>
 											<?
 											$article_num--;

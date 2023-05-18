@@ -61,6 +61,13 @@
 						<input type="hidden" name="page" value="<?=$page?>">
 						<input type="hidden" name="str_dimage1" value="<?=$arr_Data['STR_IMAGE1']?>">
 						<input type="hidden" name="str_dimage2" value="<?=$arr_Data['STR_IMAGE2']?>">
+						<input type="hidden" name="str_dbanner1" value="<?=$arr_Data['STR_BANNER1']?>">
+						<input type="hidden" name="str_dbanner2" value="<?=$arr_Data['STR_BANNER2']?>">
+						<input type="hidden" name="str_dbanner3" value="<?=$arr_Data['STR_BANNER3']?>">
+						<input type="hidden" name="str_dbanner4" value="<?=$arr_Data['STR_BANNER4']?>">
+						<input type="hidden" name="str_dbanner5" value="<?=$arr_Data['STR_BANNER5']?>">
+						<input type="hidden" name="str_dbanner6" value="<?=$arr_Data['STR_BANNER6']?>">
+						<input type="hidden" name="str_dbanner7" value="<?=$arr_Data['STR_BANNER7']?>">
 						<input type="hidden" name="Obj">
 
 						<table class=tb>
@@ -95,6 +102,34 @@
 								<td>로고이미지</td>
 								<td colspan="3"><input type=file name=str_Image1 style="width:200;" onChange="uploadImageCheck(this)"> (가로 124 * 세로 63 이내) <?if (!($arr_Data['STR_IMAGE1']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_img1" value="Y" class="null"><?}?></td>
 							</tr>
+							<tr>
+								<td>배너이미지1 (메인 탑 브랜드)</td>
+								<td colspan="3"><input type=file name=str_Banner1 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER1']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner1" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지2 (명품렌트 미니)</td>
+								<td colspan="3"><input type=file name=str_Banner2 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER2']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner2" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지3 (명품렌트 기본)</td>
+								<td colspan="3"><input type=file name=str_Banner3 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER3']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner3" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지4 (명품구독 미니)</td>
+								<td colspan="3"><input type=file name=str_Banner4 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER4']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner4" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지5 (명품구독 기본)</td>
+								<td colspan="3"><input type=file name=str_Banner5 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER5']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner5" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지6 (빈티지 미니)</td>
+								<td colspan="3"><input type=file name=str_Banner6 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER6']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner6" value="Y" class="null"><?}?></td>
+							</tr>
+							<tr>
+								<td>배너이미지7 (빈티지 기본)</td>
+								<td colspan="3"><input type=file name=str_Banner7 style="width:200;" onChange="uploadImageCheck(this)"> (가로 390 * 세로 302 이내) <?if (!($arr_Data['STR_BANNER7']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_banner7" value="Y" class="null"><?}?></td>
+							</tr>
 							<tr style="display:none;">
 								<td>로고이미지2</td>
 								<td colspan="3"><input type=file name=str_Image2 style="width:200;" onChange="uploadImageCheck(this)"> (가로 124 * 세로 63 이내) <?if (!($arr_Data['STR_IMAGE2']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_img2" value="Y" class="null"><?}?></td>
@@ -111,6 +146,13 @@
 								<td colspan=3>
 									<input type="radio" value="Y" name="str_service" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SERVICE'],"Y")=="Y") {?>checked<?}?>> 출력
 									<input type="radio" value="N" name="str_service" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SERVICE'],"Y")=="N") {?>checked<?}?>> 미출력
+								</td>
+							</tr>
+							<tr>
+								<td>메인출력유무</td>
+								<td colspan=3>
+									<input type="radio" value="Y" name="str_show_main" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_MAIN'],"Y")=="Y") {?>checked<?}?>> 출력
+									<input type="radio" value="N" name="str_show_main" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_MAIN'],"Y")=="N") {?>checked<?}?>> 미출력
 								</td>
 							</tr>
 							<?if ($int_gubun=="5") {?>
