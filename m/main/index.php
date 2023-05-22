@@ -414,8 +414,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		$best_review_list_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($best_review_list_result)) {
 		?>
-			<div class="image <?= $i == 2 ? 'large' : '' ?>">
-				<img class="object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" src="/admincenter/files/boad/2/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="review">
+			<div class="image <?= $i == 2 ? 'large' : '' ?> bg-gray-100">
+				<img class="object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" onError="this.style.display='none'" src="/admincenter/files/boad/2/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="review">
 			</div>
 		<?php
 		}
