@@ -268,7 +268,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
 					<p class="current-price">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-					<p class="origin-price"><?= number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] * 100) ?>원</p>
+					<p class="origin-price"><?= number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</div>
@@ -321,7 +321,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 				<p class="brand"><?= $row['STR_CODE'] ?></p>
 				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] * 100) : number_format($row['INT_PRICE']) ?>원</p>
+					<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</div>

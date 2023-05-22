@@ -79,11 +79,11 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="font-normal text-[10px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
             </div>
             <!-- Like -->
-            <div x-data="{ liked: <?= $arr_Data['IS_LIKE'] > 0 ? 'true' : 'false' ?> }" x-on:click="liked = !liked">
-                <svg x-show="!liked" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div onclick="setProductLike(<?= $arr_Data['STR_GOODCODE'] ?>)">
+                <svg id="is_like_no" style="<?= $arr_Data['IS_LIKE'] > 0 ? 'display:none;' : '' ?>" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.78561 16.7712L8.78511 16.7707C6.20323 14.4295 4.0883 12.5088 2.61474 10.706C1.14504 8.90792 0.35 7.26994 0.35 5.5C0.35 2.60372 2.61288 0.35 5.5 0.35C7.13419 0.35 8.70844 1.11256 9.73441 2.30795L10 2.6174L10.2656 2.30795C11.2916 1.11256 12.8658 0.35 14.5 0.35C17.3871 0.35 19.65 2.60372 19.65 5.5C19.65 7.26994 18.855 8.90792 17.3853 10.706C15.9117 12.5088 13.7968 14.4295 11.2149 16.7707L11.2144 16.7712L10 17.8767L8.78561 16.7712Z" stroke="#666666" stroke-width="0.7" />
                 </svg>
-                <svg x-show="liked" width="20" height="19" viewBox="0 0 20 19" fill="#FF0000" xmlns="http://www.w3.org/2000/svg">
+                <svg id="is_like_yes" style="<?= $arr_Data['IS_LIKE'] > 0 ? '' : 'display:none;' ?>" width="20" height="19" viewBox="0 0 20 19" fill="#FF0000" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.78561 16.7712L8.78511 16.7707C6.20323 14.4295 4.0883 12.5088 2.61474 10.706C1.14504 8.90792 0.35 7.26994 0.35 5.5C0.35 2.60372 2.61288 0.35 5.5 0.35C7.13419 0.35 8.70844 1.11256 9.73441 2.30795L10 2.6174L10.2656 2.30795C11.2916 1.11256 12.8658 0.35 14.5 0.35C17.3871 0.35 19.65 2.60372 19.65 5.5C19.65 7.26994 18.855 8.90792 17.3853 10.706C15.9117 12.5088 13.7968 14.4295 11.2149 16.7707L11.2144 16.7712L10 17.8767L8.78561 16.7712Z" stroke="#666666" stroke-width="0.7" />
                 </svg>
             </div>
@@ -93,7 +93,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
         <div class="mt-[7px] flex gap-2 items-center">
             <p class="font-extrabold text-lg text-[#00402F]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-            <p class="font-extrabold text-lg text-[#333333]">일 <?= number_format($arr_Data['INT_PRICE'] * ($arr_Data['INT_DISCOUNT'] ?: 1)) ?>원</p>
+            <p class="font-extrabold text-lg text-[#333333]">일 <?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
             <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
         </div>
     </div>
@@ -367,7 +367,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <p class="mt-[5.52px] font-extrabold text-[9px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                     <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                     <div class="mt-[7.87px] flex gap-[3px] items-center">
-                        <p class="font-bold text-xs text-black">일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] * 100) : number_format($row['INT_PRICE']) ?>원</p>
+                        <p class="font-bold text-xs text-black">일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
                         <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['STR_CODE']) ?>원</p>
                     </div>
                 </div>
@@ -453,7 +453,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         });
     }
 
-    function setLike(int_review) {
+    function setReviewLike(int_review) {
         $.ajax({
             url: "/m/review/set_like.php",
             data: {
@@ -467,6 +467,33 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 }
                 if (result['status'] == 200) {
                     $("#like_count_" + int_review).html(result['data']);
+                }
+            }
+        });
+    }
+
+    function setProductLike(str_goodcode) {
+        $.ajax({
+            url: "/m/product/set_like.php",
+            data: {
+                str_goodcode: str_goodcode
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+                    return;
+                }
+                if (result['status'] == 200) {
+                    Alpine.$data.liked = 'false';
+                    if (result['data'] == true) {
+                        $("#is_like_no").hide();
+                        $("#is_like_yes").show();
+                    }
+                    if (result['data'] == false) {
+                        $("#is_like_no").show();
+                        $("#is_like_yes").hide();
+                    }
                 }
             }
         });

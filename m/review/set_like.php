@@ -7,9 +7,6 @@ $result = array(
     "data" => 0
 );
 
-global $arr_Auth;
-$str_Url = urlencode($_SERVER["SCRIPT_NAME"] . "?" . $_SERVER["QUERY_STRING"]);
-
 if ($arr_Auth[0] == "") {
     $result["status"] = 401;
 } else {
