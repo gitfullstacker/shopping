@@ -184,7 +184,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                         <div x-data="{ deleteImage: false }" class="image-container" x-show="!deleteImage">
                             <input type="hidden" name="str_dimage<?= $i ?>" x-bind:value="deleteImage">
-                            <img class="preview-image" src="/admincenter/files/review/<?= $arr_Data['STR_IMAGE' . $i] ?>" alt="">
+                            <img class="preview-image" src="/admincenter/files/boad/2/<?= $arr_Data['STR_IMAGE' . $i] ?>" alt="">
                             <button type="button" class="delete-button" x-on:click="deleteImage = true">
                                 <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />

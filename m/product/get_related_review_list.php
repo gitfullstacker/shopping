@@ -78,9 +78,9 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
             ' . strip_tags($row['STR_CONTENT']) . '
             </p>
             <div class="grid grid-cols-3 gap-2 w-full">
-                <img class="flex min-w-full ' . ($row['STR_IMAGE1'] ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . $row['STR_IMAGE1'] . '" alt="" />
-                <img class="flex min-w-full ' . ($row['STR_IMAGE2'] ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . $row['STR_IMAGE2'] . '" alt="">
-                <img class="flex min-w-full ' . ($row['STR_IMAGE3'] ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . $row['STR_IMAGE3'] . '" alt="">
+                <img class="flex min-w-full ' . ($row['STR_IMAGE1'] ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . $row['STR_IMAGE1'] . '" alt="" />
+                <img class="flex min-w-full ' . ($row['STR_IMAGE2'] ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . $row['STR_IMAGE2'] . '" alt="">
+                <img class="flex min-w-full ' . ($row['STR_IMAGE3'] ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . $row['STR_IMAGE3'] . '" alt="">
             </div>
         </div>';
 }

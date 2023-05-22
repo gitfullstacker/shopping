@@ -98,9 +98,9 @@ for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
                 </div>
                 <p class="font-bold text-xs leading-[17px] text-[#666666]">' . mysql_result($arr_Data, $int_J, 'STR_CONTENT') . '</p>
                 <div class="grid grid-cols-3">
-                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE1') ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE1') . '" alt="product">
-                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE2') ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE2') . '" alt="product">
-                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE3') ? 'flex' : 'hidden') . '" src="/admincenter/files/review/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE3') . '" alt="product">
+                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE1') ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE1') . '" alt="product">
+                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE2') ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE2') . '" alt="product">
+                    <img class="w-[120px] h-[120px] ' . (mysql_result($arr_Data, $int_J, 'STR_IMAGE3') ? 'flex' : 'hidden') . '" src="/admincenter/files/boad/2/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE3') . '" alt="product">
                 </div>
             </div>
         </div>';

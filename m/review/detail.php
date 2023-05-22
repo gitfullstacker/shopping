@@ -56,9 +56,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div class="spliter"></div>
         <div class="flex flex-col gap-1 items-center w-full">
-            <img class="<?= $arr_Data['STR_IMAGE1'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/review/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
-            <img class="<?= $arr_Data['STR_IMAGE2'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/review/<?= $arr_Data['STR_IMAGE2'] ?>" alt="">
-            <img class="<?= $arr_Data['STR_IMAGE3'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/review/<?= $arr_Data['STR_IMAGE3'] ?>" alt="">
+            <img class="<?= $arr_Data['STR_IMAGE1'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/boad/2/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
+            <img class="<?= $arr_Data['STR_IMAGE2'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/boad/2/<?= $arr_Data['STR_IMAGE2'] ?>" alt="">
+            <img class="<?= $arr_Data['STR_IMAGE3'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/boad/2/<?= $arr_Data['STR_IMAGE3'] ?>" alt="">
         </div>
         <div class="content pb-20">
             <div class="top-section">

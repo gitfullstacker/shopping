@@ -3,7 +3,7 @@
 
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 
-$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'] . "/admincenter/files/review/";
+$str_Add_Tag = $_SERVER['DOCUMENT_ROOT'] . "/admincenter/files/boad/2/";
 
 if (!is_dir($str_Add_Tag)) {
     mkdir($str_Add_Tag, 0777);
