@@ -243,7 +243,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
 <script language="javascript" src="js/user_info.js"></script>
 
-<div class="con_width">
+<!-- hidden by kkk -->
+<div class="con_width" style="display: none;">
 	<div class="request_tab pt15">
 		<ul id="tab02">
 			<li class="on"><a href="#;">개인정보 수정</a></li>
