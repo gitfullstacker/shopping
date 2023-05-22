@@ -1,8 +1,19 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
-<div class="mt-[30px] flex flex-col gap-[15px] w-full">
+<div x-data="{ menu: 0 }" class="mt-[30px] flex flex-col gap-[15px] w-full">
+    <?php
+    $SQL_QUERY =   'SELECT 
+                        A.*
+                    FROM 
+                        ' . $Tname . 'comm_com_code A
+                    WHERE 
+                        A.INT_NUMBER IS NOT NULL AND A.INT_GUBUN=3';
+
+    $code_list_result = mysql_query($SQL_QUERY);
+    ?>
     <p class="font-extrabold text-lg leading-5 text-center text-black">FAQ</p>
     <div class="px-[14px]">
         <div class="relative w-full">
@@ -17,21 +28,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 메뉴 -->
     <div class="flex overflow-x-auto px-[14px] py-[13px] border-t-[0.5px] border-b-[0.5px] border-[#E0E0E0]">
-        <div x-data="{ menu: 1 }" class="flex gap-[35px] items-center">
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 1 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 1">자주찾는질문</p>
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 2 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 2">주문결제</p>
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 3 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 3">배송관련</p>
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 4 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 4">취소/환불</p>
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 5 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 5">교환/반품</p>
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 6 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 6">기타문의</p>
+        <div class="flex gap-[35px] items-center">
+            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 0 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 0">자주찾는질문</p>
+            <?php
+            while ($row = mysql_fetch_assoc($code_list_result)) {
+            ?>
+                <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == <?= $row['INT_NUMBER'] ?> ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = <?= $row['INT_NUMBER'] ?>"><?= $row['STR_CODE'] ?></p>
+            <?php
+            }
+            ?>
         </div>
     </div>
 
-    <!-- 내용 -->
-    <div class="flex flex-col px-[14px] w-full">
+    <!-- 자주찾는질문 -->
+    <div x-show="menu == 0" class="flex flex-col px-[14px] w-full">
         <div class="flex flex-col w-full border-t-[0.5px] border-[#E0E0E0]">
             <?php
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 5; $i++) {
             ?>
                 <div x-data="{ isCollapsed: true }" class="flex flex-col w-full">
                     <div class="flex justify-between py-[15px] border-b-[0.5px] border-[#E0E0E0] pr-[7px]">
@@ -56,8 +69,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     </div>
                 </div>
             <?php
-            } ?>
-
+            }
+            ?>
         </div>
         <div class="mt-[30px] flex gap-[23px] justify-center items-center">
             <a href="#">
@@ -83,8 +96,46 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             </a>
         </div>
     </div>
+
+    <?php
+    mysql_data_seek($code_list_result, 0);
+    while ($row = mysql_fetch_assoc($code_list_result)) {
+    ?>
+        <div x-show="menu == <?= $row['INT_NUMBER'] ?>" class="flex flex-col px-[14px] w-full" id="ask_list">
+        </div>
+    <?php
+    }
+    ?>
 </div>
 
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    filter_type = 'all';
+
+    $(document).ready(function() {
+        <?php
+        mysql_data_seek($code_list_result, 0);
+        while ($row = mysql_fetch_assoc($code_list_result)) {
+        ?>
+            searchAsk(0, <?= $row['INT_NUMBER'] ?>);
+        <?php
+        }
+        ?>
+    });
+
+    function searchAsk(page = 0, int_gubun = 0) {
+        url = "get_ask_list.php";
+        url += "?page=" + page;
+        url += "&int_gubun=" + int_gubun;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#ask_list").html(result);
+            }
+        });
+    }
+</script>

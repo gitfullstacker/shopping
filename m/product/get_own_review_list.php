@@ -81,6 +81,7 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
             </div>
         </div>';
 }
+$result .= '</div>';
 
 // Pagination
 $result .= '

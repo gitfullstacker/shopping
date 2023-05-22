@@ -16,11 +16,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </a>
         <a href="../review/index.php" class="flex flex-col gap-[9px] items-center">
             <img src="../images/menu_item3.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
-            <p class="font-bold text-xs leading-[14px] text-[#444444]">리뷰</p>
+            <p class="font-bold text-xs leading-[14px] text-[#444444]">공지사항</p>
         </a>
-        <a href="#" class="flex flex-col gap-[9px] items-center">
-            <img src="../images/menu_item4.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
-            <p class="font-bold text-xs leading-[14px] text-[#444444]">기획전</p>
+        <a href="/m/faq/index.php" class="flex flex-col gap-[9px] items-center">
+            <img src="../images/menu_item5.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
+            <p class="font-bold text-xs leading-[14px] text-[#444444]">FAQ</p>
         </a>
     </div>
     <div class="flex flex-col gap-[39px] w-full py-5 border-t-[0.5px] border-b-[0.5px] border-[#E0E0E0] px-2">

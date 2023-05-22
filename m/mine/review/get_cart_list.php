@@ -93,7 +93,6 @@ for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
             </div>
         </div>';
 }
-
 $result .= '</div>';
 
 // Pagination
