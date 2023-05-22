@@ -60,7 +60,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		<img src="../images/menu_item2.png" alt="menu_item2" />
 		<p class="item-title">신규혜택</p>
 	</a>
-	<a href="#" class="menu-item">
+	<a href="../review/index.php" class="menu-item">
 		<img src="../images/menu_item3.png" alt="menu_item3" />
 		<p class="item-title">리뷰</p>
 	</a>
@@ -113,26 +113,67 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</div>
 	<div class="categorypick-scroll-list">
 		<?php
-		for ($i = 0; $i < 5; $i++) {
+		for ($i = 1; $i <= 3; $i++) {
+			$SQL_QUERY = 	'SELECT 
+								A.*, B.STR_CODE
+							FROM 
+								' . $Tname . 'comm_goods_master A
+							LEFT JOIN
+								' . $Tname . 'comm_com_code B
+							ON
+								A.INT_BRAND=B.INT_NUMBER
+							WHERE 
+								(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+								AND 
+								A.INT_TYPE=' . $i . ' 
+							ORDER BY A.INT_VIEW DESC
+							LIMIT 2';
+
+			$category_product_result = mysql_query($SQL_QUERY);
 		?>
 			<div class="section">
-				<div class="item">
-					<img src="../images/mockup/category.png" alt="event_zone">
+				<div class="item relative">
+					<img src="images/category<?= $i ?>.png" alt="event_zone">
+					<div class="absolute flex flex-col gap-2 left-[13px] bottom-4">
+						<?php
+						switch ($i) {
+							case 1:
+						?>
+								<p class="font-extrabold text-lg leading-[20px] text-white">RENT BEST</p>
+								<p class="font-bold text-xs leading-[14px] text-white">렌트 베스트 상품</p>
+							<?php
+								break;
+							case 2:
+							?>
+								<p class="font-extrabold text-lg leading-[20px] text-white">MEMBERSHIP BEST</p>
+								<p class="font-bold text-xs leading-[14px] text-white">구독 베스트 상품</p>
+							<?php
+								break;
+							case 3:
+							?>
+								<p class="font-extrabold text-lg leading-[20px] text-white">HOT VINTAGE</p>
+								<p class="font-bold text-xs leading-[14px] text-white">반응 좋은 빈티지 상품</p>
+						<?php
+								break;
+						}
+						?>
+
+					</div>
 				</div>
 				<div class="bottom-section">
 					<?php
-					for ($j = 0; $j < 2; $j++) {
+					while ($row = mysql_fetch_assoc($category_product_result)) {
 					?>
 						<div class="item">
 							<div class="image-part">
-								<img src="../images/mockup/product.png" alt="event_zone">
+								<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="event_zone">
 							</div>
 							<div class="text-part">
-								<p class="tag">BOTTEGA BENETA</p>
-								<p class="title">카세트 스몰</p>
+								<p class="tag"><?= $row['STR_CODE'] ?></p>
+								<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 								<div class="price-section">
-									<p class="regular-price">일 35,920원</p>
-									<p class="origin-price">35,920원</p>
+									<p class="regular-price">일 <?= number_format($row['INT_PRICE']) ?>원</p>
+									<p class="origin-price"><?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원' : '' ?></p>
 								</div>
 							</div>
 						</div>
@@ -150,18 +191,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 <!-- Top Brand -->
 <div class="topbrand">
 	<?
-	$SQL_QUERY = "SELECT 
-			A.*
-		FROM 
-			" . $Tname . "comm_com_code A 
-		WHERE 
-			A.STR_SERVICE='Y'
-		ORDER BY 
-			A.DTM_INDATE DESC 
-		LIMIT 10";
-
-	$arr_Data = mysql_query($SQL_QUERY);
-	$arr_Data_Cnt = mysql_num_rows($arr_Data);
+	$query = "SELECT * FROM " . $Tname . "comm_com_code where STR_SERVICE = 'Y' and INT_GUBUN = 2";
+	$brand_list_result = mysql_query($query);
 	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
@@ -177,12 +208,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</div>
 	<div class="topbrand-scroll-list">
 		<?
-		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
+		while ($row = mysql_fetch_assoc($brand_list_result)) {
 		?>
 			<div class="item">
-				<img src="/admincenter/files/com/<?= mysql_result($arr_Data, $int_J, str_url1) ?>" alt="">
-				<p class="e-brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
-				<p class="k-brand"><?= mysql_result($arr_Data, $int_J, str_kcode) ?></p>
+				<div class="flex w-[115px] h-[160px] rounded-[40px] bg-gray-100 <?= $row['STR_BANNER1'] ?: 'animate-pulse' ?>">
+					<img class="w-full h-full rounded-[40px] <?= $row['STR_BANNER1'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" alt="">
+				</div>
+				<p class="e-brand"><?= $row['STR_CODE'] ?></p>
+				<p class="k-brand"><?= $row['STR_KCODE'] ?></p>
 			</div>
 		<?php
 		}
@@ -197,29 +230,45 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			<p class="title">렌트 한정 기간 타임세일</p>
 			<p class="description">매주 만나볼 수 있는 특별한 기회를 놓치지마세요</p>
 		</div>
-		<div class="right-section">
+		<a href="/m/product/index.php?product_type=1" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 			</svg>
-		</div>
+		</a>
 	</div>
 	<div class="product-scroll-list">
 		<?php
-		for ($i = 0; $i < 5; $i++) {
+		$SQL_QUERY = 	'SELECT 
+							A.*, B.STR_CODE
+						FROM 
+							' . $Tname . 'comm_goods_master A
+						LEFT JOIN
+							' . $Tname . 'comm_com_code B
+						ON
+							A.INT_BRAND=B.INT_NUMBER
+						WHERE 
+							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+							AND A.INT_TYPE=1 
+							AND A.INT_DISCOUNT!=0
+						ORDER BY A.INT_DISCOUNT DESC
+						LIMIT 6';
+
+		$rent_product_result = mysql_query($SQL_QUERY);
+		while ($row = mysql_fetch_assoc($rent_product_result)) {
 		?>
 			<div class="item">
 				<div class="image">
 					<img src="../images/mockup/rent_product.png" alt="rent">
 					<div class="discount">
-						<p class="value">20%</p>
+						<p class="value"><?= $row['INT_DISCOUNT'] ?>%</p>
 					</div>
 				</div>
-				<p class="brand">DIOR</p>
-				<p class="title">바비백 스몰</p>
+				<p class="brand"><?= $row['STR_CODE'] ?></p>
+				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price">일 35,920원</p>
-					<p class="origin-price">35,920원</p>
+					<p class="current-price">일 <?= number_format($row['INT_PRICE']) ?>원</p>
+					<p class="origin-price"><?= number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] * 100) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</div>
@@ -231,60 +280,48 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <!-- 렌트 신규 입고 -->
 <div class="rentnew">
-	<?
-	$SQL_QUERY = "SELECT 
-			A.*,
-			(SELECT B.STR_BCODE FROM " . $Tname . "comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
-			(SELECT IFNULL(COUNT(Z.STR_USERID),0) AS CNT FROM " . $Tname . "comm_member_like Z WHERE Z.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT, 
-			(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM " . $Tname . "comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='" . $arr_Auth[0] . "' AND D.INT_STATE IN ('4')) AS CARTCNT,
-			E.STR_CODE
-		FROM 
-			" . $Tname . "comm_goods_master A
-			LEFT JOIN
-			" . $Tname . "comm_com_code E
-			ON
-			A.INT_BRAND=E.INT_NUMBER
-		WHERE 
-			A.STR_GOODCODE IS NOT NULL 
-			AND 
-			(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') 
-			AND 
-			A.STR_MMYN='Y' 
-		ORDER BY 
-			A.INT_SORT DESC 
-		LIMIT 10";
-
-	$arr_Data = mysql_query($SQL_QUERY);
-	$arr_Data_Cnt = mysql_num_rows($arr_Data);
-	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
 			<p class="title">렌트 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
 		</div>
-		<div class="right-section">
+		<a href="/m/product/index.php?product_type=1" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 			</svg>
-		</div>
+		</a>
 	</div>
 	<div class="main-image">
-		<img src="../images/mockup/new_rent.png" alt="rentnew">
+		<img src="images/new_rent.png" alt="rentnew">
 	</div>
 	<div class="product-scroll-list">
 		<?
-		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
+		$SQL_QUERY = 	'SELECT 
+							A.*, B.STR_CODE
+						FROM 
+							' . $Tname . 'comm_goods_master A
+						LEFT JOIN
+							' . $Tname . 'comm_com_code B
+						ON
+							A.INT_BRAND=B.INT_NUMBER
+						WHERE 
+							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+							AND A.INT_TYPE=1 
+						ORDER BY A.DTM_INDATE DESC
+						LIMIT 6';
+
+		$rent_new_product_result = mysql_query($SQL_QUERY);
+		while ($row = mysql_fetch_assoc($rent_new_product_result)) {
 		?>
 			<div class="item">
 				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-					<img class="w-full" src="/admincenter/files/good/<?= mysql_result($arr_Data, $int_J, str_image1) ?>" alt="rent">
+					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
 				</div>
-				<p class="brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
-				<p class="title"><?= mysql_result($arr_Data, $int_J, str_goodname) ?></p>
+				<p class="brand"><?= $row['STR_CODE'] ?></p>
+				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price">일 <?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
-					<p class="origin-price"><?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
+					<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] * 100) : number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</div>
@@ -296,60 +333,48 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <!-- 구독 신규 입고 -->
 <div class="subscriptionnew">
-	<?
-	$SQL_QUERY = "SELECT 
-			A.*,
-			(SELECT B.STR_BCODE FROM " . $Tname . "comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
-			(SELECT IFNULL(COUNT(Z.STR_USERID),0) AS CNT FROM " . $Tname . "comm_member_like Z WHERE Z.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT, 
-			(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM " . $Tname . "comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='" . $arr_Auth[0] . "' AND D.INT_STATE IN ('4')) AS CARTCNT,
-			E.STR_CODE
-		FROM 
-			" . $Tname . "comm_goods_master A
-			LEFT JOIN
-			" . $Tname . "comm_com_code E
-			ON
-			A.INT_BRAND=E.INT_NUMBER
-		WHERE 
-			A.STR_GOODCODE IS NOT NULL 
-			AND 
-			(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') 
-			AND 
-			A.STR_MMYN='Y' 
-		ORDER BY 
-			A.INT_SORT DESC 
-		LIMIT 10";
-
-	$arr_Data = mysql_query($SQL_QUERY);
-	$arr_Data_Cnt = mysql_num_rows($arr_Data);
-	?>
 	<div class="sub-section-top-bar">
 		<div class="left-section">
 			<p class="title">구독 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
 		</div>
-		<div class="right-section">
+		<a href="/m/product/index.php?product_type=2" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 			</svg>
-		</div>
+		</a>
 	</div>
 	<div class="main-image">
-		<img src="../images/mockup/new_subscription.png" alt="subscriptionnew">
+		<img src="images/new_subscription.png" alt="subscriptionnew">
 	</div>
 	<div class="product-scroll-list">
 		<?
-		for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
+		$SQL_QUERY = 	'SELECT 
+							A.*, B.STR_CODE
+						FROM 
+							' . $Tname . 'comm_goods_master A
+						LEFT JOIN
+							' . $Tname . 'comm_com_code B
+						ON
+							A.INT_BRAND=B.INT_NUMBER
+						WHERE 
+							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+							AND A.INT_TYPE=2 
+						ORDER BY A.DTM_INDATE DESC
+						LIMIT 6';
+
+		$subscription_new_product_result = mysql_query($SQL_QUERY);
+		while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
 		?>
 			<div class="item">
 				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-					<img class="w-full" src="/admincenter/files/good/<?= mysql_result($arr_Data, $int_J, str_image1) ?>" alt="rent">
+					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
 				</div>
-				<p class="brand"><?= mysql_result($arr_Data, $int_J, str_code) ?></p>
-				<p class="title"><?= mysql_result($arr_Data, $int_J, str_goodname) ?></p>
+				<p class="brand"><?= $row['STR_CODE'] ?></p>
+				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price">일 <?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
-					<p class="origin-price"><?= number_format(mysql_result($arr_Data, $int_J, int_price)) ?>원</p>
+					<p class="current-price">월 <?= number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="subscription-button">구독</button>
 			</div>
@@ -365,25 +390,40 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		<div class="left-section">
 			<p class="title">REVIEW</p>
 		</div>
-		<div class="right-section">
+		<a href="/m/review/index.php" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 			</svg>
-		</div>
+		</a>
 	</div>
 	<div class="image-grid">
 		<?php
-		for ($i = 0; $i < 8; $i++) {
+		$SQL_QUERY =   'SELECT 
+							A.*
+						FROM 
+							' . $Tname . 'comm_review A
+						WHERE 
+							A.STR_GOODCODE IS NOT NULL
+							AND (A.STR_IMAGE1 IS NOT NULL OR A.STR_IMAGE2 IS NOT NULL OR A.STR_IMAGE3 IS NOT NULL)
+						ORDER BY 
+							A.INT_STAR DESC,
+							A.DTM_EDIT_DATE DESC
+						LIMIT 8';
+
+		$best_review_list_result = mysql_query($SQL_QUERY);
+		while ($row = mysql_fetch_assoc($best_review_list_result)) {
 		?>
 			<div class="image <?= $i == 2 ? 'large' : '' ?>">
-				<img src="../images/mockup/review.png" alt="review">
+				<img class="object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" src="/admincenter/files/review/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="review">
 			</div>
 		<?php
 		}
 		?>
 	</div>
-	<button class="review-button">더 많은 리뷰 보러가기</button>
+	<a href="/m/review/index.php" class="mt-[21px] w-[225px] h-[38px] flex justify-center items-center bg-white border-[0.5px] border-solid border-[#DDDDDD]">
+		<p class="font-bold text-[11px] leading-[12px]">더 많은 리뷰 보러가기</p>
+	</a>
 </div>
 
 <!-- hidden by kkk -->

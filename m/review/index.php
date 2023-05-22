@@ -1,163 +1,113 @@
-<?
-require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
-?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
 
-<div x-data="{ menu: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
-    <div class="flex justify-center">
-        <p class="font-extrabold text-lg leading-[20px] text-black">나의 리뷰</p>
-    </div>
-    <div class="mt-[14px] flex justify-center items-center gap-16 w-full">
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">리뷰 작성</p>
-        </div>
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">리뷰 내역</p>
-        </div>
-    </div>
-    <div class="mt-[15px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
-        <p class="font-bold text-[10px] leading-[14px] text-black">후기 작성 안내</p>
-        <p class="font-bold text-[10px] leading-[14px] text-[#999999]">
-            -사진 후기 100원, 글 후기 50원 적립금이 지급됩니다.<br />
-            -작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
-            -등급에 따라 차등으로 적립 혜택이 달라질 수 있습니다.<br />
-            -주간 베스트 후기로 선정 시 5,000원이 추가로 적립됩니다.<br />
-            -후기 작성은 배송완료일로부터 30일 이내 가능합니다.
-        </p>
-    </div>
+<script language="javascript" src="js/common.js"></script>
+<script language="javascript" src="js/index.js"></script>
 
-    <div x-show="menu == 1" class="flex flex-col w-full">
-        <div class="flex flex-col gap-[15px] w-full border-t-[0.5px] border-[#E0E0E0] pt-[15px]">
+<div class="flex flex-col items-center w-full pt-[30px]">
+    <!-- BEST REVIEW -->
+    <div class="flex flex-col w-full items-center">
+        <?php
+        $SQL_QUERY =   'SELECT 
+                            A.*, C.STR_GOODNAME, C.STR_IMAGE1 AS PRODUCT_IMAGE, C.INT_PRICE, C.INT_DISCOUNT, C.INT_TYPE, D.STR_CODE
+                        FROM 
+                            ' . $Tname . 'comm_review A
+                        LEFT JOIN
+                            ' . $Tname . 'comm_goods_cart B
+                        ON
+                            A.STR_CART=B.INT_NUMBER
+                        LEFT JOIN
+                            ' . $Tname . 'comm_goods_master C
+                        ON
+                            A.STR_GOODCODE=C.STR_GOODCODE
+                        LEFT JOIN
+                            ' . $Tname . 'comm_com_code D
+                        ON
+                            C.INT_BRAND=D.INT_NUMBER
+                        WHERE 
+                            A.STR_GOODCODE IS NOT NULL
+                        ORDER BY 
+                            A.INT_STAR DESC,
+                            A.DTM_EDIT_DATE DESC
+                        LIMIT 4';
+
+        $best_review_list_result = mysql_query($SQL_QUERY);
+        ?>
+        <p class="font-extrabold text-lg leading-[20px] text-black">BEST REVIEW</p>
+        <div class="mt-[22px] grid grid-cols-2 gap-x-[15px] gap-y-5 px-5 w-full">
             <?php
-            for ($i = 0; $i < 10; $i++) {
+            while ($row = mysql_fetch_assoc($best_review_list_result)) {
             ?>
-                <div class="flex flex-col gap-[15px] w-full border-b-[0.5px] border-[#E0E0E0] pb-[21px]">
-                    <p class="font-bold text-[13px] leading-[15px] text-[#999999]">구매확정일 2023.03.31</p>
-                    <div class="flex gap-[11px]">
-                        <div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
-                            <img src="images/mockup/product.png" alt="product">
-                        </div>
-                        <div class="grow flex flex-col justify-center">
-                            <div class="w-[34px] h-[18px] flex justify-center items-center bg-[#00402F]">
-                                <p class="font-normal text-[10px] leading-[11px] text-center text-white">렌트</p>
-                            </div>
-                            <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">CHANEL</p>
-                            <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">코코핸들 스몰</p>
-                            <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: 2023.02.10 ~ 2023.02.13</p>
+                <a href="/m/review/detail.php?int_review=<?= $row['INT_NUMBER'] ?>" class="flex flex-col w-full">
+                    <div class="flex relative w-full h-[167px] bg-gray-100">
+                    <img class="flex w-full object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" src="/admincenter/files/review/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="">
+                        <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
+                            <p class="font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+                            <p class="font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         </div>
                     </div>
-                    <div class="mt-[14px] flex gap-[35px] items-center w-full">
-                        <div class="flex flex-col gap-[5px]">
-                            <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: 1,000</p>
-                            <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-20(2023.04.10)</p>
-                        </div>
-                        <a href="create.php" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-[11px] leading-[12px] text-black">리뷰 작성</p>
-                        </a>
-                    </div>
-                </div>
+                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['INT_STAR']) ?></p>
+                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['STR_CONTENT']) ?></p>
+                </a>
             <?php
             }
             ?>
         </div>
-        <div class="mt-[30px] flex gap-[23px] justify-center items-center">
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-                </svg>
-            </a>
-            <div class="flex gap-[9.6px] items-center">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <a href="#" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] <?= $i == 0 ? 'bg-black' : 'bg-white' ?>">
-                        <p class="font-bold text-xs leading-[14px] text-center <?= $i == 0 ? 'text-white' : 'text-black' ?>"><?= $i + 1 ?></p>
-                    </a>
-                <?php
-                }
-                ?>
-            </div>
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-                </svg>
-            </a>
-        </div>
+        <img class="mt-[30px] w-full" src="images/main.png" alt="">
     </div>
+    <!-- ALL REVIEW -->
+    <div class="mt-[35px] flex flex-col w-full items-center px-[14px]">
+        <p class="font-extrabold text-lg leading-[20px] text-black">ALL REVIEW</p>
+        <div class="mt-[15px] border-t border-b border-[#E0E0E0] flex justify-between items-center py-3 w-full">
+            <p class="font-bold text-[11px] leading-[12px] text-[#666666]">구독 가능</p>
+            <div x-data="{ 
+                    showOrderBy: false,
+                    selectedValue: 'all',
+                    selectedTitle: '전체',
+                    orderList: [
+                        {
+                            value: 'all',
+                            title: '전체'
+                        },
+                        {
+                            value: 'rent',
+                            title: '렌트'
+                        },
+                        {
+                            value: 'subscription',
+                            title: '구독'
+                        },
+                        {
+                            value: 'used',
+                            title: '중고'
+                        }
+                    ],
+                    changeOrderItem(value, title) {
+                        this.selectedValue = value;
+                        this.selectedTitle = title;
+                        this.showOrderBy = false;
 
-    <div x-show="menu == 2" class="flex flex-col w-full">
-        <div class="flex flex-col gap-[15px] w-full border-t-[0.5px] border-[#E0E0E0] pt-[15px]">
-            <?php
-            for ($i = 0; $i < 10; $i++) {
-            ?>
-                <div class="flex flex-col gap-[15px] w-full border-b-[0.5px] border-[#E0E0E0] pb-[21px]">
-                    <div class="flex gap-[11px]">
-                        <div class="flex justify-center items-center w-[91px] h-[91px] bg-[#F9F9F9] p-2">
-                            <img src="images/mockup/product.png" alt="product">
-                        </div>
-                        <div class="grow flex flex-col justify-center">
-                            <div class="w-[25px] h-[14px] flex justify-center items-center bg-[#00402F]">
-                                <p class="font-normal text-[8px] leading-[9px] text-center text-white">렌트</p>
-                            </div>
-                            <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-black">CHANEL</p>
-                            <p class="mt-1 font-bold text-[9px] leading-[10px] text-[#666666]">코코핸들 스몰</p>
-                            <div class="mt-2.5 flex gap-1">
-                                <button class="w-[95px] h-[30px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                                    <p class="font-bold text-[9px] leading-[10px] text-[#666666]">수정</p>
-                                </button>
-                                <button class="w-[95px] h-[30px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                                    <p class="font-bold text-[9px] leading-[10px] text-[#666666]">삭제</p>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-[9px] w-full">
-                        <div class="flex justify-between items-center">
-                            <p>★★★★★</p>
-                            <button class="flex gap-[2.7px] px-[11px] py-1 items-center justify-center border-[0.6px] border-solid border-[#DDDDDD] rounded-full">
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.00156 4.61921C0.996567 4.56168 1.00358 4.50374 1.02217 4.44907C1.04076 4.39439 1.0705 4.34418 1.10952 4.30161C1.14855 4.25904 1.19599 4.22505 1.24885 4.20179C1.3017 4.17854 1.35882 4.16652 1.41656 4.1665H2.21219C2.32269 4.1665 2.42867 4.2104 2.50681 4.28854C2.58495 4.36668 2.62885 4.47266 2.62885 4.58317V8.5415C2.62885 8.65201 2.58495 8.75799 2.50681 8.83613C2.42867 8.91427 2.32269 8.95817 2.21219 8.95817H1.76094C1.65665 8.9582 1.55615 8.91911 1.47927 8.84864C1.4024 8.77817 1.35475 8.68144 1.34573 8.57754L1.00156 4.61921ZM3.87885 4.45296C3.87885 4.27879 3.98719 4.12296 4.14448 4.04879C4.48802 3.88671 5.07323 3.56109 5.33719 3.12088C5.6774 2.55338 5.74156 1.52817 5.75198 1.29338C5.75344 1.26046 5.7526 1.22754 5.75698 1.19504C5.81344 0.788169 6.59865 1.26338 6.89969 1.76588C7.06323 2.03838 7.08406 2.3965 7.06698 2.67629C7.04844 2.97546 6.96073 3.26442 6.87469 3.5515L6.69135 4.16338H8.95323C9.0176 4.16337 9.08111 4.17829 9.13875 4.20695C9.1964 4.23561 9.24662 4.27723 9.28547 4.32856C9.32433 4.37989 9.35076 4.43953 9.3627 4.50279C9.37463 4.56605 9.37175 4.63121 9.35427 4.69317L8.23552 8.65484C8.21082 8.74221 8.15826 8.81913 8.08583 8.87388C8.0134 8.92864 7.92507 8.95823 7.83427 8.95817H4.29552C4.18501 8.95817 4.07903 8.91427 4.00089 8.83613C3.92275 8.75799 3.87885 8.65201 3.87885 8.5415V4.45296Z" stroke="#666666" stroke-width="0.833333" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <p class="font-bold text-[9px] leading-[9px] text-[#666666]">0</p>
-                            </button>
-                        </div>
-                        <div class="flex gap-5 items-center">
-                            <p class="font-bold text-xs leading-[12px] text-[#666666]">xxs***</p>
-                            <p class="font-bold text-xs leading-[12px] text-[#999999]">2023/01/25</p>
-                        </div>
-                        <p class="font-bold text-xs leading-[17px] text-[#666666]">가방 너무 이뻐요~ 역시 샤넬은 기다린 보람이 있어요! 멤버십 할인도 받아서 저렴하게 렌트했어요 :)</p>
-                        <img class="w-[120px] h-[120px]" src="images/mockup/product.png" alt="product">
-                    </div>
+                        filter_type = this.selectedValue;
+                        searchReview();
+                    }
+                }" class="flex gap-0.5 items-center relative">
+                <div class="w-[9px] h-[9px]">
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.48906 1H6.51694L3.99797 4.15L1.48906 1ZM0.106392 0.805001C1.12202 2.1 2.99742 4.5 2.99742 4.5V7.5C2.99742 7.775 3.22368 8 3.50021 8H4.50579C4.78232 8 5.00857 7.775 5.00857 7.5V4.5C5.00857 4.5 6.87895 2.1 7.89458 0.805001C7.9522 0.731187 7.98783 0.642764 7.99739 0.549803C8.00696 0.456842 7.99009 0.363077 7.94869 0.279186C7.9073 0.195294 7.84305 0.124647 7.76326 0.0752883C7.68347 0.0259299 7.59134 -0.000156018 7.49738 7.02021e-07H0.503594C0.0862804 7.02021e-07 -0.15003 0.475001 0.106392 0.805001Z" fill="#999999" />
+                    </svg>
                 </div>
-            <?php
-            }
-            ?>
-        </div>
-        <div class="mt-[30px] flex gap-[23px] justify-center items-center">
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-                </svg>
-            </a>
-            <div class="flex gap-[9.6px] items-center">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <a href="#" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] <?= $i == 0 ? 'bg-black' : 'bg-white' ?>">
-                        <p class="font-bold text-xs leading-[14px] text-center <?= $i == 0 ? 'text-white' : 'text-black' ?>"><?= $i + 1 ?></p>
-                    </a>
-                <?php
-                }
-                ?>
+                <p class="font-bold text-[9px] leading-[10px] text-[#999999]" x-text="selectedTitle" x-on:click="showOrderBy = true">인기순</p>
+                <div x-show="showOrderBy" class="absolute top-[15px] right-0 flex flex-col gap-0.5 items-center w-20 bg-white shadow-md z-10" style="display: none;" x-on:click.away="showOrderBy = false">
+                    <template x-for="item in orderList">
+                        <div class="flex justify-center py-1 font-bold text-[9px] leading-[10px] items-center text-[#999999]" x-text="item.title" x-on:click="changeOrderItem(item.value, item.title)">인기순</div>
+                    </template>
+                </div>
             </div>
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-                </svg>
-            </a>
         </div>
+        <div id="review_list" class="flex flex-col w-full divide-y">
+        </div>
+        <hr class="mt-5 border-t-[0.5px] border-solid border-[#E0E0E0]" />
     </div>
 </div>
 
-<?
-require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
-?>
+<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
