@@ -647,7 +647,7 @@ if ($bln_Flag == False) {
 
 	<div class="mt-[14px] flex gap-[11px]">
 		<div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
-			<img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" alt="product">
+			<img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
 		</div>
 		<div class="grow flex flex-col justify-center">
 			<div class="w-[34px] h-[18px] flex justify-center items-center bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">

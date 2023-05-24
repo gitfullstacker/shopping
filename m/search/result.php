@@ -4,11 +4,64 @@ $search_menu = true;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
+<?php
+$filter_categories = json_decode($_GET['filter_categories'], true);
+$filter_brands = json_decode($_GET['filter_brands'], true);
+$filter_sizes = json_decode($_GET['filter_sizes'], true);
+$filter_styles = json_decode($_GET['filter_styles'], true);
+
+$FILTER_QUERY = 'A.STR_GOODCODE IS NOT NULL ';
+if (count($filter_categories) > 0) {
+    $filter_categories_string = implode(',', $filter_categories);
+    $FILTER_QUERY .= 'AND INT_TYPE IN (' . $filter_categories_string . ') ';
+}
+if (count($filter_brands) > 0) {
+    $filter_brands_string = implode(',', $filter_brands);
+    $FILTER_QUERY .= 'AND INT_BRAND IN (' . $filter_brands_string . ') ';
+}
+if (count($filter_sizes) > 0) {
+    $filter_sizes_array = array();
+
+    foreach ($filter_sizes as $item) {
+        array_push($filter_sizes_array, 'A.STR_TSIZE LIKE "%' . $item . '%"');
+    }
+    $filter_sizes_string = implode(' OR ', $filter_sizes_array);
+    $FILTER_QUERY .= 'AND (' . $filter_sizes_string . ') ';
+}
+if (count($filter_styles) > 0) {
+    $filter_styles_array = array();
+
+    foreach ($filter_styles as $item) {
+        array_push($filter_styles_array, 'A.STR_STYLE LIKE "%' . $item . '%"');
+    }
+    $filter_styles_string = implode(' OR ', $filter_styles_array);
+    $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
+}
+
+$SQL_QUERY = 'SELECT 
+                COUNT(A.STR_GOODCODE)
+                FROM 
+                ' . $Tname . 'comm_goods_master A
+                WHERE 
+                (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+                AND 
+                ' . $FILTER_QUERY;
+
+$result = mysql_query($SQL_QUERY);
+
+if (!$result) {
+    error("QUERY_ERROR");
+    exit;
+}
+
+$total_record = mysql_result($result, 0, 0);
+?>
+
 <div class="flex flex-col w-full">
     <div class="flex items-center justify-between px-[14px] border-b border-[#E0E0E0] h-[38px]">
         <div class="flex gap-[3px] items-center">
             <p class="font-bold text-xs leading-[14px] text-black">검색 결과</p>
-            <p class="font-bold text-[10px] leading-[11px] text-[#9D9D9D]">(23)</p>
+            <p class="font-bold text-[10px] leading-[11px] text-[#9D9D9D]">(<?= $total_record ?>)</p>
         </div>
         <div class="flex gap-[15px]">
             <div class="relative flex items-center">
@@ -21,8 +74,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     </svg>
                 </div>
             </div>
-            <button class="w-[58px] h-[25px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
-                <p class="font-bold text-[11px] leading-3 flex items-center text-center text-[#666666]">FILTER</p>
+            <button type="button" class="w-[58px] h-[25px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full" onclick="openFilter()">
+                <p class="font-bold text-[11px] leading-[11px] flex items-center text-center text-[#666666]">FILTER</p>
             </button>
         </div>
     </div>
@@ -37,33 +90,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         }
         ?>
     </div>
-    <div class="mt-[6px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px] w-full px-[14px]">
-        <?php
-        for ($i = 0; $i < 12; $i++) {
-        ?>
-            <!-- 상품 -->
-            <div class="flex flex-col w-full">
-                <div class="relative flex justify-center items-center w-full p-2.5 bg-[#F9F9F9] rounded-[10px]">
-                    <img src="images/mockup/product.png" alt="product">
-                    <div x-data="{ isFavorite: false }" class="absolute top-[11px] right-[11px] flex justify-center items-center w-4 h-4" x-on:click="isFavorite = !isFavorite">
-                        <svg width="16" height="15" viewBox="0 0 16 15" x-bind:fill="isFavorite ? '#FF1F4B' : 'none'" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.07838 13.6647L7.07788 13.6642C5.01112 11.7493 3.32341 10.1829 2.14831 8.71393C0.977275 7.25002 0.35 5.92416 0.35 4.49591C0.35 2.15659 2.13596 0.35 4.4 0.35C5.68336 0.35 6.92305 0.962301 7.732 1.92538L8 2.24445L8.268 1.92538C9.07695 0.962301 10.3166 0.35 11.6 0.35C13.864 0.35 15.65 2.15659 15.65 4.49591C15.65 5.92416 15.0227 7.25002 13.8517 8.71393C12.6766 10.1829 10.9889 11.7493 8.92212 13.6642L8.92162 13.6647L8 14.522L7.07838 13.6647Z" stroke="#666666" stroke-width="0.7" />
-                        </svg>
-                    </div>
-                </div>
-                <p class="mt-[5.5px] font-extrabold text-[9px] leading-[10px] text-[#666666]">CHANEL</p>
-                <p class="mt-[3px] font-bold text-[9px] leading-[10px] text-[#333333]">가브리엘 스몰 백팩</p>
-                <div class="mt-[8.4px] flex gap-1 items-center">
-                    <p class="font-extrabold text-xs leading-[14px] text-[#00402F]">20%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">일 35,920원</p>
-                </div>
-                <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#00402F]">
-                    <p class="font-normal text-[9px] leading-[10px] text-center text-white">렌트</p>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
+    <div class="mt-[6px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px] w-full px-[14px]" id="product_list">
     </div>
 </div>
 
@@ -71,3 +98,80 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 $hide_footer_content = true;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    current_page = 1;
+    window.filter_categories = <?= $_GET['filter_categories'] ?: '[]' ?>;
+    window.filter_brands = <?= $_GET['filter_brands'] ?: '[]' ?>;
+    window.filter_sizes = <?= $_GET['filter_sizes'] ?: '[]' ?>;
+    window.filter_styles = <?= $_GET['filter_styles'] ?: '[]' ?>;
+    order_by = 'favorite';
+
+    $(document).ready(function() {
+        searchProduct();
+    });
+
+    function searchProduct(append = false) {
+        url = "get_product_list.php";
+        url += "?page=" + current_page;
+        url += "&filter_categories=" + encodeURIComponent(JSON.stringify(filter_categories));
+        url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
+        url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));
+        url += "&filter_styles=" + encodeURIComponent(JSON.stringify(filter_styles));
+        url += "&order_by=" + order_by;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                if (append) {
+                    $("#product_list").append(result);
+                } else {
+                    $("#product_list").html(result);
+                }
+            }
+        });
+    }
+
+    function seeMoreClick() {
+        current_page++;
+
+        searchProduct(true);
+    }
+
+    function setProductLike(str_goodcode) {
+        $.ajax({
+            url: "/m/product/set_like.php",
+            data: {
+                str_goodcode: str_goodcode
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+                    return;
+                }
+                if (result['status'] == 200) {
+                    Alpine.$data.liked = 'false';
+                    if (result['data'] == true) {
+                        $("#is_like_no").hide();
+                        $("#is_like_yes").show();
+                    }
+                    if (result['data'] == false) {
+                        $("#is_like_no").show();
+                        $("#is_like_yes").hide();
+                    }
+                }
+            }
+        });
+    }
+
+    function openFilter() {
+        url = "index.php";
+        url += "?filter_categories=" + encodeURIComponent(JSON.stringify(filter_categories));
+        url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
+        url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));
+        url += "&filter_styles=" + encodeURIComponent(JSON.stringify(filter_styles));
+        
+        location.href = url;
+    }
+</script>

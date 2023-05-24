@@ -10,18 +10,13 @@ $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_goods_master SET INT_VIEW=INT_VIEW + 1 W
 mysql_query($SQL_QUERY);
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.STR_CODE AS STR_BRAND, COUNT(C.STR_GOODCODE) AS IS_LIKE
+                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE
                 FROM 
                     ' . $Tname . 'comm_goods_master AS A
                 LEFT JOIN
                     ' . $Tname . 'comm_com_code AS B
                 ON
                     A.INT_BRAND=B.INT_NUMBER
-                LEFT JOIN
-                    ' . $Tname . 'comm_member_like AS C
-                ON
-                    A.STR_GOODCODE=C.STR_GOODCODE
-                    AND C.STR_USERID="' . ($arr_Auth[0] ?: "NULL") . '"
                 WHERE
                     A.STR_GOODCODE="' . $str_goodcode . '"';
 

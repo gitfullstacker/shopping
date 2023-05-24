@@ -320,7 +320,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </div>
     </div>
 
-    <div x-show="showCalendar" x-data="{
+    <div x-show="showCalendar" x-transition x-data="{
         currentYear: null,
         currentMonth: null,
         dates: [],
@@ -456,17 +456,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </div>
     </div>
 
-    <div x-show="showOption != 0" class="w-full h-full bg-black bg-opacity-60 fixed top-0 left-0 z-50 flex justify-center items-center" style="display: none;">
+    <div x-show="showOption != 0" x-transition class="w-full h-full bg-black bg-opacity-60 fixed top-0 left-0 z-50 flex justify-center items-center" style="display: none;">
         <div x-data="{
             content: [
                 {
                     searchKey: '',
-                    selectedItem: [],
                     list: []
                 },
                 {
                     searchKey: '',
-                    selectedItem: [],
                     list: [
                         <?php
                         mysql_data_seek($brand_list_result, 0);
@@ -485,7 +483,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 },
                 {
                     searchKey: '',
-                    selectedItem: [],
                     list: [
                         {
                             value: 'mini',
@@ -521,7 +518,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 },
                 {
                     searchKey: '',
-                    selectedItem: [],
                     list: [
                         {
                             value: 'tote',
@@ -562,25 +558,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 if (this.content[showOption].list[index].checked) {
                     switch (showOption) {
                         case 1:
-                            filter_brands.push(this.content[showOption].list[index].value);
+                            window.filter_brands.push(this.content[showOption].list[index].value);
                             break;
                         case 2:
-                            filter_sizes.push(this.content[showOption].list[index].value);
+                            window.filter_sizes.push(this.content[showOption].list[index].value);
                             break;
                         case 3:
-                            filter_styles.push(this.content[showOption].list[index].value);
+                            window.filter_styles.push(this.content[showOption].list[index].value);
                             break;
                     }
                 } else {
                     switch (showOption) {
                         case 1:
-                            filter_brands = filter_brands.filter(item => item !== this.content[showOption].list[index].value);
+                            window.filter_brands = window.filter_brands.filter(item => item !== this.content[showOption].list[index].value);
                             break;
                         case 2:
-                            filter_sizes = filter_sizes.filter(item => item !== this.content[showOption].list[index].value);
+                            window.filter_sizes = window.filter_sizes.filter(item => item !== this.content[showOption].list[index].value);
                             break;
                         case 3:
-                            filter_styles = filter_styles.filter(item => item !== this.content[showOption].list[index].value);
+                            window.filter_styles = window.filter_styles.filter(item => item !== this.content[showOption].list[index].value);
                             break;
                     }
                 }
@@ -589,7 +585,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 this.content[showOption].list[index].checked = false;
             },
             applyFilter() {
-                this.showOption = 0;
+                showOption = 0;
                 searchProduct();
             },
             initSelectedItem() {
@@ -679,10 +675,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <script>
     current_page = 1;
-    filter_discount = false;
-    filter_brands = [];
-    filter_sizes = [];
-    filter_styles = [];
+    window.filter_discount = false;
+    window.filter_brands = [];
+    window.filter_sizes = [];
+    window.filter_styles = [];
     order_by = 'favorite';
 
     $(document).ready(function() {

@@ -20,6 +20,24 @@ if (count($filter_brands) > 0) {
     $filter_brands_string = implode(',', $filter_brands);
     $FILTER_QUERY .= 'AND INT_BRAND IN (' . $filter_brands_string . ') ';
 }
+if (count($filter_sizes) > 0) {
+    $filter_sizes_array = array();
+
+    foreach ($filter_sizes as $item) {
+        array_push($filter_sizes_array, 'A.STR_TSIZE LIKE "%' . $item . '%"');
+    }
+    $filter_sizes_string = implode(' OR ', $filter_sizes_array);
+    $FILTER_QUERY .= 'AND (' . $filter_sizes_string . ') ';
+}
+if (count($filter_styles) > 0) {
+    $filter_styles_array = array();
+
+    foreach ($filter_styles as $item) {
+        array_push($filter_styles_array, 'A.STR_STYLE LIKE "%' . $item . '%"');
+    }
+    $filter_styles_string = implode(' OR ', $filter_styles_array);
+    $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
+}
 
 $ORDERBY_QUERY = 'A.INT_LIKE DESC ';
 switch ($order_by) {
@@ -59,47 +77,46 @@ $SQL_QUERY = 'SELECT
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
 
-$arr_Data = mysql_query($SQL_QUERY);
-$arr_Data_Cnt = mysql_num_rows($arr_Data);
+$product_list_result = mysql_query($SQL_QUERY);
 
 $result = '';
-for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
+while ($row = mysql_fetch_assoc($product_list_result)) {
     switch ($product_type) {
         case 1:
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">일 ' . number_format(mysql_result($arr_Data, $int_J, 'INT_PRICE') * (mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') ?: 1)) . '원</p>
-                    <p class="origin-price ' . (mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') ? '' : 'hidden') . '">' . number_format(mysql_result($arr_Data, $int_J, 'INT_PRICE')) . '원</p>
+                    <p class="current-price">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
             break;
         case 2:
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">월 ' . number_format(mysql_result($arr_Data, $int_J, 'INT_PRICE')) . '원</p>
+                    <p class="current-price">월 ' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
             break;
         case 3:
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">' . number_format(mysql_result($arr_Data, $int_J, 'INT_PRICE') * (mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') ?: 1)) . '원</p>
-                    <p class="origin-price ' . (mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') ? '' : 'hidden') . '">' . number_format(mysql_result($arr_Data, $int_J, 'INT_PRICE')) . '원</p>
+                    <p class="current-price">' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
             break;
     }
 
     $result .= '
-        <a href="detail.php?str_goodcode=' . mysql_result($arr_Data, $int_J, 'STR_GOODCODE') . '" class="global-product-item">
+        <a href="detail.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="global-product-item">
             <div class="relative flex justify-center items-center w-[176px] h-[176px] p-2.5 bg-[#F9F9F9] rounded-md">
-                <img class="w-full" src="/admincenter/files/good/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE1') . '" alt="">
-                <div class="absolute top-2 left-2 w-[25px] h-[25px] flex justify-center items-center bg-[#00402F] ' . (mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') ? '' : 'hidden') . '">
-                    <p class="font-extrabold text-[9px] leading-[10px] text-white">' . mysql_result($arr_Data, $int_J, 'INT_DISCOUNT') . '%</p>
+                <img class="w-full" src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" alt="">
+                <div class="absolute top-2 left-2 w-[25px] h-[25px] flex justify-center items-center bg-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">
+                    <p class="font-extrabold text-[9px] leading-[10px] text-white">' . $row['INT_DISCOUNT'] . '%</p>
                 </div>
             </div>
-            <p class="brand w-full">' . mysql_result($arr_Data, $int_J, 'STR_CODE') . '</p>
-            <p class="title w-full">' . mysql_result($arr_Data, $int_J, 'STR_GOODNAME') . '</p>
+            <p class="brand w-full">' . $row['STR_CODE'] . '</p>
+            <p class="title w-full">' . $row['STR_GOODNAME'] . '</p>
             ' . $price . '
         </a>
     ';
