@@ -8,8 +8,9 @@ $filter_categories = json_decode($_GET['filter_categories'], true);
 $filter_brands = json_decode($_GET['filter_brands'], true);
 $filter_sizes = json_decode($_GET['filter_sizes'], true);
 $filter_styles = json_decode($_GET['filter_styles'], true);
+$search_key = $_GET['search_key'] ?: '';
 
-$order_by = $_GET['order_by'];
+$order_by = $_GET['order_by'] ?: '';
 
 $FILTER_QUERY = 'A.STR_GOODCODE IS NOT NULL ';
 if (count($filter_categories) > 0) {
@@ -37,6 +38,9 @@ if (count($filter_styles) > 0) {
     }
     $filter_styles_string = implode(' OR ', $filter_styles_array);
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
+}
+if ($search_key) {
+    $FILTER_QUERY .= 'AND A.STR_GOODNAME LIKE "%' . $search_key . '%" ';
 }
 
 $ORDERBY_QUERY = 'A.INT_LIKE DESC ';

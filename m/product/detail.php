@@ -51,8 +51,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             for ($i = 1; $i <= 2; $i++) {
                 if ($arr_Data['STR_IMAGE' . $i]) {
             ?>
-                    <div class="snap-always snap-center w-screen">
-                        <img class="w-screen" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" alt="">
+                    <div class="snap-always snap-center w-screen h-[500px] bg-gray-100">
+                        <img class="w-screen" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onError="this.style.display='none'" alt="">
                     </div>
             <?php
                 }
@@ -122,8 +122,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             for ($i = 3; $i <= 9; $i++) {
                 if ($arr_Data['STR_IMAGE' . $i]) {
             ?>
-                    <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD]">
-                        <img class="w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" alt="">
+                    <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
+                        <img class="w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onError="this.style.display='none'" alt="">
                     </div>
             <?php
                 }
