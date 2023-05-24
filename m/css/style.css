@@ -3,17 +3,8 @@
 /* import */
 @import url("common.css");
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('path/to/pretendard.woff2') format('woff2'),
-       url('path/to/pretendard.woff') format('woff');
-  /* Add additional font formats if available */
-  /* Specify the correct path to the font files */
-}
-
 body {
   position: relative;
-  font-family: 'Pretendard', sans-serif;
 }
 
 /* layout */

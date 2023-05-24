@@ -1,29 +1,79 @@
-/* @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css'); */
+/*
+Copyright (c) 2021 Kil Hyung-jin, with Reserved Font Name Pretendard.
+https://github.com/orioncactus/pretendard
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+*/
+
 @font-face {
-font-family : "NanumGothicWeb";
-    src: url('/font/NanumGothic.eot');
-    src: url('/font/NanumGothic.eot?#iefix') format('embedded-opentype'), url('/font/NanumGothic.woff') format('woff'), url('/font/NanumGothic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal; 
+	font-family: 'Pretendard';
+	font-weight: 900;
+	font-display: swap;
+	src: local('Pretendard Black'), url('/font/woff2/Pretendard-Black.woff2') format('woff2'), url('/font/woff/Pretendard-Black.woff') format('woff');
 }
 
 @font-face {
-font-family : "NanumGothicBoldWeb";
-    src: url('/font/NanumGothicBold.eot');
-    src: url('/font/NanumGothicBold.eot?#iefix') format('embedded-opentype'), url('/font/NanumGothicBold.woff') format('woff'), url('/font/NanumGothicBold.ttf') format('truetype');
+	font-family: 'Pretendard';
+	font-weight: 800;
+	font-display: swap;
+	src: local('Pretendard ExtraBold'), url('/font/woff2/Pretendard-ExtraBold.woff2') format('woff2'), url('/font/woff/Pretendard-ExtraBold.woff') format('woff');
 }
 
 @font-face {
-font-family : "Renner400BookWeb";
-    src: url('/font/Renner400Book.eot');
-    src: url('/font/Renner400Book.eot?#iefix') format('embedded-opentype'), url('/font/Renner400Book.woff') format('woff'), url('/font/Renner400Book.ttf') format('truetype');
+	font-family: 'Pretendard';
+	font-weight: 700;
+	font-display: swap;
+	src: local('Pretendard Bold'), url('/font/woff2/Pretendard-Bold.woff2') format('woff2'), url('/font/woff/Pretendard-Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	font-display: swap;
+	src: local('Pretendard SemiBold'), url('/font/woff2/Pretendard-SemiBold.woff2') format('woff2'), url('/font/woff/Pretendard-SemiBold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 500;
+	font-display: swap;
+	src: local('Pretendard Medium'), url('/font/woff2/Pretendard-Medium.woff2') format('woff2'), url('/font/woff/Pretendard-Medium.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-display: swap;
+	src: local('Pretendard Regular'), url('/font/woff2/Pretendard-Regular.woff2') format('woff2'), url('/font/woff/Pretendard-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 300;
+	font-display: swap;
+	src: local('Pretendard Light'), url('/font/woff2/Pretendard-Light.woff2') format('woff2'), url('/font/woff/Pretendard-Light.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 200;
+	font-display: swap;
+	src: local('Pretendard ExtraLight'), url('/font/woff2/Pretendard-ExtraLight.woff2') format('woff2'), url('/font/woff/Pretendard-ExtraLight.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 100;
+	font-display: swap;
+	src: local('Pretendard Thin'), url('/font/woff2/Pretendard-Thin.woff2') format('woff2'), url('/font/woff/Pretendard-Thin.woff') format('woff');
 }
 
 /* common */
 html {margin:0;padding:0;overflow-x:hidden}
 body {background-color:transparent;overflow-x:hidden;font-size:0.688em; line-height:1.25em; }
-body {margin:0; padding:0;-webkit-text-size-adjust:none;font-family: 'Renner400BookWeb','Nanum Gothic', sans-serif;}
+body {margin:0; padding:0;-webkit-text-size-adjust:none;font-family: 'Pretendard', sans-serif;}
 div,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,form,fieldset,input,table,tr,th,td,button,textarea,select {margin:0;padding:0;}
 body,input,select,table,button { /* font-size:0.8em; */ font-weight:normal; color:#555;}
 h1, h2, h3, h4, h5, h6{font-size:100%;font-weight:normal}
@@ -35,7 +85,7 @@ fieldset, blockquote, iframe, button {border:none;}
 i, em, u, cite {font-style:normal;}
 strong,em, b {font-weight:normal;}
 a {text-decoration:none; color:inherit}
-input {font-family: arm,sans-serif;}
+input {font-family: 'Pretendard', sans-serif;}
 button {background:transparent;cursor:pointer;vertical-align:middle;margin:0;}
 button,input[type="submit"], input[type="button"], input[type="reset"] {cursor:pointer;-webkit-appearance:none;}
 input:-webkit-autofill {
