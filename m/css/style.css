@@ -3,8 +3,17 @@
 /* import */
 @import url("common.css");
 
+@font-face {
+  font-family: 'Pretendard';
+  src: url('path/to/pretendard.woff2') format('woff2'),
+       url('path/to/pretendard.woff') format('woff');
+  /* Add additional font formats if available */
+  /* Specify the correct path to the font files */
+}
+
 body {
   position: relative;
+  font-family: 'Pretendard', sans-serif;
 }
 
 /* layout */
@@ -119,7 +128,6 @@ body {
 }
 
 .header-mobile>.header-alert>.alert-text {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
@@ -170,7 +178,6 @@ body {
 }
 
 .header-mobile>.header-content>.menu>.menu-item {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
@@ -740,7 +747,6 @@ body {
 }
 
 .sub-menu>.menu-item>.item-title {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -764,7 +770,6 @@ body {
 }
 
 .sub-section-top-bar>.left-section>.title {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
@@ -773,7 +778,6 @@ body {
 }
 
 .sub-section-top-bar>.left-section>.description {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -895,7 +899,6 @@ body {
 }
 
 .categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.tag {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -904,7 +907,6 @@ body {
 }
 
 .categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.title {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 8.5px;
@@ -923,7 +925,6 @@ body {
 }
 
 .categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section>.regular-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -932,7 +933,6 @@ body {
 }
 
 .categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section>.origin-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 10px;
@@ -980,7 +980,6 @@ body {
 
 .topbrand>.topbrand-scroll-list>.item>.e-brand {
   margin-top: 9.66px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 12.6461px;
@@ -991,7 +990,6 @@ body {
 
 .topbrand>.topbrand-scroll-list>.item>.k-brand {
   margin-top: 2.66px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 10.8396px;
@@ -1059,7 +1057,6 @@ body {
 }
 
 .product-scroll-list>.item>.image>.discount>.value {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 7px;
@@ -1070,7 +1067,6 @@ body {
 
 .product-scroll-list>.item>.brand {
   margin-top: 11px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -1080,7 +1076,6 @@ body {
 
 .product-scroll-list>.item>.title {
   margin-top: 3.15px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 8.5px;
@@ -1097,7 +1092,6 @@ body {
 }
 
 .product-scroll-list>.item>.price-section>.current-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -1106,7 +1100,6 @@ body {
 }
 
 .product-scroll-list>.item>.price-section>.origin-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 10px;
@@ -1120,7 +1113,6 @@ body {
   background: #00402F;
   width: 30px;
   height: 16.15px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 400;
   font-size: 8.5px;
@@ -1134,7 +1126,6 @@ body {
   background: #EEAC4C;
   width: 30px;
   height: 16.15px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 400;
   font-size: 8.5px;
@@ -1217,7 +1208,6 @@ body {
   height: 38.64px;
   background: #FFFFFF;
   border: 0.567266px solid #DDDDDD;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 11px;
@@ -1277,7 +1267,6 @@ body {
 
 .footer-section>.content>.sub-title {
   margin-top: 1px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 9px;
@@ -1293,7 +1282,6 @@ body {
 }
 
 .footer-section>.content>.info>.item {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 8px;
@@ -1303,7 +1291,6 @@ body {
 
 .footer-section>.content>.copyright {
   margin-top: 42.34px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 7px;
@@ -1344,7 +1331,6 @@ body {
 }
 
 .global-product-item>.image>.tag>.value {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -1367,7 +1353,6 @@ body {
 
 .global-product-item>.brand {
   margin-top: 5.52px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -1377,7 +1362,6 @@ body {
 
 .global-product-item>.title {
   margin-top: 3.27px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 9px;
@@ -1394,7 +1378,6 @@ body {
 }
 
 .global-product-item>.price-section>.current-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -1403,7 +1386,6 @@ body {
 }
 
 .global-product-item>.price-section>.origin-price {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 10px;
@@ -1444,7 +1426,6 @@ body {
 }
 
 .global-review-item>.image>.bottom-section>.brand {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -1453,7 +1434,6 @@ body {
 }
 
 .global-review-item>.image>.bottom-section>.title {
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 9px;
@@ -1467,7 +1447,6 @@ body {
 
 .global-review-item>.content {
   margin-top: 5.89px;
-  font-family: 'NanumSquare';
   font-style: normal;
   font-weight: 700;
   font-size: 11px;
