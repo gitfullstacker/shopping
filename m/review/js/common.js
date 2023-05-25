@@ -1,8 +1,8 @@
-function setLike(int_review) {
+function setLike(bd_seq) {
     $.ajax({
         url: "set_like.php",
         data: {
-            int_review: int_review
+            bd_seq: bd_seq
         },
         success: function(resultString) {
             result = JSON.parse(resultString);
@@ -11,7 +11,7 @@ function setLike(int_review) {
                 return;
             }
             if (result['status'] == 200) {
-                $("#like_count_" + int_review).html(result['data']);
+                $("#like_count_" + bd_seq).html(result['data']);
             }
         }
     });

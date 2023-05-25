@@ -399,25 +399,55 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</div>
 	<div class="image-grid">
 		<?php
-		$SQL_QUERY =   'SELECT 
-							A.*
+		$SQL_QUERY =    'SELECT 
+							A.BD_SEQ,
+							A.CONF_SEQ,
+							A.MEM_ID,
+							A.BD_CONT,
+							A.BD_REG_DATE,
+							A.BD_ITEM2,
+							IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+							C.STR_GOODNAME,
+							C.STR_IMAGE1,
+							C.INT_DISCOUNT,
+							C.INT_PRICE,
+							C.INT_TYPE,
+							D.STR_CODE,
+							(SELECT COUNT(STR_USERID) FROM `' . $Tname . 'comm_review_like` A1 WHERE A1.BD_SEQ=A.BD_SEQ) AS COUNT_LIKE
 						FROM 
-							' . $Tname . 'comm_review A
+							`' . $Tname . 'b_bd_data@01` A
+						LEFT JOIN
+							`' . $Tname . 'b_img_data@01` B
+						ON
+							A.CONF_SEQ=B.CONF_SEQ
+							AND
+							A.BD_SEQ=B.BD_SEQ
+							AND
+							B.IMG_ALIGN=1
+						LEFT JOIN
+							' . $Tname . 'comm_goods_master C
+						ON
+							A.BD_ITEM1=C.STR_GOODCODE
+						LEFT JOIN
+							' . $Tname . 'comm_com_code D
+						ON
+							C.INT_BRAND=D.INT_NUMBER
 						WHERE 
-							A.STR_GOODCODE IS NOT NULL
-							AND (A.STR_IMAGE1 IS NOT NULL OR A.STR_IMAGE2 IS NOT NULL OR A.STR_IMAGE3 IS NOT NULL)
-						ORDER BY 
-							A.INT_STAR DESC,
-							A.DTM_EDIT_DATE DESC
+							A.CONF_SEQ=2
+							AND A.BD_ID_KEY IS NOT NULL
+						ORDER BY A.BD_ORDER DESC
 						LIMIT 8';
 
-		$best_review_list_result = mysql_query($SQL_QUERY);
-		while ($row = mysql_fetch_assoc($best_review_list_result)) {
+		$review_list_result = mysql_query($SQL_QUERY);
+
+		$index = 0;
+		while ($row = mysql_fetch_assoc($review_list_result)) {
 		?>
-			<div class="image <?= $i == 2 ? 'large' : '' ?> bg-gray-100">
-				<img class="object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" onError="this.style.display='none'" src="/admincenter/files/boad/2/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="review">
+			<div class="image <?= $index == 2 ? 'large' : '' ?> bg-gray-100">
+				<img class="object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="review">
 			</div>
 		<?php
+		$index++;
 		}
 		?>
 	</div>

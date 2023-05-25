@@ -284,35 +284,59 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </div>
         <div class="grid grid-cols-2 gap-x-[15px] gap-y-5 w-full">
             <?php
-            $query =    "SELECT 
-                            A.*, B.STR_GOODNAME, B.STR_IMAGE1 AS GOOD_IMAGE, C.STR_CODE 
-                        FROM 
-                            " . $Tname . "comm_review AS A 
-                        LEFT JOIN 
-                            " . $Tname . "comm_goods_master AS B 
-                        ON 
-                            A.STR_GOODCODE=B.STR_GOODCODE 
-                        LEFT JOIN 
-                            " . $Tname . "comm_com_code AS C 
-                        ON 
-                            B.INT_BRAND=C.INT_NUMBER
-                        WHERE INT_GOOD_TYPE = " . $product_type . " 
-                        ORDER BY DTM_REG_DATE DESC 
-                        LIMIT 4";
-            $review_list_result = mysql_query($query);
+            $SQL_QUERY =    'SELECT 
+                                A.BD_SEQ,
+                                A.CONF_SEQ,
+                                A.MEM_ID,
+                                A.BD_CONT,
+                                A.BD_REG_DATE,
+                                A.BD_ITEM2,
+                                IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                                C.STR_GOODNAME,
+                                C.STR_IMAGE1,
+                                C.INT_DISCOUNT,
+                                C.INT_PRICE,
+                                C.INT_TYPE,
+                                D.STR_CODE
+                            FROM 
+                                `' . $Tname . 'b_bd_data@01` A
+                            LEFT JOIN
+                                `' . $Tname . 'b_img_data@01` B
+                            ON
+                                A.CONF_SEQ=B.CONF_SEQ
+                                AND
+                                A.BD_SEQ=B.BD_SEQ
+                                AND
+                                B.IMG_ALIGN=1
+                            LEFT JOIN
+                                ' . $Tname . 'comm_goods_master C
+                            ON
+                                A.BD_ITEM1=C.STR_GOODCODE
+                            LEFT JOIN
+                                ' . $Tname . 'comm_com_code D
+                            ON
+                                C.INT_BRAND=D.INT_NUMBER
+                            WHERE 
+                                A.CONF_SEQ=2
+                                AND A.BD_ID_KEY IS NOT NULL
+                                AND C.INT_TYPE=' . $product_type . '
+                            ORDER BY A.BD_ORDER DESC
+                            LIMIT 4';
+
+            $review_list_result = mysql_query($SQL_QUERY);
 
             while ($row = mysql_fetch_assoc($review_list_result)) {
             ?>
-                <a href="/m/review/detail.php?int_review=<?= $row['INT_NUMBER'] ?>" class="flex flex-col w-full">
+                <a href="/m/review/detail.php?bd_seq=<?= $row['BD_SEQ'] ?>" class="flex flex-col w-full">
                     <div class="flex relative w-full h-[167px] bg-gray-100">
-                        <img class="flex w-full object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" src="/admincenter/files/boad/2/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="">
+                        <img class="flex w-full object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display = 'none'" alt="">
                         <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
                             <p class="font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                             <p class="font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         </div>
                     </div>
-                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['INT_STAR']) ?></p>
-                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['STR_CONTENT']) ?></p>
+                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['BD_ITEM2']) ?></p>
+                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
                 </a>
             <?php
             }

@@ -52,7 +52,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 if ($arr_Data['STR_IMAGE' . $i]) {
             ?>
                     <div class="snap-always snap-center w-screen h-[500px] bg-gray-100">
-                        <img class="w-screen" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onError="this.style.display='none'" alt="">
+                        <img class="w-screen" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
                     </div>
             <?php
                 }
@@ -123,7 +123,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 if ($arr_Data['STR_IMAGE' . $i]) {
             ?>
                     <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
-                        <img class="w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onError="this.style.display='none'" alt="">
+                        <img class="w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
                     </div>
             <?php
                 }
@@ -342,8 +342,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 A.INT_BRAND=B.INT_NUMBER
                             WHERE 
                                 (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-                                AND A.STR_GOODCODE!=' . $arr_Data['STR_GOODCODE'] . ' 
+                                AND A.STR_GOODCODE!="' . $arr_Data['STR_GOODCODE'] . '" 
                                 AND A.INT_TYPE=' . $arr_Data['INT_TYPE'] . ' 
+                                AND A.INT_BRAND=' . $arr_Data['INT_BRAND'] . ' 
                             ORDER BY A.INT_VIEW DESC
                             LIMIT 4';
 
@@ -351,13 +352,13 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
             while ($row = mysql_fetch_assoc($product_result)) {
             ?>
-                <div class="flex flex-col w-full">
+                <a href="detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
                     <div class="w-full flex justify-center items-center relative px-2.5 bg-[#F9F9F9] rounded-[5px] h-[176px]">
                         <!-- 타그 -->
                         <div class="justify-center items-center w-[25px] h-[25px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
                             <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
                         </div>
-                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="">
+                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                     </div>
                     <p class="mt-[5.52px] font-extrabold text-[9px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                     <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
@@ -365,7 +366,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-xs text-black">일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
                         <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['STR_CODE']) ?>원</p>
                     </div>
-                </div>
+                </a>
             <?php
             }
             ?>
@@ -439,6 +440,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         url += "?page=" + page;
         url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
         url += "&int_good_type=" + <?= $arr_Data['INT_TYPE'] ?>;
+        url += "&int_brand=" + <?= $arr_Data['INT_BRAND'] ?>;
 
         $.ajax({
             url: url,
@@ -448,11 +450,11 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         });
     }
 
-    function setReviewLike(int_review) {
+    function setReviewLike(bd_seq) {
         $.ajax({
             url: "/m/review/set_like.php",
             data: {
-                int_review: int_review
+                bd_seq: bd_seq
             },
             success: function(resultString) {
                 result = JSON.parse(resultString);
@@ -461,7 +463,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     return;
                 }
                 if (result['status'] == 200) {
-                    $("#like_count_" + int_review).html(result['data']);
+                    $("#like_count_" + bd_seq).html(result['data']);
                 }
             }
         });

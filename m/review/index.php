@@ -7,47 +7,62 @@
 <div class="flex flex-col items-center w-full pt-[30px]">
     <!-- BEST REVIEW -->
     <div class="flex flex-col w-full items-center">
-        <?php
-        $SQL_QUERY =   'SELECT 
-                            A.*, C.STR_GOODNAME, C.STR_IMAGE1 AS PRODUCT_IMAGE, C.INT_PRICE, C.INT_DISCOUNT, C.INT_TYPE, D.STR_CODE
-                        FROM 
-                            ' . $Tname . 'comm_review A
-                        LEFT JOIN
-                            ' . $Tname . 'comm_goods_cart B
-                        ON
-                            A.STR_CART=B.INT_NUMBER
-                        LEFT JOIN
-                            ' . $Tname . 'comm_goods_master C
-                        ON
-                            A.STR_GOODCODE=C.STR_GOODCODE
-                        LEFT JOIN
-                            ' . $Tname . 'comm_com_code D
-                        ON
-                            C.INT_BRAND=D.INT_NUMBER
-                        WHERE 
-                            A.STR_GOODCODE IS NOT NULL
-                        ORDER BY 
-                            A.INT_STAR DESC,
-                            A.DTM_EDIT_DATE DESC
-                        LIMIT 4';
-
-        $best_review_list_result = mysql_query($SQL_QUERY);
-        ?>
         <p class="font-extrabold text-lg leading-[20px] text-black">BEST REVIEW</p>
         <div class="mt-[22px] grid grid-cols-2 gap-x-[15px] gap-y-5 px-5 w-full">
             <?php
+            $SQL_QUERY =    'SELECT 
+                                A.BD_SEQ,
+                                A.CONF_SEQ,
+                                A.MEM_ID,
+                                A.BD_CONT,
+                                A.BD_REG_DATE,
+                                A.BD_ITEM2,
+                                IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                                C.STR_GOODNAME,
+                                C.STR_IMAGE1,
+                                C.INT_DISCOUNT,
+                                C.INT_PRICE,
+                                C.INT_TYPE,
+                                D.STR_CODE
+                            FROM 
+                                `' . $Tname . 'b_bd_data@01` A
+                            LEFT JOIN
+                                `' . $Tname . 'b_img_data@01` B
+                            ON
+                                A.CONF_SEQ=B.CONF_SEQ
+                                AND
+                                A.BD_SEQ=B.BD_SEQ
+                                AND
+                                B.IMG_ALIGN=1
+                            LEFT JOIN
+                                ' . $Tname . 'comm_goods_master C
+                            ON
+                                A.BD_ITEM1=C.STR_GOODCODE
+                            LEFT JOIN
+                                ' . $Tname . 'comm_com_code D
+                            ON
+                                C.INT_BRAND=D.INT_NUMBER
+                            WHERE 
+                                A.CONF_SEQ=2
+                                AND A.BD_ID_KEY IS NOT NULL
+                                AND A.BD_BEST=1
+                            ORDER BY A.BD_ORDER DESC
+                            LIMIT 4';
+
+            $best_review_list_result = mysql_query($SQL_QUERY);
+
             while ($row = mysql_fetch_assoc($best_review_list_result)) {
             ?>
-                <a href="/m/review/detail.php?int_review=<?= $row['INT_NUMBER'] ?>" class="flex flex-col w-full">
+                <a href="/m/review/detail.php?bd_seq=<?= $row['BD_SEQ'] ?>" class="flex flex-col w-full">
                     <div class="flex relative w-full h-[167px] bg-gray-100">
-                    <img class="flex w-full object-cover object-center <?= !$row['STR_IMAGE1'] && !$row['STR_IMAGE2'] && !$row['STR_IMAGE3'] ? 'hidden' : 'flex' ?>" src="/admincenter/files/boad/2/<?= $row['STR_IMAGE1'] ?: $row['STR_IMAGE2'] ?: $row['STR_IMAGE3'] ?>" alt="">
+                        <img class="flex w-full object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
                         <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
                             <p class="font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                             <p class="font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         </div>
                     </div>
-                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['INT_STAR']) ?></p>
-                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['STR_CONTENT']) ?></p>
+                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['BD_ITEM2']) ?></p>
+                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
                 </a>
             <?php
             }
@@ -104,9 +119,8 @@
                 </div>
             </div>
         </div>
-        <div id="review_list" class="flex flex-col w-full divide-y">
+        <div id="review_list" class="flex flex-col w-full">
         </div>
-        <hr class="mt-5 border-t-[0.5px] border-solid border-[#E0E0E0]" />
     </div>
 </div>
 
