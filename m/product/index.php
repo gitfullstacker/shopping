@@ -6,10 +6,10 @@ $product_type = Fnc_Om_Conv_Default($_REQUEST['product_type'], 1);
 $topmenu = 2;
 switch ($product_type) {
     case 1:
-        $topmenu = 2;
+        $topmenu = 3;
         break;
     case 2:
-        $topmenu = 3;
+        $topmenu = 2;
         break;
     case 3:
         $topmenu = 4;

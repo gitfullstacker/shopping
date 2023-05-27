@@ -10,7 +10,7 @@ $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_goods_master SET INT_VIEW=INT_VIEW + 1 W
 mysql_query($SQL_QUERY);
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE
+                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_basket AS D WHERE A.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_BASKET
                 FROM 
                     ' . $Tname . 'comm_goods_master AS A
                 LEFT JOIN
@@ -74,7 +74,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="font-normal text-[10px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
             </div>
             <!-- Like -->
-            <div onclick="setProductLike(<?= $arr_Data['STR_GOODCODE'] ?>)">
+            <div onclick="setProductLike('<?= $arr_Data['STR_GOODCODE'] ?>')">
                 <svg id="is_like_no" style="<?= $arr_Data['IS_LIKE'] > 0 ? 'display:none;' : '' ?>" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.78561 16.7712L8.78511 16.7707C6.20323 14.4295 4.0883 12.5088 2.61474 10.706C1.14504 8.90792 0.35 7.26994 0.35 5.5C0.35 2.60372 2.61288 0.35 5.5 0.35C7.13419 0.35 8.70844 1.11256 9.73441 2.30795L10 2.6174L10.2656 2.30795C11.2916 1.11256 12.8658 0.35 14.5 0.35C17.3871 0.35 19.65 2.60372 19.65 5.5C19.65 7.26994 18.855 8.90792 17.3853 10.706C15.9117 12.5088 13.7968 14.4295 11.2149 16.7707L11.2144 16.7712L10 17.8767L8.78561 16.7712Z" stroke="#666666" stroke-width="0.7" />
                 </svg>
@@ -85,31 +85,135 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <p class="mt-[9px] font-extrabold text-xs text-[#666666]"><?= $arr_Data['STR_BRAND'] ?></p>
         <p class="mt-[5px] font-extrabold text-lg text-[#333333]"><?= $arr_Data['STR_GOODNAME'] ?></p>
-        <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-        <div class="mt-[7px] flex gap-2 items-center">
-            <p class="font-extrabold text-lg text-[#00402F]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-            <p class="font-extrabold text-lg text-[#333333]">일 <?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
-            <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
-        </div>
+        <?php
+        switch ($arr_Data['INT_TYPE']) {
+            case 1:
+        ?>
+                <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
+                <div class="mt-[7px] flex gap-2 items-center">
+                    <p class="font-extrabold text-lg text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
+                </div>
+            <?php
+                break;
+
+            case 2:
+            ?>
+                <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                <div class="mt-[7px] flex gap-2 items-center">
+                    <p class="font-extrabold text-lg text-[#00402F]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                    <p class="font-extrabold text-lg text-[#333333]">일 <?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
+                    <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
+                </div>
+            <?php
+                break;
+            case 3:
+            ?>
+                <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                <div class="mt-[7px] flex gap-2 items-center">
+                    <p class="font-extrabold text-lg text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                    <p class="font-extrabold text-lg text-[#333333]"><?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
+                    <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
+                </div>
+        <?php
+                break;
+        }
+        ?>
     </div>
+
+    <?php
+    if ($arr_Data['INT_TYPE'] == 1) {
+    ?>
+        <!-- 프리미엄 멤버십 (정기결제) -->
+        <div class="flex px-[14px] mt-4 w-full">
+            <div class="flex flex-col gap-2.5 w-full border-[0.72px] border-solid border-[#DDDDDD] bg-[#FFF3E1] p-[14px]">
+                <div x-data="{ checked: false }" class="flex flex-row gap-1.5 items-center" x-on:click="checked = !checked">
+                    <div class="flex w-4 h-4">
+                        <svg x-show="!checked" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.36" y="0.36" width="15.28" height="15.28" fill="white" stroke="#DDDDDD" stroke-width="0.72" />
+                        </svg>
+                        <svg x-show="checked" class="w-4 h-4" style="display: none;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.75556 11.7333L13.0222 5.46667L11.7778 4.22222L6.75556 9.24444L4.22222 6.71111L2.97778 7.95556L6.75556 11.7333ZM0 16V0H16V16H0Z" fill="black" />
+                        </svg>
+                    </div>
+                    <p class="font-extrabold text-[15px] leading-[17px] text-black">프리미엄 멤버십 <span class="font-bold text-xs leading-[13px] text-[#666666]">(정기결제)</span></p>
+                </div>
+                <button type="button" class="flex justify-center items-center w-full h-10 bg-[#EEAC4C]">
+                    <p class="font-bold text-sm leading-4 text-white">정기구독 월 89,000원</p>
+                </button>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
+
 
     <!-- 구분선 -->
     <hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
-    <!-- 할인정보 -->
-    <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
-        <img class="w-full" src="images/discount.png" alt="">
-        <div class="w-full flex flex-col gap-[9px]">
-            <div class="flex gap-5">
-                <p class="font-bold text-xs text-[#999999]">렌트기간</p>
-                <p class="font-bold text-xs text-[#666666]">최소 3일 ~ 최대 12일</p>
-            </div>
-            <div class="flex gap-5">
-                <p class="font-bold text-xs text-[#999999]">배송정보</p>
-                <p class="font-bold text-xs text-[#666666]">국내배송(무료배송)</p>
+    <?php
+    if ($arr_Data['INT_TYPE'] == 3) {
+    ?>
+        <!-- 할인정보 -->
+        <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
+            <button class="flex flex-col gap-[3px] justify-center items-center w-full h-[49px] bg-[#7E6B5A] border border-solid border-[#DDDDDD]">
+                <span class="flex gap-[1px] items-center">
+                    <svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.3 0C0.955218 0 0.624558 0.144866 0.380761 0.402728C0.136964 0.660591 0 1.01033 0 1.375V4.125C0.344781 4.125 0.675442 4.26987 0.919239 4.52773C1.16304 4.78559 1.3 5.13533 1.3 5.5C1.3 5.86467 1.16304 6.21441 0.919239 6.47227C0.675442 6.73013 0.344781 6.875 0 6.875V9.625C0 9.98967 0.136964 10.3394 0.380761 10.5973C0.624558 10.8551 0.955218 11 1.3 11H11.7C12.0448 11 12.3754 10.8551 12.6192 10.5973C12.863 10.3394 13 9.98967 13 9.625V6.875C12.6552 6.875 12.3246 6.73013 12.0808 6.47227C11.837 6.21441 11.7 5.86467 11.7 5.5C11.7 5.13533 11.837 4.78559 12.0808 4.52773C12.3246 4.26987 12.6552 4.125 13 4.125V1.375C13 1.01033 12.863 0.660591 12.6192 0.402728C12.3754 0.144866 12.0448 0 11.7 0H1.3ZM8.775 2.0625L9.75 3.09375L4.225 8.9375L3.25 7.90625L8.775 2.0625ZM4.4265 2.09C5.0635 2.09 5.577 2.63313 5.577 3.30688C5.577 3.62961 5.45579 3.93913 5.24003 4.16734C5.02427 4.39554 4.73163 4.52375 4.4265 4.52375C3.7895 4.52375 3.276 3.98063 3.276 3.30688C3.276 2.98414 3.39721 2.67462 3.61297 2.44641C3.82873 2.21821 4.12137 2.09 4.4265 2.09ZM8.5735 6.47625C9.2105 6.47625 9.724 7.01937 9.724 7.69312C9.724 8.01586 9.60279 8.32538 9.38703 8.55359C9.17127 8.78179 8.87863 8.91 8.5735 8.91C7.9365 8.91 7.423 8.36687 7.423 7.69312C7.423 7.37039 7.54421 7.06087 7.75997 6.83266C7.97573 6.60446 8.26837 6.47625 8.5735 6.47625Z" fill="white" />
+                    </svg>
+                    <span class="font-bold text-[11px] leading-[12px] text-center text-white">기간 한정 추가 할인 쿠폰</span>
+                </span>
+                <span class="font-bold text-[8px] leading-[9px] text-center text-white">(2023. 02. 30 23:59까지)</span>
+            </button>
+            <div class="w-full flex flex-col gap-[9px]">
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">상품등급</p>
+                    <p class="font-bold text-xs text-[#666666]">UNUSED(하단 상세참조)</p>
+                </div>
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">예상적립</p>
+                    <p class="font-bold text-xs text-[#666666]">최대 13,000원 적립(실 결제금액에 한함)</p>
+                </div>
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">카드혜택</p>
+                    <p class="font-bold text-xs text-[#666666]">무이자 할부(최대 12개월)</p>
+                </div>
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">배송정보</p>
+                    <div class="flex flex-col gap-[5px]">
+                        <p class="font-bold text-xs text-[#666666]">국내배송(무료배송)</p>
+                        <p class="font-bold text-xs text-[#666666]">도서산간 지역 배송비 별도 추가</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- 구분선 -->
+        <hr class="mt-[15px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
+
+        <!-- 에이블랑 명품감정 -->
+        <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
+            <img class="w-full" src="images/discount_vintage.png" alt="">
+        </div>
+    <?php
+    } else {
+    ?>
+        <!-- 할인정보 -->
+        <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
+            <img class="w-full" src="images/discount.png" alt="">
+            <div class="w-full flex flex-col gap-[9px]">
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">렌트기간</p>
+                    <p class="font-bold text-xs text-[#666666]">최소 3일 ~ 최대 12일</p>
+                </div>
+                <div class="flex gap-5">
+                    <p class="font-bold text-xs text-[#999999]">배송정보</p>
+                    <p class="font-bold text-xs text-[#666666]">국내배송(무료배송)</p>
+                </div>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
 
     <!-- 구분선 -->
     <hr class="mt-[15px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
@@ -151,6 +255,83 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <!-- 상품정보 -->
     <div class="mt-7 px-[14px] flex flex-col">
         <div class="flex flex-col gap-[15px] px-3 pt-[15px] pb-[19px] bg-[#F5F5F5]">
+            <?php
+            if ($arr_Data['INT_TYPE']) {
+            ?>
+                <!-- 상품등급 -->
+                <div class="flex flex-col w-full">
+                    <p class="font-extrabold text-xs leading-[14px] text-black">상품등급</p>
+                </div>
+                <div x-data="{ grade: 1 }" class="flex flex-col w-full">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 1 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 1">
+                        <div x-show="grade == 1" class="absolute top-0 left-0" style="display: none;">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
+                            </svg>
+                        </div>
+                        <div class="w-[91px] flex justify-center items-center bg-[#F9F9F9]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">PRESERVED</p>
+                        </div>
+                        <div class="grow flex justify-center items-center bg-white border-l" x-bind:class="grade == 1 ? 'border-black' : 'border-[#D9D9D9]'">
+                            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">깨끗하게 보존된 새 상품</p>
+                        </div>
+                    </div>
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 2 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 2">
+                        <div x-show="grade == 2" class="absolute top-0 left-0" style="display: none;">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
+                            </svg>
+                        </div>
+                        <div class="w-[91px] flex justify-center items-center bg-[#F9F9F9]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">S CLASS</p>
+                        </div>
+                        <div class="grow flex justify-center items-center bg-white border-l" x-bind:class="grade == 2 ? 'border-black' : 'border-[#D9D9D9]'">
+                            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">새 상품과 비슷한 수준의 깨끗한 상품</p>
+                        </div>
+                    </div>
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 3 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 3">
+                        <div x-show="grade == 3" class="absolute top-0 left-0" style="display: none;">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
+                            </svg>
+                        </div>
+                        <div class="w-[91px] flex justify-center items-center bg-[#F9F9F9]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">A CLASS</p>
+                        </div>
+                        <div class="grow flex justify-center items-center bg-white border-l" x-bind:class="grade == 3 ? 'border-black' : 'border-[#D9D9D9]'">
+                            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">대체적으로 깨끗한 상품</p>
+                        </div>
+                    </div>
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 4 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 4">
+                        <div x-show="grade == 4" class="absolute top-0 left-0" style="display: none;">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
+                            </svg>
+                        </div>
+                        <div class="w-[91px] flex justify-center items-center bg-[#F9F9F9]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">B CLASS</p>
+                        </div>
+                        <div class="grow flex justify-center items-center bg-white border-l" x-bind:class="grade == 4 ? 'border-black' : 'border-[#D9D9D9]'">
+                            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">약한 스크래치·탈색·오염이 있는 상품</p>
+                        </div>
+                    </div>
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 5 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 5">
+                        <div x-show="grade == 5" class="absolute top-0 left-0" style="display: none;">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
+                            </svg>
+                        </div>
+                        <div class="w-[91px] flex justify-center items-center bg-[#F9F9F9]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">C CLASS</p>
+                        </div>
+                        <div class="grow flex justify-center items-center bg-white border-l" x-bind:class="grade == 5 ? 'border-black' : 'border-[#D9D9D9]'">
+                            <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">눈에 띄는 스크래치·탈색·오염이 있는 상품</p>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
             <!-- 상품코드 -->
             <div class="flex flex-col gap-1.5">
                 <p class="font-extrabold text-xs text-black">상품코드</p>
@@ -185,7 +366,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <!-- 사이즈정보 -->
             <div class="flex flex-col">
                 <p class="mt-1.5 font-extrabold text-xs text-black">사이즈정보</p>
-                <div class="flex flex-col gap-7 justify-center items-center w-full pt-7 pb-[20px] bg-white">
+                <div class="mt-1.5 flex flex-col gap-7 justify-center items-center w-full pt-7 pb-[20px] bg-white">
                     <img class="w-[222px] h-[252px]" src="images/product_size.png" alt="size" />
                     <p class="font-bold text-[10px] text-center text-[#999999]">*측정 위치 및 방법에 따라 1~3cm 정도 오차가 생길 수 있습니다.</p>
                 </div>
@@ -364,7 +545,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                     <div class="mt-[7.87px] flex gap-[3px] items-center">
                         <p class="font-bold text-xs text-black">일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
-                        <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['STR_CODE']) ?>원</p>
+                        <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                     </div>
                 </a>
             <?php
@@ -376,26 +557,26 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 <!-- 하단 메뉴 -->
 <div class="fixed bottom-0 left-0 w-full flex gap-[5px] px-[5px] py-2 h-[66px] border-t border-[#F4F4F4] bg-white">
-    <button class="w-[50px] h-[50px] flex justify-center items-center border border-solid border-[#D9D9D9] bg-white">
+    <button type="button" class="w-[50px] h-[50px] flex justify-center items-center border border-solid border-[#D9D9D9] bg-white" onclick="setProductLike('<?= $arr_Data['STR_GOODCODE'] ?>')">
         <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6.65129 0C5.76148 0.00304681 4.88214 0.191208 4.06902 0.552599C3.25591 0.91399 2.52697 1.4407 1.92845 2.09914C0.687349 3.47032 0 5.25375 0 7.10321C0 8.95266 0.687349 10.7361 1.92845 12.1073L11.8511 22.8886C11.9368 22.9814 12.0409 23.0555 12.1566 23.1062C12.2724 23.1569 12.3974 23.1831 12.5238 23.1831C12.6501 23.1831 12.7751 23.1569 12.8909 23.1062C13.0066 23.0555 13.1107 22.9814 13.1964 22.8886C16.5056 19.3001 19.8132 15.7095 23.119 12.117C24.361 10.7462 25.0489 8.96261 25.0489 7.1129C25.0489 5.26319 24.361 3.4796 23.119 2.10883C22.5224 1.44993 21.7944 0.923224 20.9818 0.562826C20.1692 0.202427 19.2901 0.0163981 18.4012 0.0163981C17.5122 0.0163981 16.6332 0.202427 15.8207 0.562826C15.0081 0.923224 14.2799 1.44993 13.6833 2.10883L12.5278 3.35862L11.3635 2.09914C10.7669 1.44098 10.0396 0.914317 9.22808 0.552952C8.41656 0.191586 7.53856 0.00344715 6.65023 0.000352648L6.65129 0ZM6.65129 1.78422C7.29012 1.79389 7.92 1.93723 8.50004 2.20511C9.08008 2.47298 9.59748 2.85933 10.0191 3.3394L11.8608 5.33362C11.9465 5.42641 12.0506 5.50039 12.1663 5.55103C12.2821 5.60167 12.4069 5.62773 12.5333 5.62773C12.6596 5.62773 12.7846 5.60167 12.9004 5.55103C13.0161 5.50039 13.1202 5.42641 13.2059 5.33362L15.0378 3.34751C15.4537 2.86082 15.9701 2.47005 16.5515 2.20211C17.1329 1.93417 17.7656 1.79533 18.4057 1.79533C19.0459 1.79533 19.6785 1.93417 20.26 2.20211C20.8414 2.47005 21.3578 2.86082 21.7737 3.34751C22.6957 4.38446 23.2049 5.72373 23.2049 7.11132C23.2049 8.4989 22.6957 9.83817 21.7737 10.8751C18.6905 14.2188 15.609 17.5652 12.5292 20.9141L3.28474 10.8675C2.36304 9.8305 1.85387 8.49135 1.85387 7.10391C1.85387 5.71647 2.36304 4.37732 3.28474 3.34028C3.7064 2.8602 4.22402 2.47369 4.80412 2.20581C5.38422 1.93793 6.01398 1.79459 6.65287 1.78493L6.65129 1.78422Z" fill="black" />
         </svg>
     </button>
-    <button class="w-[50px] h-[50px] flex justify-center items-center border border-solid border-[#D9D9D9] bg-white">
+    <button type="button" class="w-[50px] h-[50px] flex justify-center items-center border border-solid border-[#D9D9D9] bg-white" onclick="addProductBasket('<?= $arr_Data['STR_GOODCODE'] ?>')">
         <svg width="27" height="23" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M24.2308 0H2.01923C1.4837 0 0.970098 0.211722 0.591419 0.588589C0.21274 0.965457 0 1.4766 0 2.00957V20.0957C0 20.6287 0.21274 21.1398 0.591419 21.5167C0.970098 21.8935 1.4837 22.1053 2.01923 22.1053H24.2308C24.7663 22.1053 25.2799 21.8935 25.6586 21.5167C26.0373 21.1398 26.25 20.6287 26.25 20.0957V2.00957C26.25 1.4766 26.0373 0.965457 25.6586 0.588589C25.2799 0.211722 24.7663 0 24.2308 0ZM24.2308 20.0957H2.01923V2.00957H24.2308V20.0957ZM19.1827 6.02871C19.1827 7.62762 18.5445 9.16105 17.4084 10.2916C16.2724 11.4223 14.7316 12.0574 13.125 12.0574C11.5184 12.0574 9.9776 11.4223 8.84157 10.2916C7.70553 9.16105 7.06731 7.62762 7.06731 6.02871C7.06731 5.76222 7.17368 5.50665 7.36302 5.31822C7.55236 5.12978 7.80916 5.02392 8.07692 5.02392C8.34469 5.02392 8.60149 5.12978 8.79083 5.31822C8.98017 5.50665 9.08654 5.76222 9.08654 6.02871C9.08654 7.09465 9.51202 8.11693 10.2694 8.87067C11.0267 9.6244 12.0539 10.0478 13.125 10.0478C14.1961 10.0478 15.2233 9.6244 15.9806 8.87067C16.738 8.11693 17.1635 7.09465 17.1635 6.02871C17.1635 5.76222 17.2698 5.50665 17.4592 5.31822C17.6485 5.12978 17.9053 5.02392 18.1731 5.02392C18.4408 5.02392 18.6976 5.12978 18.887 5.31822C19.0763 5.50665 19.1827 5.76222 19.1827 6.02871Z" fill="black" />
         </svg>
     </button>
     <?php
     switch ($arr_Data['INT_TYPE']) {
-        case 1:
+        case 2:
     ?>
             <a href="#" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white">렌트하기</span>
             </a>
         <?php
             break;
-        case 2:
+        case 1:
         ?>
             <a href="#" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white">구독하기</span>
@@ -417,6 +598,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
 
 <script>
+    var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;
+
     $(document).ready(function() {
         searchOwnReview();
         searchRelatedReview();
@@ -482,7 +665,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     return;
                 }
                 if (result['status'] == 200) {
-                    Alpine.$data.liked = 'false';
                     if (result['data'] == true) {
                         $("#is_like_no").hide();
                         $("#is_like_yes").show();
@@ -490,6 +672,32 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     if (result['data'] == false) {
                         $("#is_like_no").show();
                         $("#is_like_yes").hide();
+                    }
+                }
+            }
+        });
+    }
+
+    function addProductBasket(str_goodcode) {
+        if (is_basket) {
+            alert("이미 장바구니에 존재합니다.");
+            return;
+        }
+        $.ajax({
+            url: "/m/product/set_basket.php",
+            data: {
+                str_goodcode: str_goodcode
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+                    return;
+                }
+                if (result['status'] == 200) {
+                    if (result['data'] == true) {
+                        is_basket = 1;
+                        alert("장바구니에 추가되였습니다.");
                     }
                 }
             }
