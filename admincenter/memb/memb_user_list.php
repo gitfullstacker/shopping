@@ -1,4 +1,4 @@
-6<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
 <?
 	Fnc_Acc_Admin();
 	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -269,34 +269,40 @@
 						</table>
 
 						<table width=100% cellpadding=0 cellspacing=0 border=0>
-							<tr><td class=rnd colspan=12></td></tr>
+							<tr><td class=rnd colspan=15></td></tr>
 							<tr class=rndbg>
 								<th>번호</th>
 								<th>아이디</th>
 								<th>이름</th>
+								<th>태그등급</th>
 								<th>이메일</th>
 								<th>핸드폰</th>
-								<th>스탬프</th>
+								<th>마일리지</th>
 								<th>방문수</th>
+								<th>쿠폰</th>
 								<th>가입일</th>
+								<th>입고알람</th>
 								<th>최종로그인</th>
 								<th>승인</th>
 								<th>수정</th>
 								<th>선택</th>
 							</tr>
-							<tr><td class=rnd colspan=12></td></tr>
+							<tr><td class=rnd colspan=15></td></tr>
 							<col width=5% align=center>
+							<col width=6% align=center>
+							<col width=16% align=center>
+							<col width=6% align=center>
 							<col width=8% align=center>
+							<col width=6% align=center>
+							<col width=8% align=center>
+							<col width=8% align=center>
+							<col width=4% align=center>
+							<col width=7% align=center>
+							<col width=4% align=center>
 							<col width=10% align=center>
-							<col width=18% align=center>
-							<col width=8% align=center>
-							<col width=10% align=center>
-							<col width=8% align=center>
-							<col width=8% align=center>
-							<col width=10% align=center>
-							<col width=5% align=center>
-							<col width=5% align=center>
-							<col width=5% align=center>
+							<col width=4% align=center>
+							<col width=4% align=center>
+							<col width=4% align=center>
 							<?$count=0;?>
 							<?if($total_record_limit!=0){?>
 							<?$article_num = $total_record - $displayrow*($page-1) ;?>
@@ -321,11 +327,14 @@
 								</b></font></span>
 								<?if (mysql_result($result,$i,str_cert)=="M"){?><font color="red">[인증]</font><?}?>
 								</td>
+								<td align=center>일반</td>
 								<td align=center><?=mysql_result($result,$i,str_email)?></td>
 								<td align=center><?=mysql_result($result,$i,str_hp)?></td>
 								<td align=center><?=number_format(mysql_result($result,$i,int_stamp))?>개 <a href="javascript:popupLayer('memb_user_stamp_list.php?str_userid=<?=mysql_result($result,$i,str_userid)?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 								<td><font class=ver81 color=616161><?=mysql_result($result,$i,int_login)?></font></td>
+								<td>0</td>
 								<td><font class=ver81 color=616161><?=substr(mysql_result($result,$i,dtm_indate),0,10)?></font></td>
+								<td>0</td>
 								<td><font class=ver81 color=616161><font color=#7070B8><?=mysql_result($result,$i,dtm_acdate)?></font></font></td>
 								<td><font class=small color=616161>
 									<?switch (mysql_result($result,$i,str_service)) {
@@ -339,7 +348,7 @@
 								<td><a href="javascript:RowClick('<?=mysql_result($result,$i,str_userid)?>');"><img src="/admincenter/img/i_edit.gif"></a></td>
 								<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?=mysql_result($result,$i,str_userid)?>"></td>
 							</tr>
-							<tr><td colspan=12 class=rndline></td></tr>
+							<tr><td colspan=15 class=rndline></td></tr>
 							<?
 							$article_num--;
 							if($article_num==0){

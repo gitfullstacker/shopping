@@ -53,7 +53,7 @@
 						<table class=tb>
 							<col class=cellC style="width:12%"><col class=cellL style="width:88%">
 							<tr>
-								<td>정기구독</td>
+								<td>구독 멤버십</td>
 								<td colspan="3">
 									정가 <input type=text name="int_oprice1" value="<?=$arr_Data['INT_OPRICE1']?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()">
 									/
@@ -69,7 +69,7 @@
 						<table class=tb>
 							<col class=cellC style="width:12%"><col class=cellL style="width:88%">
 							<tr>
-								<td>1개월권</td>
+								<td>렌트 멤버십</td>
 								<td colspan="3">
 									정가 <input type=text name="int_oprice2" value="<?=$arr_Data['INT_OPRICE2']?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()">
 									/
@@ -79,6 +79,60 @@
 							<tr>
 								<td>이벤트문구</td>
 								<td colspan="3"><input type=text name=str_event2 value="<?=$arr_Data['STR_EVENT2']?>" style="width:400px"></td>
+							</tr>
+						</table>
+						<br>
+						<table class=tb>
+							<col class=cellC style="width:12%"><col class=cellL style="width:88%">
+							<tr>
+								<td>렌트 구간할인1</td>
+								<td colspan="3">
+									<input type="number" name="int_dstart1" value="<?=$arr_Data['INT_DSTART1']?>" style="width: 50px;">
+									~
+									<input type="number" name="int_dend1" value="<?=$arr_Data['INT_DEND1']?>" style="width: 50px;">
+									:
+									<input type="number" name="int_discount1" value="<?=$arr_Data['INT_DISCOUNT1']?>" style="width: 50px;">%
+								</td>
+							</tr>
+							<tr>
+								<td>렌트 구간할인2</td>
+								<td colspan="3">
+									<input type="number" name="int_dstart2" value="<?=$arr_Data['INT_DSTART2']?>" style="width: 50px;">
+									~
+									<input type="number" name="int_dend2" value="<?=$arr_Data['INT_DEND2']?>" style="width: 50px;">
+									:
+									<input type="number" name="int_discount2" value="<?=$arr_Data['INT_DISCOUNT2']?>" style="width: 50px;">%
+								</td>
+							</tr>
+							<tr>
+								<td>렌트 구간할인3</td>
+								<td colspan="3">
+									<input type="number" name="int_dstart3" value="<?=$arr_Data['INT_DSTART3']?>" style="width: 50px;">
+									~
+									<input type="number" name="int_dend3" value="<?=$arr_Data['INT_DEND3']?>" style="width: 50px;">
+									:
+									<input type="number" name="int_discount3" value="<?=$arr_Data['INT_DISCOUNT3']?>" style="width: 50px;">%
+								</td>
+							</tr>
+							<tr>
+								<td>렌트 구간할인4</td>
+								<td colspan="3">
+									<input type="number" name="int_dstart4" value="<?=$arr_Data['INT_DSTART4']?>" style="width: 50px;">
+									~
+									<input type="number" name="int_dend4" value="<?=$arr_Data['INT_DEND4']?>" style="width: 50px;">
+									:
+									<input type="number" name="int_discount4" value="<?=$arr_Data['INT_DISCOUNT4']?>" style="width: 50px;">%
+								</td>
+							</tr>
+							<tr>
+								<td>렌트 구간할인5</td>
+								<td colspan="3">
+									<input type="number" name="int_dstart5" value="<?=$arr_Data['INT_DSTART5']?>" style="width: 50px;">
+									~
+									<input type="number" name="int_dend5" value="<?=$arr_Data['INT_DEND5']?>" style="width: 50px;">
+									:
+									<input type="number" name="int_discount5" value="<?=$arr_Data['INT_DISCOUNT5']?>" style="width: 50px;">%
+								</td>
 							</tr>
 						</table>
 						

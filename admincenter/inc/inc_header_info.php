@@ -9,3 +9,4 @@ body {margin:0 0 0 0;}
 <script src="/admincenter/js/common.js"></script>
 <script src="/pub/js/CommScript.js"></script>
 <script src="/pub/js/dhtml_calendar.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
