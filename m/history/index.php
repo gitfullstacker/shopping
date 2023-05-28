@@ -27,7 +27,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                                 <img src="images/mockup/product.png" alt="product">
                             </div>
                             <div class="grow flex justify-between py-1">
-
                                 <div class="flex flex-col w-full">
                                     <div class="flex justify-center items-center w-[25px] h-[14px] bg-[#00402F]">
                                         <p class="font-normal text-[8px] leading-[9px] text-center text-white">렌트</p>

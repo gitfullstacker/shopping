@@ -58,17 +58,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             for ($i = 0; $i < 10; $i++) {
             ?>
                 <div class="flex flex-col w-full">
-                    <div class="flex justify-between items-center px-[14px] pb-3 border-b-[0.5px] border-[#E0E0E0]">
+                    <a href="detail.php" class="flex justify-between items-center px-[14px] pb-3 border-b-[0.5px] border-[#E0E0E0]">
                         <div class="flex gap-[5px] items-center">
                             <p class="font-bold text-[15px] leading-[17px] text-black">20230208010</p>
                             <p class="font-bold text-xs leading-[14px] text-[#999999]">2023.02.08</p>
                         </div>
-                        <button class="pr-[5px]">
+                        <div class="pr-[5px]">
                             <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.18894 8.8219L5.84793 4.83245C5.90323 4.78496 5.9423 4.73351 5.96516 4.6781C5.98839 4.62269 6 4.56332 6 4.5C6 4.43668 5.98839 4.37731 5.96516 4.3219C5.9423 4.26649 5.90323 4.21504 5.84793 4.16755L1.18894 0.166227C1.05991 0.0554089 0.898617 0 0.705069 0C0.511521 0 0.345622 0.0593668 0.207373 0.1781C0.0691246 0.296834 -1.19209e-07 0.435356 -1.19209e-07 0.593668C-1.19209e-07 0.751979 0.0691246 0.890501 0.207373 1.00923L4.27189 4.5L0.207373 7.99077C0.0783412 8.10158 0.0138248 8.23805 0.0138248 8.40016C0.0138248 8.56259 0.0829491 8.70317 0.221198 8.8219C0.359447 8.94063 0.520737 9 0.705069 9C0.889401 9 1.05069 8.94063 1.18894 8.8219Z" fill="#333333" />
                             </svg>
-                        </button>
-                    </div>
+                        </div>
+                    </a>
                     <div class="flex flex-col px-[14px]">
                         <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-[#999999]">주문접수</p>
                         <div class="mt-3 flex gap-2.5 w-full">

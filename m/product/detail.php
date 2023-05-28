@@ -256,7 +256,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-7 px-[14px] flex flex-col">
         <div class="flex flex-col gap-[15px] px-3 pt-[15px] pb-[19px] bg-[#F5F5F5]">
             <?php
-            if ($arr_Data['INT_TYPE']) {
+            if ($arr_Data['INT_TYPE'] == 3) {
             ?>
                 <!-- 상품등급 -->
                 <div class="flex flex-col w-full">
@@ -354,7 +354,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <div class="w-3 h-3 bg-<?= $arr_Data['STR_COLOR'] ?>"></div>
                         <p class="font-bold text-xs text-[#666666]"><?= $arr_Data['STR_COLOR'] ?></p>
                     </div>
-
                 </div>
                 <div class="flex flex-row">
                     <div class="w-[55px]">
@@ -571,21 +570,21 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     switch ($arr_Data['INT_TYPE']) {
         case 2:
     ?>
-            <a href="#" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
+            <a href="/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white">렌트하기</span>
             </a>
         <?php
             break;
         case 1:
         ?>
-            <a href="#" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
+            <a href="/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white">구독하기</span>
             </a>
         <?php
             break;
         case 3:
         ?>
-            <a href="#" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
+            <a href="/m/pay/index.php?int_type=3&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white">구매하기</span>
             </a>
     <?php
