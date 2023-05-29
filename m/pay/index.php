@@ -46,7 +46,7 @@ if (!$arr_Rlt_Data) {
 
 $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-//구독정보얻기
+//구독멤버십정보얻기
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 
 $SQL_QUERY =    'SELECT
