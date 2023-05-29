@@ -169,16 +169,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-[30px] flex flex-col">
         <p class="font-extrabold text-lg leading-5 text-[#333333] px-[14px]">배송조회/이용내역</p>
         <div class="mt-[23px] flex flex-col gap-[30px] w-full" id="order_list">
-
-        </div>
-        <div class="mt-[23px] flex flex-col w-full">
-            <?php
-            for ($i = 0; $i < 10; $i++) {
-            ?>
-
-            <?php
-            }
-            ?>
         </div>
     </div>
 </div>

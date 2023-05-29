@@ -28,7 +28,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <div x-show="type == 1" class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]"></div>
 
         <!-- 찜목록 -->
-        <div x-show="type == 2" class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]" id="product_list">
+        <div x-show="type == 2" class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]" id="product_list" style="display: none;">
             <?php
             $SQL_QUERY =    'SELECT 
                                 A.*, B.STR_CODE

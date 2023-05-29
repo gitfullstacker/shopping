@@ -9,6 +9,24 @@ $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_goods_master SET INT_VIEW=INT_VIEW + 1 WHERE STR_GOODCODE=' . $str_goodcode;
 mysql_query($SQL_QUERY);
 
+if ($arr_Auth[0]) {
+
+    $SQL_QUERY = 'SELECT COUNT(A.INT_NUMBER) AS COUNT FROM ' . $Tname . 'comm_member_seen A WHERE A.STR_USERID="' . $arr_Auth[0] . '" AND A.STR_GOODCODE="' . $str_goodcode . '"';
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+    if ($arr_Rlt_Data) {
+        $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+        if ($arr_Data['COUNT'] > 0) {
+            $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_member_seen SET DTM_INDATE="' . date("Y-m-d H:i:s") . '" WHERE STR_USERID="' . $arr_Auth[0] . '" AND STR_GOODCODE="' . $str_goodcode . '"';
+            mysql_query($SQL_QUERY);
+        } else {
+            $SQL_QUERY = 'INSERT INTO ' . $Tname . 'comm_member_seen (STR_GOODCODE, STR_USERID, DTM_INDATE) VALUES ("' . $str_goodcode . '", "' . $arr_Auth[0] . '", "' . date("Y-m-d H:i:s") . '")';
+            mysql_query($SQL_QUERY);
+        }
+    }
+}
+
 $SQL_QUERY =    'SELECT
                     A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_basket AS D WHERE A.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_BASKET
                 FROM 

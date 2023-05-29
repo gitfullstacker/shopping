@@ -113,7 +113,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</div>
 	<div class="categorypick-scroll-list">
 		<?php
-		for ($i = 1; $i <= 3; $i++) {
+		for ($i = 0; $i < 3; $i++) {
+			
+			switch ($i) {
+				case 0:
+					$int_type = 2;
+					break;
+				
+				case 1:
+					$int_type = 1;
+					break;
+
+				case 2:
+					$int_type = 3;
+					break;
+			}
 			$SQL_QUERY = 	'SELECT 
 								A.*, B.STR_CODE
 							FROM 
@@ -125,31 +139,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							WHERE 
 								(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
 								AND 
-								A.INT_TYPE=' . $i . ' 
+								A.INT_TYPE=' . $int_type . ' 
 							ORDER BY A.INT_VIEW DESC
 							LIMIT 2';
 
 			$category_product_result = mysql_query($SQL_QUERY);
 		?>
 			<div class="section">
-				<a href="/m/product/index.php?product_type=<?= $i ?>" class="item relative">
-					<img src="images/category<?= $i ?>.png" alt="event_zone">
+				<a href="/m/product/index.php?product_type=<?= $int_type ?>" class="item relative">
+					<img src="images/category<?= $i + 1 ?>.png" alt="event_zone">
 					<div class="absolute flex flex-col gap-2 left-[13px] bottom-4">
 						<?php
 						switch ($i) {
-							case 1:
+							case 0:
 						?>
 								<p class="font-extrabold text-lg leading-[20px] text-white">RENT BEST</p>
 								<p class="font-bold text-xs leading-[14px] text-white">렌트 베스트 상품</p>
 							<?php
 								break;
-							case 2:
+							case 1:
 							?>
 								<p class="font-extrabold text-lg leading-[20px] text-white">MEMBERSHIP BEST</p>
 								<p class="font-bold text-xs leading-[14px] text-white">구독 베스트 상품</p>
 							<?php
 								break;
-							case 3:
+							case 2:
 							?>
 								<p class="font-extrabold text-lg leading-[20px] text-white">HOT VINTAGE</p>
 								<p class="font-bold text-xs leading-[14px] text-white">반응 좋은 빈티지 상품</p>

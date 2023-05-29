@@ -86,7 +86,9 @@ fnc_MLogin_Chk();
                             </div>
                             <div class="flex-1 flex flex-col w-full items-start">
                                 <div class="flex justify-center items-center w-[34px] h-[18px] bg-[<?= ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                                    <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                                    <p class="font-normal text-[10px] leading-[11px] text-center text-white">
+                                        <?= ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?>
+                                    </p>
                                 </div>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
                                 <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
