@@ -44,14 +44,21 @@ while ($row = mysql_fetch_assoc($seen_list_result)) {
 }
 ?>
 
-<div class="mt-[6px] flex flex-col w-full">
+<div x-data="{ noData: <?= mysql_num_rows($seen_list_result) > 0 ? 'false' : 'true' ?> }" class="mt-[6px] flex flex-col w-full">
     <div class="flex justify-end px-[14px]">
-        <button>
+        <button type="button" onclick="deleteAll()">
             <p class="font-bold text-xs leading-[14px] underline text-[#666666]">전체삭제</p>
         </button>
     </div>
 
-    <div class="mt-6 flex flex-col gap-6 w-full">
+    <div x-show="noData" id="no_list" class="flex flex-col gap-5 items-center mt-[77px]">
+        <svg width="60" height="70" viewBox="0 0 60 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M52.93 20L40 7.07V20H52.93ZM55 25H35V5H5V65H55V25ZM2.5 0H40L60 20V67.5C60 68.163 59.7366 68.7989 59.2678 69.2678C58.7989 69.7366 58.163 70 57.5 70H2.5C1.83696 70 1.20107 69.7366 0.732234 69.2678C0.263393 68.7989 0 68.163 0 67.5V2.5C0 1.83696 0.263393 1.20107 0.732234 0.732233C1.20107 0.263392 1.83696 0 2.5 0ZM26.64 42.68L19.57 35.6L23.105 32.065L30.18 39.135L37.25 32.07L40.785 35.605L33.715 42.68L40.785 49.75L37.25 53.285L30.18 46.215L23.105 53.285L19.57 49.75L26.64 42.68Z" fill="#D9D9D9" />
+        </svg>
+        <p class="font-bold text-[15px] leading-[17px] text-[#666666]">최근 본 상품이 없습니다.</p>
+    </div>
+
+    <div x-show="!noData" id="seen_list" class="mt-6 flex flex-col gap-6 w-full">
         <?php
         $split_date = '';
         foreach ($productSeenByDate as $date => $seenData) {
@@ -158,6 +165,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                         $("#is_like_yes_" + str_goodcode).hide();
                     }
                 }
+            }
+        });
+    }
+
+    function deleteAll() {
+        $.ajax({
+            url: "delete_all.php",
+            success: function(resultString) {
+                $("#seen_list").hide();
+                $("#no_list").show();
             }
         });
     }
