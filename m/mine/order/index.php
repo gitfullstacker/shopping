@@ -34,10 +34,28 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <div class="flex flex-col w-full">
     <!-- 주문/배송현황 -->
     <div class="mt-[30px] flex flex-col gap-[14px] px-[14px]">
+
         <p class="font-extrabold text-lg leading-5 text-black">주문/배송현황</p>
         <div class="flex flex-row items-center justify-between bg-[#F5F5F5] px-4 py-3">
             <div class="flex flex-col gap-[5px] items-center">
-                <p class="font-bold text-[25px] leading-7 text-center text-black">1</p>
+                <?php
+                $SQL_QUERY =    'SELECT
+                                    COUNT(A.INT_NUMBER) AS NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_cart A
+                                WHERE 
+                                    A.INT_STATE=1
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                if (!$arr_Rlt_Data) {
+                    echo 'Could not run query: ' . mysql_error();
+                    exit;
+                }
+                $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">주문접수</p>
             </div>
             <div>
@@ -46,7 +64,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </div>
             <div class="flex flex-col gap-[5px] items-center">
-                <p class="font-bold text-[25px] leading-7 text-center text-black">0</p>
+                <?php
+                $SQL_QUERY =    'SELECT
+                                    COUNT(A.INT_NUMBER) AS NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_cart A
+                                WHERE 
+                                    A.INT_STATE=2
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                if (!$arr_Rlt_Data) {
+                    echo 'Could not run query: ' . mysql_error();
+                    exit;
+                }
+                $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">상품준비</p>
             </div>
             <div>
@@ -55,7 +90,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </div>
             <div class="flex flex-col gap-[5px] items-center">
-                <p class="font-bold text-[25px] leading-7 text-center text-black">0</p>
+                <?php
+                $SQL_QUERY =    'SELECT
+                                    COUNT(A.INT_NUMBER) AS NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_cart A
+                                WHERE 
+                                    A.INT_STATE=3
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                if (!$arr_Rlt_Data) {
+                    echo 'Could not run query: ' . mysql_error();
+                    exit;
+                }
+                $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송중</p>
             </div>
             <div>
@@ -64,7 +116,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </div>
             <div class="flex flex-col gap-[5px] items-center">
-                <p class="font-bold text-[25px] leading-7 text-center text-black">0</p>
+                <?php
+                $SQL_QUERY =    'SELECT
+                                    COUNT(A.INT_NUMBER) AS NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_cart A
+                                WHERE 
+                                    A.INT_STATE=4
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                if (!$arr_Rlt_Data) {
+                    echo 'Could not run query: ' . mysql_error();
+                    exit;
+                }
+                $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송완료</p>
             </div>
             <div>
@@ -73,7 +142,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </div>
             <div class="flex flex-col gap-[5px] items-center">
-                <p class="font-bold text-[25px] leading-7 text-center text-black">4</p>
+                <?php
+                $SQL_QUERY =    'SELECT
+                                    COUNT(A.INT_NUMBER) AS NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_cart A
+                                WHERE 
+                                    A.INT_STATE=5
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                if (!$arr_Rlt_Data) {
+                    echo 'Could not run query: ' . mysql_error();
+                    exit;
+                }
+                $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납</p>
             </div>
         </div>
