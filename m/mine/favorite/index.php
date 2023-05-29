@@ -9,13 +9,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <div class="mt-1.5 flex flex-col w-full px-[14px]">
-    <div class="flex flex-col w-full">
+    <div x-data="{ type: 1 }" class="flex flex-col w-full">
         <div class="flex justify-end">
             <button type="button" onclick="removeLikeAll()">
                 <p class="font-bold text-xs leading-[14px] underline text-[#666666]">전체삭제</p>
             </button>
         </div>
-        <div x-data="{ type: 1 }" class="flex gap-[7px] items-center">
+        <div class="flex gap-[7px] items-center">
             <button class="flex px-[15px] py-[7px] bg-white border border-solid rounded-full" x-bind:class="type == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 1">
                 <p class="font-bold text-xs leading-[14px] flex items-center text-center" x-bind:class="type == 1 ? 'text-black' : 'text-[#666666]'">입고알림</p>
             </button>
@@ -23,7 +23,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 <p class="font-bold text-xs leading-[14px] flex items-center text-center" x-bind:class="type == 2 ? 'text-black' : 'text-[#666666]'">찜</p>
             </button>
         </div>
-        <div class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]" id="product_list">
+        
+        <!-- 입고알람 -->
+        <div x-show="type == 1" class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]"></div>
+
+        <!-- 찜목록 -->
+        <div x-show="type == 2" class="mt-[18px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px]" id="product_list">
             <?php
             $SQL_QUERY =    'SELECT 
                                 A.*, B.STR_CODE

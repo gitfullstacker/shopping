@@ -1,7 +1,14 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
+<?php
+
+?>
 <div class="flex flex-col w-full">
     <!-- 주문/배송현황 -->
     <div class="mt-[30px] flex flex-col gap-[14px] px-[14px]">

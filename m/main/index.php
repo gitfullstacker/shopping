@@ -249,7 +249,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							A.INT_BRAND=B.INT_NUMBER
 						WHERE 
 							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-							AND A.INT_TYPE=1 
+							AND A.INT_TYPE=2 
 							AND A.INT_DISCOUNT!=0
 						ORDER BY A.INT_DISCOUNT DESC
 						LIMIT 6';
@@ -257,7 +257,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		$rent_product_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($rent_product_result)) {
 		?>
-			<div class="item">
+			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 				<div class="image">
 					<img src="../images/mockup/rent_product.png" alt="rent">
 					<div class="discount">
@@ -271,7 +271,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					<p class="origin-price"><?= number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
-			</div>
+			</a>
 		<?php
 		}
 		?>
@@ -307,14 +307,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							A.INT_BRAND=B.INT_NUMBER
 						WHERE 
 							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-							AND A.INT_TYPE=1 
+							AND A.INT_TYPE=2
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
 		$rent_new_product_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($rent_new_product_result)) {
 		?>
-			<div class="item">
+			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
 					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
 				</div>
@@ -324,7 +324,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
-			</div>
+			</a>
 		<?php
 		}
 		?>
@@ -360,14 +360,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							A.INT_BRAND=B.INT_NUMBER
 						WHERE 
 							(A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-							AND A.INT_TYPE=2 
+							AND A.INT_TYPE=1 
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
 		$subscription_new_product_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
 		?>
-			<div class="item">
+			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
 					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
 				</div>
@@ -377,7 +377,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					<p class="current-price">월 <?= number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="subscription-button">구독</button>
-			</div>
+			</a>
 		<?php
 		}
 		?>

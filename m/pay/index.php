@@ -44,159 +44,169 @@ if (!$arr_Rlt_Data) {
     exit;
 }
 
-$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$product_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//구독정보얻기
+$str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
+
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_membership AS A
+                WHERE
+                    A.STR_USERID="' . $arr_Auth[0] . '"
+                    AND A.INT_TYPE=' . $int_type . '
+                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
-<!-- 배송정보 -->
-<div x-data="{ type: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
-    <div class="mt-1.5 flex gap-[7px]">
-        <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 1">
-            <span class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">기본 배송지</span>
-        </a>
-        <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 2 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 2">
-            <span class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">신규 배송지</span>
-        </a>
-    </div>
-    <!-- 기본 배송지 -->
-    <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
-        <p class="font-bold text-[15px] leading-[17px] text-black">에이블랑</p>
-        <p class="mt-[9px] font-bold text-xs leading-[14px] text-black">(<?= $user_Data['STR_SPOST'] ?>) <?= $user_Data['STR_SADDR1'] . ' ' . $user_Data['STR_SADDR2'] ?></p>
-        <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $user_Data['STR_TELEP'] ?> / <?= $user_Data['STR_HP'] ?></p>
-        <div class="mt-3 relative flex w-full">
-            <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-                <option value="">배송시 요청사항을 선택해 주세요</option>
-            </select>
-            <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                </svg>
+<form x-data="{
+    type: '',
+    showPay: false
+}" action="process.php" method="post" class="mt-[30px] flex flex-col w-full">
+    <input type="hidden" name="int_type" value="<?= $int_type ?>">
+    <input type="hidden" name="str_goodcode" value="<?= $str_goodcode ?>">
+
+    <!-- 배송정보 -->
+    <div x-data="{ type: 1 }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+        <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
+        <div class="mt-1.5 flex gap-[7px]">
+            <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 1">
+                <span class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">기본 배송지</span>
+            </a>
+            <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 2 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 2">
+                <span class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">신규 배송지</span>
+            </a>
+        </div>
+        <!-- 기본 배송지 -->
+        <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
+            <p class="font-bold text-[15px] leading-[17px] text-black">에이블랑</p>
+            <p class="mt-[9px] font-bold text-xs leading-[14px] text-black">(<?= $user_Data['STR_SPOST'] ?>) <?= $user_Data['STR_SADDR1'] . ' ' . $user_Data['STR_SADDR2'] ?></p>
+            <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $user_Data['STR_TELEP'] ?> / <?= $user_Data['STR_HP'] ?></p>
+            <div class="mt-3 relative flex w-full">
+                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
+                    <option value="">배송시 요청사항을 선택해 주세요</option>
+                </select>
+                <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                    </svg>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 신규 배송지 -->
-    <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full">
-        <div class="flex flex-col gap-[5px] w-full">
-            <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-            <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="이름을 입력해 주세요">
-        </div>
-        <div class="flex flex-col gap-[5px] w-full">
-            <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
-            <div class="grid grid-cols-3 gap-[5px] w-full">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="010">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="1234">
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="5678">
-            </div>
-        </div>
-        <div class="flex flex-col gap-[5px] w-full">
-            <p class="font-bold text-xs leading-[14px] text-black">주소</p>
+        <!-- 신규 배송지 -->
+        <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full">
             <div class="flex flex-col gap-[5px] w-full">
-                <div class="flex gap-[5px]">
-                    <div class="grow">
-                        <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="우편번호" disabled>
-                    </div>
-                    <button class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
-                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
-                    </button>
+                <p class="font-bold text-xs leading-[14px] text-black">이름</p>
+                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="이름을 입력해 주세요">
+            </div>
+            <div class="flex flex-col gap-[5px] w-full">
+                <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
+                <div class="grid grid-cols-3 gap-[5px] w-full">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="010">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="1234">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="5678">
                 </div>
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="기본주소" disabled>
-                <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="상세 주소를 입력해 주세요">
+            </div>
+            <div class="flex flex-col gap-[5px] w-full">
+                <p class="font-bold text-xs leading-[14px] text-black">주소</p>
+                <div class="flex flex-col gap-[5px] w-full">
+                    <div class="flex gap-[5px]">
+                        <div class="grow">
+                            <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="우편번호" disabled>
+                        </div>
+                        <button class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
+                        </button>
+                    </div>
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="기본주소" disabled>
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="상세 주소를 입력해 주세요">
+                </div>
+            </div>
+            <button class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
+                <p class="font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- 주문정보 -->
+    <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+        <p class="font-extrabold text-lg leading-5 text-[#333333]">주문정보</p>
+        <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black"><?= $product_Data['STR_BRAND'] ?></p>
+        <div class="mt-3 flex gap-[11px]">
+            <div class="w-[120px] h-[120px] flex justify-center items-center bg-[#F9F9F9] p-2.5">
+                <img class="w-full" src="/admincenter/files/good/<?= $product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+            </div>
+            <div class="flex flex-col justify-center">
+                <div class="flex justify-center items-center max-w-[38px] px-2 py-1 w-auto bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+                    <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($product_Data['INT_TYPE'] == 1 ? '구독' : ($product_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                </div>
+                <p class="mt-[15px] font-bold text-xs leading-[14px] text-[#666666]"><?= $product_Data['STR_GOODNAME'] ?></p>
+                <?php
+                switch ($product_Data['INT_TYPE']) {
+                    case 1:
+                ?>
+                        <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
+                        <div class="mt-[7px] flex gap-2 items-center">
+                            <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($product_Data['INT_PRICE']) ?>원</p>
+                        </div>
+                    <?php
+                        break;
+
+                    case 2:
+                    ?>
+                        <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $product_Data['INT_DISCOUNT'] ? ('일 ' . number_format($product_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <div class="mt-[7px] flex gap-2 items-center">
+                            <p class="font-bold text-xs text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                            <p class="font-bold text-xs text-[#333333]">일 <?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
+                            <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
+                        </div>
+                    <?php
+                        break;
+                    case 3:
+                    ?>
+                        <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <div class="mt-[7px] flex gap-2 items-center">
+                            <p class="font-bold text-xs text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                            <p class="font-bold text-xs text-[#333333]"><?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
+                            <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
+                        </div>
+                <?php
+                        break;
+                }
+                ?>
             </div>
         </div>
-        <button class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
-            <p class="font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
-        </button>
-    </div>
-</div>
-
-<!-- 구분선 -->
-<hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-
-<!-- 주문정보 -->
-<div class="mt-[15px] px-[14px]">
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">주문정보</p>
-    <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_BRAND'] ?></p>
-    <div class="mt-3 flex gap-[11px]">
-        <div class="w-[120px] h-[120px] flex justify-center items-center bg-[#F9F9F9] p-2.5">
-            <img class="w-full" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
-        </div>
-        <div class="flex flex-col">
-            <div class="flex justify-center items-center max-w-[38px] px-2 py-1 w-auto bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+        <!-- 구분선 -->
+        <hr class="mt-5 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
+        <div class="mt-[15px] flex flex-col gap-1.5">
+            <div class="flex gap-5">
+                <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?></p>
             </div>
-            <p class="mt-[15px] font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
-            <?php
-            switch ($arr_Data['INT_TYPE']) {
-                case 1:
-            ?>
-                    <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
-                    </div>
-                <?php
-                    break;
-
-                case 2:
-                ?>
-                    <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-bold text-xs text-[#00402F]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                        <p class="font-bold text-xs text-[#333333]">일 <?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
-                        <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
-                    </div>
-                <?php
-                    break;
-                case 3:
-                ?>
-                    <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-bold text-xs text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                        <p class="font-bold text-xs text-[#333333]"><?= $arr_Data['INT_DISCOUNT'] ? number_format($arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) : number_format($arr_Data['INT_PRICE']) ?>원</p>
-                        <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
-                    </div>
-            <?php
-                    break;
-            }
-            ?>
+            <div class="flex gap-5">
+                <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]">무료배송</p>
+            </div>
+            <div class="flex gap-5">
+                <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]">미해당</p>
+            </div>
         </div>
     </div>
-    <!-- 구분선 -->
-    <hr class="mt-5 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-    <div class="mt-[15px] flex flex-col gap-1.5">
-        <div class="flex gap-5">
-            <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
-            <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?></p>
-        </div>
-        <div class="flex gap-5">
-            <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-            <p class="font-bold text-xs leading-[14px] text-[#666666]">무료배송</p>
-        </div>
-        <div class="flex gap-5">
-            <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
-            <p class="font-bold text-xs leading-[14px] text-[#666666]">미해당</p>
-        </div>
-    </div>
-</div>
 
-<!-- 구분선 -->
-<hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-
-<!-- 쿠폰/적립금 -->
-<div class="mt-[15px] px-[14px]">
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">쿠폰/적립금</p>
-    <div class="mt-[15px] relative flex w-full">
-        <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-            <option value="">사용가능 쿠폰 1장 / 전체 1장</option>
-        </select>
-        <div class="absolute top-[15px] right-[15px] pointer-events-none">
-            <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-            </svg>
-        </div>
-    </div>
-    <div class="mt-[5px] flex gap-[5px]">
-        <div class="relative flex w-full">
+    <!-- 쿠폰/적립금 -->
+    <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+        <p class="font-extrabold text-lg leading-5 text-[#333333]">쿠폰/적립금</p>
+        <div class="mt-[15px] relative flex w-full">
             <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-                <option value="">1,000원</option>
+                <option value="">사용가능 쿠폰 0장 / 전체 0장</option>
             </select>
             <div class="absolute top-[15px] right-[15px] pointer-events-none">
                 <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,72 +214,96 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </div>
         </div>
-        <button class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]">
-            <span class="font-bold text-[11px] leading-3 text-center text-white">전액사용</span>
-        </button>
-    </div>
-    <div class="mt-1.5 flex gap-1.5">
-        <p class="font-bold text-[9px] leading-[10px] text-[#666666]">사용가능 적립금</p>
-        <p class="font-bold text-[9px] leading-[10px] text-black">3,000원</p>
-    </div>
-</div>
-
-<!-- 구분선 -->
-<hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-
-<!-- 결제방법 -->
-<div class="mt-[15px] flex flex-col w-full px-[14px]">
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">결제방법</p>
-
-    <?php
-    if ($int_type == 1) {
-    ?>
-        <!-- MEMBERSHIP -->
-        <div class="flex flex-col w-full">
-            <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">MEMBERSHIP</p>
-
-            <!-- 미가입자 -->
-            <div class="mt-3 flex justify-center items-center w-full">
-                <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
-                    <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
-                        <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#D9D9D9" />
-                        </svg>
-                    </div>
-                    <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-[#666666]">MEMBERSHIP CARD</p>
-                    <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-[#666666]">프리미엄 멤버십 미가입자입니다. <br />멤버십 가입 후 다양한 가방을 구독해보세요!</p>
+        <div class="mt-[5px] flex gap-[5px]">
+            <div class="relative flex w-full">
+                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
+                    <option value="">0원</option>
+                </select>
+                <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                    </svg>
                 </div>
             </div>
-
-            <!-- 가입자 -->
-            <div class="mt-3 flex flex-col gap-[25px] items-center w-full">
-                <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
-                    <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
-                        <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F1D58E" />
-                        </svg>
-                    </div>
-                    <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">MEMBERSHIP CARD</p>
-                    <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">프리미엄 멤버십 미가입자입니다. <br />멤버십 가입 후 다양한 가방을 구독해보세요!</p>
-                </div>
-                <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-                    <p class="font-bold text-[10px] leading-[140%] text-black">멤버십 결제 안내</p>
-                    <p class="font-bold text-[10px] leading-[140%] text-[#666666]">
-                        -멤버십 결제는 구독권이 갱신되는 매월 1일에 등록하신 카드로 자동결제 됩니다.
-                        (마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 카드 삭제 및 변경가능합니다.)
-                    </p>
-                </div>
-            </div>
+            <button class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]">
+                <span class="font-bold text-[11px] leading-3 text-center text-white">전액사용</span>
+            </button>
         </div>
-    <?php
-    }
-    ?>
+        <div class="mt-1.5 flex gap-1.5">
+            <p class="font-bold text-[9px] leading-[10px] text-[#666666]">사용가능 적립금</p>
+            <p class="font-bold text-[9px] leading-[10px] text-black">3,000원</p>
+        </div>
+    </div>
 
-    <?php
-    if ($int_type == 2 || $int_type == 3) {
-    ?>
-        <!-- 간편결제 -->
-        <div class="flex flex-col w-full">
+    <!-- 결제방법 -->
+    <div class="mt-[15px] flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+        <p class="font-extrabold text-lg leading-5 text-[#333333]">결제방법</p>
+
+        <?php
+        if ($int_type == 1) {
+        ?>
+            <!-- MEMBERSHIP -->
+            <div x-show="!showPay" class="flex flex-col w-full">
+                <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">MEMBERSHIP</p>
+
+                <?php
+                if ($subscription_Data) {
+                    $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
+
+                    $current_date = date('Y-m-d'); // Get the current date
+
+                    $datetime1 = new DateTime($current_date);
+                    $datetime2 = new DateTime($end_date);
+                    $interval = $datetime1->diff($datetime2);
+
+                    $days_left = $interval->format('%a');
+                ?>
+                    <!-- 가입자 -->
+                    <div class="mt-3 flex flex-col gap-[25px] items-center w-full">
+                        <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
+                            <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
+                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F1D58E" />
+                                </svg>
+                            </div>
+                            <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">MEMBERSHIP CARD</p>
+                            <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">
+                                프리미엄 구독권 잔여일이 <?= $days_left ?>일 남았습니다.<br>
+                                마이페이지에서 구독 연장/취소 신청 가능합니다.
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
+                            <p class="font-bold text-[10px] leading-[140%] text-black">멤버십 결제 안내</p>
+                            <p class="font-bold text-[10px] leading-[140%] text-[#666666]">
+                                -멤버십 결제는 구독권이 갱신되는 매월 1일에 등록하신 카드로 자동결제 됩니다.
+                                (마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 카드 삭제 및 변경가능합니다.)
+                            </p>
+                        </div>
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <!-- 미가입자 -->
+                    <div class="mt-3 flex justify-center items-center w-full">
+                        <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
+                            <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
+                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#D9D9D9" />
+                                </svg>
+                            </div>
+                            <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-[#666666]">MEMBERSHIP CARD</p>
+                            <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-[#666666]">프리미엄 멤버십 미가입자입니다. <br />멤버십 가입 후 다양한 가방을 구독해보세요!</p>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        <?php
+        }
+        ?>
+
+        <div x-show="showPay" class="flex flex-col w-full">
             <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">간편결제</p>
             <div class="mt-3 flex flex-col gap-[25px] justify-center items-center w-full">
                 <div class="w-[210px] h-[140px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
@@ -289,7 +323,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
 
         <!-- 일반결제 -->
-        <div class="flex flex-col gap-1.5 w-full">
+        <div x-show="showPay" class="flex flex-col gap-1.5 w-full">
             <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">일반결제</p>
             <div class="flex flex-col gap-1.5 w-full">
                 <div x-data="{ cardType: 1 }" class="flex flex-row gap-[5px]">
@@ -329,111 +363,127 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </p>
             </div>
         </div>
+    </div>
+
+    <!-- 결제금액 -->
+    <?php
+    if ($int_type == 2 || $int_type == 3) {
+    ?>
+        <div x-data="{ isCollapsed: false }" class="mt-[15px] flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+            <div class="flex items-center justify-between">
+                <p class="font-extrabold text-lg leading-5 text-[#333333]">결제금액</p>
+                <div x-on:click="isCollapsed = !isCollapsed">
+                    <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.2576 1.58525L7.81002 7.79723C7.73327 7.87097 7.65012 7.92307 7.56057 7.95355C7.47102 7.98452 7.37507 8 7.27273 8C7.17038 8 7.07444 7.98452 6.98489 7.95355C6.89534 7.92307 6.81218 7.87097 6.73543 7.79724L0.268649 1.58525C0.0895495 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940092C-3.19879e-07 0.682027 0.0959459 0.46083 0.287838 0.276498C0.479731 0.0921659 0.703606 -3.07556e-08 0.959462 -4.19394e-08C1.21532 -5.31233e-08 1.43919 0.0921659 1.63109 0.276498L7.27273 5.69585L12.9144 0.276497C13.0935 0.104454 13.314 0.0184325 13.576 0.0184325C13.8385 0.0184325 14.0657 0.110598 14.2576 0.29493C14.4495 0.479262 14.5455 0.694316 14.5455 0.940091C14.5455 1.18587 14.4495 1.40092 14.2576 1.58525Z" fill="#333333" />
+                    </svg>
+                </div>
+            </div>
+            <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
+                <?php
+                $total_price = $product_Data['INT_PRICE'];
+                $discount_price = $product_Data['INT_DISCOUNT'] ? $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 : 0;
+                $membership_price = 0;
+                $cupon_price = 0;
+                $saved_price = 0;
+
+                $pay_price = $total_price - $discount_price - $membership_price - $cupon_price - $saved_price;
+                ?>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($total_price) ?>원</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($discount_price) ?>원</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($discount_price) ?>원</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($membership_price) ?>원</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($cupon_price) ?>원</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($saved_price) ?>원</p>
+                </div>
+                <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
+                <div class="mt-[5px] flex items-center justify-between">
+                    <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
+                    <p class="font-extrabold text-[15px] leading-[17px] text-right text-black"><?= number_format($pay_price) ?>원</p>
+                </div>
+            </div>
+        </div>
     <?php
     }
     ?>
-</div>
 
-<!-- 구분선 -->
-<hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-
-<!-- 결제금액 -->
-<?php
-if ($int_type == 2 || $int_type == 3) {
-?>
-    <div x-data="{ isCollapsed: false }" class="mt-[15px] flex flex-col w-full px-[14px]">
-        <div class="flex items-center justify-between">
-            <p class="font-extrabold text-lg leading-5 text-[#333333]">결제금액</p>
-            <div x-on:click="isCollapsed = !isCollapsed">
-                <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.2576 1.58525L7.81002 7.79723C7.73327 7.87097 7.65012 7.92307 7.56057 7.95355C7.47102 7.98452 7.37507 8 7.27273 8C7.17038 8 7.07444 7.98452 6.98489 7.95355C6.89534 7.92307 6.81218 7.87097 6.73543 7.79724L0.268649 1.58525C0.0895495 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940092C-3.19879e-07 0.682027 0.0959459 0.46083 0.287838 0.276498C0.479731 0.0921659 0.703606 -3.07556e-08 0.959462 -4.19394e-08C1.21532 -5.31233e-08 1.43919 0.0921659 1.63109 0.276498L7.27273 5.69585L12.9144 0.276497C13.0935 0.104454 13.314 0.0184325 13.576 0.0184325C13.8385 0.0184325 14.0657 0.110598 14.2576 0.29493C14.4495 0.479262 14.5455 0.694316 14.5455 0.940091C14.5455 1.18587 14.4495 1.40092 14.2576 1.58525Z" fill="#333333" />
-                </svg>
+    <!-- 약관동의 -->
+    <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+        <div class="flex justify-between items-center">
+            <div class="flex gap-[5px] items-center">
+                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px]  accent-black">
+                <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
             </div>
+            <a href="/m/help/deposit_agree.php" class="font-bold text-[9px] leading-[10px] text-right underline text-[#666666]">약관보기</a>
         </div>
-        <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
+        <div class="flex justify-between items-center">
+            <div class="flex gap-[5px] items-center">
+                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px]  accent-black">
+                <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+            </div>
+            <a href="/m/help/privacy_agree.php" class="font-bold text-[9px] leading-[10px] text-right underline text-[#666666]">약관보기</a>
+        </div>
+    </div>
+
+    <!-- 하단 메뉴 -->
+    <div class="fixed bottom-0 left-0 w-full flex h-[66px]">
+        <?php
+        if ($int_type) {
+            $SQL_QUERY =    'SELECT
+                                A.*
+                            FROM 
+                                ' . $Tname . 'comm_site_info AS A
+                            WHERE
+                                A.INT_NUMBER=1';
+
+            $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+            if (!$arr_Rlt_Data) {
+                echo 'Could not run query: ' . mysql_error();
+                exit;
+            }
+            $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+            $pay_price = $site_Data['INT_PRICE1'];
+
+            if ($subscription_Data) {
+        ?>
+                <a href="sub_process.php?int_type=<?= $int_type ?>&str_goodcode=<?= $str_goodcode ?>" class="pay-action grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+                    <span class="font-extrabold text-lg text-center text-white">구독하기</span>
+                </a>
             <?php
-            $total_price = $arr_Data['INT_PRICE'];
-            $discount_price = $arr_Data['INT_DISCOUNT'] ? $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 : 0;
-            $membership_price = 0;
-            $cupon_price = 0;
-            $saved_price = 0;
-
-            $pay_price = $total_price - $discount_price - $membership_price - $cupon_price - $saved_price;
+            } else {
             ?>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($total_price) ?>원</p>
-            </div>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($discount_price) ?>원</p>
-            </div>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($discount_price) ?>원</p>
-            </div>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($membership_price) ?>원</p>
-            </div>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($cupon_price) ?>원</p>
-            </div>
-            <div class="flex items-center justify-between">
-                <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($saved_price) ?>원</p>
-            </div>
-            <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-            <div class="mt-[5px] flex items-center justify-between">
-                <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
-                <p class="font-extrabold text-[15px] leading-[17px] text-right text-black"><?= number_format($pay_price) ?>원</p>
-            </div>
-        </div>
-    </div>
-<?php
-}
-?>
+                <button x-show="!showPay" type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" x-on:click="showPay = true">
+                    <span class="font-extrabold text-lg text-center text-white">구독 멤버십 가입하러 가기</span>
+                </button>
+        <?php
+            }
+        }
+        ?>
 
-<!-- 구분선 -->
-<hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
-
-<!-- 약관동의 -->
-<div class="mt-4 flex flex-col gap-2.5 px-[14px]">
-    <div class="flex justify-between items-center">
-        <div class="flex gap-[5px] items-center">
-            <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px]  accent-black">
-            <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
-        </div>
-        <a href="/m/help/deposit_agree.php" class="font-bold text-[9px] leading-[10px] text-right underline text-[#666666]">약관보기</a>
-    </div>
-    <div class="flex justify-between items-center">
-        <div class="flex gap-[5px] items-center">
-            <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px]  accent-black">
-            <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
-        </div>
-        <a href="/m/help/privacy_agree.php" class="font-bold text-[9px] leading-[10px] text-right underline text-[#666666]">약관보기</a>
-    </div>
-</div>
-
-<!-- 하단 메뉴 -->
-<div class="fixed bottom-0 left-0 w-full flex h-[66px]">
-    <?php
-    if ($arr_Data['INT_TYPE'] == 2) {
-    ?>
-        <a href="simplepay.php" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
-            <span class="font-extrabold text-lg text-center text-white">구독 멤버십 가입하러 가기</span>
-        </a>
-    <?php
-    } else {
-    ?>
-        <a href="simplepay.php" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+        <input type="hidden" name="pay_price" value="<?= $pay_price ?>">
+        <button x-show="showPay" type="submit" class="pay-action grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
             <span class="font-extrabold text-lg text-center text-white"><?= number_format($pay_price) ?>원 결제하기</span>
-        </a>
-    <?php
-    }
-    ?>
-</div>
+        </button>
+    </div>
+</form>
 
 <!-- 카드등록 알람 -->
 <div class="hidden fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black bg-opacity-80 z-20">
@@ -457,3 +507,15 @@ if ($int_type == 2 || $int_type == 3) {
 </div>
 
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
+
+<script>
+    $('.pay-action').on('click', function(event) {
+        var checkbox1 = $('#agree_terms').is(':checked');
+        var checkbox2 = $('#agree_payment').is(':checked');
+
+        if (!checkbox1 || !checkbox2) {
+            event.preventDefault(); // Prevent the default redirect behavior
+            alert('약관동의에 동의하셔야 합니다.');
+        }
+    });
+</script>

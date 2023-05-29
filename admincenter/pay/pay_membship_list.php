@@ -140,6 +140,9 @@ $total_record_limit = mysql_num_rows($result);
 									<tr>
 										<td class=pageInfo>총 <b><?= $total_record ?></b>건, <b><?= $page ?></b> of <?= $total_page ?> Pages</td>
 										<td align=right>
+											<button type="button" onclick="popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>',800,500);">
+												빌링작업
+											</button>
 											<select name=displayrow onchange="fnc_search()">
 												<? for ($i = 10; $i <= 100; $i += 10) { ?>
 													<option value="<?= $i ?>" <? if (Trim($i) == trim($displayrow)) { ?>selected<? } ?>><?= $i ?>개 출력
@@ -154,6 +157,9 @@ $total_record_limit = mysql_num_rows($result);
 										<td class=rnd colspan=11></td>
 									</tr>
 									<tr class=rndbg>
+										<th>
+											<input type="checkbox" name="check_all" id="check_all" onchange="fnc_All_Chk(document.frm_List)">
+										</th>
 										<th>번호</th>
 										<th>이름</th>
 										<th>핸드폰</th>
@@ -169,11 +175,12 @@ $total_record_limit = mysql_num_rows($result);
 										<td class=rnd colspan=11></td>
 									</tr>
 									<col width=5% align=center>
-									<col width=10% align=center>
-									<col width=10% align=center>
-									<col width=10% align=center>
-									<col width=10% align=left>
-									<col width=10% align=left>
+									<col width=5% align=center>
+									<col width=8% align=center>
+									<col width=8% align=center>
+									<col width=8% align=center>
+									<col width=8% align=left>
+									<col width=8% align=left>
 									<col width=10% align=center>
 									<col width=15% align=center>
 									<col width=10% align=center>
@@ -183,6 +190,9 @@ $total_record_limit = mysql_num_rows($result);
 										<? $article_num = $total_record - $displayrow * ($page - 1); ?>
 										<? for ($i = 0; $i <= $displayrow - 1; $i++) { ?>
 											<tr height=30 align="center">
+												<td align="center">
+													<input type="checkbox" name="int_number[]" value="<?= mysql_result($result, $i, int_number) ?>" style="border:0px;">
+												</td>
 												<td>
 													<font class=ver81 color=616161><?= $article_num ?></font>
 												</td>
@@ -216,9 +226,11 @@ $total_record_limit = mysql_num_rows($result);
 														?>
 													</font>
 												</td>
-												<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?> <a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>',800,500);">
+												<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?>
+													<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>',800,500);">
 														<font color="red">[빌링작업]</font>
-													</a></td>
+													</a>
+												</td>
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
 												</td>
@@ -335,6 +347,27 @@ $total_record_limit = mysql_num_rows($result);
 	</table>
 	<script>
 		table_design_load();
+
+		function fnc_All_Chk(pr_Form) {
+			var obj_Form = pr_Form;
+			try {
+				var obj = document.getElementsByName("int_number[]");
+
+				if (typeof(obj.length) != "undefined") {
+					for (var i = 0; i < obj.length; i++) {
+						if (obj[i].checked == false)
+							obj[i].checked = true;
+						else
+							obj[i].checked = false;
+					}
+				} else {
+					if (obj.checked == false)
+						obj.checked = true;
+					else
+						obj.checked = false;
+				}
+			} catch (e) {}
+		}
 	</script>
 </body>
 

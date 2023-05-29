@@ -1,7 +1,5 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
-
-<!-- 배송정보 -->
 <div x-data="{ type: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
     <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
     <div class="mt-1.5 flex gap-[7px]">
