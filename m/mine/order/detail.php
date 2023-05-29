@@ -1,5 +1,60 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
+?>
+
+<?php
+$int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
+
+$SQL_QUERY =    'SELECT
+                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, B.*, C.STR_CODE
+                FROM 
+                    ' . $Tname . 'comm_goods_cart A
+                LEFT JOIN
+                    ' . $Tname . 'comm_goods_master B
+                ON
+                    A.STR_GOODCODE=B.STR_GOODCODE
+                LEFT JOIN
+                    ' . $Tname . 'comm_com_code C
+                ON
+                    B.INT_BRAND=C.INT_NUMBER
+                WHERE 
+                    A.INT_NUMBER=' . $int_number;
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+$str_delivery_status = '이용중';
+
+switch ($row['INT_STATE']) {
+    case 1:
+        $str_delivery_status = '주문접수';
+        break;
+
+    case 2:
+        $str_delivery_status = '상품준비';
+        break;
+
+    case 3:
+        $str_delivery_status = '배송중';
+        break;
+
+    case 4:
+        $str_delivery_status = '배송완료';
+        break;
+
+    case 5:
+        $str_delivery_status = '반납';
+        break;
+}
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full">
@@ -15,18 +70,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     <img class="w-full" src="images/mockup/product.png" alt="">
                 </div>
                 <div class="flex-1 flex flex-col justify-center w-full">
-                    <div class="flex justify-center items-center w-[34px] h-[18px] bg-[#00402F]">
-                        <p class="font-normal text-[10px] leading-[11px] text-center text-white">렌트</p>
+                    <div class="flex justify-center items-center w-[34px] h-[18px] bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) ?>]">
+                        <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지')) ?></p>
                     </div>
-                    <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">CHANEL</p>
-                    <p class="mt-0.5 font-bold text-xs leading-[14px] text-[#666666]">코코핸들 스몰</p>
-                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: 2023.02.10 ~ 2023.02.13</p>
-                    <p class="mt-[3px] font-bold text-xs leading-[14px] text-black">156,000원</p>
+                    <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_CODE'] ?></p>
+                    <p class="mt-0.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+                    <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                 </div>
             </div>
             <div class="mt-2.5 flex gap-[26px] items-center px-[14px]">
-                <p class="font-bold text-xs leading-[14px] text-[#999999]">배송중</p>
-                <p class="font-bold text-xs leading-[14px] text-black underline">우체국택배(40406184567)</p>
+                <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $str_delivery_status ?></p>
+                <p class="font-bold text-xs leading-[14px] text-black underline">우체국택배(<?= $arr_Data['INT_NUMBER'] ?>)</p>
             </div>
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] px-[14px]">
                 <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">

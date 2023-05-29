@@ -13,22 +13,6 @@ $SQL_QUERY =    'SELECT
                     COUNT(A.BD_SEQ)
                 FROM 
                     `' . $Tname . 'b_bd_data@01` A
-                LEFT JOIN
-                    `' . $Tname . 'b_img_data@01` B
-                ON
-                    A.CONF_SEQ=B.CONF_SEQ
-                    AND
-                    A.BD_SEQ=B.BD_SEQ
-                    AND
-                    B.IMG_ALIGN=1
-                LEFT JOIN
-                    ' . $Tname . 'comm_goods_master C
-                ON
-                    A.BD_ITEM1=C.STR_GOODCODE
-                LEFT JOIN
-                    ' . $Tname . 'comm_com_code D
-                ON
-                    C.INT_BRAND=D.INT_NUMBER
                 WHERE 
                     A.CONF_SEQ=2
                     AND A.BD_ID_KEY IS NOT NULL
