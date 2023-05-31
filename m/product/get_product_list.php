@@ -82,7 +82,7 @@ $product_list_result = mysql_query($SQL_QUERY);
 $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
     switch ($product_type) {
-        case 1:
+        case 2:
             $price = '
                 <div class="price-section w-full">
                     <p class="current-price">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
@@ -90,7 +90,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
                 </div>
             ';
             break;
-        case 2:
+        case 1:
             $price = '
                 <div class="price-section w-full">
                     <p class="current-price">월 ' . number_format($row['INT_PRICE']) . '원</p>

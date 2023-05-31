@@ -5,11 +5,11 @@ $product_type = Fnc_Om_Conv_Default($_REQUEST['product_type'], 1);
 
 $topmenu = 2;
 switch ($product_type) {
-    case 1:
-        $topmenu = 3;
-        break;
     case 2:
         $topmenu = 2;
+        break;
+    case 1:
+        $topmenu = 3;
         break;
     case 3:
         $topmenu = 4;
@@ -42,10 +42,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 <?php
                 $mini_banner = '';
                 switch ($product_type) {
-                    case 1:
+                    case 2:
                         $mini_banner = $row['STR_BANNER2'];
                         break;
-                    case 2:
+                    case 1:
                         $mini_banner = $row['STR_BANNER4'];
                         break;
                     case 3:
@@ -72,10 +72,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 <?php
                 $main_banner = '';
                 switch ($product_type) {
-                    case 1:
+                    case 2:
                         $main_banner = $row['STR_BANNER3'];
                         break;
-                    case 2:
+                    case 1:
                         $main_banner = $row['STR_BANNER5'];
                         break;
                     case 3:
@@ -103,7 +103,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                     <div class="mt-1 flex gap-[3px] items-center">
                                         <?php
                                         switch ($product_type) {
-                                            case 1:
+                                            case 2:
                                         ?>
                                                 <p class="font-extrabold text-xs text-[14px] text-[#00402F]">
                                                     <?= $product_info ? ($product_info['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
@@ -113,7 +113,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                                 </p>
                                             <?php
                                                 break;
-                                            case 2:
+                                            case 1:
                                             ?>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
                                                     <span class="text-[#EEAC4C]">월</span><?= $product_info ? (number_format($product_info['INT_PRICE']) ?: '0') . '원' : '' ?>
@@ -150,7 +150,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     <div class="ablanc-rent">
         <?php
         switch ($product_type) {
-            case 1:
+            case 2:
         ?>
                 <p class="title">ABLANC RENT</p>
                 <div class="filter-section">
@@ -164,7 +164,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 </div>
             <?php
                 break;
-            case 2:
+            case 1:
             ?>
                 <p class="title">CHOICE IT BAG</p>
                 <div class="filter-section">

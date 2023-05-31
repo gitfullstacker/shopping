@@ -6,15 +6,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 <div class="flex flex-col px-[14px]">
     <div class="flex flex-row justify-between py-5">
-        <a href="../guide" class="flex flex-col gap-[9px] items-center">
+        <a href="/m/guide/index.php" class="flex flex-col gap-[9px] items-center">
             <img src="../images/menu_item1.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
             <p class="font-bold text-xs leading-[14px] text-[#444444]">이용안내</p>
         </a>
-        <a href="../benefits" class="flex flex-col gap-[9px] items-center">
+        <a href="/m/benefits/index.php" class="flex flex-col gap-[9px] items-center">
             <img src="../images/menu_item2.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
             <p class="font-bold text-xs leading-[14px] text-[#444444]">신규혜택</p>
         </a>
-        <a href="../review/index.php" class="flex flex-col gap-[9px] items-center">
+        <a href="/m/mine/notification/index.php" class="flex flex-col gap-[9px] items-center">
             <img src="../images/menu_item3.png" class="w-[76.39px] h-[76.39px] rounded-full" alt="" />
             <p class="font-bold text-xs leading-[14px] text-[#444444]">공지사항</p>
         </a>
