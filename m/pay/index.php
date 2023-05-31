@@ -85,13 +85,20 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </a>
         </div>
         <!-- 기본 배송지 -->
-        <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
+        <div x-data="{ selectedOption: '' }" x-show="type == 1" class="mt-[15px] flex flex-col w-full">
             <p class="font-bold text-[15px] leading-[17px] text-black">에이블랑</p>
             <p class="mt-[9px] font-bold text-xs leading-[14px] text-black">(<?= $user_Data['STR_SPOST'] ?>) <?= $user_Data['STR_SADDR1'] . ' ' . $user_Data['STR_SADDR2'] ?></p>
             <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $user_Data['STR_TELEP'] ?> / <?= $user_Data['STR_HP'] ?></p>
             <div class="mt-3 relative flex w-full">
-                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
+                <select name="message" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]" x-model="selectedOption">
                     <option value="">배송시 요청사항을 선택해 주세요</option>
+                    <option value="1">파손위험상품입니다. 배송시 주의해주세요.</option>
+                    <option value="2">부재시 전화 또는 문자 주세요</option>
+                    <option value="3">부재시 경비실에 맡겨 주세요</option>
+                    <option value="4">부재시 문 앞에 놓아주세요</option>
+                    <option value="5">택배함에 넣어주세요</option>
+                    <option value="6">배송전에 꼭 연락주세요</option>
+                    <option value="0">직접입력</option>
                 </select>
                 <div class="absolute top-[15px] right-[15px] pointer-events-none">
                     <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,6 +106,9 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </svg>
                 </div>
             </div>
+            <template x-if="selectedOption === '0'">
+                <textarea class="mt-1.5 border-[0.72px] border-[#DDDDDD] rounded-[3px] p-2.5 w-full" name="message_detail" id="" cols="30" rows="6"></textarea>
+            </template>
         </div>
         <!-- 신규 배송지 -->
         <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full">

@@ -47,7 +47,7 @@ fnc_MLogin_Chk();
             <div class="flex flex-col gap-[7px] w-full pt-[30px] pb-2 border-b-[0.5px] border-b-[#E0E0E0] border-solid">
                 <p class="font-extrabold text-lg leading-5 text-[#333333]">장바구니</p>
                 <div class="flex justify-end">
-                    <button class="flex justify-center items-center w-[86px] h-[29px] border rounded-[12.5px] border-solid border-[#DDDDDD] bg-white">
+                    <button type="button" class="flex justify-center items-center w-[86px] h-[29px] border rounded-[12.5px] border-solid border-[#DDDDDD] bg-white" onclick="deleteNoProductions()">
                         <span class="font-bold text-xs leading-[14px] flex items-center text-center text-[#666666]">품절상품 삭제</span>
                     </button>
                 </div>
@@ -195,6 +195,22 @@ fnc_MLogin_Chk();
                 }
                 if (result['status'] == 200) {
                     if (result['data'] == false) {}
+                }
+            }
+        });
+    }
+
+    function deleteNoProductions() {
+        $.ajax({
+            url: "remove_no_productions.php",
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+                    return;
+                }
+                if (result['status'] == 200) {
+                    location.href="/m/mine/basket/index.php";
                 }
             }
         });

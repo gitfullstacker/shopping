@@ -34,6 +34,7 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     A.CONF_SEQ=2
                     AND A.BD_ID_KEY IS NOT NULL
+                    AND (A.BD_HIDE=0 OR A.MEM_ID="' . $arr_Auth[0] . '")
                     AND C.STR_GOODCODE=' . $str_goodcode;
 
 $result = mysql_query($SQL_QUERY);
@@ -84,8 +85,9 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     A.CONF_SEQ=2
                     AND A.BD_ID_KEY IS NOT NULL
+                    AND (A.BD_HIDE=0 OR A.MEM_ID="' . $arr_Auth[0] . '")
                     AND C.STR_GOODCODE="' . $str_goodcode . '"
-                ORDER BY A.BD_ORDER DESC
+                ORDER BY A.BD_REG_DATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
 
