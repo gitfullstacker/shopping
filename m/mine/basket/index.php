@@ -144,8 +144,13 @@ fnc_MLogin_Chk();
                                 ' . $Tname . 'comm_com_code B
                             ON
                                 A.INT_BRAND=B.INT_NUMBER
+                            LEFT JOIN
+                                ' . $Tname . 'comm_member_basket C
+                            ON
+                                A.STR_GOODCODE=C.STR_GOODCODE
+                                AND C.STR_USERID="' . $arr_Auth[0] . '"
                             WHERE 
-                                (A.STR_SERVICE="Y" OR A.STR_SERVICE="R")
+                                C.STR_USERID IS NULL
                             ORDER BY A.INT_VIEW DESC
                             LIMIT 4';
 
@@ -153,7 +158,7 @@ fnc_MLogin_Chk();
 
                 while ($row = mysql_fetch_assoc($product_result)) {
                 ?>
-                    <a href="detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
+                    <a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
                         <div class="w-full flex justify-center items-center relative px-2.5 bg-[#F9F9F9] rounded-[5px] h-[176px]">
                             <!-- 타그 -->
                             <div class="justify-center items-center w-[25px] h-[25px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">

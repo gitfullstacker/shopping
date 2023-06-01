@@ -101,22 +101,36 @@ mysql_query($Sql_Query);
 $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_passwd') WHERE STR_USERID='$str_userid' ";
 mysql_query($Sql_Query);
 
-//========스탬프 지급
-if (Fnc_Om_Store_Info(11) > 0) {
+// 신규가입쿠폰 가입시 자동발행
+$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_stamp_prod` A WHERE INT_PROD=2';
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
 
-	$SQL_QUERY = "select ifnull(count(str_userid),0) as lastnumber from " . $Tname . "comm_member where str_userid='$str_tuserid' ";
-	$arr_max_Data = mysql_query($SQL_QUERY);
-	$mTcnt = mysql_result($arr_max_Data, 0, lastnumber);
+if (!$arr_Rlt_Data) {
+	echo 'Could not run query: ' . mysql_error();
+	exit;
+}
+$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-	if ($mTcnt > 0) {
-		Fnc_Om_Stamp_In($str_tuserid, "2", Fnc_Om_Store_Info(11), "");
-	}
+if ($arr_Data) {
+	$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_stamp` (STR_USERID, INT_STAMP, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $str_userid . '", 2, "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
+	mysql_query($SQL_QUERY);
 }
 
-$snoopy = new snoopy;
-$snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_join.html?str_name=" . urlencode($str_name) . "&str_userid=" . urlencode($str_userid));
-$body = $snoopy->results;
+//========스탬프 지급
+// if (Fnc_Om_Store_Info(11) > 0) {
 
+// 	$SQL_QUERY = "select ifnull(count(str_userid),0) as lastnumber from " . $Tname . "comm_member where str_userid='$str_tuserid' ";
+// 	$arr_max_Data = mysql_query($SQL_QUERY);
+// 	$mTcnt = mysql_result($arr_max_Data, 0, lastnumber);
+
+// 	if ($mTcnt > 0) {
+// 		Fnc_Om_Stamp_In($str_tuserid, "2", Fnc_Om_Store_Info(11), "");
+// 	}
+// }
+
+// $snoopy = new snoopy;
+// $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_join.html?str_name=" . urlencode($str_name) . "&str_userid=" . urlencode($str_userid));
+// $body = $snoopy->results;
 
 Fnc_Om_Sendmail("에이블랑에 회원이 되신 것을 환영합니다.", $body, Fnc_Om_Store_Info(2), $str_email);
 

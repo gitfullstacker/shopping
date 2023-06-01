@@ -7,9 +7,9 @@ function RowClick(str_no) {
 function RowClick2(str_no) {
 	popupLayer('good_master_like.php?str_no=' + str_no, 800, 500);
 }
-function AddNew() {
+function AddNew(int_type) {
 	document.frm.RetrieveFlag.value = "INSERT";
-	document.frm.action = "good_master_edit.php";
+	document.frm.action = "good_master_edit.php?int_type=" + int_type;
 	document.frm.submit();
 }
 function fnc_search() {

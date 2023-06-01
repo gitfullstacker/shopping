@@ -15,50 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         </div>
     </div>
 
-    <div x-show="menu == 1" class="flex flex-col w-full">
-        <div class="flex flex-col w-full divide-y-[0.5px] divide-[#E0E0E0]">
-            <?php
-            for ($i = 0; $i < 5; $i++) {
-            ?>
-                <div class="flex w-full py-[15px]">
-                    <div class="flex flex-col w-full bg-white border border-solid border-[#DDDDDD] divide-y-[0.5px] divide-[#E0E0E0]">
-                        <div class="px-[15px] py-3 flex flex-col">
-                            <p class="font-extrabold text-xl leading-[23px] text-black">15%</p>
-                            <p class="mt-[1px] font-bold text-xs leading-[14px] text-[#666666]">렌트 15% 추가 할인</p>
-                            <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">2023.02.15 ~ 2023.02.18 23:59 까지</p>
-                        </div>
-                        <div class="px-[15px] py-3 flex items-center">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#999999]">렌트 카테고리 상품 40,000원 이상 결제시(일부 상품 제외)</p>
-                        </div>
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
-        </div>
-        <div class="mt-[30px] flex gap-[23px] justify-center items-center">
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-                </svg>
-            </a>
-            <div class="flex gap-[9.6px] items-center">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <a href="#" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] <?= $i == 0 ? 'bg-black' : 'bg-white' ?>">
-                        <p class="font-bold text-xs leading-[14px] text-center <?= $i == 0 ? 'text-white' : 'text-black' ?>"><?= $i + 1 ?></p>
-                    </a>
-                <?php
-                }
-                ?>
-            </div>
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-                </svg>
-            </a>
-        </div>
+    <div x-show="menu == 1" class="flex flex-col w-full" id="coupon_list">
     </div>
 
     <div x-show="menu == 2" class="flex flex-col w-full">
@@ -86,3 +43,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    $(document).ready(function() {
+        searchCoupon();
+    });
+
+    function searchCoupon(page = 0) {
+        url = "get_coupon_list.php";
+        url += "?page=" + page;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#coupon_list").html(result);
+            }
+        });
+    }
+</script>

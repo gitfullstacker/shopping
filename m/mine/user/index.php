@@ -54,8 +54,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 				<p class="font-extrabold text-lg leading-5 text-black">3000</p>
 			</div>
 			<div class="flex flex-col gap-[5px] px-[14px] py-[19px]">
+				<?php
+				$SQL_QUERY =    'SELECT
+									COUNT(A.INT_NUMBER) AS NUM
+								FROM 
+									' . $Tname . 'comm_member_stamp A
+								WHERE 
+									A.STR_USED="N"
+									AND A.STR_USERID="' . $arr_Auth[0] . '"
+									AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
+									AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"';
+
+				$arr_Rlt_Data = mysql_query($SQL_QUERY);
+				$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+				?>
 				<p class="font-bold text-xs leading-[14px] text-[#666666]">사용가능한 쿠폰</p>
-				<p class="font-extrabold text-lg leading-5 text-black">10</p>
+				<p class="font-extrabold text-lg leading-5 text-black"><?= $arr_Data['NUM'] ?></p>
 			</div>
 		</div>
 	</div>

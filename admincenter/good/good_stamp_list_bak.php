@@ -174,22 +174,22 @@
 							<tr><td class=rnd colspan=8></td></tr>
 							<tr class=rndbg>
 								<th>번호</th>
-								<th>쿠폰명</th>
-								<th>가격</th>
-								<th>퍼센트</th>
-								<th>사용기간</th>
+								<th>이미지</th>
+								<th>상품명</th>
+								<th>사용스템프</th>
 								<th>등록일</th>
 								<th>출력유무</th>
 								<th>수정</th>
+								<th>삭제</th>
 							</tr>
 							<tr><td class=rnd colspan=8></td></tr>
 							<col width=5% align=center>
+							<col width=15% align=center>
 							<col width=35% align=left>
-							<col width=10% align=center>
-							<col width=10% align=center>
 							<col width=10% align=center>
 							<col width=15% align=center>
 							<col width=10% align=center>
+							<col width=5% align=center>
 							<col width=5% align=center>
 							<?$count=0;?>
 							<?if($total_record_limit!=0){?>
@@ -197,12 +197,13 @@
 							<?for($i = 0 ;$i <= $displayrow -1; $i++) {?>
 							<tr height=30 align="center">
 								<td><font class=ver81 color=616161><?= $article_num?></font></td>
+								<td height="100" align="center" valign="middle">
+									<?if (mysql_result($result,$i,str_image1)!="") {?><img src="/admincenter/files/stamp/<?=mysql_result($result,$i,str_image1)?>" width="120" height="80" border="0"><?}else{?>&nbsp;<?}?>
+								</td>
 								<td>
 									<span id="navig" name="navig" m_id="admin" m_no="1"><font color=0074BA><b><?=mysql_result($result,$i,str_prod)?></b></font></span>
 								</td>
-								<td><?=number_format(mysql_result($result,$i,int_price))?>원</td>
-								<td><?=number_format(mysql_result($result,$i,int_percent))?>%</td>
-								<td><?=number_format(mysql_result($result,$i,int_months))?>개월</td>
+								<td><?=number_format(mysql_result($result,$i,int_ustamp))?>개</td>
 								<td><font class=ver81 color=616161><?=substr(mysql_result($result,$i,dtm_indate),0,10)?></font></td>
 								<td><font class=small color=616161>
 									<?switch (mysql_result($result,$i,str_service)) {
@@ -212,6 +213,7 @@
 									?>	
 								</font></td>
 								<td><a href="javascript:RowClick('<?=mysql_result($result,$i,int_prod)?>');"><img src="/admincenter/img/i_edit.gif"></a></td>
+								<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?=mysql_result($result,$i,int_prod)?>"></td>
 							</tr>
 							<tr><td colspan=8 class=rndline></td></tr>
 							<?$count++;?>
@@ -280,7 +282,16 @@
 						<?}
 						?>
 						</div>
-						
+
+						<div style="float:left;">
+						<img src="/admincenter/img/btn_allselect_s.gif" alt="전체선택"  border="0" align='absmiddle' style="cursor:hand" onclick="javascript:selectItem('1');">
+						<img src="/admincenter/img/btn_alldeselect_s.gif" alt="선택해제"  border="0" align='absmiddle' style="cursor:hand" onclick="javascript:selectItem('2');">
+						<img src="/admincenter/img/btn_alldelet_s.gif" alt="선택삭제" border="0" align='absmiddle' style="cursor:hand" onclick="javaScript:Adelete_Click();">
+						</div>
+
+						<div style="float:right;">
+						<img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew();">
+						</div>
 						</form>
 						<table border="0" style="display:none;">
 							<tr>

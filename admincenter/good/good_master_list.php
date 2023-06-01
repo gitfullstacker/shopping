@@ -230,7 +230,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 								<table width=100%>
 									<tr>
 										<td>
-											<img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew();">
+											<img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew(<?= $int_type ?>);">
 										</td>
 										<td>
 											<select name="to_int_type" id="to_int_type">
@@ -575,7 +575,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 									[소트 : <img src="/admincenter/img/btn_allmodify_s.gif" align="absmiddle" style="cursor:hand" onclick="javaScript:Sort_Click();">]
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-									<img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew();">
+									<img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew(<?= $int_type ?>);">
 								</div>
 							</form>
 							<table border="0" style="display:none;">

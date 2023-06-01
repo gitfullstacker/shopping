@@ -280,8 +280,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="flex flex-col w-full">
                     <p class="font-extrabold text-xs leading-[14px] text-black">상품등급</p>
                 </div>
-                <div x-data="{ grade: 1 }" class="flex flex-col w-full">
-                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 1 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 1">
+                <div x-data="{ grade: <?= $arr_Data['INT_GRADE'] ?> }" class="flex flex-col w-full">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 1 ? 'border-black' : 'border-[#D9D9D9]'">
                         <div x-show="grade == 1" class="absolute top-0 left-0" style="display: none;">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
@@ -294,7 +294,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">깨끗하게 보존된 새 상품</p>
                         </div>
                     </div>
-                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 2 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 2">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 2 ? 'border-black' : 'border-[#D9D9D9]'">
                         <div x-show="grade == 2" class="absolute top-0 left-0" style="display: none;">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
@@ -307,7 +307,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">새 상품과 비슷한 수준의 깨끗한 상품</p>
                         </div>
                     </div>
-                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 3 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 3">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 3 ? 'border-black' : 'border-[#D9D9D9]'">
                         <div x-show="grade == 3" class="absolute top-0 left-0" style="display: none;">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
@@ -320,7 +320,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">대체적으로 깨끗한 상품</p>
                         </div>
                     </div>
-                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 4 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 4">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 4 ? 'border-black' : 'border-[#D9D9D9]'">
                         <div x-show="grade == 4" class="absolute top-0 left-0" style="display: none;">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />
@@ -333,7 +333,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">약한 스크래치·탈색·오염이 있는 상품</p>
                         </div>
                     </div>
-                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 5 ? 'border-black' : 'border-[#D9D9D9]'" x-on:click="grade = 5">
+                    <div class="relative flex w-full h-8 border border-solid" x-bind:class="grade == 5 ? 'border-black' : 'border-[#D9D9D9]'">
                         <div x-show="grade == 5" class="absolute top-0 left-0" style="display: none;">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.22222 7.33333L8.13889 3.41667L7.36111 2.63889L4.22222 5.77778L2.63889 4.19444L1.86111 4.97222L4.22222 7.33333ZM0 10V0H10V10H0Z" fill="black" />

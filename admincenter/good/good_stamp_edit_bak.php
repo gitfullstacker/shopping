@@ -79,26 +79,35 @@
 									<table class=tb>
 										<col class=cellC style="width:12%;"><col style="padding-left:10px;width:88%;">
 										<tr> 
-											<td>쿠폰명</td>
+											<td>상품명</td>
 											<td colspan="3"><input type=text name=str_prod value="<?=$arr_Data['STR_PROD']?>" style="width:350px;"></td>
 										</tr>
 										<tr> 
-											<td>가격</td>
+											<td>사용할 스템프</td>
 											<td colspan="3">
-												<input type="number" name="int_price" value="<?=$arr_Data['INT_PRICE']?>">원
+												<select name=int_ustamp>
+													<?for ($i = 1; $i <= 100; $i++) {?>
+													<option value="<?=$i?>" <?If (Trim($i)==trim($arr_Data['INT_USTAMP'])) {?>selected<?}?>><?=$i?>개
+													<?}?>
+												</select>
 											</td>
 										</tr>
-										<tr> 
-											<td>퍼센트</td>
-											<td colspan="3">
-												<input type="number" name="int_percent" value="<?=$arr_Data['INT_PERCENT']?>">원
+										<tr>
+											<td>이미지</td>
+											<td colspan=3>
+												<table class=tb>
+													<tr>
+														<td width="100%" align="center" valign="middle" height="20"><?=$arr_Data['STR_IMAGE1']?>&nbsp;</td>
+													</tr>
+													<tr>
+														<td align="center" valign="middle" height="200"><?if ($RetrieveFlag=="UPDATE") {?><?if (!($arr_Data['STR_IMAGE1']=="")) {?><img src="/admincenter/files/stamp/<?=$arr_Data['STR_IMAGE1']?>" width="230" height="160" border="0"><?}else{?>&nbsp;<?}?><?}else{?>&nbsp;<?}?></td>
+													</tr>
+												</table>
 											</td>
 										</tr>
-										<tr> 
-											<td>사용기간</td>
-											<td colspan="3">
-												<input type="number" name="int_months" value="<?=$arr_Data['INT_MONTHS']?>">개월
-											</td>
+										<tr>
+											<td>이미지</td>
+											<td colspan="3"><input type=file name=str_Image1 style="width:200;" onChange="uploadImageCheck(this)"> (230*160) <?if (!($arr_Data['STR_IMAGE1']=="")) {?>- 삭제시 <input type="checkbox" name="str_del_img1" value="Y" class="null"><?}?></td>
 										</tr>
 										<tr>
 											<td>출력여부</td>

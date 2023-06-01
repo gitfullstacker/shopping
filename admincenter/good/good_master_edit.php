@@ -4,6 +4,8 @@ Fnc_Acc_Admin();
 //Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <?
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
+
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag], "INSERT");
 $page = Fnc_Om_Conv_Default($_REQUEST[page], 1);
 $str_no = Fnc_Om_Conv_Default($_REQUEST[str_no], "");
@@ -75,6 +77,7 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 							<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 
 							<form id="frm" name="frm" target="_self" method="POST" action="good_master_edit.php" enctype="multipart/form-data">
+								<input type="hidden" name="int_type" value="<?= $arr_Data['int_type'] ?: $int_type ?>">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="str_no" value="<?= $str_no ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
@@ -283,8 +286,27 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 												<tr>
 													<td>가방형태(이미지 업로드)</td>
 													<td><input type=file name=str_Timage style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_TIMAGE'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_timg" value="Y" class="null"><? } ?></td>
-													<td></td>
-													<td></td>
+													<?php
+													if ($arr_Data['INT_TYPE'] == 3 || $int_type == 3) {
+													?>
+														<td>상품등급</td>
+														<td>
+															<select name="int_grade">
+																<option value="1" <?= $arr_Data['INT_GRADE'] == 1 ? 'selected' : '' ?>>깨끗하게 보존된 새 상품</option>
+																<option value="2" <?= $arr_Data['INT_GRADE'] == 2 ? 'selected' : '' ?>>새 상품과 비슷한 수준의 깨끗한 상품</option>
+																<option value="3" <?= $arr_Data['INT_GRADE'] == 3 ? 'selected' : '' ?>>대체적으로 깨끗한 상품</option>
+																<option value="4" <?= $arr_Data['INT_GRADE'] == 4 ? 'selected' : '' ?>>약한 스크래치·탈색·오염이 있는 상품</option>
+																<option value="5" <?= $arr_Data['INT_GRADE'] == 5 ? 'selected' : '' ?>>눈에 띄는 스크래치·탈색·오염이 있는 상품</option>
+															</select>
+														</td>
+													<?php
+													} else {
+													?>
+														<td></td>
+														<td></td>
+													<?php
+													}
+													?>
 												</tr>
 												<tr>
 													<td>크기</td>
