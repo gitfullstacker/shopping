@@ -44,11 +44,49 @@ $qna_list_result = mysql_query($SQL_QUERY);
 if (mysql_num_rows($qna_list_result) > 0) {
     $result = '<div class="flex flex-col gap-[15px] w-full">';
     while ($row = mysql_fetch_assoc($qna_list_result)) {
+        $type_name = '기타문의';
+
+        switch ($row['INT_TYPE']) {
+            case 1:
+                $type_name = '교환';
+                break;
+            case 2:
+                $type_name = '환불';
+                break;
+            case 3:
+                $type_name = '취소(출하전 취소)';
+                break;
+            case 4:
+                $type_name = '배송';
+                break;
+            case 5:
+                $type_name = '불량/AS';
+                break;
+            case 6:
+                $type_name = '주문/결제';
+                break;
+            case 7:
+                $type_name = '상품/재입고';
+                break;
+            case 8:
+                $type_name = '적립금';
+                break;
+            case 9:
+                $type_name = '회원 관련';
+                break;
+            case 10:
+                $type_name = '기타 문의';
+                break;
+            case 11:
+                $type_name = '신고';
+                break;
+        }
+
         $result .= '
             <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex justify-between items-center gap-4 pb-[15px] border-b-[0.5px] border-[#E0E0E0]">
                 <div class="flex-1 flex flex-col gap-1.5">
                     <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">[상품문의]</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]">[' . $type_name . ']</p>
                     <p class="font-bold text-xs leading-[14px] text-[#666666] line-clamp-1">' . $row['STR_CONT'] . '</p>
                 </div>
                 <p class="font-bold text-xs leading-[14px] text-' . ($row['NUM_ANS'] > 0 ? 'black' : '[#999999]') . '">' . ($row['NUM_ANS'] > 0 ? '답변완료' : '답변대기') . '</p>

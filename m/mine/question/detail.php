@@ -38,7 +38,46 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <p class="font-bold text-[10px] leading-[11px]"><?= date('Y.m.d', strtotime($arr_Data['DTM_INDATE'])) ?></p>
         <div class="flex justify-between items-center">
             <div class="flex flex-col gap-1.5">
-                <p class="font-bold text-xs leading-[14px] text-[#666666]">[상품문의]</p>
+                <?php
+                $type_name = '기타문의';
+
+                switch ($arr_Data['INT_TYPE']) {
+                    case 1:
+                        $type_name = '교환';
+                        break;
+                    case 2:
+                        $type_name = '환불';
+                        break;
+                    case 3:
+                        $type_name = '취소(출하전 취소)';
+                        break;
+                    case 4:
+                        $type_name = '배송';
+                        break;
+                    case 5:
+                        $type_name = '불량/AS';
+                        break;
+                    case 6:
+                        $type_name = '주문/결제';
+                        break;
+                    case 7:
+                        $type_name = '상품/재입고';
+                        break;
+                    case 8:
+                        $type_name = '적립금';
+                        break;
+                    case 9:
+                        $type_name = '회원 관련';
+                        break;
+                    case 10:
+                        $type_name = '기타 문의';
+                        break;
+                    case 11:
+                        $type_name = '신고';
+                        break;
+                }
+                ?>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]">[<?= $type_name ?>]</p>
                 <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_TITLE'] ?></p>
             </div>
             <a href="remove_qna_list.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] w-[50px] h-[25px]">

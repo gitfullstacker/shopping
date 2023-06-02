@@ -16,7 +16,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">상담분류</p>
             <div class="relative w-full">
                 <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
-                    <option value="0" selected>선택 안함</option>
+                    <option value="" selected>선택 안함</option>
+                    <option value="1" selected>교환</option>
+                    <option value="2" selected>환불</option>
+                    <option value="3" selected>취소(출하전 취소)</option>
+                    <option value="4" selected>배송</option>
+                    <option value="5" selected>불량/AS</option></option>
+                    <option value="6" selected>주문/결제</option>
+                    <option value="7" selected>상품/재입고</option>
+                    <option value="8" selected>적립금</option>
+                    <option value="9" selected>회원 관련</option>
+                    <option value="10" selected>기타 문의</option>
+                    <option value="11" selected>신고</option>
                 </select>
                 <span class="absolute top-5 right-[19px]">
                     <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,6 +112,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         var inputValue = document.getElementById("str_content").value;
         if (inputValue === "") {
             alert("문의내용을 남겨주세요.");
+            return false;
+        }
+
+        var inputValue = document.getElementById("int_type").value;
+        if (inputValue === "") {
+            alert("상담분류를 선택해주세요.");
             return false;
         }
 
