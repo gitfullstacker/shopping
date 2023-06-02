@@ -68,7 +68,26 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 <form x-data="{
     type: '',
-    showPay: false
+    showPay: false,
+    payAmount: {
+        price: <?= $product_Data['INT_PRICE'] ?>,
+        discount: {
+            product: <?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 : 0 ?>,
+            membership: 0
+        },
+        coupon: 0,
+        saved: 0
+    },
+    changeCoupon(selectElement) {
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        this.payAmount.coupon = selectedOption.getAttribute('price');
+    },
+    getTotalPrice() {
+        return this.formatNumber(this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.saved);
+    },
+    formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
 }" action="process.php" method="post" class="mt-[30px] flex flex-col w-full">
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
     <input type="hidden" name="str_goodcode" value="<?= $str_goodcode ?>">
@@ -215,8 +234,33 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">쿠폰/적립금</p>
         <div class="mt-[15px] relative flex w-full">
-            <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-                <option value="">사용가능 쿠폰 0장 / 전체 0장</option>
+            <?php
+            $SQL_QUERY =    'SELECT 
+                                A.DTM_SDATE, A.DTM_EDATE, B.*
+                            FROM 
+                                ' . $Tname . 'comm_member_stamp A
+                            LEFT JOIN
+                                ' . $Tname . 'comm_stamp_prod B
+                            ON
+                                A.INT_STAMP=B.INT_PROD
+                            WHERE 
+                                A.STR_USED="N"
+                                AND A.STR_USERID="' . $arr_Auth[0] . '"
+                                AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
+                                AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"
+                            ORDER BY A.DTM_INDATE DESC';
+
+            $coupon_list_result = mysql_query($SQL_QUERY);
+            ?>
+            <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]" x-on:change="changeCoupon($event.target)">
+                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= mysql_num_rows($coupon_list_result) ?>장</option>
+                <?php
+                while ($row = mysql_fetch_assoc($coupon_list_result)) {
+                ?>
+                    <option value="<?= $row['INT_PROD'] ?>" price="<?= $row['INT_PRICE'] ?>"><?= $row['STR_PROD'] ?></option>
+                <?php
+                }
+                ?>
             </select>
             <div class="absolute top-[15px] right-[15px] pointer-events-none">
                 <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -248,7 +292,6 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <!-- 결제방법 -->
     <div class="mt-[15px] flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">결제방법</p>
-
         <?php
         if ($int_type == 1) {
         ?>
@@ -400,32 +443,32 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($total_price) ?>원</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.price) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($discount_price) ?>원</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.discount.product + payAmount.discount.membership) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                    <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($discount_price) ?>원</p>
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.product) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                    <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($membership_price) ?>원</p>
+                    <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.membership) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($cupon_price) ?>원</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.coupon) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($saved_price) ?>원</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.saved) + '원'"></p>
                 </div>
                 <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
                 <div class="mt-[5px] flex items-center justify-between">
                     <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제예정금액</p>
-                    <p class="font-extrabold text-[15px] leading-[17px] text-right text-black"><?= number_format($pay_price) ?>원</p>
+                    <p class="font-extrabold text-[15px] leading-[17px] text-right text-black" x-text="getTotalPrice() + '원'"></p>
                 </div>
             </div>
         </div>

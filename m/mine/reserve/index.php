@@ -1,5 +1,26 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
+?>
+
+<?php
+$SQL_QUERY =    'SELECT
+                    A.INT_MILEAGE
+                FROM 
+                    ' . $Tname . 'comm_member A
+                WHERE 
+                    A.STR_USERID="' . $arr_Auth[0] . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div x-data="{ menu: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
@@ -9,10 +30,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
     <div class="mt-[14px] flex flex-col w-full divide-y-[0.5px] divide-[#E0E0E0] bg-white border border-solid border-[#DDDDDD]">
         <div class="flex flex-col gap-[5px] px-[15px] py-5">
             <p class="font-bold text-xs leading-[14px] text-[#666666]">나의 적립금</p>
-            <p class="font-extrabold text-[25px] leading-[28px] text-black">3,000원</p>
+            <p class="font-extrabold text-[25px] leading-[28px] text-black"><?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
         </div>
         <div class="px-[15px] py-3">
-            <p class="font-bold text-[10px] leading-[11px] text-[#999999]">소멸예정 적립금(30일 이내 소멸예정): 0원</p>
+            <p class="font-bold text-[10px] leading-[11px] text-[#999999]">소멸예정 적립금(30일 이내 소멸예정): <?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
         </div>
     </div>
 
@@ -29,51 +50,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 </svg>
             </div>
         </div>
-        <div class="flex flex-col w-full">
-            <div class="flex flex-col gap-[15px] w-full">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <div class="flex justify-between items-center pb-[15px] border-b-[0.5px] border-[#E0E0E0]">
-                        <div class="flex flex-col w-full">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#999999]">2023.02.12</p>
-                            <p class="mt-1.5 font-bold text-xs leading-14px text-[#666666]">주문 적립</p>
-                            <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: 20230210100</p>
-                        </div>
-                        <p class="font-bold text-xs leading-[14px] text-[#000000] whitespace-nowrap">+3,000원</p>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-            <div class="mt-[30px] flex gap-[23px] justify-center items-center">
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-                </svg>
-            </a>
-            <div class="flex gap-[9.6px] items-center">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <a href="#" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] <?= $i == 0 ? 'bg-black' : 'bg-white' ?>">
-                        <p class="font-bold text-xs leading-[14px] text-center <?= $i == 0 ? 'text-white' : 'text-black' ?>"><?= $i + 1 ?></p>
-                    </a>
-                <?php
-                }
-                ?>
-            </div>
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-                </svg>
-            </a>
+        <div class="flex flex-col w-full" id="reserve_list">
         </div>
-        </div>
-
     </div>
 </div>
 
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    $(document).ready(function() {
+        searchReserve();
+    });
+
+    function searchReserve(page = 0) {
+        url = "get_reserve_list.php";
+        url += "?page=" + page;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#reserve_list").html(result);
+            }
+        });
+    }
+</script>

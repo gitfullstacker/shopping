@@ -7,15 +7,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <p class="font-extrabold text-lg leading-[20px] text-black">1:1 문의</p>
     </div>
 
-    <form class="flex flex-col gap-[15px]">
+    <form action="create_proc.php" method="post" class="flex flex-col gap-[15px]" onsubmit="return validateForm()" enctype="multipart/form-data">
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-xs leading-[14px] text-black">제목</p>
-            <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="title" id="title" placeholder="제목을 입력해주세요">
+            <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_title" id="str_title" placeholder="제목을 입력해주세요">
         </div>
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-xs leading-[14px] text-black">상담분류</p>
             <div class="relative w-full">
-                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="type" id="type">
+                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
                     <option value="0" selected>선택 안함</option>
                 </select>
                 <span class="absolute top-5 right-[19px]">
@@ -27,7 +27,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         </div>
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-xs leading-[14px] text-black">문의내용</p>
-            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-bold text-xs leading-[19px] placeholder:text-[#999999]" name="content" id="content" placeholder="안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.
+            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-bold text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont" placeholder="안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.
 
 폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며,
 사전 안내없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.
@@ -41,8 +41,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">이미지 첨부</p>
             <div class="flex gap-[5px]">
                 <div class="grow flex flex-col gap-2.5">
-                    <input type="file" class="hidden" name="image_input" id="image_input" />
-                    <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="images" id="images">
+                    <input type="file" class="hidden" name="str_image" id="image_input" onchange="handleFileChange(event)" />
+                    <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="images" id="image_names" readonly>
                     <p class="font-bold text-[10px] leading-[15px] text-[#999999]">이미지 파일(JPG, PNG, GIF)를 기준으로 최대 10MB이하,
                         최대 3개까지 등록가능합니다.</p>
                 </div>
@@ -77,3 +77,34 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    function handleFileChange(event) {
+        const image_input = event.target;
+        const files = image_input.files;
+        const image_names = document.getElementById('image_names');
+
+        if (files.length > 0) {
+            image_names.value = files[0].name;
+        } else {
+            image_names.value = '';
+        }
+    }
+
+    function validateForm() {
+        var inputValue = document.getElementById("str_title").value;
+        if (inputValue === "") {
+            alert("제목을 남겨주세요.");
+            return false;
+        }
+
+        var inputValue = document.getElementById("str_content").value;
+        if (inputValue === "") {
+            alert("문의내용을 남겨주세요.");
+            return false;
+        }
+
+        // If validation passes, return true to allow the form submission
+        return true;
+    }
+</script>

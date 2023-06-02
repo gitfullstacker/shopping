@@ -156,7 +156,7 @@ if (!$rcd_cnt) {
 	mysql_query($Sql_Query);
 
 	// 신규가입쿠폰 가입시 자동발행
-	$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_stamp_prod` A WHERE INT_PROD=2';
+	$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_stamp_prod` A WHERE INT_PROD=1';
 	$arr_Rlt_Data = mysql_query($SQL_QUERY);
 
 	if (!$arr_Rlt_Data) {
@@ -166,7 +166,7 @@ if (!$rcd_cnt) {
 	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 	if ($arr_Data) {
-		$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_stamp` (STR_USERID, INT_STAMP, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $str_userid . '", 2, "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
+		$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_stamp` (STR_USERID, INT_STAMP, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $str_userid . '", ' . $arr_Data['INT_PROD'] . ', "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
 		mysql_query($SQL_QUERY);
 	}
 

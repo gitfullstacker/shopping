@@ -1,6 +1,9 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
-<?php
+<?
+fnc_MLogin_Chk();
+?>
 
+<?php
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 
 $str_Add_Tag = $_SERVER['DOCUMENT_ROOT'] . "/admincenter/files/boad/2/";
@@ -11,51 +14,52 @@ if (!is_dir($str_Add_Tag)) {
 
 switch ($RetrieveFlag) {
     case "INSERT":
-        $str_images = array();
-
-        for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
-            $obj_File = $_FILES['str_image']['tmp_name'][$i];
-            $obj_File_name = $_FILES['str_image']['name'][$i];
-            $obj_File_size = $_FILES['str_image']['size'][$i];
-
-            $full_name = explode(".", "$obj_File_name");
-
-            $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
-            $str_images[$i] = $str_Temp[1][0];
+        // ID 얻기
+        $Sql_Query = "SELECT IFNULL(MAX(BD_SEQ), 0)+1 AS SEQ FROM `" . $Tname . "b_bd_data@01`";
+        $result = mysql_query($Sql_Query);
+        if (!result) {
+            error("QUERY_ERROR");
+            exit;
         }
+        $new_id = mysql_result($result, 0, 0);
+
+        // BD_ID_KEY 생성
+        $bd_id_key = Fnc_Om_Id_Key_Create();
 
         $arr_Get_Data = array();
         $arr_Column_Name = array();
 
-        $arr_Column_Name[0]     =     "STR_GOODCODE";
-        $arr_Column_Name[1]     =     "STR_CART";
-        $arr_Column_Name[2]     =     "STR_USERID";
-        $arr_Column_Name[3]     =     "INT_GOOD_TYPE";
-        $arr_Column_Name[4]     =     "STR_CONTENT";
-        $arr_Column_Name[5]     =     "STR_IMAGE1";
-        $arr_Column_Name[6]     =     "STR_IMAGE2";
-        $arr_Column_Name[7]     =     "STR_IMAGE3";
-        $arr_Column_Name[8]     =     "DTM_REG_DATE";
-        $arr_Column_Name[9]     =     "DTM_EDIT_DATE";
-        $arr_Column_Name[10]    =     "INT_STAR";
-        $arr_Column_Name[11]    =     "INT_USE_REVIEW";
-        $arr_Column_Name[12]    =     "INT_PACKAGE_REVIEW";
-        $arr_Column_Name[13]    =     "INT_DELIVERY_REVIEW";
+        $arr_Column_Name[0]     =     "BD_SEQ";
+        $arr_Column_Name[1]     =     "CONF_SEQ";
+        $arr_Column_Name[2]     =     "BD_ID_KEY";
+        $arr_Column_Name[3]     =     "BD_IDX";
+        $arr_Column_Name[4]     =     "BD_ORDER";
+        $arr_Column_Name[5]     =     "MEM_ID";
+        $arr_Column_Name[6]     =     "BD_CONT";
+        $arr_Column_Name[7]     =     "BD_REG_DATE";
+        $arr_Column_Name[8]     =     "BD_EDIT_DATE";
+        $arr_Column_Name[9]     =     "INT_USTAR";
+        $arr_Column_Name[10]    =     "INT_PSTAR";
+        $arr_Column_Name[11]    =     "INT_DSTAR";
+        $arr_Column_Name[12]    =     "BD_ITEM1";
+        $arr_Column_Name[13]    =     "BD_ITEM2";
+        $arr_Column_Name[14]    =     "STR_CART";
 
-        $arr_Set_Data[0]        = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], "");
-        $arr_Set_Data[1]        = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
-        $arr_Set_Data[2]        = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
-        $arr_Set_Data[3]        = Fnc_Om_Conv_Default($_REQUEST['int_good_type'], 1);
-        $arr_Set_Data[4]        = Fnc_Om_Conv_Default($_REQUEST['str_content'], "");
-        $arr_Set_Data[5]        = $str_images[0] ?: "";
-        $arr_Set_Data[6]        = $str_images[1] ?: "";
-        $arr_Set_Data[7]        = $str_images[2] ?: "";
+        $arr_Set_Data[0]        = $new_id;
+        $arr_Set_Data[1]        = 2;
+        $arr_Set_Data[2]        = $bd_id_key;
+        $arr_Set_Data[3]        = $new_id;
+        $arr_Set_Data[4]        = $new_id * 100;
+        $arr_Set_Data[5]        = $arr_Auth[0];
+        $arr_Set_Data[6]        = Fnc_Om_Conv_Default($_REQUEST['str_content'], "");
+        $arr_Set_Data[7]        = date("Y-m-d H:i:s");
         $arr_Set_Data[8]        = date("Y-m-d H:i:s");
-        $arr_Set_Data[9]        = date("Y-m-d H:i:s");
-        $arr_Set_Data[10]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], 5);
-        $arr_Set_Data[11]       = Fnc_Om_Conv_Default($_REQUEST['int_use_review'], 3);
-        $arr_Set_Data[12]       = Fnc_Om_Conv_Default($_REQUEST['int_package_review'], 3);
-        $arr_Set_Data[13]       = Fnc_Om_Conv_Default($_REQUEST['int_delivery_review'], 3);
+        $arr_Set_Data[9]        = Fnc_Om_Conv_Default($_REQUEST['int_ustar'], 3);
+        $arr_Set_Data[10]       = Fnc_Om_Conv_Default($_REQUEST['int_pstar'], 3);
+        $arr_Set_Data[11]       = Fnc_Om_Conv_Default($_REQUEST['int_dstar'], 3);
+        $arr_Set_Data[12]       = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], "");
+        $arr_Set_Data[13]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], "5");
+        $arr_Set_Data[14]       = Fnc_Om_Conv_Default($_REQUEST['str_cart'], "");
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
@@ -68,7 +72,128 @@ switch ($RetrieveFlag) {
             $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
         }
 
-        $Sql_Query = "INSERT INTO `" . $Tname . "_comm_review` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        $Sql_Query = "INSERT INTO `" . $Tname . "b_bd_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        mysql_query($Sql_Query);
+
+        // 이미지 등록
+        $str_images = array();
+        $img_align = 1;
+
+        for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
+            $obj_File = $_FILES['str_image']['tmp_name'][$i];
+            $obj_File_name = $_FILES['str_image']['name'][$i];
+            $obj_File_size = $_FILES['str_image']['size'][$i];
+
+            $full_name = explode(".", "$obj_File_name");
+
+            $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
+            $str_images[$i] = $str_Temp[1][0];
+
+            if ($str_images[$i]) {
+                // ID 얻기
+                $Sql_Query = "SELECT IFNULL(MAX(IMG_SEQ), 0)+1 AS SEQ FROM `" . $Tname . "b_img_data@01`";
+                $result = mysql_query($Sql_Query);
+                if (!result) {
+                    error("QUERY_ERROR");
+                    exit;
+                }
+                $new_img_id = mysql_result($result, 0, 0);
+
+                $arr_Get_Data = array();
+                $arr_Column_Name = array();
+
+                $arr_Column_Name[0]     =     "IMG_SEQ";
+                $arr_Column_Name[1]     =     "BD_SEQ";
+                $arr_Column_Name[2]     =     "CONF_SEQ";
+                $arr_Column_Name[3]     =     "IMG_ID_KEY";
+                $arr_Column_Name[4]     =     "IMG_ALIGN";
+                $arr_Column_Name[5]     =     "IMG_F_NAME";
+                $arr_Column_Name[6]     =     "IMG_F_NICK";
+                $arr_Column_Name[7]     =     "IMG_REG_DATE";
+
+                $arr_Set_Data[0]        = $new_img_id;
+                $arr_Set_Data[1]        = $new_id;
+                $arr_Set_Data[2]        = 2;
+                $arr_Set_Data[3]        = $bd_id_key;
+                $arr_Set_Data[4]        = $img_align;
+                $arr_Set_Data[5]        = $str_images[$i];
+                $arr_Set_Data[6]        = $str_images[$i];
+                $arr_Set_Data[7]        = date("Y-m-d H:i:s");
+
+                $arr_Sub1 = "";
+                $arr_Sub2 = "";
+                for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+                    if ($int_I != 0) {
+                        $arr_Sub1 .=  ",";
+                        $arr_Sub2 .=  ",";
+                    }
+                    $arr_Sub1 .=  $arr_Column_Name[$int_I];
+                    $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
+                }
+
+                $Sql_Query = "INSERT INTO `" . $Tname . "b_img_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+                mysql_query($Sql_Query);
+
+                $img_align++;
+            }
+        }
+
+        // 마일리지 지급
+        $SQL_QUERY =    'SELECT
+                            A.INT_MILEAGE, A.STR_PMILEAGE, A.INT_PRICE
+                        FROM 
+                            ' . $Tname . 'comm_goods_master AS A
+                        WHERE
+                            A.STR_GOODCODE="' . $_REQUEST['str_goodcode'] . '"';
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+        if (!$arr_Rlt_Data) {
+            echo 'Could not run query: ' . mysql_error();
+            exit;
+        }
+        $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+        $mileage = 0;
+
+        if ($arr_Data['STR_PMILEAGE'] == 'Y') {
+            $mileage = $arr_Data['INT_PRICE'] * $arr_Data['INT_MILEAGE'] / 100;
+        } else {
+            $mileage = $arr_Data['INT_MILEAGE'];
+        }
+
+        $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+        $arr_Get_Data = array();
+        $arr_Column_Name = array();
+
+        $arr_Column_Name[0]     =     "STR_USERID";
+        $arr_Column_Name[1]     =     "STR_INCOME";
+        $arr_Column_Name[2]     =     "DTM_INDATE";
+        $arr_Column_Name[3]     =     "STR_ORDERIDX";
+        $arr_Column_Name[4]     =     "INT_VALUE";
+        $arr_Column_Name[5]     =     "STR_CART";
+
+        $arr_Set_Data[0]        = $arr_Auth[0];
+        $arr_Set_Data[1]        = "Y";
+        $arr_Set_Data[2]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[3]        = "";
+        $arr_Set_Data[4]        = $mileage;
+        $arr_Set_Data[5]        = $_REQUEST['str_cart'];
+
+        $arr_Sub1 = "";
+        $arr_Sub2 = "";
+        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+            if ($int_I != 0) {
+                $arr_Sub1 .=  ",";
+                $arr_Sub2 .=  ",";
+            }
+            $arr_Sub1 .=  $arr_Column_Name[$int_I];
+            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
+        }
+
+        $Sql_Query = "INSERT INTO `" . $Tname . "comm_mileage_history` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
 ?>
         <script language="javascript">
@@ -79,91 +204,25 @@ switch ($RetrieveFlag) {
         break;
 
     case "UPDATE":
-        $int_review = Fnc_Om_Conv_Default($_REQUEST['int_review'], "");
+        $bd_seq = Fnc_Om_Conv_Default($_REQUEST['bd_seq'], "");
 
-        if ($int_review) {
-            $SQL_QUERY =    'SELECT
-                                STR_IMAGE1,
-                                STR_IMAGE2,
-                                STR_IMAGE3
-                            FROM 
-                                ' . $Tname . 'comm_review
-                            WHERE
-                                INT_NUMBER=' . $int_review;
-
-            $arr_img_Data = mysql_query($SQL_QUERY);
-
-            $str_images = array();
-
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE1') != "") {
-                $str_images[0] = mysql_result($arr_img_Data, 0, 'STR_IMAGE1');
-
-                if (Fnc_Om_Conv_Default($_REQUEST['str_dimage1'], "") == "true") {
-                    Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE1'));
-                    $str_images[0] = "";
-                }
-            }
-
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE2') != "") {
-                $str_images[1] = mysql_result($arr_img_Data, 0, 'STR_IMAGE2');
-
-                if (Fnc_Om_Conv_Default($_REQUEST['str_dimage2'], "") == "true") {
-                    Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE2'));
-                    $str_images[1] = "";
-                }
-            }
-
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE3') != "") {
-                $str_images[2] = mysql_result($arr_img_Data, 0, 'STR_IMAGE3');
-
-                if (Fnc_Om_Conv_Default($_REQUEST['str_dimage3'], "") == "true") {
-                    Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE3'));
-                    $str_images[2] = "";
-                }
-            }
-
-            for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
-                if ($str_images[0] != "" && $str_images[1] != "" && $str_images[2] != "")
-                    break;
-
-                $obj_File = $_FILES['str_image']['tmp_name'][$i];
-                $obj_File_name = $_FILES['str_image']['name'][$i];
-                $obj_File_size = $_FILES['str_image']['size'][$i];
-
-                $full_name = explode(".", "$obj_File_name");
-
-                $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
-
-                for ($j = 0; $j < 3; $j++) {
-                    if (!$str_images[$j]) {
-                        $str_images[$j] = $str_Temp[1][0];
-                        break;
-                    }
-                }
-            }
-
+        if ($bd_seq) {
             $arr_Get_Data = array();
             $arr_Column_Name = array();
 
-            $arr_Column_Name[0]     =     "STR_CONTENT";
-            $arr_Column_Name[1]     =     "STR_IMAGE1";
-            $arr_Column_Name[2]     =     "STR_IMAGE2";
-            $arr_Column_Name[3]     =     "STR_IMAGE3";
-            $arr_Column_Name[4]     =     "DTM_EDIT_DATE";
-            $arr_Column_Name[5]    =     "INT_STAR";
-            $arr_Column_Name[6]    =     "INT_USE_REVIEW";
-            $arr_Column_Name[7]    =     "INT_PACKAGE_REVIEW";
-            $arr_Column_Name[8]    =     "INT_DELIVERY_REVIEW";
+            $arr_Column_Name[0]     =     "BD_CONT";
+            $arr_Column_Name[1]     =     "BD_EDIT_DATE";
+            $arr_Column_Name[2]     =     "INT_USTAR";
+            $arr_Column_Name[3]    =     "INT_PSTAR";
+            $arr_Column_Name[4]    =     "INT_DSTAR";
+            $arr_Column_Name[5]    =     "BD_ITEM2";
 
             $arr_Set_Data[0]        = Fnc_Om_Conv_Default($_REQUEST['str_content'], "");
-            $arr_Set_Data[1]        = $str_images[0] ?: "";
-            $arr_Set_Data[2]        = $str_images[1] ?: "";
-            $arr_Set_Data[3]        = $str_images[2] ?: "";
-            $arr_Set_Data[4]        = date("Y-m-d H:i:s");
-            $arr_Set_Data[5]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], 5);
-            $arr_Set_Data[6]       = Fnc_Om_Conv_Default($_REQUEST['int_use_review'], 3);
-            $arr_Set_Data[7]       = Fnc_Om_Conv_Default($_REQUEST['int_package_review'], 3);
-            $arr_Set_Data[8]       = Fnc_Om_Conv_Default($_REQUEST['int_delivery_review'], 3);
+            $arr_Set_Data[1]        = date("Y-m-d H:i:s");
+            $arr_Set_Data[2]        = Fnc_Om_Conv_Default($_REQUEST['int_ustar'], 3);
+            $arr_Set_Data[3]       = Fnc_Om_Conv_Default($_REQUEST['int_pstar'], 3);
+            $arr_Set_Data[4]       = Fnc_Om_Conv_Default($_REQUEST['int_dstar'], 3);
+            $arr_Set_Data[5]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], "5");
 
             $arr_Sub = "";
 
@@ -175,11 +234,110 @@ switch ($RetrieveFlag) {
                 $arr_Sub .=  $arr_Column_Name[$int_I] . "=" . ($arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "' " : 'null ');
             }
 
-            $Sql_Query = "UPDATE `" . $Tname . "comm_review` SET ";
+            $Sql_Query = "UPDATE `" . $Tname . "b_bd_data@01` SET ";
             $Sql_Query .= $arr_Sub;
-            $Sql_Query .= " WHERE INT_NUMBER=" . $int_review;
+            $Sql_Query .= " WHERE BD_SEQ=" . $bd_seq;
 
             mysql_query($Sql_Query);
+
+            // 이미지 업뎃
+            $SQL_QUERY =    'SELECT
+                                A.*
+                            FROM 
+                                `' . $Tname . 'b_img_data@01` AS A
+                            WHERE
+                                A.BD_SEQ=' . $bd_seq;
+
+            $img_list_result = mysql_query($SQL_QUERY);
+
+            // Delete images
+            while ($row = mysql_fetch_assoc($img_list_result)) {
+                $str_images[$index] = $row['IMG_F_NAME'];
+
+                if (Fnc_Om_Conv_Default($_REQUEST['str_dimage' . $row['IMG_ALIGN']], "") == "true") {
+                    Fnc_Om_File_Delete($str_Add_Tag, $row['IMG_F_NAME']);
+
+                    $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_img_data@01` WHERE IMG_SEQ=' . $row['IMG_SEQ'];
+                    mysql_query($SQL_QUERY);
+                }
+
+                $index++;
+            }
+
+            $index = 0;
+            for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
+                for ($j = $index; $j < 3; $j++) {
+                    $SQL_QUERY =    'SELECT
+                                        COUNT(A.IMG_SEQ) AS NUM
+                                    FROM 
+                                        `' . $Tname . 'b_img_data@01` AS A
+                                    WHERE
+                                        A.BD_SEQ=' . $bd_seq . '
+                                        AND A.IMG_ALIGN=' . ($j + 1);
+
+                    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+                    $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+                    if ($arr_Data['NUM'] == 0) {
+                        $obj_File = $_FILES['str_image']['tmp_name'][$i];
+                        $obj_File_name = $_FILES['str_image']['name'][$i];
+                        $obj_File_size = $_FILES['str_image']['size'][$i];
+
+                        $full_name = explode(".", "$obj_File_name");
+
+                        $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
+
+                        // ID 얻기
+                        $Sql_Query = "SELECT IFNULL(MAX(IMG_SEQ), 0)+1 AS SEQ FROM `" . $Tname . "b_img_data@01`";
+                        $result = mysql_query($Sql_Query);
+                        if (!result) {
+                            error("QUERY_ERROR");
+                            exit;
+                        }
+                        $new_img_id = mysql_result($result, 0, 0);
+
+                        // BD_ID_KEY 생성
+                        $bd_id_key = Fnc_Om_Id_Key_Create();
+
+                        $arr_Get_Data = array();
+                        $arr_Column_Name = array();
+
+                        $arr_Column_Name[0]     =     "IMG_SEQ";
+                        $arr_Column_Name[1]     =     "BD_SEQ";
+                        $arr_Column_Name[2]     =     "CONF_SEQ";
+                        $arr_Column_Name[3]     =     "IMG_ID_KEY";
+                        $arr_Column_Name[4]     =     "IMG_ALIGN";
+                        $arr_Column_Name[5]     =     "IMG_F_NAME";
+                        $arr_Column_Name[6]     =     "IMG_F_NICK";
+                        $arr_Column_Name[7]     =     "IMG_REG_DATE";
+
+                        $arr_Set_Data[0]        = $new_img_id;
+                        $arr_Set_Data[1]        = $bd_seq;
+                        $arr_Set_Data[2]        = 2;
+                        $arr_Set_Data[3]        = $bd_id_key;
+                        $arr_Set_Data[4]        = ($j + 1);
+                        $arr_Set_Data[5]        = $str_Temp[1][0];
+                        $arr_Set_Data[6]        = $str_Temp[1][0];
+                        $arr_Set_Data[7]        = date("Y-m-d H:i:s");
+
+                        $arr_Sub1 = "";
+                        $arr_Sub2 = "";
+                        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+                            if ($int_I != 0) {
+                                $arr_Sub1 .=  ",";
+                                $arr_Sub2 .=  ",";
+                            }
+                            $arr_Sub1 .=  $arr_Column_Name[$int_I];
+                            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
+                        }
+
+                        $Sql_Query = "INSERT INTO `" . $Tname . "b_img_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+                        mysql_query($Sql_Query);
+                    } else {
+                        $index++;
+                    }
+                }
+            }
         }
 
     ?>
@@ -191,33 +349,15 @@ switch ($RetrieveFlag) {
         break;
 
     case "DELETE":
-        $int_review = Fnc_Om_Conv_Default($_REQUEST['int_review'], "");
+        $bd_seq = Fnc_Om_Conv_Default($_REQUEST['bd_seq'], "");
 
-        if ($int_review) {
-            $SQL_QUERY =    'SELECT
-                                STR_IMAGE1,
-                                STR_IMAGE2,
-                                STR_IMAGE3
-                            FROM 
-                                ' . $Tname . 'comm_review
-                            WHERE
-                                INT_NUMBER=' . $int_review;
+        if ($bd_seq) {
+            // 이미지 지우기
+            $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_img_data@01` WHERE BD_SEQ=' . $bd_seq;
+            mysql_query($SQL_QUERY);
 
-            $arr_img_Data = mysql_query($SQL_QUERY);
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE1') != "") {
-
-                Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE1'));
-            }
-
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE2') != "") {
-                Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE2'));
-            }
-
-            if (mysql_result($arr_img_Data, 0, 'STR_IMAGE3') != "") {
-                Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, 'STR_IMAGE3'));
-            }
-
-            $SQL_QUERY = "DELETE FROM " . $Tname . "comm_review WHERE INT_NUMBER='$int_review' ";
+            // 리뷰 지우기
+            $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_bd_data@01` WHERE BD_SEQ=' . $bd_seq;
             mysql_query($SQL_QUERY);
         }
     ?>

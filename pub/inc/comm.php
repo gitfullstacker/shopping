@@ -35,6 +35,8 @@
 						 A.STR_HP,
 						 A.STR_TELEP,
 						 A.STR_EMAIL,
+						 A.STR_BIRTH,
+						 A.STR_GRADE,
 						 '' AS STR_LEV
 					 FROM 
 					 	".$Tname."comm_member AS A
@@ -59,6 +61,8 @@
 			$sTemp.=base64_encode(mysql_result($Log_Info,0,STR_EMAIL))."~";
 			$sTemp.=base64_encode(Fnc_Om_Select_Code("0000000",mysql_result($Log_Info,0,STR_MENU_LEVEL)))."~";
 			$sTemp.=base64_encode(mysql_result($Log_Info,0,STR_LEV))."~";
+			$sTemp.=base64_encode(mysql_result($Log_Info,0,STR_BIRTH))."~";
+			$sTemp.=base64_encode(mysql_result($Log_Info,0,STR_GRADE))."~";
 	
 			$_SESSION['COK_USER_INFO_DATA']=$sTemp;
     
@@ -67,4 +71,32 @@
     	
     
     }
+
+	// 생일쿠폰 자동발행
+	if ($arr_Auth[0]) {
+		if (substr($arr_Auth[9], 4, 2) == date('m') && substr($arr_Auth[9], 6, 2) == date('d')) {
+			// 생일쿠폰 받았는지 먼저 체크
+			$SQL_QUERY = 'SELECT COUNT(A.INT_NUMBER) AS NUM FROM `' . $Tname . 'comm_member_stamp` A WHERE A.STR_USERID="' . $arr_Auth[0] . '" AND A.INT_STAMP=2 AND YEAR(A.DTM_INDATE)=' . date('Y');
+			$arr_Rlt_Data = mysql_query($SQL_QUERY);
+			$coupon_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+			if ($coupon_Data['NUM'] == 0) {
+				// 생일쿠폰 자동발행
+				$int_prod = $arr_Auth[10] == 'B' ? 10 : 2; // Black등급인가 체크하고 해당 쿠폰발행
+				$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_stamp_prod` A WHERE INT_PROD=' . $int_prod;
+				$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+				if (!$arr_Rlt_Data) {
+					echo 'Could not run query: ' . mysql_error();
+					exit;
+				}
+				$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+				if ($arr_Data) {
+					$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_stamp` (STR_USERID, INT_STAMP, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $arr_Auth[0] . '", ' . $arr_Data['INT_PROD'] . ', "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
+					mysql_query($SQL_QUERY);
+				}
+			}
+		}
+	}
 ?>

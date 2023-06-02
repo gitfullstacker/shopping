@@ -6,7 +6,7 @@ fnc_MLogin_Chk();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 <?php
-$int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], '');
+$str_cart = Fnc_Om_Conv_Default($_REQUEST['str_cart'], '');
 $SQL_QUERY = 'SELECT
                     A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
                 FROM 
@@ -20,7 +20,7 @@ $SQL_QUERY = 'SELECT
                 ON
                     B.INT_BRAND=C.INT_NUMBER
                 WHERE
-                    A.INT_NUMBER=' . $int_cart;
+                    A.INT_NUMBER=' . $str_cart;
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -34,7 +34,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <form action="edit_proc.php" method="post" class="mt-[30px] flex flex-col w-full px-[14px]" onsubmit="return validateForm()" enctype="multipart/form-data">
     <input type="hidden" name="RetrieveFlag" value="INSERT">
     <input type="hidden" name="str_goodcode" value="<?= $arr_Data['STR_GOODCODE'] ?>">
-    <input type="hidden" name="int_cart" value="<?= $arr_Data['INT_NUMBER'] ?>">
+    <input type="hidden" name="str_cart" value="<?= $str_cart ?>">
     <input type="hidden" name="str_userid" value="<?= $arr_Auth[0] ?>">
     <input type="hidden" name="int_good_type" value="<?= $arr_Data['INT_TYPE'] ?>">
 
@@ -77,7 +77,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">이용하신 가방에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_use_review" x-bind:value="grade">
+                <input type="hidden" name="int_ustar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +108,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">상품의 포장상태에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_package_review" x-bind:value="grade">
+                <input type="hidden" name="int_pstar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +139,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">상품의 배송에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_delivery_review" x-bind:value="grade">
+                <input type="hidden" name="int_dstar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">

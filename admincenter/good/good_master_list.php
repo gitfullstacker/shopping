@@ -444,7 +444,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 													</span>
 												</td>
 												<td>
-													<?= number_format(mysql_result($result, $i, int_mileage)) ?>%
+													<?= mysql_result($result, $i, str_pmileage) == 'Y' ? mysql_result($result, $i, int_mileage) . '%' : number_format(mysql_result($result, $i, int_mileage)) ?>
 												</td>
 												<td>
 													<table class=tb style="border:0px;">

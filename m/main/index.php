@@ -114,12 +114,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	<div class="categorypick-scroll-list">
 		<?php
 		for ($i = 0; $i < 3; $i++) {
-			
+
 			switch ($i) {
 				case 0:
 					$int_type = 2;
 					break;
-				
+
 				case 1:
 					$int_type = 1;
 					break;
@@ -461,7 +461,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 				<img class="object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="review">
 			</div>
 		<?php
-		$index++;
+			$index++;
 		}
 		?>
 	</div>

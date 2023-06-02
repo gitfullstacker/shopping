@@ -1,8 +1,29 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
-<div x-data="{ grade: 'silver' }" class="flex flex-col w-full">
+<?
+$SQL_QUERY =    " SELECT
+					UR.*
+				FROM "
+    . $Tname . "comm_member AS UR
+				WHERE
+					UR.STR_USERID='$arr_Auth[0]' ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+?>
+
+<div x-data="{ grade: '<?= $arr_Data['STR_GRADE'] == 'B' ? 'black' : 'green' ?>' }" class="flex flex-col w-full">
     <!-- 상단정보 -->
     <div class="flex flex-col gap-7 px-[14px] py-[21px] border-b border-[#E0E0E0]">
         <div class="flex gap-[15px]">
@@ -13,28 +34,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             </div>
             <div class="grow flex flex-col gap-[5px] items-start justify-center">
                 <p class="font-bold text-xs leading-[13px] text-black">
-                    <span class="font-extrabold text-lg leading-5 text-black">에이블랑 관리자</span> 님의 등급
+                    <span class="font-extrabold text-lg leading-5 text-black"><?= $arr_Data['STR_NAME'] ?></span> 님의 등급
                 </p>
-                <p class="font-bold text-xs leading-[14px] text-black">ablanc1231</p>
+                <p class="font-bold text-xs leading-[14px] text-black"><?= $arr_Data['STR_USERID'] ?></p>
                 <p class="font-bold text-xs leading-[14px] text-black">2023.01.01 ~ 03.30</p>
             </div>
         </div>
         <div class="flex flex-col gap-[25px] w-full">
-            <div class="grid grid-cols-3 w-full">
-                <div class="pt-2.5 flex justify-center border-t-[5px]" x-bind:class="grade == 'silver' ? 'border-[#666666]' : 'border-[#D9D9D9]'">
-                    <p class="font-bold text-[9px] leading-[10px] text-center" x-bind:class="grade == 'silver' ? 'text-[#333333]' : 'text-[#999999]'">SILVER</p>
+            <div class="grid grid-cols-2 w-full">
+                <div class="pt-2.5 flex justify-center border-t-[5px]" x-bind:class="grade == 'green' ? 'border-[#666666]' : 'border-[#D9D9D9]'">
+                    <p class="font-bold text-[9px] leading-[10px] text-center" x-bind:class="grade == 'green' ? 'text-[#333333]' : 'text-[#999999]'">GREEN</p>
                 </div>
-                <div class="pt-2.5 flex justify-center border-t-[5px]" x-bind:class="grade == 'gold' ? 'border-[#666666]' : 'border-[#D9D9D9]'">
-                    <p class="font-bold text-[9px] leading-[10px] text-center" x-bind:class="grade == 'gold' ? 'text-[#333333]' : 'text-[#999999]'">GOLD</p>
-                </div>
-                <div class="pt-2.5 flex justify-center border-t-[5px]" x-bind:class="grade == 'dia' ? 'border-[#666666]' : 'border-[#D9D9D9]'">
-                    <p class="font-bold text-[9px] leading-[10px] text-center" x-bind:class="grade == 'dia' ? 'text-[#333333]' : 'text-[#999999]'">DIA</p>
+                <div class="pt-2.5 flex justify-center border-t-[5px]" x-bind:class="grade == 'black' ? 'border-[#666666]' : 'border-[#D9D9D9]'">
+                    <p class="font-bold text-[9px] leading-[10px] text-center" x-bind:class="grade == 'black' ? 'text-[#333333]' : 'text-[#999999]'">BLACK</p>
                 </div>
             </div>
-            <div class="flex justify-between items-center">
-                <p class="font-bold text-xs leading-[14px] text-[#666666]">다음달 [실버] 등급 승급까지 필요한 이용금액</p>
-                <p class="font-bold text-xs leading-[14px] text-[#666666]">3,000,000원</p>
-            </div>
+            <?php
+            if ($arr_Data['STR_GRADE'] == 'G') {
+            ?>
+                <div class="flex justify-between items-center">
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]">다음달 [블랙] 등급 승급까지 필요한 이용금액</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= number_format(2000000 - $arr_Data['INT_SMONEY']) ?>원</p>
+                </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
 
@@ -42,47 +66,65 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <!-- 내가 받고 있는 혜택 -->
         <div class=" flex flex-col gap-[14px] w-full">
             <p class="font-extrabold text-lg leading-5 text-black">내가 받고 있는 혜택</p>
-            <div class="grid grid-cols-2 gap-[5px] w-full">
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">2,000원 할인쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">5만원 이상 구매시 사용</p>
-                </div>
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">0.5% 적립금 지급</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">상품 주문 금액 기준</p>
-                </div>
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">무료 배송 쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">월 1회 지급</p>
-                </div>
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 5,000원 쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">5만원 이상 구매시 사용</p>
-                </div>
-            </div>
+            <?php
+            switch ($arr_Data['STR_GRADE']) {
+                case 'G':
+            ?>
+                    <div class="grid grid-cols-2 gap-[5px] w-full">
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일쿠폰 5000원</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">연 1회 지급</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">신규가입쿠폰 5000원</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">가입시 자동지급</p>
+                        </div>
+                    </div>
+                    <?php
+                    break;
+                    ?>
+                    <div class="grid grid-cols-2 gap-[5px] w-full">
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">축하쿠폰 50,000원</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">블랙등급 달성시 자동지급</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일쿠폰 50,000원</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">결제액 무관하게 사용 가능</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">적립금 5%</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">등급 달성 후 모든 결제에 적용</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">빈티지 제품 전용 10%</p>
+                            <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">연 1회</p>
+                        </div>
+                    </div>
+            <?php
+                case 'B':
+
+                    break;
+            }
+            ?>
+
         </div>
 
         <!-- 등급별 혜택 안내 -->
         <div class="mt-[30px] flex flex-col gap-[14px] w-full">
             <p class="font-extrabold text-lg leading-5 text-black">등급별 혜택 안내</p>
-            <div class="grid grid-cols-3 w-full">
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[90px] bg-white border border-solid" x-bind:class="grade == 'silver' ? 'border-black' : 'border-[#E0E0E0]'">
-                    <div class="flex justify-center items-center w-[38px] h-[38px] bg-white border border-solid border-[#D9D9D9] rounded-full">
-                        <p class="font-extrabold text-[12.6667px] leading-[14px] text-center text-black">S</p>
+            <div class="grid grid-cols-2 w-full">
+                <div class="flex flex-col justify-center items-center gap-[5px] h-[90px] bg-white border border-solid" x-bind:class="grade == 'green' ? 'border-black' : 'border-[#E0E0E0]'">
+                    <div class="flex justify-center items-center w-[38px] h-[38px] bg-[#BED2B6] border border-solid border-[#D9D9D9] rounded-full">
+                        <p class="font-extrabold text-[12.6667px] leading-[14px] text-center text-black">G</p>
                     </div>
-                    <p class="font-bold text-xs leading-[14px] text-center text-black">SILVER</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-black">GREEN</p>
                 </div>
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[90px] bg-white border border-solid" x-bind:class="grade == 'gold' ? 'border-black' : 'border-[#E0E0E0]'">
-                    <div class="flex justify-center items-center w-[38px] h-[38px] bg-[#FFDD86] border border-solid border-[#D9D9D9] rounded-full">
-                        <p class="font-extrabold text-[12.6667px] leading-[14px] text-center text-black">S</p>
+                <div class="flex flex-col justify-center items-center gap-[5px] h-[90px] bg-white border border-solid" x-bind:class="grade == 'black' ? 'border-black' : 'border-[#E0E0E0]'">
+                    <div class="flex justify-center items-center w-[38px] h-[38px] bg-black border border-solid border-[#D9D9D9] rounded-full">
+                        <p class="font-extrabold text-[12.6667px] leading-[14px] text-center text-white">B</p>
                     </div>
-                    <p class="font-bold text-xs leading-[14px] text-center text-black">GOLD</p>
-                </div>
-                <div class="flex flex-col justify-center items-center gap-[5px] h-[90px] bg-white border border-solid" x-bind:class="grade == 'dia' ? 'border-black' : 'border-[#E0E0E0]'">
-                    <div class="flex justify-center items-center w-[38px] h-[38px] bg-[#D1D0FF] border border-solid border-[#D9D9D9] rounded-full">
-                        <p class="font-extrabold text-[12.6667px] leading-[14px] text-center text-black">S</p>
-                    </div>
-                    <p class="font-bold text-xs leading-[14px] text-center text-black">DIA</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-black">BLACK</p>
                 </div>
             </div>
         </div>
@@ -90,30 +132,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <!-- 구분 -->
         <hr class="mt-[15px] border-t-[0.5px] border-[#E0E0E0]" />
 
-        <!-- SILVER -->
+        <!-- GREEN -->
         <div class="mt-[15px] flex flex-col w-full">
-            <p class="font-extrabold text-lg leading-5 text-black">SILVER</p>
-            <p class="mt-[9px] font-bold text-xs leading-[140%] text-[#666666]">주문 1회 이상 또는 결제 금액 10,000원 이상</p>
+            <p class="font-extrabold text-lg leading-5 text-black">GREEN</p>
+            <p class="mt-[9px] font-bold text-xs leading-[140%] text-[#666666]">누적 결제액 200만원 이상 (1년)</p>
 
             <!-- 구분 -->
             <hr class="mt-[13px] border-t-[0.5px] border-[#E0E0E0]" />
 
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] w-full">
                 <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">10,000원 할인쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">5만원 이상 구매시 사용</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">축하쿠폰 50,000원</p>
+                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">블랙등급 달성시 자동지급</p>
                 </div>
                 <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">2.0% 적립금 지급</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">상품 주문 금액 기준</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일쿠폰 50,000원</p>
+                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">결제액 무관하게 사용 가능</p>
                 </div>
                 <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">무료 배송 쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">월 1회 지급</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">적립금 5%</p>
+                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">등급 달성 후 모든 결제에 적용</p>
                 </div>
                 <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 5,000원 쿠폰</p>
-                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">5만원 이상 구매시 사용</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">빈티지 제품 전용 10%</p>
+                    <p class="font-bold text-[8px] leading-[10px] text-center text-[#999999]">연 1회</p>
                 </div>
             </div>
         </div>

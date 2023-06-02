@@ -22,7 +22,7 @@
 		case "UPDATE" :
 
 			$SQL_QUERY = " UPDATE ".$Tname."comm_goods_cart SET ";
-								$SQL_QUERY .= "STR_SDATE='$str_sdate',STR_EDATE='$str_edate',INT_STATE='$int_state',INT_DELICODE='$int_delicode',STR_DELICODE='$str_delicode',STR_RDATE='$str_rdate',STR_AMEMO='".addslashes($str_amemo)."' ";
+								$SQL_QUERY .= "STR_SDATE='$str_sdate',STR_EDATE='$str_edate',INT_STATE='$int_state',INT_DELICODE='$int_delicode',STR_DELICODE='$str_delicode',STR_RDATE='$str_rdate',STR_AMEMO='".addslashes($str_amemo)."',DTM_EDIT_DATE='" . date("Y-m-d H:i:s") . "' ";
 			$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
 
 			mysql_query($SQL_QUERY);
@@ -48,7 +48,7 @@
 			
 		case "STATE" :
 
-			$SQL_QUERY = " UPDATE ".$Tname."comm_goods_cart SET INT_STATE='$int_state'WHERE INT_NUMBER='$str_no' ";
+			$SQL_QUERY = " UPDATE ".$Tname."comm_goods_cart SET INT_STATE='$int_state', DTM_EDIT_DATE='" . date("Y-m-d H:i:s") . "' WHERE INT_NUMBER='$str_no'";
 
 			mysql_query($SQL_QUERY);
 			

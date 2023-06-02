@@ -14,6 +14,8 @@ $SQL_QUERY =	" SELECT
 					 OM.STR_HP,
 					 OM.STR_TELEP,
 					 OM.STR_EMAIL,
+					 OM.STR_BIRTH,
+					 OM.STR_GRADE,
 					 '' AS STR_LEV
 				 FROM ";
 $SQL_QUERY .= $Tname;
@@ -52,6 +54,8 @@ if (!$rcd_cnt) { ?>
 	$sTemp .= base64_encode(mysql_result($rel, 0, STR_EMAIL)) . "~";
 	$sTemp .= base64_encode(Fnc_Om_Select_Code("0000000", mysql_result($rel, 0, STR_MENU_LEVEL))) . "~";
 	$sTemp .= base64_encode(mysql_result($rel, 0, STR_LEV)) . "~";
+	$sTemp .= base64_encode(mysql_result($rel, 0, STR_BIRTH)) . "~";
+	$sTemp .= base64_encode(mysql_result($rel, 0, STR_GRADE)) . "~";
 
 	$_SESSION['COK_USER_INFO_DATA'] = $sTemp;
 

@@ -6,11 +6,11 @@ fnc_MLogin_Chk();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 <?php
-$int_review = Fnc_Om_Conv_Default($_REQUEST['int_review'], '');
+$bd_seq = Fnc_Om_Conv_Default($_REQUEST['bd_seq'], '');
 $SQL_QUERY = 'SELECT
-                    A.*,B.STR_SDATE,B.STR_EDATE,C.STR_GOODNAME,C.STR_IMAGE1 AS PRODUCT_IMAGE,C.INT_TYPE,C.INT_PRICE,D.STR_CODE AS STR_BRAND
+                    A.*, B.STR_SDATE, B.STR_EDATE, C.STR_GOODNAME, C.STR_IMAGE1, C.INT_DISCOUNT, C.INT_PRICE, C.INT_TYPE, D.STR_CODE
                 FROM 
-                    ' . $Tname . 'comm_review AS A
+                    `' . $Tname . 'b_bd_data@01` AS A
                 LEFT JOIN
                     ' . $Tname . 'comm_goods_cart AS B
                 ON
@@ -18,13 +18,13 @@ $SQL_QUERY = 'SELECT
                 LEFT JOIN
                     ' . $Tname . 'comm_goods_master AS C
                 ON
-                    A.STR_GOODCODE=C.STR_GOODCODE
+                    A.BD_ITEM1=C.STR_GOODCODE
                 LEFT JOIN
                     ' . $Tname . 'comm_com_code AS D
                 ON
                     C.INT_BRAND=D.INT_NUMBER
                 WHERE
-                    A.INT_NUMBER=' . $int_review;
+                    A.BD_SEQ=' . $bd_seq;
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -37,7 +37,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 <form action="edit_proc.php" method="post" class="mt-[30px] flex flex-col w-full px-[14px]" onsubmit="return validateForm()" enctype="multipart/form-data">
     <input type="hidden" name="RetrieveFlag" value="UPDATE">
-    <input type="hidden" name="int_review" value="<?= $int_review ?>">
+    <input type="hidden" name="bd_seq" value="<?= $bd_seq ?>">
 
     <div class="flex justify-center">
         <p class="font-extrabold text-lg leading-[20px] text-black">평점/리뷰 작성</p>
@@ -45,13 +45,13 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <div class="flex gap-[11px]">
         <div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
-            <img src="/admincenter/files/good/<?= $arr_Data['PRODUCT_IMAGE'] ?>" alt="product">
+            <img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" alt="product">
         </div>
         <div class="grow flex flex-col justify-center">
             <div class="w-[34px] h-[18px] flex justify-center items-center bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
                 <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
             </div>
-            <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_BRAND'] ?></p>
+            <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_CODE'] ?></p>
             <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
             <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
             <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
@@ -63,7 +63,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-[23px] flex flex-col items-center w-full gap-[23px]">
         <div class="flex flex-col items-center w-full gap-2">
             <p class="font-bold text-xs leading-[14px] text-black">별점을 선택해주세요.</p>
-            <div x-data="{ star: <?= $arr_Data['INT_STAR'] ?> }" class="flex justify-center gap-2 items-center">
+            <div x-data="{ star: <?= $arr_Data['BD_ITEM2'] ?> }" class="flex justify-center gap-2 items-center">
                 <input type="hidden" name="int_star" x-bind:value="star">
                 <svg width="162" height="27" viewBox="0 0 162 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.7482 10.19H28.0382L19.6682 16.4L22.8482 26.24L14.4482 20.33L5.89822 26.24L9.10822 16.4L0.678223 10.19H11.1782L14.4482 0.440002L17.7482 10.19Z" x-bind:fill="star >= 1 ? '#FFD748' : '#DDDDDD'" x-on:click="star = 1" />
@@ -77,8 +77,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">이용하신 가방에 만족하시나요?</p>
-            <div x-data="{ grade: <?= $arr_Data['INT_USE_REVIEW'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_use_review" x-bind:value="grade">
+            <div x-data="{ grade: <?= $arr_Data['INT_USTAR'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
+                <input type="hidden" name="int_ustar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,8 +108,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">상품의 포장상태에 만족하시나요?</p>
-            <div x-data="{ grade: <?= $arr_Data['INT_PACKAGE_REVIEW'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_package_review" x-bind:value="grade">
+            <div x-data="{ grade: <?= $arr_Data['INT_PSTAR'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
+                <input type="hidden" name="int_pstar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,8 +139,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div class="flex flex-col items-center w-full">
             <p class="font-bold text-xs leading-[14px] text-black">상품의 배송에 만족하시나요?</p>
-            <div x-data="{ grade: <?= $arr_Data['INT_DELIVERY_REVIEW'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
-                <input type="hidden" name="int_delivery_review" x-bind:value="grade">
+            <div x-data="{ grade: <?= $arr_Data['INT_DSTAR'] ?> }" class="mt-[15px] flex gap-8 items-center justify-center">
+                <input type="hidden" name="int_dstar" x-bind:value="grade">
                 <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,26 +173,34 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">상품 리뷰를 남겨주세요</p>
             <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-bold text-xs leading-[19px] placeholder:text-[#999999]" name="str_content" id="str_content" placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
 도움수가 올라가면 탑리뷰어가 될 확률도 높아져요!
-반품, 환불 관련 내용은 고객센터 1:1 문의로 별도 문의해주세요."><?= $arr_Data['STR_CONTENT'] ?></textarea>
+반품, 환불 관련 내용은 고객센터 1:1 문의로 별도 문의해주세요."><?= $arr_Data['BD_CONT'] ?></textarea>
         </div>
 
         <div class="flex flex-col gap-[5px] w-full">
             <div id="image_preview" class="grid grid-cols-3 w-full gap-1.5">
                 <?php
-                for ($i = 1; $i <= 3; $i++) {
-                    if ($arr_Data['STR_IMAGE' . $i]) {
+                $SQL_QUERY =    'SELECT
+                                    A.*
+                                FROM 
+                                    `' . $Tname . 'b_img_data@01` AS A
+                                WHERE
+                                    A.BD_SEQ=' . $bd_seq . '
+                                ORDER BY 
+                                    A.IMG_ALIGN ASC';
+
+                $img_list_result = mysql_query($SQL_QUERY);
+                while ($row = mysql_fetch_assoc($img_list_result)) {
                 ?>
-                        <div x-data="{ deleteImage: false }" class="image-container" x-show="!deleteImage">
-                            <input type="hidden" name="str_dimage<?= $i ?>" x-bind:value="deleteImage">
-                            <img class="preview-image" src="/admincenter/files/boad/2/<?= $arr_Data['STR_IMAGE' . $i] ?>" alt="">
-                            <button type="button" class="delete-button" x-on:click="deleteImage = true">
-                                <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
-                                </svg>
-                            </button>
-                        </div>
+                    <div x-data="{ deleteImage: false }" class="image-container" x-show="!deleteImage">
+                        <input type="hidden" name="str_dimage<?= $row['IMG_ALIGN'] ?>" x-bind:value="deleteImage">
+                        <img class="preview-image" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" alt="">
+                        <button type="button" class="delete-button" x-on:click="deleteImage = true">
+                            <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
+                            </svg>
+                        </button>
+                    </div>
                 <?
-                    }
                 }
                 ?>
             </div>

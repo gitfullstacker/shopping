@@ -13,15 +13,14 @@ $SQL_QUERY = 'SELECT
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
-                    ' . $Tname . 'comm_review D
+                    `' . $Tname . 'b_bd_data@01` D
                 ON
                     A.INT_NUMBER=D.STR_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                AND 
-                    A.INT_STATE IN ("4","5","10")
-                AND
-                    D.INT_NUMBER IS NULL';
+                    AND A.INT_STATE=4
+                    AND D.STR_CART IS NULL
+                    AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
 
 $result = mysql_query($SQL_QUERY);
 
@@ -36,7 +35,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, C.STR_CODE 
+                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, B.INT_MILEAGE, C.STR_CODE 
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -48,23 +47,21 @@ $SQL_QUERY =    'SELECT
                 ON
                     B.INT_BRAND=C.INT_NUMBER
                 LEFT JOIN
-                    ' . $Tname . 'comm_review D
+                    `' . $Tname . 'b_bd_data@01` D
                 ON
                     A.INT_NUMBER=D.STR_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                AND 
-                    A.INT_STATE IN ("4","5","10")
-                AND
-                    D.INT_NUMBER IS NULL
+                    AND A.INT_STATE=4
+                    AND D.STR_CART IS NULL
+                    AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
 
-$arr_Data = mysql_query($SQL_QUERY);
-$arr_Data_Cnt = mysql_num_rows($arr_Data);
+$cart_list_result = mysql_query($SQL_QUERY);
 
-if ($arr_Data_Cnt > 0) {
+if (mysql_num_rows($cart_list_result) > 0) {
     $result = '
         <div class="mt-[15px] mb-[23px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
             <p class="font-bold text-[10px] leading-[14px] text-black">후기 작성 안내</p>
@@ -77,29 +74,33 @@ if ($arr_Data_Cnt > 0) {
             </p>
         </div>
         <div class="flex flex-col gap-[15px] w-full border-t-[0.5px] border-[#E0E0E0] pt-[15px]">';
-    for ($int_J = 0; $int_J < $arr_Data_Cnt; $int_J++) {
+    while ($row = mysql_fetch_assoc($cart_list_result)) {
+        $endDate = date('Y-m-d', strtotime($row['DTM_EDIT_DATE'] . ' +30 days'));
+        $d_day = (strtotime($endDate) - strtotime(date('Y-m-d'))) / (60 * 60 * 24);
+        $d_day = round($d_day);
+
         $result .= '
             <div class="flex flex-col gap-[15px] w-full border-b-[0.5px] border-[#E0E0E0] pb-[21px]">
-                <p class="font-bold text-[13px] leading-[15px] text-[#999999]">구매확정일 ' . substr(mysql_result($arr_Data, $int_J, 'DTM_INDATE'), 0, 10) . '</p>
+                <p class="font-bold text-[13px] leading-[15px] text-[#999999]">구매확정일 ' . substr($row['DTM_INDATE'], 0, 10) . '</p>
                 <div class="flex gap-[11px]">
                     <div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
-                        <img src="/admincenter/files/good/' . mysql_result($arr_Data, $int_J, 'STR_IMAGE1') . '" alt="">
+                        <img src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" alt="">
                     </div>
                     <div class="grow flex flex-col justify-center">
-                        <div class="w-[34px] h-[18px] flex justify-center items-center bg-[' . (mysql_result($arr_Data, $int_J, 'INT_TYPE') == 1 ? '#EEAC4C' : (mysql_result($arr_Data, $int_J, 'INT_TYPE') == 2 ? '#00402F' : '#7E6B5A')) . ']">
-                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">' . (mysql_result($arr_Data, $int_J, 'INT_TYPE') == 1 ? '구독' : (mysql_result($arr_Data, $int_J, 'INT_TYPE') == 2 ? '렌트' : '빈티지')) . '</p>
+                        <div class="w-[34px] h-[18px] flex justify-center items-center bg-[' . ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) . ']">
+                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">' . ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지')) . '</p>
                         </div>
-                        <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . mysql_result($arr_Data, $int_J, 'STR_CODE') . '</p>
-                        <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . mysql_result($arr_Data, $int_J, 'STR_GOODNAME') . '</p>
-                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: 2023.02.10 ~ 2023.02.13</p>
+                        <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
+                        <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
+                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
                     </div>
                 </div>
                 <div class="mt-[14px] flex gap-[35px] items-center w-full">
                     <div class="flex flex-col gap-[5px]">
-                        <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: 1,000</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-20(2023.04.10)</p>
+                        <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
+                        <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')</p>
                     </div>
-                    <a href="create.php?int_cart=' . mysql_result($arr_Data, $int_J, 'INT_NUMBER') . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <a href="create.php?str_cart=' . $row['INT_NUMBER'] . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-[11px] leading-[12px] text-black">리뷰 작성</p>
                     </a>
                 </div>

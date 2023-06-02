@@ -66,7 +66,7 @@
 	$SQL_QUERY.="comm_stamp_prod a ";
 	$SQL_QUERY.="where a.int_prod is not null ";
 	$SQL_QUERY.=$Str_Query;
-	$SQL_QUERY.="order by a.int_prod desc ";
+	$SQL_QUERY.="order by a.int_prod asc ";
 	$SQL_QUERY.="limit $f_limit,$l_limit";
 
 	$result = mysql_query($SQL_QUERY);
@@ -196,7 +196,7 @@
 							<?$article_num = $total_record - $displayrow*($page-1) ;?>
 							<?for($i = 0 ;$i <= $displayrow -1; $i++) {?>
 							<tr height=30 align="center">
-								<td><font class=ver81 color=616161><?= $article_num?></font></td>
+								<td><font class=ver81 color=616161><?= $i + 1?></font></td>
 								<td>
 									<span id="navig" name="navig" m_id="admin" m_no="1"><font color=0074BA><b><?=mysql_result($result,$i,str_prod)?></b></font></span>
 								</td>

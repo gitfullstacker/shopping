@@ -3,6 +3,10 @@
 fnc_MLogin_Chk();
 ?>
 <?
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
+?>
+
+<?
 $SQL_QUERY =	" SELECT
 					UR.*
 				FROM "
@@ -17,10 +21,6 @@ if (!$arr_Rlt_Data) {
 	exit;
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
-?>
-
-<?
-require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <div class="flex flex-col w-full">
@@ -46,12 +46,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 			</div>
 		</div>
 		<div class="flex px-[14px] py-[15px] border-b border-[#E0E0E0]">
-			<p class="font-bold text-xs leading-[14px] text-[#666666]">[일반]: 적립 5% + 월 1회 무료케어</p>
+			<p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Auth[10] == 'B' ? '[BLACK]: 블랙 등급 혜택 제공' : '[GREEN]: 그린 등급 혜택 제공' ?></p>
 		</div>
 		<div class="grid grid-cols-2 divide-x divide-[#E0E0E0] border-b border-[#E0E0E0]">
 			<div class="flex flex-col gap-[5px] px-[14px] py-[19px]">
 				<p class="font-bold text-xs leading-[14px] text-[#666666]">나의 적립금</p>
-				<p class="font-extrabold text-lg leading-5 text-black">3000</p>
+				<p class="font-extrabold text-lg leading-5 text-black"><?= number_format($arr_Data['INT_MILEAGE']) ?></p>
 			</div>
 			<div class="flex flex-col gap-[5px] px-[14px] py-[19px]">
 				<?php

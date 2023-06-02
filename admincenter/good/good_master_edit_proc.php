@@ -28,6 +28,7 @@ $str_service = Fnc_Om_Conv_Default($_REQUEST[str_service], "N");
 $str_myn = Fnc_Om_Conv_Default($_REQUEST[str_myn], "N");
 $str_mmyn = Fnc_Om_Conv_Default($_REQUEST[str_mmyn], "N");
 $int_mileage = Fnc_Om_Conv_Default($_REQUEST[int_mileage], "0");
+$str_pmileage = Fnc_Om_Conv_Default($_REQUEST[str_pmileage], "N");
 $to_int_type = Fnc_Om_Conv_Default($_REQUEST[to_int_type], "0");
 $int_type = Fnc_Om_Conv_Default($_REQUEST[int_type], "1");
 $int_grade = Fnc_Om_Conv_Default($_REQUEST[int_grade], "1");
@@ -286,10 +287,11 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[30]		= "STR_TSIZE";
 		$arr_Column_Name[31]		= "STR_STYLE";
 		$arr_Column_Name[32]		= "INT_MILEAGE";
-		$arr_Column_Name[33]		= "INT_VIEW";
-		$arr_Column_Name[34]		= "STR_TIMAGE";
-		$arr_Column_Name[35]		= "INT_TYPE";
-		$arr_Column_Name[36]		= "INT_GRADE";
+		$arr_Column_Name[33]		= "STR_PMILEAGE";
+		$arr_Column_Name[34]		= "INT_VIEW";
+		$arr_Column_Name[35]		= "STR_TIMAGE";
+		$arr_Column_Name[36]		= "INT_TYPE";
+		$arr_Column_Name[37]		= "INT_GRADE";
 
 		$arr_Set_Data[0]		= $lastnumber;
 		$arr_Set_Data[1]		= addslashes($str_goodname);
@@ -320,14 +322,15 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[26]		= $str_myn;
 		$arr_Set_Data[27]		= $str_mmyn;
 		$arr_Set_Data[28]		= $lastsort;
-		$arr_Set_Data[29]		= $int_discount ?: null;;
+		$arr_Set_Data[29]		= $int_discount ?: null;
 		$arr_Set_Data[30]		= $str_tsize;
 		$arr_Set_Data[31]		= $str_style;
-		$arr_Set_Data[32]		= $int_mileage ?: null;;
-		$arr_Set_Data[33]		= 0;
-		$arr_Set_Data[34]		= $str_dtimage;
-		$arr_Set_Data[35]		= $int_type;
-		$arr_Set_Data[36]		= $int_grade;
+		$arr_Set_Data[32]		= $int_mileage ?: null;
+		$arr_Set_Data[33]		= $str_pmileage;
+		$arr_Set_Data[34]		= 0;
+		$arr_Set_Data[35]		= $str_dtimage;
+		$arr_Set_Data[36]		= $int_type;
+		$arr_Set_Data[37]		= $int_grade;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -584,8 +587,9 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[26]		= "STR_TSIZE";
 		$arr_Column_Name[27]		= "STR_STYLE";
 		$arr_Column_Name[28]		= "INT_MILEAGE";
-		$arr_Column_Name[29]		= "STR_TIMAGE";
-		$arr_Column_Name[30]		= "INT_GRADE";
+		$arr_Column_Name[29]		= "STR_PMILEAGE";
+		$arr_Column_Name[30]		= "STR_TIMAGE";
+		$arr_Column_Name[31]		= "INT_GRADE";
 
 		$arr_Set_Data[0]		= $str_no;
 		$arr_Set_Data[1]		= addslashes($str_goodname);
@@ -615,9 +619,10 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[25]		= $int_discount ?: null;
 		$arr_Set_Data[26]		= $str_tsize;
 		$arr_Set_Data[27]		= $str_style;
-		$arr_Set_Data[28]		= $int_mileage ?: null;;
-		$arr_Set_Data[29]		= $str_dtimage;
-		$arr_Set_Data[30]		= $int_grade;
+		$arr_Set_Data[28]		= $int_mileage ?: null;
+		$arr_Set_Data[29]		= $str_pmileage;
+		$arr_Set_Data[30]		= $str_dtimage;
+		$arr_Set_Data[31]		= $int_grade;
 
 		$arr_Sub = "";
 
