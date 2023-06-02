@@ -139,9 +139,7 @@ switch ($int_gubun) {
 											</td>
 										</tr>
 									<?php
-									}
-
-									if ($int_gubun == 11) {
+									} else if ($int_gubun == 11) {
 									?>
 										<tr>
 											<td>분류</td>
@@ -152,6 +150,10 @@ switch ($int_gubun) {
 												</select>
 											</td>
 										</tr>
+									<?php
+									} else {
+									?>
+										<input type="hidden" name="int_type" value="null">
 									<?php
 									}
 									?>

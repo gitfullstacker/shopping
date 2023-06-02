@@ -479,54 +479,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			</svg>
 		</a>
 	</div>
-	<div class="image-grid">
+	<div class="mt-[19.46px] grid grid-cols-3 gap-[1px] w-full bg-white">
 		<?php
-		$SQL_QUERY =    'SELECT 
-							A.BD_SEQ,
-							A.CONF_SEQ,
-							A.MEM_ID,
-							A.BD_CONT,
-							A.BD_REG_DATE,
-							A.BD_ITEM2,
-							IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
-							C.STR_GOODNAME,
-							C.STR_IMAGE1,
-							C.INT_DISCOUNT,
-							C.INT_PRICE,
-							C.INT_TYPE,
-							D.STR_CODE,
-							(SELECT COUNT(STR_USERID) FROM `' . $Tname . 'comm_review_like` A1 WHERE A1.BD_SEQ=A.BD_SEQ) AS COUNT_LIKE
+		$SQL_QUERY =    'SELECT A.*
 						FROM 
-							`' . $Tname . 'b_bd_data@01` A
-						LEFT JOIN
-							`' . $Tname . 'b_img_data@01` B
-						ON
-							A.CONF_SEQ=B.CONF_SEQ
-							AND
-							A.BD_SEQ=B.BD_SEQ
-							AND
-							B.IMG_ALIGN=1
-						LEFT JOIN
-							' . $Tname . 'comm_goods_master C
-						ON
-							A.BD_ITEM1=C.STR_GOODCODE
-						LEFT JOIN
-							' . $Tname . 'comm_com_code D
-						ON
-							C.INT_BRAND=D.INT_NUMBER
+							' . $Tname . 'comm_banner A
 						WHERE 
-							A.CONF_SEQ=2
-							AND A.BD_ID_KEY IS NOT NULL
-						ORDER BY A.BD_ORDER DESC
-						LIMIT 8';
+							A.STR_SERVICE="Y"
+							AND A.INT_GUBUN=12
+						LIMIT 9';
 
 		$review_list_result = mysql_query($SQL_QUERY);
 
 		$index = 0;
 		while ($row = mysql_fetch_assoc($review_list_result)) {
 		?>
-			<div class="image <?= $index == 2 ? 'large' : '' ?> bg-gray-100">
-				<img class="object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="review">
+			<div class="w-full min-h-[130px] flex bg-gray-100">
+				<img class="object-cover object-center" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
 			</div>
 		<?php
 			$index++;
