@@ -3,16 +3,17 @@
 	Fnc_Acc_Admin();
 ?>
 <?
-	$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag],"INSERT");
-	$int_gubun = Fnc_Om_Conv_Default($_REQUEST[int_gubun],"1");
-	$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no],"");
-	$str_url1 = Fnc_Om_Conv_Default($_REQUEST[str_url1],"");
-	$str_target1 = Fnc_Om_Conv_Default($_REQUEST[str_target1],"1");
-	$str_service = Fnc_Om_Conv_Default($_REQUEST[str_service],"N");
+	$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'],"INSERT");
+	$int_gubun = Fnc_Om_Conv_Default($_REQUEST['int_gubun'],"1");
+	$str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'],"");
+	$str_url1 = Fnc_Om_Conv_Default($_REQUEST['str_url1'],"");
+	$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'],"");
+	$str_target1 = Fnc_Om_Conv_Default($_REQUEST['str_target1'],"1");
+	$str_service = Fnc_Om_Conv_Default($_REQUEST['str_service'],"N");
 	
-	$str_del_img1 = Fnc_Om_Conv_Default($_REQUEST[str_del_img1],"N");
+	$str_del_img1 = Fnc_Om_Conv_Default($_REQUEST['str_del_img1'],"N");
 
-	$str_dimage1 = Fnc_Om_Conv_Default($_REQUEST[str_dimage1],"");
+	$str_dimage1 = Fnc_Om_Conv_Default($_REQUEST['str_dimage1'],"");
 	$str_image1=$_FILES['str_image1']['tmp_name'];
 	$str_image1_name=$_FILES['str_image1']['name'];
 
@@ -27,7 +28,7 @@
 	switch($RetrieveFlag){
      	case "INSERT" :
 
-			$str_Temp=Fnc_Om_File_Save($str_image1,$str_image1_name,$str_dimage1,0,0,"",$str_Add_Tag);
+			$str_Temp=Fnc_Om_File_Save($str_image1,getRandomFileName($str_image1_name),$str_dimage1,0,0,"",$str_Add_Tag);
 
 			if ($str_Temp[0] == "0") {
 				?>
@@ -52,10 +53,10 @@
 			$lastnumber = mysql_result($arr_max_Data,0,lastnumber);
 
 			$SQL_QUERY = "INSERT INTO ".$Tname."comm_banner (";
-					$SQL_QUERY .= " INT_GUBUN,INT_NUMBER,STR_URL1,STR_TARGET1,STR_IMAGE1,DTM_INDATE,STR_SERVICE
-											) VALUES (
-												'$int_gubun','$lastnumber','$str_url1','$str_target1','$str_dimage1','".date("Y-m-d H:i:s")."','$str_service'
-											)";
+					$SQL_QUERY .= " INT_GUBUN,INT_NUMBER,STR_URL1,STR_TARGET1,STR_IMAGE1,DTM_INDATE,STR_SERVICE,INT_TYPE
+									) VALUES (
+										'$int_gubun','$lastnumber','$str_url1','$str_target1','$str_dimage1','".date("Y-m-d H:i:s")."','$str_service',$int_type
+									)";
 
 			$result=mysql_query($SQL_QUERY);
 
@@ -69,7 +70,7 @@
 
 		case "UPDATE" :
 
-			$str_Temp=Fnc_Om_File_Save($str_image1,$str_image1_name,$str_dimage1,0,0,$str_del_img1,$str_Add_Tag);
+			$str_Temp=Fnc_Om_File_Save($str_image1,getRandomFileName($str_image1_name),$str_dimage1,0,0,$str_del_img1,$str_Add_Tag);
 
 			if ($str_Temp[0] == "0") {
 				?>
@@ -92,6 +93,7 @@
 									,STR_TARGET1='$str_target1'
 									,STR_IMAGE1='$str_dimage1'
 									,STR_SERVICE='$str_service'
+									,INT_TYPE=$int_type
 								WHERE
 									INT_GUBUN='$int_gubun'
 									AND

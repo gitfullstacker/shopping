@@ -93,8 +93,8 @@
 	    resetImage(obj);
 	    return;
 	  }
-	  else if ( !((src.toLowerCase() == "gif") || (src.toLowerCase() == "jpg") || (src.toLowerCase() == "jpeg")) ) {
-	    alert('gif 와 jpg 파일만 지원합니다.');
+	  else if ( !((src.toLowerCase() == "gif") || (src.toLowerCase() == "jpg") || (src.toLowerCase() == "jpeg") || (src.toLowerCase() == "png")) ) {
+	    alert('gif, jpg, png 파일만 지원합니다.');
 	    resetImage(obj);
 	    return;
 	  }

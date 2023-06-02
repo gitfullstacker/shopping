@@ -4,99 +4,120 @@ $topmenu = 5;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
-<link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink" />
+<?php
+$menu = Fnc_Om_Conv_Default($_REQUEST['menu'], "plan");
+?>
 
 <!-- 슬라이더 -->
-<div class="m_visual">
-    <div class="swiper-container1">
-        <div class="swiper-wrapper">
-            <?
-            $SQL_QUERY = "select a.* from " . $Tname . "comm_banner a where a.str_service='Y' and a.int_gubun='6' order by a.int_number asc ";
+<div class="flex w-full overflow-hidden">
+    <?php
+    $SQL_QUERY =     'SELECT 
+						A.*
+					FROM 
+						' . $Tname . 'comm_banner A
+					WHERE 
+						A.STR_SERVICE="Y"
+						AND A.INT_GUBUN=9
+					ORDER BY A.DTM_INDATE DESC';
 
-            $arr_Bann_Data = mysql_query($SQL_QUERY);
-            $arr_Bann_Data_Cnt = mysql_num_rows($arr_Bann_Data);
+    $home_banner_list_result = mysql_query($SQL_QUERY);
+    ?>
+    <div x-data="{
+        imageCount: 3,
+        slider: 1,
+        containerWidth: 0,
+        handleScroll() {
+            const scrollPosition = this.$refs.sliderContainer.scrollLeft;
+            const slider = Math.round(scrollPosition / this.containerWidth) + 1;
+
+            this.slider = slider;
+        },
+        init() {
+            this.imageCount = this.$refs.sliderContainer.children.length;
+            this.containerWidth = this.$refs.sliderContainer.offsetWidth;
+
+            setInterval(() => {
+                this.slider++;
+                if (this.slider > this.imageCount) {
+                    this.slider = 1;
+                }
+                this.$refs.sliderContainer.scrollTo({
+                    left: (this.slider - 1) * this.containerWidth,
+                    behavior: 'smooth'
+                });
+            }, 3000);
+        }
+    }" class="flex w-full relative">
+        <div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
+            <?php
+            while ($row = mysql_fetch_assoc($home_banner_list_result)) {
             ?>
-            <?
-            for ($int_J = 0; $int_J < $arr_Bann_Data_Cnt; $int_J++) {
-            ?>
-                <? if (mysql_result($arr_Bann_Data, $int_J, str_image1) != "") { ?>
-                    <div class="swiper-slide">
-                        <? if (mysql_result($arr_Bann_Data, $int_J, str_url1) != "") { ?>
-                            <a href="<?= mysql_result($arr_Bann_Data, $int_J, str_url1) ?>" <? if (mysql_result($arr_Bann_Data, $int_J, str_target1) == "2") { ?> target="_blank" <? } ?>>
-                            <? } ?>
-                            <img src="/admincenter/files/bann/<?= mysql_result($arr_Bann_Data, $int_J, str_image1) ?>" alt="" />
-                            <? if (mysql_result($arr_Bann_Data, $int_J, str_url1) != "") { ?>
-                            </a>
-                        <? } ?>
-                    </div>
-                <? } ?>
-            <?
+                <a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-always snap-center w-screen h-[467px] bg-gray-100">
+                    <img class="w-screen h-full object-cover" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
+                </a>
+            <?php
             }
             ?>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
+        <div class="absolute w-full flex justify-center px-[77px] bottom-[14.45px]">
+            <div class="flex w-full bg-[#C6C6C6] h-[1.55px]">
+                <div class="h-[1.55px] bg-black" x-bind:class="slider == imageCount ? 'w-full' : 'w-[' + slider/imageCount * 100 + '%]'"></div>
+            </div>
+        </div>
     </div>
-    <script>
-        var swiper = new Swiper('.swiper-container1', {
-            effect: 'fade',
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
-            spaceBetween: 0,
-            centeredSlides: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false,
-            loop: true
-        });
-    </script>
 </div>
 
 <!-- NEWS LETTER -->
-<div class="news-letter">
-    <p class="title">NEWS LETTER</p>
-    <div class="top-menu">
-        <a class="actived" href="#">
-            기획전
-        </a>
-        <a href="#">
-            이벤트
-        </a>
+<div x-data="{ menu: '<?= $menu ?>' }" class="mt-[50px] flex flex-col items-center w-full">
+    <p class="font-extrabold text-lg leading-5 text-[#333333]">NEWS LETTER</p>
+    <div class="mt-[26px] flex flex-row gap-[70px] items-center justify-center">
+        <div class="flex flex-col gap-[3px] items-center px-[3px] border-[#6A696C]" x-bind:class="menu == 'plan' ? 'border-b' : 'border-none'" x-on:click="menu = 'plan'">
+            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 'plan' ? 'text-[#6A696C]' : 'text-[#999999]'">기획전</p>
+        </div>
+        <div class="flex flex-col gap-[3px] items-center px-[3px] border-[#6A696C]" x-bind:class="menu == 'event' ? 'border-b' : 'border-none'" x-on:click="menu = 'event'">
+            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 'event' ? 'text-[#6A696C]' : 'text-[#999999]'">이벤트</p>
+        </div>
     </div>
-    <div class="event-list">
-        <?php
-        for ($i = 0; $i < 5; $i++) {
-        ?>
-            <a href="detail/index.php" class="item">
-                <img src="images/mockup/event1.png" alt="event">
-                <p class="title">23 SEASON TREND</p>
-                <p class="tag">2023 시즌 패션 트렌드</p>
-            </a>
-        <?php
-        }
-        ?>
-        <div class="pagination">
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-                </svg>
-            </a>
-            <div class="pages">
-                <?php
-                for ($i = 0; $i < 4; $i++) {
-                ?>
-                    <a href="#" class="item <?= $i == 0 ? 'actived' : '' ?>"><?= $i + 1 ?></a>
-                <?php
-                }
-                ?>
-            </div>
-            <a href="#">
-                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-                </svg>
-            </a>
+    <div class="mt-[33px] flex flex-col w-full">
+        <!-- Plan -->
+        <div x-show="menu == 'plan'" class="flex flex-col w-full" id="plan_list">
+        </div>
+        <!-- Event -->
+        <div x-show="menu == 'event'" class="flex flex-col w-full" id="event_list">
         </div>
     </div>
 </div>
 
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
+
+
+<script>
+    $(document).ready(function() {
+        searchPlan();
+        searchEvent();
+    });
+
+    function searchPlan(page = 0) {
+        url = "get_plan_list.php";
+        url += "?page=" + page;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#plan_list").html(result);
+            }
+        });
+    }
+
+    function searchEvent(page = 0) {
+        url = "get_event_list.php";
+        url += "?page=" + page;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#event_list").html(result);
+            }
+        });
+    }
+</script>

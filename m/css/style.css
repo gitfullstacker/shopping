@@ -3396,3 +3396,25 @@ body {
 img, video {
   max-width: fit-content!important;
 }
+
+/* Webkit-based browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+/* Firefox */
+.custom-scrollbar.scrollbar-track {
+  display: none;
+}
+
+.custom-scrollbar.scrollbar-thumb {
+  display: none;
+}

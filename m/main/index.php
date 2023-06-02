@@ -5,49 +5,62 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
 <!-- 슬라이더 -->
-<div class="m_visual">
-	<div class="swiper-container1">
-		<div class="swiper-wrapper">
-			<?
-			$SQL_QUERY = "select a.* from " . $Tname . "comm_banner a where a.str_service='Y' and a.int_gubun='6' order by a.int_number asc ";
+<div class="flex w-full overflow-hidden">
+	<?php
+	$SQL_QUERY =     'SELECT 
+						A.*
+					FROM 
+						' . $Tname . 'comm_banner A
+					WHERE 
+						A.STR_SERVICE="Y"
+						AND A.INT_GUBUN=6
+					ORDER BY A.DTM_INDATE DESC';
 
-			$arr_Bann_Data = mysql_query($SQL_QUERY);
-			$arr_Bann_Data_Cnt = mysql_num_rows($arr_Bann_Data);
+	$home_banner_list_result = mysql_query($SQL_QUERY);
+	?>
+	<div x-data="{
+        imageCount: 3,
+        slider: 1,
+        containerWidth: 0,
+        handleScroll() {
+            const scrollPosition = this.$refs.sliderContainer.scrollLeft;
+            const slider = Math.round(scrollPosition / this.containerWidth) + 1;
+
+            this.slider = slider;
+        },
+        init() {
+            this.imageCount = this.$refs.sliderContainer.children.length;
+            this.containerWidth = this.$refs.sliderContainer.offsetWidth;
+
+            setInterval(() => {
+                this.slider++;
+                if (this.slider > this.imageCount) {
+                    this.slider = 1;
+                }
+                this.$refs.sliderContainer.scrollTo({
+                    left: (this.slider - 1) * this.containerWidth,
+                    behavior: 'smooth'
+                });
+            }, 3000);
+        }
+    }" class="flex w-full relative">
+		<div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
+			<?php
+			while ($row = mysql_fetch_assoc($home_banner_list_result)) {
 			?>
-			<?
-			for ($int_J = 0; $int_J < $arr_Bann_Data_Cnt; $int_J++) {
-			?>
-				<? if (mysql_result($arr_Bann_Data, $int_J, str_image1) != "") { ?>
-					<div class="swiper-slide">
-						<? if (mysql_result($arr_Bann_Data, $int_J, str_url1) != "") { ?>
-							<a href="<?= mysql_result($arr_Bann_Data, $int_J, str_url1) ?>" <? if (mysql_result($arr_Bann_Data, $int_J, str_target1) == "2") { ?> target="_blank" <? } ?>>
-							<? } ?>
-							<img src="/admincenter/files/bann/<?= mysql_result($arr_Bann_Data, $int_J, str_image1) ?>" alt="" />
-							<? if (mysql_result($arr_Bann_Data, $int_J, str_url1) != "") { ?>
-							</a>
-						<? } ?>
-					</div>
-				<? } ?>
-			<?
+				<a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-always snap-center w-screen h-[467px] bg-gray-100">
+					<img class="w-screen h-full object-cover" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
+				</a>
+			<?php
 			}
 			?>
 		</div>
-		<!-- Add Pagination -->
-		<div class="swiper-pagination"></div>
-		<!-- Add Arrows -->
+		<div class="absolute w-full flex justify-center px-[77px] bottom-[14.45px]">
+			<div class="flex w-full bg-[#C6C6C6] h-[1.55px]">
+				<div class="h-[1.55px] bg-black" x-bind:class="slider == imageCount ? 'w-full' : 'w-[' + slider/imageCount * 100 + '%]'"></div>
+			</div>
+		</div>
 	</div>
-	<script>
-		var swiper = new Swiper('.swiper-container1', {
-			effect: 'fade',
-			pagination: '.swiper-pagination',
-			paginationClickable: true,
-			spaceBetween: 0,
-			centeredSlides: true,
-			autoplay: 2500,
-			autoplayDisableOnInteraction: false,
-			loop: true
-		});
-	</script>
 </div>
 
 <!-- 안내메뉴 -->
@@ -77,7 +90,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			<p class="title">이벤트존</p>
 			<p class="description">에이블랑만의 큐레이션</p>
 		</div>
-		<a href="#" class="right-section">
+		<a href="/m/eventzone/index.php?menu=event" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.02539L14.3332 5.9577L8.76416 10.691" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 5.95801H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
@@ -86,11 +99,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</div>
 	<div class="eventzone-scroll-list">
 		<?php
-		for ($i = 0; $i < 5; $i++) {
+		$SQL_QUERY = 	'SELECT 
+							A.*
+						FROM 
+							' . $Tname . 'comm_event A
+						WHERE 
+							A.STR_SERVICE="Y"
+						ORDER BY A.DTM_INDATE DESC
+						LIMIT 4';
+
+		$event_list_result = mysql_query($SQL_QUERY);
+		while ($row = mysql_fetch_assoc($event_list_result)) {
 		?>
-			<div class="item">
-				<img src="../images/mockup/event_zone.png" alt="event_zone">
-			</div>
+			<a href="/m/eventzone/event_detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="item">
+				<img class="object-cover" src="/admincenter/files/event/<?= $row['STR_IMAGE'] ?>" onerror="this.style.display = 'none'" alt="">
+			</a>
 		<?php
 		}
 		?>
@@ -147,7 +170,24 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		?>
 			<div class="section">
 				<a href="/m/product/index.php?product_type=<?= $int_type ?>" class="item relative">
-					<img src="images/category<?= $i + 1 ?>.png" alt="event_zone">
+					<div class="flex w-[247px] h-[369px] bg-gray-500 rounded-xl">
+						<?php
+						$SQL_QUERY = 	'SELECT 
+											A.*
+										FROM 
+											' . $Tname . 'comm_banner A
+										WHERE 
+											A.STR_SERVICE="Y"
+											AND A.INT_GUBUN=10
+											AND A.INT_TYPE=' . $int_type . '
+										LIMIT 1';
+
+						$banner_result = mysql_query($SQL_QUERY);
+						$banner_Data = mysql_fetch_assoc($banner_result);
+						?>
+						<img class="w-full object-cover rounded-xl" src="/admincenter/files/bann/<?= $banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="event_zone">
+					</div>
+
 					<div class="absolute flex flex-col gap-2 left-[13px] bottom-4">
 						<?php
 						switch ($i) {
@@ -306,8 +346,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			</svg>
 		</a>
 	</div>
-	<div class="main-image">
-		<img src="images/new_rent.png" alt="rentnew">
+	<div class="main-image flex w-screen h-[205px] bg-gray-100">
+		<?php
+		$SQL_QUERY = 	'SELECT 
+							A.*
+						FROM 
+							' . $Tname . 'comm_banner A
+						WHERE 
+							A.STR_SERVICE="Y"
+							AND A.INT_GUBUN=11
+							AND A.INT_TYPE=1
+						LIMIT 1';
+
+		$rent_b_result = mysql_query($SQL_QUERY);
+		$rent_b_Data = mysql_fetch_assoc($rent_b_result);
+		?>
+		<img class="w-full object-cover" src="/admincenter/files/bann/<?= $rent_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rentnew">
 	</div>
 	<div class="product-scroll-list">
 		<?
@@ -359,8 +413,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			</svg>
 		</a>
 	</div>
-	<div class="main-image">
-		<img src="images/new_subscription.png" alt="subscriptionnew">
+	<div class="main-image flex w-screen h-[205px] bg-gray-100">
+		<?php
+		$SQL_QUERY = 	'SELECT 
+							A.*
+						FROM 
+							' . $Tname . 'comm_banner A
+						WHERE 
+							A.STR_SERVICE="Y"
+							AND A.INT_GUBUN=11
+							AND A.INT_TYPE=2
+						LIMIT 1';
+
+		$sub_b_result = mysql_query($SQL_QUERY);
+		$sub_b_Data = mysql_fetch_assoc($sub_b_result);
+		?>
+		<img src="/admincenter/files/bann/<?= $sub_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="subscriptionnew">
 	</div>
 	<div class="product-scroll-list">
 		<?
