@@ -87,7 +87,7 @@ if (mysql_num_rows($qna_list_result) > 0) {
                 <div class="flex-1 flex flex-col gap-1.5">
                     <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">[' . $type_name . ']</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#666666] line-clamp-1">' . $row['STR_CONT'] . '</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#666666] line-clamp-1">' . $row['STR_TITLE'] . '</p>
                 </div>
                 <p class="font-bold text-xs leading-[14px] text-' . ($row['NUM_ANS'] > 0 ? 'black' : '[#999999]') . '">' . ($row['NUM_ANS'] > 0 ? '답변완료' : '답변대기') . '</p>
             </a>';

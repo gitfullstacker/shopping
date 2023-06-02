@@ -34,19 +34,61 @@
         <p class="description">5000개의 리뷰가 검증하는 에이블랑</p>
         <div class="review-list">
             <?php
-            for ($i = 0; $i < 5; $i++) {
+            $SQL_QUERY =    'SELECT 
+                                A.BD_SEQ,
+                                A.CONF_SEQ,
+                                A.MEM_ID,
+                                A.BD_CONT,
+                                A.BD_REG_DATE,
+                                A.BD_ITEM2,
+                                IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                                C.STR_GOODNAME,
+                                C.STR_IMAGE1,
+                                C.INT_DISCOUNT,
+                                C.INT_PRICE,
+                                C.INT_TYPE,
+                                D.STR_CODE
+                            FROM 
+                                `' . $Tname . 'b_bd_data@01` A
+                            LEFT JOIN
+                                `' . $Tname . 'b_img_data@01` B
+                            ON
+                                A.CONF_SEQ=B.CONF_SEQ
+                                AND
+                                A.BD_SEQ=B.BD_SEQ
+                                AND
+                                B.IMG_ALIGN=1
+                            LEFT JOIN
+                                ' . $Tname . 'comm_goods_master C
+                            ON
+                                A.BD_ITEM1=C.STR_GOODCODE
+                            LEFT JOIN
+                                ' . $Tname . 'comm_com_code D
+                            ON
+                                C.INT_BRAND=D.INT_NUMBER
+                            WHERE 
+                                A.CONF_SEQ=2
+                                AND A.BD_ID_KEY IS NOT NULL
+                                AND A.BD_BEST=1
+                                AND (A.BD_HIDE=0 OR A.MEM_ID="' . $arr_Auth[0] . '")
+                            ORDER BY A.BD_ITEM2 DESC, A.BD_REG_DATE DESC
+                            LIMIT 5';
+
+            $best_review_list_result = mysql_query($SQL_QUERY);
+
+            while ($row = mysql_fetch_assoc($best_review_list_result)) {
             ?>
                 <div class="item">
-                    <div class="image">
-                        <img src="images/mockup/review1.png" alt="review">
+                    <div class="image flex items-center justify-center bg-gray-100">
+                        <img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
                     </div>
                     <div class="header-section">
-                        <p class="brand">SAINT LAURENT</p>
-                        <p class="title">솔페리노 스몰 사첼백</p>
+                        <p class="brand"><?= $row['STR_CODE'] ?></p>
+                        <p class="title"><?= $row['STR_GOODNAME'] ?></p>
                     </div>
                     <div class="content-section">
-                        <p class="user">xxs***</p>
-                        <p class="review-content">디자인, 색상 모두 맘에들어요 자주 이용해야겠어요!</p>
+                        <p class="user"><?= substr($row['MEM_ID'], 0, 3) . '***' ?></p>
+                        <p class="review-content line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
                     </div>
                 </div>
             <?php
@@ -54,7 +96,7 @@
             ?>
         </div>
         <div class="action">
-            <button class="see-more-btn">리뷰 더보기</button>
+            <a href="/m/review/index.php" class="see-more-btn">리뷰 더보기</a>
         </div>
     </div>
 
@@ -218,24 +260,33 @@
         <p class="title">자주 묻는 질문</p>
         <div class="question-list">
             <?php
-            for ($i = 0; $i < 5; $i++) {
+            $SQL_QUERY =    'SELECT 
+                                A.*, B.STR_CODE
+                            FROM 
+                                ' . $Tname . 'comm_faq A
+                            LEFT JOIN
+                                ' . $Tname . 'comm_com_code B
+                            ON
+                                A.INT_GUBUN=B.INT_NUMBER
+                            WHERE 
+                                A.STR_MSERVICE="Y"
+                            ORDER BY A.DTM_INDATE DESC
+                            LIMIT 6';
+
+            $ask_list_result = mysql_query($SQL_QUERY);
+
+            while ($row = mysql_fetch_assoc($ask_list_result)) {
             ?>
-                <div class="item <?= $i == 0 ? 'collapsed' : '' ?>">
-                    <div class="header-section">
-                        <p class="question">Q 배송·교환과정이 궁금해요</p>
+                <div x-data="{ collapsed: false }" class="item">
+                    <div class="header-section" x-on:click="collapsed = !collapsed">
+                        <p class="question line-clamp-1" x-bind:class="collapsed ? 'text-black' : 'text-[#666666]'">Q <?= $row['STR_QUEST'] ?></p>
                         <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
                         </svg>
                     </div>
-                    <div class="body-section">
+                    <div x-show="collapsed" class="body-section">
                         <p class="answer">
-                            오후 12시 이전 접수시 당일 출고되며,
-                            교환 시에는 기존 가방의 반납과 검수가 완료된 후
-                            교환 가방을 배송해 드리는 것을 원칙으로 하고 있습니다.
-
-                            급히 가방을 필요로 하실 경우 빠른 배송 서비스를 이용하세요.
-
-                            자세한 배송 과정과 기간은 하단의 FAQ를 참고해주세요.
+                            <?= $row['STR_ANSWER'] ?>
                         </p>
                     </div>
                 </div>
@@ -243,7 +294,7 @@
             }
             ?>
         </div>
-        <button class="fag-btn">FAQ 보러가기</button>
+        <a href="/m/faq/index.php" class="fag-btn">FAQ 보러가기</a>
     </div>
 </div>
 

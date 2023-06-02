@@ -107,7 +107,7 @@ while ($row = mysql_fetch_assoc($order_list_result)) {
                     <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
                     </div>
-                    <a href="/m/mine/question/create.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <a href="/m/mine/question/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
                     </a>
                     <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">

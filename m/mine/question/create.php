@@ -1,13 +1,69 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
+<?php
+$str_cart = Fnc_Om_Conv_Default($_REQUEST['str_cart'], '');
+
+if ($str_cart) {
+    $SQL_QUERY =    'SELECT
+                        A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
+                    FROM 
+                        ' . $Tname . 'comm_goods_cart AS A
+                    LEFT JOIN
+                        ' . $Tname . 'comm_goods_master AS B
+                    ON
+                        A.STR_GOODCODE=B.STR_GOODCODE
+                    LEFT JOIN
+                        ' . $Tname . 'comm_com_code AS C
+                    ON
+                        B.INT_BRAND=C.INT_NUMBER
+                    WHERE
+                        A.INT_NUMBER=' . $str_cart;
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+    if (!$arr_Rlt_Data) {
+        echo 'Could not run query: ' . mysql_error();
+        exit;
+    }
+    $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+}
+?>
+
 <div x-data="{ menu: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
     <div class="flex justify-center">
-        <p class="font-extrabold text-lg leading-[20px] text-black">1:1 문의</p>
+        <p class="font-extrabold text-lg leading-[20px] text-black">1:1 문의하기</p>
     </div>
 
+    <?php
+    if ($arr_Data) {
+    ?>
+        <div class="mt-[14px] flex gap-[11px]">
+            <div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
+                <img src="/admincenter/files/good/<?= $arr_Data['PRODUCT_IMAGE'] ?>" alt="product">
+            </div>
+            <div class="grow flex flex-col justify-center">
+                <div class="w-[34px] h-[18px] flex justify-center items-center bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+                    <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                </div>
+                <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_BRAND'] ?></p>
+                <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
+                <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+                <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
+            </div>
+        </div>
+        <hr class="border-t-[0.5px] border-[#E0E0E0] mt-[23px] mb-[14px]">
+    <?php
+    }
+    ?>
+
     <form action="create_proc.php" method="post" class="flex flex-col gap-[15px]" onsubmit="return validateForm()" enctype="multipart/form-data">
+        <input type="hidden" name="str_cart" value="<?= $str_cart ?>">
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-xs leading-[14px] text-black">제목</p>
             <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_title" id="str_title" placeholder="제목을 입력해주세요">
@@ -17,17 +73,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <div class="relative w-full">
                 <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
                     <option value="" selected>선택 안함</option>
-                    <option value="1" selected>교환</option>
-                    <option value="2" selected>환불</option>
-                    <option value="3" selected>취소(출하전 취소)</option>
-                    <option value="4" selected>배송</option>
-                    <option value="5" selected>불량/AS</option></option>
-                    <option value="6" selected>주문/결제</option>
-                    <option value="7" selected>상품/재입고</option>
-                    <option value="8" selected>적립금</option>
-                    <option value="9" selected>회원 관련</option>
-                    <option value="10" selected>기타 문의</option>
-                    <option value="11" selected>신고</option>
+                    <option value="1">교환</option>
+                    <option value="2">환불</option>
+                    <option value="3">취소(출하전 취소)</option>
+                    <option value="4">배송</option>
+                    <option value="5">불량/AS</option>
+                    <option value="6">주문/결제</option>
+                    <option value="7">상품/재입고</option>
+                    <option value="8">적립금</option>
+                    <option value="9">회원 관련</option>
+                    <option value="10">기타 문의</option>
+                    <option value="11">신고</option>
                 </select>
                 <span class="absolute top-5 right-[19px]">
                     <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">

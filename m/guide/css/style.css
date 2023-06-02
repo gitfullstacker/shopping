@@ -127,7 +127,7 @@
 }
 
 .main-body>.review-section>.review-list>.item {
-    width: 200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     background: #FFFFFF;
@@ -625,11 +625,6 @@
     font-weight: 800;
     font-size: 12px;
     line-height: 14px;
-    color: #000000;
-}
-
-.main-body>.question-section>.question-list>.item>.body-section {
-    display: none;
 }
 
 .main-body>.question-section>.question-list>.item>.body-section>.answer {
@@ -638,10 +633,7 @@
     font-size: 12px;
     line-height: 17px;
     color: #666666;
-}
-
-.main-body>.question-section>.question-list>.item.collapsed>.body-section {
-    display: block;
+    display: none;
 }
 
 .main-body>.question-section>.fag-btn {
