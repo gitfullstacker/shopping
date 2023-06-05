@@ -9,9 +9,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?php
 //카드정보얻기
 $SQL_QUERY =    'SELECT
-                    A.*
+                    A.*, B.BATCH_KEY
                 FROM 
-                    ' . $Tname . 'comm_member_payment AS A
+                    ' . $Tname . 'comm_member AS A
+                LEFT JOIN 
+                    ' . $Tname . 'comm_member_payment AS B
+                ON
+                    A.STR_USERID=B.STR_USERID
                 WHERE
                     A.STR_USERID="' . $arr_Auth[0] . '"';
 
@@ -27,7 +31,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
     <p class="font-extrabold text-lg leading-5 text-black">자동 결제 수단 등록</p>
     <?php
-    if ($card_Data) {
+    if ($card_Data['BATCH_KEY']) {
     ?>
         <!-- 카드가 등록된 상태 -->
         <div class="flex flex-col items-center gap-8 w-full">
@@ -55,17 +59,24 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
     } else {
     ?>
         <!-- 등록된 카드가 없는 상태 -->
-        <div class="flex">
+        <form class="flex" action="/kcp_mobile_auto/mobile_auth/order_mobile.php" method="post">
+            <input type="hidden" name="good_name" value="">
+            <input type="hidden" name="good_mny" value="">
+            <input type="hidden" name="buyr_name" value="<?= $card_Data['STR_NAME'] ?>">
+            <input type="hidden" name="buyr_mail" value="<?= $card_Data['STR_EMAIL'] ?>">
+            <input type="hidden" name="buyr_tel1" value="<?= $card_Data['STR_TELEP'] ?>">
+            <input type="hidden" name="buyr_tel2" value="<?= $card_Data['STR_HP'] ?>">
+            
             <!-- 카드 -->
-            <div class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[210px] h-[140px]">
+            <button type="submit" class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[210px] h-[140px]">
                 <div class="flex justify-center items-center w-[42px] h-[42px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.17 0V7.84H16.8V9.31H9.17V17.64H7.63V9.31H0V7.84H7.63V0H9.17Z" fill="#DDDDDD" />
                     </svg>
                 </div>
                 <p class="font-bold text-[11px] leading-3 text-[#666666]">결제 카드를 등록해보세요.</p>
-            </div>
-        </div>
+            </button>
+        </form>
     <?php
     }
     ?>
