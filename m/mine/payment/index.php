@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?php
 //카드정보얻기
 $SQL_QUERY =    'SELECT
-                    A.*, B.BATCH_KEY
+                    A.*, B.STR_BATCH_KEY
                 FROM 
                     ' . $Tname . 'comm_member AS A
                 LEFT JOIN 
@@ -31,7 +31,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
     <p class="font-extrabold text-lg leading-5 text-black">자동 결제 수단 등록</p>
     <?php
-    if ($card_Data['BATCH_KEY']) {
+    if ($card_Data['STR_BATCH_KEY']) {
     ?>
         <!-- 카드가 등록된 상태 -->
         <div class="flex flex-col items-center gap-8 w-full">
@@ -51,7 +51,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
             </div>
             <!-- 대표 카드 변경 -->
-            <button class="flex justify-center items-center w-full h-[45px] border-[0.72px] border-solid border-[#DDDDDD] bg-whtie">
+            <button class="flex justify-center items-center w-full h-[45px] border-[0.72px] border-solid border-[#DDDDDD] bg-whtie" onclick="javascript:document.forms.auto_pay_form.submit();">
                 <p class="font-bold text-xs leading-[14px] text-[#666666]">대표 카드 변경</p>
             </button>
         </div>
@@ -59,16 +59,9 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
     } else {
     ?>
         <!-- 등록된 카드가 없는 상태 -->
-        <form class="flex" action="/kcp_mobile_auto/mobile_auth/order_mobile.php" method="post">
-            <input type="hidden" name="good_name" value="">
-            <input type="hidden" name="good_mny" value="">
-            <input type="hidden" name="buyr_name" value="<?= $card_Data['STR_NAME'] ?>">
-            <input type="hidden" name="buyr_mail" value="<?= $card_Data['STR_EMAIL'] ?>">
-            <input type="hidden" name="buyr_tel1" value="<?= $card_Data['STR_TELEP'] ?>">
-            <input type="hidden" name="buyr_tel2" value="<?= $card_Data['STR_HP'] ?>">
-            
+        <div class="flex">
             <!-- 카드 -->
-            <button type="submit" class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[210px] h-[140px]">
+            <button class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[210px] h-[140px]" onclick="javascript:document.forms.auto_pay_form.submit();">
                 <div class="flex justify-center items-center w-[42px] h-[42px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.17 0V7.84H16.8V9.31H9.17V17.64H7.63V9.31H0V7.84H7.63V0H9.17Z" fill="#DDDDDD" />
@@ -76,11 +69,20 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
                 <p class="font-bold text-[11px] leading-3 text-[#666666]">결제 카드를 등록해보세요.</p>
             </button>
-        </form>
+        </div>
     <?php
     }
     ?>
 
+    <form class="hidden" name="auto_pay_form" action="/kcp_mobile_auto/mobile_auth/order_mobile.php" method="post">
+        <input type="hidden" name="good_name" value="">
+        <input type="hidden" name="good_mny" value="">
+        <input type="hidden" name="buyr_name" value="<?= $card_Data['STR_NAME'] ?>">
+        <input type="hidden" name="buyr_mail" value="<?= $card_Data['STR_EMAIL'] ?>">
+        <input type="hidden" name="buyr_tel1" value="<?= $card_Data['STR_TELEP'] ?>">
+        <input type="hidden" name="buyr_tel2" value="<?= $card_Data['STR_HP'] ?>">
+    </form>
+    
     <div class="mt-[15px] flex flex-col gap-[7px] w-full px-[9px] py-[15px] bg-[#F5F5F5]">
         <p class="font-bold text-[10px] leading-[14px] text-black">자동 결제 수단 등록 안내</p>
         <p class="font-bold text-[10px] leading-4 text-[#999999]">

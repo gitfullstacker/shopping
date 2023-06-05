@@ -52,7 +52,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <img class="w-full" src="/admincenter/files/good/<?= $product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
         </div>
         <div class="flex flex-col justify-center">
-            <div class="flex justify-center items-center max-w-[38px] px-2 py-1 w-auto bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+            <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
                 <p class="font-normal text-[10px] leading-[11px] text-center text-white">
                     <?= ($product_Data['INT_TYPE'] == 1 ? '구독' : ($product_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?>
                 </p>
