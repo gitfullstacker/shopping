@@ -347,31 +347,95 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     <div x-show="showCalendar" x-transition x-data="{
         currentYear: null,
         currentMonth: null,
+        firstDayOfWeek: 0,
         dates: [],
+        selectedStatus: 0,
+        startDate: null,
+        endDate: null,
         selectedDates: [],
 
         generateDates(month, year) {
             year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
             month = month == 0 ? 12 : month == 13 ? 1 : month;
+            const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
             const daysInMonth = new Date(year, month, 0).getDate();
             const dates = [];
-
+            
             for (let day = 1; day <= daysInMonth; day++) {
-                dates.push(day);
+                const date = new Date(year, month - 1, day);
+
+                status = 1;
+
+                if (this.selectedStatus == 0) {
+                    if (date.getDay() === 1 || date.getDay() === 2) {
+                        // Monday: 1, Tuesday: 2
+                        status = 0;
+                    }
+                } else if (this.selectedStatus == 1) {
+                    if (date.getDate() == this.startDate.getDate()) {
+                        status = 2;
+                    } else if (date.getDay() === 5 || date.getDay() === 6) {
+                        // Friday: 1, Saturday: 2
+                        status = 0;
+                    } else if (date.getDate() == this.startDate.getDate()) {
+                        status = 2;
+                    } else if (date.getDate() > this.startDate.getDate() + 2) {
+                        status = 1;
+                    } else {
+                        status = 0;
+                    }
+
+                    <!-- 출고 표시 -->
+                    if (date.getDate() == this.startDate.getDate() - 2) {
+                        // status = 6;
+                    }
+                } else {
+                    status = 0;
+                    if (date.getDate() == this.startDate.getDate()) {
+                        status = 2;
+                    } else if (date.getDate() == this.endDate.getDate()) {
+                        status = 3;
+                    } else if (date.getDate() >= this.startDate.getDate() && date.getDate() <= this.endDate.getDate()) {
+                        status = 4;
+                    } else if (date.getDate() > this.endDate.getDate()) {
+                        status = 5;
+                    }
+
+                    <!-- 출고 표시 -->
+                    if (date.getDate() == this.startDate.getDate() - 2) {
+                        // status = 6;
+                    }
+                    <!-- 회수 표시 -->
+                    if (date.getDate() == this.endDate.getDate() + 1) {
+                        // status = 7;
+                    }
+                }
+
+                dates.push({
+                    day: day,
+                    status: status   // Disable: 0, Enable: 1, Picked Start: 2, Picked Start: 3, Period: 4, Hide: 5, Export: 6, Collect: 7
+                });
             }
 
             this.dates = dates;
             this.currentYear = year;
             this.currentMonth = month;
+            this.firstDayOfWeek = firstDayOfWeek;
         },
         selectDate(day, month, year) {
-            this.selectedDates.push(new Date(year, month - 1, day));
-        },
-        deleteDate(date) {
-            const index = this.selectedDates.indexOf(date);
-            if (index !== -1) {
-                this.selectedDates.splice(index, 1);
+            if (this.selectedStatus > 1)
+                return;
+            
+            if (this.selectedStatus == 0) {
+                this.startDate = new Date(year, month - 1, day);
+                start_date = this.startDate;
+            } else {
+                this.endDate = new Date(year, month - 1, day);
+                end_date = this.endDate;
             }
+
+            this.selectedStatus++;
+            this.generateDates(month, year);
         },
         formatDate(date) {
             const year = date.getFullYear().toString().slice(-2);
@@ -380,15 +444,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             
             return `${year}.${month}.${day}`;
         },
+        applyFilter() {
+            showCalendar = false;
+            searchProduct();
+        },
         initDate() {
+            this.selectedStatus = 0;
+            this.startDate = null;
+            this.endDate = null;
             this.selectedDates = [];
+            this.generateDates(this.currentMonth, this.currentYear);
+            start_date = null;
+            end_date = null;
         },
         init() {
             today = new Date();
             this.generateDates(today.getMonth() + 1, today.getFullYear());
         }
     }" class="w-full h-full bg-black bg-opacity-60 fixed top-0 left-0 z-50 flex justify-center items-center" style="display: none;">
-        <div class="flex flex-col items-center rounded-lg bg-white w-[80%]">
+        <div class="flex flex-col items-center rounded-lg bg-white w-[95%]">
             <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                 <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
                 <button class="w-2.5 h-2.5" x-on:click="showCalendar = false">
@@ -398,79 +472,86 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 </button>
             </div>
             <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-            <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
-                <p class="font-bold text-sm leading-[16px] text-black">예약날짜 설정하기</p>
-                <div class="mt-[17px] flex gap-[13px] items-center">
-                    <div class="flex gap-[1.4px] items-center">
-                        <input type="radio" class="w-[12.56px] h-[12.56px]" name="calendar_filter" id="calendar_available" checked>
-                        <label for="calendar_available" class="font-bold text-[11px] leading-[11px] text-[#666666]">선택가능</label>
+            <div class="flex flex-col items-center w-full overflow-auto h-[600px]">
+                <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
+                    <p class="font-bold text-sm leading-[16px] text-black">예약날짜 설정하기</p>
+                    <div class="mt-[17px] flex gap-[13px] items-center">
+                        <div class="flex gap-[1.4px] items-center">
+                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#BED2B6]"></div>
+                            <label for="calendar_available" class="font-bold text-[11px] leading-[11px] text-[#666666]">선택가능</label>
+                        </div>
+                        <div class="flex gap-[1.4px] items-center">
+                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#E5EAE3]"></div>
+                            <label for="calendar_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용기간</label>
+                        </div>
+                        <div class="flex gap-[1.4px] items-center">
+                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#DDDDDD]"></div>
+                            <label for="calendar_no_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용불가</label>
+                        </div>
                     </div>
-                    <div class="flex gap-[1.4px] items-center">
-                        <input type="radio" class="w-[12.56px] h-[12.56px]" name="calendar_filter" id="calendar_use">
-                        <label for="calendar_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용기간</label>
-                    </div>
-                    <div class="flex gap-[1.4px] items-center">
-                        <input type="radio" class="w-[12.56px] h-[12.56px]" name="calendar_filter" id="calendar_no_use">
-                        <label for="calendar_no_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용불가</label>
+                    <div class="flex flex-col w-full">
+                        <div class="mt-[27px] relative flex justify-center items-end w-full">
+                            <p class="font-extrabold text-[13px] leading-[15px] text-black" x-text="currentYear + '.' + (currentMonth > 9 ? currentMonth : '0' + currentMonth)">2023.01</p>
+                            <button id="previous_month" class="absolute left-0 bottom-0" x-on:click="generateDates(currentMonth - 1, currentYear)">
+                                <svg width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.19892 4.51706L6.67092 6.74006V8.39106L0.378921 5.14106V3.85406L6.67092 0.604062V2.24206L2.19892 4.43906V4.51706Z" fill="black" />
+                                </svg>
+                            </button>
+                            <button id="next_month" class="absolute right-0 bottom-0" x-on:click="generateDates(currentMonth + 1, currentYear)">
+                                <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.23103 4.43906L0.759028 2.24206V0.604062L7.05103 3.85406V5.14106L0.759028 8.39106V6.74006L5.23103 4.51706V4.43906Z" fill="black" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-[17px] flex gap-[9px] justify-between items-center">
+                            <?php
+                            $daysOfWeek = array("일", "월", "화", "수", "목", "금", "토");
+                            for ($i = 0; $i < count($daysOfWeek); $i++) {
+                            ?>
+                                <div class="flex-1 flex justify-center items-center">
+                                    <p class="font-bold text-xs leading-[14px] text-[#898989]"><?= $daysOfWeek[$i] ?></p>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                        <hr class="mt-[19px] border-t-[0.5px] border-[#E0E0E0]" />
+                        <div class="mt-[13px] grid grid-cols-7 gap-y-[5px] place-content-between place-items-center w-full">
+                            <template x-for="i in firstDayOfWeek">
+                                <div class="flex justify-center items-center rounded-full w-[38px] h-[38px]"></div>
+                            </template>
+                            <template x-for="date in dates">
+                                <div class="flex justify-center items-center px-1.5" x-bind:class="date.status == 4 ? 'bg-[#E5EAE3]' : (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' : (date.status == 3 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' : 'bg-white'">
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="date.status == 0 ? 'bg-[#DDDDDD] text-black' : date.status == 1 ? 'bg-[#BED2B6] text-black' : (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : date.status == 4 ? 'bg-[#E5EAE3] text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="date.status == 1 ? selectDate(date.day, currentMonth, currentYear) : ''">
+                                        <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col w-full">
-                    <div class="mt-[27px] relative flex justify-center items-end w-full">
-                        <p class="font-extrabold text-[13px] leading-[15px] text-black" x-text="currentYear + '.' + currentMonth">2023.01</p>
-                        <button id="previous_month" class="absolute left-0 bottom-0" x-on:click="generateDates(currentMonth - 1, currentYear)">
-                            <svg width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.19892 4.51706L6.67092 6.74006V8.39106L0.378921 5.14106V3.85406L6.67092 0.604062V2.24206L2.19892 4.43906V4.51706Z" fill="black" />
-                            </svg>
-                        </button>
-                        <button id="next_month" class="absolute right-0 bottom-0" x-on:click="generateDates(currentMonth + 1, currentYear)">
-                            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.23103 4.43906L0.759028 2.24206V0.604062L7.05103 3.85406V5.14106L0.759028 8.39106V6.74006L5.23103 4.51706V4.43906Z" fill="black" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-[17px] flex gap-[9px] justify-between items-center">
-                        <?php
-                        $daysOfWeek = array("일", "월", "화", "수", "목", "금", "토");
-                        for ($i = 0; $i < count($daysOfWeek); $i++) {
-                        ?>
-                            <div class="flex-1 flex justify-center items-center">
-                                <p class="font-bold text-xs leading-[14px] text-[#898989]"><?= $daysOfWeek[$i] ?></p>
-                            </div>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                    <hr class="mt-[19px] border-t-[0.5px] border-[#E0E0E0]" />
-                    <div class="mt-[13px] grid grid-cols-7 gap-[9px] place-content-between place-items-center w-full">
-                        <template x-for="date in dates">
-                            <div x-data="{ type: 1 }" class="flex justify-center items-center rounded-full w-8 h-8" x-bind:class="type == 1 ? 'bg-[#00402F]' : (type == 2 ? 'bg-none' : 'bg-[#DDDDDD]')" x-on:click="selectDate(date, currentMonth, currentYear)">
-                                <p class="font-bold text-xs leading-[14px]" x-bind:class="type == 1 ? 'text-white' : (type == 2 ? 'text-[#DDDDDD]' : 'text-black')" x-text="date"></p>
-                            </div>
-                        </template>
-                    </div>
+                <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                <div class="mt-[15px] flex justify-center items-center w-[100px] h-[25px] bg-[#F5F5F5] rounded-[9px]">
+                    <p class="font-bold text-[10px] leading-[12px] text-black">렌트 가격 할인 TIP!</p>
                 </div>
-            </div>
-            <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-            <div class="mt-[15px] flex justify-center items-center w-[100px] h-[25px] bg-[#F5F5F5] rounded-[9px]">
-                <p class="font-bold text-[10px] leading-[12px] text-black">렌트 가격 할인 TIP!</p>
-            </div>
-            <p class="mt-2 font-bold text-[10.5px] leading-[12px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
-            <div class="mt-[26px] flex w-full">
-                <img class="w-full" src="images/rent_discount.png" alt="">
+                <p class="mt-2 font-bold text-[10.5px] leading-[12px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                <div class="mt-[26px] flex w-full">
+                    <img class="min-w-full" src="images/rent_discount.png" alt="">
+                </div>
             </div>
             <hr class="mt-[35px] border-t-[0.5px] border-[#E0E0E0] w-full" />
             <div class="flex gap-[7px] items-center justify-start flex-wrap px-[14px] py-[7px] w-full">
-                <template x-for="date in selectedDates">
+                <template x-if="startDate != null && endDate != null">
                     <div class="flex justify-center items-center gap-[1px] px-2 py-[3px] bg-[#666666] rounded-md">
-                        <p class="font-bold text-[11px] leading-[12px] text-white" x-text="formatDate(date)">23.01.15</p>
-                        <button class="flex justify-center items-center" x-on:click="deleteDate(date)">
+                        <p class="font-bold text-[11px] leading-[12px] text-white" x-text="formatDate(startDate) + '~' + formatDate(endDate)">23.01.15</p>
+                        <button class="flex justify-center items-center" x-on:click="initDate()">
                             <p class="font-bold text-sm leading-[14px] text-white">×</p>
                         </button>
                     </div>
                 </template>
             </div>
             <div class="flex items-center gap-[5px] px-[14px] pb-[13px] w-full">
-                <button class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="showCalendar = false">
+                <button class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
                     <p class="font-bold text-[10px] leading-[11px] text-white">적용</p>
                 </button>
                 <button class="flex justify-center items-center bg-white rounded-md w-32 h-[39px] border-[0.3px] border-solid border-[#E0E0E0]" x-on:click="initDate()">
@@ -703,6 +784,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     window.filter_brands = [];
     window.filter_sizes = [];
     window.filter_styles = [];
+    window.start_date = null;
+    window.end_date = null;
     order_by = 'favorite';
 
     $(document).ready(function() {
@@ -716,6 +799,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
         url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));
         url += "&filter_styles=" + encodeURIComponent(JSON.stringify(filter_styles));
+        url += "&start_date=" + start_date;
+        url += "&end_date=" + end_date;
         url += "&order_by=" + order_by;
         url += "&product_type=" + <?= $product_type ?>;
 

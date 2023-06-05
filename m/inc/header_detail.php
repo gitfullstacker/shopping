@@ -57,4 +57,4 @@
         </div>
     </div>
 
-    <div class="flex flex-col w-full pt-[55px]">
+    <div class="flex flex-col w-full pt-[55px] relative">
