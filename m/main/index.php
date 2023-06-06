@@ -266,7 +266,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		?>
 			<div class="item">
 				<div class="flex w-[115px] h-[160px] rounded-[40px] bg-gray-100 <?= $row['STR_BANNER1'] ?: 'animate-pulse' ?>">
-					<img class="w-full h-full rounded-[40px] <?= $row['STR_BANNER1'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" alt="">
+					<img class="w-full h-full rounded-[40px] <?= $row['STR_BANNER1'] ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" onerror="this.style.display = 'none'" alt="">
 				</div>
 				<p class="e-brand"><?= $row['STR_CODE'] ?></p>
 				<p class="k-brand"><?= $row['STR_KCODE'] ?></p>
