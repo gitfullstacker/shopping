@@ -55,7 +55,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 ?>
                 <div class="flex flex-col gap-[9px] items-center justify-start" x-on:click="scroll(<?= $index ?>);">
                     <div class="flex justify-center items-center w-[77px] h-[77px] rounded-full bg-gray-100 <?= $mini_banner ?: 'animate-pulse' ?>" x-bind:class="pick == <?= $index ?> ? 'border border-solid border-black' : 'border-none'">
-                        <img class="w-full h-full rounded-full <?= $mini_banner ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $mini_banner ?>" alt="category" />
+                        <img class="w-full h-full rounded-full" src="/admincenter/files/com/<?= $mini_banner ?>" onerror="this.style.display = 'none'" alt="category" />
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-center" x-bind:class="pick == <?= $index ?> ? 'text-black' : 'text-[#444444]'"><?= $row['STR_CODE'] ?></p>
                 </div>
@@ -85,7 +85,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 ?>
                 <div x-ref="scrollItem" class="snap-center flex-none flex flex-col gap-3 w-full">
                     <div class="flex w-full h-[302px] bg-gray-100 <?= $main_banner ?: 'animate-pulse' ?>">
-                        <img class="object-cover object-center <?= $main_banner ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $main_banner ?>" onerror="this.style.display = 'none'" alt="" />
+                        <img class="object-cover object-center" src="/admincenter/files/com/<?= $main_banner ?>" onerror="this.style.display = 'none'" alt="" />
                     </div>
                     <div class="snap-x">
                         <div class="grid grid-cols-3 gap-1.5 px-[14px]">
