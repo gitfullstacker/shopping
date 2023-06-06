@@ -284,7 +284,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			<p class="title">렌트 한정 기간 타임세일</p>
 			<p class="description">매주 만나볼 수 있는 특별한 기회를 놓치지마세요</p>
 		</div>
-		<a href="/m/product/index.php?product_type=1" class="right-section">
+		<a href="/m/product/index.php?product_type=2" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
@@ -339,7 +339,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			<p class="title">렌트 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
 		</div>
-		<a href="/m/product/index.php?product_type=1" class="right-section">
+		<a href="/m/product/index.php?product_type=2" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
@@ -406,7 +406,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			<p class="title">구독 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
 		</div>
-		<a href="/m/product/index.php?product_type=2" class="right-section">
+		<a href="/m/product/index.php?product_type=1" class="right-section">
 			<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M8.76416 1.13379L14.3332 6.0661L8.76416 10.7994" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
 				<path d="M14.3332 6.06592H0.402588" stroke="black" stroke-width="1.08396" stroke-miterlimit="10" />
