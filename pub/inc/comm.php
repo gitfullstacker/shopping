@@ -67,9 +67,6 @@
 			$_SESSION['COK_USER_INFO_DATA']=$sTemp;
     
     	}
-    
-    	
-    
     }
 
 	// 생일쿠폰 자동발행

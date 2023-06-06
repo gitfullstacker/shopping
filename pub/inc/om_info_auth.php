@@ -19,8 +19,11 @@
 						//		2 : 회원이름
 						//		3 : 회원메뉴접근권한
 						//		4 : 전화번호
-						//		5 : 이메일주소
-						//		6 : 선택메뉴코드
+						//		5 : 전화번호1
+						//		6 : 이메일주소
+						//		7 : 선택메뉴코드
+						//		8 : 회원생일
+						//		9 : 회원등급
 
 	//int_A_Arr		' @@@ 로그인 배열 갯수
 	//int_A			' @@@ 현재 페이지에 사용할 임시변수
@@ -29,7 +32,7 @@
 	$bln_Auth	= True;
 	//$str_Auth = Fnc_Om_Conv_Default(Trim($_COOKIE["COK_USER_INFO_DATA"]),"");
 	$str_Auth = Fnc_Om_Conv_Default(Trim($_SESSION['COK_USER_INFO_DATA']),"");
-	$int_A_Arr	= 7;
+	$int_A_Arr	= 11;
 
 	$arr_U_Enc=explode("~", $str_Auth);
 

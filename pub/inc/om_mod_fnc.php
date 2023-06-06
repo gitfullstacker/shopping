@@ -340,7 +340,7 @@ function Fnc_Om_Set_Code($str_gubun, $str_menu)
 	global $Tname;
 	global $arr_Auth;
 
-	for ($int_I = 0; $int_I <= 7; $int_I++) {
+	for ($int_I = 0; $int_I <= 11; $int_I++) {
 		if ($int_I != (int)$str_gubun) {
 			$sTemp .= base64_encode($arr_Auth[$int_I]) . "~";
 		} else {
