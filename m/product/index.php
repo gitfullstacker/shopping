@@ -85,7 +85,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 ?>
                 <div x-ref="scrollItem" class="snap-center flex-none flex flex-col gap-3 w-full">
                     <div class="flex w-full h-[302px] bg-gray-100 <?= $main_banner ?: 'animate-pulse' ?>">
-                        <img class="object-cover object-center <?= $main_banner ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $main_banner ?>" alt="" />
+                        <img class="object-cover object-center <?= $main_banner ? 'flex' : 'hidden' ?>" src="/admincenter/files/com/<?= $main_banner ?>" onerror="this.style.display = 'none'" alt="" />
                     </div>
                     <div class="snap-x">
                         <div class="grid grid-cols-3 gap-1.5 px-[14px]">
