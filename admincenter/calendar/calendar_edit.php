@@ -93,8 +93,8 @@ if ($RetrieveFlag == "UPDATE") {
 									<tr>
 										<td>해당일</td>
 										<td colspan="3">
-											<input type="number" name="str_day" id="str_day" value="$arr_Data['STR_DAY']" style="display: <?= ($arr_Data['INT_TYPE'] ?: 1) == 1 ? 'block' : 'none' ?>;">
-											<input type="date" name="str_date" id="str_date" value="$arr_Data['STR_DATE']" style="display: <?= $arr_Data['INT_TYPE'] == 2 ? 'block' : 'none' ?>;">
+											<input type="number" name="str_day" id="str_day" value="<?= $arr_Data['STR_DAY'] ?>" style="display: <?= ($arr_Data['INT_TYPE'] ?: 1) == 1 ? 'block' : 'none' ?>;">
+											<input type="date" name="str_date" id="str_date" value="<?= $arr_Data['STR_DATE'] ?>" style="display: <?= $arr_Data['INT_TYPE'] == 2 ? 'block' : 'none' ?>;">
 											<select name="str_week" id="str_week" style="display: <?= $arr_Data['INT_TYPE'] == 3 ? 'block' : 'none' ?>;">
 												<option value="0" <?= $arr_Data['STR_WEEK'] == 0 ? 'selected' : '' ?>>일요일</option>
 												<option value="1" <?= $arr_Data['STR_WEEK'] == 1 ? 'selected' : '' ?>>월요일</option>

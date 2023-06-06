@@ -623,6 +623,50 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         ?>
     </div>
 
+    <?php
+    $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=1';
+    $start_days_result = mysql_query($SQL_QUERY);
+    $start_days_array = array();
+    while ($row = mysql_fetch_assoc($start_days_result)) {
+        $start_days_array[] = $row['STR_DAY'];
+    }
+
+    $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=1';
+    $start_dates_result = mysql_query($SQL_QUERY);
+    $start_dates_array = array();
+    while ($row = mysql_fetch_assoc($start_dates_result)) {
+        $start_dates_array[] = $row['STR_DATE'];
+    }
+
+    $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=1';
+    $start_weeks_result = mysql_query($SQL_QUERY);
+    $start_weeks_array = array();
+    while ($row = mysql_fetch_assoc($start_weeks_result)) {
+        $start_weeks_array[] = $row['STR_WEEK'];
+    }
+
+    $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
+    $end_days_result = mysql_query($SQL_QUERY);
+    $end_days_array = array();
+    while ($row = mysql_fetch_assoc($end_days_result)) {
+        $end_days_array[] = $row['STR_DAY'];
+    }
+
+    $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
+    $end_dates_result = mysql_query($SQL_QUERY);
+    $end_dates_array = array();
+    while ($row = mysql_fetch_assoc($end_dates_result)) {
+        $end_dates_array[] = $row['STR_DATE'];
+    }
+
+    $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
+    $end_weeks_result = mysql_query($SQL_QUERY);
+    $end_weeks_array = array();
+    while ($row = mysql_fetch_assoc($end_weeks_result)) {
+        $end_weeks_array[] = $row['STR_WEEK'];
+    }
+
+    ?>
     <div x-show="showCalendar" x-transition x-data="{
         currentYear: null,
         currentMonth: null,
@@ -634,6 +678,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         endDate: null,
         collectDate: null,
         selectedDates: [],
+        startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
+        startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
+        startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
+        endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
+        endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
+        endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
 
         generateDates(month, year) {
             year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
@@ -652,12 +702,39 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     if (date.getDay() === 1 || date.getDay() === 2) {
                         // Monday: 1, Tuesday: 2
                         status = 0;
+                    } else {
+                        const year1 = date.getFullYear().toString();
+                        const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
+                        const day1 = date.getDate().toString().padStart(2, '0');
+
+                        const dateString = `${year1}-${month1}-${day1}`;
+
+                        // 일 | 날짜 | 요일
+                        if (this.startDDays.includes(date.getDate())) {
+                            status = 0;
+                        } else if (this.startDWeeks.includes(date.getDay())) {
+                            status = 0;
+                        } else if (this.startDDates.includes(dateString)) {
+                            status = 0;
+                        }
                     }
                 } else if (this.selectedStatus == 1) {
+                    const year1 = date.getFullYear().toString();
+                    const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day1 = date.getDate().toString().padStart(2, '0');
+
+                    const dateString = `${year1}-${month1}-${day1}`;
+                    
                     if (date.getDate() == this.startDate.getDate()) {
                         status = 2;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
                         // Friday: 1, Saturday: 2
+                        status = 0;
+                    } else if (this.endDDays.includes(date.getDate())) {
+                        status = 0;
+                    } else if (this.endDWeeks.includes(date.getDay())) {
+                        status = 0;
+                    } else if (this.endDDates.includes(dateString)) {
                         status = 0;
                     } else if (date.getDate() == this.startDate.getDate()) {
                         status = 2;
@@ -756,6 +833,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         },
         init() {
             today = new Date();
+            <? php ?>
             this.generateDates(today.getMonth() + 1, today.getFullYear());
         }
     }" class="w-full bg-opacity-60 fixed bottom-[66px] left-0 z-50 flex justify-center" style="display: none;height: calc(100vh - 66px);">
