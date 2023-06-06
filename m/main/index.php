@@ -334,7 +334,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <!-- 렌트 신규 입고 -->
 <div class="rentnew">
-	<div class="sub-section-top-bar">
+	<div class="sub-section-top-bar px-[14px]">
 		<div class="left-section">
 			<p class="title">렌트 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
@@ -346,7 +346,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			</svg>
 		</a>
 	</div>
-	<div class="main-image flex w-screen h-[205px] bg-gray-100">
+	<div class="mt-[21px] flex w-full h-[205px] bg-gray-100">
 		<?php
 		$SQL_QUERY = 	'SELECT 
 							A.*
@@ -361,11 +361,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		$rent_b_result = mysql_query($SQL_QUERY);
 		$rent_b_Data = mysql_fetch_assoc($rent_b_result);
 		?>
-		<img class="w-full object-cover" src="/admincenter/files/bann/<?= $rent_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rentnew">
+		<img class="min-w-full object-cover" src="/admincenter/files/bann/<?= $rent_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rentnew">
 	</div>
-	<div class="product-scroll-list">
-		<?
-		$SQL_QUERY = 	'SELECT 
+	<div class="mt-[13px] flex px-[14px]">
+		<div class="product-scroll-list">
+			<?
+			$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
 						FROM 
 							' . $Tname . 'comm_goods_master A
@@ -379,29 +380,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
-		$rent_new_product_result = mysql_query($SQL_QUERY);
-		while ($row = mysql_fetch_assoc($rent_new_product_result)) {
-		?>
-			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
-				</div>
-				<p class="brand"><?= $row['STR_CODE'] ?></p>
-				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
-				<div class="price-section">
-					<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
-				</div>
-				<button class="rent-button">렌트</button>
-			</a>
-		<?php
-		}
-		?>
+			$rent_new_product_result = mysql_query($SQL_QUERY);
+			while ($row = mysql_fetch_assoc($rent_new_product_result)) {
+			?>
+				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
+					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
+					</div>
+					<p class="brand"><?= $row['STR_CODE'] ?></p>
+					<p class="title"><?= $row['STR_GOODNAME'] ?></p>
+					<div class="price-section">
+						<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
+					</div>
+					<button class="rent-button">렌트</button>
+				</a>
+			<?php
+			}
+			?>
+		</div>
 	</div>
 </div>
 
 <!-- 구독 신규 입고 -->
 <div class="subscriptionnew">
-	<div class="sub-section-top-bar">
+	<div class="sub-section-top-bar px-[14px]">
 		<div class="left-section">
 			<p class="title">구독 신규 입고</p>
 			<p class="description">실시간으로 업데이트되는 상품을 만나보세요</p>
@@ -413,7 +415,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 			</svg>
 		</a>
 	</div>
-	<div class="main-image flex w-screen h-[205px] bg-gray-100">
+	<div class="mt-[21px] flex w-full h-[205px] bg-gray-100">
 		<?php
 		$SQL_QUERY = 	'SELECT 
 							A.*
@@ -428,11 +430,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		$sub_b_result = mysql_query($SQL_QUERY);
 		$sub_b_Data = mysql_fetch_assoc($sub_b_result);
 		?>
-		<img src="/admincenter/files/bann/<?= $sub_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="subscriptionnew">
+		<img class="min-w-full object-cover" src="/admincenter/files/bann/<?= $sub_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="subscriptionnew">
 	</div>
-	<div class="product-scroll-list">
-		<?
-		$SQL_QUERY = 	'SELECT 
+
+	<div class="mt-[13px] flex px-[14px]">
+		<div class="product-scroll-list">
+			<?
+			$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
 						FROM 
 							' . $Tname . 'comm_goods_master A
@@ -446,24 +450,26 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
-		$subscription_new_product_result = mysql_query($SQL_QUERY);
-		while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
-		?>
-			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-				<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-					<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
-				</div>
-				<p class="brand"><?= $row['STR_CODE'] ?></p>
-				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
-				<div class="price-section">
-					<p class="current-price">월 <?= number_format($row['INT_PRICE']) ?>원</p>
-				</div>
-				<button class="subscription-button">구독</button>
-			</a>
-		<?php
-		}
-		?>
+			$subscription_new_product_result = mysql_query($SQL_QUERY);
+			while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
+			?>
+				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
+					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
+					</div>
+					<p class="brand"><?= $row['STR_CODE'] ?></p>
+					<p class="title"><?= $row['STR_GOODNAME'] ?></p>
+					<div class="price-section">
+						<p class="current-price">월 <?= number_format($row['INT_PRICE']) ?>원</p>
+					</div>
+					<button class="subscription-button">구독</button>
+				</a>
+			<?php
+			}
+			?>
+		</div>
 	</div>
+
 </div>
 
 <!-- Review -->

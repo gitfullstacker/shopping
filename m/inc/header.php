@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="flex justify-center">
 
 <head>
 	<meta charset="utf-8">
@@ -35,11 +35,11 @@
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body class="max-w-[410px] overflow-hidden" style="display: none;">
 	<!-- <link rel="stylesheet" href="/m/css/sidenav.min.css" type="text/css"> -->
 	<link rel="stylesheet" href="/m/css/font-awesome.min.css">
 
-	<div class="header-mobile">
+	<div class="header-mobile max-w-[410px]">
 		<?php
 		$int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
@@ -91,6 +91,11 @@
 	</div>
 
 	<script language="javascript">
+		window.addEventListener('load', function() {
+			var bodyElement = document.body;
+			bodyElement.style.display = 'block';
+		});
+
 		$(function() {
 			$('#mypage_pop').hide();
 			$('.top_mypage .icn').click(function() {

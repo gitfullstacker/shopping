@@ -15,7 +15,7 @@ wcs_do(_nasa);
 	
 	if($chk_m == "PC"){
 ?>
-	window.location.href="/main/index.php";
+	window.location.href="/m/main/index.php";
 <?}else{?>
 	window.location.href="/m/main/index.php";
 <?}?>

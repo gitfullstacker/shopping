@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="max-w-[410px]">
 
 <head>
     <meta charset="utf-8">
@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <div class="fixed top-0 left-0 flex flex-col w-full border-b border-[#C6C6C6] bg-white z-10">
+    <div class="fixed top-0 left-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-10">
         <div class="relative flex justify-center items-center h-[55px]">
             <!-- Back button -->
             <a href="javascript:history.back();" class="absolute top-5 left-7">
