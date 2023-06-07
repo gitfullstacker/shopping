@@ -91,6 +91,9 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 								<input type="hidden" name="str_dimage7" value="<?= $arr_Data['STR_IMAGE7'] ?>">
 								<input type="hidden" name="str_dimage8" value="<?= $arr_Data['STR_IMAGE8'] ?>">
 								<input type="hidden" name="str_dimage9" value="<?= $arr_Data['STR_IMAGE9'] ?>">
+								<input type="hidden" name="str_dimage10" value="<?= $arr_Data['STR_IMAGE10'] ?>">
+								<input type="hidden" name="str_dimage11" value="<?= $arr_Data['STR_IMAGE11'] ?>">
+								<input type="hidden" name="str_dimage12" value="<?= $arr_Data['STR_IMAGE12'] ?>">
 								<input type="hidden" name="str_dtimage" value="<?= $arr_Data['STR_TIMAGE'] ?>">
 								<input type="hidden" name="Obj">
 
@@ -201,12 +204,18 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<td colspan=3>
 														<table class=tb>
 															<tr>
-																<td width="50%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE1'] ?>&nbsp;</td>
-																<td width="50%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE2'] ?>&nbsp;</td>
+																<td width="20%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE1'] ?>&nbsp;</td>
+																<td width="20%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE2'] ?>&nbsp;</td>
+																<td width="20%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE3'] ?>&nbsp;</td>
+																<td width="20%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE4'] ?>&nbsp;</td>
+																<td width="20%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE5'] ?>&nbsp;</td>
 															</tr>
 															<tr>
-																<td align="center" valign="middle" height="320"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE1'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" width="320" height="320" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="320"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE2'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE2'] ?>" width="320" height="320" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE1'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE2'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE2'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE3'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE3'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE4'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE4'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE5'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE5'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
 															</tr>
 														</table>
 													</td>
@@ -220,57 +229,69 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<td colspan="3"><input type=file name=str_Image2 style="width:200;" onChange="uploadImageCheck(this)"> (320*320) <? if (!($arr_Data['STR_IMAGE2'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img2" value="Y" class="null"><? } ?></td>
 												</tr>
 												<tr>
+													<td>목록이미지3</td>
+													<td colspan="3"><input type=file name=str_Image3 style="width:200;" onChange="uploadImageCheck(this)"> (320*320) <? if (!($arr_Data['STR_IMAGE3'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img3" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
+													<td>목록이미지4</td>
+													<td colspan="3"><input type=file name=str_Image4 style="width:200;" onChange="uploadImageCheck(this)"> (320*320) <? if (!($arr_Data['STR_IMAGE4'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img4" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
+													<td>목록이미지5</td>
+													<td colspan="3"><input type=file name=str_Image5 style="width:200;" onChange="uploadImageCheck(this)"> (320*320) <? if (!($arr_Data['STR_IMAGE5'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img5" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
 													<td>상세이미지</td>
 													<td colspan=3>
 														<table class=tb>
 															<tr>
-																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE3'] ?>&nbsp;</td>
-																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE4'] ?>&nbsp;</td>
-																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE5'] ?>&nbsp;</td>
 																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE6'] ?>&nbsp;</td>
 																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE7'] ?>&nbsp;</td>
 																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE8'] ?>&nbsp;</td>
 																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE9'] ?>&nbsp;</td>
+																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE10'] ?>&nbsp;</td>
+																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE11'] ?>&nbsp;</td>
+																<td width="<?= 100 / 7 ?>%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE12'] ?>&nbsp;</td>
 															</tr>
 															<tr>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE3'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE3'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE4'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE4'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE5'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE5'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE6'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE6'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE7'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE7'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE8'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE8'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
-																<td align="center" valign="middle" height="160"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE9'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE9'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE6'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE6'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE7'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE7'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE8'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE8'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE9'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE9'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE10'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE10'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE11'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE11'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+																<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE12'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE12'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
 															</tr>
 														</table>
 													</td>
 												</tr>
 												<tr>
 													<td>상세이미지1</td>
-													<td colspan="3"><input type=file name=str_Image3 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE3'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img3" value="Y" class="null"><? } ?></td>
-												</tr>
-												<tr>
-													<td>상세이미지2</td>
-													<td colspan="3"><input type=file name=str_Image4 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE4'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img4" value="Y" class="null"><? } ?></td>
-												</tr>
-												<tr>
-													<td>상세이미지3</td>
-													<td colspan="3"><input type=file name=str_Image5 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE5'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img5" value="Y" class="null"><? } ?></td>
-												</tr>
-												<tr>
-													<td>상세이미지4</td>
 													<td colspan="3"><input type=file name=str_Image6 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE6'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img6" value="Y" class="null"><? } ?></td>
 												</tr>
 												<tr>
-													<td>상세이미지5</td>
+													<td>상세이미지2</td>
 													<td colspan="3"><input type=file name=str_Image7 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE7'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img7" value="Y" class="null"><? } ?></td>
 												</tr>
 												<tr>
-													<td>상세이미지6</td>
+													<td>상세이미지3</td>
 													<td colspan="3"><input type=file name=str_Image8 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE8'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img8" value="Y" class="null"><? } ?></td>
 												</tr>
 												<tr>
-													<td>상세이미지7</td>
+													<td>상세이미지4</td>
 													<td colspan="3"><input type=file name=str_Image9 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE9'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img9" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
+													<td>상세이미지5</td>
+													<td colspan="3"><input type=file name=str_Image10 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE10'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img10" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
+													<td>상세이미지6</td>
+													<td colspan="3"><input type=file name=str_Image11 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE11'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img11" value="Y" class="null"><? } ?></td>
+												</tr>
+												<tr>
+													<td>상세이미지7</td>
+													<td colspan="3"><input type=file name=str_Image12 style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_IMAGE12'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img12" value="Y" class="null"><? } ?></td>
 												</tr>
 												<tr>
 													<td>브랜드</td>

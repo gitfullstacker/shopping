@@ -42,6 +42,9 @@ $str_del_img6 = Fnc_Om_Conv_Default($_REQUEST[str_del_img6], "N");
 $str_del_img7 = Fnc_Om_Conv_Default($_REQUEST[str_del_img7], "N");
 $str_del_img8 = Fnc_Om_Conv_Default($_REQUEST[str_del_img8], "N");
 $str_del_img9 = Fnc_Om_Conv_Default($_REQUEST[str_del_img9], "N");
+$str_del_img10 = Fnc_Om_Conv_Default($_REQUEST[str_del_img10], "N");
+$str_del_img11 = Fnc_Om_Conv_Default($_REQUEST[str_del_img11], "N");
+$str_del_img12 = Fnc_Om_Conv_Default($_REQUEST[str_del_img12], "N");
 $str_del_timg = Fnc_Om_Conv_Default($_REQUEST[str_del_timg], "N");
 
 $str_bcode = Fnc_Om_Conv_Default($_REQUEST[str_bcode], "");
@@ -97,6 +100,21 @@ $str_dimage9 = Fnc_Om_Conv_Default($_REQUEST[str_dimage9], "");
 $str_Image9 = $_FILES['str_Image9']['tmp_name'];
 $str_Image9_name = $_FILES['str_Image9']['name'];
 $str_sImage9 = $_FILES['str_sImage9'];
+
+$str_dimage10 = Fnc_Om_Conv_Default($_REQUEST[str_dimage10], "");
+$str_Image10 = $_FILES['str_Image10']['tmp_name'];
+$str_Image10_name = $_FILES['str_Image10']['name'];
+$str_sImage10 = $_FILES['str_sImage10'];
+
+$str_dimage11 = Fnc_Om_Conv_Default($_REQUEST[str_dimage11], "");
+$str_Image11 = $_FILES['str_Image11']['tmp_name'];
+$str_Image11_name = $_FILES['str_Image11']['name'];
+$str_sImage11 = $_FILES['str_sImage11'];
+
+$str_dimage12 = Fnc_Om_Conv_Default($_REQUEST[str_dimage12], "");
+$str_Image12 = $_FILES['str_Image12']['tmp_name'];
+$str_Image12_name = $_FILES['str_Image12']['name'];
+$str_sImage12 = $_FILES['str_sImage12'];
 
 $str_dtimage = Fnc_Om_Conv_Default($_REQUEST[str_dtimage], "");
 $str_Timage = $_FILES['str_Timage']['tmp_name'];
@@ -230,6 +248,45 @@ switch ($RetrieveFlag) {
 		$arr_Temp = $str_Temp[1];
 		$str_dimage9 = $arr_Temp[0];
 
+		$str_Temp = Fnc_Om_File_Save($str_Image10, $str_Image10_name, $str_dimage10, '', '', $str_del_img10, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage10 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image11, $str_Image11_name, $str_dimage11, '', '', $str_del_img11, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage11 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image12, $str_Image12_name, $str_dimage12, '', '', $str_del_img12, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage12 = $arr_Temp[0];
+
 		$str_Temp = Fnc_Om_File_Save($str_Timage, $str_Timage_name, $str_dtimage, '', '', $str_del_timg, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
@@ -254,83 +311,89 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data = array();
 		$arr_Column_Name = array();
 
-		$arr_Column_Name[0]		= "STR_GOODCODE";
-		$arr_Column_Name[1]		= "STR_GOODNAME";
-		$arr_Column_Name[2]		= "STR_EGOODNAME";
-		$arr_Column_Name[3]		= "INT_PRICE";
-		$arr_Column_Name[4]		= "STR_IMAGE1";
-		$arr_Column_Name[5]		= "STR_IMAGE2";
-		$arr_Column_Name[6]		= "STR_IMAGE3";
-		$arr_Column_Name[7]		= "STR_IMAGE4";
-		$arr_Column_Name[8]		= "STR_IMAGE5";
-		$arr_Column_Name[9]		= "STR_IMAGE6";
-		$arr_Column_Name[10]		= "STR_IMAGE7";
-		$arr_Column_Name[11]		= "STR_IMAGE8";
-		$arr_Column_Name[12]		= "STR_IMAGE9";
-		$arr_Column_Name[13]		= "INT_BRAND";
-		$arr_Column_Name[14]		= "INT_BSU";
-		$arr_Column_Name[15]		= "STR_MATERIAL";
-		$arr_Column_Name[16]		= "STR_SIZE";
-		$arr_Column_Name[17]		= "STR_LENGTH";
-		$arr_Column_Name[18]		= "STR_ORIGIN";
-		$arr_Column_Name[19]		= "INT_USED";
-		$arr_Column_Name[20]		= "STR_COLOR";
-		$arr_Column_Name[21]		= "STR_CONTENTS";
-		$arr_Column_Name[22]		= "INT_LIKE";
-		$arr_Column_Name[23]		= "STR_RE_F";
-		$arr_Column_Name[24]		= "DTM_INDATE";
-		$arr_Column_Name[25]		= "STR_SERVICE";
-		$arr_Column_Name[26]		= "STR_MYN";
-		$arr_Column_Name[27]		= "STR_MMYN";
-		$arr_Column_Name[28]		= "INT_SORT";
-		$arr_Column_Name[29]		= "INT_DISCOUNT";
-		$arr_Column_Name[30]		= "STR_TSIZE";
-		$arr_Column_Name[31]		= "STR_STYLE";
-		$arr_Column_Name[32]		= "INT_MILEAGE";
-		$arr_Column_Name[33]		= "STR_PMILEAGE";
-		$arr_Column_Name[34]		= "INT_VIEW";
-		$arr_Column_Name[35]		= "STR_TIMAGE";
-		$arr_Column_Name[36]		= "INT_TYPE";
-		$arr_Column_Name[37]		= "INT_GRADE";
+		$arr_Column_Name[0] = "STR_GOODCODE";
+		$arr_Column_Name[1] = "STR_GOODNAME";
+		$arr_Column_Name[2] = "STR_EGOODNAME";
+		$arr_Column_Name[3] = "INT_PRICE";
+		$arr_Column_Name[4] = "STR_IMAGE1";
+		$arr_Column_Name[5] = "STR_IMAGE2";
+		$arr_Column_Name[6] = "STR_IMAGE3";
+		$arr_Column_Name[7] = "STR_IMAGE4";
+		$arr_Column_Name[8] = "STR_IMAGE5";
+		$arr_Column_Name[9] = "STR_IMAGE6";
+		$arr_Column_Name[10] = "STR_IMAGE7";
+		$arr_Column_Name[11] = "STR_IMAGE8";
+		$arr_Column_Name[12] = "STR_IMAGE9";
+		$arr_Column_Name[13] = "STR_IMAGE10";
+		$arr_Column_Name[14] = "STR_IMAGE11";
+		$arr_Column_Name[15] = "STR_IMAGE12";
+		$arr_Column_Name[16] = "INT_BRAND";
+		$arr_Column_Name[17] = "INT_BSU";
+		$arr_Column_Name[18] = "STR_MATERIAL";
+		$arr_Column_Name[19] = "STR_SIZE";
+		$arr_Column_Name[20] = "STR_LENGTH";
+		$arr_Column_Name[21] = "STR_ORIGIN";
+		$arr_Column_Name[22] = "INT_USED";
+		$arr_Column_Name[23] = "STR_COLOR";
+		$arr_Column_Name[24] = "STR_CONTENTS";
+		$arr_Column_Name[25] = "INT_LIKE";
+		$arr_Column_Name[26] = "STR_RE_F";
+		$arr_Column_Name[27] = "DTM_INDATE";
+		$arr_Column_Name[28] = "STR_SERVICE";
+		$arr_Column_Name[29] = "STR_MYN";
+		$arr_Column_Name[30] = "STR_MMYN";
+		$arr_Column_Name[31] = "INT_SORT";
+		$arr_Column_Name[32] = "INT_DISCOUNT";
+		$arr_Column_Name[33] = "STR_TSIZE";
+		$arr_Column_Name[34] = "STR_STYLE";
+		$arr_Column_Name[35] = "INT_MILEAGE";
+		$arr_Column_Name[36] = "STR_PMILEAGE";
+		$arr_Column_Name[37] = "INT_VIEW";
+		$arr_Column_Name[38] = "STR_TIMAGE";
+		$arr_Column_Name[39] = "INT_TYPE";
+		$arr_Column_Name[40] = "INT_GRADE";
 
-		$arr_Set_Data[0]		= $lastnumber;
-		$arr_Set_Data[1]		= addslashes($str_goodname);
-		$arr_Set_Data[2]		= addslashes($str_egoodname);
-		$arr_Set_Data[3]		= $int_price;
-		$arr_Set_Data[4]		= $str_dimage1;
-		$arr_Set_Data[5]		= $str_dimage2;
-		$arr_Set_Data[6]		= $str_dimage3;
-		$arr_Set_Data[7]		= $str_dimage4;
-		$arr_Set_Data[8]		= $str_dimage5;
-		$arr_Set_Data[9]		= $str_dimage6;
-		$arr_Set_Data[10]		= $str_dimage7;
-		$arr_Set_Data[11]		= $str_dimage8;
-		$arr_Set_Data[12]		= $str_dimage9;
-		$arr_Set_Data[13]		= $int_brand;
-		$arr_Set_Data[14]		= $int_bsu;
-		$arr_Set_Data[15]		= $str_material;
-		$arr_Set_Data[16]		= $str_size;
-		$arr_Set_Data[17]		= $str_length;
-		$arr_Set_Data[18]		= $str_origin;
-		$arr_Set_Data[19]		= $int_used;
-		$arr_Set_Data[20]		= $str_color;
-		$arr_Set_Data[21]		= addslashes($str_contents);
-		$arr_Set_Data[22]		= $int_like;
-		$arr_Set_Data[23]		= "N";
-		$arr_Set_Data[24]		= date("Y-m-d H:i:s");
-		$arr_Set_Data[25]		= $str_service;
-		$arr_Set_Data[26]		= $str_myn;
-		$arr_Set_Data[27]		= $str_mmyn;
-		$arr_Set_Data[28]		= $lastsort;
-		$arr_Set_Data[29]		= $int_discount ?: null;
-		$arr_Set_Data[30]		= $str_tsize;
-		$arr_Set_Data[31]		= $str_style;
-		$arr_Set_Data[32]		= $int_mileage ?: null;
-		$arr_Set_Data[33]		= $str_pmileage;
-		$arr_Set_Data[34]		= 0;
-		$arr_Set_Data[35]		= $str_dtimage;
-		$arr_Set_Data[36]		= $int_type;
-		$arr_Set_Data[37]		= $int_grade;
+		$arr_Set_Data[0] = $lastnumber;
+		$arr_Set_Data[1] = addslashes($str_goodname);
+		$arr_Set_Data[2] = addslashes($str_egoodname);
+		$arr_Set_Data[3] = $int_price;
+		$arr_Set_Data[4] = $str_dimage1;
+		$arr_Set_Data[5] = $str_dimage2;
+		$arr_Set_Data[6] = $str_dimage3;
+		$arr_Set_Data[7] = $str_dimage4;
+		$arr_Set_Data[8] = $str_dimage5;
+		$arr_Set_Data[9] = $str_dimage6;
+		$arr_Set_Data[10] = $str_dimage7;
+		$arr_Set_Data[11] = $str_dimage8;
+		$arr_Set_Data[12] = $str_dimage9;
+		$arr_Set_Data[13] = $str_dimage10;
+		$arr_Set_Data[14] = $str_dimage11;
+		$arr_Set_Data[15] = $str_dimage12;
+		$arr_Set_Data[16] = $int_brand;
+		$arr_Set_Data[17] = $int_bsu;
+		$arr_Set_Data[18] = $str_material;
+		$arr_Set_Data[19] = $str_size;
+		$arr_Set_Data[20] = $str_length;
+		$arr_Set_Data[21] = $str_origin;
+		$arr_Set_Data[22] = $int_used;
+		$arr_Set_Data[23] = $str_color;
+		$arr_Set_Data[24] = addslashes($str_contents);
+		$arr_Set_Data[25] = $int_like;
+		$arr_Set_Data[26] = "N";
+		$arr_Set_Data[27] = date("Y-m-d H:i:s");
+		$arr_Set_Data[28] = $str_service;
+		$arr_Set_Data[29] = $str_myn;
+		$arr_Set_Data[30] = $str_mmyn;
+		$arr_Set_Data[31] = $lastsort;
+		$arr_Set_Data[32] = $int_discount ?: null;
+		$arr_Set_Data[33] = $str_tsize;
+		$arr_Set_Data[34] = $str_style;
+		$arr_Set_Data[35] = $int_mileage ?: null;
+		$arr_Set_Data[36] = $str_pmileage;
+		$arr_Set_Data[37] = 0;
+		$arr_Set_Data[38] = $str_dtimage;
+		$arr_Set_Data[39] = $int_type;
+		$arr_Set_Data[40] = $int_grade;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -542,6 +605,45 @@ switch ($RetrieveFlag) {
 		$arr_Temp = $str_Temp[1];
 		$str_dimage9 = $arr_Temp[0];
 
+		$str_Temp = Fnc_Om_File_Save($str_Image10, $str_Image10_name, $str_dimage10, '', '', $str_del_img10, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage10 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image11, $str_Image11_name, $str_dimage11, '', '', $str_del_img11, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage11 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image12, $str_Image12_name, $str_dimage12, '', '', $str_del_img12, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage12 = $arr_Temp[0];
+
 		$str_Temp = Fnc_Om_File_Save($str_Timage, $str_Timage_name, $str_dtimage, '', '', $str_del_timg, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
@@ -558,71 +660,77 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data = array();
 		$arr_Column_Name = array();
 
-		$arr_Column_Name[0]		= "STR_GOODCODE";
-		$arr_Column_Name[1]		= "STR_GOODNAME";
-		$arr_Column_Name[2]		= "STR_EGOODNAME";
-		$arr_Column_Name[3]		= "INT_PRICE";
-		$arr_Column_Name[4]		= "STR_IMAGE1";
-		$arr_Column_Name[5]		= "STR_IMAGE2";
-		$arr_Column_Name[6]		= "STR_IMAGE3";
-		$arr_Column_Name[7]		= "STR_IMAGE4";
-		$arr_Column_Name[8]		= "STR_IMAGE5";
-		$arr_Column_Name[9]		= "STR_IMAGE6";
-		$arr_Column_Name[10]		= "STR_IMAGE7";
-		$arr_Column_Name[11]		= "STR_IMAGE8";
-		$arr_Column_Name[12]		= "STR_IMAGE9";
-		$arr_Column_Name[13]		= "INT_BRAND";
-		$arr_Column_Name[14]		= "STR_MATERIAL";
-		$arr_Column_Name[15]		= "STR_SIZE";
-		$arr_Column_Name[16]		= "STR_LENGTH";
-		$arr_Column_Name[17]		= "STR_ORIGIN";
-		$arr_Column_Name[18]		= "INT_USED";
-		$arr_Column_Name[19]		= "STR_COLOR";
-		$arr_Column_Name[20]		= "STR_CONTENTS";
-		$arr_Column_Name[21]		= "INT_LIKE";
-		$arr_Column_Name[22]		= "STR_SERVICE";
-		$arr_Column_Name[23]		= "STR_MYN";
-		$arr_Column_Name[24]		= "STR_MMYN";
-		$arr_Column_Name[25]		= "INT_DISCOUNT";
-		$arr_Column_Name[26]		= "STR_TSIZE";
-		$arr_Column_Name[27]		= "STR_STYLE";
-		$arr_Column_Name[28]		= "INT_MILEAGE";
-		$arr_Column_Name[29]		= "STR_PMILEAGE";
-		$arr_Column_Name[30]		= "STR_TIMAGE";
-		$arr_Column_Name[31]		= "INT_GRADE";
+		$arr_Column_Name[0] = "STR_GOODCODE";
+		$arr_Column_Name[1] = "STR_GOODNAME";
+		$arr_Column_Name[2] = "STR_EGOODNAME";
+		$arr_Column_Name[3] = "INT_PRICE";
+		$arr_Column_Name[4] = "STR_IMAGE1";
+		$arr_Column_Name[5] = "STR_IMAGE2";
+		$arr_Column_Name[6] = "STR_IMAGE3";
+		$arr_Column_Name[7] = "STR_IMAGE4";
+		$arr_Column_Name[8] = "STR_IMAGE5";
+		$arr_Column_Name[9] = "STR_IMAGE6";
+		$arr_Column_Name[10] = "STR_IMAGE7";
+		$arr_Column_Name[11] = "STR_IMAGE8";
+		$arr_Column_Name[12] = "STR_IMAGE9";
+		$arr_Column_Name[13] = "STR_IMAGE10";
+		$arr_Column_Name[14] = "STR_IMAGE11";
+		$arr_Column_Name[15] = "STR_IMAGE12";
+		$arr_Column_Name[16] = "INT_BRAND";
+		$arr_Column_Name[17] = "STR_MATERIAL";
+		$arr_Column_Name[18] = "STR_SIZE";
+		$arr_Column_Name[19] = "STR_LENGTH";
+		$arr_Column_Name[20] = "STR_ORIGIN";
+		$arr_Column_Name[21] = "INT_USED";
+		$arr_Column_Name[22] = "STR_COLOR";
+		$arr_Column_Name[23] = "STR_CONTENTS";
+		$arr_Column_Name[24] = "INT_LIKE";
+		$arr_Column_Name[25] = "STR_SERVICE";
+		$arr_Column_Name[26] = "STR_MYN";
+		$arr_Column_Name[27] = "STR_MMYN";
+		$arr_Column_Name[28] = "INT_DISCOUNT";
+		$arr_Column_Name[29] = "STR_TSIZE";
+		$arr_Column_Name[30] = "STR_STYLE";
+		$arr_Column_Name[31] = "INT_MILEAGE";
+		$arr_Column_Name[32] = "STR_PMILEAGE";
+		$arr_Column_Name[33] = "STR_TIMAGE";
+		$arr_Column_Name[34] = "INT_GRADE";
 
-		$arr_Set_Data[0]		= $str_no;
-		$arr_Set_Data[1]		= addslashes($str_goodname);
-		$arr_Set_Data[2]		= addslashes($str_egoodname);
-		$arr_Set_Data[3]		= $int_price;
-		$arr_Set_Data[4]		= $str_dimage1;
-		$arr_Set_Data[5]		= $str_dimage2;
-		$arr_Set_Data[6]		= $str_dimage3;
-		$arr_Set_Data[7]		= $str_dimage4;
-		$arr_Set_Data[8]		= $str_dimage5;
-		$arr_Set_Data[9]		= $str_dimage6;
-		$arr_Set_Data[10]		= $str_dimage7;
-		$arr_Set_Data[11]		= $str_dimage8;
-		$arr_Set_Data[12]		= $str_dimage9;
-		$arr_Set_Data[13]		= $int_brand;
-		$arr_Set_Data[14]		= $str_material;
-		$arr_Set_Data[15]		= $str_size;
-		$arr_Set_Data[16]		= $str_length;
-		$arr_Set_Data[17]		= $str_origin;
-		$arr_Set_Data[18]		= $int_used;
-		$arr_Set_Data[19]		= $str_color;
-		$arr_Set_Data[20]		= addslashes($str_contents);
-		$arr_Set_Data[21]		= $int_like;
-		$arr_Set_Data[22]		= $str_service;
-		$arr_Set_Data[23]		= $str_myn;
-		$arr_Set_Data[24]		= $str_mmyn;
-		$arr_Set_Data[25]		= $int_discount ?: null;
-		$arr_Set_Data[26]		= $str_tsize;
-		$arr_Set_Data[27]		= $str_style;
-		$arr_Set_Data[28]		= $int_mileage ?: null;
-		$arr_Set_Data[29]		= $str_pmileage;
-		$arr_Set_Data[30]		= $str_dtimage;
-		$arr_Set_Data[31]		= $int_grade;
+		$arr_Set_Data[0] = $str_no;
+		$arr_Set_Data[1] = addslashes($str_goodname);
+		$arr_Set_Data[2] = addslashes($str_egoodname);
+		$arr_Set_Data[3] = $int_price;
+		$arr_Set_Data[4] = $str_dimage1;
+		$arr_Set_Data[5] = $str_dimage2;
+		$arr_Set_Data[6] = $str_dimage3;
+		$arr_Set_Data[7] = $str_dimage4;
+		$arr_Set_Data[8] = $str_dimage5;
+		$arr_Set_Data[9] = $str_dimage6;
+		$arr_Set_Data[10] = $str_dimage7;
+		$arr_Set_Data[11] = $str_dimage8;
+		$arr_Set_Data[12] = $str_dimage9;
+		$arr_Set_Data[13] = $str_dimage10;
+		$arr_Set_Data[14] = $str_dimage11;
+		$arr_Set_Data[15] = $str_dimage12;
+		$arr_Set_Data[16] = $int_brand;
+		$arr_Set_Data[17] = $str_material;
+		$arr_Set_Data[18] = $str_size;
+		$arr_Set_Data[19] = $str_length;
+		$arr_Set_Data[20] = $str_origin;
+		$arr_Set_Data[21] = $int_used;
+		$arr_Set_Data[22] = $str_color;
+		$arr_Set_Data[23] = addslashes($str_contents);
+		$arr_Set_Data[24] = $int_like;
+		$arr_Set_Data[25] = $str_service;
+		$arr_Set_Data[26] = $str_myn;
+		$arr_Set_Data[27] = $str_mmyn;
+		$arr_Set_Data[28] = $int_discount ?: null;
+		$arr_Set_Data[29] = $str_tsize;
+		$arr_Set_Data[30] = $str_style;
+		$arr_Set_Data[31] = $int_mileage ?: null;
+		$arr_Set_Data[32] = $str_pmileage;
+		$arr_Set_Data[33] = $str_dtimage;
+		$arr_Set_Data[34] = $int_grade;
 
 		$arr_Sub = "";
 
@@ -631,7 +739,7 @@ switch ($RetrieveFlag) {
 			if ($int_I != 0) {
 				$arr_Sub .=  ",";
 			}
-			$arr_Sub .=  $arr_Column_Name[$int_I] . "=" . ($arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "' " : 'null ' );
+			$arr_Sub .=  $arr_Column_Name[$int_I] . "=" . ($arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "' " : 'null ');
 		}
 
 		$Sql_Query = "UPDATE `" . $Tname . "comm_goods_master` SET ";
@@ -695,6 +803,9 @@ switch ($RetrieveFlag) {
 								STR_IMAGE7,
 								STR_IMAGE8,
 								STR_IMAGE9,
+								STR_IMAGE10,
+								STR_IMAGE11,
+								STR_IMAGE12,
 								STR_TIMAGE
 							FROM "
 				. $Tname . "comm_goods_master
@@ -731,6 +842,15 @@ switch ($RetrieveFlag) {
 				}
 				if (mysql_result($arr_img_Data, 0, STR_IMAGE9) != "") {
 					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE9));
+				}
+				if (mysql_result($arr_img_Data, 0, STR_IMAGE10) != "") {
+					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE10));
+				}
+				if (mysql_result($arr_img_Data, 0, STR_IMAGE11) != "") {
+					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE11));
+				}
+				if (mysql_result($arr_img_Data, 0, STR_IMAGE12) != "") {
+					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE12));
 				}
 				if (mysql_result($arr_img_Data, 0, STR_TIMAGE) != "") {
 					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_TIMAGE));
@@ -1158,6 +1278,66 @@ switch ($RetrieveFlag) {
 			}
 			$str_dimage9 = $newFileName;
 
+			if ($row['STR_IMAGE10']) {
+				$sourceFilePath = $str_Add_Tag . $row['STR_IMAGE10'];
+				$sourceFileName = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+				$sourceFileExtension = pathinfo($sourceFilePath, PATHINFO_EXTENSION);
+
+				$newFileName = $sourceFileName . '_' . $currentTimestamp . '.' . $sourceFileExtension;
+				$destinationFilePath = $str_Add_Tag . $newFileName;
+
+				if (!copy($sourceFilePath, $destinationFilePath)) {
+				?>
+					<script language="javascript">
+						alert("업로드에 실패하셨습니다.");
+						history.back();
+					</script>
+				<?
+					exit;
+				}
+			}
+			$str_dimage10 = $newFileName;
+
+			if ($row['STR_IMAGE11']) {
+				$sourceFilePath = $str_Add_Tag . $row['STR_IMAGE11'];
+				$sourceFileName = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+				$sourceFileExtension = pathinfo($sourceFilePath, PATHINFO_EXTENSION);
+
+				$newFileName = $sourceFileName . '_' . $currentTimestamp . '.' . $sourceFileExtension;
+				$destinationFilePath = $str_Add_Tag . $newFileName;
+
+				if (!copy($sourceFilePath, $destinationFilePath)) {
+				?>
+					<script language="javascript">
+						alert("업로드에 실패하셨습니다.");
+						history.back();
+					</script>
+				<?
+					exit;
+				}
+			}
+			$str_dimage11 = $newFileName;
+
+			if ($row['STR_IMAGE12']) {
+				$sourceFilePath = $str_Add_Tag . $row['STR_IMAGE12'];
+				$sourceFileName = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+				$sourceFileExtension = pathinfo($sourceFilePath, PATHINFO_EXTENSION);
+
+				$newFileName = $sourceFileName . '_' . $currentTimestamp . '.' . $sourceFileExtension;
+				$destinationFilePath = $str_Add_Tag . $newFileName;
+
+				if (!copy($sourceFilePath, $destinationFilePath)) {
+				?>
+					<script language="javascript">
+						alert("업로드에 실패하셨습니다.");
+						history.back();
+					</script>
+				<?
+					exit;
+				}
+			}
+			$str_dimage12 = $newFileName;
+
 			if ($row['STR_TIMAGE']) {
 				$sourceFilePath = $str_Add_Tag . $row['STR_TIMAGE'];
 				$sourceFileName = pathinfo($sourceFilePath, PATHINFO_FILENAME);
@@ -1202,6 +1382,9 @@ switch ($RetrieveFlag) {
 			$arr_Column_Name[10]		= "STR_IMAGE7";
 			$arr_Column_Name[11]		= "STR_IMAGE8";
 			$arr_Column_Name[12]		= "STR_IMAGE9";
+			$arr_Column_Name[12]		= "STR_IMAGE10";
+			$arr_Column_Name[12]		= "STR_IMAGE11";
+			$arr_Column_Name[12]		= "STR_IMAGE12";
 			$arr_Column_Name[13]		= "INT_BRAND";
 			$arr_Column_Name[14]		= "INT_BSU";
 			$arr_Column_Name[15]		= "STR_MATERIAL";
@@ -1239,6 +1422,9 @@ switch ($RetrieveFlag) {
 			$arr_Set_Data[10]		= $str_dimage7;
 			$arr_Set_Data[11]		= $str_dimage8;
 			$arr_Set_Data[12]		= $str_dimage9;
+			$arr_Set_Data[12]		= $str_dimage10;
+			$arr_Set_Data[12]		= $str_dimage11;
+			$arr_Set_Data[12]		= $str_dimage12;
 			$arr_Set_Data[13]		= $row['INT_BRAND'];
 			$arr_Set_Data[14]		= $row['INT_BSU'];
 			$arr_Set_Data[15]		= $row['STR_MATERIAL'];
