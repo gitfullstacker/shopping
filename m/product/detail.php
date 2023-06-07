@@ -78,7 +78,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
     }" class="flex w-full relative">
             <div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
                 <?php
-                for ($i = 1; $i <= 2; $i++) {
+                for ($i = 1; $i <= 5; $i++) {
                     if ($arr_Data['STR_IMAGE' . $i]) {
                 ?>
                         <div class="snap-always snap-center w-screen h-[500px] bg-gray-100">
@@ -253,7 +253,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-extrabold text-sm text-[#666666]">최근 상태를 확인해주세요.</p>
             <div class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
                 <?php
-                for ($i = 3; $i <= 9; $i++) {
+                for ($i = 6; $i <= 12; $i++) {
                     if ($arr_Data['STR_IMAGE' . $i]) {
                 ?>
                         <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
