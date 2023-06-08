@@ -168,7 +168,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-extrabold text-[15px] leading-[17px] text-black">프리미엄 멤버십 <span class="font-bold text-xs leading-[13px] text-[#666666]">(정기결제)</span></p>
                     </div>
                     <button type="button" class="flex justify-center items-center w-full h-10 bg-[#EEAC4C]">
-                        <p class="font-bold text-sm leading-4 text-white">정기구독 월 89,000원</p>
+                        <p class="font-bold text-sm leading-4 text-white">정기구독 월 <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
                     </button>
                 </div>
             </div>
