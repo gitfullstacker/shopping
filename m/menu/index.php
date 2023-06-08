@@ -38,7 +38,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         <?php } ?>
     </div>
     <div class="w-full">
-        <img class="w-full" src="../images/menu_bottom.png" alt="">
+        <img class="min-w-full" src="../images/menu_bottom.png" alt="">
     </div>
     <div class="mt-[62px] flex flex-row-reverse items-center gap-[11.5px] px-2">
         <button class="w-[23px] h-[23px]">

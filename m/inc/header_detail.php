@@ -29,7 +29,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
-<body class="max-w-[410px] overflow-hidden" style="display: none;">
+<body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
     <div class="fixed top-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-10">
         <div class="relative flex justify-center items-center h-[55px]">
             <!-- Back button -->
