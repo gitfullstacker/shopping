@@ -771,7 +771,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     } else if (this.endDDates.includes(dateString)) {
                         status = 0;
                     } else if (date > disableEndDay) {
-                        status = 1;
+                        status = 8;
 
                         const timeDifference = date.getTime() - this.startDate.getTime();
                         const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
@@ -820,7 +820,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 dates.push({
                     day: day,
-                    status: status,   // Disable: 0, Enable: 1, Picked Start: 2, Picked End: 3, Period: 4, Hide: 5, Export: 6, Collect: 7
+                    status: status,   // Disable: 0, Enable: 1, Picked Start: 2, Picked End: 3, Period: 4, Hide: 5, Export: 6, Collect: 7, Show Price: 8
                     price: price
                 });
             }
@@ -954,15 +954,16 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
                                     date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
                                     date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
+                                    date.status == 8 ? 'bg-white text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <template x-if="date.status == 6 || date.status == 7">
                                             <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
                                                 <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
                                             </div>
                                         </template>
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
-                                        <template x-if="selectedStatus == 1">
-                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center" x-text="date.status == 1 ? date.price.toLocaleString() : ''">31,800</p>
+                                        <template x-if="date.status == 8">
+                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center" x-text="date.status == 8 ? date.price.toLocaleString() : ''">31,800</p>
                                         </template>
                                     </div>
                                 </div>
