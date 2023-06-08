@@ -704,6 +704,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
         endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
         endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
+        showCalendarAlert: false,
 
         generateDates(month, year) {
             year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
@@ -752,9 +753,14 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     
                     const disableEndDay = new Date(this.startDate);
                     disableEndDay.setDate(disableEndDay.getDate() + 2);
+
+                    const finalEndday = new Date(this.startDate);
+                    finalEndday.setDate(finalEndday.getDate() + 14);
                     
                     if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
+                    } else if (date > finalEndday) {
+                        status = 0;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
                         // Friday: 1, Saturday: 2
                         status = 0;
@@ -765,8 +771,6 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     } else if (this.endDDates.includes(dateString)) {
                         status = 0;
                     } else if (date > disableEndDay) {
-                        console.log(date);
-                        console.log(disableEndDay);
                         status = 1;
 
                         const timeDifference = date.getTime() - this.startDate.getTime();
@@ -816,7 +820,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 dates.push({
                     day: day,
-                    status: status,   // Disable: 0, Enable: 1, Picked Start: 2, Picked Start: 3, Period: 4, Hide: 5, Export: 6, Collect: 7
+                    status: status,   // Disable: 0, Enable: 1, Picked Start: 2, Picked End: 3, Period: 4, Hide: 5, Export: 6, Collect: 7
                     price: price
                 });
             }
@@ -827,20 +831,32 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.firstDayOfWeek = firstDayOfWeek;
         },
         selectDate(day, month, year) {
-            if (this.selectedStatus > 1)
-                return;
-            
             if (this.selectedStatus == 0) {
                 this.startDate = new Date(year, month - 1, day);
                 this.exportDate = new Date(year, month - 1, day);
                 this.exportDate.setDate(this.exportDate.getDate() - 2);
-            } else {
-                this.endDate = new Date(year, month - 1, day);
-                this.collectDate = new Date(year, month - 1, day);
-                this.collectDate.setDate(this.collectDate.getDate() + 1);
+                this.selectedStatus++;
+            } else if (this.selectedStatus == 1) {
+                if (year == this.startDate.getFullYear() && (month - 1) == this.startDate.getMonth() && day == this.startDate.getDate()) {
+                    // 시작날짜를 눌렀을때 시작해제
+                    this.selectedStatus = 0;
+                    this.startDate = null;
+                    this.exportDate = null;
+                } else {
+                    this.endDate = new Date(year, month - 1, day);
+                    this.collectDate = new Date(year, month - 1, day);
+                    this.collectDate.setDate(this.collectDate.getDate() + 1);
+                    this.selectedStatus++;
+                }
+            } else if (this.selectedStatus == 2) {
+                if (year == this.endDate.getFullYear() && (month - 1) == this.endDate.getMonth() && day == this.endDate.getDate()) {
+                    // 마감날짜를 눌렀을때 마감해제
+                    this.selectedStatus = 1;
+                    this.endDate = null;
+                    this.collectDate = null;
+                }
             }
 
-            this.selectedStatus++;
             this.generateDates(month, year);
         },
         formatDate(date) {
@@ -859,12 +875,16 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.selectedDates = [];
             this.generateDates(this.currentMonth, this.currentYear);
         },
+        showAlert() {
+            this.showCalendarAlert = true;
+            setTimeout(() => this.showCalendarAlert = false, 2000);
+        },
         init() {
             today = new Date();
             this.generateDates(today.getMonth() + 1, today.getFullYear());
         }
     }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
-        <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full">
+        <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full relative">
             <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                 <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
                 <button class="w-2.5 h-2.5" x-on:click="showCalendar = false;initDate();">
@@ -923,8 +943,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 <div class="flex justify-center items-center rounded-full w-[38px] h-[38px]"></div>
                             </template>
                             <template x-for="date in dates">
-                                <div class="flex justify-center items-center px-1.5" x-bind:class="date.status == 4 ? 'bg-[#E5EAE3]' : (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' : (date.status == 3 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' : 'bg-white'">
-                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="date.status == 0 ? 'bg-[#DDDDDD] text-black' : date.status == 1 ? 'bg-[#BED2B6] text-black' : (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : date.status == 4 ? 'bg-[#E5EAE3] text-black' : date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="date.status == 1 ? selectDate(date.day, currentMonth, currentYear) : ''">
+                                <div class="flex justify-center items-center px-1.5" x-bind:class="
+                                date.status == 1 ? '' :
+                                (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
+                                date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
+                                date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="date.status == 0 ? 'bg-[#DDDDDD] text-black' : date.status == 1 ? 'bg-[#BED2B6] text-black' : (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : date.status == 4 ? 'bg-[#E5EAE3] text-black' : date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <template x-if="date.status == 6 || date.status == 7">
                                             <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
                                                 <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
@@ -983,7 +1007,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                 </template>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                <div class="mt-[15px] flex flex-col items-center w-full px-[13px]">
+                <div class="mt-[15px] mb-5 flex flex-col items-center w-full px-[13px]">
                     <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
                         <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
                     </div>
@@ -1008,8 +1032,19 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="absolute bottom-16">
+                <div x-show="showCalendarAlert" class="flex flex-col justify-center items-center gap-3 px-[50px] py-5 bg-black bg-opacity-80 border border-solid border-[#D9D9D9] rounded-[11px]" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 0.00023987C17.713 0.00023987 21.2739 1.47517 23.8995 4.10066C26.5251 6.72616 28 10.2873 28 14.0001C28 17.7129 26.5251 21.274 23.8995 23.8996C21.274 26.5251 17.7129 28 14 28C10.2871 28 6.7261 26.5251 4.10046 23.8996C1.47494 21.2741 0 17.7129 0 14.0001C0.00398445 10.2883 1.48034 6.72988 4.1049 4.10486C6.7297 1.48033 10.288 0.00396002 14.0002 0L14 0.00023987ZM14 22.4002C14.3713 22.4002 14.7275 22.2527 14.99 21.99C15.2525 21.7275 15.3999 21.3715 15.3999 21.0002C15.3999 20.6288 15.2525 20.2727 14.99 20.0102C14.7275 19.7477 14.3713 19.6001 14 19.6001C13.6287 19.6001 13.2725 19.7477 13.01 20.0102C12.7475 20.2727 12.6001 20.6288 12.6001 21.0002C12.6001 21.3715 12.7475 21.7275 13.01 21.99C13.2725 22.2527 13.6287 22.4002 14 22.4002ZM12.6001 16.8002C12.6001 17.3004 12.8668 17.7626 13.2999 18.0126C13.733 18.2627 14.2669 18.2627 14.7001 18.0126C15.1332 17.7626 15.3999 17.3004 15.3999 16.8002V6.99976C15.3999 6.4996 15.1332 6.03741 14.7001 5.78733C14.267 5.53725 13.7331 5.53725 13.2999 5.78733C12.8668 6.03741 12.6001 6.4996 12.6001 6.99976V16.8002Z" fill="white" />
+                    </svg>
+                    <p class="font-bold text-[15px] leading-[17px] text-center text-white">
+                        해당 날짜엔 이용 시작이 불가합니다.<br>
+                        다른 시작일을 선택해주세요.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
 
