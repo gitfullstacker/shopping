@@ -8,6 +8,13 @@ fnc_MLogin_Chk();
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 
+// 렌트인 경우
+$start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
+$end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
+
+// 빈티지인 경우
+$count = Fnc_Om_Conv_Default($_REQUEST['count'], '');
+
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*

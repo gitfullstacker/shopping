@@ -46,6 +46,7 @@ if (!$arr_Rlt_Data) {
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
+// 금액정보얻기
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
@@ -54,11 +55,68 @@ $SQL_QUERY =    'SELECT
                     A.INT_NUMBER=1';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
-
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//구독멤버십정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_membership AS A
+                WHERE
+                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
+                    AND A.INT_TYPE=1
+                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
-<div x-data="{ showCalendar: false }" class="flex flex-col w-full">
+<div x-data="{
+    rentDate: null,
+    vintageCount: 0,
+    vintageOMoney: 0,
+    vintageMoney: 0,
+    showCalendar: false,
+    showSubscriptionAlert: false,
+    showVintagePanel: false,
+    goSubscription() {
+        if (<?= $subscription_Data ? 'false' : 'true' ?>) {
+            this.showSubscriptionAlert = true;
+        } else {
+            window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
+        }
+    },
+    goRent() {
+        if (this.rentDate == null) {
+            this.showCalendar = true;
+        } else {
+            window.location.href = '/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&start_date=' + encodeURIComponent(this.rentDate.startDate.toISOString()) + '&end_date=' + encodeURIComponent(this.rentDate.endDate.toISOString());
+        }
+    },
+    goVintage() {
+        if (this.vintageCount == 0) {
+            this.addVintageCount();
+            this.showVintagePanel = true;
+        } else {
+            window.location.href = '/m/pay/index.php?int_type=3&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&count=' + this.vintageCount;
+        }
+    },
+    addVintageCount() {
+        this.vintageCount++;
+        this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+        this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+    },
+    removeVintageCount() {
+        this.vintageCount--;
+        this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+        this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount
+    },
+    initVintageCount() {
+        this.vintageCount = 0;
+        this.vintageOMoney = 0;
+        this.vintageMoney = 0;
+    }
+}" class="flex flex-col w-full">
     <!-- 렌트 제품_상세_관련 상품 리뷰 -->
     <div class="flex flex-col w-full">
         <!-- 슬라이더 -->
@@ -156,7 +214,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <!-- 프리미엄 멤버십 (정기결제) -->
             <div class="flex px-[14px] mt-4 w-full">
                 <div class="flex flex-col gap-2.5 w-full border-[0.72px] border-solid border-[#DDDDDD] bg-[#FFF3E1] p-[14px]">
-                    <div x-data="{ checked: false }" class="flex flex-row gap-1.5 items-center" x-on:click="checked = !checked">
+                    <div x-data="{ checked: <?= $subscription_Data ? 'true' : 'false' ?> }" class="flex flex-row gap-1.5 items-center">
                         <div class="flex w-4 h-4">
                             <svg x-show="!checked" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.36" y="0.36" width="15.28" height="15.28" fill="white" stroke="#DDDDDD" stroke-width="0.72" />
@@ -618,25 +676,25 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </button>
         <?php
         switch ($arr_Data['INT_TYPE']) {
-            case 2:
+            case 1:
         ?>
-                <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="showCalendar = true">
+                <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goSubscription()">
+                    <span class="font-extrabold text-lg text-center text-white">구독하기</span>
+                </button>
+            <?php
+                break;
+            case 2:
+            ?>
+                <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goRent()">
                     <span class="font-extrabold text-lg text-center text-white">렌트하기</span>
                 </button>
             <?php
                 break;
-            case 1:
-            ?>
-                <a href="/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
-                    <span class="font-extrabold text-lg text-center text-white">구독하기</span>
-                </a>
-            <?php
-                break;
             case 3:
             ?>
-                <a href="/m/pay/index.php?int_type=3&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]">
+                <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goVintage()">
                     <span class="font-extrabold text-lg text-center text-white">구매하기</span>
-                </a>
+                </button>
         <?php
                 break;
         }
@@ -847,6 +905,11 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     this.collectDate = new Date(year, month - 1, day);
                     this.collectDate.setDate(this.collectDate.getDate() + 1);
                     this.selectedStatus++;
+
+                    rentDate = {
+                        startDate: this.startDate,
+                        endDate: this.endDate
+                    };
                 }
             } else if (this.selectedStatus == 2) {
                 if (year == this.endDate.getFullYear() && (month - 1) == this.endDate.getMonth() && day == this.endDate.getDate()) {
@@ -874,6 +937,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.endDate = null;
             this.selectedDates = [];
             this.generateDates(this.currentMonth, this.currentYear);
+
+            rentDate = null;
         },
         showAlert() {
             this.showCalendarAlert = true;
@@ -1049,6 +1114,57 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         해당 날짜엔 이용 시작이 불가합니다.<br>
                         다른 시작일을 선택해주세요.
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="showSubscriptionAlert" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
+        <div class="mb-5 flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-10">
+            <button class="absolute top-[15px] right-[21px]" x-on:click="showSubscriptionAlert = false">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <p class="font-bold text-[15px] leading-[17px] text-black">구독권 결제가 필요합니다.</p>
+            <p class="font-bold text-xs leading-[18px] text-[#666666] text-center">
+                구독권 가입 후 해당 상품 이용이 가능합니다.<br>
+                해당 페이지 상단에 있는 프리미엄 멤버십을 가입해주세요.
+            </p>
+        </div>
+    </div>
+
+    <div x-show="showVintagePanel" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
+        <div class="flex flex-col items-center justify-center rounded-t-lg bg-white w-full relative">
+            <button class="absolute top-[15px] right-[21px]" x-on:click="showVintagePanel = false; initVintageCount();">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <div class="mt-[46px] flex flex-col gap-[9px] border-t-[0.5px] border-[#E0E0E0] w-full px-7 py-[15px]">
+                <p class="font-bold text-xs leading-[14px] text-black">가브리엘 스몰 백팩</p>
+                <div class="flex justify-between items-start">
+                    <div class="flex flex-row">
+                        <button class="flex justify-center items-center border border-solid border-[#D9D9D9] w-[22px] h-[22px]" x-on:click="removeVintageCount()">
+                            <p class="font-bold text-base leading-[16px] text-[#666666]">-</p>
+                        </button>
+                        <input type="text" class="border border-solid border-[#D9D9D9] w-[41.25px] h-[22px] font-bold text-base text-center text-black" x-model="vintageCount">
+                        <button class="flex justify-center items-center border border-solid border-[#D9D9D9] w-[22px] h-[22px]" x-on:click="addVintageCount()">
+                            <p class="font-bold text-base leading-[16px] text-[#666666]">+</p>
+                        </button>
+                    </div>
+                    <p x-text="vintageMoney.toLocaleString() + '원'">2,400,000원</p>
+                </div>
+            </div>
+            <div class="flex flex-row gap-[19px] border-t-[0.5px] border-[#E0E0E0] w-full px-7 py-[15px]">
+                <p>주문금액</p>
+                <div class="flex flex-col gap-[5px]">
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="vintageOMoney.toLocaleString() + '원'">2,700,000원</p>
+                    <div class="flex flex-row gap-2 items-end">
+                        <p class="font-extrabold text-lg leading-5 text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>%</p>
+                        <p class="font-extrabold text-lg leading-5 text-[#333333A]" x-text="vintageOMoney.toLocaleString() + '원'">2,400,000원</p>
+                        <p class="font-bold text-xs leading-[14px] text-[#7E6B5A]">최대 할인적용가</p>
+                    </div>
                 </div>
             </div>
         </div>
