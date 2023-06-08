@@ -221,14 +221,14 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
             <!-- 에이블랑 명품감정 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
-                <img class="w-full" src="images/discount_vintage.png" alt="">
+                <img class="min-w-full" src="images/discount_vintage.png" alt="">
             </div>
         <?php
         } else {
         ?>
             <!-- 할인정보 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
-                <img class="w-full" src="images/discount.png" alt="">
+                <img class="min-w-full" src="images/discount.png" alt="">
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">렌트기간</p>
@@ -256,7 +256,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     if ($arr_Data['STR_IMAGE' . $i]) {
                 ?>
                         <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
-                            <img class="w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                            <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
                         </div>
                 <?php
                     }

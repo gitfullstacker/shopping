@@ -117,7 +117,7 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
 
     $images = '';
     while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
-        $images .= '<img class="w-[120px] h-[120px]" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" onerror="this.style.display = \'none\'" alt="">';
+        $images .= '<img class="min-w-full h-[120px] object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" onerror="this.style.display = \'none\'" alt="">';
     }
 
     $result .= '

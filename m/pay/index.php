@@ -489,7 +489,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 
     <!-- 하단 메뉴 -->
-    <div class="fixed bottom-0 left-0 w-full flex h-[66px]">
+    <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
         <?php
         if ($int_type == 1) {
             $SQL_QUERY =    'SELECT
@@ -540,7 +540,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 </form>
 
 <!-- 카드등록 알람 -->
-<div class="hidden fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black bg-opacity-80 z-20">
+<div class="hidden fixed top-0 flex justify-center items-center w-full h-full bg-black bg-opacity-80 z-20 max-w-[410px]">
     <div class="relative flex flex-col justify-center items-center w-[328px] h-[179px] bg-white border border-solid border-[#D9D9D9] rounded-[11px]">
         <button class="absolute top-[15px] right-[21px]">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

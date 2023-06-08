@@ -528,10 +528,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							AND A.INT_GUBUN=12
 						LIMIT 9';
 
-		$review_list_result = mysql_query($SQL_QUERY);
+		$review_banner_list_result = mysql_query($SQL_QUERY);
 
 		$index = 0;
-		while ($row = mysql_fetch_assoc($review_list_result)) {
+		while ($row = mysql_fetch_assoc($review_banner_list_result)) {
 		?>
 			<div class="w-full min-h-[130px] flex bg-gray-100">
 				<img class="object-cover object-center" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
