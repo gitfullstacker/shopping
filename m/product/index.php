@@ -563,7 +563,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                 (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
                                 date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
                                 date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
-                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="date.status == 0 ? 'bg-[#DDDDDD] text-black' : date.status == 1 ? 'bg-[#BED2B6] text-black' : (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : date.status == 4 ? 'bg-[#E5EAE3] text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="
+                                    date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
+                                    date.status == 1 ? 'bg-[#BED2B6] text-black' : 
+                                    (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
+                                    date.status == 4 ? 'bg-[#E5EAE3] text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
                                     </div>
                                 </div>

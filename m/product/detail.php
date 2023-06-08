@@ -121,7 +121,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
                     <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
                     <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-extrabold text-lg text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
+                        <p class="font-extrabold text-lg text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                     </div>
                 <?php
                     break;
@@ -948,7 +948,13 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
                                 date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
                                 date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
-                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="date.status == 0 ? 'bg-[#DDDDDD] text-black' : date.status == 1 ? 'bg-[#BED2B6] text-black' : (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : date.status == 4 ? 'bg-[#E5EAE3] text-black' : date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="
+                                    date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
+                                    date.status == 1 ? 'bg-[#BED2B6] text-black' : 
+                                    (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
+                                    date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
+                                    date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
+                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <template x-if="date.status == 6 || date.status == 7">
                                             <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
                                                 <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
