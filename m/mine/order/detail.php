@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 $SQL_QUERY =    'SELECT
-                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, B.*, C.STR_CODE
+                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.DTM_INDATE AS ORDER_DATE, A.INT_STATE AS ORDER_STATE, A.STR_NAME AS DELIVERY_NAME, A.STR_POST AS DELIVERY_POST, A.STR_ADDR1 AS DELIVERY_ADDR1, A.STR_ADDR2 AS DELIVERY_ADDR2, A.STR_MEMO AS DELIVERY_MEMO, A.STR_TELEP AS DELIVERY_TELEP, A.STR_HP AS DELIVERY_HP, B.*, C.STR_CODE, D.STR_NAME AS USER_NAME
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -21,6 +21,10 @@ $SQL_QUERY =    'SELECT
                     ' . $Tname . 'comm_com_code C
                 ON
                     B.INT_BRAND=C.INT_NUMBER
+                LEFT JOIN
+                    ' . $Tname . 'comm_member D
+                ON
+                    A.STR_USERID=D.STR_USERID
                 WHERE 
                     A.INT_NUMBER=' . $int_number;
 
@@ -32,27 +36,27 @@ if (!$arr_Rlt_Data) {
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-$str_delivery_status = '이용중';
+$current_state = '이용중';
 
-switch ($row['INT_STATE']) {
+switch ($arr_Data['ORDER_STATE']) {
     case 1:
-        $str_delivery_status = '주문접수';
+        $current_state = '주문접수';
         break;
 
     case 2:
-        $str_delivery_status = '상품준비';
+        $current_state = '상품준비';
         break;
 
     case 3:
-        $str_delivery_status = '배송중';
+        $current_state = '배송중';
         break;
 
     case 4:
-        $str_delivery_status = '배송완료';
+        $current_state = '이용중';
         break;
 
     case 5:
-        $str_delivery_status = '반납';
+        $current_state = '반납';
         break;
 }
 ?>
@@ -75,21 +79,21 @@ switch ($row['INT_STATE']) {
                     </div>
                     <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_CODE'] ?></p>
                     <p class="mt-0.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
-                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= date('Y.m.d', strtotime($arr_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'])) ?></p>
                     <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                 </div>
             </div>
             <div class="mt-2.5 flex gap-[26px] items-center px-[14px]">
-                <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $str_delivery_status ?></p>
+                <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $current_state ?></p>
                 <p class="font-bold text-xs leading-[14px] text-black underline">우체국택배(<?= $arr_Data['INT_NUMBER'] ?>)</p>
             </div>
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] px-[14px]">
                 <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
                 </div>
-                <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                <a href="/m/mine/question/create.php?str_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
-                </div>
+                </a>
                 <div class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
                 </div>
@@ -102,19 +106,45 @@ switch ($row['INT_STATE']) {
             <div class="flex flex-col w-full px-[14px]">
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">주문번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">20230208010</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['INT_NUMBER'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">주문일자</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">2023. 02. 08</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= date('Y. m. d', strtotime($arr_Data['ORDER_DATE'])) ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">주문자</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">송지혜</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['USER_NAME'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">주문처리상태</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">배송완료</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]">
+                        <?php
+                        switch ($arr_Data['ORDER_STATE']) {
+                            case 1:
+                                echo '접수';
+                                break;
+                            case 2:
+                                echo '관리자확인';
+                                break;
+                            case 3:
+                                echo '발송';
+                                break;
+                            case 4:
+                                echo '배송완료';
+                                break;
+                            case 5:
+                                echo '반납접수';
+                                break;
+                            case 10:
+                                echo '반납완료';
+                                break;
+                            case 11:
+                                echo '취소';
+                                break;
+                        }
+                        ?>
+                    </p>
                 </div>
             </div>
         </div>
@@ -168,23 +198,23 @@ switch ($row['INT_STATE']) {
             <div class="flex flex-col w-full px-[14px]">
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">받는 분</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">송지혜</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['DELIVERY_NAME'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">핸드폰번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">010-1234-5678</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['DELIVERY_HP'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">전화번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">031-000-0000</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['DELIVERY_TELEP'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">주소</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">(03697) 서울특별시 서대문 연희로 27길 16</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]">(<?= $arr_Data['DELIVERY_POST'] ?>) <?= $arr_Data['DELIVERY_ADDR1'] ?> <?= $arr_Data['DELIVERY_ADDR2'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">배송메세지</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">문 앞에 두고 가주세요.</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['DELIVERY_MEMO'] ?></p>
                 </div>
             </div>
         </div>

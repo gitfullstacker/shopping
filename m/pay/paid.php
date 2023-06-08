@@ -2,20 +2,23 @@
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
 
 <?php
-$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
-$str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
+$int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 // 상품정보 얻기
 $SQL_QUERY =    'SELECT
-                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_basket AS D WHERE A.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_BASKET
+                    A.DTM_INDATE AS ORDER_DATE, A.STR_SDATE, A.STR_EDATE, B.*, C.STR_CODE AS STR_BRAND
                 FROM 
-                    ' . $Tname . 'comm_goods_master AS A
+                    ' . $Tname . 'comm_goods_cart AS A
                 LEFT JOIN
-                    ' . $Tname . 'comm_com_code AS B
+                    ' . $Tname . 'comm_goods_master AS B
                 ON
-                    A.INT_BRAND=B.INT_NUMBER
+                    A.STR_GOODCODE=B.STR_GOODCODE
+                LEFT JOIN
+                    ' . $Tname . 'comm_com_code AS C
+                ON
+                    B.INT_BRAND=C.INT_NUMBER
                 WHERE
-                    A.STR_GOODCODE="' . $str_goodcode . '"';
+                    A.INT_NUMBER=' . $int_number;
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -34,8 +37,8 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <img class="w-full h-full" src="images/paid.png" alt="successful">
     </div>
     <p class="mt-5 font-bold text-[15px] leading-[17px] text-center text-black">주문이 완료되었습니다.</p>
-    <p class="mt-2.5 font-bold text-xs leading-[140%] text-center text-[#666666]">2023. 02. 21 주문하신 상품의 주문번호는 <br /> <b>20230221100</b> 입니다.</p>
-    <a href="/m/mine/order/detail.php" class="mt-5 flex justify-center items-center w-[178px] h-[45px] bg-white border border-solid border-[#DDDDDD]">
+    <p class="mt-2.5 font-bold text-xs leading-[140%] text-center text-[#666666]"><?= date('Y. m. d', strtotime($product_Data['ORDER_DATE'])) ?> 주문하신 상품의 주문번호는 <br /> <b><?= $int_number ?></b> 입니다.</p>
+    <a href="/m/mine/order/detail.php?int_number=<?= $int_number ?>" class="mt-5 flex justify-center items-center w-[178px] h-[45px] bg-white border border-solid border-[#DDDDDD]">
         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">주문 상세보기</p>
     </a>
 </div>
@@ -63,15 +66,15 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 case 1:
             ?>
                     <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">월정액 구독 전용</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#EEAC4C]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 월</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: 2023.02.15 ~ 2023.02.18</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#EEAC4C]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 무료교환</span> 잔여횟수 1회</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 2:
                 ?>
                     <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['INT_PRICE'] ?>원</p>
                     <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: 2023.02.15 ~ 2023.02.18</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 3:
@@ -101,7 +104,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
     <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
         <?php
-        if ($product_Data['INT_TYPE']) {
+        if ($product_Data['INT_TYPE'] != 1) {
             $total_price = $product_Data['INT_PRICE'];
             $discount_price = $product_Data['INT_DISCOUNT'] ? $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 : 0;
             $membership_price = 0;

@@ -4,6 +4,8 @@ fnc_MLogin_Chk();
 ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <?php
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
@@ -45,13 +47,23 @@ $SQL_QUERY =    'SELECT
                     A.STR_GOODCODE="' . $str_goodcode . '"';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
-
 if (!$arr_Rlt_Data) {
     echo 'Could not run query: ' . mysql_error();
     exit;
 }
-
 $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 사이트 정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 
 //구독멤버십정보얻기
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
@@ -66,13 +78,9 @@ $SQL_QUERY =    'SELECT
                     AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-if (!$arr_Rlt_Data) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
 $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
+
 <form x-data="{
     type: '',
     payAmount: {
@@ -96,12 +104,46 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-}" action="/kcp_payment/mobile_sample/order_mobile.php" method="post" class="mt-[30px] flex flex-col w-full">
+}" id="frm" name="frm" action="" method="post" class="mt-[30px] flex flex-col w-full">
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
     <input type="hidden" name="str_goodcode" value="<?= $str_goodcode ?>">
+    <input type="hidden" name="delivery_name" id="delivery_name" value="<?= $user_Data['STR_NAME'] ?>">
+    <input type="hidden" name="delivery_address1" id="delivery_address1" value="<?= $user_Data['STR_SADDR1'] ?>">
+    <input type="hidden" name="delivery_address2" id="delivery_address2" value="<?= $user_Data['STR_SADDR2'] ?>">
+    <input type="hidden" name="delivery_postal" id="delivery_postal" value="<?= $user_Data['STR_SPOST'] ?>">
+    <input type="hidden" name="delivery_telep" id="delivery_telep" value="<?= $user_Data['STR_TELEP'] ?>">
+    <input type="hidden" name="delivery_hp" id="delivery_hp" value="<?= $user_Data['STR_HP'] ?>">
 
     <!-- 배송정보 -->
-    <div x-data="{ type: 1 }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+    <div x-data="{
+        type: 1,
+        deliveryInfo: {
+            name: '<?= $user_Data['STR_NAME'] ?>',
+            telep: '<?= $user_Data['STR_TELEP'] ?>',
+            hp: '<?= $user_Data['STR_HP'] ?>',
+            address1: '<?= $user_Data['STR_SADDR1'] ?>',
+            address2: '<?= $user_Data['STR_SADDR2'] ?>',
+            postal: '<?= $user_Data['STR_SPOST'] ?>'
+        },
+        messageType: '',
+        messageContent: '',
+        addDeliveryAddress() {
+            this.deliveryInfo.name = document.getElementById('new_delivery_name').value;
+            this.deliveryInfo.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
+            this.deliveryInfo.address1 = document.getElementById('new_delivery_address').value;
+            this.deliveryInfo.address2 = document.getElementById('new_delivery_detail_address').value;
+            this.deliveryInfo.postal = document.getElementById('new_delivery_postal_code').value;
+
+            document.getElementById('delivery_name').value = this.deliveryInfo.name;
+            document.getElementById('delivery_address1').value = this.deliveryInfo.address1;
+            document.getElementById('delivery_address2').value = this.deliveryInfo.address2;
+            document.getElementById('delivery_postal').value = this.deliveryInfo.postal;
+            document.getElementById('delivery_telep').value = this.deliveryInfo.telep;
+            document.getElementById('delivery_hp').value = this.deliveryInfo.hp;
+
+            this.type = 1;
+        }
+    }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
         <div class="mt-1.5 flex gap-[7px]">
             <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 1">
@@ -112,19 +154,19 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </a>
         </div>
         <!-- 기본 배송지 -->
-        <div x-data="{ selectedOption: '' }" x-show="type == 1" class="mt-[15px] flex flex-col w-full">
-            <p class="font-bold text-[15px] leading-[17px] text-black">에이블랑</p>
-            <p class="mt-[9px] font-bold text-xs leading-[14px] text-black">(<?= $user_Data['STR_SPOST'] ?>) <?= $user_Data['STR_SADDR1'] . ' ' . $user_Data['STR_SADDR2'] ?></p>
-            <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $user_Data['STR_TELEP'] ?> / <?= $user_Data['STR_HP'] ?></p>
+        <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
+            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="deliveryInfo.name">에이블랑</p>
+            <p class="mt-[9px] font-bold text-xs leading-[14px] text-black" x-text="'(' + deliveryInfo.postal + ') ' + deliveryInfo.address1 + ' ' + deliveryInfo.address2">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
+            <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]" x-text="deliveryInfo.telep + ' / ' + deliveryInfo.hp">010-9556-6439 / 031-572-6439</p>
             <div class="mt-3 relative flex w-full">
-                <select name="message" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]" x-model="selectedOption">
-                    <option value="">배송시 요청사항을 선택해 주세요</option>
-                    <option value="1">파손위험상품입니다. 배송시 주의해주세요.</option>
-                    <option value="2">부재시 전화 또는 문자 주세요</option>
-                    <option value="3">부재시 경비실에 맡겨 주세요</option>
-                    <option value="4">부재시 문 앞에 놓아주세요</option>
-                    <option value="5">택배함에 넣어주세요</option>
-                    <option value="6">배송전에 꼭 연락주세요</option>
+                <select name="delivery_memo_type" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]" x-model="messageType">
+                    <option value="" selected>배송시 요청사항을 선택해 주세요</option>
+                    <option value="파손위험상품입니다. 배송시 주의해주세요.">파손위험상품입니다. 배송시 주의해주세요.</option>
+                    <option value="부재시 전화 또는 문자 주세요">부재시 전화 또는 문자 주세요</option>
+                    <option value="부재시 경비실에 맡겨 주세요">부재시 경비실에 맡겨 주세요</option>
+                    <option value="부재시 문 앞에 놓아주세요">부재시 문 앞에 놓아주세요</option>
+                    <option value="택배함에 넣어주세요">택배함에 넣어주세요</option>
+                    <option value="배송전에 꼭 연락주세요">배송전에 꼭 연락주세요</option>
                     <option value="0">직접입력</option>
                 </select>
                 <div class="absolute top-[15px] right-[15px] pointer-events-none">
@@ -133,22 +175,22 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </svg>
                 </div>
             </div>
-            <template x-if="selectedOption === '0'">
-                <textarea class="mt-1.5 border-[0.72px] border-[#DDDDDD] rounded-[3px] p-2.5 w-full" name="message_detail" id="" cols="30" rows="6"></textarea>
+            <template x-if="messageType === '0'">
+                <textarea class="mt-1.5 border-[0.72px] border-[#DDDDDD] rounded-[3px] p-2.5 w-full" name="delivery_memo" id="" cols="30" rows="6" x-model="messageContent"></textarea>
             </template>
         </div>
         <!-- 신규 배송지 -->
-        <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full">
+        <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full" style="display: none;">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="이름을 입력해 주세요">
+                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="new_delivery_name" placeholder="이름을 입력해 주세요">
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px] w-full">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="010">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="1234">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="5678">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" placeholder="010">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" placeholder="1234">
+                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" placeholder="5678">
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -156,17 +198,17 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="flex flex-col gap-[5px] w-full">
                     <div class="flex gap-[5px]">
                         <div class="grow">
-                            <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="우편번호" disabled>
+                            <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="new_delivery_postal_code" placeholder="우편번호" disabled>
                         </div>
-                        <button type="button" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
+                        <button type="button" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" id="search_address">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                         </button>
                     </div>
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="" placeholder="기본주소" disabled>
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="" placeholder="상세 주소를 입력해 주세요">
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="new_delivery_address" placeholder="기본주소" disabled>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-bold text-xs leading-[14px] text-black" name="" id="new_delivery_detail_address" placeholder="상세 주소를 입력해 주세요">
                 </div>
             </div>
-            <button type="button" class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]">
+            <button type="button" class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]" x-on:click="addDeliveryAddress()">
                 <p class="font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
             </button>
         </div>
@@ -191,7 +233,17 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                         <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
                         <div class="mt-[7px] flex gap-2 items-center">
-                            <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($product_Data['INT_PRICE']) ?>원</p>
+                            <?php
+                            if ($subscription_Data) {
+                            ?>
+                                <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
+                            <?php
+                            } else {
+                            ?>
+                                <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
+                            <?php
+                            }
+                            ?>
                         </div>
                     <?php
                         break;
@@ -229,7 +281,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-                <p class="font-bold text-xs leading-[14px] text-[#666666]">무료배송</p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $subscription_Data ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
@@ -499,34 +551,17 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
         <?php
         if ($int_type == 1) {
-            $SQL_QUERY =    'SELECT
-                                A.*
-                            FROM 
-                                ' . $Tname . 'comm_site_info AS A
-                            WHERE
-                                A.INT_NUMBER=1';
-
-            $arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-            if (!$arr_Rlt_Data) {
-                echo 'Could not run query: ' . mysql_error();
-                exit;
-            }
-            $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
-            $pay_price = $site_Data['INT_PRICE1'];
-
             if ($subscription_Data) {
         ?>
-                <a href="sub_process.php?int_type=<?= $int_type ?>&str_goodcode=<?= $str_goodcode ?>" class="pay-action grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+                <button class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="paySubscription()">
                     <span class="font-extrabold text-lg text-center text-white">구독하기</span>
-                </a>
+                </button>
             <?php
             } else {
             ?>
-                <button type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+                <a href="/m/mine/membership/index.php" type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
                     <span class="font-extrabold text-lg text-center text-white">구독 멤버십 가입하러 가기</span>
-                </button>
+                </a>
             <?php
             }
         } else {
@@ -537,7 +572,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
             <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
             <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
-            <button type="submit" class="pay-action grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+            <button type="submit" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
                 <span class="font-extrabold text-lg text-center text-white" x-text="formatNumber(payAmount.totalPrice) + '원 결제하기'"></span>
             </button>
         <?php
@@ -570,13 +605,43 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
 
 <script>
-    $('.pay-action').on('click', function(event) {
-        var checkbox1 = $('#agree_terms').is(':checked');
+    $(document).ready(function() {
+        // 주소 검색 버튼 클릭 이벤트 처리
+        $('#search_address').click(function() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 선택한 주소의 우편번호와 주소 입력하기
+                    $('#new_delivery_postal_code').val(data.zonecode);
+                    $('#new_delivery_address').val(data.address);
+                }
+            }).open();
+        });
+    });
+
+    function paySubscription() {
+        if (ValidChk()==false) return;
+
+		document.frm.action = "sub_process.php";
+		document.frm.submit();
+	}
+
+    function payKCP() {
+        if (ValidChk()==false) return;
+
+		document.frm.action = "/kcp_payment/mobile_sample/order_mobile.php";
+		document.frm.submit();
+	}
+
+    function ValidChk()	{
+		var checkbox1 = $('#agree_terms').is(':checked');
         var checkbox2 = $('#agree_payment').is(':checked');
 
         if (!checkbox1 || !checkbox2) {
             event.preventDefault(); // Prevent the default redirect behavior
             alert('약관동의에 동의하셔야 합니다.');
+            return false;
         }
-    });
+
+		return true;
+	}
 </script>

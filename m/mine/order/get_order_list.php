@@ -29,7 +29,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, B.*, C.STR_CODE
+                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.INT_STATE AS ORDER_STATE, A.DTM_INDATE AS ORDER_DATE, B.*, C.STR_CODE
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -52,7 +52,7 @@ $result = '<div class="flex flex-col gap-[25px] w-full">';
 while ($row = mysql_fetch_assoc($order_list_result)) {
     $str_delivery_status = '이용중';
 
-    switch ($row['INT_STATE']) {
+    switch ($row['ORDER_STATE']) {
         case 1:
             $str_delivery_status = '주문접수';
             break;
@@ -66,7 +66,7 @@ while ($row = mysql_fetch_assoc($order_list_result)) {
             break;
 
         case 4:
-            $str_delivery_status = '배송완료';
+            $str_delivery_status = '이용중';
             break;
 
         case 5:
@@ -79,7 +79,7 @@ while ($row = mysql_fetch_assoc($order_list_result)) {
             <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex justify-between items-center px-[14px] pb-3 border-b-[0.5px] border-[#E0E0E0]">
                 <div class="flex gap-[5px] items-center">
                     <p class="font-bold text-[15px] leading-[17px] text-black">' . $row['INT_NUMBER'] . '</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#999999]">' . date('Y.m.d', strtotime($row['ORDER_DATE'])) . '</p>
                 </div>
                 <div class="pr-[5px]">
                     <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
