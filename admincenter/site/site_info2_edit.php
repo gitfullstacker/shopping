@@ -124,16 +124,6 @@
 									<input type="number" name="int_discount4" value="<?=$arr_Data['INT_DISCOUNT4']?>" style="width: 50px;">%
 								</td>
 							</tr>
-							<tr>
-								<td>렌트 구간할인5</td>
-								<td colspan="3">
-									<input type="number" name="int_dstart5" value="<?=$arr_Data['INT_DSTART5']?>" style="width: 50px;">
-									~
-									<input type="number" name="int_dend5" value="<?=$arr_Data['INT_DEND5']?>" style="width: 50px;">
-									:
-									<input type="number" name="int_discount5" value="<?=$arr_Data['INT_DISCOUNT5']?>" style="width: 50px;">%
-								</td>
-							</tr>
 						</table>
 						
 

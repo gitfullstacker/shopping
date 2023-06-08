@@ -545,6 +545,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 </div>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                 <div class="mt-[15px] flex flex-col items-center w-full px-[13px]">
+                    <?php
+                    $SQL_QUERY =    'SELECT
+                                        A.*
+                                    FROM 
+                                        ' . $Tname . 'comm_site_info AS A
+                                    WHERE
+                                        A.INT_NUMBER=1';
+
+                    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+                    $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                    ?>
                     <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
                         <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
                     </div>
@@ -554,17 +565,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                             <img class="min-w-full" src="images/rent_discount.png" alt="">
                         </div>
                         <div class="flex justify-between absolute left-0 w-full px-[19px]">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">할인혜택 없음</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-4">20% 할인</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-8">30% 할인</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-12">50% 할인</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-4"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-8"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-12"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
                         </div>
                         <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
                         <div class="mt-2 flex justify-between w-full px-[7px]">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">3일</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">4~5일</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">6일~8일</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">9일~14일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>~<?= $site_Data['INT_DEND2'] ?>일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?></p>
                         </div>
                     </div>
                 </div>

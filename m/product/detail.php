@@ -983,124 +983,140 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                 </template>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                <div class="mt-[15px] flex justify-center items-center w-[100px] h-[25px] bg-[#F5F5F5] rounded-[9px]">
-                    <p class="font-bold text-[10px] leading-[12px] text-black">렌트 가격 할인 TIP!</p>
-                </div>
-                <p class="mt-2 font-bold text-[10.5px] leading-[12px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
-                <div class="mt-[26px] mb-[50px] flex w-full">
-                    <img class="min-w-full" src="images/rent_discount.png" alt="">
+                <div class="mt-[15px] flex flex-col items-center w-full px-[13px]">
+                    <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
+                        <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
+                    </div>
+                    <p class="mt-2 font-bold text-xs leading-[14px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                    <div class="mt-[26px] flex flex-col w-full px-7 relative">
+                        <div class="w-full px-[23px] mt-5">
+                            <img class="min-w-full" src="images/rent_discount.png" alt="">
+                        </div>
+                        <div class="flex justify-between absolute left-0 w-full px-7">
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-4"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-8"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-12"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
+                        </div>
+                        <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
+                        <div class="mt-2 flex justify-between w-full px-[7px]">
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>~<?= $site_Data['INT_DEND2'] ?>일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?></p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+    <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
 
-</div>
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
+    <script>
+        var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;
 
-<script>
-    var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;
-
-    $(document).ready(function() {
-        searchOwnReview();
-        searchRelatedReview();
-    });
-
-    function searchOwnReview(page = 0) {
-        url = "get_own_review_list.php";
-        url += "?page=" + page;
-        url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
-
-        $.ajax({
-            url: url,
-            success: function(result) {
-                $("#own_review_list").html(result);
-            }
+        $(document).ready(function() {
+            searchOwnReview();
+            searchRelatedReview();
         });
-    }
 
-    function searchRelatedReview(page = 0) {
-        url = "get_related_review_list.php";
-        url += "?page=" + page;
-        url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
-        url += "&int_good_type=" + <?= $arr_Data['INT_TYPE'] ?>;
-        url += "&int_brand=" + <?= $arr_Data['INT_BRAND'] ?>;
+        function searchOwnReview(page = 0) {
+            url = "get_own_review_list.php";
+            url += "?page=" + page;
+            url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
 
-        $.ajax({
-            url: url,
-            success: function(result) {
-                $("#related_review_list").html(result);
-            }
-        });
-    }
-
-    function setReviewLike(bd_seq) {
-        $.ajax({
-            url: "/m/review/set_like.php",
-            data: {
-                bd_seq: bd_seq
-            },
-            success: function(resultString) {
-                result = JSON.parse(resultString);
-                if (result['status'] == 401) {
-                    alert('사용자로그인을 하여야 합니다.');
-                    return;
+            $.ajax({
+                url: url,
+                success: function(result) {
+                    $("#own_review_list").html(result);
                 }
-                if (result['status'] == 200) {
-                    $("#like_count_" + bd_seq).html(result['data']);
-                }
-            }
-        });
-    }
-
-    function setProductLike(str_goodcode) {
-        $.ajax({
-            url: "/m/product/set_like.php",
-            data: {
-                str_goodcode: str_goodcode
-            },
-            success: function(resultString) {
-                result = JSON.parse(resultString);
-                if (result['status'] == 401) {
-                    alert('사용자로그인을 하여야 합니다.');
-                    return;
-                }
-                if (result['status'] == 200) {
-                    if (result['data'] == true) {
-                        $("#is_like_no").hide();
-                        $("#is_like_yes").show();
-                    }
-                    if (result['data'] == false) {
-                        $("#is_like_no").show();
-                        $("#is_like_yes").hide();
-                    }
-                }
-            }
-        });
-    }
-
-    function addProductBasket(str_goodcode) {
-        if (is_basket) {
-            alert("이미 장바구니에 존재합니다.");
-            return;
+            });
         }
-        $.ajax({
-            url: "/m/product/set_basket.php",
-            data: {
-                str_goodcode: str_goodcode
-            },
-            success: function(resultString) {
-                result = JSON.parse(resultString);
-                if (result['status'] == 401) {
-                    alert('사용자로그인을 하여야 합니다.');
-                    return;
+
+        function searchRelatedReview(page = 0) {
+            url = "get_related_review_list.php";
+            url += "?page=" + page;
+            url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
+            url += "&int_good_type=" + <?= $arr_Data['INT_TYPE'] ?>;
+            url += "&int_brand=" + <?= $arr_Data['INT_BRAND'] ?>;
+
+            $.ajax({
+                url: url,
+                success: function(result) {
+                    $("#related_review_list").html(result);
                 }
-                if (result['status'] == 200) {
-                    if (result['data'] == true) {
-                        is_basket = 1;
-                        alert("장바구니에 추가되였습니다.");
+            });
+        }
+
+        function setReviewLike(bd_seq) {
+            $.ajax({
+                url: "/m/review/set_like.php",
+                data: {
+                    bd_seq: bd_seq
+                },
+                success: function(resultString) {
+                    result = JSON.parse(resultString);
+                    if (result['status'] == 401) {
+                        alert('사용자로그인을 하여야 합니다.');
+                        return;
+                    }
+                    if (result['status'] == 200) {
+                        $("#like_count_" + bd_seq).html(result['data']);
                     }
                 }
+            });
+        }
+
+        function setProductLike(str_goodcode) {
+            $.ajax({
+                url: "/m/product/set_like.php",
+                data: {
+                    str_goodcode: str_goodcode
+                },
+                success: function(resultString) {
+                    result = JSON.parse(resultString);
+                    if (result['status'] == 401) {
+                        alert('사용자로그인을 하여야 합니다.');
+                        return;
+                    }
+                    if (result['status'] == 200) {
+                        if (result['data'] == true) {
+                            $("#is_like_no").hide();
+                            $("#is_like_yes").show();
+                        }
+                        if (result['data'] == false) {
+                            $("#is_like_no").show();
+                            $("#is_like_yes").hide();
+                        }
+                    }
+                }
+            });
+        }
+
+        function addProductBasket(str_goodcode) {
+            if (is_basket) {
+                alert("이미 장바구니에 존재합니다.");
+                return;
             }
-        });
-    }
-</script>
+            $.ajax({
+                url: "/m/product/set_basket.php",
+                data: {
+                    str_goodcode: str_goodcode
+                },
+                success: function(resultString) {
+                    result = JSON.parse(resultString);
+                    if (result['status'] == 401) {
+                        alert('사용자로그인을 하여야 합니다.');
+                        return;
+                    }
+                    if (result['status'] == 200) {
+                        if (result['data'] == true) {
+                            is_basket = 1;
+                            alert("장바구니에 추가되였습니다.");
+                        }
+                    }
+                }
+            });
+        }
+    </script>

@@ -23,9 +23,6 @@
 	$int_dstart4 = Fnc_Om_Conv_Default($_REQUEST[int_dstart4],null);
 	$int_dend4 = Fnc_Om_Conv_Default($_REQUEST[int_dend4],null);
 	$int_discount4 = Fnc_Om_Conv_Default($_REQUEST[int_discount4],null);
-	$int_dstart5 = Fnc_Om_Conv_Default($_REQUEST[int_dstart5],null);
-	$int_dend5 = Fnc_Om_Conv_Default($_REQUEST[int_dend5],null);
-	$int_discount5 = Fnc_Om_Conv_Default($_REQUEST[int_discount5],null);
 
 	switch($RetrieveFlag){
      	case "UPDATE" :
@@ -52,9 +49,6 @@
 			$arr_Column_Name[16]		= "INT_DSTART4";
 			$arr_Column_Name[17]		= "INT_DEND4";
 			$arr_Column_Name[18]		= "INT_DISCOUNT4";
-			$arr_Column_Name[19]		= "INT_DSTART5";
-			$arr_Column_Name[20]		= "INT_DEND5";
-			$arr_Column_Name[21]		= "INT_DISCOUNT5";
 
 			$arr_Set_Data[0]		= "1";
 			$arr_Set_Data[1]		= $int_oprice1;
@@ -75,9 +69,6 @@
 			$arr_Set_Data[16]		= $int_dstart4;
 			$arr_Set_Data[17]		= $int_dend4;
 			$arr_Set_Data[18]		= $int_discount4;
-			$arr_Set_Data[19]		= $int_dstart5;
-			$arr_Set_Data[20]		= $int_dend5;
-			$arr_Set_Data[21]		= $int_discount5;
 			
 			$arr_Sub = "";
 
