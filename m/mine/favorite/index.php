@@ -81,13 +81,44 @@ $product_result = mysql_query($SQL_QUERY);
                         </div>
                         <p class="mt-[5.5px] font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                         <p class="mt-[3px] font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
-                        <div class="mt-[8.4px] flex gap-1 items-center">
-                            <p class="font-extrabold text-xs leading-[14px] text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
-                            <p class="font-bold text-xs leading-[14px] text-black"><?= '일 ' . ($row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE'])) ?>원</p>
-                        </div>
-                        <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[<?= ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                            <p class="font-normal text-[9px] leading-[9px] text-center text-white"><?= ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
-                        </div>
+                        <?php
+                        switch ($row['INT_TYPE']) {
+                            case 1:
+                        ?>
+                                <div class="mt-[8.4px] flex gap-1 items-center">
+                                    <p class="font-extrabold text-xs leading-[14px] text-[#EEAC4C]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-bold text-xs leading-[14px] text-black"><?= '월 ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                </div>
+                                <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#EEAC4C]">
+                                    <p class="font-normal text-[9px] leading-[9px] text-center text-white">구독</p>
+                                </div>
+                            <?php
+                                break;
+
+                            case 2:
+                            ?>
+                                <div class="mt-[8.4px] flex gap-1 items-center">
+                                    <p class="font-extrabold text-xs leading-[14px] text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-bold text-xs leading-[14px] text-black"><?= '일 ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                </div>
+                                <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#00402F]">
+                                    <p class="font-normal text-[9px] leading-[9px] text-center text-white">렌트</p>
+                                </div>
+                            <?php
+                                break;
+                            case 3:
+                            ?>
+                                <div class="mt-[8.4px] flex gap-1 items-center">
+                                    <p class="font-extrabold text-xs leading-[14px] text-[#7E6B5A]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-bold text-xs leading-[14px] text-black"><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                </div>
+                                <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#7E6B5A]">
+                                    <p class="font-normal text-[9px] leading-[9px] text-center text-white">빈티지</p>
+                                </div>
+                        <?php
+                                break;
+                        }
+                        ?>
                     </div>
                 <?php
                 }
