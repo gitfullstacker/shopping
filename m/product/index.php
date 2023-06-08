@@ -482,7 +482,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             today = new Date();
             this.generateDates(today.getMonth() + 1, today.getFullYear());
         }
-    }" class="w-full h-full bg-black bg-opacity-60 fixed top-0 left-0 z-50 flex justify-center items-center" style="display: none;">
+    }" class="w-full h-full bg-black bg-opacity-60 fixed top-0 z-50 flex justify-center items-center max-w-[410px]" style="display: none;">
         <div class="flex flex-col items-center rounded-lg bg-white w-[95%]">
             <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                 <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
@@ -582,7 +582,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </div>
     </div>
 
-    <div x-show="showOption != 0" x-transition class="w-full h-full bg-black bg-opacity-60 fixed top-0 left-0 z-50 flex justify-center items-center" style="display: none;">
+    <div x-show="showOption != 0" x-transition class="w-full h-full bg-black bg-opacity-60 fixed top-0 z-50 flex justify-center items-center max-w-[410px]" style="display: none;">
         <div x-data="{
             content: [
                 {
