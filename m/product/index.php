@@ -388,47 +388,39 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 status = 1;
 
                 if (this.selectedStatus == 0) {
-                    if (date.getDay() === 1 || date.getDay() === 2) {
+                    const today = new Date();
+                    today.setDate(today.getDate() + 2);
+
+                    if (date < today) {
+                        status = 0;
+                    } else if (date.getDay() === 1 || date.getDay() === 2) {
                         // Monday: 1, Tuesday: 2
                         status = 0;
                     }
                 } else if (this.selectedStatus == 1) {
-                    if (date.getDate() == this.startDate.getDate()) {
+                    const disableEndDay = new Date(this.startDate);
+                    disableEndDay.setDate(disableEndDay.getDate() + 2);
+
+                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
                         // Friday: 1, Saturday: 2
                         status = 0;
-                    } else if (date.getDate() == this.startDate.getDate()) {
-                        status = 2;
-                    } else if (date.getDate() > this.startDate.getDate() + 2) {
+                    } else if (date > disableEndDay) {
                         status = 1;
                     } else {
                         status = 0;
                     }
-
-                    <!-- 출고 표시 -->
-                    if (date.getDate() == this.startDate.getDate() - 2) {
-                        // status = 6;
-                    }
                 } else {
                     status = 0;
-                    if (date.getDate() == this.startDate.getDate()) {
+                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
-                    } else if (date.getDate() == this.endDate.getDate()) {
+                    } else if (date.getFullYear() == this.endDate.getFullYear() && date.getMonth() == this.endDate.getMonth() && date.getDate() == this.endDate.getDate()) {
                         status = 3;
-                    } else if (date.getDate() >= this.startDate.getDate() && date.getDate() <= this.endDate.getDate()) {
+                    } else if (date >= this.startDate && date <= this.endDate) {
                         status = 4;
-                    } else if (date.getDate() > this.endDate.getDate()) {
+                    } else if (date > this.endDate) {
                         status = 5;
-                    }
-
-                    <!-- 출고 표시 -->
-                    if (date.getDate() == this.startDate.getDate() - 2) {
-                        // status = 6;
-                    }
-                    <!-- 회수 표시 -->
-                    if (date.getDate() == this.endDate.getDate() + 1) {
-                        // status = 7;
                     }
                 }
 
@@ -552,12 +544,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     </div>
                 </div>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                <div class="mt-[15px] flex justify-center items-center w-[100px] h-[25px] bg-[#F5F5F5] rounded-[9px]">
-                    <p class="font-bold text-[10px] leading-[12px] text-black">렌트 가격 할인 TIP!</p>
-                </div>
-                <p class="mt-2 font-bold text-[10.5px] leading-[12px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
-                <div class="mt-[26px] flex w-full">
-                    <img class="min-w-full" src="images/rent_discount.png" alt="">
+                <div class="mt-[15px] flex flex-col items-center w-full px-[13px]">
+                    <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
+                        <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
+                    </div>
+                    <p class="mt-2 font-bold text-xs leading-[14px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                    <div class="mt-[26px] flex flex-col w-full px-7 relative">
+                        <div class="w-full px-[23px] mt-5">
+                            <img class="min-w-full" src="images/rent_discount.png" alt="">
+                        </div>
+                        <div class="flex justify-between absolute left-0 w-full px-[19px]">
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">할인혜택 없음</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-4">20% 할인</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-8">30% 할인</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] mt-12">50% 할인</p>
+                        </div>
+                        <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
+                        <div class="mt-2 flex justify-between w-full px-[7px]">
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">3일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">4~5일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">6일~8일</p>
+                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]">9일~14일</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr class="mt-[35px] border-t-[0.5px] border-[#E0E0E0] w-full" />

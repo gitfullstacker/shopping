@@ -719,7 +719,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 price = <?= $arr_Data['INT_PRICE'] ?: 0 - $arr_Data['INT_PRICE'] ?: 0 * $arr_Data['INT_DISCOUNT'] ?: 0 / 100 ?>;
 
                 if (this.selectedStatus == 0) {
-                    if (date.getDay() === 1 || date.getDay() === 2) {
+                    const enableToday = new Date();
+                    enableToday.setDate(enableToday.getDate() + 2);
+
+                    if (date < enableToday) {
+                        status = 0;
+                    } else if (date.getDay() === 1 || date.getDay() === 2) {
                         // Monday: 1, Tuesday: 2
                         status = 0;
                     } else {
@@ -745,7 +750,10 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                     const dateString = `${year1}-${month1}-${day1}`;
                     
-                    if (date.getDate() == this.startDate.getDate()) {
+                    const disableEndDay = new Date(this.startDate);
+                    disableEndDay.setDate(disableEndDay.getDate() + 2);
+                    
+                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
                         // Friday: 1, Saturday: 2
@@ -756,9 +764,9 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         status = 0;
                     } else if (this.endDDates.includes(dateString)) {
                         status = 0;
-                    } else if (date.getDate() == this.startDate.getDate()) {
-                        status = 2;
-                    } else if (date.getDate() > this.startDate.getDate() + 2) {
+                    } else if (date > disableEndDay) {
+                        console.log(date);
+                        console.log(disableEndDay);
                         status = 1;
 
                         const timeDifference = date.getTime() - this.startDate.getTime();
@@ -781,27 +789,27 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     }
 
                     <!-- 출고 표시 -->
-                    if (date.getDate() == this.exportDate.getDate()) {
+                    if (date.getFullYear() == this.exportDate.getFullYear() && date.getMonth() == this.exportDate.getMonth() && date.getDate() == this.exportDate.getDate()) {
                         status = 6;
                     }                    
                 } else {
                     status = 0;
-                    if (date.getDate() == this.startDate.getDate()) {
+                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
-                    } else if (date.getDate() == this.endDate.getDate()) {
+                    } else if (date.getFullYear() == this.endDate.getFullYear() && date.getMonth() == this.endDate.getMonth() && date.getDate() == this.endDate.getDate()) {
                         status = 3;
-                    } else if (date.getDate() >= this.startDate.getDate() && date.getDate() <= this.endDate.getDate()) {
+                    } else if (date >= this.startDate && date <= this.endDate) {
                         status = 4;
-                    } else if (date.getDate() > this.endDate.getDate()) {
+                    } else if (date > this.endDate) {
                         status = 5;
                     }
 
                     <!-- 출고 표시 -->
-                    if (date.getDate() == this.exportDate.getDate()) {
+                    if (date.getFullYear() == this.exportDate.getFullYear() && date.getMonth() == this.exportDate.getMonth() && date.getDate() == this.exportDate.getDate()) {
                         status = 6;
                     }
                     <!-- 회수 표시 -->
-                    if (date.getDate() == this.collectDate.getDate()) {
+                    if (date.getFullYear() == this.collectDate.getFullYear() && date.getMonth() == this.collectDate.getMonth() && date.getDate() == this.collectDate.getDate()) {
                         status = 7;
                     }
                 }
@@ -855,7 +863,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             today = new Date();
             this.generateDates(today.getMonth() + 1, today.getFullYear());
         }
-    }" class="w-full bg-opacity-60 fixed bottom-[66px] left-0 z-50 flex justify-center" style="display: none;height: calc(100vh - 66px);">
+    }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
         <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full">
             <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                 <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
