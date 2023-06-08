@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="max-w-[410px]">
+<html lang="en" class="flex justify-center">
 
 <head>
     <meta charset="utf-8">
@@ -29,8 +29,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
-<body>
-    <div class="fixed top-0 left-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-10">
+<body class="max-w-[410px] overflow-hidden" style="display: none;">
+    <div class="fixed top-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-10">
         <div class="relative flex justify-center items-center h-[55px]">
             <!-- Back button -->
             <a href="javascript:history.back();" class="absolute top-5 left-7">
@@ -56,5 +56,12 @@
             </div>
         </div>
     </div>
+
+    <script language="javascript">
+		window.addEventListener('load', function() {
+			var bodyElement = document.body;
+			bodyElement.style.display = 'block';
+		});
+	</script>
 
     <div class="flex flex-col w-full pt-[55px] relative">
