@@ -82,7 +82,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <input type="hidden" name="buyr_tel1" value="<?= $card_Data['STR_TELEP'] ?>">
         <input type="hidden" name="buyr_tel2" value="<?= $card_Data['STR_HP'] ?>">
     </form>
-    
+
     <div class="mt-[15px] flex flex-col gap-[7px] w-full px-[9px] py-[15px] bg-[#F5F5F5]">
         <p class="font-bold text-[10px] leading-[14px] text-black">자동 결제 수단 등록 안내</p>
         <p class="font-bold text-[10px] leading-4 text-[#999999]">

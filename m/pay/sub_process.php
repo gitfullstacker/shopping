@@ -5,6 +5,8 @@ fnc_MLogin_Chk();
 <?php
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
+
+// 주문정보
 $delivery_name = Fnc_Om_Conv_Default($_REQUEST['delivery_name'], '');
 $delivery_address1 = Fnc_Om_Conv_Default($_REQUEST['delivery_address1'], '');
 $delivery_address2 = Fnc_Om_Conv_Default($_REQUEST['delivery_address2'], '');
@@ -13,6 +15,18 @@ $delivery_memo_type = Fnc_Om_Conv_Default($_REQUEST['delivery_memo_type'], '');
 $delivery_memo = $delivery_memo_type == '0' ? Fnc_Om_Conv_Default($_REQUEST['delivery_memo'], '') : $delivery_memo_type;
 $delivery_telep = Fnc_Om_Conv_Default($_REQUEST['delivery_telep'], '');
 $delivery_hp = Fnc_Om_Conv_Default($_REQUEST['delivery_hp'], '');
+
+// 결제금액
+$total_price = Fnc_Om_Conv_Default($_REQUEST['total_price'], 0);
+$price = Fnc_Om_Conv_Default($_REQUEST['price'], 0);
+$discount_product = Fnc_Om_Conv_Default($_REQUEST['discount_product'], 0);
+$discount_membership = Fnc_Om_Conv_Default($_REQUEST['discount_membership'], 0);
+$coupon = Fnc_Om_Conv_Default($_REQUEST['coupon'], 0);
+$saved = Fnc_Om_Conv_Default($_REQUEST['saved'], 0);
+
+$start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
+$end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
+$count = Fnc_Om_Conv_Default($_REQUEST['count'], 1);
 
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
@@ -27,6 +41,11 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 // 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 10: 반납완료, 11: 취소
 $int_state = $int_type == 1 ? 4 : 0;
+
+if ($int_type == 1) {
+    $start_date = date("Y-m-d");
+    $end_date = date("Y-m-d", strtotime("+1 month"));
+}
 
 $arr_Set_Data = array();
 $arr_Column_Name = array();
@@ -58,6 +77,13 @@ $arr_Column_Name[23]        = "STR_AMEMO";
 $arr_Column_Name[24]        = "DTM_EDIT_DATE";
 $arr_Column_Name[25]        = "STR_TELEP";
 $arr_Column_Name[26]        = "STR_HP";
+$arr_Column_Name[27]        = "INT_COUNT";
+$arr_Column_Name[28]        = "INT_TPRICE";
+$arr_Column_Name[29]        = "INT_PRICE";
+$arr_Column_Name[30]        = "INT_PDISCOUNT";
+$arr_Column_Name[31]        = "INT_MDISCOUNT";
+$arr_Column_Name[32]        = "INT_COUPON";
+$arr_Column_Name[33]        = "INT_SAVED";
 
 $arr_Set_Data[0]        = $arr_Auth[0];
 $arr_Set_Data[1]        = $delivery_name;
@@ -69,8 +95,8 @@ $arr_Set_Data[6]        = '';
 $arr_Set_Data[7]        = $delivery_memo;
 $arr_Set_Data[8]        = $str_goodcode;
 $arr_Set_Data[9]        = $str_goodcode . "001";
-$arr_Set_Data[10]        = date("Y-m-d");
-$arr_Set_Data[11]        = date("Y-m-d", strtotime("+1 month"));
+$arr_Set_Data[10]        = $start_date;
+$arr_Set_Data[11]        = $end_date;
 $arr_Set_Data[12]        = '';
 $arr_Set_Data[13]        = date("Y-m-d H:i:s");
 $arr_Set_Data[14]        = $int_state;
@@ -86,6 +112,13 @@ $arr_Set_Data[23]        = '';
 $arr_Set_Data[24]        = date("Y-m-d H:i:s");
 $arr_Set_Data[25]        = $delivery_telep;
 $arr_Set_Data[26]        = $delivery_hp;
+$arr_Set_Data[27]        = $count;
+$arr_Set_Data[28]        = $total_price;
+$arr_Set_Data[29]        = $price;
+$arr_Set_Data[30]        = $discount_product;
+$arr_Set_Data[31]        = $discount_membership;
+$arr_Set_Data[32]        = $coupon;
+$arr_Set_Data[33]        = $saved;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";

@@ -15,7 +15,7 @@ $SQL_QUERY =    'SELECT
                     ' . $Tname . 'comm_goods_cart A
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"';
-                    
+
 $result = mysql_query($SQL_QUERY);
 
 if (!$result) {
@@ -48,33 +48,38 @@ $SQL_QUERY =    'SELECT
 
 $order_list_result = mysql_query($SQL_QUERY);
 
-$result = '<div class="flex flex-col gap-[25px] w-full">';
-while ($row = mysql_fetch_assoc($order_list_result)) {
-    $str_delivery_status = '이용중';
+if (mysql_num_rows($order_list_result) > 0) {
+    $result = '<div class="flex flex-col gap-[25px] w-full">';
+    while ($row = mysql_fetch_assoc($order_list_result)) {
+        $str_delivery_status = '이용중';
 
-    switch ($row['ORDER_STATE']) {
-        case 1:
-            $str_delivery_status = '주문접수';
-            break;
-        
-        case 2:
-            $str_delivery_status = '상품준비';
-            break;
+        switch ($row['ORDER_STATE']) {
+            case 0:
+                $str_delivery_status = '접수중';
+                break;
 
-        case 3:
-            $str_delivery_status = '배송중';
-            break;
+            case 1:
+                $str_delivery_status = '주문접수';
+                break;
 
-        case 4:
-            $str_delivery_status = '이용중';
-            break;
+            case 2:
+                $str_delivery_status = '상품준비';
+                break;
 
-        case 5:
-            $str_delivery_status = '반납';
-            break;
-    }
+            case 3:
+                $str_delivery_status = '배송중';
+                break;
 
-    $result .= '
+            case 4:
+                $str_delivery_status = '이용중';
+                break;
+
+            case 5:
+                $str_delivery_status = '반납';
+                break;
+        }
+
+        $result .= '
         <div class="flex flex-col w-full">
             <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex justify-between items-center px-[14px] pb-3 border-b-[0.5px] border-[#E0E0E0]">
                 <div class="flex gap-[5px] items-center">
@@ -99,7 +104,7 @@ while ($row = mysql_fetch_assoc($order_list_result)) {
                         </div>
                         <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
                         <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
-                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: ' . $row['STR_SDATE'] . ' ~ ' . $row['STR_EDATE'] . '</p>
+                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]" style="display: ' . ($row['INT_TYPE'] == 3 ? 'none' : '') . '">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
                         <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE']) . '원</p>
                     </div>
                 </div>
@@ -119,11 +124,11 @@ while ($row = mysql_fetch_assoc($order_list_result)) {
                 </div>
             </div>
         </div>';
-}
-$result .= '</div>';
+    }
+    $result .= '</div>';
 
-// Pagination
-$result .= '
+    // Pagination
+    $result .= '
     <div class="mt-[30px] flex gap-[23px] justify-center items-center">
         <button type="button" onclick="searchOrder(' . (($page - 1) < 0 ? '0' : $page - 1) . ')">
             <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,13 +136,13 @@ $result .= '
             </svg>
         </button>
         <div class="flex gap-[9.6px] items-center">';
-for ($i = $start_page; $i <= $end_page; $i++) {
-    $result .=
-        '<button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchOrder(' . $i . ')">
+    for ($i = $start_page; $i <= $end_page; $i++) {
+        $result .=
+            '<button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchOrder(' . $i . ')">
             <p class="font-bold text-xs leading-[14px] text-center ' . ($i == $page ? 'text-white' : 'text-black') . '">' . $i . '</p>
         </button>';
-}
-$result .= '
+    }
+    $result .= '
         </div>
         <button type="button" onclick="searchOrder(' . (($page + 1) > $last_page ? $last_page : $page + 1) . ')">
             <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +150,18 @@ $result .= '
             </svg>
         </button>
     </div>';
-
+} else {
+    $result = '
+        <div class="flex flex-col gap-5 items-center pt-[55px] pb-[70px]">
+            <svg width="60" height="70" viewBox="0 0 60 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M52.93 20L40 7.07V20H52.93ZM55 25H35V5H5V65H55V25ZM2.5 0H40L60 20V67.5C60 68.163 59.7366 68.7989 59.2678 69.2678C58.7989 69.7366 58.163 70 57.5 70H2.5C1.83696 70 1.20107 69.7366 0.732234 69.2678C0.263393 68.7989 0 68.163 0 67.5V2.5C0 1.83696 0.263393 1.20107 0.732234 0.732233C1.20107 0.263392 1.83696 0 2.5 0ZM26.64 42.68L19.57 35.6L23.105 32.065L30.18 39.135L37.25 32.07L40.785 35.605L33.715 42.68L40.785 49.75L37.25 53.285L30.18 46.215L23.105 53.285L19.57 49.75L26.64 42.68Z" fill="#D9D9D9"/>
+            </svg>        
+            <p class="font-bold text-[15px] leading-[17px] text-[#666666]">주문내역이 비어있어요!</p>
+            <a href="/m/main/index.php" class="flex justify-center items-center w-[200px] h-[45px] bg-white border-[0.72px] border-solid border-[#DDDDDD]">
+                <p class="font-bold text-xs leading-3 text-[#666666]">쇼핑하러 가기</p>
+            </a>
+        </div>';
+}
 echo $result;
 
 ?>

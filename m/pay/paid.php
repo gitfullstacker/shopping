@@ -6,7 +6,7 @@ $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 // 상품정보 얻기
 $SQL_QUERY =    'SELECT
-                    A.DTM_INDATE AS ORDER_DATE, A.STR_SDATE, A.STR_EDATE, B.*, C.STR_CODE AS STR_BRAND
+                    A.*, B.INT_TYPE, B.STR_GOODNAME, B.INT_PRICE, B.INT_DISCOUNT AS PRODUCT_PRICE, C.STR_CODE AS STR_BRAND
                 FROM 
                     ' . $Tname . 'comm_goods_cart AS A
                 LEFT JOIN
@@ -33,8 +33,8 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <!-- 주문완료 -->
 <div class="mt-[30px] flex flex-col items-center w-full">
     <p class="font-extrabold text-lg leading-5 text-center text-[#333333]">주문완료</p>
-    <div class="mt-[25px] w-[280px] h-[163px]">
-        <img class="w-full h-full" src="images/paid.png" alt="successful">
+    <div class="mt-[25px] w-[280px] h-[163px] flex justify-center items-center">
+        <img class="w-full h-full" src="images/<?= $product_Data['INT_TYPE'] == 1 ? 'paid1.png' : 'paid.png' ?>" alt="successful">
     </div>
     <p class="mt-5 font-bold text-[15px] leading-[17px] text-center text-black">주문이 완료되었습니다.</p>
     <p class="mt-2.5 font-bold text-xs leading-[140%] text-center text-[#666666]"><?= date('Y. m. d', strtotime($product_Data['ORDER_DATE'])) ?> 주문하신 상품의 주문번호는 <br /> <b><?= $int_number ?></b> 입니다.</p>
@@ -72,15 +72,15 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     break;
                 case 2:
                 ?>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['INT_PRICE'] ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['PRODUCT_PRICE'] ?>원</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['PRODUCT_PRICE'] - $product_Data['PRODUCT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                     <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 3:
                 ?>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['INT_PRICE'] ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?></span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['PRODUCT_PRICE'] ?>원</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?></span> <?= number_format($product_Data['PRODUCT_PRICE'] - $product_Data['PRODUCT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
             <?php
                     break;
             }
@@ -105,37 +105,30 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div x-show="!isCollapsed" class="mt-[15px] flex flex-col gap-2.5 w-full">
         <?php
         if ($product_Data['INT_TYPE'] != 1) {
-            $total_price = $product_Data['INT_PRICE'];
-            $discount_price = $product_Data['INT_DISCOUNT'] ? $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 : 0;
-            $membership_price = 0;
-            $cupon_price = 0;
-            $saved_price = 0;
-
-            $pay_price = $total_price - $discount_price - $membership_price - $cupon_price - $saved_price;
         ?>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($total_price) ?>원</p>
+                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_PRICE']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($discount_price) ?>원</p>
+                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_PDISCOUNT'] + $product_Data['INT_MDISCOUNT']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($discount_price) ?>원</p>
+                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($product_Data['INT_PDISCOUNT']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($membership_price) ?>원</p>
+                <p class="font-bold text-[11px] leading-3 text-[#666666]">-<?= number_format($product_Data['INT_MDISCOUNT']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($cupon_price) ?>원</p>
+                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_COUPON']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($saved_price) ?>원</p>
+                <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_SAVED']) ?>원</p>
             </div>
             <div class="flex items-center justify-between">
                 <p class="font-bold text-[15px] leading-[17px] text-black">배송비</p>
@@ -144,7 +137,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
             <div class="mt-[5px] flex items-center justify-between">
                 <p class="font-extrabold text-[15px] leading-[17px] text-[#DA2727]">총 결제금액</p>
-                <p class="font-extrabold text-[15px] leading-[17px] text-right text-black"><?= number_format($pay_price) ?>원</p>
+                <p class="font-extrabold text-[15px] leading-[17px] text-right text-black"><?= number_format($product_Data['INT_TPRICE']) ?>원</p>
             </div>
         <?php
         } else {

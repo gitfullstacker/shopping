@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
 <?php
 $SQL_QUERY =    'SELECT
-                    A.DTM_INDATE, B.*, C.STR_CODE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS D WHERE B.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE
+                    A.DTM_INDATE AS SEEN_DATE, B.*, C.STR_CODE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS D WHERE B.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE
                 FROM 
                     ' . $Tname . 'comm_member_seen A
                 JOIN
@@ -31,7 +31,7 @@ $productSeenByDate = array();
 // 날짜별로 구분화
 while ($row = mysql_fetch_assoc($seen_list_result)) {
     // Get the date from the datetime value
-    $date = date('Y-m-d', strtotime($row['DTM_INDATE']));
+    $date = date('Y-m-d', strtotime($row['SEEN_DATE']));
 
     // Check if the date already exists in the productSeenByDate array
     if (array_key_exists($date, $productSeenByDate)) {

@@ -90,7 +90,10 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
         if (this.rentDate == null) {
             this.showCalendar = true;
         } else {
-            window.location.href = '/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&start_date=' + encodeURIComponent(this.rentDate.startDate.toISOString()) + '&end_date=' + encodeURIComponent(this.rentDate.endDate.toISOString());
+            const startDate = this.rentDate.startDate.getFullYear().toString() + '-' + (this.rentDate.startDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.startDate.getDate().toString().padStart(2, '0');
+            const endDate = this.rentDate.endDate.getFullYear().toString() + '-' + (this.rentDate.endDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.endDate.getDate().toString().padStart(2, '0');
+
+            window.location.href = '/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&start_date=' + startDate + '&end_date=' + endDate;
         }
     },
     goVintage() {

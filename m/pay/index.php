@@ -66,8 +66,6 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 
 //구독멤버십정보얻기
-$str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
-
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
@@ -79,6 +77,17 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//카드정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_member_payment AS A
+                WHERE
+                    A.STR_USERID="' . $arr_Auth[0] . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <form x-data="{
@@ -107,12 +116,24 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 }" id="frm" name="frm" action="" method="post" class="mt-[30px] flex flex-col w-full">
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
     <input type="hidden" name="str_goodcode" value="<?= $str_goodcode ?>">
-    <input type="hidden" name="delivery_name" id="delivery_name" value="<?= $user_Data['STR_NAME'] ?>">
-    <input type="hidden" name="delivery_address1" id="delivery_address1" value="<?= $user_Data['STR_SADDR1'] ?>">
-    <input type="hidden" name="delivery_address2" id="delivery_address2" value="<?= $user_Data['STR_SADDR2'] ?>">
-    <input type="hidden" name="delivery_postal" id="delivery_postal" value="<?= $user_Data['STR_SPOST'] ?>">
-    <input type="hidden" name="delivery_telep" id="delivery_telep" value="<?= $user_Data['STR_TELEP'] ?>">
-    <input type="hidden" name="delivery_hp" id="delivery_hp" value="<?= $user_Data['STR_HP'] ?>">
+    <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
+
+    <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
+    <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+    <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
+    <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
+
+    <input type="hidden" name="good_mny" x-bind:value="payAmount.totalPrice">
+    <input type="hidden" name="total_price" x-bind:value="payAmount.totalPrice">
+    <input type="hidden" name="price" x-bind:value="payAmount.price">
+    <input type="hidden" name="discount_product" x-bind:value="payAmount.discount.product">
+    <input type="hidden" name="discount_membership" x-bind:value="payAmount.discount.membership">
+    <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
+    <input type="hidden" name="saved" x-bind:value="payAmount.saved">
+
+    <input type="hidden" name="start_date" value="<?= $start_date ?>">
+    <input type="hidden" name="end_date" value="<?= $end_date ?>">
+    <input type="hidden" name="count" value="<?= $count ?>">
 
     <!-- 배송정보 -->
     <div x-data="{
@@ -134,16 +155,17 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.deliveryInfo.address2 = document.getElementById('new_delivery_detail_address').value;
             this.deliveryInfo.postal = document.getElementById('new_delivery_postal_code').value;
 
-            document.getElementById('delivery_name').value = this.deliveryInfo.name;
-            document.getElementById('delivery_address1').value = this.deliveryInfo.address1;
-            document.getElementById('delivery_address2').value = this.deliveryInfo.address2;
-            document.getElementById('delivery_postal').value = this.deliveryInfo.postal;
-            document.getElementById('delivery_telep').value = this.deliveryInfo.telep;
-            document.getElementById('delivery_hp').value = this.deliveryInfo.hp;
-
             this.type = 1;
         }
     }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+
+        <input type="hidden" name="delivery_name" id="delivery_name" x-bind:value="deliveryInfo.name">
+        <input type="hidden" name="delivery_address1" id="delivery_address1" x-bind:value="deliveryInfo.address1">
+        <input type="hidden" name="delivery_address2" id="delivery_address2" x-bind:value="deliveryInfo.address2">
+        <input type="hidden" name="delivery_postal" id="delivery_postal" x-bind:value="deliveryInfo.postal">
+        <input type="hidden" name="delivery_telep" id="delivery_telep" x-bind:value="deliveryInfo.telep">
+        <input type="hidden" name="delivery_hp" id="delivery_hp" x-bind:value="deliveryInfo.hp">
+
         <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
         <div class="mt-1.5 flex gap-[7px]">
             <a href="#" class="flex justify-center items-center w-[86px] h-[29px] bg-white border border-solid rounded-[12.5px]" x-bind:class="type == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="type = 1">
@@ -254,7 +276,6 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <div class="mt-[7px] flex gap-2 items-center">
                             <p class="font-bold text-xs text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
                             <p class="font-bold text-xs text-[#333333]">일 <?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
-                            <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
                         </div>
                     <?php
                         break;
@@ -264,7 +285,6 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <div class="mt-[7px] flex gap-2 items-center">
                             <p class="font-bold text-xs text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
                             <p class="font-bold text-xs text-[#333333]"><?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
-                            <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
                         </div>
                 <?php
                         break;
@@ -275,17 +295,53 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 구분선 -->
         <hr class="mt-5 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
         <div class="mt-[15px] flex flex-col gap-1.5">
-            <div class="flex gap-5">
-                <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
-                <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?></p>
-            </div>
+            <?php
+            switch ($product_Data['INT_TYPE']) {
+                case 1:
+            ?>
+                    <div class="flex gap-5">
+                        <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
+                        <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?></p>
+                    </div>
+                <?php
+                    break;
+                case 2:
+                ?>
+                    <div class="flex gap-5">
+                        <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
+                        <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', strtotime($start_date)) ?> ~ <?= date('Y. m. d', strtotime($end_date)) ?></p>
+                    </div>
+                <?php
+                    break;
+                case 3:
+                ?>
+                    <div class="flex gap-5">
+                    </div>
+            <?php
+                    break;
+            }
+            ?>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-                <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $subscription_Data ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= ($product_Data['INT_TYPE'] == 1 && $subscription_Data) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
-                <p class="font-bold text-xs leading-[14px] text-[#666666]">미해당</p>
+                <p class="font-bold text-xs leading-[14px] text-[#666666]">
+                    <?php
+                    switch ($product_Data['INT_TYPE']) {
+                        case 1:
+                            echo '미해당';
+                            break;
+                        case 2:
+                            echo '적용가능';
+                            break;
+                        case 3:
+                            echo '적용가능';
+                            break;
+                    }
+                    ?>
+                </p>
             </div>
         </div>
     </div>
@@ -418,62 +474,86 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex flex-col w-full">
                 <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">간편결제</p>
                 <div class="mt-3 flex flex-col gap-[25px] justify-center items-center w-full">
-                    <div class="w-[210px] h-[140px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
-                        <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
-                            <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.27684 0.225V8.065H16.9068V9.535H9.27684V17.865H7.73684V9.535H0.106836V8.065H7.73684V0.225H9.27684Z" fill="#DDDDDD" />
-                            </svg>
+                    <?php
+                    if ($payment_Data) {
+                    ?>
+                        <div class="w-[210px] h-[140px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
+                            <div class="flex p-[15px] h-[112px]">
+                                <p class="font-bold text-xs leading-[14px] text-white">삼성카드</p>
+                            </div>
+                            <hr class="border-t-[1px] border-white">
+                            <div class="flex-1 flex justify-end items-center px-[15px]">
+                                <p class="font-bold text-xs leading-[10px] text-white">**** **** **** 1234</p>
+                            </div>
                         </div>
-                        <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-[#666666]">결제 카드를 등록해주세요.</p>
-                        <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-[#666666]">마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 <br />카드 삭제 및 변경가능합니다.</p>
-                    </div>
+                    <?php
+                    } else {
+                    ?>
+                        <div class="w-[210px] h-[140px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
+                            <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
+                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.27684 0.225V8.065H16.9068V9.535H9.27684V17.865H7.73684V9.535H0.106836V8.065H7.73684V0.225H9.27684Z" fill="#DDDDDD" />
+                                </svg>
+                            </div>
+                            <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-[#666666]">결제 카드를 등록해주세요.</p>
+                            <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-[#666666]">마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 <br />카드 삭제 및 변경가능합니다.</p>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                         <p class="font-bold text-[10px] leading-[140%] text-black">블랑 렌트 멤버십 혜택 안내</p>
                         <p class="font-bold text-[10px] leading-[140%] text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- 일반결제 -->
-            <div class="flex flex-col gap-1.5 w-full">
-                <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">일반결제</p>
-                <div class="flex flex-col gap-1.5 w-full">
-                    <div x-data="{ cardType: 1 }" class="flex flex-row gap-[5px]">
-                        <button type="button" class="flex justify-center items-center w-full h-[35px] border-[0.72px] border-solid rounded-[3px]" x-bind:class="cardType == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="cardType = 1">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">신용/체크카드</p>
-                        </button>
-                        <button type="button" class="flex justify-center items-center w-full h-[35px] border-[0.72px] border-solid rounded-[3px]" x-bind:class="cardType == 2 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="cardType = 2">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">무통장 입금</p>
-                        </button>
-                    </div>
-                    <div class="relative flex w-full">
-                        <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-                            <option value="">현대카드</option>
-                        </select>
-                        <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                            <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                            </svg>
+                <?php
+                if ($int_type != 2) {
+                ?>
+                    <!-- 일반결제 -->
+                    <div class="flex flex-col gap-1.5 w-full">
+                        <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">일반결제</p>
+                        <div class="flex flex-col gap-1.5 w-full">
+                            <div x-data="{ cardType: 1 }" class="flex flex-row gap-[5px]">
+                                <button type="button" class="flex justify-center items-center w-full h-[35px] border-[0.72px] border-solid rounded-[3px]" x-bind:class="cardType == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="cardType = 1">
+                                    <p class="font-bold text-[11px] leading-3 text-[#666666]">신용/체크카드</p>
+                                </button>
+                                <button type="button" class="flex justify-center items-center w-full h-[35px] border-[0.72px] border-solid rounded-[3px]" x-bind:class="cardType == 2 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="cardType = 2">
+                                    <p class="font-bold text-[11px] leading-3 text-[#666666]">무통장 입금</p>
+                                </button>
+                            </div>
+                            <div class="relative flex w-full">
+                                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
+                                    <option value="">현대카드</option>
+                                </select>
+                                <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="relative flex w-full">
+                                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
+                                    <option value="">일시불</option>
+                                </select>
+                                <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
+                            <p class="font-bold text-[10px] leading-[140%] text-black">무이자/부분 무이자 할부 혜택 안내</p>
+                            <p class="font-bold text-[10px] leading-[140%] text-[#666666]">
+                                -공통: 2~5개월 (별도 신청 없이 적용)<br />
+                                -삼성/국민카드: 2~12개월(별도 신청 없이 적용)
+                            </p>
                         </div>
                     </div>
-                    <div class="relative flex w-full">
-                        <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-bold text-[11px] leading-3 text-[#666666]">
-                            <option value="">일시불</option>
-                        </select>
-                        <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                            <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-                    <p class="font-bold text-[10px] leading-[140%] text-black">무이자/부분 무이자 할부 혜택 안내</p>
-                    <p class="font-bold text-[10px] leading-[140%] text-[#666666]">
-                        -공통: 2~5개월 (별도 신청 없이 적용)<br />
-                        -삼성/국민카드: 2~12개월(별도 신청 없이 적용)
-                    </p>
-                </div>
+                <?php
+                }
+                ?>
             </div>
         <?php
         }
@@ -553,7 +633,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
         if ($int_type == 1) {
             if ($subscription_Data) {
         ?>
-                <button class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="paySubscription()">
+                <button type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="paySubscription()">
                     <span class="font-extrabold text-lg text-center text-white">구독하기</span>
                 </button>
             <?php
@@ -566,13 +646,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             }
         } else {
             ?>
-            <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
-            <input type="hidden" name="good_mny" x-bind:value="payAmount.totalPrice">
-            <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-            <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
-            <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
-            <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
-            <button type="submit" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+            <button type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="payKCP(<?= $int_type ?>)">
                 <span class="font-extrabold text-lg text-center text-white" x-text="formatNumber(payAmount.totalPrice) + '원 결제하기'"></span>
             </button>
         <?php
@@ -582,16 +656,16 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 </form>
 
 <!-- 카드등록 알람 -->
-<div class="hidden fixed top-0 flex justify-center items-center w-full h-full bg-black bg-opacity-80 z-20 max-w-[410px]">
+<div id="payment_alert" class="fixed top-0 flex justify-center items-center w-full h-full bg-black bg-opacity-80 z-20 max-w-[410px]" style="display: none;">
     <div class="relative flex flex-col justify-center items-center w-[328px] h-[179px] bg-white border border-solid border-[#D9D9D9] rounded-[11px]">
-        <button class="absolute top-[15px] right-[21px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="javascript:document.getElementById('payment_alert').style.display = 'none';">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
             </svg>
         </button>
         <p class="font-bold text-[15px] leading-[17px] text-center text-black">카드를 등록해주세요.</p>
         <p class="mt-[11px] font-bold text-xs leading-[18px] text-center text-[#666666]">카드를 등록해주셔야 해당 상품 이용이 가능합니다. <br />하단 페이지에서 카드 등록을 완료해주세요.</p>
-        <a class="mt-5 flex gap-[11px] items-center justify-center w-[144px] h-[30px] bg-white border border-solid border-[#D9D9D9]">
+        <a href="/m/mine/payment/index.php" class="mt-5 flex gap-[11px] items-center justify-center w-[144px] h-[30px] bg-white border border-solid border-[#D9D9D9]">
             <p class="font-bold text-[10px] leading-[11px] text-center text-[#666666]">카드 등록 바로가기</p>
             <span>
                 <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -619,21 +693,27 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     });
 
     function paySubscription() {
-        if (ValidChk()==false) return;
+        if (ValidChk() == false) return;
 
-		document.frm.action = "sub_process.php";
-		document.frm.submit();
-	}
+        document.frm.action = "sub_process.php";
+        document.frm.submit();
+    }
 
-    function payKCP() {
-        if (ValidChk()==false) return;
+    function payKCP(int_type) {
+        if (int_type == 2 && <?= $payment_Data ? 'false' : 'true' ?>) {
+            document.getElementById('payment_alert').style.display = 'flex';
+            return;
+        }
 
-		document.frm.action = "/kcp_payment/mobile_sample/order_mobile.php";
-		document.frm.submit();
-	}
+        if (ValidChk() == false) return;
 
-    function ValidChk()	{
-		var checkbox1 = $('#agree_terms').is(':checked');
+        // document.frm.action = "/kcp_payment/mobile_sample/order_mobile.php";
+        document.frm.action = "sub_process.php";
+        document.frm.submit();
+    }
+
+    function ValidChk() {
+        var checkbox1 = $('#agree_terms').is(':checked');
         var checkbox2 = $('#agree_payment').is(':checked');
 
         if (!checkbox1 || !checkbox2) {
@@ -642,6 +722,6 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             return false;
         }
 
-		return true;
-	}
+        return true;
+    }
 </script>
