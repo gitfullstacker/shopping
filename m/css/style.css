@@ -1022,6 +1022,7 @@ body {
 .product-scroll-list>.item>.image {
   width: 126px;
   height: 126px;
+  padding: 8px;
   background: #F9F9F9;
   border-radius: 10px;
   display: flex;
@@ -1031,13 +1032,13 @@ body {
 }
 
 .product-scroll-list>.item>.image>img {
-  width: 96px;
-  height: 106px;
+  width: 100%;
 }
 
 .product-scroll-list>.item>.image>.discount {
   position: absolute;
-  width: 20px;
+  padding-left: 3px;
+  padding-right: 3px;
   height: 20px;
   left: 8px;
   top: 8.03px;

@@ -85,26 +85,82 @@ fnc_MLogin_Chk();
                                 <img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                             </div>
                             <div class="flex-1 flex flex-col w-full items-start">
-                                <div class="flex justify-center items-center w-[34px] h-[18px] bg-[<?= ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                                    <p class="font-normal text-[10px] leading-[11px] text-center text-white">
-                                        <?= ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?>
-                                    </p>
-                                </div>
+                                <?php
+                                switch ($row['INT_TYPE']) {
+                                    case 1:
+                                ?>
+                                        <div class="flex justify-center items-center w-[34px] h-[18px] bg-[#EEAC4C]">
+                                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">
+                                                구독
+                                            </p>
+                                        </div>
+                                    <?php
+                                        break;
+                                    case 2:
+                                    ?>
+                                        <div class="flex justify-center items-center w-[34px] h-[18px] bg-[#00402F]">
+                                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">
+                                                렌트
+                                            </p>
+                                        </div>
+                                    <?php
+                                        break;
+                                    case 3:
+                                    ?>
+                                        <div class="flex justify-center items-center w-[34px] h-[18px] bg-[#7E6B5A]">
+                                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">
+                                                빈티지
+                                            </p>
+                                        </div>
+                                <?php
+                                        break;
+                                }
+                                ?>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
-                                <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-                                <p class="font-bold text-xs leading-[14px] text-black mt-1.5"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span> 일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
+                                <?php
+                                switch ($row['INT_TYPE']) {
+                                    case 2:
+                                ?>
+                                        <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
+                                        <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
+                                            <span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>
+                                            <?= $row ? '일 ' . (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        </p>
+                                    <?php
+                                        break;
+                                    case 1:
+                                    ?>
+                                        <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
+                                        <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
+                                            <span class="text-[#EEAC4C]">월</span><?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        </p>
+                                    <?php
+                                        break;
+                                    case 3:
+                                    ?>
+                                        <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
+                                        <p class="font-extrabold text-xs text-[14px] text-[#7E6B5A]">
+                                            <?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
+                                        </p>
+                                        <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
+                                            <?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        </p>
+                                <?php
+                                        break;
+                                }
+                                ?>
                             </div>
                         </a>
                         <?php
                         switch ($row['INT_TYPE']) {
-                            case 1:
+                            case 2:
                         ?>
                                 <button class="flex justify-center items-center w-full h-[35px] rounded mt-[15px] bg-[#E5EAE3]">
                                     <span class="font-bold text-[11px] leading-3 text-center text-black">렌트하기</span>
                                 </button>
                             <?php
                                 break;
-                            case 2:
+                            case 1:
                             ?>
                                 <button class="flex justify-center items-center w-full h-[35px] rounded mt-[15px] bg-[#FFF5E5]">
                                     <span class="font-bold text-[11px] leading-3 text-center text-black">구독하기</span>
@@ -113,7 +169,7 @@ fnc_MLogin_Chk();
                                 break;
                             case 3:
                             ?>
-                                <button class="flex justify-center items-center w-full h-[35px] rounded mt-[15px] bg-[#FFFFFF]">
+                                <button class="flex justify-center items-center w-full h-[35px] rounded mt-[15px] bg-[#FFFFFF] border-[0.72px] border-solid border-black">
                                     <span class="font-bold text-[11px] leading-3 text-center text-black">구매하기</span>
                                 </button>
                         <?php
@@ -129,7 +185,7 @@ fnc_MLogin_Chk();
             </div>
         </div>
         <!-- 신규회원 가입혜택 -->
-        <img class="welcome-image" src="images/welcome.png" alt="">
+        <img class="welcome-image min-w-full" src="images/welcome.png" alt="">
 
         <!-- Buy it with -->
         <div class="mt-5 flex flex-col gap-5 px-[14px]">
@@ -161,16 +217,66 @@ fnc_MLogin_Chk();
                     <a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
                         <div class="w-full flex justify-center items-center relative px-2.5 bg-[#F9F9F9] rounded-[5px] h-[176px]">
                             <!-- 타그 -->
-                            <div class="justify-center items-center w-[25px] h-[25px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
-                                <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
-                            </div>
+                            <?php
+                            switch ($row['INT_TYPE']) {
+                                case 1:
+                            ?>
+                                    <div class="justify-center items-center w-[25px] h-[25px] bg-[#EEAC4C] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
+                                        <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
+                                    </div>
+                                <?php
+                                    break;
+                                case 2:
+                                ?>
+                                    <div class="justify-center items-center w-[25px] h-[25px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
+                                        <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
+                                    </div>
+                                <?php
+                                    break;
+                                case 3:
+                                ?>
+                                    <div class="justify-center items-center w-[25px] h-[25px] bg-[#7E6B5A] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
+                                        <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
+                                    </div>
+                            <?php
+                                    break;
+                            }
+                            ?>
+
+
                             <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                         </div>
                         <p class="mt-[5.52px] font-extrabold text-[9px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                         <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         <div class="mt-[7.87px] flex gap-[3px] items-center">
-                            <p class="font-bold text-xs text-black">일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
-                            <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                            <?php
+                            switch ($row['INT_TYPE']) {
+                                case 2:
+                            ?>
+                                    <p class="font-bold text-xs leading-[14px] text-black">
+                                        <?= $row ? '일 ' . (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                    </p>
+                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                                <?php
+                                    break;
+                                case 1:
+                                ?>
+                                    <p class="font-bold text-xs leading-[14px] text-black">
+                                        <span class="text-[#EEAC4C]">월</span><?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                    </p>
+                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                                <?php
+                                    break;
+                                case 3:
+                                ?>
+                                    <p class="font-bold text-xs leading-[14px] text-black">
+                                        <?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                    </p>
+                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                            <?php
+                                    break;
+                            }
+                            ?>
                         </div>
                     </a>
                 <?php
@@ -215,7 +321,7 @@ fnc_MLogin_Chk();
                     return;
                 }
                 if (result['status'] == 200) {
-                    location.href="/m/mine/basket/index.php";
+                    location.href = "/m/mine/basket/index.php";
                 }
             }
         });

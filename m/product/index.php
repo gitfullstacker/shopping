@@ -108,14 +108,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                             " . $Tname . "comm_goods_master A
                                         WHERE A.STR_GOODCODE IS NOT NULL
                                             " . $where_query;
-                                            
+
                             $brand_product_list = mysql_query($query);
 
                             while ($product_row = mysql_fetch_assoc($brand_product_list)) {
                             ?>
                                 <div class="flex flex-col <?= $product_row ?: 'animate-pulse' ?>">
                                     <div class="w-[118px] h-[118px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-md">
-                                        <img class="w-full" src="/admincenter/files/good/<?= $product_row['STR_IMAGE1'] ?>" alt="">
+                                        <img class="w-full" src="/admincenter/files/good/<?= $product_row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                                     </div>
                                     <p class="mt-2 font-extrabold text-[9px] leading-[10px] text-[#333333]"><?= $product_row['STR_GOODNAME'] ?: '' ?></p>
                                     <div class="mt-1 flex gap-[3px] items-center">
@@ -127,14 +127,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                                     <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
                                                 </p>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_row ? '일 ' . (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <?= $product_row ? '일 ' . (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
                                                 </p>
                                             <?php
                                                 break;
                                             case 1:
                                             ?>
+                                                <p class="font-extrabold text-xs text-[14px] text-[#EEAC4C]">
+                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                </p>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <span class="text-[#EEAC4C]">월</span><?= $product_row ? (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <span class="text-[#EEAC4C]">월</span><?= $product_row ? (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
                                                 </p>
                                             <?php
                                                 break;
@@ -144,7 +147,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                                     <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
                                                 </p>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_row ? (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <?= $product_row ? (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
                                                 </p>
                                         <?php
                                                 break;

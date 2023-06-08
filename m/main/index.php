@@ -226,8 +226,41 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 								<p class="tag"><?= $row['STR_CODE'] ?></p>
 								<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 								<div class="price-section">
-									<p class="regular-price">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-									<p class="origin-price"><?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원' : '' ?></p>
+									<?php
+									switch ($i) {
+										case 0:
+									?>
+											<p class="font-extrabold text-xs text-[14px] text-[#00402F]">
+												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
+											</p>
+											<p class="font-bold text-xs leading-[14px] text-black">
+												<?= $row ? '일 ' . (number_format($row['INT_PRICE']) ?: '0') . '원' : '' ?>
+											</p>
+										<?php
+											break;
+										case 1:
+										?>
+											<p class="font-extrabold text-xs text-[14px] text-[#EEAC4C]">
+												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
+											</p>
+											<p class="font-bold text-xs leading-[14px] text-black">
+												<span class="text-[#EEAC4C]">월</span><?= $row ? (number_format($row['INT_PRICE']) ?: '0') . '원' : '' ?>
+											</p>
+										<?php
+											break;
+										case 2:
+										?>
+											<p class="font-extrabold text-xs text-[14px] text-[#7E6B5A]">
+												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
+											</p>
+											<p class="font-bold text-xs leading-[14px] text-black">
+												<?= $row ? (number_format($row['INT_PRICE']) ?: '0') . '원' : '' ?>
+											</p>
+									<?php
+											break;
+									}
+									?>
+
 								</div>
 							</div>
 						</a>
@@ -306,14 +339,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 							AND A.INT_TYPE=2 
 							AND A.INT_DISCOUNT!=0
 						ORDER BY A.INT_DISCOUNT DESC
-						LIMIT 6';
+					LIMIT 6';
 
 		$rent_product_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($rent_product_result)) {
 		?>
 			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 				<div class="image">
-					<img src="../images/mockup/rent_product.png" alt="rent">
+					<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
 					<div class="discount">
 						<p class="value"><?= $row['INT_DISCOUNT'] ?>%</p>
 					</div>
@@ -321,8 +354,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 				<p class="brand"><?= $row['STR_CODE'] ?></p>
 				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-					<p class="origin-price"><?= number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+					<p class="current-price">일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+					<p class="origin-price <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
 			</a>
@@ -390,7 +423,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					<p class="brand"><?= $row['STR_CODE'] ?></p>
 					<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 					<div class="price-section">
-						<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= $row['INT_DISCOUNT'] ? number_format($row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) : number_format($row['INT_PRICE']) ?>원</p>
+						<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
 					</div>
 					<button class="rent-button">렌트</button>
 				</a>
