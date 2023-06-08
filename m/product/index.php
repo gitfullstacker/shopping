@@ -85,48 +85,66 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 ?>
                 <div x-ref="scrollItem" class="snap-center flex-none flex flex-col gap-3 w-full">
                     <div class="flex w-full h-[302px] bg-gray-100 <?= $main_banner ?: 'animate-pulse' ?>">
-                        <img class="object-cover object-center" src="/admincenter/files/com/<?= $main_banner ?>" onerror="this.style.display = 'none'" alt="" />
+                        <img class="object-cover object-center min-w-full" src="/admincenter/files/com/<?= $main_banner ?>" onerror="this.style.display = 'none'" alt="" />
                     </div>
                     <div class="snap-x">
                         <div class="grid grid-cols-3 gap-1.5 px-[14px]">
                             <?php
-                            for ($j = 0; $j < 3; $j++) {
-                                $query = "SELECT * FROM " . $Tname . "comm_goods_master where int_type = " . $product_type . " and str_goodcode = '" . $row['STR_REN_GOOD' . $j] . "'";
-                                $product_result = mysql_query($query);
-                                $product_info = mysql_fetch_assoc($product_result);
+                            $where_query = "";
+                            switch ($product_type) {
+                                case 1:
+                                    $where_query = "AND (A.STR_GOODCODE = '" . $row['STR_SUB_GOOD1'] . "' OR A.STR_GOODCODE = '" . $row['STR_SUB_GOOD2'] . "' OR A.STR_GOODCODE = '" . $row['STR_SUB_GOOD3'] . "')";
+                                    break;
+                                case 2:
+                                    $where_query = "AND (A.STR_GOODCODE = '" . $row['STR_REN_GOOD1'] . "' OR A.STR_GOODCODE = '" . $row['STR_REN_GOOD2'] . "' OR A.STR_GOODCODE = '" . $row['STR_REN_GOOD3'] . "')";
+                                    break;
+                                case 3:
+                                    $where_query = "AND (A.STR_GOODCODE = '" . $row['STR_VIN_GOOD1'] . "' OR A.STR_GOODCODE = '" . $row['STR_VIN_GOOD2'] . "' OR A.STR_GOODCODE = '" . $row['STR_VIN_GOOD3'] . "')";
+                                    break;
+                            }
+
+                            $query =    "SELECT * 
+                                        FROM 
+                                            " . $Tname . "comm_goods_master A
+                                        WHERE A.STR_GOODCODE IS NOT NULL
+                                            " . $where_query;
+                                            
+                            $brand_product_list = mysql_query($query);
+
+                            while ($product_row = mysql_fetch_assoc($brand_product_list)) {
                             ?>
-                                <div class="flex flex-col <?= $product_info ?: 'animate-pulse' ?>">
+                                <div class="flex flex-col <?= $product_row ?: 'animate-pulse' ?>">
                                     <div class="w-[118px] h-[118px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-md">
-                                        <img class="w-full" src="/admincenter/files/good/<?= $product_info['STR_IMAGE1'] ?>" alt="">
+                                        <img class="w-full" src="/admincenter/files/good/<?= $product_row['STR_IMAGE1'] ?>" alt="">
                                     </div>
-                                    <p class="mt-2 font-extrabold text-[9px] leading-[10px] text-[#333333]"><?= $product_info['STR_GOODNAME'] ?: '' ?></p>
+                                    <p class="mt-2 font-extrabold text-[9px] leading-[10px] text-[#333333]"><?= $product_row['STR_GOODNAME'] ?: '' ?></p>
                                     <div class="mt-1 flex gap-[3px] items-center">
                                         <?php
                                         switch ($product_type) {
                                             case 2:
                                         ?>
                                                 <p class="font-extrabold text-xs text-[14px] text-[#00402F]">
-                                                    <?= $product_info ? ($product_info['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
                                                 </p>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_info ? '일 ' . (number_format($product_info['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <?= $product_row ? '일 ' . (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
                                                 </p>
                                             <?php
                                                 break;
                                             case 1:
                                             ?>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <span class="text-[#EEAC4C]">월</span><?= $product_info ? (number_format($product_info['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <span class="text-[#EEAC4C]">월</span><?= $product_row ? (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
                                                 </p>
                                             <?php
                                                 break;
                                             case 3:
                                             ?>
                                                 <p class="font-extrabold text-xs text-[14px] text-[#7E6B5A]">
-                                                    <?= $product_info ? ($product_info['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
                                                 </p>
                                                 <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_info ? (number_format($product_info['INT_PRICE']) ?: '0') . '원' : '' ?>
+                                                    <?= $product_row ? (number_format($product_row['INT_PRICE']) ?: '0') . '원' : '' ?>
                                                 </p>
                                         <?php
                                                 break;

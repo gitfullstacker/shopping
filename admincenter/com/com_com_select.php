@@ -74,7 +74,7 @@ $brand_Info = mysql_fetch_assoc($arr_Rlt_Data);
 												while ($row = mysql_fetch_assoc($result)) {
 												?>
 													<div style="display: flex; flex-direction: row; gap: 2px; align-items: center;">
-														<input type="checkbox" name="sub_goods[]" id="sub_goods_<?= $row['STR_GOODCODE'] ?>" value="<?= $row['STR_GOODCODE'] ?>" onclick="handleCheckboxClick('sub_goods')" <?= ($brand_Info['STR_SUB_GOOD1'] == $row['STR_GOODCODE'] || $brand_Info['STR_SUB_GOOD2'] == $row['STR_GOODCODE'] || $brand_Info['STR_SUB_GOOD3'] == $row['STR_GOODCODE']) ? 'checked' : '' ?>>
+														<input type="checkbox" name="sub_goods[]" id="sub_goods_<?= $row['STR_GOODCODE'] ?>" value="<?= $row['STR_GOODCODE'] ?>" onclick="handleCheckboxClick('sub_goods[]')" <?= ($brand_Info['STR_SUB_GOOD1'] == $row['STR_GOODCODE'] || $brand_Info['STR_SUB_GOOD2'] == $row['STR_GOODCODE'] || $brand_Info['STR_SUB_GOOD3'] == $row['STR_GOODCODE']) ? 'checked' : '' ?>>
 														<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" width="40" height="40" border="0">
 														<label for="sub_goods_<?= $row['STR_GOODCODE'] ?>"><?= $row['STR_GOODNAME'] ?></label>
 													</div>
@@ -164,7 +164,12 @@ $brand_Info = mysql_fetch_assoc($arr_Rlt_Data);
 		// JavaScript code to restrict checkbox selection
 		var maxChecked = 3; // Maximum number of items to check
 
+		handleCheckboxClick('sub_goods[]');
+		handleCheckboxClick('ren_goods[]');
+		handleCheckboxClick('vin_goods[]');
+
 		function handleCheckboxClick(name) {
+			console.log('kkk')
 			var checkboxes = document.getElementsByName(name);
 			var checkedCount = 0;
 
