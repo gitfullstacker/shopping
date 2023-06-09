@@ -168,6 +168,8 @@
 		} else {
 			$margin_top = 38.58;
 		}
+	} else {
+		$margin_top = 122.58;
 	}
 	?>
 	<div id="wrapper" style="margin-top: <?= $margin_top ?>px;">
