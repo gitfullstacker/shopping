@@ -39,7 +39,7 @@
 	<!-- <link rel="stylesheet" href="/m/css/sidenav.min.css" type="text/css"> -->
 	<link rel="stylesheet" href="/m/css/font-awesome.min.css">
 
-	<div class="header-mobile max-w-[410px]">
+	<div class="header-mobile max-w-[410px]" style="<?= $header_title ? 'border: none;' : '' ?>">
 		<?php
 		$int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
@@ -85,7 +85,20 @@
 					<a href="/m/eventzone/index.php" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 5 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">이벤트존</a>
 				</div>
 			</div>
+			<?php
+		} else {
+			if ($header_title) {
+			?>
+				<div class="flex flex-row items-center gap-5 px-3 py-[13px] w-full bg-white">
+					<a href="javascript:history.back();">
+						<svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.41475 14.2576L0.202765 7.81002C0.129032 7.73327 0.0769276 7.65012 0.0464514 7.56057C0.0154837 7.47102 0 7.37507 0 7.27273C0 7.17038 0.0154837 7.07444 0.0464514 6.98489C0.0769276 6.89534 0.129032 6.81218 0.202765 6.73543L6.41475 0.268649C6.58679 0.0895498 6.80184 0 7.05991 0C7.31797 0 7.53917 0.0959463 7.7235 0.287839C7.90783 0.479731 8 0.703606 8 0.959463C8 1.21532 7.90783 1.43919 7.7235 1.63109L2.30415 7.27273L7.7235 12.9144C7.89555 13.0935 7.98157 13.314 7.98157 13.576C7.98157 13.8385 7.8894 14.0657 7.70507 14.2576C7.52074 14.4495 7.30568 14.5455 7.05991 14.5455C6.81413 14.5455 6.59908 14.4495 6.41475 14.2576Z" fill="black" />
+						</svg>
+					</a>
+					<p class="font-extrabold text-xl leading-[23px] text-black"><?= $header_title ?></p>
+				</div>
 		<?php
+			}
 		}
 		?>
 	</div>
@@ -145,4 +158,16 @@
 
 		});
 	</script>
-	<div id="wrapper" style="<?= $search_menu ? 'margin-top: 102.58px;' : '' ?><?= $hide_header ? 'margin-top: 38.58px;' : '' ?>">
+	<?php
+	$margin_top = 0;
+	if ($search_menu) {
+		$margin_top = 102.58;
+	} else if ($hide_header) {
+		if ($header_title) {
+			$margin_top = 87.58;
+		} else {
+			$margin_top = 38.58;
+		}
+	}
+	?>
+	<div id="wrapper" style="margin-top: <?= $margin_top ?>px;">

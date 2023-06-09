@@ -69,13 +69,13 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], "plan");
 
 <!-- NEWS LETTER -->
 <div x-data="{ menu: '<?= $menu ?>' }" class="mt-[50px] flex flex-col items-center w-full">
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">NEWS LETTER</p>
+    <p class="font-extrabold text-xl leading-[22px] text-[#333333]">NEWS LETTER</p>
     <div class="mt-[26px] flex flex-row gap-[70px] items-center justify-center">
         <div class="flex flex-col gap-[3px] items-center px-[3px] border-[#6A696C]" x-bind:class="menu == 'plan' ? 'border-b' : 'border-none'" x-on:click="menu = 'plan'">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 'plan' ? 'text-[#6A696C]' : 'text-[#999999]'">기획전</p>
+            <p class="font-bold text-sm leading-[16px]" x-bind:class="menu == 'plan' ? 'text-[#6A696C]' : 'text-[#999999]'">기획전</p>
         </div>
         <div class="flex flex-col gap-[3px] items-center px-[3px] border-[#6A696C]" x-bind:class="menu == 'event' ? 'border-b' : 'border-none'" x-on:click="menu = 'event'">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 'event' ? 'text-[#6A696C]' : 'text-[#999999]'">이벤트</p>
+            <p class="font-bold text-sm leading-[16px]" x-bind:class="menu == 'event' ? 'text-[#6A696C]' : 'text-[#999999]'">이벤트</p>
         </div>
     </div>
     <div class="mt-[33px] flex flex-col w-full">

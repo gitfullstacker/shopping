@@ -27,19 +27,19 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <path d="M6.41475 14.2576L0.202765 7.81002C0.129032 7.73327 0.0769276 7.65012 0.0464514 7.56057C0.0154837 7.47102 0 7.37507 0 7.27273C0 7.17038 0.0154837 7.07444 0.0464514 6.98489C0.0769276 6.89534 0.129032 6.81218 0.202765 6.73543L6.41475 0.268649C6.58679 0.0895498 6.80184 0 7.05991 0C7.31797 0 7.53917 0.0959463 7.7235 0.287839C7.90783 0.479731 8 0.703606 8 0.959463C8 1.21532 7.90783 1.43919 7.7235 1.63109L2.30415 7.27273L7.7235 12.9144C7.89555 13.0935 7.98157 13.314 7.98157 13.576C7.98157 13.8385 7.8894 14.0657 7.70507 14.2576C7.52074 14.4495 7.30568 14.5455 7.05991 14.5455C6.81413 14.5455 6.59908 14.4495 6.41475 14.2576Z" fill="#333333" />
         </svg>
     </a>
-    <p class="font-extrabold text-lg leading-5 text-[#333333]">EVENT</p>
+    <p class="font-extrabold text-xl leading-[22px] text-[#333333]">EVENT</p>
 </div>
 
 <div class="flex flex-col w-full">
     <div class="flex flex-col gap-[9px] px-[14px] py-5">
-        <p class="font-extrabold text-lg leading-5 text-[#333333]"><?= $arr_Data['STR_TITLE'] ?></p>
-        <p class="font-bold text-xs leading-[14px] text-[#333333]"><?= $arr_Data['STR_CONT'] ?></p>
+        <p class="font-semibold text-lg leading-5 text-[#333333]"><?= $arr_Data['STR_TITLE'] ?></p>
+        <p class="font-semibold text-xs leading-[14px] text-[#333333]"><?= $arr_Data['STR_CONT'] ?></p>
     </div>
 
     <div class="mt-5 flex w-full">
         <img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE'] ?>" onerror="this.style.display = 'none'" alt="event">
     </div>
-    
+
     <!-- 알람 -->
     <div class="mt-10 flex flex-col w-full gap-10">
         <div class="flex flex-col gap-[5px] w-full bg-[#EAEAEA] px-[14px] py-5">
@@ -49,7 +49,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
                 <p class="font-extrabold text-[15px] leading-[17px] text-[#333333]">꼭 확인해주세요</p>
             </div>
-            <p class="font-bold text-xs leading-[23px] text-[#333333]">
+            <p class="font-semibold text-xs leading-[23px] text-[#333333]">
                 <?php
                 for ($i = 0; $i < 5; $i++) {
                 ?>
@@ -91,17 +91,41 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
                     <div class="w-full flex justify-center items-center relative px-2.5 bg-[#F9F9F9] rounded-[5px] h-[176px]">
                         <!-- 타그 -->
-                        <div class="justify-center items-center w-[25px] h-[25px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
+                        <div class="justify-center items-center w-[30px] h-[30px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">
                             <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
                         </div>
                         <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                     </div>
-                    <p class="mt-[5.52px] font-extrabold text-[9px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-                    <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
-                    <div class="mt-[7.87px] flex gap-[3px] items-center">
-                        <p class="font-bold text-xs text-black">일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
-                        <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
-                    </div>
+                    <p class="mt-[5.52px] font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+                    <p class="mt-[3.27px] font-bold text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+                    <?php
+                    switch ($row['INT_TYPE']) {
+                        case 1:
+                    ?>
+                            <div class="mt-[7.87px] flex gap-[3px] items-center">
+                                <p class="font-bold text-[13px] leading-[15px] text-black">월 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                            </div>
+                        <?php
+                            break;
+                        case 2:
+                        ?>
+                            <div class="mt-[7.87px] flex gap-[3px] items-center">
+                                <p class="font-bold text-[13px] leading-[15px] text-black">일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                            </div>
+                        <?php
+                            break;
+                        case 3:
+                        ?>
+                            <div class="mt-[7.87px] flex gap-[3px] items-center">
+                                <p class="font-bold text-[13px] leading-[15px] text-black"><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                            </div>
+                    <?php
+                            break;
+                    }
+                    ?>
                 </a>
             <?php
             }

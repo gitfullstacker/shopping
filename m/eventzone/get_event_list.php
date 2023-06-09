@@ -45,10 +45,10 @@ while ($row = mysql_fetch_assoc($event_list_result)) {
     $result .= '
         <a href="event_detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex flex-col w-full px-3 pb-[13.8px] border-b-[0.5px] border-[#E0E0E0]">
             <div class="flex w-full h-[177px] rounded-lg bg-gray-100">
-                <img class="w-full object-cover rounded-lg" src="/admincenter/files/event/' . $row['STR_IMAGE'] . '" onerror="this.style.display = \'none\'" alt="">
+                <img class="min-w-full object-cover rounded-lg" src="/admincenter/files/event/' . $row['STR_IMAGE'] . '" onerror="this.style.display = \'none\'" alt="">
             </div>
-            <p class="mt-[9px] font-extrabold text-[13px] leading-[15px] text-black">' . $row['STR_TITLE'] . '</p>
-            <p class="mt-[3px] font-bold text-[9px] leading-[10px] text-[#666666]">' . $row['STR_CONT'] . '</p>
+            <p class="mt-[9px] font-extrabold text-sm leading-4 text-black">' . $row['STR_TITLE'] . '</p>
+            <p class="mt-[3px] font-semibold text-xs leading-[14px] text-[#666666]">' . $row['STR_CONT'] . '</p>
         </a>';
 }
 $result .= '</div>';

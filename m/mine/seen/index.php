@@ -3,8 +3,9 @@
 fnc_MLogin_Chk();
 ?>
 <?
-$hide_right_menu = true;
-require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
+$header_title = '최근 본 상품';
+$hide_header = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
 <?php
@@ -77,39 +78,37 @@ while ($row = mysql_fetch_assoc($seen_list_result)) {
                             </div>
                             <div class="grow flex justify-between py-1">
                                 <div class="flex flex-col w-full">
-                                    <div class="flex justify-center items-center w-[25px] h-[14px] bg-[<?= ($seenInfo['INT_TYPE'] == 1 ? '#EEAC4C' : ($seenInfo['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                                        <p class="font-normal text-[8px] leading-[9px] text-center text-white">
+                                    <div class="flex justify-center items-center w-[30px] h-4 bg-[<?= ($seenInfo['INT_TYPE'] == 1 ? '#EEAC4C' : ($seenInfo['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+                                        <p class="font-normal text-[9px] leading-[9px] text-center text-white">
                                             <?= ($seenInfo['INT_TYPE'] == 1 ? '구독' : ($seenInfo['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?>
                                         </p>
                                     </div>
-                                    <p class="mt-1.5 font-bold text-[11px] leading-3 text-black"><?= $seenInfo['STR_CODE'] ?></p>
-                                    <p class="mt-1 font-bold text-[9px] leading-[10px] text-[#666666]"><?= $seenInfo['STR_GOODNAME'] ?></p>
+                                    <p class="mt-1.5 font-extrabold text-xs leading-[14px] text-black"><?= $seenInfo['STR_CODE'] ?></p>
+                                    <p class="mt-1 font-medium text-xs leading-[14px] text-[#666666]"><?= $seenInfo['STR_GOODNAME'] ?></p>
                                     <?php
                                     switch ($seenInfo['INT_TYPE']) {
                                         case 1:
                                     ?>
-                                            <p class="mt-2.5 font-bold text-[9px] text-[#999999]">월정액 구독 전용</p>
-                                            <div class="mt-[3.39px] flex gap-2 items-center">
-                                                <p class="font-bold text-[9px] text-black"><span class="text-[#EEAC4C]">월</span> <?= number_format($seenInfo['INT_PRICE']) ?>원</p>
+                                            <div class="mt-2.5 flex gap-1 items-center">
+                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
+                                                <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
                                             </div>
                                         <?php
                                             break;
 
                                         case 2:
                                         ?>
-                                            <p class="mt-2.5 font-bold text-[9px] line-through text-[#999999]"><?= $seenInfo['INT_DISCOUNT'] ? ('일 ' . number_format($seenInfo['INT_PRICE']) . '원') : '' ?></p>
-                                            <div class="mt-[3.39px] flex gap-2 items-center">
-                                                <p class="font-bold text-[9px] text-[#00402F]"><?= $seenInfo['INT_DISCOUNT'] ? (number_format($seenInfo['INT_DISCOUNT']) . '%') : '' ?></p>
-                                                <p class="font-extrabold text-[9px] text-black">일 <?= $seenInfo['INT_DISCOUNT'] ? number_format($seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) : number_format($seenInfo['INT_PRICE']) ?>원</p>
+                                            <div class="mt-2.5 flex gap-1 items-center">
+                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
+                                                <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">일</span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
                                             </div>
                                         <?php
                                             break;
                                         case 3:
                                         ?>
-                                            <p class="mt-2.5 font-bold text-[9px] line-through text-[#999999]"><?= $seenInfo['INT_DISCOUNT'] ? (number_format($seenInfo['INT_PRICE']) . '원') : '' ?></p>
-                                            <div class="mt-[3.39px] flex gap-2 items-center">
-                                                <p class="font-bold text-[9px] text-[#7E6B5A]"><?= $seenInfo['INT_DISCOUNT'] ? (number_format($seenInfo['INT_DISCOUNT']) . '%') : '' ?></p>
-                                                <p class="font-extrabold text-[9px] text-black"><?= $seenInfo['INT_DISCOUNT'] ? number_format($seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) : number_format($seenInfo['INT_PRICE']) ?>원</p>
+                                            <div class="mt-2.5 flex gap-1 items-center">
+                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
+                                                <p class="font-bold text-[13px] leading-[15px] text-black"><?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
                                             </div>
                                     <?php
                                             break;

@@ -219,43 +219,52 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					while ($row = mysql_fetch_assoc($category_product_result)) {
 					?>
 						<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-							<div class="image-part">
+							<div class="image-part relative">
+								<div class="flex justify-center items-center absolute top-1 left-2 w-[30px] h-[20px] bg-[<?= $row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A') ?>] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+									<p class="font-extrabold text-[9px] leading-[9px] text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
+								</div>
 								<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="event_zone">
 							</div>
 							<div class="flex flex-col items-start">
 								<p class="font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
 								<p class="mt-[3.36px] font-medium text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
-								<div class="price-section">
+								<div class="mt-2 price-section">
 									<?php
-									switch ($i) {
-										case 0:
-									?>
-											<p class="font-extrabold text-[14px] leading-[14px] text-[#00402F]">
-												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
-											</p>
-											<p class="font-bold text-[14px] leading-[14px] text-black">
-												<span class="font-medium">일</span><?= number_format($row['INT_PRICE']) ?>원
-											</p>
-										<?php
-											break;
+									switch ($row['INT_TYPE']) {
 										case 1:
-										?>
-											<p class="font-extrabold text-[14px] leading-[14px] text-[#EEAC4C]">
-												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
-											</p>
-											<p class="font-bold text-[14px] leading-[14px] text-black">
-												<span class="font-medium text-[#EEAC4C]">월</span><?= number_format($row['INT_PRICE']) ?>원
-											</p>
+									?>
+											<div class="flex flex-row gap-1 items-end">
+												<p class="font-bold text-[13px] leading-[14px] text-black">
+													<span class="font-medium text-[#EEAC4C]">월</span><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+												</p>
+												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+													<?= number_format($row['INT_PRICE']) ?>원
+												</p>
+											</div>
 										<?php
 											break;
 										case 2:
 										?>
-											<p class="font-extrabold text-[14px] leading-[14px] text-[#7E6B5A]">
-												<?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
-											</p>
-											<p class="font-bold text-[14px] leading-[14px] text-black">
-												<?= number_format($row['INT_PRICE']) ?>원
-											</p>
+											<div class="flex flex-row gap-1 items-end">
+												<p class="font-bold text-[13px] leading-[14px] text-black">
+													<span class="font-medium">일</span><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+												</p>
+												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+													<?= number_format($row['INT_PRICE']) ?>원
+												</p>
+											</div>
+										<?php
+											break;
+										case 3:
+										?>
+											<div class="flex flex-row gap-1 items-end">
+												<p class="font-bold text-[13px] leading-[14px] text-black">
+													<?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+												</p>
+												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+													<?= number_format($row['INT_PRICE']) ?>원
+												</p>
+											</div>
 									<?php
 											break;
 									}
@@ -354,7 +363,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 				<p class="brand"><?= $row['STR_CODE'] ?></p>
 				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
-					<p class="current-price">일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+					<p class="current-price"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
 					<p class="origin-price <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
 				</div>
 				<button class="rent-button">렌트</button>
