@@ -164,4 +164,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <!-- 구분선 -->
 <hr class="mt-7 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
+<?php
+$show_footer_sbutton = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+?>

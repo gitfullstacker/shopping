@@ -17,4 +17,7 @@
     </div>
 </div>
 
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
+<?php
+$hide_footer_menu = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+?>

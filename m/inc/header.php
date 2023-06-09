@@ -55,7 +55,7 @@
 		$arr_Rlt_Data = mysql_query($SQL_QUERY);
 		$event_Data = mysql_fetch_assoc($arr_Rlt_Data);
 		?>
-		<a href="/m/eventzone/event_detail.php?int_number=<?= $event_Data['INT_NUMBER'] ?>" class="flex items-center justify-center h-[37.58px] bg-black">
+		<a href="/m/eventzone/event_detail.php?int_number=<?= $event_Data['INT_NUMBER'] ?>" class="flex items-center justify-center h-[37.58px] px-4 bg-black">
 			<p class="font-bold text-[13px] leading-[15px] text-white line-clamp-1"><?= $event_Data['STR_TITLE'] ?></p>
 		</a>
 		<?php
@@ -63,13 +63,13 @@
 		?>
 			<div class="header-content">
 				<div class="body">
-					<a href="/m/main/" class="logo-text">ABLANC</a>
+					<a href="/m/main/" class="logo-title font-normal text-xl leading-[30px] text-black">ABLANC</a>
 					<div class="menu">
-						<div>
+						<a href="/m/mine/question/index.php">
 							<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M9.5 15.1818C14.1941 15.1818 18 11.7363 18 7.81967C18 3.90308 14.1941 1 9.5 1C4.80587 1 1 4.17482 1 8.09141C1 9.62006 1.58012 11.0365 2.56719 12.1937L1.53125 17L5.692 14.4327C6.89767 14.9318 8.19266 15.1866 9.5 15.1818Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
-						</div>
+						</a>
 						<a href="/m/mine/basket/index.php">
 							<svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M17.5385 0H1.46154C1.07391 0 0.702166 0.153246 0.428075 0.426026C0.153983 0.698807 0 1.06878 0 1.45455V14.5455C0 14.9312 0.153983 15.3012 0.428075 15.574C0.702166 15.8468 1.07391 16 1.46154 16H17.5385C17.9261 16 18.2978 15.8468 18.5719 15.574C18.846 15.3012 19 14.9312 19 14.5455V1.45455C19 1.06878 18.846 0.698807 18.5719 0.426026C18.2978 0.153246 17.9261 0 17.5385 0ZM17.5385 14.5455H1.46154V1.45455H17.5385V14.5455ZM13.8846 4.36364C13.8846 5.52095 13.4227 6.63085 12.6004 7.44919C11.7781 8.26753 10.6629 8.72727 9.5 8.72727C8.33713 8.72727 7.22188 8.26753 6.39961 7.44919C5.57733 6.63085 5.11538 5.52095 5.11538 4.36364C5.11538 4.17075 5.19238 3.98577 5.32942 3.84938C5.46647 3.71299 5.65234 3.63636 5.84615 3.63636C6.03997 3.63636 6.22584 3.71299 6.36289 3.84938C6.49993 3.98577 6.57692 4.17075 6.57692 4.36364C6.57692 5.13518 6.88489 5.87511 7.43307 6.42067C7.98126 6.96624 8.72475 7.27273 9.5 7.27273C10.2752 7.27273 11.0187 6.96624 11.5669 6.42067C12.1151 5.87511 12.4231 5.13518 12.4231 4.36364C12.4231 4.17075 12.5001 3.98577 12.6371 3.84938C12.7742 3.71299 12.96 3.63636 13.1538 3.63636C13.3477 3.63636 13.5335 3.71299 13.6706 3.84938C13.8076 3.98577 13.8846 4.17075 13.8846 4.36364Z" fill="black" />
@@ -78,11 +78,11 @@
 					</div>
 				</div>
 				<div class="menu">
-					<a href="/m/main/" class="menu-item <?= $topmenu == 1 ? 'active' : ''; ?>">홈</a>
-					<a href="/m/product/index.php?product_type=2" class="menu-item <?= $topmenu == 2 ? 'active' : ''; ?>">명품렌트</a>
-					<a href="/m/product/index.php?product_type=1" class="menu-item <?= $topmenu == 3 ? 'active' : ''; ?>">명품구독</a>
-					<a href="/m/product/index.php?product_type=3" class="menu-item <?= $topmenu == 4 ? 'active' : ''; ?>">홈중고명품</a>
-					<a href="/m/eventzone/index.php" class="menu-item <?= $topmenu == 5 ? 'active' : ''; ?>">이벤트존</a>
+					<a href="/m/main/" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 1 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">홈</a>
+					<a href="/m/product/index.php?product_type=2" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 2 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">명품렌트</a>
+					<a href="/m/product/index.php?product_type=1" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 3 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">명품구독</a>
+					<a href="/m/product/index.php?product_type=3" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 4 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">중고명품</a>
+					<a href="/m/eventzone/index.php" class="px-[7px] pb-2.5 text-sm leading-[15px] <?= $topmenu == 5 ? 'font-bold text-black border-b-[1.5px] border-black' : 'font-medium text-[#666666]'; ?>">이벤트존</a>
 				</div>
 			</div>
 		<?php

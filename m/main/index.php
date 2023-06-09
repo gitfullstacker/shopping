@@ -64,22 +64,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 </div>
 
 <!-- 안내메뉴 -->
-<div class="sub-menu">
-	<a href="../guide" class="menu-item">
+<div class="mt-9 grid grid-cols-4 gap-[17px] px-4 w-full">
+	<a href="../guide" class="flex flex-col items-center gap-[9px]">
 		<img src="../images/menu_item1.png" alt="menu_item1" />
-		<p class="item-title">이용안내</p>
+		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">이용안내</p>
 	</a>
-	<a href="../benefits" class="menu-item">
+	<a href="../benefits" class="flex flex-col items-center gap-[9px]">
 		<img src="../images/menu_item2.png" alt="menu_item2" />
-		<p class="item-title">신규혜택</p>
+		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">신규혜택</p>
 	</a>
-	<a href="../review/index.php" class="menu-item">
+	<a href="../review/index.php" class="flex flex-col items-center gap-[9px]">
 		<img src="../images/menu_item3.png" alt="menu_item3" />
-		<p class="item-title">리뷰</p>
+		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">리뷰</p>
 	</a>
-	<a href="#" class="menu-item">
+	<a href="#" class="flex flex-col items-center gap-[9px]">
 		<img src="../images/menu_item4.png" alt="menu_item4" />
-		<p class="item-title">기획전</p>
+		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">기획전</p>
 	</a>
 </div>
 
@@ -546,4 +546,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 	</a>
 </div>
 
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
+<?php
+$show_footer_hbutton = true;
+$show_footer_sbutton = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+?>

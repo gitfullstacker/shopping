@@ -861,7 +861,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     </div>
 </div>
 
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
+<?php
+$show_footer_hbutton = true;
+$show_footer_sbutton = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+?>
 
 <script>
     current_page = 1;

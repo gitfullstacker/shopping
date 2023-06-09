@@ -1172,7 +1172,12 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </div>
         </div>
     </div>
-    <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer_detail.php"; ?>
+
+    <?php
+    $hide_footer_menu = true;
+    $show_footer_sbutton = true;
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+    ?>
 
     <script>
         var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;

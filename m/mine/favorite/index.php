@@ -128,7 +128,8 @@ $product_result = mysql_query($SQL_QUERY);
     </div>
 </div>
 
-<?
+<?php
+$show_footer_sbutton = true;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
