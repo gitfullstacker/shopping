@@ -703,7 +703,7 @@ body {
 .sub-section-top-bar>.left-section>.title {
   font-style: normal;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 20px;
   color: #333333;
 }
@@ -711,7 +711,7 @@ body {
 .sub-section-top-bar>.left-section>.description {
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 14px;
   color: #333333;
 }
@@ -823,29 +823,6 @@ body {
   height: 49px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.tag {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 9px;
-  line-height: 10px;
-  color: #666666;
-}
-
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.title {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 8.5px;
-  line-height: 10px;
-  color: #333333;
-  margin-top: 3.36px;
-}
-
 .categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section {
   display: flex;
   flex-direction: row;
@@ -893,40 +870,6 @@ body {
 
 .topbrand>.topbrand-scroll-list::-webkit-scrollbar {
   display: none;
-}
-
-.topbrand>.topbrand-scroll-list>.item {
-  width: 115px;
-  border-radius: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.topbrand>.topbrand-scroll-list>.item>img {
-  width: 115px;
-  height: 160px;
-  border-radius: 40px;
-}
-
-.topbrand>.topbrand-scroll-list>.item>.e-brand {
-  margin-top: 9.66px;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 12.6461px;
-  line-height: 14px;
-  text-align: center;
-  color: #333333;
-}
-
-.topbrand>.topbrand-scroll-list>.item>.k-brand {
-  margin-top: 2.66px;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 10.8396px;
-  line-height: 12px;
-  text-align: center;
-  color: #666666;
 }
 
 .rentlimit {
@@ -1001,17 +944,17 @@ body {
   margin-top: 11px;
   font-style: normal;
   font-weight: 800;
-  font-size: 9px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 12px;
   color: #666666;
 }
 
 .product-scroll-list>.item>.title {
   margin-top: 3.15px;
   font-style: normal;
-  font-weight: 700;
-  font-size: 8.5px;
-  line-height: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
   color: #333333;
 }
 
@@ -1026,7 +969,7 @@ body {
 .product-scroll-list>.item>.price-section>.current-price {
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 14px;
   color: #000000;
 }
@@ -1034,8 +977,8 @@ body {
 .product-scroll-list>.item>.price-section>.origin-price {
   font-style: normal;
   font-weight: 700;
-  font-size: 10px;
-  line-height: 11px;
+  font-size: 13px;
+  line-height: 13px;
   text-decoration-line: line-through;
   color: #666666;
 }

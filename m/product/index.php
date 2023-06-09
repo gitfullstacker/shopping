@@ -57,7 +57,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     <div class="flex justify-center items-center w-[77px] h-[77px] rounded-full bg-gray-100 <?= $mini_banner ?: 'animate-pulse' ?>" x-bind:class="pick == <?= $index ?> ? 'border border-solid border-black' : 'border-none'">
                         <img class="w-full h-full rounded-full" src="/admincenter/files/com/<?= $mini_banner ?>" onerror="this.style.display = 'none'" alt="category" />
                     </div>
-                    <p class="font-bold text-xs leading-[14px] text-center" x-bind:class="pick == <?= $index ?> ? 'text-black' : 'text-[#444444]'"><?= $row['STR_CODE'] ?></p>
+                    <p class="font-bold text-[13px] leading-[14px] text-center" x-bind:class="pick == <?= $index ?> ? 'text-black' : 'text-[#444444]'"><?= $row['STR_CODE'] ?></p>
                 </div>
             <?
                 $index++;
@@ -117,37 +117,37 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                     <div class="w-[118px] h-[118px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-md">
                                         <img class="w-full" src="/admincenter/files/good/<?= $product_row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                                     </div>
-                                    <p class="mt-2 font-extrabold text-[9px] leading-[10px] text-[#333333]"><?= $product_row['STR_GOODNAME'] ?: '' ?></p>
+                                    <p class="mt-2 font-extrabold text-xs leading-3 text-[#333333] line-clamp-1"><?= $product_row['STR_GOODNAME'] ?: '' ?></p>
                                     <div class="mt-1 flex gap-[3px] items-center">
                                         <?php
                                         switch ($product_type) {
                                             case 2:
                                         ?>
-                                                <p class="font-extrabold text-xs text-[14px] text-[#00402F]">
-                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                <p class="font-extrabold text-[13px] leading-[14px] text-[#00402F] <?= $product_row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+                                                    <?= $product_row['INT_DISCOUNT'] ?>%
                                                 </p>
-                                                <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_row ? '일 ' . (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                                <p class="font-bold text-[13px] leading-[14px] text-black">
+                                                    <span class="font-medium">일</span> <?= number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?>원
                                                 </p>
                                             <?php
                                                 break;
                                             case 1:
                                             ?>
-                                                <p class="font-extrabold text-xs text-[14px] text-[#EEAC4C]">
-                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                <p class="font-extrabold text-[13px] leading-[14px] text-[#EEAC4C] <?= $product_row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+                                                    <?= $product_row['INT_DISCOUNT'] ?>%
                                                 </p>
-                                                <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <span class="text-[#EEAC4C]">월</span><?= $product_row ? (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                                <p class="font-bold text-[13px] leading-[14px] text-black">
+                                                    <span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?>원
                                                 </p>
                                             <?php
                                                 break;
                                             case 3:
                                             ?>
-                                                <p class="font-extrabold text-xs text-[14px] text-[#7E6B5A]">
-                                                    <?= $product_row ? ($product_row['INT_DISCOUNT'] ?: '0') . '%' : '' ?>
+                                                <p class="font-extrabold text-[13px] leading-[14px] text-[#7E6B5A] <?= $product_row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+                                                    <?= $product_row['INT_DISCOUNT'] ?>%
                                                 </p>
-                                                <p class="font-bold text-xs leading-[14px] text-black">
-                                                    <?= $product_row ? (number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                                <p class="font-bold text-[13px] leading-[14px] text-black">
+                                                    <?= number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?>원
                                                 </p>
                                         <?php
                                                 break;
@@ -631,7 +631,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     <p class="font-bold text-[10px] leading-[11px] text-[#666666]">초기화</p>
                 </button>
             </div>
-            
+
             <div class="absolute bottom-16">
                 <div x-show="showCalendarAlert" class="flex flex-col justify-center items-center gap-3 px-[50px] py-5 bg-black bg-opacity-80 border border-solid border-[#D9D9D9] rounded-[11px]" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90">
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
