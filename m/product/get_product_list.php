@@ -81,26 +81,32 @@ $product_list_result = mysql_query($SQL_QUERY);
 
 $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
+    $price = '';
+    $color = '';
     switch ($product_type) {
-        case 2:
+        case 1:
+            $color = '#EEAC4C';
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="current-price"><span class="font-medium">월</span> ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
                     <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
             break;
-        case 1:
+        case 2:
+            $color = '#00402F';
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">월 ' . number_format($row['INT_PRICE']) . '원</p>
+                    <p class="current-price"><span class="font-medium">일</span> ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                    <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
             break;
         case 3:
+            $color = '#7E6B5A';
             $price = '
                 <div class="price-section w-full">
-                    <p class="current-price">' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="current-price">' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
                     <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
                 </div>
             ';
@@ -111,7 +117,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
         <a href="detail.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="global-product-item">
             <div class="relative flex justify-center items-center w-[176px] h-[176px] p-2.5 bg-[#F9F9F9] rounded-md">
                 <img class="w-full" src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" alt="">
-                <div class="absolute top-2 left-2 w-[25px] h-[25px] flex justify-center items-center bg-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">
+                <div class="absolute top-2 left-2 w-[30px] h-[30px] flex justify-center items-center bg-[' . $color . '] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">
                     <p class="font-extrabold text-[9px] leading-[10px] text-white">' . $row['INT_DISCOUNT'] . '%</p>
                 </div>
             </div>
