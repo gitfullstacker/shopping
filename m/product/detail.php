@@ -964,7 +964,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
             <div class="flex flex-col items-center w-full overflow-auto h-full">
                 <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
-                    <p class="font-bold text-sm leading-[16px] text-black">예약날짜 설정하기</p>
+                    <p class="font-medium text-base leading-[18px] text-black">예약날짜 설정하기</p>
                     <div class="mt-[17px] flex gap-[13px] items-center">
                         <div class="flex gap-[1.4px] items-center">
                             <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#BED2B6]"></div>
@@ -1083,10 +1083,10 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </template>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                 <div class="mt-[15px] mb-5 flex flex-col items-center w-full px-[13px]">
-                    <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
-                        <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
+                    <div class="flex justify-center items-center px-2.5 py-[5px] bg-[#F5F5F5] rounded-[10px]">
+                        <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
                     </div>
-                    <p class="mt-2 font-bold text-xs leading-[14px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                    <p class="mt-2 font-bold text-[11px] leading-[13px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
                     <div class="mt-[26px] flex flex-col w-full px-7 relative">
                         <div class="w-full px-[23px] mt-5">
                             <img class="min-w-full" src="images/rent_discount.png" alt="">

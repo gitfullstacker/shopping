@@ -352,12 +352,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     <div class="flex relative w-full h-[167px] bg-gray-100">
                         <img class="flex w-full object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display = 'none'" alt="">
                         <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
-                            <p class="font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-                            <p class="font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+                            <p class="font-semibold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+                            <p class="font-medium text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         </div>
                     </div>
                     <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['BD_ITEM2']) ?></p>
-                    <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
+                    <p class="mt-1.5 font-medium text-[11px] leading-[15px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
                 </a>
             <?php
             }
@@ -511,7 +511,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
             <div class="flex flex-col items-center w-full overflow-auto h-[600px]">
                 <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
-                    <p class="font-bold text-sm leading-[16px] text-black">예약날짜 설정하기</p>
+                    <p class="font-medium text-base leading-[18px] text-black">예약날짜 설정하기</p>
                     <div class="mt-[17px] flex gap-[13px] items-center">
                         <div class="flex gap-[1.4px] items-center">
                             <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#BED2B6]"></div>
@@ -588,10 +588,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     $arr_Rlt_Data = mysql_query($SQL_QUERY);
                     $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     ?>
-                    <div class="flex justify-center items-center px-2.5 py-[7px] bg-[#F5F5F5] rounded-[10px]">
-                        <p class="font-bold text-xs leading-[12px] text-black">렌트 가격 할인 TIP!</p>
+                    <div class="flex justify-center items-center px-2.5 py-[5px] bg-[#F5F5F5] rounded-[10px]">
+                        <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
                     </div>
-                    <p class="mt-2 font-bold text-xs leading-[14px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                    <p class="mt-2 font-bold text-[11px] leading-[13px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
                     <div class="mt-[26px] flex flex-col w-full px-7 relative">
                         <div class="w-full px-[23px] mt-5">
                             <img class="min-w-full" src="images/rent_discount.png" alt="">
@@ -625,10 +625,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             </div>
             <div class="flex items-center gap-[5px] px-[14px] pb-[13px] w-full">
                 <button class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
-                    <p class="font-bold text-[10px] leading-[11px] text-white">적용</p>
+                    <p class="font-bold text-xs leading-3 text-white">적용</p>
                 </button>
                 <button class="flex justify-center items-center bg-white rounded-md w-32 h-[39px] border-[0.3px] border-solid border-[#E0E0E0]" x-on:click="initDate()">
-                    <p class="font-bold text-[10px] leading-[11px] text-[#666666]">초기화</p>
+                    <p class="font-bold text-xs leading-3 text-[#666666]">초기화</p>
                 </button>
             </div>
 
@@ -805,7 +805,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             <div class="flex flex-col px-[27px] py-[14px] w-full">
                 <template x-if="showOption == 1">
                     <div class="relative w-full mb-[15px]">
-                        <input type="text" class="w-full h-[38px] bg-[#F8F8F8] border border-solid border-[#E0E0E0] rounded-[4px] pl-3 pr-7 font-bold text-xs leading-[14px] placeholder:text-[#C4C4C4]" placeholder="브랜드 검색" x-model="content[showOption].searchKey">
+                        <input type="text" class="w-full h-[38px] bg-[#F8F8F8] border border-solid border-[#E0E0E0] rounded-[4px] pl-3 pr-7 font-medium text-xs leading-[14px] placeholder:text-[#C4C4C4]" placeholder="브랜드 검색" x-model="content[showOption].searchKey">
                         <button type="button" class="absolute top-2.5 right-[10.5px]">
                             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.2675 17.4201L12.6013 11.7539C13.6807 10.4566 14.2184 8.79307 14.1027 7.10939C13.987 5.42571 13.2268 3.85142 11.9801 2.71388C10.7334 1.57635 9.09628 0.963123 7.40908 1.00172C5.72187 1.04031 4.11446 1.72776 2.92111 2.92111C1.72776 4.11446 1.04031 5.72186 1.00172 7.40907C0.963123 9.09627 1.57636 10.7334 2.71389 11.9801C3.85143 13.2268 5.42571 13.987 7.10939 14.1027C8.79307 14.2184 10.4566 13.6807 11.7539 12.6013L17.4815 18.3289C17.5946 18.437 17.7457 18.4966 17.9022 18.4949C18.0587 18.4931 18.2084 18.4301 18.3191 18.3194C18.4298 18.2087 18.4928 18.0591 18.4945 17.9025C18.4963 17.746 18.4367 17.595 18.3285 17.4818L18.2675 17.4201ZM3.76748 11.3483C2.90084 10.4625 2.36777 9.30397 2.25891 8.06957C2.15005 6.83517 2.47212 5.60117 3.17038 4.57744C3.86863 3.5537 4.89994 2.80345 6.08891 2.45425C7.27788 2.10506 8.5511 2.1785 9.69204 2.66207C10.833 3.14565 11.7712 4.00951 12.3471 5.10673C12.923 6.20396 13.1011 7.46679 12.851 8.68049C12.601 9.89419 11.9382 10.9838 10.9755 11.764C10.0128 12.5442 8.80951 12.9669 7.57034 12.9601C6.86139 12.9562 6.16024 12.8117 5.50748 12.535C4.85473 12.2584 4.26331 11.855 3.76748 11.3483Z" fill="black" stroke="black" stroke-width="0.247219" stroke-miterlimit="10" />
@@ -826,7 +826,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                             <div class="w-4 h-4 rounded-full border-[0.4px] border-solid border-[#E0E0E0]" x-bind:class="item.checked ? 'bg-black' : 'bg-[#F8F8F8]'"></div>
                                             <div class="flex flex-col gap-[1.7px]">
                                                 <p class="font-bold text-xs leading-[14px] text-black" x-text="item.title">ACNE STUDIOS</p>
-                                                <p class="font-bold text-[10px] leading-[11px] text-[#898989]" x-text="item.ktitle">아크네 스튜디오</p>
+                                                <p class="font-semibold text-[10px] leading-[11px] text-[#898989]" x-text="item.ktitle">아크네 스튜디오</p>
                                             </div>
                                         </div>
                                     </template>
@@ -838,23 +838,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
             </div>
             <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
             <div class="flex gap-[7px] items-center justify-start flex-wrap px-[14px] py-[7px] w-full">
-                <template x-for="(item, index) in content[showOption].list">
-                    <template x-if="item.checked">
-                        <div class="flex justify-center items-center gap-[1px] px-2 py-[3px] bg-[#666666] rounded-md">
-                            <p class="font-bold text-[11px] leading-[12px] text-white" x-text="item.title">BALENCIA</p>
-                            <button type="button" class="flex justify-center items-center" x-on:click="removeSelectedItem(index)">
-                                <p class="font-bold text-sm leading-[14px] text-white">×</p>
-                            </button>
-                        </div>
+                <template x-for="(contentItem, contentIndex) in content">
+                    <template x-for="(item, index) in contentItem.list">
+                        <template x-if="item.checked">
+                            <div class="flex justify-center items-center gap-[1px] px-2 py-[3px] bg-[#666666] rounded-md">
+                                <p class="font-bold text-xs leading-3 text-white" x-text="item.title">BALENCIA</p>
+                                <button type="button" class="flex justify-center items-center" x-on:click="removeSelectedItem(index)">
+                                    <p class="font-bold text-sm leading-[14px] text-white">×</p>
+                                </button>
+                            </div>
+                        </template>
                     </template>
                 </template>
             </div>
             <div class="flex items-center gap-[5px] px-[14px] pb-[13px] w-full">
                 <button type="button" class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
-                    <p class="font-bold text-[10px] leading-[11px] text-white">적용</p>
+                    <p class="font-bold text-xs leading-3 text-white">적용</p>
                 </button>
                 <button type="button" class="flex justify-center items-center bg-white rounded-md w-32 h-[39px] border-[0.3px] border-solid border-[#E0E0E0]" x-on:click="initSelectedItem()">
-                    <p class="font-bold text-[10px] leading-[11px] text-[#666666]">초기화</p>
+                    <p class="font-bold text-xs leading-3 text-[#666666]">초기화</p>
                 </button>
             </div>
         </div>
