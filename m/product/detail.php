@@ -85,6 +85,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div x-data="{
+    detailMenu: 0,
     rentDate: null,
     vintageCount: 0,
     vintageOMoney: 0,
@@ -232,11 +233,21 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     break;
                 case 3:
                 ?>
-                    <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                    <p class="mt-[15px] font-semibold text-[14px] leading-4 text-[#666666]">최대 할인적용가</p>
                     <div class="mt-[7px] flex gap-2 items-end">
-                        <p class="font-extrabold text-lg leading-5 text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                        <p class="font-extrabold text-lg leading-5 text-[#7E6B5A] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
                         <p class="font-extrabold text-lg leading-5 text-[#333333]"><?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                        <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
+                        <?php
+                        if ($rent_membership_Data) {
+                        ?>
+                            <p class="font-semibold text-[14px] leading-4 text-[#666666]">멤버십 혜택가</p>
+                        <?php
+                        } else {
+                        ?>
+                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <?php
+                        }
+                        ?>
                     </div>
             <?php
                     break;
@@ -290,21 +301,21 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">상품등급</p>
-                        <p class="font-bold text-xs text-[#666666]">UNUSED(하단 상세참조)</p>
+                        <p class="font-semibold text-xs text-[#666666]">UNUSED(하단 상세참조)</p>
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">예상적립</p>
-                        <p class="font-bold text-xs text-[#666666]">최대 13,000원 적립(실 결제금액에 한함)</p>
+                        <p class="font-semibold text-xs text-[#666666]">최대 13,000원 적립(실 결제금액에 한함)</p>
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">카드혜택</p>
-                        <p class="font-bold text-xs text-[#666666]">무이자 할부(최대 12개월)</p>
+                        <p class="font-semibold text-xs text-[#666666]">무이자 할부(최대 12개월)</p>
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">배송정보</p>
                         <div class="flex flex-col gap-[5px]">
-                            <p class="font-bold text-xs text-[#666666]">국내배송(무료배송)</p>
-                            <p class="font-bold text-xs text-[#666666]">도서산간 지역 배송비 별도 추가</p>
+                            <p class="font-semibold text-xs text-[#666666]">국내배송(무료배송)</p>
+                            <p class="font-semibold text-xs text-[#666666]">도서산간 지역 배송비 별도 추가</p>
                         </div>
                     </div>
                 </div>
@@ -377,23 +388,39 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         ?>
 
         <!-- 메뉴 -->
-        <div x-data="{ detailMenu: 1 }" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1">
+        <div id="menu_panel" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1" onclick="scrollToDiv('menu_div1')">
                 <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'">상세후기</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3">
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3" onclick="scrollToDiv('menu_div3')">
                 <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4">
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4" onclick="scrollToDiv('menu_div4')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
+            </div>
+        </div>
+
+        <!-- 톱메뉴 -->
+        <div id="top_menu_panel" class="fixed top-[56px] flex justify-around bg-white border-b-[0.5px] border-solid border-[#E0E0E0] w-full max-w-[410px] z-10">
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1" onclick="scrollToDiv('menu_div1')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
+            </div>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
+            </div>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3" onclick="scrollToDiv('menu_div3')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
+            </div>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4" onclick="scrollToDiv('menu_div4')">
                 <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
             </div>
         </div>
 
         <!-- 상품정보 -->
-        <div class="mt-7 px-[14px] flex flex-col">
+        <div class="mt-7 px-[14px] flex flex-col" id="menu_div1">
             <div class="flex flex-col gap-[15px] px-3 pt-[15px] pb-[19px] bg-[#F5F5F5]">
                 <?php
                 if ($arr_Data['INT_TYPE'] == 3) {
@@ -565,42 +592,60 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 구분선 -->
         <hr class="mt-7 border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
-        <!-- 리뷰혜택 이미지 -->
-        <div class="mt-[15px] flex w-full px-[14px]">
-            <div class="flex flex-col gap-[7px] w-full border-[0.72px] border-solid border-[#DDDDDD] px-[11px] py-[13px]">
-                <p class="font-bold text-sm leading-4 text-[#666666]">리뷰혜택</p>
-                <p class="font-normal text-xs leading-[17px] text-[#666666]">
-                    ✍️ 상품 리뷰 작성 시: 적립금 400원 지급<br>
-                    📷 포토 리뷰 작성 시: 적립금 1,000원 지급<br>
-                    🏆 베스트 리뷰 선정 시: 적립금 10,000원 추가 지급
-                </p>
+        <?php
+        if ($arr_Data['INT_TYPE'] != 3) {
+        ?>
+            <!-- 리뷰혜택 이미지 -->
+            <div class="mt-[15px] flex w-full px-[14px]" id="menu_div2">
+                <div class="flex flex-col gap-[7px] w-full border-[0.72px] border-solid border-[#DDDDDD] px-[11px] py-[13px]">
+                    <p class="font-bold text-sm leading-4 text-[#666666]">리뷰혜택</p>
+                    <p class="font-normal text-xs leading-[17px] text-[#666666]">
+                        ✍️ 상품 리뷰 작성 시: 적립금 400원 지급<br>
+                        📷 포토 리뷰 작성 시: 적립금 1,000원 지급<br>
+                        🏆 베스트 리뷰 선정 시: 적립금 10,000원 추가 지급
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- 리뷰 -->
-        <div x-data="{ reviewMenu: 1 }" class="mt-[25px] flex flex-col px-[14px]">
-            <!-- 메뉴 -->
-            <div class="flex gap-10 justify-center">
-                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 1">
-                    <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 1 ? 'font-bold' : 'font-medium'">해당 상품 리뷰</p>
+            <!-- 리뷰 -->
+            <div x-data="{ reviewMenu: 1 }" class="mt-[25px] flex flex-col px-[14px]">
+                <!-- 메뉴 -->
+                <div class="flex gap-10 justify-center">
+                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 1">
+                        <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 1 ? 'font-bold' : 'font-medium'">해당 상품 리뷰</p>
+                    </div>
+                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 2">
+                        <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 2 ? 'font-bold' : 'font-medium'">관련 상품 리뷰</p>
+                    </div>
                 </div>
-                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 2">
-                    <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 2 ? 'font-bold' : 'font-medium'">관련 상품 리뷰</p>
+                <!-- 해당 상품 리뷰목록 -->
+                <div x-show="reviewMenu == 1" id="own_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+                </div>
+                <!-- 관련 상품 리뷰목록 -->
+                <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
                 </div>
             </div>
-            <!-- 해당 상품 리뷰목록 -->
-            <div x-show="reviewMenu == 1" id="own_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+        <?php
+        } else {
+        ?>
+            <div class="mt-[25px] flex flex-col px-[14px]" id="menu_div2">
+                <p class="font-extrabold text-lg leading-5 text-[#333333]">1:1문의</p>
+                <div class="mt-[15px] flex flex-col bg-[#F5F5F5] px-[15px] py-[17px]">
+                    <p class="font-extrabold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
+                    <p class="mt-[13px] font-bold text-xs leading-[14px] text-black">CS NUMBER : 02-6013-0616</p>
+                    <p class="mt-[5px] font-bold text-xs leading-[14px] text-black">채널톡톡 : @빈느</p>
+                    <p class="mt-[15px] font-bold text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
+                </div>
             </div>
-            <!-- 관련 상품 리뷰목록 -->
-            <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
-            </div>
-        </div>
+        <?php
+        }
+        ?>
 
         <!-- 구분선 -->
         <hr class="mt-7 border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
         <!-- 이용 안내 -->
-        <div x-data="{ collapse: false }" class="mt-5 flex flex-col gap-[15px] px-[14px]">
+        <div x-data="{ collapse: false }" class="mt-5 flex flex-col gap-[15px] px-[14px]" id="menu_div3">
             <div class="flex items-center justify-between">
                 <p class="font-extrabold text-lg leading-5 text-[#333333]">이용 안내</p>
                 <span x-on:click="collapse = !collapse">
@@ -655,7 +700,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <hr class="mt-7 border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
         <!-- 관련 상품 -->
-        <div class="mt-5 flex flex-col gap-5 px-[14px]">
+        <div class="mt-5 flex flex-col gap-5 px-[14px]" id="menu_div4">
             <p class="font-extrabold text-lg leading-5 text-[#333333]">관련 상품</p>
             <div class="grid grid-cols-2 gap-x-[13.5px] gap-y-[30.45px] w-full">
                 <?php
@@ -1341,5 +1386,30 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     }
                 }
             });
+        }
+
+        function scrollToDiv(name) {
+            const element = document.getElementById(name);
+            const topOffset = element.offsetTop - 100;
+            window.scrollTo({
+                top: topOffset,
+                behavior: 'smooth'
+            });
+        }
+
+        window.addEventListener('scroll', function() {
+            var staticMenu = document.getElementById('menu_panel');
+            var topMenu = document.getElementById('top_menu_panel');
+
+            if (isElementHidden(staticMenu)) {
+                topMenu.classList.remove('hidden');
+            } else {
+                topMenu.classList.add('hidden');
+            }
+        });
+
+        function isElementHidden(element) {
+            var rect = element.getBoundingClientRect();
+            return rect.bottom <= 100;
         }
     </script>
