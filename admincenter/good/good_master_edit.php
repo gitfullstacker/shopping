@@ -365,6 +365,12 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<td><input type=text name=str_color value="<?= $arr_Data['STR_COLOR'] ?>"></td>
 												</tr>
 												<tr>
+													<td>색상</td>
+													<td><input type=text name=str_color_val value="<?= $arr_Data['STR_COLOR_VAL'] ?>"> 형식: (#ffffff)</td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
 													<td>출력여부</td>
 													<td>
 														<input type="radio" value="Y" name="str_service" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_SERVICE'], "Y") == "Y") { ?>checked<? } ?>> 출력

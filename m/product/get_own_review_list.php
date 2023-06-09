@@ -129,9 +129,9 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
             </div>
             <div class="flex gap-5 items-center">
                 <p class="font-bold text-xs text-[#666666]">' . substr($row['MEM_ID'], 0, 3) . '***</p>
-                <p class="font-bold text-xs text-[#999999]">' . date('Y/m/d', strtotime($row['BD_REG_DATE'])) . '</p>
+                <p class="font-medium text-xs text-[#999999]">' . date('Y/m/d', strtotime($row['BD_REG_DATE'])) . '</p>
             </div>
-            <p class="font-bold text-xs text-[#666666]">
+            <p class="font-medium text-xs leading-[17px] text-[#666666]">
             ' . strip_tags($row['BD_CONT']) . '
             </p>
             <div class="grid grid-cols-3 gap-2 w-full">

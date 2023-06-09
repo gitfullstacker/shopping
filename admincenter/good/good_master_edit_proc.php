@@ -32,6 +32,7 @@ $str_pmileage = Fnc_Om_Conv_Default($_REQUEST[str_pmileage], "N");
 $to_int_type = Fnc_Om_Conv_Default($_REQUEST[to_int_type], "0");
 $int_type = Fnc_Om_Conv_Default($_REQUEST[int_type], "1");
 $int_grade = Fnc_Om_Conv_Default($_REQUEST[int_grade], "1");
+$str_color_val = Fnc_Om_Conv_Default($_REQUEST[str_color_val], "");
 
 $str_del_img1 = Fnc_Om_Conv_Default($_REQUEST[str_del_img1], "N");
 $str_del_img2 = Fnc_Om_Conv_Default($_REQUEST[str_del_img2], "N");
@@ -352,6 +353,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[38] = "STR_TIMAGE";
 		$arr_Column_Name[39] = "INT_TYPE";
 		$arr_Column_Name[40] = "INT_GRADE";
+		$arr_Column_Name[41] = "STR_COLOR_VAL";
 
 		$arr_Set_Data[0] = $lastnumber;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -394,6 +396,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[38] = $str_dtimage;
 		$arr_Set_Data[39] = $int_type;
 		$arr_Set_Data[40] = $int_grade;
+		$arr_Set_Data[41] = $str_color_val;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -695,6 +698,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[32] = "STR_PMILEAGE";
 		$arr_Column_Name[33] = "STR_TIMAGE";
 		$arr_Column_Name[34] = "INT_GRADE";
+		$arr_Column_Name[35] = "STR_COLOR_VAL";
 
 		$arr_Set_Data[0] = $str_no;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -731,6 +735,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[32] = $str_pmileage;
 		$arr_Set_Data[33] = $str_dtimage;
 		$arr_Set_Data[34] = $int_grade;
+		$arr_Set_Data[35] = $str_color_val;
 
 		$arr_Sub = "";
 
@@ -1408,6 +1413,7 @@ switch ($RetrieveFlag) {
 			$arr_Column_Name[33]		= "INT_VIEW";
 			$arr_Column_Name[34]		= "STR_TIMAGE";
 			$arr_Column_Name[35]		= "INT_TYPE";
+			$arr_Column_Name[36]		= "STR_COLOR_VAL";
 
 			$arr_Set_Data[0]		= $lastnumber;
 			$arr_Set_Data[1]		= $row['STR_GOODNAME'];
@@ -1448,6 +1454,7 @@ switch ($RetrieveFlag) {
 			$arr_Set_Data[33]		= $row['INT_VIEW'] ?: null;
 			$arr_Set_Data[34]		= $str_dtimage;
 			$arr_Set_Data[35]		= $to_int_type;
+			$arr_Set_Data[36]		= $str_color_val;
 
 			$arr_Sub1 = "";
 			$arr_Sub2 = "";

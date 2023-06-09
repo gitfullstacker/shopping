@@ -68,7 +68,20 @@ $SQL_QUERY =    'SELECT
                     AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
-$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//렌트멤버십정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_membership AS A
+                WHERE
+                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
+                    AND A.INT_TYPE=2
+                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div x-data="{
@@ -80,7 +93,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
     showSubscriptionAlert: false,
     showVintagePanel: false,
     goSubscription() {
-        if (<?= $subscription_Data ? 'false' : 'true' ?>) {
+        if (<?= $subscription_membership_Data ? 'false' : 'true' ?>) {
             this.showSubscriptionAlert = true;
         } else {
             window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
@@ -161,8 +174,8 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col w-full mt-[30px] px-[14px]">
             <div class="flex justify-between">
                 <!-- 타그 -->
-                <div class="flex justify-center items-center px-1.5 py-1 bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                    <p class="font-normal text-[10px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                <div class="flex justify-center items-center px-2 py-1 bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+                    <p class="font-normal text-xs leading-[14px] text-center text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
                 </div>
                 <!-- Like -->
                 <div onclick="setProductLike('<?= $arr_Data['STR_GOODCODE'] ?>')">
@@ -174,35 +187,55 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </svg>
                 </div>
             </div>
-            <p class="mt-[9px] font-extrabold text-xs text-[#666666]"><?= $arr_Data['STR_BRAND'] ?></p>
-            <p class="mt-[5px] font-extrabold text-lg text-[#333333]"><?= $arr_Data['STR_GOODNAME'] ?></p>
+            <p class="mt-[9px] font-extrabold text-[14px] leading-4 text-[#666666]"><?= $arr_Data['STR_BRAND'] ?></p>
+            <p class="mt-[5px] font-extrabold text-lg leading-5 text-[#333333]"><?= $arr_Data['STR_GOODNAME'] ?></p>
             <?php
             switch ($arr_Data['INT_TYPE']) {
                 case 1:
             ?>
-                    <p class="mt-[15px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-extrabold text-lg text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
+                    <p class="mt-[15px] font-semibold text-[14px] text-[#666666]">월정액 구독 전용</p>
+                    <div class="mt-[7px] flex gap-2 items-end">
+                        <p class="font-extrabold text-lg leading-5 text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                     </div>
                 <?php
                     break;
 
                 case 2:
                 ?>
-                    <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-extrabold text-lg text-[#00402F]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                        <p class="font-extrabold text-lg text-[#333333]">일 <?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                        <p class="font-bold text-xs text-[#666666]">멤버십 혜택가</p>
+                    <?php
+                    if ($rent_membership_Data) {
+                    ?>
+                        <p class="mt-[15px] font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                    <?php
+                    } else {
+                    ?>
+                        <p class="mt-[15px] font-semibold text-[14px] leading-4 text-[#666666]">할인가</p>
+                    <?php
+                    }
+                    ?>
+                    <div class="mt-[7px] flex gap-2 items-end">
+                        <p class="font-extrabold text-lg leading-5 text-[#00402F] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
+                        <p class="font-extrabold text-lg leading-5 text-[#333333]">일 <?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                        <?php
+                        if ($rent_membership_Data) {
+                        ?>
+                            <p class="font-semibold text-[14px] leading-4 text-[#666666]">멤버십 혜택가</p>
+                        <?php
+                        } else {
+                        ?>
+                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <?php
+                        }
+                        ?>
                     </div>
                 <?php
                     break;
                 case 3:
                 ?>
                     <p class="mt-[15px] font-bold text-xs line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-                    <div class="mt-[7px] flex gap-2 items-center">
-                        <p class="font-extrabold text-lg text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                        <p class="font-extrabold text-lg text-[#333333]"><?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                    <div class="mt-[7px] flex gap-2 items-end">
+                        <p class="font-extrabold text-lg leading-5 text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?></p>
+                        <p class="font-extrabold text-lg leading-5 text-[#333333]"><?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         <p class="font-bold text-xs text-[#666666]">최대 할인적용가</p>
                     </div>
             <?php
@@ -217,7 +250,7 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <!-- 프리미엄 멤버십 (정기결제) -->
             <div class="flex px-[14px] mt-4 w-full">
                 <div class="flex flex-col gap-2.5 w-full border-[0.72px] border-solid border-[#DDDDDD] bg-[#FFF3E1] p-[14px]">
-                    <div x-data="{ checked: <?= $subscription_Data ? 'true' : 'false' ?> }" class="flex flex-row gap-1.5 items-center">
+                    <div x-data="{ checked: <?= $subscription_membership_Data ? 'true' : 'false' ?> }" class="flex flex-row gap-1.5 items-center">
                         <div class="flex w-4 h-4">
                             <svg x-show="!checked" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.36" y="0.36" width="15.28" height="15.28" fill="white" stroke="#DDDDDD" stroke-width="0.72" />
@@ -293,11 +326,22 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">렌트기간</p>
-                        <p class="font-bold text-xs text-[#666666]">최소 3일 ~ 최대 12일</p>
+                        <?php
+                        if ($arr_Data['INT_TYPE'] == 1) {
+                        ?>
+                            <p class="font-semibold text-xs text-[#666666]">무제한</p>
+                        <?php
+                        } else {
+                        ?>
+                            <p class="font-semibold text-xs text-[#666666]">최소 3일 ~ 최대 12일</p>
+                        <?php
+                        }
+                        ?>
+
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">배송정보</p>
-                        <p class="font-bold text-xs text-[#666666]">국내배송(무료배송)</p>
+                        <p class="font-semibold text-xs text-[#666666]">국내배송(무료배송)</p>
                     </div>
                 </div>
             </div>
@@ -305,40 +349,46 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
         }
         ?>
 
-        <!-- 구분선 -->
-        <hr class="mt-[15px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
+        <?php
+        if ($arr_Data['INT_TYPE'] != 3) {
+        ?>
+            <!-- 구분선 -->
+            <hr class="mt-[15px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
-        <!-- 최근상태 -->
-        <div class="mt-[15px] px-[14px] flex flex-col gap-[13px] w-full">
-            <p class="font-extrabold text-sm text-[#666666]">최근 상태를 확인해주세요.</p>
-            <div class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
-                <?php
-                for ($i = 6; $i <= 12; $i++) {
-                    if ($arr_Data['STR_IMAGE' . $i]) {
-                ?>
-                        <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
-                            <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
-                        </div>
-                <?php
+            <!-- 최근상태 -->
+            <div class="mt-[15px] px-[14px] flex flex-col gap-[13px] w-full">
+                <p class="font-extrabold text-sm text-[#666666]">최근 상태를 확인해주세요.</p>
+                <div class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
+                    <?php
+                    for ($i = 6; $i <= 12; $i++) {
+                        if ($arr_Data['STR_IMAGE' . $i]) {
+                    ?>
+                            <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
+                                <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                            </div>
+                    <?php
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
 
         <!-- 메뉴 -->
-        <div x-data="{ menu: 1 }" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="menu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="menu = 1">
-                <p class="font-bold text-xs text-center" x-on:click="menu = 1">상품정보</p>
+        <div x-data="{ detailMenu: 1 }" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="menu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="menu = 2">
-                <p class="font-bold text-xs text-center">상세후기</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'">상세후기</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="menu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="menu = 3">
-                <p class="font-bold text-xs text-center">이용안내</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="menu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="menu = 4">
-                <p class="font-bold text-xs text-center">관련상품</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
             </div>
         </div>
 
@@ -424,40 +474,40 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <!-- 상품코드 -->
                 <div class="flex flex-col gap-1.5">
-                    <p class="font-extrabold text-xs text-black">상품코드</p>
-                    <p class="font-bold text-xs text-[#666666]"><?= $arr_Data['STR_BRAND'] ?></p>
+                    <p class="font-bold text-sm leading-4 text-black">상품코드</p>
+                    <p class="font-semibold text-xs text-[#666666]"><?= $arr_Data['STR_BRAND'] ?></p>
                 </div>
                 <!-- 기본정보 -->
                 <div class="flex flex-col gap-1.5">
-                    <p class="font-extrabold text-xs text-black">기본정보</p>
+                    <p class="font-bold text-sm leading-4 text-black">기본정보</p>
                     <div class="flex flex-row">
                         <div class="w-[55px]">
-                            <p class="font-bold text-xs text-[#666666]">소재</p>
+                            <p class="font-semibold text-xs text-[#666666]">소재</p>
                         </div>
-                        <p class="font-bold text-xs text-[#666666]"><?= $arr_Data['STR_MATERIAL'] ?></p>
+                        <p class="font-semibold text-xs text-[#666666]"><?= $arr_Data['STR_MATERIAL'] ?></p>
                     </div>
                     <div class="flex flex-row">
                         <div class="w-[55px]">
-                            <p class="font-bold text-xs text-[#666666]">색상</p>
+                            <p class="font-semibold text-xs text-[#666666]">색상</p>
                         </div>
-                        <div class="flex flex-row gap-[3px]">
-                            <div class="w-3 h-3 bg-<?= $arr_Data['STR_COLOR'] ?>"></div>
-                            <p class="font-bold text-xs text-[#666666]"><?= $arr_Data['STR_COLOR'] ?></p>
+                        <div class="flex flex-row gap-[3px] items-center">
+                            <div class="w-3 h-3 bg-[<?= $arr_Data['STR_COLOR_VAL'] ?: '#000000' ?>]"></div>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $arr_Data['STR_COLOR'] ?></p>
                         </div>
                     </div>
                     <div class="flex flex-row">
                         <div class="w-[55px]">
-                            <p class="font-bold text-xs text-[#666666]">원산지</p>
+                            <p class="font-semibold text-xs text-[#666666]">원산지</p>
                         </div>
-                        <p class="font-bold text-xs text-[#666666]"><?= $arr_Data['STR_ORIGIN'] ?></p>
+                        <p class="font-semibold text-xs text-[#666666]"><?= $arr_Data['STR_ORIGIN'] ?></p>
                     </div>
                 </div>
                 <!-- 사이즈정보 -->
                 <div class="flex flex-col">
-                    <p class="mt-1.5 font-extrabold text-xs text-black">사이즈정보</p>
+                    <p class="mt-1.5 font-bold text-sm leading-4 text-black">사이즈정보</p>
                     <div class="mt-1.5 flex flex-col gap-7 justify-center items-center w-full pt-7 pb-[20px] bg-white">
                         <img class="w-[222px] h-[252px]" src="images/product_size.png" alt="size" />
-                        <p class="font-bold text-[10px] text-center text-[#999999]">*측정 위치 및 방법에 따라 1~3cm 정도 오차가 생길 수 있습니다.</p>
+                        <p class="font-semibold text-[10px] text-center text-[#999999]">*측정 위치 및 방법에 따라 1~3cm 정도 오차가 생길 수 있습니다.</p>
                     </div>
 
                     <div class="mt-2.5 flex flex-col gap-1.5">
@@ -466,27 +516,27 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         ?>
                         <div class="flex items-center">
                             <div class="w-[65px]">
-                                <p class="font-bold text-xs text-[#666666]">A 가로</p>
+                                <p class="font-semibold text-xs text-[#666666]">A 가로</p>
                             </div>
-                            <p class="font-bold text-xs text-[#666666]"><?= $dimensions[0] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[0] ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
-                                <p class="font-bold text-xs text-[#666666]">B 폭</p>
+                                <p class="font-semibold text-xs text-[#666666]">B 폭</p>
                             </div>
-                            <p class="font-bold text-xs text-[#666666]"><?= $dimensions[1] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[1] ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
-                                <p class="font-bold text-xs text-[#666666]">C 높이</p>
+                                <p class="font-semibold text-xs text-[#666666]">C 높이</p>
                             </div>
-                            <p class="font-bold text-xs text-[#666666]"><?= $dimensions[2] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[2] ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
-                                <p class="font-bold text-xs text-[#666666]">D 스트랩</p>
+                                <p class="font-semibold text-xs text-[#666666]">D 스트랩</p>
                             </div>
-                            <p class="font-bold text-xs text-[#666666]"><?= str_replace('cm', '', $arr_Data['STR_LENGTH']) ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= str_replace('cm', '', $arr_Data['STR_LENGTH']) ?> cm</p>
                         </div>
                     </div>
                 </div>
@@ -517,25 +567,32 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         <!-- 리뷰혜택 이미지 -->
         <div class="mt-[15px] flex w-full px-[14px]">
-            <img src="images/review.png" alt="">
+            <div class="flex flex-col gap-[7px] w-full border-[0.72px] border-solid border-[#DDDDDD] px-[11px] py-[13px]">
+                <p class="font-bold text-sm leading-4 text-[#666666]">리뷰혜택</p>
+                <p class="font-normal text-xs leading-[17px] text-[#666666]">
+                    ✍️ 상품 리뷰 작성 시: 적립금 400원 지급<br>
+                    📷 포토 리뷰 작성 시: 적립금 1,000원 지급<br>
+                    🏆 베스트 리뷰 선정 시: 적립금 10,000원 추가 지급
+                </p>
+            </div>
         </div>
 
         <!-- 리뷰 -->
-        <div x-data="{ menu: 1 }" class="mt-[25px] flex flex-col px-[14px]">
+        <div x-data="{ reviewMenu: 1 }" class="mt-[25px] flex flex-col px-[14px]">
             <!-- 메뉴 -->
             <div class="flex gap-10 justify-center">
-                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="menu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="menu = 1">
-                    <p class="font-bold text-[11.9166px] text-center">해당 상품 리뷰</p>
+                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 1">
+                    <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 1 ? 'font-bold' : 'font-medium'">해당 상품 리뷰</p>
                 </div>
-                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="menu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="menu = 2">
-                    <p class="font-bold text-[11.9166px] text-center">관련 상품 리뷰</p>
+                <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 2">
+                    <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 2 ? 'font-bold' : 'font-medium'">관련 상품 리뷰</p>
                 </div>
             </div>
             <!-- 해당 상품 리뷰목록 -->
-            <div x-show="menu == 1" id="own_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+            <div x-show="reviewMenu == 1" id="own_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
             </div>
             <!-- 관련 상품 리뷰목록 -->
-            <div x-show="menu == 2" id="related_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+            <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
             </div>
         </div>
 
@@ -556,16 +613,16 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </span>
             </div>
             <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -렌트잇 이용내역과 상품에 따라, 주문 후 별도의 보증금과 고객님의 개인정보를 요청드릴 수 있습니다.
                 </p>
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -예약일 전에 상품이 도착한 경우, 해당 기간 만큼 무료로 더 사용 가능합니다.
                 </p>
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -반납일로부터 3일(주말/공휴일 제외) 이내 미반납 시 연체료가 발생합니다.
                 </p>
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -[렌트내역] > [상세보기] > [렌트 상품 사용감 확인] 페이지에서 보이는 상품 사진과 수령 직후 상품 상태가 다른 경우, 사용 전 에이블랑 고객센터로 알려주시길 바랍니다.
                 </p>
             </div>
@@ -585,10 +642,10 @@ $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </span>
             </div>
             <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -배송비는 무료입니다.
                 </p>
-                <p class="font-normal text-[10px] leading-[140%] text-[#666666]">
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -예약일 2일 전(영업일 기준)
                 </p>
             </div>
