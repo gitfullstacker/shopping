@@ -116,8 +116,10 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
     $review_img_list_result = mysql_query($SQL_QUERY);
 
     $images = '';
+    $index = 0;
     while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
-        $images .= '<img class="min-w-full h-[120px] object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" onerror="this.style.display = \'none\'" alt="">';
+        $index++;
+        $images .= '<img class="min-w-full object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" x-bind:class="selectedImage == ' . $index . ' ? \'h-[410px]\' : (selectedImage == 0 ? \'h-[120px]\' : \'hidden\')" onerror="this.style.display = \'none\'" alt="" x-on:click="selectedImage == ' . $index . ' ? (selectedImage = 0) : (selectedImage = ' . $index . ')">';
     }
 
     $result .= '
@@ -138,7 +140,7 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
             <p class="font-bold text-xs text-[#666666]">
             ' . strip_tags($row['BD_CONT']) . '
             </p>
-            <div class="grid grid-cols-3 gap-2 w-full">
+            <div x-data="{ selectedImage: 0 }" class="grid gap-2 w-full" x-bind:class="selectedImage == 0 ? \'grid-cols-3\' : \'grid-cols-1\'">
                 ' . $images . '
             </div>
         </div>';

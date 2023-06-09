@@ -145,6 +145,10 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
             const scrollPosition = this.$refs.sliderContainer.scrollLeft;
             const slider = Math.round(scrollPosition / containerWidth) + 1;
 
+            if (this.$refs.sliderContainer.scrollLeft > this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
+                this.$refs.sliderContainer.scrollLeft = 1;
+            }
+            
             this.slider = slider;
         },
         init() {
@@ -374,7 +378,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     for ($i = 6; $i <= 12; $i++) {
                         if ($arr_Data['STR_IMAGE' . $i]) {
                     ?>
-                            <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
+                            <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100" onclick="showRelativeImage(<?= $i - 6 ?>)">
                                 <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
                             </div>
                     <?php
@@ -404,7 +408,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
 
         <!-- 톱메뉴 -->
-        <div id="top_menu_panel" class="fixed top-[56px] flex justify-around bg-white border-b-[0.5px] border-solid border-[#E0E0E0] w-full max-w-[410px] z-10">
+        <div id="top_menu_panel" class="fixed top-[56px] flex justify-around bg-white border-b-[0.5px] border-solid border-[#E0E0E0] w-full max-w-[410px] z-10 hidden">
             <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1" onclick="scrollToDiv('menu_div1')">
                 <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
             </div>
@@ -619,10 +623,45 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                 </div>
                 <!-- 해당 상품 리뷰목록 -->
-                <div x-show="reviewMenu == 1" id="own_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+                <div x-show="reviewMenu == 1" class="mt-[27px] flex flex-col w-full">
+                    <p class="font-extrabold text-lg leading-5 text-black">REVIEW</p>
+                    <div class="mt-7 flex flex-row gap-[5px] w-full overflow-auto">
+                        <?php
+                        $SQL_QUERY =    'SELECT
+                                            B.IMG_F_NAME
+                                        FROM 
+                                            `' . $Tname . 'b_bd_data@01` A
+                                        LEFT JOIN
+                                            `' . $Tname . 'b_img_data@01` B
+                                        ON
+                                            A.CONF_SEQ=B.CONF_SEQ
+                                            AND
+                                            A.BD_SEQ=B.BD_SEQ
+                                        LEFT JOIN
+                                            `' . $Tname . 'comm_goods_master` C
+                                        ON
+                                            A.BD_ITEM1=C.STR_GOODCODE
+                                        WHERE
+                                            C.INT_TYPE=' . $arr_Data['INT_TYPE'] . '
+                                            AND C.STR_GOODCODE=' . $arr_Data['STR_GOODCODE'] . '
+                                            AND B.IMG_F_NAME <> ""
+                                            LIMIT 10';
+
+                        $review_img_list_result = mysql_query($SQL_QUERY);
+
+                        while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
+                        ?>
+                            <div class="flex-none w-20 h-20">
+                                <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" alt="">
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="mt-[38px] flex flex-col w-full" id="own_review_list"></div>
                 </div>
                 <!-- 관련 상품 리뷰목록 -->
-                <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col gap-7 w-full">
+                <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col w-full">
                 </div>
             </div>
         <?php
@@ -1275,6 +1314,38 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
     </div>
 
+    <div id="relative_image_panel" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+        <div class="flex flex-col items-center justify-center bg-white w-full h-full relative">
+            <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('relative_image_panel').classList.add('hidden');">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <div class="flex relative w-full">
+                <button class="flex justify-center items-center absolute top-[45%] left-0 w-[10%] h-[10%] bg-black bg-opacity-50" onclick="document.getElementById('scrollContainer').scrollLeft -= 410">
+                    <p class="font-extrabold text-base text-white">
+                        << /p>
+                </button>
+                <div id="scrollContainer" class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth">
+                    <?php
+                    for ($i = 6; $i <= 12; $i++) {
+                        if ($arr_Data['STR_IMAGE' . $i]) {
+                    ?>
+                            <div class="snap-always snap-center flex-none flex-grow-0 w-full h-[500px] border border-solid border-[#DDDDDD] bg-gray-100">
+                                <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                            </div>
+                    <?php
+                        }
+                    }
+                    ?>
+                </div>
+                <button class="flex justify-center items-center absolute top-[45%] right-0 w-[10%] h-[10%] bg-black bg-opacity-50" onclick="document.getElementById('scrollContainer').scrollLeft += 410">
+                    <p class="font-extrabold text-base text-white">></p>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <?php
     $hide_footer_menu = true;
     $show_footer_sbutton = true;
@@ -1411,5 +1482,11 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         function isElementHidden(element) {
             var rect = element.getBoundingClientRect();
             return rect.bottom <= 100;
+        }
+
+        function showRelativeImage(index) {
+            var imagePanel = document.getElementById('relative_image_panel');
+            imagePanel.classList.remove('hidden');
+            document.getElementById('scrollContainer').scrollLeft = 410 * index;
         }
     </script>
