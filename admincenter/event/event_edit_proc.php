@@ -11,6 +11,7 @@ $str_stitle = Fnc_Om_Conv_Default($_REQUEST['str_stitle'], "");
 $str_cont = Fnc_Om_Conv_Default($_REQUEST['str_cont'], "");
 $str_bigo = Fnc_Om_Conv_Default($_REQUEST['str_bigo'], "");
 $str_service = Fnc_Om_Conv_Default($_REQUEST['str_service'], "N");
+$str_auto_good = Fnc_Om_Conv_Default($_REQUEST[str_auto_good], "N");
 
 $str_del_img1 = Fnc_Om_Conv_Default($_REQUEST[str_del_img1], "N");
 $str_del_img2 = Fnc_Om_Conv_Default($_REQUEST[str_del_img2], "N");
@@ -48,7 +49,7 @@ switch ($RetrieveFlag) {
 
 		$str_Temp = Fnc_Om_File_Save($str_Image2, getRandomFileName($str_Image_name2), $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
-?>
+		?>
 			<script language="javascript">
 				alert("업로드에 실패하셨습니다.");
 				history.back();
@@ -60,9 +61,9 @@ switch ($RetrieveFlag) {
 		$str_dimage2 = $arr_Temp[0];
 
 		$SQL_QUERY = 	"INSERT INTO " . $Tname . "comm_event 
-							(STR_TITLE, STR_STITLE, STR_CONT, STR_BIGO, STR_IMAGE1, STR_IMAGE2, DTM_INDATE, STR_SERVICE, STR_GOODCODES) 
+							(STR_TITLE, STR_STITLE, STR_CONT, STR_BIGO, STR_IMAGE1, STR_IMAGE2, DTM_INDATE, STR_SERVICE) 
 						VALUES 
-							('$str_title', '$str_stitle', '$str_cont', '$str_bigo', '$str_dimage1', '$str_dimage2', '" . date("Y-m-d H:i:s") . "','$str_service', '')";
+							('$str_title', '$str_stitle', '$str_cont', '$str_bigo', '$str_dimage1', '$str_dimage2', '" . date("Y-m-d H:i:s") . "','$str_service')";
 
 		mysql_query($SQL_QUERY);
 
@@ -112,7 +113,6 @@ switch ($RetrieveFlag) {
 						,STR_IMAGE1='$str_dimage1'
 						,STR_IMAGE2='$str_dimage2'
 						,STR_SERVICE='$str_service'
-						,STR_GOODCODES=''
 					WHERE
 						INT_NUMBER='$str_no' ";
 
@@ -157,6 +157,32 @@ switch ($RetrieveFlag) {
 			window.location.href = "event_list.php";
 		</script>
 <?
+		exit;
+		break;
+	case "REF":
+
+		$arr_Set_Data = array();
+		$arr_Column_Name = array();
+
+		$arr_Column_Name[0]		= "STR_AUTO_GOOD";
+
+		$arr_Set_Data[0]		= $str_auto_good;
+
+		$arr_Sub = "";
+
+		for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+
+			if ($int_I != 0) {
+				$arr_Sub .=  ",";
+			}
+			$arr_Sub .=  $arr_Column_Name[$int_I] . "=" . "'" . $arr_Set_Data[$int_I] . "' ";
+		}
+
+		$Sql_Query = "UPDATE `" . $Tname . "comm_event` SET ";
+		$Sql_Query .= $arr_Sub;
+		$Sql_Query .= " WHERE INT_NUMBER='" . $str_no . "' ";
+		mysql_query($Sql_Query);
+
 		exit;
 		break;
 }

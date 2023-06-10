@@ -57,7 +57,7 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.* from ";
+$SQL_QUERY = "select a.*,(select count(b.str_goodcode) from " . $Tname . "comm_event_link b where b.int_number=a.int_number) as cnt2 from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_event a ";
 $SQL_QUERY .= "where a.int_number is not null ";
@@ -187,7 +187,14 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td>
                                                     <font class=small color=616161><? if (mysql_result($result, $i, str_service) == "Y") { ?>출력<? } else { ?>미출력<? } ?></font>
                                                 </td>
-                                                <td>자동(<input type="checkbox" />)0건 <a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>');"><img src="/admincenter/img/i_add.gif"></a></td>
+                                                <td>
+													<font class=ver81 color=616161>
+														자동(<input type="checkbox" name="str_auto_good<?= mysql_result($result, $i, int_number) ?>" value="Y" <? if (mysql_result($result, $i, str_auto_good) == "Y") { ?>checked<? } ?> class="null" onClick="fnc_re_f(this,<?= mysql_result($result, $i, int_number) ?>);" />)
+														<span id="idView_Re<?= mysql_result($result, $i, int_number) ?>" style="display:<? if (mysql_result($result, $i, str_auto_good) == "Y") { ?>none<? } ?>">
+															<span id="idView_Link<?= mysql_result($result, $i, int_number) ?>"><?= mysql_result($result, $i, cnt2) ?>건</span>
+													</font> <a href="javascript:popupLayer('good_connect_list.php?int_number=<?= mysql_result($result, $i, int_number) ?>',1000,500)"><img src="/admincenter/img/i_add.gif" border=0 align=absmiddle align="right"></a>
+													</span>
+												</td>
                                                 <td>
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
                                                 </td>
