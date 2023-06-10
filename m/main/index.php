@@ -111,8 +111,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 		$event_list_result = mysql_query($SQL_QUERY);
 		while ($row = mysql_fetch_assoc($event_list_result)) {
 		?>
-			<a href="/m/eventzone/detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="item">
-				<img class="object-cover" src="/admincenter/files/event/<?= $row['STR_IMAGE'] ?>" onerror="this.style.display = 'none'" alt="">
+			<a href="/m/eventzone/detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="item flex-none w-[273.16px] bg-gray-100">
+				<img class="min-w-full object-cover" src="/admincenter/files/event/<?= $row['STR_IMAGE2'] ?>" onerror="this.style.display = 'none'" alt="">
 			</a>
 		<?php
 		}
