@@ -59,7 +59,8 @@ if ($RetrieveFlag == "UPDATE") {
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="str_no" value="<?= $str_no ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
-								<input type="hidden" name="str_dimage" value="<?= $arr_Data['STR_IMAGE'] ?>">
+								<input type="hidden" name="str_dimage1" value="<?= $arr_Data['STR_IMAGE1'] ?>">
+								<input type="hidden" name="str_dimage2" value="<?= $arr_Data['STR_IMAGE2'] ?>">
 								<input type="hidden" name="Obj">
 
 								<table class=tb>
@@ -72,27 +73,81 @@ if ($RetrieveFlag == "UPDATE") {
 										</td>
 									</tr>
 									<tr>
-										<td>내용</td>
+										<td>소제목(부제목)</td>
 										<td colspan="3">
-											<textarea name="str_cont" rows="6" style="width:400px;"><?= $arr_Data['STR_CONT'] ?></textarea>
+											<textarea name="str_stitle" rows="6" style="width:400px;"><?= $arr_Data['STR_STITLE'] ?></textarea>
 										</td>
 									</tr>
 									<tr>
-										<td>이미지</td>
+										<td>카테고리 배너</td>
 										<td colspan=3>
 											<table class=tb>
 												<tr>
-													<td width="100%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE'] ?>&nbsp;</td>
+													<td width="100%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE1'] ?>&nbsp;</td>
 												</tr>
 												<tr>
-													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE'] ?>" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE1'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE1'] ?>" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
 												</tr>
 											</table>
 										</td>
 									</tr>
 									<tr>
-										<td>이미지</td>
-										<td colspan="3"><input type="file" name="str_Image" style="width:200;" onChange="uploadImageCheck(this)"> <? if (!($arr_Data['STR_IMAGE'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img" value="Y" class="null"><? } ?></td>
+										<td>카테고리 배너</td>
+										<td colspan="3"><input type="file" name="str_Image1" style="width:200;" onChange="uploadImageCheck(this)"> <? if (!($arr_Data['STR_IMAGE1'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img1" value="Y" class="null"><? } ?></td>
+									</tr>
+									<tr>
+										<td>홈배너</td>
+										<td colspan=3>
+											<table class=tb>
+												<tr>
+													<td width="100%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE2'] ?>&nbsp;</td>
+												</tr>
+												<tr>
+													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE2'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE2'] ?>" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>홈배너</td>
+										<td colspan="3"><input type="file" name="str_Image2" style="width:200;" onChange="uploadImageCheck(this)"> <? if (!($arr_Data['STR_IMAGE2'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_img2" value="Y" class="null"><? } ?></td>
+									</tr>
+									<tr>
+										<td>상세페이지</td>
+										<td colspan="3" style="padding-top:5px;padding-bottom:5px;">
+											<textarea name="str_cont" id="str_cont" rows="10" cols="100" style="width:100%; height:412px; display:none;"><?php echo stripslashes($arr_Data['STR_CONT']); ?></textarea>
+											<script type="text/javascript">
+												var oEditors = [];
+
+												// 추가 글꼴 목록
+												//var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];
+
+												nhn.husky.EZCreator.createInIFrame({
+													oAppRef: oEditors,
+													elPlaceHolder: "str_cont",
+													sSkinURI: "/_lib/smart/SmartEditor2Skin.html",
+													htParams: {
+														bUseToolbar: true, // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+														bUseVerticalResizer: true, // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+														bUseModeChanger: true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+														//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
+														fOnBeforeUnload: function() {
+															//alert("완료!");
+														}
+													}, //boolean
+													fOnAppLoad: function() {
+
+													},
+													fCreator: "createSEditor2"
+												});
+											</script>
+										</td>
+									</tr>
+									<tr>
+										<td>비고</td>
+										<td colspan="3">
+											<textarea name="str_bigo" rows="6" style="width:400px;"><?= $arr_Data['STR_BIGO'] ?></textarea>
+										</td>
 									</tr>
 									<tr>
 										<td>출력유무</td>

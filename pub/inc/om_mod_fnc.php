@@ -1367,10 +1367,14 @@ function rtn_mobile_chk()
 
 function getRandomFileName($fileName)
 {
-	$timestamp = time();
-	$randomFileName = $timestamp . '_' . mt_rand(); // Combining timestamp and a random number
-	$extension = pathinfo($fileName, PATHINFO_EXTENSION); // Get the file extension from the original file name
-	return $randomFileName . '.' . $extension; // Combine the random file name and extension
+	if ($fileName) {
+		$timestamp = time();
+		$randomFileName = $timestamp . '_' . mt_rand(); // Combining timestamp and a random number
+		$extension = pathinfo($fileName, PATHINFO_EXTENSION); // Get the file extension from the original file name
+		return $randomFileName . '.' . $extension; // Combine the random file name and extension
+	} else {
+		return '';
+	}
 }
 
 ?>

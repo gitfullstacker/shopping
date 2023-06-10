@@ -96,30 +96,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
 <script>
     $(document).ready(function() {
-        searchPlan();
-        searchEvent();
+        searchEvent(0, 1);
+        searchEvent(0, 2);
     });
 
-    function searchPlan(page = 0) {
-        url = "get_plan_list.php";
-        url += "?page=" + page;
-
-        $.ajax({
-            url: url,
-            success: function(result) {
-                $("#plan_list").html(result);
-            }
-        });
-    }
-
-    function searchEvent(page = 0) {
+    function searchEvent(page = 0, type) {
         url = "get_event_list.php";
         url += "?page=" + page;
+        url += "&int_type=" + type;
 
         $.ajax({
             url: url,
             success: function(result) {
-                $("#event_list").html(result);
+                switch (type) {
+                    case 1:
+                        $("#event_list").html(result);
+                        break;
+                    case 2:
+                        $("#plan_list").html(result);
+                        break;
+                }
+
             }
         });
     }

@@ -13,6 +13,8 @@ $Txt_title = Fnc_Om_Conv_Default($_REQUEST['Txt_title'], "");
 $Txt_sindate = Fnc_Om_Conv_Default($_REQUEST['Txt_sindate'], "");
 $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST['Txt_eindate'], "");
 
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
+$Str_Query = " and a.int_type = $int_type ";
 if ($Txt_title != "") {
     $Str_Query .= " and a.str_title like '%$Txt_title%' ";
 }
@@ -149,24 +151,26 @@ $total_record_limit = mysql_num_rows($result);
 
                                 <table width=100% cellpadding=0 cellspacing=0 border=0>
                                     <tr>
-                                        <td class=rnd colspan=7></td>
+                                        <td class=rnd colspan=8></td>
                                     </tr>
                                     <tr class=rndbg>
                                         <th>번호</th>
                                         <th>제목</th>
-                                        <th>내용</th>
+                                        <th>부제목</th>
+                                        <th>관련상품</th>
                                         <th>출력유무</th>
                                         <th>등록일</th>
                                         <th>수정</th>
                                         <th>삭제</th>
                                     </tr>
                                     <tr>
-                                        <td class=rnd colspan=7></td>
+                                        <td class=rnd colspan=8></td>
                                     </tr>
                                     <col width=5% align=center>
                                     <col width=10% align=left>
-                                    <col width=25% align=center>
+                                    <col width=20% align=center>
                                     <col width=5% align=center>
+                                    <col width=10% align=center>
                                     <col width=10% align=center>
                                     <col width=5% align=center>
                                     <col width=5% align=center>
@@ -179,10 +183,11 @@ $total_record_limit = mysql_num_rows($result);
                                                     <font class=ver81 color=616161><?= $article_num ?></font>
                                                 </td>
                                                 <td style="text-align:left;"><?= mysql_result($result, $i, str_title) ?></td>
-                                                <td style="text-align:left;"><?= mysql_result($result, $i, str_cont) ?></td>
+                                                <td style="text-align:left;"><?= mysql_result($result, $i, str_stitle) ?></td>
                                                 <td>
                                                     <font class=small color=616161><? if (mysql_result($result, $i, str_service) == "Y") { ?>출력<? } else { ?>미출력<? } ?></font>
                                                 </td>
+                                                <td>자동(<input type="checkbox" />)0건 <a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>');"><img src="/admincenter/img/i_add.gif"></a></td>
                                                 <td>
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
                                                 </td>
@@ -190,7 +195,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan=7 class=rndline></td>
+                                                <td colspan=8 class=rndline></td>
                                             </tr>
                                             <?
                                             $article_num--;

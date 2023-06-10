@@ -7,12 +7,20 @@ $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
 $str_title = Fnc_Om_Conv_Default($_REQUEST['str_title'], "");
+$str_stitle = Fnc_Om_Conv_Default($_REQUEST['str_stitle'], "");
 $str_cont = Fnc_Om_Conv_Default($_REQUEST['str_cont'], "");
+$str_bigo = Fnc_Om_Conv_Default($_REQUEST['str_bigo'], "");
 $str_service = Fnc_Om_Conv_Default($_REQUEST['str_service'], "N");
 
-$str_dimage = Fnc_Om_Conv_Default($_REQUEST['str_dimage'], "");
-$str_Image = $_FILES['str_Image']['tmp_name'];
-$str_Image_name = $_FILES['str_Image']['name'];
+$str_del_img1 = Fnc_Om_Conv_Default($_REQUEST[str_del_img1], "N");
+$str_del_img2 = Fnc_Om_Conv_Default($_REQUEST[str_del_img2], "N");
+
+$str_dimage1 = Fnc_Om_Conv_Default($_REQUEST['str_dimage1'], "");
+$str_Image1 = $_FILES['str_Image1']['tmp_name'];
+$str_Image_name1 = $_FILES['str_Image1']['name'];
+$str_dimage2 = Fnc_Om_Conv_Default($_REQUEST['str_dimage2'], "");
+$str_Image2 = $_FILES['str_Image2']['tmp_name'];
+$str_Image_name2 = $_FILES['str_Image2']['name'];
 
 $chkItem1 = Fnc_Om_Conv_Default($_REQUEST['chkItem1'], "");
 
@@ -25,7 +33,7 @@ if (!is_dir($str_Add_Tag)) {
 switch ($RetrieveFlag) {
 	case "INSERT":
 
-		$str_Temp = Fnc_Om_File_Save($str_Image, getRandomFileName($str_Image_name), $str_dimage, '', '', $str_del_img, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image1, getRandomFileName($str_Image_name1), $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 ?>
 			<script language="javascript">
@@ -36,12 +44,25 @@ switch ($RetrieveFlag) {
 			exit;
 		}
 		$arr_Temp = $str_Temp[1];
-		$str_dimage = $arr_Temp[0];
+		$str_dimage1 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image2, getRandomFileName($str_Image_name2), $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage2 = $arr_Temp[0];
 
 		$SQL_QUERY = 	"INSERT INTO " . $Tname . "comm_event 
-							(STR_TITLE, STR_CONT, STR_IMAGE, DTM_INDATE, STR_SERVICE, STR_GOODCODES) 
+							(STR_TITLE, STR_STITLE, STR_CONT, STR_BIGO, STR_IMAGE1, STR_IMAGE2, DTM_INDATE, STR_SERVICE, STR_GOODCODES) 
 						VALUES 
-							('$str_title', '$str_cont', '$str_dimage', '" . date("Y-m-d H:i:s") . "','$str_service', '')";
+							('$str_title', '$str_stitle', '$str_cont', '$str_bigo', '$str_dimage1', '$str_dimage2', '" . date("Y-m-d H:i:s") . "','$str_service', '')";
 
 		mysql_query($SQL_QUERY);
 
@@ -57,7 +78,7 @@ switch ($RetrieveFlag) {
 
 	case "UPDATE":
 
-		$str_Temp = Fnc_Om_File_Save($str_Image, getRandomFileName($str_Image_name), $str_dimage, '', '', $str_del_img, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image1, getRandomFileName($str_Image_name1), $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
 			<script language="javascript">
@@ -68,12 +89,28 @@ switch ($RetrieveFlag) {
 			exit;
 		}
 		$arr_Temp = $str_Temp[1];
-		$str_dimage = $arr_Temp[0];
+		$str_dimage1 = $arr_Temp[0];
+
+		$str_Temp = Fnc_Om_File_Save($str_Image2, getRandomFileName($str_Image_name2), $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
+		if ($str_Temp[0] == "0") {
+		?>
+			<script language="javascript">
+				alert("업로드에 실패하셨습니다.");
+				history.back();
+			</script>
+		<?
+			exit;
+		}
+		$arr_Temp = $str_Temp[1];
+		$str_dimage2 = $arr_Temp[0];
 
 		$SQL_QUERY = " UPDATE " . $Tname . "comm_event SET ";
 		$SQL_QUERY .= 	"STR_TITLE='$str_title'
+						,STR_STITLE='$str_stitle'
 						,STR_CONT='$str_cont'
-						,STR_IMAGE='$str_dimage'
+						,STR_BIGO='$str_bigo'
+						,STR_IMAGE1='$str_dimage1'
+						,STR_IMAGE2='$str_dimage2'
 						,STR_SERVICE='$str_service'
 						,STR_GOODCODES=''
 					WHERE
@@ -93,7 +130,8 @@ switch ($RetrieveFlag) {
 		for ($i = 0; $i < count($chkItem1); $i++) {
 
 			$SQL_QUERY =	" SELECT
-								STR_IMAGE
+								STR_IMAGE1,
+								STR_IMAGE2
 							FROM "
 				. $Tname . "comm_event
 							WHERE
@@ -103,8 +141,11 @@ switch ($RetrieveFlag) {
 			$rcd_cnt = mysql_num_rows($arr_img_Data);
 
 			if ($rcd_cnt) {
-				if (mysql_result($arr_img_Data, 0, STR_IMAGE) != "") {
-					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE));
+				if (mysql_result($arr_img_Data, 0, STR_IMAGE1) != "") {
+					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE1));
+				}
+				if (mysql_result($arr_img_Data, 0, STR_IMAGE2) != "") {
+					Fnc_Om_File_Delete($str_Add_Tag, mysql_result($arr_img_Data, 0, STR_IMAGE2));
 				}
 			}
 
