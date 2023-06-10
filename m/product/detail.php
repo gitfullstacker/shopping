@@ -1287,7 +1287,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </svg>
             </button>
             <div class="mt-[46px] flex flex-col gap-[9px] border-t-[0.5px] border-[#E0E0E0] w-full px-7 py-[15px]">
-                <p class="font-bold text-xs leading-[14px] text-black">가브리엘 스몰 백팩</p>
+                <p class="font-bold text-sm leading-4 text-black"><?= $arr_Data['STR_GOODNAME'] ?></p>
                 <div class="flex justify-between items-start">
                     <div class="flex flex-row">
                         <button class="flex justify-center items-center border border-solid border-[#D9D9D9] w-[22px] h-[22px]" x-on:click="removeVintageCount()">
@@ -1298,17 +1298,17 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-base leading-[16px] text-[#666666]">+</p>
                         </button>
                     </div>
-                    <p x-text="vintageMoney.toLocaleString() + '원'">2,400,000원</p>
+                    <p class="font-semibold text-sm leading-4 text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                 </div>
             </div>
             <div class="flex flex-row gap-[19px] border-t-[0.5px] border-[#E0E0E0] w-full px-7 py-[15px]">
-                <p>주문금액</p>
+                <p class="font-semibold text-sm leading-4 text-black">주문금액</p>
                 <div class="flex flex-col gap-[5px]">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="vintageOMoney.toLocaleString() + '원'">2,700,000원</p>
                     <div class="flex flex-row gap-2 items-end">
                         <p class="font-extrabold text-lg leading-5 text-[#7E6B5A]"><?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>%</p>
-                        <p class="font-extrabold text-lg leading-5 text-[#333333A]" x-text="vintageOMoney.toLocaleString() + '원'">2,400,000원</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#7E6B5A]">최대 할인적용가</p>
+                        <p class="font-extrabold text-lg leading-5 text-[#333333A]" x-text="vintageMoney.toLocaleString() + '원'">2,400,000원</p>
+                        <p class="font-bold text-sm leading-4 text-[#7E6B5A]">최대 할인적용가</p>
                     </div>
                 </div>
             </div>
