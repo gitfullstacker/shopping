@@ -85,7 +85,6 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div x-data="{
-    detailMenu: 0,
     rentDate: null,
     vintageCount: 0,
     vintageOMoney: 0,
@@ -393,33 +392,33 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         <!-- 메뉴 -->
         <div id="menu_panel" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1" onclick="scrollToDiv('menu_div1')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2" onclick="scrollToDiv('menu_div2')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3" onclick="scrollToDiv('menu_div3')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4" onclick="scrollToDiv('menu_div4')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
             </div>
         </div>
 
         <!-- 톱메뉴 -->
         <div id="top_menu_panel" class="fixed top-[56px] flex justify-around bg-white border-b-[0.5px] border-solid border-[#E0E0E0] w-full max-w-[410px] z-10 hidden">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 1" onclick="scrollToDiv('menu_div1')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 2" onclick="scrollToDiv('menu_div2')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 3" onclick="scrollToDiv('menu_div3')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="detailMenu = 4" onclick="scrollToDiv('menu_div4')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
             </div>
         </div>
 
@@ -1184,8 +1183,10 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <div class="flex flex-col w-full">
                         <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                         <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
-                            <p class="w-[53px] font-bold text-xs leading-[14px] text-black">출고일</p>
-                            <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
+                            <div class="flex">
+                                <p class="w-[53px] font-bold text-xs leading-[14px] text-black">출고일</p>
+                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -1207,7 +1208,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             </div>
                         </div>
                         <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="flex flex-col gap-[8.62px] px-7 py-5">
+                        <div class="flex flex-row px-7 py-5">
                             <p class="w-[53px] font-bold text-xs leading-[14px] text-black">주문금액</p>
                             <div class="flex flex-col gap-[4.79px]">
                                 <p class="font-bold text-xs leading-[14px] line-through text-[#666666]"><?= number_format($arr_Data['INT_PRICE']) ?></p>
@@ -1254,7 +1255,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 0.00023987C17.713 0.00023987 21.2739 1.47517 23.8995 4.10066C26.5251 6.72616 28 10.2873 28 14.0001C28 17.7129 26.5251 21.274 23.8995 23.8996C21.274 26.5251 17.7129 28 14 28C10.2871 28 6.7261 26.5251 4.10046 23.8996C1.47494 21.2741 0 17.7129 0 14.0001C0.00398445 10.2883 1.48034 6.72988 4.1049 4.10486C6.7297 1.48033 10.288 0.00396002 14.0002 0L14 0.00023987ZM14 22.4002C14.3713 22.4002 14.7275 22.2527 14.99 21.99C15.2525 21.7275 15.3999 21.3715 15.3999 21.0002C15.3999 20.6288 15.2525 20.2727 14.99 20.0102C14.7275 19.7477 14.3713 19.6001 14 19.6001C13.6287 19.6001 13.2725 19.7477 13.01 20.0102C12.7475 20.2727 12.6001 20.6288 12.6001 21.0002C12.6001 21.3715 12.7475 21.7275 13.01 21.99C13.2725 22.2527 13.6287 22.4002 14 22.4002ZM12.6001 16.8002C12.6001 17.3004 12.8668 17.7626 13.2999 18.0126C13.733 18.2627 14.2669 18.2627 14.7001 18.0126C15.1332 17.7626 15.3999 17.3004 15.3999 16.8002V6.99976C15.3999 6.4996 15.1332 6.03741 14.7001 5.78733C14.267 5.53725 13.7331 5.53725 13.2999 5.78733C12.8668 6.03741 12.6001 6.4996 12.6001 6.99976V16.8002Z" fill="white" />
                     </svg>
-                    <p class="font-bold text-[15px] leading-[17px] text-center text-white">
+                    <p class="font-medium text-[15px] leading-[17px] text-center text-white">
                         해당 날짜엔 이용 시작이 불가합니다.<br>
                         다른 시작일을 선택해주세요.
                     </p>
@@ -1474,10 +1475,25 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
             if (isElementHidden(staticMenu)) {
                 topMenu.classList.remove('hidden');
+                setTopMenu();
             } else {
                 topMenu.classList.add('hidden');
             }
         });
+
+        function setTopMenu() {
+            for (var i = 1; i <= 4; i++) {
+                var menu = document.getElementById('menu_div' + i);
+
+                if (menu.getBoundingClientRect().top < 100) {
+                    Alpine.store('detailMenu', i);
+                }
+            }
+        }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('detailMenu', 0);
+        })
 
         function isElementHidden(element) {
             var rect = element.getBoundingClientRect();

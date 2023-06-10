@@ -60,14 +60,14 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
             if ($rent_Data) {
             ?>
                 <!-- 가입자인 경우 -->
-                <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
+                <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
                     <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                         <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#BCDDB1" />
                         </svg>
                     </div>
-                    <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">BLANC RENT CARD</p>
-                    <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">
+                    <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">BLANC RENT CARD</p>
+                    <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
                         블랑 렌트 멤버십 혜택이 렌트시 적용됩니다.<br>
                         다음 달 01일에 자동 결제됩니다.
                     </p>
@@ -90,14 +90,14 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
                 <!-- 미가입자인 경우 -->
                 <div class="flex flex-col items-center w-full">
-                    <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
+                    <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
                         <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                             <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F5F5F5" />
                             </svg>
                         </div>
-                        <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">MEMBERSHIP CARD</p>
-                        <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">
+                        <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
+                        <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
                             프리미엄 멤버십 미가입자입니다.<br>
                             멤버십 가입 후 다양한 가방을 구독해보세요!
                         </p>
@@ -114,18 +114,27 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div x-show="type == 2" class="mt-[15px] flex flex-col items-center w-full" style="display: none;">
             <?php
             if ($subscription_Data) {
+                $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
+
+                $current_date = date('Y-m-d'); // Get the current date
+
+                $datetime1 = new DateTime($current_date);
+                $datetime2 = new DateTime($end_date);
+                $interval = $datetime1->diff($datetime2);
+
+                $days_left = $interval->format('%d');
             ?>
                 <!-- 가입자인 경우 -->
-                <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
+                <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
                     <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                         <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F1D58E" />
                         </svg>
                     </div>
-                    <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">MEMBERSHIP CARD</p>
-                    <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">
-                        구독권 기간: 2023. 01. 01 ~ 2023. 01. 31<br>
-                        프리미엄 구독권 잔여일이 30일 남았습니다.
+                    <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
+                    <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
+                        구독권 기간: <?= date('Y. m. d', strtotime($subscription_Data['DTM_SDATE'])) ?> ~ <?= date('Y. m. d', strtotime($subscription_Data['DTM_EDATE'])) ?><br>
+                        프리미엄 구독권 잔여일이 <span class="font-bold underline"><?= $days_left ?></span>일 남았습니다.
                     </p>
                 </div>
                 <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
@@ -149,14 +158,14 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
                 <!-- 미가입자인 경우 -->
                 <div class="flex flex-col items-center w-full">
-                    <div class="w-[210px] h-[140px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
+                    <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
                         <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                             <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F5F5F5" />
                             </svg>
                         </div>
-                        <p class="mt-[15px] font-extrabold text-[11px] leading-3 text-center text-black">MEMBERSHIP CARD</p>
-                        <p class="mt-2 font-bold text-[8px] leading-[10px] text-center text-black">
+                        <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
+                        <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
                             프리미엄 멤버십 미가입자입니다.<br>
                             멤버십 가입 후 다양한 가방을 구독해보세요!
                         </p>

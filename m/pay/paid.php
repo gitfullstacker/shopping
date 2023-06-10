@@ -34,10 +34,10 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <div class="mt-[30px] flex flex-col items-center w-full">
     <p class="font-extrabold text-lg leading-5 text-center text-[#333333]">주문완료</p>
     <div class="mt-[25px] w-[280px] h-[163px] flex justify-center items-center">
-        <img class="w-full h-full" src="images/<?= $product_Data['INT_TYPE'] == 1 ? 'paid1.png' : 'paid.png' ?>" alt="successful">
+        <img class="w-full h-full" src="images/paid.png" alt="successful">
     </div>
     <p class="mt-5 font-bold text-[15px] leading-[17px] text-center text-black">주문이 완료되었습니다.</p>
-    <p class="mt-2.5 font-bold text-xs leading-[140%] text-center text-[#666666]"><?= date('Y. m. d', strtotime($product_Data['ORDER_DATE'])) ?> 주문하신 상품의 주문번호는 <br /> <b><?= $int_number ?></b> 입니다.</p>
+    <p class="mt-2.5 font-medium text-xs leading-[140%] text-center text-[#666666]"><?= date('Y. m. d', strtotime($product_Data['ORDER_DATE'])) ?> 주문하신 상품의 주문번호는 <br /> <span class="font-bold"><?= $int_number ?></span> 입니다.</p>
     <a href="/m/mine/order/detail.php?int_number=<?= $int_number ?>" class="mt-5 flex justify-center items-center w-[178px] h-[45px] bg-white border border-solid border-[#DDDDDD]">
         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">주문 상세보기</p>
     </a>
@@ -55,7 +55,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <img class="w-full" src="/admincenter/files/good/<?= $product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
         </div>
         <div class="flex flex-col justify-center">
-            <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+            <div class="flex justify-center items-center w-[34px] h-[18px] py-1 bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
                 <p class="font-normal text-[10px] leading-[11px] text-center text-white">
                     <?= ($product_Data['INT_TYPE'] == 1 ? '구독' : ($product_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?>
                 </p>
@@ -65,21 +65,21 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
             switch ($product_Data['INT_TYPE']) {
                 case 1:
             ?>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">월정액 구독 전용</p>
+                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999]">월정액 구독 전용</p>
                     <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#EEAC4C]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 무료교환</span> 잔여횟수 1회</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
+                    <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 2:
                 ?>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['PRODUCT_PRICE'] ?>원</p>
+                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['PRODUCT_PRICE'] ?>원</p>
                     <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['PRODUCT_PRICE'] - $product_Data['PRODUCT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
+                    <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 3:
                 ?>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= $product_Data['PRODUCT_PRICE'] ?>원</p>
+                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= $product_Data['PRODUCT_PRICE'] ?>원</p>
                     <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?></span> <?= number_format($product_Data['PRODUCT_PRICE'] - $product_Data['PRODUCT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
             <?php
                     break;

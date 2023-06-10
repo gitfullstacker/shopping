@@ -36,7 +36,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 카드가 등록된 상태 -->
         <div class="flex flex-col items-center gap-8 w-full">
             <!-- 카드 -->
-            <div class="mt-[22px] flex flex-col border border-solid border-black bg-[#2395FF] rounded-[10px] relative w-[210px] h-[140px]">
+            <div class="mt-[22px] flex flex-col border border-solid border-black bg-[#2395FF] rounded-[10px] relative w-[280px] h-[155px]">
                 <button class="absolute top-2 right-2 flex justify-center items-center w-[14px] h-[14px] bg-black">
                     <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
@@ -61,13 +61,13 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 등록된 카드가 없는 상태 -->
         <div class="flex">
             <!-- 카드 -->
-            <button class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[210px] h-[140px]" onclick="javascript:document.forms.auto_pay_form.submit();">
+            <button class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[280px] h-[155px]" onclick="javascript:document.forms.auto_pay_form.submit();">
                 <div class="flex justify-center items-center w-[42px] h-[42px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.17 0V7.84H16.8V9.31H9.17V17.64H7.63V9.31H0V7.84H7.63V0H9.17Z" fill="#DDDDDD" />
                     </svg>
                 </div>
-                <p class="font-bold text-[11px] leading-3 text-[#666666]">결제 카드를 등록해보세요.</p>
+                <p class="font-bold text-sm leading-4 text-[#666666]">결제 카드를 등록해보세요.</p>
             </button>
         </div>
     <?php

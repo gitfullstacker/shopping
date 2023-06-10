@@ -26,7 +26,7 @@
     <script src="/pub/js/dhtml_calendar.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
@@ -58,10 +58,10 @@
     </div>
 
     <script language="javascript">
-		window.addEventListener('load', function() {
-			var bodyElement = document.body;
-			bodyElement.style.display = 'block';
-		});
-	</script>
+        window.addEventListener('load', function() {
+            var bodyElement = document.body;
+            bodyElement.style.display = 'block';
+        });
+    </script>
 
     <div class="flex flex-col w-full pt-[55px] relative">
