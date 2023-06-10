@@ -47,7 +47,7 @@ $event_list_result = mysql_query($SQL_QUERY);
 $result = '<div class="flex flex-col gap-[13px] w-full">';
 while ($row = mysql_fetch_assoc($event_list_result)) {
     $result .= '
-        <a href="event_detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex flex-col w-full px-3 pb-[13.8px] border-b-[0.5px] border-[#E0E0E0]">
+        <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex flex-col w-full px-3 pb-[13.8px] border-b-[0.5px] border-[#E0E0E0]">
             <div class="flex w-full h-[177px] rounded-lg bg-gray-100">
                 <img class="min-w-full object-cover rounded-lg" src="/admincenter/files/event/' . $row['STR_IMAGE1'] . '" onerror="this.style.display = \'none\'" alt="">
             </div>

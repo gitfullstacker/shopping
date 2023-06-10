@@ -63,21 +63,20 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="grid grid-cols-2 gap-x-[13.5px] gap-y-[30.45px] w-full">
             <?php
             $SQL_QUERY =    'SELECT 
-                                A.*, B.STR_CODE
+                                B.*, C.STR_CODE
                             FROM 
-                                ' . $Tname . 'comm_goods_master A
+                                ' . $Tname . 'comm_event_link A
                             LEFT JOIN
-                                ' . $Tname . 'comm_com_code B
+                                ' . $Tname . 'comm_goods_master B
                             ON
-                                A.INT_BRAND=B.INT_NUMBER
+                                A.STR_GOODCODE=B.STR_GOODCODE
                             LEFT JOIN
-                                ' . $Tname . 'comm_member_basket C
+                                ' . $Tname . 'comm_com_code C
                             ON
-                                A.STR_GOODCODE=C.STR_GOODCODE
-                                AND C.STR_USERID="' . $arr_Auth[0] . '"
+                                B.INT_BRAND=C.INT_NUMBER
                             WHERE 
-                                C.STR_USERID IS NULL
-                            ORDER BY A.INT_VIEW DESC
+                                A.INT_NUMBER = ' . $arr_Data['INT_NUMBER'] . '
+                            ORDER BY B.INT_VIEW DESC
                             LIMIT 4';
 
             $product_result = mysql_query($SQL_QUERY);

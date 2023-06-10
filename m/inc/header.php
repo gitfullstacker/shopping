@@ -55,7 +55,7 @@
 		$arr_Rlt_Data = mysql_query($SQL_QUERY);
 		$event_Data = mysql_fetch_assoc($arr_Rlt_Data);
 		?>
-		<a href="/m/eventzone/event_detail.php?int_number=<?= $event_Data['INT_NUMBER'] ?>" class="flex items-center justify-center h-[37.58px] px-4 bg-black">
+		<a href="/m/eventzone/detail.php?int_number=<?= $event_Data['INT_NUMBER'] ?>" class="flex items-center justify-center h-[37.58px] px-4 bg-black">
 			<p class="font-bold text-[13px] leading-[15px] text-white line-clamp-1"><?= $event_Data['STR_TITLE'] ?></p>
 		</a>
 		<?php
