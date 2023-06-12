@@ -14,7 +14,8 @@ $SQL_QUERY =    'SELECT
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 WHERE 
-                    A.STR_USERID="' . $arr_Auth[0] . '"';
+                    A.STR_USERID="' . $arr_Auth[0] . '"
+                    AND A.INT_STATE != 0';
 
 $result = mysql_query($SQL_QUERY);
 
@@ -42,6 +43,7 @@ $SQL_QUERY =    'SELECT
                     B.INT_BRAND=C.INT_NUMBER
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
+                    AND A.INT_STATE != 0
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
@@ -52,35 +54,153 @@ if (mysql_num_rows($order_list_result) > 0) {
     $result = '<div class="flex flex-col gap-[25px] w-full">';
     while ($row = mysql_fetch_assoc($order_list_result)) {
         $str_delivery_status = '이용중';
+        $str_action_buttons;
 
         switch ($row['ORDER_STATE']) {
-            case 0:
-                $str_delivery_status = '접수중';
-                break;
-
             case 1:
                 $str_delivery_status = '주문접수';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
+                    </div>
+                    <a href="/m/mine/question/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
+                    </a>
+                    <a href="/m/mine/order/extension.php?int_number=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
+                    </a>
+                    <button class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(' . $row['INT_NUMBER'] . ')">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">취소 신청</p>
+                    </button>
+                ';
                 break;
-
             case 2:
                 $str_delivery_status = '상품준비';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
+                    </div>
+                    <a href="/m/mine/question/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
+                    </a>
+                    <a href="/m/mine/order/extension.php?int_number=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
+                    </a>
+                ';
                 break;
-
             case 3:
                 $str_delivery_status = '배송중';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
+                    </div>
+                    <a href="/m/mine/question/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
+                    </a>
+                ';
                 break;
-
             case 4:
                 $str_delivery_status = '이용중';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
+                    </div>
+                    <button class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(' . $row['INT_NUMBER'] . ')">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">반납 신청</p>
+                    </button>
+                    ' . ($row['INT_TYPE'] == 2 ? '
+                    <a href="/m/mine/order/extension.php?int_number=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
+                    </a>
+                    <a href="/m/mine/review/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">리뷰 작성</p>
+                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                        </div>
+                    </a>
+                    ' : '
+                    <a href="/m/mine/review/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">리뷰 작성</p>
+                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                        </div>
+                    </a>
+                ');
                 break;
-
             case 5:
-                $str_delivery_status = '반납';
+                $str_delivery_status = '반납중';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">반납 조회</p>
+                    </div>
+                    <button class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">재이용 하기</p>
+                    </button>
+                    <a href="/m/mine/review/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">리뷰 작성</p>
+                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                        </div>
+                    </a>
+                ';
+                break;
+            case 10:
+                $str_delivery_status = '반납완료';
+                $str_action_buttons = '
+                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">재이용하기</p>
+                    </div>
+                    <a href="/m/mine/review/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">리뷰 작성</p>
+                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                        </div>
+                    </a>
+                ';
+                break;
+        }
+
+        $product_detail = '';
+
+        switch ($row['INT_TYPE']) {
+            case 1:
+                $product_detail = '
+                    <div class="w-[40px] h-[18px] flex justify-center items-center bg-[#EEAC4C]">
+                        <p class="font-normal text-[10px] leading-[11px] text-center text-white">구독</p>
+                    </div>
+                    <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
+                    <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~</p>
+                    <p class="mt-[3px] font-bold text-xs leading-[14px] text-[#999999]">반납: ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
+                    <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">프리미엄 구독권 사용</p>
+                ';
+                break;
+            case 2:
+                $product_detail = '
+                    <div class="w-[40px] h-[18px] flex justify-center items-center bg-[#00402F]">
+                        <p class="font-normal text-[10px] leading-[11px] text-center text-white">렌트</p>
+                    </div>
+                    <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
+                    <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
+                    <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE']) . '원</p>
+                ';
+                break;
+            case 3:
+                $product_detail = '
+                    <div class="w-[40px] h-[18px] flex justify-center items-center bg-[#7E6B5A]">
+                        <p class="font-normal text-[10px] leading-[11px] text-center text-white">빈티지</p>
+                    </div>
+                    <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
+                    <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">등급: UNUSED</p>
+                    <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE']) . '원</p>
+                ';
                 break;
         }
 
         $result .= '
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full" id="order_item_' . $row['INT_NUMBER'] . '">
             <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex justify-between items-center px-[14px] pb-3 border-b-[0.5px] border-[#E0E0E0]">
                 <div class="flex gap-[5px] items-center">
                     <p class="font-bold text-[15px] leading-[17px] text-black">' . $row['INT_NUMBER'] . '</p>
@@ -96,31 +216,14 @@ if (mysql_num_rows($order_list_result) > 0) {
                 <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-[#999999]">' . $str_delivery_status . '</p>
                 <div class="mt-3 flex gap-2.5 w-full">
                     <div class="flex justify-center items-center w-[120px] h-[120px] p-2.5 bg-[#F9F9F9] rounded-[6px]">
-                        <img src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" alt="product">
+                        <img src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" onerror="this.style.display = \'none\'" alt="product">
                     </div>
                     <div class="grow flex flex-col justify-center">
-                        <div class="w-[34px] h-[18px] flex justify-center items-center bg-[' . ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) . ']">
-                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">' . ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지')) . '</p>
-                        </div>
-                        <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
-                        <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
-                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]" style="display: ' . ($row['INT_TYPE'] == 3 ? 'none' : '') . '">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
-                        <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE']) . '원</p>
+                        ' . $product_detail . '
                     </div>
                 </div>
                 <div class="mt-[15px] grid grid-cols-2 gap-[5px]">
-                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
-                    </div>
-                    <a href="/m/mine/question/create.php?str_cart=' . $row['INT_NUMBER'] . '" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
-                    </a>
-                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
-                    </div>
-                    <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">취소 신청</p>
-                    </div>
+                    ' . $str_action_buttons . '
                 </div>
             </div>
         </div>';

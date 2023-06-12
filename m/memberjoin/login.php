@@ -22,10 +22,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 				<label for="idsession" class="font-bold text-xs leading-[14px] text-[#666666]">자동 로그인</label>
 			</div>
 			<div class="flex flex-row items-center divide-x divide-[#999999]">
-				<a href="#" class="px-[5px] font-medium text-[10px] leading-[10px] text-center text-[#999999]">
+				<a href="/m/memberjoin/idpw_search.php?menu=1" class="px-[5px] font-medium text-[10px] leading-[10px] text-center text-[#999999]">
 					아이디 찾기
 				</a>
-				<a href="#" class="px-[5px] font-medium text-[10px] leading-[10px] text-center text-[#999999]">
+				<a href="/m/memberjoin/idpw_search.php?menu=2" class="px-[5px] font-medium text-[10px] leading-[10px] text-center text-[#999999]">
 					비밀번호 찾기
 				</a>
 			</div>

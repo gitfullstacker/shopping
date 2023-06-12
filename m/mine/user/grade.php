@@ -36,7 +36,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="font-bold text-xs leading-[13px] text-black">
                     <span class="font-extrabold text-lg leading-5 text-black"><?= $arr_Data['STR_NAME'] ?></span> 님의 등급
                 </p>
-                <p class="font-bold text-xs leading-[14px] text-black"><?= $arr_Data['STR_USERID'] ?></p>
+                <p class="font-bold text-xs leading-[14px] text-black"><?= $arr_Data['STR_GRADE'] == 'B' ? 'BLACK' : 'GREEN' ?></p>
                 <p class="font-bold text-xs leading-[14px] text-black">2023.01.01 ~ 03.30</p>
             </div>
         </div>

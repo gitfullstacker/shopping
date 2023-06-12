@@ -1,7 +1,7 @@
 	function CheckValue(gbn) {
 		if (ValidChk(gbn)==false) return;
-		fnc_Iframe();
-		document.frm.target = "lbl_Iframe";
+		// fnc_Iframe();
+		// document.frm.target = "lbl_Iframe";
 		document.frm.gbn.value = gbn;
 		if (gbn=="1") {
 			document.frm.RetrieveFlag.value = "IDCHECK";

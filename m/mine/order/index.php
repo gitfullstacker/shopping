@@ -147,7 +147,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 FROM 
                                     ' . $Tname . 'comm_goods_cart A
                                 WHERE 
-                                    A.INT_STATE=5
+                                    A.INT_STATE=10
                                     AND A.STR_USERID="' . $arr_Auth[0] . '"';
 
                 $arr_Rlt_Data = mysql_query($SQL_QUERY);
@@ -172,6 +172,44 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 </div>
 
+<div id="cancel_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('cancel_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">취소 신청이 완료되었습니다.</p>
+        <a href="/m/product/index.php" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">다른 가방 렌트하기</p>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.52603 9.0481L5.45631 4.95636C5.50296 4.90765 5.53592 4.85488 5.55521 4.79805C5.5748 4.74122 5.58459 4.68033 5.58459 4.61538C5.58459 4.55044 5.5748 4.48955 5.55521 4.43272C5.53592 4.37589 5.50296 4.32312 5.45631 4.27441L1.52603 0.170489C1.41718 0.0568296 1.28112 0 1.11785 0C0.95457 0 0.814619 0.060889 0.697994 0.182667C0.581368 0.304445 0.523056 0.446519 0.523056 0.60889C0.523056 0.77126 0.581368 0.913335 0.697994 1.03511L4.12678 4.61538L0.697994 8.19566C0.589143 8.30932 0.534719 8.44928 0.534719 8.61555C0.534719 8.78214 0.593031 8.92632 0.709656 9.0481C0.826282 9.16988 0.962345 9.23077 1.11785 9.23077C1.27335 9.23077 1.40941 9.16988 1.52603 9.0481Z" fill="#666666" />
+            </svg>
+        </a>
+    </div>
+</div>
+
+<div id="return_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('return_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">반납 날짜를 선택해주세요.</p>
+        <div class="relative">
+            <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates">
+                <option value="">반납 날짜</option>
+                <option value="">2023-03-10</option>
+                <option value="">2023-03-11</option>
+            </select>
+            <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
+            </svg>
+        </div>
+    </div>
+</div>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
@@ -189,6 +227,61 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             url: url,
             success: function(result) {
                 $("#order_list").html(result);
+            }
+        });
+    }
+
+    function cancelOrder(int_cart) {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=CANCELORDER";
+        url += "&int_cart=" + int_cart;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                document.getElementById('cancel_dialog').classList.remove('hidden');
+                $("#order_item_" + int_cart).hide();
+            }
+        });
+    }
+
+    function returnOrder(int_cart) {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=RETURNORDER";
+        url += "&int_cart=" + int_cart;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                document.getElementById('return_dialog').classList.remove('hidden');
+
+                var currentDate = new Date();
+                var nextDate = new Date();
+                nextDate.setDate(currentDate.getDate() + 1);
+
+                var currentDateString = currentDate.toLocaleDateString();
+                var nextDateString = nextDate.toLocaleDateString();
+
+                var options = [{
+                        value: "",
+                        text: "반납 날짜"
+                    },
+                    {
+                        value: currentDateString,
+                        text: currentDateString
+                    },
+                    {
+                        value: nextDateString,
+                        text: nextDateString
+                    }
+                ];
+
+                $('#return_dates').html('');
+
+                $.each(options, function(index, option) {
+                    var formattedDate = option.value.split('-').reverse().join('-');
+                    $('#return_dates').append($('<option></option>').val(option.value).text(option.text));
+                });
             }
         });
     }

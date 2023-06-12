@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.INT_TYPE, B.STR_GOODNAME, B.INT_PRICE AS PRODUCT_PRICE, B.INT_DISCOUNT, C.STR_CODE, D.STR_NAME AS USER_NAME
+                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE AS PRODUCT_PRICE, B.INT_DISCOUNT, C.STR_CODE, D.STR_NAME AS USER_NAME
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -71,7 +71,7 @@ switch ($arr_Data['ORDER_STATE']) {
             <hr class="mt-3 border-t border-[#E0E0E0]" />
             <div class="mt-3 flex flex-row gap-[11px] w-full px-[14px]">
                 <div class="w-[120px] h-[120px] flex justify-center items-center p-2 bg-[#F9F9F9]">
-                    <img class="w-full" src="images/mockup/product.png" alt="">
+                    <img class="w-full" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
                 </div>
                 <div class="flex-1 flex flex-col justify-center w-full">
                     <div class="flex justify-center items-center w-[34px] h-[18px] bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) ?>]">
@@ -100,9 +100,9 @@ switch ($arr_Data['ORDER_STATE']) {
                 <a href="/m/mine/question/create.php?str_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
                 </a>
-                <div class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
-                </div>
+                </a>
             </div>
         </div>
         <!-- 주문정보 -->

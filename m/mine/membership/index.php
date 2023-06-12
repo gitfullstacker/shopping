@@ -72,9 +72,9 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         다음 달 01일에 자동 결제됩니다.
                     </p>
                 </div>
-                <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <a href="/m/mine/membership/cancel.php?int_type=1" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">렌트 멤버십 중단</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-[10px] leading-[140%] text-black">블랑 렌트 멤버십 중단 안내</p>
                     <p class="font-bold text-[10px] leading-[140%] text-[#999999]">
@@ -140,9 +140,9 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">구독권 연장 신청</p>
                 </button>
-                <button class="mt-[5px] w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <a href="/m/mine/membership/cancel.php?int_type=1" class="mt-[5px] w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">구독권 취소</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-[10px] leading-[140%] text-black">구독권 연장/취소 안내</p>
                     <p class="font-bold text-[10px] leading-[140%] text-[#999999]">

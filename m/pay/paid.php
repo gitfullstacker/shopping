@@ -6,7 +6,7 @@ $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 // 상품정보 얻기
 $SQL_QUERY =    'SELECT
-                    A.*, B.INT_TYPE, B.STR_GOODNAME, B.INT_PRICE, B.INT_DISCOUNT AS PRODUCT_PRICE, C.STR_CODE AS STR_BRAND
+                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE, B.INT_DISCOUNT AS PRODUCT_PRICE, C.STR_CODE AS STR_BRAND
                 FROM 
                     ' . $Tname . 'comm_goods_cart AS A
                 LEFT JOIN
