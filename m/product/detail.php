@@ -1025,7 +1025,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         showPrice = true;
                         areaDiscount = this.getAreaDiscount(date);
                     } else if (date > disableEndDay) {
-                        status = 1;
+                        status = 8;
                         showPrice = true;
                         areaDiscount = this.getAreaDiscount(date);
                     } else {
@@ -1060,7 +1060,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 dates.push({
                     day: day,
-                    // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7
+                    // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7, 시작날짜 선택시 선택가능: 8
                     status: status,
                     showPrice: showPrice,
                     price: price,
@@ -1226,7 +1226,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
                                     date.status == 5 ? 'bg-white text-[#DDDDDD]' : 
                                     date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
+                                    date.status == 8 ? 'bg-white text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <template x-if="date.status == 6 || date.status == 7">
                                             <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
                                                 <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
