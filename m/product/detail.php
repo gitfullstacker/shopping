@@ -336,7 +336,17 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         ?>
             <!-- 할인정보 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
-                <img class="min-w-full" src="images/discount.png" alt="">
+                <?php
+                $SQL_QUERY =    'SELECT A.STR_IMAGE1 
+                                FROM ' . $Tname . 'comm_banner A 
+                                WHERE 
+                                    A.INT_GUBUN=13 
+                                    AND A.STR_SERVICE="Y"
+                                LIMIT 1';
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
+                $discount_banner_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                ?>
+                <img class="min-w-full" src="/admincenter/files/bann/<?= $discount_banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">렌트기간</p>
