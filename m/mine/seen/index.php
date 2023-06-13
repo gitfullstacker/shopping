@@ -43,6 +43,17 @@ while ($row = mysql_fetch_assoc($seen_list_result)) {
         $productSeenByDate[$date] = array($row);
     }
 }
+
+// 금액정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div x-data="{ noData: <?= mysql_num_rows($seen_list_result) > 0 ? 'false' : 'true' ?> }" class="mt-[6px] flex flex-col w-full">
@@ -89,26 +100,32 @@ while ($row = mysql_fetch_assoc($seen_list_result)) {
                                     switch ($seenInfo['INT_TYPE']) {
                                         case 1:
                                     ?>
-                                            <div class="mt-2.5 flex gap-1 items-center">
-                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
-                                                <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
+                                            <div class="mt-2.5 flex flex-col gap-[3.4px]">
+                                                <p class="font-medium text-xs leading-[15px] text-[#999999]">월정액 구독 전용</p>
+                                                <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                             </div>
                                         <?php
                                             break;
 
                                         case 2:
                                         ?>
-                                            <div class="mt-2.5 flex gap-1 items-center">
-                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
-                                                <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">일</span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
+                                            <div class="mt-2.5 flex flex-col gap-[3.4px]">
+                                                <p class="font-bold text-xs leading-[14px] text-[#999999] line-through <?= $seenInfo['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($seenInfo['INT_PRICE']) ?>원</p>
+                                                <div class="flex gap-1 items-center">
+                                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
+                                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">일</span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
+                                                </div>
                                             </div>
                                         <?php
                                             break;
                                         case 3:
                                         ?>
-                                            <div class="mt-2.5 flex gap-1 items-center">
-                                                <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
-                                                <p class="font-bold text-[13px] leading-[15px] text-black"><?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
+                                            <div class="mt-2.5 flex flex-col gap-[3.4px]">
+                                                <p class="font-bold text-xs leading-[14px] text-[#999999] line-through <?= $seenInfo['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($seenInfo['INT_PRICE']) ?>원</p>
+                                                <div class="flex gap-1 items-center">
+                                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A]"><?= $seenInfo['INT_DISCOUNT'] ? $seenInfo['INT_DISCOUNT'] . '%' : '' ?></p>
+                                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium"></span> <?= number_format($seenInfo['INT_PRICE'] - $seenInfo['INT_PRICE'] * $seenInfo['INT_DISCOUNT'] / 100) ?>원</p>
+                                                </div>
                                             </div>
                                     <?php
                                             break;

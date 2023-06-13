@@ -20,21 +20,15 @@ function ValidChk() {
 		f.str_userid.focus();
 		return false;
 	}
-	if (chkSpace(f.str_passwd1.value)) {
-		document.getElementById('alert_password1').innerHTML = "패스워드를 입력해 주세요.";
+	if (!check_pass(frm.str_passwd1.value)) {
+		document.getElementById('alert_password1').innerHTML = "* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요.";
 		f.str_passwd1.focus();
 		return false;
 	} else {
 		document.getElementById('alert_password1').innerHTML = "";
 	}
-	if (isnum(frm.str_passwd1.value)) {
-		document.getElementById('alert_password1').innerHTML = "패스워드는 영문과 혼용하셔야 합니다.";
-		return false;
-	} else {
-		document.getElementById('alert_password1').innerHTML = "";
-	}
-	if (chkSpace(f.str_passwd2.value)) {
-		document.getElementById('alert_password2').innerHTML = "패스워드를 입력해 주세요.";
+	if (!check_pass(frm.str_passwd2.value)) {
+		document.getElementById('alert_password2').innerHTML = "* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요.";
 		f.str_passwd2.focus();
 		return false;
 	} else {
@@ -45,21 +39,21 @@ function ValidChk() {
 		return false;
 	}
 	if (chkSpace(f.str_hp2.value)) {
-		document.getElementById('alert_hp').innerHTML = "휴대폰을 입력해 주세요.";
+		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
 		f.str_hp2.focus();
 		return false;
 	} else {
 		document.getElementById('alert_hp').innerHTML = "";
 	}
 	if (chkSpace(f.str_hp3.value)) {
-		document.getElementById('alert_hp').innerHTML = "휴대폰을 입력해 주세요.";
+		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
 		f.str_hp3.focus();
 		return false;
 	} else {
 		document.getElementById('alert_hp').innerHTML = "";
 	}
 	if (chkSpace(f.str_name.value)) {
-		document.getElementById('alert_name').innerHTML = "이름을 입력해 주세요.";
+		document.getElementById('alert_name').innerHTML = "* 이름을 입력해 주세요.";
 		f.str_name.focus();
 		return false;
 	} else {
@@ -70,7 +64,7 @@ function ValidChk() {
 		return false;
 	}
 	if (!isValidEmail(document.frm.str_email.value)) {
-		document.getElementById('alert_email').innerHTML = "정확한 이메일 주소를 입력하세요.";
+		document.getElementById('alert_email').innerHTML = "* 정확한 이메일 주소를 입력하세요.";
 		document.frm.str_email.value = "";
 		return false;
 	} else {
@@ -81,15 +75,15 @@ function ValidChk() {
 function str_userid_check() {
 	if (_valid_length_check(1)) return false;
 	if (_is_hangle()) {
-		document.getElementById('idView_Proc').innerHTML = "한글은 사용하실수 없습니다.";
+		document.getElementById('idView_Proc').innerHTML = "* 한글은 사용하실수 없습니다.";
 		return false;
 	}
 	if (isnum(document.getElementById("str_userid").value)) {
-		document.getElementById('idView_Proc').innerHTML = "아이디는 영문과 혼용하셔야 합니다.";
+		document.getElementById('idView_Proc').innerHTML = "* 아이디는 영문과 혼용하셔야 합니다.";
 		return false;
 	}
 	if (document.getElementById("str_userid").value.length < 6 || document.getElementById("str_userid").value.length > 12) {
-		document.getElementById('idView_Proc').innerHTML = "아이디는 6-12자 입니다.";
+		document.getElementById('idView_Proc').innerHTML = "* 아이디는 6-12자 입니다.";
 		return false;
 	}
 	return true;
@@ -115,19 +109,8 @@ function str_userid_check2() {
 
 // 비밀번호
 function str_passwd_check() {
-	//valid check
-	if (document.frm.str_passwd1.value.length <= 0) {
-		document.getElementById('alert_password1').innerHTML = "패스워드를 입력하세요.";
-		return false;
-	}
-	if (document.frm.str_passwd2.value.length <= 0) {
-		document.getElementById('alert_password2').innerHTML = "패스워드를 한번 더 입력하세요.";
-		document.frm.str_passwd2.value = "";
-		return false;
-	}
-
 	if (document.frm.str_passwd1.value != document.frm.str_passwd2.value) {
-		document.getElementById('alert_password1').innerHTML = "패스워드를 정확히 입력하세요.";
+		document.getElementById('alert_password2').innerHTML = "* 비밀번호가 일치하지 않습니다.";
 		document.frm.str_passwd1.value = "";
 		document.frm.str_passwd2.value = "";
 		return false;
@@ -135,6 +118,24 @@ function str_passwd_check() {
 
 	if (_valid_length_check(2)) return false;
 	return true;
+}
+
+// 비밀번호
+function pass_check() {
+	if (!check_pass(frm.str_passwd1.value)) {
+		document.getElementById('alert_password1').innerHTML = "* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요.";
+	} else {
+		document.getElementById('alert_password1').innerHTML = "";
+	}
+}
+
+// 비밀번호
+function pass_con_check() {
+	if (document.frm.str_passwd1.value != document.frm.str_passwd2.value) {
+		document.getElementById('alert_password2').innerHTML = "* 비밀번호가 일치하지 않습니다.";
+	} else {
+		document.getElementById('alert_password2').innerHTML = "<span class='text-black'>* 비밀번호가 일치합니다.</span>";
+	}
 }
 
 function str_name_check() {
@@ -256,6 +257,24 @@ function isnum(NUM) {
 	return true;
 }
 
+// 영문, 숫자, 특수문자, 8-20자인지 체크
+function check_pass(strValue) {
+	const lower = /^(?=.*[a-z])/;
+	const upper = /^(?=.*[A-Z])/;
+	const nums = /^(?=.*\d)/;
+	const special = /^(?=.*[-+_!@#$%^&*., ?]).+$/;
+
+	if (!((lower.test(strValue) || upper.test(strValue)) && nums.test(strValue) && special.test(strValue))) {
+		return false;
+	}
+
+	if (strValue.length < 8 || strValue.length > 20) {
+		return false;
+	}
+
+	return true;
+}
+
 // 입력값이 NULL 인지 체크
 function chkSpace(strValue) {
 	var flag = true;
@@ -344,5 +363,38 @@ function fnc_cen() {
 		document.getElementById("cen").style.display = "";
 	} else {
 		document.getElementById("cen").style.display = "none";
+	}
+}
+
+function verifyPhone() {
+	var f = document.frm;
+
+	if (chkSpace(f.str_hp2.value)) {
+		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
+		f.str_hp2.focus();
+		return false;
+	}
+	if (chkSpace(f.str_hp3.value)) {
+		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
+		f.str_hp3.focus();
+		return false;
+	}
+
+	$('#phone_verify_btn p').html('인증완료');
+	$('#phone_verify_btn').prop('disabled', true);
+	$('#str_hp1').prop('disabled', true);
+	$('#str_hp2').prop('disabled', true);
+	$('#str_hp3').prop('disabled', true);
+}
+
+function setSameDeliveryInfo() {
+	if (document.getElementById('same_account').checked) {
+		$('#str_telep1').val($('#str_hp1').val());
+		$('#str_telep2').val($('#str_hp2').val());
+		$('#str_telep3').val($('#str_hp3').val());
+	} else {
+		$('#str_telep1').val();
+		$('#str_telep2').val();
+		$('#str_telep3').val();
 	}
 }

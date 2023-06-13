@@ -230,9 +230,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px] w-full">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" placeholder="010">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" placeholder="1234">
-                    <input type="number" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" maxlength="3" placeholder="010">
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" maxlength="4" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" maxlength="4" placeholder="5678">
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -449,7 +449,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                     <!-- 가입자 -->
                     <div class="mt-3 flex flex-col gap-[25px] items-center w-full">
-                        <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
+                        <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
                             <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                                 <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#F1D58E" />
@@ -474,14 +474,17 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                     <!-- 미가입자 -->
                     <div class="mt-3 flex justify-center items-center w-full">
-                        <div class="w-[280px] h-[155px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
+                        <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
                             <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                                 <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#D9D9D9" />
                                 </svg>
                             </div>
                             <p class="mt-[15px] font-extrabold text-[14px] leading-4 text-center text-[#666666]">MEMBERSHIP CARD</p>
-                            <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">프리미엄 멤버십 미가입자입니다. <br />멤버십 가입 후 다양한 가방을 구독해보세요!</p>
+                            <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">
+                                프리미엄 멤버십 미가입자입니다. <br>
+                                멤버십 가입 후 다양한 가방을 구독해보세요!<br>
+                            </p>
                         </div>
                     </div>
                 <?php
@@ -497,7 +500,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <?php
                     if ($payment_Data) {
                     ?>
-                        <div class="w-[280px] h-[155px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
+                        <div class="w-[280px] h-[165px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
                             <div class="flex p-[15px] h-[112px]">
                                 <p class="font-bold text-xs leading-[14px] text-white">삼성카드</p>
                             </div>
@@ -509,7 +512,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <?php
                     } else {
                     ?>
-                        <a href="/m/mine/payment/index.php" class="w-[280px] h-[155px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
+                        <a href="/m/mine/payment/index.php" class="w-[280px] h-[165px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
                             <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                                 <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.27684 0.225V8.065H16.9068V9.535H9.27684V17.865H7.73684V9.535H0.106836V8.065H7.73684V0.225H9.27684Z" fill="#DDDDDD" />

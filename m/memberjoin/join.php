@@ -12,32 +12,32 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 계정 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-[13px] leading-[15px] text-black">계정 정보 <span class="text-[#DA2727]">*</span></p>
+        <p class="font-extrabold text-sm leading-4 text-black">계정 정보 <span class="text-[#DA2727]">*</span></p>
         <div class="flex flex-col gap-[15px] w-full">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">아이디</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="idView_Proc"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">비밀번호</p>
-                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd1" maxlength="20" onKeyUp="input_cal_byte(this, 20);" placeholder="영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요">
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd1" maxlength="20" onKeyUp="pass_check();" placeholder="영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_password1"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">비밀번호 확인</p>
-                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd2" maxlength="20" onKeyUp="input_cal_byte(this, 20);" placeholder="비밀번호를 다시 입력해 주세요">
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd2" maxlength="20" onKeyUp="pass_con_check();" placeholder="비밀번호를 다시 입력해 주세요">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_password2"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이메일</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_email" placeholder="이메일">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_email" placeholder="이메일">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_email"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_hp1">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1">
                         <option value="010">010</option>
                         <option value="011">011</option>
                         <option value="016">016</option>
@@ -45,12 +45,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                         <option value="018">018</option>
                         <option value="019">019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_hp2" maxlength="4" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_hp3" maxlength="4" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" maxlength="4" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" maxlength="4" placeholder="5678">
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
-                <button type="button" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">변경</p>
+                <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">인증</p>
                 </button>
             </div>
         </div>
@@ -61,21 +61,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 배송지 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-[13px] leading-[15px] text-black">배송지 정보</p>
+        <p class="font-extrabold text-sm leading-4 text-black">배송지 정보</p>
         <div class="flex flex-col gap-[15px] w-full">
-            <div class="flex gap-[5px] items-center">
-                <input type="checkbox" class="w-[14px] h-[14px]" name="same_account" id="same_account" value="1" checked>
-                <label for="same_account" class="font-bold text-xs leading-[14px] text-[#666666]">회원정보와 동일</label>
+            <div x-data="{ checked: false }" class="flex gap-[5px] items-center">
+                <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="same_account" id="same_account" value="1" onchange="setSameDeliveryInfo()">
+                <label for="same_account" class="font-normal text-xs leading-[14px] text-[#666666]">회원정보와 동일</label>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_name" placeholder="에이블랑">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_name" id="str_name" placeholder="에이블랑">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_name"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep1">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep1" id="str_telep1">
                         <option value="010">010</option>
                         <option value="011">011</option>
                         <option value="016">016</option>
@@ -83,12 +83,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                         <option value="018">018</option>
                         <option value="019">019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" id="str_telep2" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" id="str_telep3" placeholder="5678">
                 </div>
-                <button type="button" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">변경</p>
-                </button>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <div id="layer" style="display:none;border:5px solid;position:fixed;width:300px;height:400px;left:50%;margin-left:-155px;top:50%;margin-top:-145px;overflow:hidden;-webkit-overflow-scrolling:touch;z-index:2000000000000000000000">
@@ -151,17 +148,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 <p class="font-bold text-xs leading-[14px] text-black">주소</p>
                 <div class="flex gap-[5px] items-center">
                     <div class="grow">
-                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" placeholder="우편번호" disabled>
+                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" placeholder="우편번호" disabled>
                     </div>
                     <a href="javascript:execDaumPostcode();" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </a>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" placeholder="기본주소" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" placeholder="기본주소" disabled>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" placeholder="상세 주소를 입력해 주세요">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" placeholder="상세 주소를 입력해 주세요">
                 </div>
             </div>
         </div>
@@ -172,17 +169,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 추가 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-[13px] leading-[15px] text-black">추가 정보</p>
+        <p class="font-extrabold text-sm leading-4 text-black">추가 정보</p>
         <div class="flex flex-col gap-[5px] w-full">
             <p class="font-bold text-xs leading-[14px] text-black">성별</p>
             <div class="flex gap-[15px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px]" name="str_sex" value="2" checked>
-                    <label for="woman" class="font-bold text-xs leading-[14px] text-[#666666]">여성</label>
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="2">
+                    <label for="woman" class="font-normal text-xs leading-[14px] text-[#666666]">여성</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px]" name="str_sex" value="1">
-                    <label for="man" class="font-bold text-xs leading-[14px] text-[#666666]">남성</label>
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="1">
+                    <label for="man" class="font-normal text-xs leading-[14px] text-[#666666]">남성</label>
                 </div>
             </div>
         </div>
@@ -190,7 +187,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">생년월일</p>
             <div class="grid grid-cols-3 gap-[5px] items-center">
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="str_birth_year">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_year">
                         <?php
                         for ($i = 0; $i < 100; $i++) {
                         ?>
@@ -206,7 +203,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     </span>
                 </div>
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="str_birth_month">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month">
                         <?php
                         for ($i = 0; $i < 12; $i++) {
                         ?>
@@ -222,7 +219,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     </span>
                 </div>
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="str_birth_day">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day">
                         <?php
                         for ($i = 0; $i < 31; $i++) {
                         ?>
@@ -246,27 +243,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 수신동의 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-[13px] leading-[15px] text-black">수신동의</p>
+        <p class="font-extrabold text-sm leading-4 text-black">수신동의</p>
         <div class="flex flex-col gap-2.5 w-full">
             <p class="font-bold text-xs leading-[14px] text-black">마케팅 수신동의</p>
             <div class="flex gap-[18px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px]" name="cform" checked>
-                    <label for="woman" class="font-bold text-xs leading-[14px] text-[#666666]">이메일 수신동의</label>
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="cform" id="cform">
+                    <label for="cform" class="font-normal text-xs leading-[14px] text-[#666666]">이메일 수신동의</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px]" name="agree_sms" id="agree_sms">
-                    <label for="man" class="font-bold text-xs leading-[14px] text-[#666666]">SMS 수신동의</label>
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="agree_sms" id="agree_sms">
+                    <label for="agree_sms" class="font-normal text-xs leading-[14px] text-[#666666]">SMS 수신동의</label>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="mt-[15px] px-[9px] py-[15px] bg-[#F5F5F5] w-full">
-        <p class="font-bold text-[10px] leading-[160%] text-[#999999]">
+        <p class="font-normal text-[10px] leading-[160%] text-[#999999]">
             수신동의를 하시면 에이블랑에서 제공하는 다양한 할인 혜택과 <br />이벤트/신상품 등의 정보를 만나실 수 있습니다.
         </p>
-        <p class="font-bold text-[10px] leading-[160%] text-black">
+        <p class="font-normal text-[10px] leading-[160%] text-black">
             주문 및 배송관련 SMS는 수신동의와 상관없이 자동 발송됩니다.
         </p>
     </div>

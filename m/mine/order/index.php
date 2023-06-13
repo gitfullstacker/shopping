@@ -55,7 +55,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
-                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">주문접수</p>
+                <p class="font-semibold text-xs leading-[14px] text-center text-[#666666]">주문접수</p>
             </div>
             <div>
                 <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
-                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">상품준비</p>
+                <p class="font-semibold text-xs leading-[14px] text-center text-[#666666]">상품준비</p>
             </div>
             <div>
                 <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +107,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
-                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송중</p>
+                <p class="font-semibold text-xs leading-[14px] text-center text-[#666666]">배송중</p>
             </div>
             <div>
                 <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +133,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
-                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송완료</p>
+                <p class="font-semibold text-xs leading-[14px] text-center text-[#666666]">배송완료</p>
             </div>
             <div>
                 <svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,7 +159,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
                 <p class="font-bold text-[25px] leading-7 text-center text-black"><?= $arr_Data['NUM'] ?></p>
-                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납</p>
+                <p class="font-semibold text-xs leading-[14px] text-center text-[#666666]">반납</p>
             </div>
         </div>
     </div>

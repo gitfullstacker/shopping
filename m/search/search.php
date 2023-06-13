@@ -76,23 +76,23 @@
 	$f_limit=$first;
 	$l_limit=$last + 1 ;
 
-	$SQL_QUERY = "SELECT 
-								A.*,
-								(SELECT B.STR_BCODE FROM ".$Tname."comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
-								(SELECT IFNULL(COUNT(C.STR_USERID),0) AS CNT FROM ".$Tname."comm_member_like C WHERE C.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT,
-								(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM ".$Tname."comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='".$arr_Auth[0]."' AND D.INT_STATE IN ('4')) AS CARTCNT,
-								E.STR_CODE,
-								(SELECT IFNULL(COUNT(F.STR_SGOODCODE),0) AS CNT FROM ".$Tname."comm_goods_master_sub F WHERE F.STR_GOODCODE=A.STR_GOODCODE AND F.STR_SERVICE='Y' AND F.STR_SGOODCODE NOT IN (SELECT G.STR_SGOODCODE FROM ".$Tname."comm_goods_cart G WHERE G.STR_GOODCODE=A.STR_GOODCODE AND NOT(G.INT_STATE='0' OR G.INT_STATE='10' OR G.INT_STATE='11'))) AS RENT
-							FROM 
-								".$Tname."comm_goods_master A
-								LEFT JOIN
-								".$Tname."comm_com_code E
-								ON
-								A.INT_BRAND=E.INT_NUMBER
-							WHERE 
-								A.STR_GOODCODE IS NOT NULL 
-								AND 
-								(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') ";
+	$SQL_QUERY = 	"SELECT 
+						A.*,
+						(SELECT B.STR_BCODE FROM ".$Tname."comm_goods_master_category B WHERE A.STR_GOODCODE=B.STR_GOODCODE LIMIT 1) AS STR_BCODE,
+						(SELECT IFNULL(COUNT(C.STR_USERID),0) AS CNT FROM ".$Tname."comm_member_like C WHERE C.STR_GOODCODE=A.STR_GOODCODE) AS LIKECNT,
+						(SELECT IFNULL(COUNT(D.STR_USERID),0) AS CNT FROM ".$Tname."comm_goods_cart D WHERE D.STR_GOODCODE=A.STR_GOODCODE AND D.STR_USERID='".$arr_Auth[0]."' AND D.INT_STATE IN ('4')) AS CARTCNT,
+						E.STR_CODE,
+						(SELECT IFNULL(COUNT(F.STR_SGOODCODE),0) AS CNT FROM ".$Tname."comm_goods_master_sub F WHERE F.STR_GOODCODE=A.STR_GOODCODE AND F.STR_SERVICE='Y' AND F.STR_SGOODCODE NOT IN (SELECT G.STR_SGOODCODE FROM ".$Tname."comm_goods_cart G WHERE G.STR_GOODCODE=A.STR_GOODCODE AND NOT(G.INT_STATE='0' OR G.INT_STATE='10' OR G.INT_STATE='11'))) AS RENT
+					FROM 
+						".$Tname."comm_goods_master A
+						LEFT JOIN
+						".$Tname."comm_com_code E
+						ON
+						A.INT_BRAND=E.INT_NUMBER
+					WHERE 
+						A.STR_GOODCODE IS NOT NULL 
+						AND 
+						(A.STR_SERVICE='Y' OR A.STR_SERVICE='R') ";
 	$SQL_QUERY.=$Str_Query;
 	$SQL_QUERY.="ORDER BY A.INT_SORT DESC ";
 	$SQL_QUERY.="limit $f_limit,$l_limit";

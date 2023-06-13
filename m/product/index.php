@@ -642,11 +642,11 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </template>
             </div>
             <div class="flex items-center gap-[5px] px-[14px] pb-[13px] w-full">
-                <button class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
-                    <p class="font-bold text-xs leading-3 text-white">적용</p>
-                </button>
                 <button class="flex justify-center items-center bg-white rounded-md w-32 h-[39px] border-[0.3px] border-solid border-[#E0E0E0]" x-on:click="initDate()">
                     <p class="font-bold text-xs leading-3 text-[#666666]">초기화</p>
+                </button>
+                <button class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
+                    <p class="font-bold text-xs leading-3 text-white">적용</p>
                 </button>
             </div>
 
@@ -872,11 +872,11 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </template>
             </div>
             <div class="flex items-center gap-[5px] px-[14px] pb-[13px] w-full">
-                <button type="button" class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
-                    <p class="font-bold text-xs leading-3 text-white">적용</p>
-                </button>
                 <button type="button" class="flex justify-center items-center bg-white rounded-md w-32 h-[39px] border-[0.3px] border-solid border-[#E0E0E0]" x-on:click="initSelectedItem()">
                     <p class="font-bold text-xs leading-3 text-[#666666]">초기화</p>
+                </button>
+                <button type="button" class="grow flex justify-center items-center bg-black rounded-md h-[39px]" x-on:click="applyFilter()">
+                    <p class="font-bold text-xs leading-3 text-white">적용</p>
                 </button>
             </div>
         </div>

@@ -151,11 +151,11 @@
 
 				if($rcd_cnt){?>
 				
-					<p class="f_size_s mt05"><span class="f_bd f_bk"><?=$str_userid?></span>은 등록되어 있는 아이디입니다.</p>
+					<p>* <?=$str_userid?>는 사용중인 아이디입니다.</p>
           			<input type="hidden" name="str_userid_chk" id="str_userid_chk" value="0" />
 
 				<?}else{?>
-					<p class="f_size_s mt05"><span class="f_bd f_bk"><?=$str_userid?></span>은 사용 가능합니다. </p>
+					<p class="text-black">* <?=$str_userid?>는 사용 가능합니다. </p>
                    	<input type="hidden" name="str_userid_chk" id="str_userid_chk" value="1" />
 				<?}
 

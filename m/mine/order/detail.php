@@ -80,28 +80,52 @@ switch ($arr_Data['ORDER_STATE']) {
                     <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_CODE'] ?></p>
                     <p class="mt-0.5 font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
                     <?php
-                    if ($arr_Data['INT_TYPE'] != 3) {
+                    switch ($arr_Data['INT_TYPE']) {
+                        case 1:
                     ?>
-                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= date('Y.m.d', strtotime($arr_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'])) ?></p>
+                            <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: <?= date('Y.m.d', strtotime($arr_Data['STR_SDATE'])) ?> ~</p>
+                            <p class="mt-[3px] font-medium text-xs leading-[14px] text-[#999999]">반납: <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'])) ?></p>
+                            <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">프리미엄 구독권 사용</p>
+                        <?php
+                            break;
+                        case 2:
+                        ?>
+                            <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: <?= date('Y.m.d', strtotime($arr_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'])) ?></p>
+                            <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black"><?= number_format($arr_Data['PRODUCT_PRICE']) ?>원</p>
+                        <?php
+                            break;
+                        case 3:
+                        ?>
+                            <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">등급: UNUSED</p>
+                            <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black"><?= number_format($arr_Data['PRODUCT_PRICE']) ?>원</p>
                     <?php
+                            break;
                     }
                     ?>
-                    <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['PRODUCT_PRICE']) ?>원</p>
+
                 </div>
             </div>
             <div class="mt-2.5 flex gap-[26px] items-center px-[14px]">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $current_state ?></p>
-                <p class="font-bold text-xs leading-[14px] text-black underline">우체국택배(<?= $arr_Data['INT_NUMBER'] ?>)</p>
+                <p class="font-bold text-xs leading-[14px] text-black underline">
+                    <?php
+                    if ($arr_Data['ORDER_STATE'] == 1) {
+                        echo '우체국택배';
+                    } else if ($arr_Data['ORDER_STATE'] == 2 || $arr_Data['ORDER_STATE'] == 3 || $arr_Data['ORDER_STATE'] == 4 || $arr_Data['ORDER_STATE'] == 5) {
+                        echo '우체국택배(' . $arr_Data['INT_NUMBER'] . ')';
+                    }
+                    ?>
+                </p>
             </div>
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] px-[14px]">
-                <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
+                <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                 </div>
-                <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
+                <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                 </a>
-                <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">기간 연장</p>
+                <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="col-span-2 w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
                 </a>
             </div>
         </div>
@@ -111,27 +135,24 @@ switch ($arr_Data['ORDER_STATE']) {
             <hr class="mt-3 border-t border-[#E0E0E0]" />
             <div class="flex flex-col w-full px-[14px]">
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">주문번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['INT_NUMBER'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">주문번호</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['INT_NUMBER'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">주문일자</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= date('Y. m. d', strtotime($arr_Data['ORDER_DATE'])) ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">주문일자</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= date('Y. m. d', strtotime($arr_Data['ORDER_DATE'])) ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">주문자</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['USER_NAME'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">주문자</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['USER_NAME'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">주문처리상태</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">주문처리상태</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]">
                         <?php
                         switch ($arr_Data['ORDER_STATE']) {
-                            case 0:
-                                echo '접수중';
-                                break;
                             case 1:
-                                echo '접수';
+                                echo '접수중';
                                 break;
                             case 2:
                                 echo '관리자확인';
@@ -144,6 +165,9 @@ switch ($arr_Data['ORDER_STATE']) {
                                 break;
                             case 5:
                                 echo '반납접수';
+                                break;
+                            case 6:
+                                echo '이용중';
                                 break;
                             case 10:
                                 echo '반납완료';
@@ -163,40 +187,40 @@ switch ($arr_Data['ORDER_STATE']) {
             <hr class="mt-3 border-t border-[#E0E0E0]" />
             <div class="flex flex-col w-full px-[14px]">
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">결제수단</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">ABLANC PAY(자동결제)</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">결제수단</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]">ABLANC PAY(자동결제)</p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">상품금액</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">상품금액</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                 </div>
                 <div class="flex flex-col gap-2.5 w-full py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <div class="flex items-center justify-between">
-                        <p class="font-bold text-xs leading-[14px] text-[#666666]">상품할인금액</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PDISCOUNT'] + $arr_Data['INT_MDISCOUNT']) ?>원</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]">상품할인금액</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PDISCOUNT'] + $arr_Data['INT_MDISCOUNT']) ?>원</p>
                     </div>
                     <div class="flex flex-col gap-2.5 w-full">
                         <div class="flex items-center justify-between">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                            <p class="font-bold text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_PDISCOUNT']) ?>원</p>
+                            <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
+                            <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_PDISCOUNT']) ?>원</p>
                         </div>
                         <div class="flex items-center justify-between">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                            <p class="font-bold text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_MDISCOUNT']) ?>원</p>
+                            <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+                            <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_MDISCOUNT']) ?>원</p>
                         </div>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="font-bold text-xs leading-[14px] text-[#666666]">쿠폰할인</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_COUPON']) ?>원</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]">쿠폰할인</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_COUPON']) ?>원</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="font-bold text-xs leading-[14px] text-[#666666]">적립금사용</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_SAVED']) ?>원</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]">적립금사용</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_SAVED']) ?>원</p>
                     </div>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#DA2727]">총 결제금액</p>
-                    <p class="font-extrabold text-[15px] leading-[17px] text-[#000000]"><?= number_format($arr_Data['INT_TPRICE']) ?>원</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#DA2727]">총 결제금액</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-[#000000]"><?= number_format($arr_Data['INT_TPRICE']) ?>원</p>
                 </div>
             </div>
         </div>
@@ -206,24 +230,24 @@ switch ($arr_Data['ORDER_STATE']) {
             <hr class="mt-3 border-t border-[#E0E0E0]" />
             <div class="flex flex-col w-full px-[14px]">
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">받는 분</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_NAME'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">받는 분</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_NAME'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">핸드폰번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_HP'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">핸드폰번호</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_HP'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">전화번호</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_TELEP'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">전화번호</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_TELEP'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">주소</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]">(<?= $arr_Data['STR_POST'] ?>) <?= $arr_Data['STR_ADDR1'] ?> <?= $arr_Data['STR_ADDR2'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">주소</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]">(<?= $arr_Data['STR_POST'] ?>) <?= $arr_Data['STR_ADDR1'] ?> <?= $arr_Data['STR_ADDR2'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]">배송메세지</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_MEMO'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#666666]">배송메세지</p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_MEMO'] ?></p>
                 </div>
             </div>
         </div>

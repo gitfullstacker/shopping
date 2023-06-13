@@ -660,8 +660,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                         while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
                         ?>
-                            <div class="flex-none w-20 h-20">
-                                <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" alt="">
+                            <div class="flex-none w-20 h-20 bg-gray-100">
+                                <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
                             </div>
                         <?php
                         }
@@ -813,14 +813,15 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <?php
                             switch ($row['INT_TYPE']) {
                                 case 1:
+                                    if (!$subscription_membership_Data) {
                             ?>
-                                    <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
-                                    <p class="font-bold text-[11px] leading-[13px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
-                                <?php
+                                        <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
+                                    <?php
+                                    }
                                     break;
 
                                 case 2:
-                                ?>
+                                    ?>
                                     <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
                                     <p class="font-bold text-[11px] leading-[13px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                                 <?php
@@ -1421,15 +1422,14 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div id="relative_image_panel" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
         <div class="flex flex-col items-center justify-center bg-white w-full h-full relative">
             <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('relative_image_panel').classList.add('hidden');">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="20" height="20" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                 </svg>
             </button>
             <div class="flex relative w-full">
                 <button class="flex justify-center items-center absolute top-[45%] left-0 w-[10%] h-[10%] bg-black bg-opacity-50" onclick="document.getElementById('scrollContainer').scrollLeft -= 410">
                     <p class="font-extrabold text-base text-white">
-                        <
-                    </p>
+                        < </p>
                 </button>
                 <div id="scrollContainer" class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth">
                     <?php
