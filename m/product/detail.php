@@ -981,7 +981,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     const dateString = `${year1}-${month1}-${day1}`;
                     
                     const disableEndDay = new Date(this.startDate);
-                    disableEndDay.setDate(disableEndDay.getDate() + 2);
+                    disableEndDay.setDate(disableEndDay.getDate() + 0);
 
                     const finalEndday = new Date(this.startDate);
                     finalEndday.setDate(finalEndday.getDate() + 14);
