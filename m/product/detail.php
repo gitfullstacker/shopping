@@ -1428,7 +1428,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex relative w-full">
                 <button class="flex justify-center items-center absolute top-[45%] left-0 w-[10%] h-[10%] bg-black bg-opacity-50" onclick="document.getElementById('scrollContainer').scrollLeft -= 410">
                     <p class="font-extrabold text-base text-white">
-                        << /p>
+                        <
+                    </p>
                 </button>
                 <div id="scrollContainer" class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth">
                     <?php

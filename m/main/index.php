@@ -4,6 +4,32 @@ $topmenu = 1;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
+<?php
+// 금액정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//구독멤버십정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_membership AS A
+                WHERE
+                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
+                    AND A.INT_TYPE=1
+                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+?>
+
 <!-- 슬라이더 -->
 <div class="flex w-full overflow-hidden">
 	<?php
@@ -234,12 +260,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 										case 1:
 									?>
 											<div class="flex flex-row gap-1 items-end">
-												<p class="font-bold text-[13px] leading-[14px] text-black">
-													<span class="font-medium text-[#EEAC4C]">월</span><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
-												</p>
-												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
-													<?= number_format($row['INT_PRICE']) ?>원
-												</p>
+												<?php
+												if (!$subscription_membership_Data) {
+												?>
+													<p class="font-bold text-[13px] leading-[14px] text-black">
+														<span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
+													</p>
+												<?php
+												}
+												?>
 											</div>
 										<?php
 											break;
@@ -506,9 +535,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 					</div>
 					<p class="brand"><?= $row['STR_CODE'] ?></p>
 					<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
-					<div class="price-section">
-						<p class="current-price"><span class="font-medium">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
-					</div>
+					<?php
+					if (!$subscription_membership_Data) {
+					?>
+						<div class="price-section">
+							<p class="current-price"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
+						</div>
+					<?php
+					}
+					?>
 					<button class="subscription-button">구독</button>
 				</a>
 			<?php
