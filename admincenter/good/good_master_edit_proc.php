@@ -10,6 +10,7 @@ $str_String = Fnc_Om_Conv_Default($_REQUEST[str_String], "");
 $str_goodname = Fnc_Om_Conv_Default($_REQUEST[str_goodname], "");
 $str_egoodname = Fnc_Om_Conv_Default($_REQUEST[str_egoodname], "");
 $int_price = Fnc_Om_Conv_Default($_REQUEST[int_price], "0");
+$int_rprice = Fnc_Om_Conv_Default($_REQUEST[int_rprice], "0");
 $int_discount = Fnc_Om_Conv_Default($_REQUEST[int_discount], "0");
 $int_brand = Fnc_Om_Conv_Default($_REQUEST[int_brand], "0");
 $int_bsu = Fnc_Om_Conv_Default($_REQUEST[int_bsu], "1");
@@ -354,6 +355,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[39] = "INT_TYPE";
 		$arr_Column_Name[40] = "INT_GRADE";
 		$arr_Column_Name[41] = "STR_COLOR_VAL";
+		$arr_Column_Name[42] = "INT_RPRICE";
 
 		$arr_Set_Data[0] = $lastnumber;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -397,6 +399,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[39] = $int_type;
 		$arr_Set_Data[40] = $int_grade;
 		$arr_Set_Data[41] = $str_color_val;
+		$arr_Set_Data[42] = $int_rprice;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -699,6 +702,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[33] = "STR_TIMAGE";
 		$arr_Column_Name[34] = "INT_GRADE";
 		$arr_Column_Name[35] = "STR_COLOR_VAL";
+		$arr_Column_Name[36] = "INT_RPRICE";
 
 		$arr_Set_Data[0] = $str_no;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -736,6 +740,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[33] = $str_dtimage;
 		$arr_Set_Data[34] = $int_grade;
 		$arr_Set_Data[35] = $str_color_val;
+		$arr_Set_Data[36] = $int_rprice;
 
 		$arr_Sub = "";
 

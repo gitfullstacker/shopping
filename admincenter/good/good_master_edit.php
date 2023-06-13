@@ -44,7 +44,7 @@ if ($RetrieveFlag == "UPDATE") {
 	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 }
 
-$str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt_key=" . urlencode($Txt_key) . "&Txt_word=" . urlencode($Txt_word) . "&Txt_brand=" . urlencode($Txt_brand) . "&Txt_service=" . urlencode($Txt_service) . "&Txt_bname=" . urlencode($Txt_bname) . "&Txt_bcode=" . urlencode($Txt_bcode) . "&Txt_sindate=" . urlencode($Txt_sindate) . "&Txt_eindate=" . urlencode($Txt_eindate);
+$str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt_key=" . urlencode($Txt_key) . "&Txt_word=" . urlencode($Txt_word) . "&Txt_brand=" . urlencode($Txt_brand) . "&Txt_service=" . urlencode($Txt_service) . "&Txt_bname=" . urlencode($Txt_bname) . "&Txt_bcode=" . urlencode($Txt_bcode) . "&Txt_sindate=" . urlencode($Txt_sindate) . "&Txt_eindate=" . urlencode($Txt_eindate) . "&int_type=" . urlencode($int_type);
 ?>
 <html>
 
@@ -332,9 +332,21 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 												<tr>
 													<td>크기</td>
 													<td><input type=text name=str_size value="<?= $arr_Data['STR_SIZE'] ?>"></td>
-													<td>정가</td>
+													<td><?= $int_type == 2 ? '렌트가' : '정가' ?></td>
 													<td><input type=text name=int_price value="<?= $arr_Data['INT_PRICE'] ?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()"></td>
 												</tr>
+												<?php
+												if ($int_type == 2) {
+												?>
+													<tr>
+														<td></td>
+														<td></td>
+														<td>리테일가</td>
+														<td><input type=text name=int_rprice value="<?= $arr_Data['INT_RPRICE'] ?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()"></td>
+													</tr>
+												<?php
+												}
+												?>
 												<tr>
 													<td>스트랩길이</td>
 													<td><input type=text name=str_length value="<?= $arr_Data['STR_LENGTH'] ?>"></td>

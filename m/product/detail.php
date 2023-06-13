@@ -1234,7 +1234,9 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                         </template>
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
                                         <template x-if="date.showPrice">
-                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center" x-bind:class="date.status == 2 ? 'top-[38px]' : 'bottom-0'" x-text="(date.price - date.areaDiscount).toLocaleString()">31,800</p>
+                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-center" x-bind:class="
+                                            date.status == 2 ? 'top-[38px] text-[#00402F]' : 
+                                            date.status == 5 ? 'bottom-0 text-[#DDDDDD]' : 'bottom-0 text-black'" x-text="(date.price - date.areaDiscount).toLocaleString()">31,800</p>
                                         </template>
                                     </div>
                                 </div>
