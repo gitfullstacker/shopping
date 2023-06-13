@@ -6,7 +6,7 @@ fnc_MLogin_Chk();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 <?php
-$str_cart = Fnc_Om_Conv_Default($_REQUEST['str_cart'], '');
+$int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], '');
 $SQL_QUERY = 'SELECT
                     A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
                 FROM 
@@ -20,7 +20,7 @@ $SQL_QUERY = 'SELECT
                 ON
                     B.INT_BRAND=C.INT_NUMBER
                 WHERE
-                    A.INT_NUMBER=' . $str_cart;
+                    A.INT_NUMBER=' . $int_cart;
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -34,7 +34,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <form action="edit_proc.php" method="post" class="mt-[30px] flex flex-col w-full px-[14px]" onsubmit="return validateForm()" enctype="multipart/form-data">
     <input type="hidden" name="RetrieveFlag" value="INSERT">
     <input type="hidden" name="str_goodcode" value="<?= $arr_Data['STR_GOODCODE'] ?>">
-    <input type="hidden" name="str_cart" value="<?= $str_cart ?>">
+    <input type="hidden" name="int_cart" value="<?= $int_cart ?>">
     <input type="hidden" name="str_userid" value="<?= $arr_Auth[0] ?>">
     <input type="hidden" name="int_good_type" value="<?= $arr_Data['INT_TYPE'] ?>">
 

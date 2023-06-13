@@ -7,9 +7,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <?php
-$str_cart = Fnc_Om_Conv_Default($_REQUEST['str_cart'], '');
+$int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], '');
 
-if ($str_cart) {
+if ($int_cart) {
     $SQL_QUERY =    'SELECT
                         A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
                     FROM 
@@ -23,7 +23,7 @@ if ($str_cart) {
                     ON
                         B.INT_BRAND=C.INT_NUMBER
                     WHERE
-                        A.INT_NUMBER=' . $str_cart;
+                        A.INT_NUMBER=' . $int_cart;
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -63,7 +63,7 @@ if ($str_cart) {
     ?>
 
     <form action="create_proc.php" method="post" class="flex flex-col gap-[15px]" onsubmit="return validateForm()" enctype="multipart/form-data">
-        <input type="hidden" name="str_cart" value="<?= $str_cart ?>">
+        <input type="hidden" name="int_cart" value="<?= $int_cart ?>">
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-xs leading-[14px] text-black">제목</p>
             <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_title" id="str_title" placeholder="제목을 입력해주세요">

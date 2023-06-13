@@ -180,7 +180,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </svg>
         </button>
         <p class="font-bold text-[15px] leading-[17px] text-black">취소 신청이 완료되었습니다.</p>
-        <a href="/m/product/index.php" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+        <a href="/m/product/index.php" id="cancel_dialog_btn" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
             <p class="font-bold text-[10px] leading-[11px] text-[#666666]">다른 가방 렌트하기</p>
             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.52603 9.0481L5.45631 4.95636C5.50296 4.90765 5.53592 4.85488 5.55521 4.79805C5.5748 4.74122 5.58459 4.68033 5.58459 4.61538C5.58459 4.55044 5.5748 4.48955 5.55521 4.43272C5.53592 4.37589 5.50296 4.32312 5.45631 4.27441L1.52603 0.170489C1.41718 0.0568296 1.28112 0 1.11785 0C0.95457 0 0.814619 0.060889 0.697994 0.182667C0.581368 0.304445 0.523056 0.446519 0.523056 0.60889C0.523056 0.77126 0.581368 0.913335 0.697994 1.03511L4.12678 4.61538L0.697994 8.19566C0.589143 8.30932 0.534719 8.44928 0.534719 8.61555C0.534719 8.78214 0.593031 8.92632 0.709656 9.0481C0.826282 9.16988 0.962345 9.23077 1.11785 9.23077C1.27335 9.23077 1.40941 9.16988 1.52603 9.0481Z" fill="#666666" />
@@ -215,11 +215,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
+    current_page = 0;
+
     $(document).ready(function() {
         searchOrder();
     });
 
     function searchOrder(page = 0) {
+        current_page = page;
         url = "get_order_list.php";
         url += "?page=" + page;
 
@@ -231,7 +234,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         });
     }
 
-    function cancelOrder(int_cart) {
+    function cancelOrder(int_cart, int_type) {
         url = "order_proc.php";
         url += "?RetrieveFlag=CANCELORDER";
         url += "&int_cart=" + int_cart;
@@ -240,7 +243,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             url: url,
             success: function(result) {
                 document.getElementById('cancel_dialog').classList.remove('hidden');
-                $("#order_item_" + int_cart).hide();
+                searchOrder(current_page);
+
+                switch (int_type) {
+                    case 1:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=1');
+                        $('#cancel_dialog_btn p').html('다른 가방 구독하기');
+                        break;
+                    case 2:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=2');
+                        $('#cancel_dialog_btn p').html('다른 가방 렌트하기');
+                        break;
+                    case 3:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=3');
+                        $('#cancel_dialog_btn p').html('다른 가방 구매하기');
+                        break;
+                }
             }
         });
     }
@@ -282,6 +300,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                     var formattedDate = option.value.split('-').reverse().join('-');
                     $('#return_dates').append($('<option></option>').val(option.value).text(option.text));
                 });
+            }
+        });
+    }
+
+    function receivedOrder(int_cart) {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=RECEIVEDORDER";
+        url += "&int_cart=" + int_cart;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                searchOrder(current_page);
             }
         });
     }

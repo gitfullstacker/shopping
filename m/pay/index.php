@@ -64,6 +64,22 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
+// 구간할인정보
+$date1 = new DateTime($start_date);
+$date2 = new DateTime($end_date);
+
+$interval = $date1->diff($date2)->d;
+
+$area_discount = 0;
+if (($site_Data['INT_DSTART1'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND1'] ?: 0)) {
+    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
+} else if (($site_Data['INT_DSTART2'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND2'] ?: 0)) {
+    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
+} else if (($site_Data['INT_DSTART3'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND3'] ?: 0)) {
+    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
+} else if (($site_Data['INT_DSTART4'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND4'] ?: 0)) {
+    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
+}
 
 //구독멤버십정보얻기
 $SQL_QUERY =    'SELECT
@@ -93,17 +109,18 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <form x-data="{
     type: '',
     payAmount: {
-        totalPrice: <?= $product_Data['INT_PRICE'] ?>,
+        totalPrice: 0,
         price: <?= $product_Data['INT_PRICE'] ?>,
         discount: {
-            product: <?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 : 0 ?>,
+            product: <?= $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 ?>,
             membership: 0
         },
         coupon: 0,
-        saved: 0
+        saved: 0,
+        section: <?= $area_discount ?>
     },
     calTotalPrice() {
-        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.saved;
+        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.saved - this.payAmount.section;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -112,6 +129,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     },
     formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+    init() {
+        this.calTotalPrice();
     }
 }" id="frm" name="frm" action="" method="post" class="mt-[30px] flex flex-col w-full">
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
@@ -275,7 +295,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="mt-[10px] font-medium text-xs leading-[14px] text-[#666666] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">할인가</p>
                         <div class="mt-1.5 flex gap-1 items-center">
                             <p class="font-bold text-xs text-[#00402F] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['INT_DISCOUNT'] ?>%</p>
-                            <p class="font-bold text-[13px] leading-[15px] text-[#333333]"><span class="font-medium">일</span> <?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
+                            <p class="font-bold text-[13px] leading-[15px] text-[#333333]"><span class="font-medium">일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         </div>
                     <?php
                         break;
@@ -284,7 +304,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="mt-[10px] font-bold text-xs line-through text-[#666666]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_PRICE']) . '원') : '' ?></p>
                         <div class="mt-1.5 flex gap-2 items-center">
                             <p class="font-bold text-xs text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                            <p class="font-bold text-xs text-[#333333]"><?= $product_Data['INT_DISCOUNT'] ? number_format($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) : number_format($product_Data['INT_PRICE']) ?>원</p>
+                            <p class="font-bold text-xs text-[#333333]"><?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         </div>
                 <?php
                         break;
@@ -417,12 +437,12 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 <?php
                 if ($subscription_Data) {
-                    $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
+                    $sub_end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
 
                     $current_date = date('Y-m-d'); // Get the current date
 
                     $datetime1 = new DateTime($current_date);
-                    $datetime2 = new DateTime($end_date);
+                    $datetime2 = new DateTime($sub_end_date);
                     $interval = $datetime1->diff($datetime2);
 
                     $days_left = $interval->format('%d');
@@ -585,6 +605,17 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
                         <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.saved) + '원'"></p>
                     </div>
+                    <?php
+                    if ($product_Data['INT_TYPE'] == 2) {
+                    ?>
+                        <div class="flex items-center justify-between">
+                            <p class="font-bold text-[15px] leading-[17px] text-black">구간할인</p>
+                            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.section) + '원'"></p>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                 </div>
                 <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
                 <div class="mt-[5px] flex items-center justify-between">

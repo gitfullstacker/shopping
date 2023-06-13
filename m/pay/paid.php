@@ -66,7 +66,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 case 1:
             ?>
                     <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999]">월정액 구독 전용</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#EEAC4C]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 무료교환</span> 잔여횟수 1회</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#EEAC4C]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 무료교환</span></p>
                     <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;

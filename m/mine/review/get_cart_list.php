@@ -18,7 +18,7 @@ $SQL_QUERY = 'SELECT
                     A.INT_NUMBER=D.STR_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_STATE=4
+                    AND A.INT_STATE IN (4, 5, 6, 10)
                     AND D.STR_CART IS NULL
                     AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
 
@@ -52,7 +52,7 @@ $SQL_QUERY =    'SELECT
                     A.INT_NUMBER=D.STR_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_STATE=4
+                    AND A.INT_STATE IN (4, 5, 6, 10)
                     AND D.STR_CART IS NULL
                     AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
                 ORDER BY A.DTM_INDATE DESC
@@ -100,7 +100,7 @@ if (mysql_num_rows($cart_list_result) > 0) {
                         <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
                         <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')</p>
                     </div>
-                    <a href="create.php?str_cart=' . $row['INT_NUMBER'] . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <a href="create.php?int_cart=' . $row['INT_NUMBER'] . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-[11px] leading-[12px] text-black">리뷰 작성</p>
                     </a>
                 </div>

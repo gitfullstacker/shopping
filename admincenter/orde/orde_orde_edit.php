@@ -143,6 +143,7 @@
 									
 									<input type="radio" value="4" name="int_state" class=null <?if (Fnc_Om_Conv_Default($arr_Data['INT_STATE'],"1")=="4") {?>checked<?}?>> 배송완료<br>
 									<input type="radio" value="5" name="int_state" class=null <?if (Fnc_Om_Conv_Default($arr_Data['INT_STATE'],"1")=="5") {?>checked<?}?>> 반납접수
+									<input type="radio" value="6" name="int_state" class=null <?if (Fnc_Om_Conv_Default($arr_Data['INT_STATE'],"1")=="6") {?>checked<?}?>> 이용중
 									<input type="radio" value="10" name="int_state" class=null <?if (Fnc_Om_Conv_Default($arr_Data['INT_STATE'],"1")=="10") {?>checked<?}?>> 반납완료
 									<input type=text name=str_rdate value="<?=$arr_Data['STR_RDATE']?>" id="str_rdate" onclick="displayCalendar(document.frm.str_rdate ,'yyyy-mm-dd',this)">
 									<img src="/pub/img/icons/calendar_add.gif" align="absmiddle" style="cursor:pointer" onclick="displayCalendar(document.frm.str_rdate ,'yyyy-mm-dd',document.frm.str_rdate)">

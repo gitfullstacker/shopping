@@ -97,7 +97,7 @@ switch ($arr_Data['ORDER_STATE']) {
                 <div class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">배송 조회</p>
                 </div>
-                <a href="/m/mine/question/create.php?str_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                     <p class="font-bold text-[11px] leading-[12px] text-center text-[#666666]">1:1 문의</p>
                 </a>
                 <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="col-span-2 w-full h-[35px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">

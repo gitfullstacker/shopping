@@ -157,6 +157,7 @@ $total_record_limit = mysql_num_rows($result);
 													<option value="2" <? if ($Txt_state == "2") { ?>selected<? } ?>> 관리자확인 </option>
 													<option value="3" <? if ($Txt_state == "3") { ?>selected<? } ?>> 발송 </option>
 													<option value="4" <? if ($Txt_state == "4") { ?>selected<? } ?>> 배송완료 </option>
+													<option value="6" <? if ($Txt_state == "6") { ?>selected<? } ?>> 이용중 </option>
 												<? } else { ?>
 													<option value="5" <? if ($Txt_state == "5") { ?>selected<? } ?>> 반납접수 </option>
 													<option value="10" <? if ($Txt_state == "10") { ?>selected<? } ?>> 반납완료 </option>
@@ -297,6 +298,7 @@ $total_record_limit = mysql_num_rows($result);
 														<option value="3" <? if (mysql_result($result, $i, int_state) == "3") { ?>selected<? } ?>> 발송 </option>
 														<option value="4" <? if (mysql_result($result, $i, int_state) == "4") { ?>selected<? } ?>> 배송완료 </option>
 														<option value="5" <? if (mysql_result($result, $i, int_state) == "5") { ?>selected<? } ?>> 반납접수 </option>
+														<option value="6" <? if (mysql_result($result, $i, int_state) == "6") { ?>selected<? } ?>> 이용중 </option>
 														<option value="10" <? if (mysql_result($result, $i, int_state) == "10") { ?>selected<? } ?>> 반납완료 </option>
 														<option value="11" <? if (mysql_result($result, $i, int_state) == "11") { ?>selected<? } ?>> 취소 </option>
 													</select>
@@ -317,6 +319,9 @@ $total_record_limit = mysql_num_rows($result);
 													break;
 												case  "5":
 													echo "반납접수";
+													break;
+												case  "6":
+													echo "이용중";
 													break;
 												case  "10":
 													echo "반납완료";

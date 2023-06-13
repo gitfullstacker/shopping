@@ -45,7 +45,7 @@
             <div class="absolute <?= $hide_right_menu ? 'hidden' : 'flex' ?> gap-2.5 top-5 right-[34px]">
                 <a href="/m/mine/question/index.php">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.5 15.1818C14.1941 15.1818 18 11.7363 18 7.81967C18 3.90308 14.1941 1 9.5 1C4.80587 1 1 4.17482 1 8.09141C1 9.62007 1.58012 11.0365 2.56719 12.1937L1.53125 17L5.692 14.4327C6.89767 14.9318 8.19266 15.1866 9.5 15.1818Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M9.5 15.1818C4.80587 15.1818 1 11.7363 1 7.81967C1 3.90308 4.80587 1 9.5 1C14.1941 1 18 4.17482 18 8.09141C18 9.62006 17.4199 11.0365 16.4328 12.1937L17.4688 17L13.308 14.4327C12.1023 14.9318 10.8073 15.1866 9.5 15.1818Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </a>
                 <a href="/m/mine/basket/index.php">

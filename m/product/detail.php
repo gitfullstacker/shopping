@@ -743,20 +743,22 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="grid grid-cols-2 gap-x-[13.5px] gap-y-[30.45px] w-full">
                 <?php
                 $SQL_QUERY =    'SELECT 
-                                A.*, B.STR_CODE
-                            FROM 
-                                ' . $Tname . 'comm_goods_master A
-                            LEFT JOIN
-                                ' . $Tname . 'comm_com_code B
-                            ON
-                                A.INT_BRAND=B.INT_NUMBER
-                            WHERE 
-                                (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-                                AND A.STR_GOODCODE!="' . $arr_Data['STR_GOODCODE'] . '" 
-                                AND A.INT_TYPE=' . $arr_Data['INT_TYPE'] . ' 
-                                AND A.INT_BRAND=' . $arr_Data['INT_BRAND'] . ' 
-                            ORDER BY A.INT_VIEW DESC
-                            LIMIT 4';
+                                    A.*, 
+                                    B.STR_CODE, 
+                                    (SELECT COUNT(C.INT_NUMBER) FROM ' . $Tname . 'comm_goods_cart C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . $arr_Auth[0] . '" AND C.INT_STATE=6) AS CART_NUM
+                                FROM 
+                                    ' . $Tname . 'comm_goods_master A
+                                LEFT JOIN
+                                    ' . $Tname . 'comm_com_code B
+                                ON
+                                    A.INT_BRAND=B.INT_NUMBER
+                                WHERE 
+                                    (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+                                    AND A.STR_GOODCODE!="' . $arr_Data['STR_GOODCODE'] . '" 
+                                    AND A.INT_TYPE=' . $arr_Data['INT_TYPE'] . ' 
+                                    AND A.INT_BRAND=' . $arr_Data['INT_BRAND'] . ' 
+                                ORDER BY A.INT_VIEW DESC
+                                LIMIT 4';
 
                 $product_result = mysql_query($SQL_QUERY);
 
@@ -769,6 +771,31 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
                             </div>
                             <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+
+                            <?php
+                            if ($row['CART_NUM'] > 0) {
+                            ?>
+                                <!-- 사용중 표시 -->
+                                <div class="flex justify-center items-center absolute top-0 left-0 w-full h-full rounded-[5px] bg-black bg-opacity-60">
+                                    <p class="font-bold text-xs leading-[14px] text-white">
+                                        <?php
+                                        switch ($row['INT_TYPE']) {
+                                            case 1:
+                                                echo '구독중';
+                                                break;
+                                            case 2:
+                                                echo '렌트중';
+                                                break;
+                                            case 3:
+                                                echo '사용중';
+                                                break;
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <p class="mt-[5.52px] font-extrabold text-[12px] leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                         <p class="mt-[3.27px] font-medium text-[12px] leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
@@ -918,7 +945,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 const date = new Date(year, month - 1, day);
 
                 status = 1;
-                price = <?= $arr_Data['INT_PRICE'] ?: 0 - $arr_Data['INT_PRICE'] ?: 0 * $arr_Data['INT_DISCOUNT'] ?: 0 / 100 ?>;
+                price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
 
                 if (this.selectedStatus == 0) {
                     const enableToday = new Date();
@@ -979,15 +1006,13 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                         // 구간1
                         if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
-                            price = price - price * <?= $site_Data['INT_DISCOUNT1'] ?: 0 ?> / 100;
+                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
                         } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
-                            price = price - price * <?= $site_Data['INT_DISCOUNT2'] ?: 0 ?> / 100;
+                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
                         } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
-                            price = price - price * <?= $site_Data['INT_DISCOUNT3'] ?: 0 ?> / 100;
+                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
                         } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
-                            price = price - price * <?= $site_Data['INT_DISCOUNT4'] ?: 0 ?> / 100;
-                        } else if (<?= $site_Data['INT_DSTART5'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND5'] ?: 0 ?>) {
-                            price = price - price * <?= $site_Data['INT_DISCOUNT5'] ?: 0 ?> / 100;
+                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
                         }
                     } else {
                         status = 0;

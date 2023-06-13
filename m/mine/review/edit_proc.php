@@ -59,7 +59,7 @@ switch ($RetrieveFlag) {
         $arr_Set_Data[11]       = Fnc_Om_Conv_Default($_REQUEST['int_dstar'], 3);
         $arr_Set_Data[12]       = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], "");
         $arr_Set_Data[13]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], "5");
-        $arr_Set_Data[14]       = Fnc_Om_Conv_Default($_REQUEST['str_cart'], "");
+        $arr_Set_Data[14]       = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
@@ -180,7 +180,7 @@ switch ($RetrieveFlag) {
         $arr_Set_Data[2]        = date("Y-m-d H:i:s");
         $arr_Set_Data[3]        = "";
         $arr_Set_Data[4]        = $mileage;
-        $arr_Set_Data[5]        = $_REQUEST['str_cart'];
+        $arr_Set_Data[5]        = $_REQUEST['int_cart'];
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
