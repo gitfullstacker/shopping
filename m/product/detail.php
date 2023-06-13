@@ -1239,7 +1239,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                             date.status == 2 ? 'top-[38px] text-[#00402F]' : 
                                             date.status == 5 ? 'bottom-0 text-[#DDDDDD]' : 'bottom-0 text-black'" x-text="(date.price - date.areaDiscount).toLocaleString()">31,800</p>
                                         </template>
-                                        <template x-if="date.status == 2">
+                                        <template x-if="date.status == 2 && selectedStatus == 1">
                                             <div class="flex flex-col justify-center items-center w-[86px] h-[34px] bg-black bg-opacity-80 rounded-[12px] absolute -top-11 z-10">
                                                 <p class="font-bold text-[10px] leading-3 text-white" x-text="currentMonth + '월 ' + date.day + '일'">1월 22일</p>
                                                 <p class="font-medium text-[9px] leading-[11px] text-white">종료일을 선택하세요</p>
