@@ -945,6 +945,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 const date = new Date(year, month - 1, day);
 
                 status = 1;
+                showPrice = false;
                 price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
 
                 if (this.selectedStatus == 0) {
@@ -987,19 +988,29 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     
                     if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
+                        showPrice = true;
                     } else if (date > finalEndday) {
                         status = 0;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
                         // Friday: 1, Saturday: 2
-                        status = 0;
+                        if (date > this.startDate && date < finalEndday) {
+                            status = 5;
+                            showPrice = true;
+                        } else {
+                            status = 0;
+                        }
                     } else if (this.endDDays.includes(date.getDate())) {
                         status = 0;
                     } else if (this.endDWeeks.includes(date.getDay())) {
                         status = 0;
                     } else if (this.endDDates.includes(dateString)) {
                         status = 0;
+                    } else if (date > this.startDate && date <= disableEndDay) {
+                        status = 5;
+                        showPrice = true;
                     } else if (date > disableEndDay) {
-                        status = 8;
+                        status = 1;
+                        showPrice = true;
 
                         const timeDifference = date.getTime() - this.startDate.getTime();
                         const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
@@ -1046,7 +1057,9 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 dates.push({
                     day: day,
-                    status: status,   // Disable: 0, Enable: 1, Picked Start: 2, Picked End: 3, Period: 4, Hide: 5, Export: 6, Collect: 7, Show Price: 8
+                    // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7
+                    status: status,
+                    showPrice: showPrice,
                     price: price
                 });
             }
@@ -1171,7 +1184,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             ?>
                         </div>
                         <hr class="mt-[19px] border-t-[0.5px] border-[#E0E0E0]" />
-                        <div class="mt-[13px] grid grid-cols-7 gap-y-[5px] place-content-between place-items-center w-full">
+                        <div class="mt-[13px] grid grid-cols-7 gap-y-[11px] place-content-between place-items-center w-full">
                             <template x-for="i in firstDayOfWeek">
                                 <div class="flex justify-center items-center rounded-full w-[38px] h-[38px]"></div>
                             </template>
@@ -1186,17 +1199,17 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     date.status == 1 ? 'bg-[#BED2B6] text-black' : 
                                     (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
                                     date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
+                                    date.status == 5 ? 'bg-white text-[#DDDDDD]' : 
                                     date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 8 ? 'bg-white text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
                                         <template x-if="date.status == 6 || date.status == 7">
                                             <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
                                                 <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
                                             </div>
                                         </template>
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
-                                        <template x-if="date.status == 8">
-                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center" x-text="date.status == 8 ? date.price.toLocaleString() : ''">31,800</p>
+                                        <template x-if="date.showPrice">
+                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center"x-bind:class="date.status == 2 ? 'top-[38px]' : 'bottom-0'" x-text="date.price.toLocaleString()">31,800</p>
                                         </template>
                                     </div>
                                 </div>
