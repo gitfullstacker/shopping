@@ -30,7 +30,7 @@
 </head>
 
 <body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
-    <div class="fixed top-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-10">
+    <div class="fixed top-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-20">
         <div class="relative flex justify-center items-center h-[55px]">
             <!-- Back button -->
             <a href="javascript:history.back();" class="absolute top-5 left-7">
