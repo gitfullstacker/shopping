@@ -155,6 +155,27 @@
 									<input type="radio" value="N" name="str_show_main" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_MAIN'],"Y")=="N") {?>checked<?}?>> 미출력
 								</td>
 							</tr>
+							<tr>
+								<td>구독출력유무</td>
+								<td colspan=3>
+									<input type="radio" value="Y" name="str_show_sub" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_SUB'],"Y")=="Y") {?>checked<?}?>> 출력
+									<input type="radio" value="N" name="str_show_sub" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_SUB'],"Y")=="N") {?>checked<?}?>> 미출력
+								</td>
+							</tr>
+							<tr>
+								<td>렌트출력유무</td>
+								<td colspan=3>
+									<input type="radio" value="Y" name="str_show_ren" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_REN'],"Y")=="Y") {?>checked<?}?>> 출력
+									<input type="radio" value="N" name="str_show_ren" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_REN'],"Y")=="N") {?>checked<?}?>> 미출력
+								</td>
+							</tr>
+							<tr>
+								<td>빈티지출력유무</td>
+								<td colspan=3>
+									<input type="radio" value="Y" name="str_show_vin" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_VIN'],"Y")=="Y") {?>checked<?}?>> 출력
+									<input type="radio" value="N" name="str_show_vin" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_SHOW_VIN'],"Y")=="N") {?>checked<?}?>> 미출력
+								</td>
+							</tr>
 							<?if ($int_gubun=="5") {?>
 							<tr>
 								<td>출력유무</td>

@@ -20,6 +20,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink" />
 
+<?php
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+?>
+
 <!-- Body -->
 <div x-data="{ showCalendar: false, showOption: 0 }" class="main-body">
     <!-- 브랜드검색 -->
@@ -31,7 +43,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         }
     }" class="flex flex-col w-full gap-5">
         <?php
-        $query = "SELECT * FROM " . $Tname . "comm_com_code where str_service = 'Y' and int_gubun = 2";
+        $where_query = "";
+        switch ($product_type) {
+            case 1:
+                $where_query = "AND STR_SHOW_MAIN = 'Y'";
+                break;
+            case 2:
+                $where_query = "AND STR_SHOW_REN = 'Y'";
+                break;
+            case 3:
+                $where_query = "AND STR_SHOW_VIN = 'Y'";
+                break;
+        }
+
+        $query =    "SELECT * 
+                        FROM " . $Tname . "comm_com_code 
+                    WHERE 
+                        str_service = 'Y' 
+                        " . $where_query . "
+                        AND int_gubun = 2";
         $brand_list_result = mysql_query($query);
         ?>
         <div class="flex items-start gap-4 px-[16px] pb-1 overflow-x-auto">
@@ -66,7 +96,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         </div>
         <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
-            mysql_data_seek($brand_list_result, 0);
+            if (mysql_num_rows($brand_list_result) > 0) {
+                mysql_data_seek($brand_list_result, 0);
+            }
             while ($row = mysql_fetch_assoc($brand_list_result)) {
             ?>
                 <?php
@@ -123,11 +155,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                                         switch ($product_type) {
                                             case 1:
                                         ?>
-                                                <p class="font-extrabold text-[13px] leading-[14px] text-[#EEAC4C] <?= $product_row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
-                                                    <?= $product_row['INT_DISCOUNT'] ?>%
-                                                </p>
                                                 <p class="font-bold text-[13px] leading-[14px] text-black">
-                                                    <span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($product_row['INT_PRICE'] - $product_row['INT_PRICE'] * $product_row['INT_DISCOUNT'] / 100) ?>원
+                                                    <span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
                                                 </p>
                                             <?php
                                                 break;
@@ -577,17 +606,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 </div>
                 <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                 <div class="mt-[15px] flex flex-col items-center w-full px-[13px]">
-                    <?php
-                    $SQL_QUERY =    'SELECT
-                                        A.*
-                                    FROM 
-                                        ' . $Tname . 'comm_site_info AS A
-                                    WHERE
-                                        A.INT_NUMBER=1';
-
-                    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-                    $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-                    ?>
                     <div class="flex justify-center items-center px-2.5 py-[5px] bg-[#F5F5F5] rounded-[10px]">
                         <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
                     </div>
@@ -657,7 +675,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                     searchKey: '',
                     list: [
                         <?php
-                        mysql_data_seek($brand_list_result, 0);
+                        if (mysql_num_rows($brand_list_result) > 0) {
+                            mysql_data_seek($brand_list_result, 0);
+                        }
                         while ($row = mysql_fetch_assoc($brand_list_result)) {
                         ?>
                             {

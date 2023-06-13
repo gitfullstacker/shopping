@@ -286,8 +286,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <!-- Top Brand -->
 <div class="topbrand">
-	<?
-	$query = "SELECT * FROM " . $Tname . "comm_com_code WHERE STR_SERVICE = 'Y' AND STR_SHOW_MAIN = 'Y' AND INT_GUBUN = 2";
+	<?php
+	$query = 	"SELECT * 
+				FROM " . $Tname . "comm_com_code 
+				WHERE 
+					STR_SERVICE = 'Y' 
+					AND STR_SHOW_MAIN = 'Y' 
+					AND INT_GUBUN = 2";
 	$brand_list_result = mysql_query($query);
 	?>
 	<div class="sub-section-top-bar">

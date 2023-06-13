@@ -926,6 +926,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
         endDate: null,
         collectDate: null,
         selectedDates: [],
+        areaDiscount: 0,
+        totalPrice: 0,
         startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
         startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
         startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
@@ -947,6 +949,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 status = 1;
                 showPrice = false;
                 price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
+                areaDiscount = 0;
 
                 if (this.selectedStatus == 0) {
                     const enableToday = new Date();
@@ -989,6 +992,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;
                         showPrice = true;
+                        areaDiscount = this.getAreaDiscount(date);
                     } else if (date > finalEndday) {
                         status = 0;
                     } else if (date.getDay() === 5 || date.getDay() === 6) {
@@ -996,6 +1000,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         if (date > this.startDate && date < finalEndday) {
                             status = 5;
                             showPrice = true;
+                            areaDiscount = this.getAreaDiscount(date);
                         } else {
                             status = 0;
                         }
@@ -1008,23 +1013,11 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     } else if (date > this.startDate && date <= disableEndDay) {
                         status = 5;
                         showPrice = true;
+                        areaDiscount = this.getAreaDiscount(date);
                     } else if (date > disableEndDay) {
                         status = 1;
                         showPrice = true;
-
-                        const timeDifference = date.getTime() - this.startDate.getTime();
-                        const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-
-                        // 구간1
-                        if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
-                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
-                        } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
-                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
-                        } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
-                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
-                        } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
-                            price = price - <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
-                        }
+                        areaDiscount = this.getAreaDiscount(date);
                     } else {
                         status = 0;
                     }
@@ -1060,7 +1053,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7
                     status: status,
                     showPrice: showPrice,
-                    price: price
+                    price: price,
+                    areaDiscount: areaDiscount
                 });
             }
 
@@ -1085,6 +1079,8 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     this.endDate = new Date(year, month - 1, day);
                     this.collectDate = new Date(year, month - 1, day);
                     this.collectDate.setDate(this.collectDate.getDate() + 1);
+                    this.areaDiscount = this.getAreaDiscount(this.endDate);
+                    this.totalPrice = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> - this.areaDiscount;
                     this.selectedStatus++;
 
                     rentDate = {
@@ -1102,6 +1098,25 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
             }
 
             this.generateDates(month, year);
+        },
+        getAreaDiscount(date) {
+            const timeDifference = date.getTime() - this.startDate.getTime();
+            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            areaDiscount = 0;
+
+            // 구간1
+            if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
+                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
+            } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
+                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
+            } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
+                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
+            } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
+                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
+            }
+
+            return areaDiscount;
         },
         formatDate(date) {
             const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
@@ -1209,7 +1224,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                         </template>
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
                                         <template x-if="date.showPrice">
-                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center"x-bind:class="date.status == 2 ? 'top-[38px]' : 'bottom-0'" x-text="date.price.toLocaleString()">31,800</p>
+                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-black text-center" x-bind:class="date.status == 2 ? 'top-[38px]' : 'bottom-0'" x-text="(date.price - date.areaDiscount).toLocaleString()">31,800</p>
                                         </template>
                                     </div>
                                 </div>
@@ -1222,7 +1237,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                         <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
                             <div class="flex">
-                                <p class="w-[53px] font-bold text-xs leading-[14px] text-black">출고일</p>
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
                             </div>
                         </div>
@@ -1233,28 +1248,35 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
                         <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
                             <div class="flex">
-                                <p class="w-[53px] font-bold text-xs leading-[14px] text-black">출고일</p>
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
                             </div>
                             <div class="flex">
-                                <p class="w-[53px] font-bold text-xs leading-[14px] text-black">이용기간</p>
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">이용기간</p>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(startDate) + ' ~ ' + formatDate(endDate)">01. 22(일) ~ 01. 26(목)</p>
                             </div>
                             <div class="flex">
-                                <p class="w-[53px] font-bold text-xs leading-[14px] text-black">회수일</p>
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">회수일</p>
                                 <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(collectDate)">01. 27(금)</p>
                             </div>
                         </div>
                         <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="flex flex-row px-7 py-5">
-                            <p class="w-[53px] font-bold text-xs leading-[14px] text-black">주문금액</p>
-                            <div class="flex flex-col gap-[4.79px]">
+                        <div class="flex flex-col gap-[4.79px] px-7 py-5">
+                            <div class="flex">
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">주문금액</p>
                                 <p class="font-bold text-xs leading-[14px] line-through text-[#666666]"><?= number_format($arr_Data['INT_PRICE']) ?></p>
+                            </div>
+                            <div class="flex">
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
+                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="areaDiscount.toLocaleString()">100원</p>
+                            </div>
+                            <div class="flex">
+                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
                                 <div class="flex gap-2 items-center">
                                     <p class="font-extrabold text-lg leading-5 text-[#00402F]">
                                         <?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?>
                                     </p>
-                                    <p class="font-extrabold text-lg leading-5 text-[#333333]"><?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                                    <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="totalPrice.toLocaleString()">1000원</p>
                                     <p class="font-bold text-xs leading-[14px] text-[#00402F]">멤버십 할인 적용가</p>
                                 </div>
                             </div>

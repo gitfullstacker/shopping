@@ -13,6 +13,9 @@ $str_contents = Fnc_Om_Conv_Default($_REQUEST[str_contents], "");
 $str_url1 = Fnc_Om_Conv_Default($_REQUEST[str_url1], "");
 $str_service = Fnc_Om_Conv_Default($_REQUEST[str_service], "N");
 $str_show_main = Fnc_Om_Conv_Default($_REQUEST[str_show_main], "N");
+$str_show_sub = Fnc_Om_Conv_Default($_REQUEST[str_show_sub], "N");
+$str_show_ren = Fnc_Om_Conv_Default($_REQUEST[str_show_ren], "N");
+$str_show_vin = Fnc_Om_Conv_Default($_REQUEST[str_show_vin], "N");
 $str_default = Fnc_Om_Conv_Default($_REQUEST[str_default], "0");
 
 $str_dimage1 = Fnc_Om_Conv_Default($_REQUEST[str_dimage1], "");
@@ -188,9 +191,9 @@ switch ($RetrieveFlag) {
 		$lastnumber = mysql_result($arr_max_Data, 0, lastnumber);
 
 		$SQL_QUERY = "INSERT INTO " . $Tname . "comm_com_code (";
-		$SQL_QUERY .= " INT_NUMBER,INT_GUBUN,STR_CODE,STR_KCODE,STR_IMAGE1,STR_IMAGE2,STR_CONTENTS,STR_URL1,DTM_INDATE,STR_SERVICE,STR_BANNER1,STR_BANNER2,STR_BANNER3,STR_BANNER4,STR_BANNER5,STR_BANNER6,STR_BANNER7,STR_SHOW_MAIN
+		$SQL_QUERY .= " INT_NUMBER,INT_GUBUN,STR_CODE,STR_KCODE,STR_IMAGE1,STR_IMAGE2,STR_CONTENTS,STR_URL1,DTM_INDATE,STR_SERVICE,STR_BANNER1,STR_BANNER2,STR_BANNER3,STR_BANNER4,STR_BANNER5,STR_BANNER6,STR_BANNER7,STR_SHOW_MAIN,STR_SHOW_SUB,STR_SHOW_REN,STR_SHOW_VIN
 											) VALUES (
-												'$lastnumber','$int_gubun','$str_code','$str_kcode','$str_dimage1','$str_dimage2','$str_contents','$str_url1','" . date("Y-m-d H:i:s") . "','$str_service','$str_dbanner1','$str_dbanner2','$str_dbanner3','$str_dbanner4','$str_dbanner5','$str_dbanner6','$str_dbanner7', '$str_show_main'
+												'$lastnumber','$int_gubun','$str_code','$str_kcode','$str_dimage1','$str_dimage2','$str_contents','$str_url1','" . date("Y-m-d H:i:s") . "','$str_service','$str_dbanner1','$str_dbanner2','$str_dbanner3','$str_dbanner4','$str_dbanner5','$str_dbanner6','$str_dbanner7', '$str_show_main', '$str_show_sub', '$str_show_ren', '$str_show_vin'
 											)";
 
 		mysql_query($SQL_QUERY);
@@ -347,6 +350,9 @@ switch ($RetrieveFlag) {
 									,STR_BANNER6='$str_dbanner6'
 									,STR_BANNER7='$str_dbanner7'
 									,STR_SHOW_MAIN='$str_show_main'
+									,STR_SHOW_SUB='$str_show_sub'
+									,STR_SHOW_REN='$str_show_ren'
+									,STR_SHOW_VIN='$str_show_vin'
 								WHERE
 									INT_NUMBER='$str_no' ";
 

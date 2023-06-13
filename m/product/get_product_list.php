@@ -85,13 +85,41 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
     $color = '';
     switch ($product_type) {
         case 1:
+            $SQL_QUERY =    'SELECT
+                                A.*
+                            FROM 
+                                ' . $Tname . 'comm_site_info AS A
+                            WHERE
+                                A.INT_NUMBER=1';
+
+            $arr_Rlt_Data = mysql_query($SQL_QUERY);
+            $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+            //구독멤버십정보얻기
+            $SQL_QUERY =    'SELECT
+                                A.*
+                            FROM 
+                                ' . $Tname . 'comm_membership AS A
+                            WHERE
+                                A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
+                                AND A.INT_TYPE=1
+                                AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+
+            $arr_Rlt_Data = mysql_query($SQL_QUERY);
+            $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
             $color = '#EEAC4C';
-            $price = '
-                <div class="price-section w-full">
-                    <p class="current-price"><span class="font-medium">월</span> ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
-                    <p class="origin-price ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
-                </div>
-            ';
+
+            if ($subscription_membership_Data) {
+                $price = '';
+            } else {
+                $price = '
+                    <div class="price-section w-full">
+                        <p class="current-price"><span class="font-medium">월</span> ' . number_format($site_Data['INT_OPRICE1']) . '원</p>
+                    </div>
+                ';
+            }
+
             break;
         case 2:
             $color = '#00402F';
