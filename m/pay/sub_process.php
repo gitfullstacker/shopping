@@ -28,6 +28,30 @@ $start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
 $end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
 $count = Fnc_Om_Conv_Default($_REQUEST['count'], 1);
 
+// 구독할 상품이 있는지 검색
+if ($int_type == 1 && fnc_cart_info($str_goodcode) == 0) {
+?>
+    <script language="javascript">
+        alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
+        window.location.href = "/m/product/detail?str_goodcode=<?= $str_goodcode ?>";
+    </script>
+<?
+exit;
+} else {
+    // 구독가능한 서브상품얻기
+    $SQL_QUERY =    'SELECT
+                        A.STR_SGOODCODE
+                    FROM 
+                        ' . $Tname . 'comm_goods_master_sub AS A
+                    WHERE
+                        A.STR_SERVICE = "Y"
+                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
+                    LIMIT 1';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+}
+
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*
@@ -94,7 +118,7 @@ $arr_Set_Data[5]        = '';
 $arr_Set_Data[6]        = '';
 $arr_Set_Data[7]        = $delivery_memo;
 $arr_Set_Data[8]        = $str_goodcode;
-$arr_Set_Data[9]        = $str_goodcode . "001";
+$arr_Set_Data[9]        = $rent_Data['STR_SGOODCODE'] ?: '';
 $arr_Set_Data[10]        = $start_date;
 $arr_Set_Data[11]        = $end_date;
 $arr_Set_Data[12]        = '';
