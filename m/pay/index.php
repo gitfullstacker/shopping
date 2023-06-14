@@ -159,32 +159,50 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div x-data="{
         type: 1,
         deliveryInfo: {
-            name: '<?= $user_Data['STR_NAME'] ?>',
-            telep: '<?= $user_Data['STR_TELEP'] ?>',
-            hp: '<?= $user_Data['STR_HP'] ?>',
-            address1: '<?= $user_Data['STR_SADDR1'] ?>',
-            address2: '<?= $user_Data['STR_SADDR2'] ?>',
-            postal: '<?= $user_Data['STR_SPOST'] ?>'
+            main: {
+                name: '<?= $user_Data['STR_NAME'] ?>',
+                telep: '<?= $user_Data['STR_TELEP'] ?>',
+                hp: '<?= $user_Data['STR_HP'] ?>',
+                address1: '<?= $user_Data['STR_SADDR1'] ?>',
+                address2: '<?= $user_Data['STR_SADDR2'] ?>',
+                postal: '<?= $user_Data['STR_SPOST'] ?>'
+            },
+            new: {
+                name: '',
+                telep: '',
+                hp: '',
+                address1: '',
+                address2: '',
+                postal: ''
+            }
         },
         messageType: '',
         messageContent: '',
         addDeliveryAddress() {
-            this.deliveryInfo.name = document.getElementById('new_delivery_name').value;
-            this.deliveryInfo.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
-            this.deliveryInfo.address1 = document.getElementById('new_delivery_address').value;
-            this.deliveryInfo.address2 = document.getElementById('new_delivery_detail_address').value;
-            this.deliveryInfo.postal = document.getElementById('new_delivery_postal_code').value;
+            if (document.getElementById('set_main_delivery').checked) {
+                this.deliveryInfo.main.name = document.getElementById('new_delivery_name').value;
+                this.deliveryInfo.main.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
+                this.deliveryInfo.main.address1 = document.getElementById('new_delivery_address').value;
+                this.deliveryInfo.main.address2 = document.getElementById('new_delivery_detail_address').value;
+                this.deliveryInfo.main.postal = document.getElementById('new_delivery_postal_code').value;
 
-            this.type = 1;
+                this.type = 1;
+            } else {
+                this.deliveryInfo.new.name = document.getElementById('new_delivery_name').value;
+                this.deliveryInfo.new.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
+                this.deliveryInfo.new.address1 = document.getElementById('new_delivery_address').value;
+                this.deliveryInfo.new.address2 = document.getElementById('new_delivery_detail_address').value;
+                this.deliveryInfo.new.postal = document.getElementById('new_delivery_postal_code').value;
+            }
         }
     }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
 
-        <input type="hidden" name="delivery_name" id="delivery_name" x-bind:value="deliveryInfo.name">
-        <input type="hidden" name="delivery_address1" id="delivery_address1" x-bind:value="deliveryInfo.address1">
-        <input type="hidden" name="delivery_address2" id="delivery_address2" x-bind:value="deliveryInfo.address2">
-        <input type="hidden" name="delivery_postal" id="delivery_postal" x-bind:value="deliveryInfo.postal">
-        <input type="hidden" name="delivery_telep" id="delivery_telep" x-bind:value="deliveryInfo.telep">
-        <input type="hidden" name="delivery_hp" id="delivery_hp" x-bind:value="deliveryInfo.hp">
+        <input type="hidden" name="delivery_name" id="delivery_name" x-bind:value="type == 1 ? deliveryInfo.main.name : deliveryInfo.new.name">
+        <input type="hidden" name="delivery_address1" id="delivery_address1" x-bind:value="type == 1 ? deliveryInfo.main.address1 : deliveryInfo.new.address1">
+        <input type="hidden" name="delivery_address2" id="delivery_address2" x-bind:value="type == 1 ? deliveryInfo.main.address2 : deliveryInfo.new.address2">
+        <input type="hidden" name="delivery_postal" id="delivery_postal" x-bind:value="type == 1 ? deliveryInfo.main.postal : deliveryInfo.new.postal">
+        <input type="hidden" name="delivery_telep" id="delivery_telep" x-bind:value="type == 1 ? deliveryInfo.main.telep : deliveryInfo.new.telep">
+        <input type="hidden" name="delivery_hp" id="delivery_hp" x-bind:value="type == 1 ? deliveryInfo.main.hp : deliveryInfo.new.hp">
 
         <p class="font-extrabold text-lg leading-5 text-[#333333]">배송정보</p>
         <div class="mt-1.5 flex gap-[7px]">
@@ -197,9 +215,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <!-- 기본 배송지 -->
         <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
-            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="deliveryInfo.name">에이블랑</p>
-            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="'(' + deliveryInfo.postal + ') ' + deliveryInfo.address1 + ' ' + deliveryInfo.address2">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
-            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="deliveryInfo.telep + ' / ' + deliveryInfo.hp">010-9556-6439 / 031-572-6439</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="deliveryInfo.main.name">에이블랑</p>
+            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="'(' + deliveryInfo.main.postal + ') ' + deliveryInfo.main.address1 + ' ' + deliveryInfo.main.address2">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
+            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="deliveryInfo.main.telep + ' / ' + deliveryInfo.main.hp">010-9556-6439 / 031-572-6439</p>
             <div class="mt-3 relative flex w-full">
                 <select name="delivery_memo_type" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]" x-model="messageType">
                     <option value="" selected>배송시 요청사항을 선택해 주세요</option>
@@ -249,6 +267,10 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black disabled:bg-[#F5F5F5]" name="" id="new_delivery_address" placeholder="기본주소" disabled>
                     <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_detail_address" placeholder="상세 주소를 입력해 주세요">
                 </div>
+            </div>
+            <div class="flex gap-[5px] items-center">
+                <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="set_main_delivery" id="set_main_delivery" value="1" class="cform">
+                <label for="set_main_delivery" class="font-bold text-xs leading-[14px] text-[#666666]">기본 배송지로 선택</label>
             </div>
             <button type="button" class="w-full h-[45px] bg-black border border-solid border-[#DDDDDD]" x-on:click="addDeliveryAddress()">
                 <p class="font-bold text-xs leading-[14px] text-center text-white">등록하기</p>
@@ -635,14 +657,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
         <div class="flex justify-between items-center">
             <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px]  accent-black">
+                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
                 <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
             </div>
             <a href="/m/help/deposit_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
         </div>
         <div class="flex justify-between items-center">
             <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px]  accent-black">
+                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
                 <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
             </div>
             <a href="/m/help/privacy_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>

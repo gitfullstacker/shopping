@@ -1503,7 +1503,9 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     result = JSON.parse(resultString);
                     if (result['status'] == 401) {
                         alert('사용자로그인을 하여야 합니다.');
-                        return;
+
+                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
                     }
                     if (result['status'] == 200) {
                         $("#like_count_" + bd_seq).html(result['data']);
@@ -1522,7 +1524,9 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     result = JSON.parse(resultString);
                     if (result['status'] == 401) {
                         alert('사용자로그인을 하여야 합니다.');
-                        return;
+
+                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
                     }
                     if (result['status'] == 200) {
                         if (result['data'] == true) {
@@ -1552,7 +1556,9 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     result = JSON.parse(resultString);
                     if (result['status'] == 401) {
                         alert('사용자로그인을 하여야 합니다.');
-                        return;
+
+                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
                     }
                     if (result['status'] == 200) {
                         if (result['data'] == true) {

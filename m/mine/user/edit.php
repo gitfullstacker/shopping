@@ -58,7 +58,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <p class="font-extrabold text-[13px] leading-[15px] text-black">배송지 정보</p>
         <div class="flex flex-col gap-[15px] w-full">
             <div class="flex gap-[5px] items-center">
-                <input type="checkbox" class="w-[14px] h-[14px]" name="same_account" id="same_account" checked>
+                <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="same_account" id="same_account" checked>
                 <label for="same_account" class="font-bold text-xs leading-[14px] text-[#666666]">회원정보와 동일</label>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -106,11 +106,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">성별</p>
             <div class="flex gap-[15px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px]" name="sex" id="woman" checked>
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="sex" id="woman" checked>
                     <label for="woman" class="font-bold text-xs leading-[14px] text-[#666666]">여성</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px]" name="sex" id="man">
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="sex" id="man">
                     <label for="man" class="font-bold text-xs leading-[14px] text-[#666666]">남성</label>
                 </div>
             </div>
@@ -180,11 +180,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">마케팅 수신동의</p>
             <div class="flex gap-[18px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px]" name="agree_email" id="agree_email" checked>
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="agree_email" id="agree_email" checked>
                     <label for="woman" class="font-bold text-xs leading-[14px] text-[#666666]">이메일 수신동의</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px]" name="agree_sms" id="agree_sms">
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="agree_sms" id="agree_sms">
                     <label for="man" class="font-bold text-xs leading-[14px] text-[#666666]">SMS 수신동의</label>
                 </div>
             </div>
