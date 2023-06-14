@@ -68,16 +68,16 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 $date1 = new DateTime($start_date);
 $date2 = new DateTime($end_date);
 
-$interval = $date1->diff($date2)->d;
+$use_days = $date1->diff($date2)->d + 1;
 
 $area_discount = 0;
-if (($site_Data['INT_DSTART1'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND1'] ?: 0)) {
+if (($site_Data['INT_DSTART1'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND1'] ?: 0)) {
     $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART2'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND2'] ?: 0)) {
+} else if (($site_Data['INT_DSTART2'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND2'] ?: 0)) {
     $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART3'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND3'] ?: 0)) {
+} else if (($site_Data['INT_DSTART3'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND3'] ?: 0)) {
     $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART4'] ?: 0) <= $interval && $interval <= ($site_Data['INT_DEND4'] ?: 0)) {
+} else if (($site_Data['INT_DSTART4'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND4'] ?: 0)) {
     $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
 }
 
@@ -110,14 +110,15 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     type: '',
     payAmount: {
         totalPrice: 0,
-        price: <?= $product_Data['INT_PRICE'] ?>,
+        price: <?= $product_Data['INT_TYPE'] == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
+        useDays: <?= $use_days ?>,
         discount: {
-            product: <?= $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100 ?>,
+            product: <?= $product_Data['INT_TYPE'] == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
             membership: 0
         },
         coupon: 0,
         saved: 0,
-        section: <?= $area_discount ?>
+        section: <?= $area_discount * $use_days ?>
     },
     calTotalPrice() {
         this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.saved - this.payAmount.section;

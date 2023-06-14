@@ -592,7 +592,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
             </div>
             <!-- 더보기 버튼 -->
-            <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white">
+            <button class="mt-7 flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white">
                 <span class="font-bold text-[11px] text-black">더보기</span>
                 <div class="flex items-center">
                     <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -883,473 +883,534 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 
     <?php
-    $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=1';
-    $start_days_result = mysql_query($SQL_QUERY);
-    $start_days_array = array();
-    while ($row = mysql_fetch_assoc($start_days_result)) {
-        $start_days_array[] = $row['STR_DAY'];
-    }
+    if ($arr_Data['INT_TYPE']) {
+        // 캘린더 날짜관리
+        $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=1';
+        $start_days_result = mysql_query($SQL_QUERY);
+        $start_days_array = array();
+        while ($row = mysql_fetch_assoc($start_days_result)) {
+            $start_days_array[] = $row['STR_DAY'];
+        }
 
-    $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=1';
-    $start_dates_result = mysql_query($SQL_QUERY);
-    $start_dates_array = array();
-    while ($row = mysql_fetch_assoc($start_dates_result)) {
-        $start_dates_array[] = $row['STR_DATE'];
-    }
+        $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=1';
+        $start_dates_result = mysql_query($SQL_QUERY);
+        $start_dates_array = array();
+        while ($row = mysql_fetch_assoc($start_dates_result)) {
+            $start_dates_array[] = $row['STR_DATE'];
+        }
 
-    $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=1';
-    $start_weeks_result = mysql_query($SQL_QUERY);
-    $start_weeks_array = array();
-    while ($row = mysql_fetch_assoc($start_weeks_result)) {
-        $start_weeks_array[] = $row['STR_WEEK'];
-    }
+        $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=1';
+        $start_weeks_result = mysql_query($SQL_QUERY);
+        $start_weeks_array = array();
+        while ($row = mysql_fetch_assoc($start_weeks_result)) {
+            $start_weeks_array[] = $row['STR_WEEK'];
+        }
 
-    $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
-    $end_days_result = mysql_query($SQL_QUERY);
-    $end_days_array = array();
-    while ($row = mysql_fetch_assoc($end_days_result)) {
-        $end_days_array[] = $row['STR_DAY'];
-    }
+        $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
+        $end_days_result = mysql_query($SQL_QUERY);
+        $end_days_array = array();
+        while ($row = mysql_fetch_assoc($end_days_result)) {
+            $end_days_array[] = $row['STR_DAY'];
+        }
 
-    $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
-    $end_dates_result = mysql_query($SQL_QUERY);
-    $end_dates_array = array();
-    while ($row = mysql_fetch_assoc($end_dates_result)) {
-        $end_dates_array[] = $row['STR_DATE'];
-    }
+        $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
+        $end_dates_result = mysql_query($SQL_QUERY);
+        $end_dates_array = array();
+        while ($row = mysql_fetch_assoc($end_dates_result)) {
+            $end_dates_array[] = $row['STR_DATE'];
+        }
 
-    $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
-    $end_weeks_result = mysql_query($SQL_QUERY);
-    $end_weeks_array = array();
-    while ($row = mysql_fetch_assoc($end_weeks_result)) {
-        $end_weeks_array[] = $row['STR_WEEK'];
-    }
+        $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
+        $end_weeks_result = mysql_query($SQL_QUERY);
+        $end_weeks_array = array();
+        while ($row = mysql_fetch_assoc($end_weeks_result)) {
+            $end_weeks_array[] = $row['STR_WEEK'];
+        }
 
+        // 렌트관리
+        $SQL_QUERY =    'SELECT A.STR_SDATE, A.STR_EDATE 
+                        FROM  
+                            ' . $Tname . 'comm_goods_cart A
+                        WHERE 
+                            A.INT_STATE IN (1, 2, 3, 4, 5, 6) 
+                            AND A.STR_GOODCODE="' . $str_goodcode . '"
+                        ORDER BY A.DTM_INDATE ASC';
+        $rent_result = mysql_query($SQL_QUERY);
+
+        $rentDates = array();
+        while ($row = mysql_fetch_assoc($rent_result)) {
+            $start = $row['STR_SDATE'];
+            $end = $row['STR_EDATE'];
+            $rentDates[] = array('start' => $start, 'end' => $end);
+        }
     ?>
-    <div x-show="showCalendar" x-transition x-data="{
-        currentYear: null,
-        currentMonth: null,
-        firstDayOfWeek: 0,
-        dates: [],
-        selectedStatus: 0,
-        exportDate: null,
-        startDate: null,
-        endDate: null,
-        collectDate: null,
-        selectedDates: [],
-        areaDiscount: 0,
-        totalPrice: 0,
-        startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
-        startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
-        startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
-        endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
-        endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
-        endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
-        showCalendarAlert: false,
+        <div x-show="showCalendar" x-transition x-data="{
+            currentYear: null,
+            currentMonth: null,
+            firstDayOfWeek: 0,
+            dates: [],
+            selectedStatus: 0,
+            exportDate: null,
+            startDate: null,
+            endDate: null,
+            collectDate: null,
+            price: 0,
+            areaDiscount: 0,
+            totalPrice: 0,
+            rentDays: 0,
+            startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
+            startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
+            startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
+            endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
+            endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
+            endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
+            showCalendarAlert: false,
+            rentDates: <?= str_replace('"', '\'', json_encode($rentDates)) ?>,
 
-        generateDates(month, year) {
-            year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
-            month = month == 0 ? 12 : month == 13 ? 1 : month;
-            const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
-            const daysInMonth = new Date(year, month, 0).getDate();
-            const dates = [];
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(year, month - 1, day);
+            generateDates(month, year) {
+                year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
+                month = month == 0 ? 12 : month == 13 ? 1 : month;
+                const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const dates = [];
+                
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month - 1, day);
 
-                status = 1;
-                showPrice = false;
-                price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
-                areaDiscount = 0;
+                    status = 1;
+                    showPrice = false;
+                    price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
+                    areaDiscount = 0;
+                    rentDays = 0;
 
-                if (this.selectedStatus == 0) {
-                    const enableToday = new Date();
-                    enableToday.setDate(enableToday.getDate() + 2);
-
-                    if (date < enableToday) {
-                        status = 0;
-                    } else if (date.getDay() === 1 || date.getDay() === 2) {
-                        // Monday: 1, Tuesday: 2
-                        status = 0;
-                    } else {
-                        const year1 = date.getFullYear().toString();
-                        const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
-                        const day1 = date.getDate().toString().padStart(2, '0');
-
-                        const dateString = `${year1}-${month1}-${day1}`;
-
-                        // 일 | 날짜 | 요일
-                        if (this.startDDays.includes(date.getDate())) {
-                            status = 0;
-                        } else if (this.startDWeeks.includes(date.getDay())) {
-                            status = 0;
-                        } else if (this.startDDates.includes(dateString)) {
-                            status = 0;
-                        }
-                    }
-                } else if (this.selectedStatus == 1) {
                     const year1 = date.getFullYear().toString();
                     const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
                     const day1 = date.getDate().toString().padStart(2, '0');
 
                     const dateString = `${year1}-${month1}-${day1}`;
-                    
-                    const disableEndDay = new Date(this.startDate);
-                    disableEndDay.setDate(disableEndDay.getDate() + 0);
 
-                    const finalEndday = new Date(this.startDate);
-                    finalEndday.setDate(finalEndday.getDate() + 14);
-                    
-                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
-                        status = 2;
-                        showPrice = true;
-                        areaDiscount = this.getAreaDiscount(date);
-                    } else if (date > finalEndday) {
-                        status = 0;
-                    } else if (date.getDay() === 5 || date.getDay() === 6) {
-                        // Friday: 1, Saturday: 2
-                        if (date > this.startDate && date < finalEndday) {
+                    if (this.selectedStatus == 0) {
+                        const enableToday = new Date();
+                        enableToday.setDate(enableToday.getDate() + 2);
+
+                        // 이미 렌트한 날짜 제외
+                        var isDateBetween = false;
+                        for (var i = 0; i < this.rentDates.length; i++) {
+                            const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
+                            const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
+
+                            if (date.getTime() >= rentStartDate.getTime() && date.getTime() <= rentEndDate.getTime()) {
+                                isDateBetween = true;
+                                break;
+                            }
+                        }
+
+                        if (isDateBetween) {
+                            status = 0;
+                        } else if (date.getTime() < enableToday.getTime()) {
+                            status = 0;
+                        } else if (date.getDay() === 1 || date.getDay() === 2) {
+                            // Monday: 1, Tuesday: 2
+                            status = 0;
+                        } else {
+                            // 일 | 날짜 | 요일
+                            if (this.startDDays.includes(date.getDate())) {
+                                status = 0;
+                            } else if (this.startDWeeks.includes(date.getDay())) {
+                                status = 0;
+                            } else if (this.startDDates.includes(dateString)) {
+                                status = 0;
+                            }
+                        }
+                    } else if (this.selectedStatus == 1) {
+                        const disableEndDay = new Date(this.startDate);
+                        disableEndDay.setDate(disableEndDay.getDate() + 0);
+
+                        const finalEndday = new Date(this.startDate);
+                        finalEndday.setDate(finalEndday.getDate() + 14);
+                        
+                        // 다음 예약한 렌트 날짜 제외
+                        var isDateBetween = false;
+                        for (var i = 0; i < this.rentDates.length; i++) {
+                            const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
+                            const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
+
+                            if (date.getTime() >= rentStartDate.getTime() && this.startDate.getTime() < rentEndDate.getTime()) {
+                                isDateBetween = true;
+                                break;
+                            }
+                        }
+
+                        if (isDateBetween) {
+                            status = 5;
+                        } else if (date.getTime() == this.startDate.getTime()) {
+                            status = 2;
+                            showPrice = true;
+                        } else if (date.getTime() > finalEndday.getTime()) {
+                            status = 0;
+                        } else if (date.getDay() === 5 || date.getDay() === 6) {
+                            // Friday: 1, Saturday: 2
+                            if (date.getTime() > this.startDate.getTime() && date.getTime() < finalEndday.getTime()) {
+                                status = 5;
+                                showPrice = true;
+                            } else {
+                                status = 0;
+                            }
+                        } else if (this.endDDays.includes(date.getDate())) {
+                            status = 0;
+                        } else if (this.endDWeeks.includes(date.getDay())) {
+                            status = 0;
+                        } else if (this.endDDates.includes(dateString)) {
+                            status = 0;
+                        } else if (date.getTime() > this.startDate.getTime() && date.getTime() <= disableEndDay.getTime()) {
                             status = 5;
                             showPrice = true;
-                            areaDiscount = this.getAreaDiscount(date);
+                        } else if (date.getTime() > disableEndDay.getTime()) {
+                            status = 8;
+                            showPrice = true;
                         } else {
                             status = 0;
                         }
-                    } else if (this.endDDays.includes(date.getDate())) {
-                        status = 0;
-                    } else if (this.endDWeeks.includes(date.getDay())) {
-                        status = 0;
-                    } else if (this.endDDates.includes(dateString)) {
-                        status = 0;
-                    } else if (date > this.startDate && date <= disableEndDay) {
-                        status = 5;
-                        showPrice = true;
-                        areaDiscount = this.getAreaDiscount(date);
-                    } else if (date > disableEndDay) {
-                        status = 8;
-                        showPrice = true;
-                        areaDiscount = this.getAreaDiscount(date);
+
+                        <!-- 출고 표시 -->
+                        if (date.getTime() == this.exportDate.getTime()) {
+                            status = 6;
+                        }
+
+                        <!-- 렌트 날짜 얻기 -->
+                        if (date.getTime() >= this.startDate.getTime()) {
+                            var diffMilliseconds = date.getTime() - this.startDate.getTime();
+                            var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
+
+                            rentDays = diffDays + 1;
+                        }
                     } else {
                         status = 0;
+                        if (date.getTime() == this.startDate.getTime()) {
+                            status = 2;
+                        } else if (date.getTime() == this.endDate.getTime()) {
+                            status = 3;
+                        } else if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
+                            status = 4;
+                        } else if (date.getTime() > this.endDate.getTime()) {
+                            status = 5;
+                        }
+
+                        <!-- 출고 표시 -->
+                        if (date.getTime() == this.exportDate.getTime()) {
+                            status = 6;
+                        }
+                        <!-- 회수 표시 -->
+                        if (date.getTime() == this.collectDate.getTime()) {
+                            status = 7;
+                        }
+
+                        <!-- 렌트 날짜 얻기 -->
+                        if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
+                            var diffMilliseconds = date.getTime() - this.startDate.getTime();
+                            var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
+
+                            rentDays = diffDays + 1;
+                        }
                     }
 
-                    <!-- 출고 표시 -->
-                    if (date.getFullYear() == this.exportDate.getFullYear() && date.getMonth() == this.exportDate.getMonth() && date.getDate() == this.exportDate.getDate()) {
-                        status = 6;
-                    }                    
-                } else {
-                    status = 0;
-                    if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
-                        status = 2;
-                    } else if (date.getFullYear() == this.endDate.getFullYear() && date.getMonth() == this.endDate.getMonth() && date.getDate() == this.endDate.getDate()) {
-                        status = 3;
-                    } else if (date >= this.startDate && date <= this.endDate) {
-                        status = 4;
-                    } else if (date > this.endDate) {
-                        status = 5;
-                    }
-
-                    <!-- 출고 표시 -->
-                    if (date.getFullYear() == this.exportDate.getFullYear() && date.getMonth() == this.exportDate.getMonth() && date.getDate() == this.exportDate.getDate()) {
-                        status = 6;
-                    }
-                    <!-- 회수 표시 -->
-                    if (date.getFullYear() == this.collectDate.getFullYear() && date.getMonth() == this.collectDate.getMonth() && date.getDate() == this.collectDate.getDate()) {
-                        status = 7;
-                    }
+                    dates.push({
+                        date: date,
+                        day: day,
+                        // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7, 시작날짜 선택시 선택가능: 8
+                        status: status,
+                        showPrice: showPrice,
+                        rentDays: rentDays,
+                        price: price,
+                        areaDiscount: this.getAreaDiscount(rentDays),
+                        totalPrice: (price - this.getAreaDiscount(rentDays)) * rentDays
+                    });
                 }
 
-                dates.push({
-                    day: day,
-                    // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7, 시작날짜 선택시 선택가능: 8
-                    status: status,
-                    showPrice: showPrice,
-                    price: price,
-                    areaDiscount: areaDiscount
-                });
-            }
+                this.dates = dates;
+                this.currentYear = year;
+                this.currentMonth = month;
+                this.firstDayOfWeek = firstDayOfWeek;
+            },
+            selectDate(date) {
+                var selectedDate = date.date;
 
-            this.dates = dates;
-            this.currentYear = year;
-            this.currentMonth = month;
-            this.firstDayOfWeek = firstDayOfWeek;
-        },
-        selectDate(day, month, year) {
-            if (this.selectedStatus == 0) {
-                this.startDate = new Date(year, month - 1, day);
-                this.exportDate = new Date(year, month - 1, day);
-                this.exportDate.setDate(this.exportDate.getDate() - 2);
-                this.selectedStatus++;
-            } else if (this.selectedStatus == 1) {
-                if (year == this.startDate.getFullYear() && (month - 1) == this.startDate.getMonth() && day == this.startDate.getDate()) {
-                    // 시작날짜를 눌렀을때 시작해제
-                    this.selectedStatus = 0;
-                    this.startDate = null;
-                    this.exportDate = null;
-                } else {
-                    this.endDate = new Date(year, month - 1, day);
-                    this.collectDate = new Date(year, month - 1, day);
-                    this.collectDate.setDate(this.collectDate.getDate() + 1);
-                    this.areaDiscount = this.getAreaDiscount(this.endDate);
-                    this.totalPrice = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> - this.areaDiscount;
+                if (this.selectedStatus == 0) {
+                    this.startDate = new Date(selectedDate);
+                    this.exportDate = new Date(selectedDate);
+                    this.exportDate.setDate(this.exportDate.getDate() - 2);
                     this.selectedStatus++;
+                } else if (this.selectedStatus == 1) {
+                    if (selectedDate.getTime() == this.startDate.getTime()) {
+                        // 시작날짜를 눌렀을때 시작해제
+                        this.selectedStatus = 0;
+                        this.startDate = null;
+                        this.exportDate = null;
+                    } else {
+                        this.endDate = new Date(selectedDate);
+                        this.collectDate = new Date(selectedDate);
+                        this.collectDate.setDate(this.collectDate.getDate() + 1);
+                        this.areaDiscount = date.areaDiscount;
+                        this.totalPrice = date.totalPrice;
+                        this.price = date.price;
+                        this.rentDays = date.rentDays;
+                        this.selectedStatus++;
 
-                    rentDate = {
-                        startDate: this.startDate,
-                        endDate: this.endDate
-                    };
+                        rentDate = {
+                            startDate: this.startDate,
+                            endDate: this.endDate
+                        };
+                    }
+                } else if (this.selectedStatus == 2) {
+                    if (selectedDate.getTime() == this.endDate.getTime()) {
+                        // 마감날짜를 눌렀을때 마감해제
+                        this.selectedStatus = 1;
+                        this.endDate = null;
+                        this.collectDate = null;
+
+                        rentDate = null;
+                    }
                 }
-            } else if (this.selectedStatus == 2) {
-                if (year == this.endDate.getFullYear() && (month - 1) == this.endDate.getMonth() && day == this.endDate.getDate()) {
-                    // 마감날짜를 눌렀을때 마감해제
-                    this.selectedStatus = 1;
-                    this.endDate = null;
-                    this.collectDate = null;
 
-                    rentDate = null;
+                this.generateDates(selectedDate.getMonth() + 1, selectedDate.getFullYear());
+            },
+            getAreaDiscount(rentDays) {
+                areaDiscount = 0;
+
+                // 구간1
+                if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
+                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
+                } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
+                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
+                } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
+                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
+                } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
+                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
                 }
+
+                return areaDiscount;
+            },
+            formatDate(date) {
+                const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+                const year = date.getFullYear().toString().slice(-2);
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const day = date.getDate().toString().padStart(2, '0');
+                const weekday = weekdays[date.getDay()];
+                
+                return `${month}. ${day}(${weekday})`;
+            },
+            initDate() {
+                this.selectedStatus = 0;
+                this.startDate = null;
+                this.endDate = null;
+                this.generateDates(this.currentMonth, this.currentYear);
+
+                rentDate = null;
+            },
+            showAlert() {
+                this.showCalendarAlert = true;
+                setTimeout(() => this.showCalendarAlert = false, 2000);
+            },
+            init() {
+                today = new Date();
+                this.generateDates(today.getMonth() + 1, today.getFullYear());
             }
-
-            this.generateDates(month, year);
-        },
-        getAreaDiscount(date) {
-            const timeDifference = date.getTime() - this.startDate.getTime();
-            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-
-            areaDiscount = 0;
-
-            // 구간1
-            if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
-                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
-            } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
-                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
-            } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
-                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
-            } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= daysDifference && daysDifference <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
-                areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
-            }
-
-            return areaDiscount;
-        },
-        formatDate(date) {
-            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-            const year = date.getFullYear().toString().slice(-2);
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const day = date.getDate().toString().padStart(2, '0');
-            const weekday = weekdays[date.getDay()];
-            
-            return `${month}. ${day}(${weekday})`;
-        },
-        initDate() {
-            this.selectedStatus = 0;
-            this.startDate = null;
-            this.endDate = null;
-            this.selectedDates = [];
-            this.generateDates(this.currentMonth, this.currentYear);
-
-            rentDate = null;
-        },
-        showAlert() {
-            this.showCalendarAlert = true;
-            setTimeout(() => this.showCalendarAlert = false, 2000);
-        },
-        init() {
-            today = new Date();
-            this.generateDates(today.getMonth() + 1, today.getFullYear());
-        }
-    }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
-        <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full relative">
-            <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
-                <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
-                <button class="w-2.5 h-2.5" x-on:click="showCalendar = false;initDate();">
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
-                    </svg>
-                </button>
-            </div>
-            <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-            <div class="flex flex-col items-center w-full overflow-auto h-full">
-                <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
-                    <p class="font-medium text-base leading-[18px] text-black">예약날짜 설정하기</p>
-                    <div class="mt-[17px] flex gap-[13px] items-center">
-                        <div class="flex gap-[1.4px] items-center">
-                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#BED2B6]"></div>
-                            <label for="calendar_available" class="font-bold text-[11px] leading-[11px] text-[#666666]">선택가능</label>
+        }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
+            <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full relative">
+                <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
+                    <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
+                    <button class="w-2.5 h-2.5" x-on:click="showCalendar = false;initDate();">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                        </svg>
+                    </button>
+                </div>
+                <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                <div class="flex flex-col items-center w-full overflow-auto h-full">
+                    <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
+                        <p class="font-medium text-base leading-[18px] text-black">예약날짜 설정하기</p>
+                        <div class="mt-[17px] flex gap-[13px] items-center">
+                            <div class="flex gap-[1.4px] items-center">
+                                <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#BED2B6]"></div>
+                                <label for="calendar_available" class="font-bold text-[11px] leading-[11px] text-[#666666]">선택가능</label>
+                            </div>
+                            <div class="flex gap-[1.4px] items-center">
+                                <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#E5EAE3]"></div>
+                                <label for="calendar_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용기간</label>
+                            </div>
+                            <div class="flex gap-[1.4px] items-center">
+                                <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#DDDDDD]"></div>
+                                <label for="calendar_no_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용불가</label>
+                            </div>
                         </div>
-                        <div class="flex gap-[1.4px] items-center">
-                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#E5EAE3]"></div>
-                            <label for="calendar_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용기간</label>
-                        </div>
-                        <div class="flex gap-[1.4px] items-center">
-                            <div class="w-[12.56px] h-[12.56px] rounded-full bg-[#DDDDDD]"></div>
-                            <label for="calendar_no_use" class="font-bold text-[11px] leading-[11px] text-[#666666]">이용불가</label>
+                        <div class="flex flex-col w-full">
+                            <div class="mt-[27px] relative flex justify-center items-end w-full">
+                                <p class="font-extrabold text-[13px] leading-[15px] text-black" x-text="currentYear + '.' + (currentMonth > 9 ? currentMonth : '0' + currentMonth)">2023.01</p>
+                                <button id="previous_month" class="absolute left-0 bottom-0" x-on:click="generateDates(currentMonth - 1, currentYear)">
+                                    <svg width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.19892 4.51706L6.67092 6.74006V8.39106L0.378921 5.14106V3.85406L6.67092 0.604062V2.24206L2.19892 4.43906V4.51706Z" fill="black" />
+                                    </svg>
+                                </button>
+                                <button id="next_month" class="absolute right-0 bottom-0" x-on:click="generateDates(currentMonth + 1, currentYear)">
+                                    <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.23103 4.43906L0.759028 2.24206V0.604062L7.05103 3.85406V5.14106L0.759028 8.39106V6.74006L5.23103 4.51706V4.43906Z" fill="black" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="mt-[17px] flex gap-[9px] justify-between items-center">
+                                <?php
+                                $daysOfWeek = array("일", "월", "화", "수", "목", "금", "토");
+                                for ($i = 0; $i < count($daysOfWeek); $i++) {
+                                ?>
+                                    <div class="flex-1 flex justify-center items-center">
+                                        <p class="font-bold text-xs leading-[14px] text-[#898989]"><?= $daysOfWeek[$i] ?></p>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <hr class="mt-[19px] border-t-[0.5px] border-[#E0E0E0]" />
+                            <div class="mt-[13px] grid grid-cols-7 gap-y-[11px] place-content-between place-items-center w-full">
+                                <template x-for="i in firstDayOfWeek">
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px]"></div>
+                                </template>
+                                <template x-for="date in dates">
+                                    <div class="flex justify-center items-center px-1.5" x-bind:class="
+                                        date.status == 1 ? '' :
+                                        (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
+                                        date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
+                                        date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
+                                        <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="
+                                            date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
+                                            date.status == 1 ? 'bg-[#BED2B6] text-black' : 
+                                            (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
+                                            date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
+                                            date.status == 5 ? 'bg-white text-[#DDDDDD]' : 
+                                            date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
+                                            date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
+                                            date.status == 8 ? 'bg-white text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date) : showAlert()">
+                                            <template x-if="date.status == 6 || date.status == 7">
+                                                <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
+                                                    <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
+                                                </div>
+                                            </template>
+                                            <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
+                                            <template x-if="date.showPrice">
+                                                <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-center" x-bind:class="
+                                            date.status == 2 ? 'top-[38px] text-[#00402F]' : 
+                                            date.status == 5 ? 'bottom-0 text-[#DDDDDD]' : 'bottom-0 text-black'" x-text="date.totalPrice.toLocaleString()">31,800</p>
+                                            </template>
+                                            <template x-if="date.status == 2 && selectedStatus == 1">
+                                                <div class="flex flex-col justify-center items-center w-[86px] h-[34px] bg-black bg-opacity-80 rounded-[12px] absolute -top-11 z-10">
+                                                    <p class="font-bold text-[10px] leading-3 text-white" x-text="currentMonth + '월 ' + date.day + '일'">1월 22일</p>
+                                                    <p class="font-medium text-[9px] leading-[11px] text-white">종료일을 선택하세요</p>
+                                                    <div class="absolute top-[34px] z-10">
+                                                        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M3.49691e-07 0.0583489L8 0.0583496L4 4.05835L3.49691e-07 0.0583489Z" fill="black" fill-opacity="0.8" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex flex-col w-full">
-                        <div class="mt-[27px] relative flex justify-center items-end w-full">
-                            <p class="font-extrabold text-[13px] leading-[15px] text-black" x-text="currentYear + '.' + (currentMonth > 9 ? currentMonth : '0' + currentMonth)">2023.01</p>
-                            <button id="previous_month" class="absolute left-0 bottom-0" x-on:click="generateDates(currentMonth - 1, currentYear)">
-                                <svg width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2.19892 4.51706L6.67092 6.74006V8.39106L0.378921 5.14106V3.85406L6.67092 0.604062V2.24206L2.19892 4.43906V4.51706Z" fill="black" />
-                                </svg>
-                            </button>
-                            <button id="next_month" class="absolute right-0 bottom-0" x-on:click="generateDates(currentMonth + 1, currentYear)">
-                                <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.23103 4.43906L0.759028 2.24206V0.604062L7.05103 3.85406V5.14106L0.759028 8.39106V6.74006L5.23103 4.51706V4.43906Z" fill="black" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="mt-[17px] flex gap-[9px] justify-between items-center">
-                            <?php
-                            $daysOfWeek = array("일", "월", "화", "수", "목", "금", "토");
-                            for ($i = 0; $i < count($daysOfWeek); $i++) {
-                            ?>
-                                <div class="flex-1 flex justify-center items-center">
-                                    <p class="font-bold text-xs leading-[14px] text-[#898989]"><?= $daysOfWeek[$i] ?></p>
+                    <template x-if="selectedStatus == 1">
+                        <div class="flex flex-col w-full">
+                            <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                            <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
                                 </div>
-                            <?php
-                            }
-                            ?>
+                            </div>
                         </div>
-                        <hr class="mt-[19px] border-t-[0.5px] border-[#E0E0E0]" />
-                        <div class="mt-[13px] grid grid-cols-7 gap-y-[11px] place-content-between place-items-center w-full">
-                            <template x-for="i in firstDayOfWeek">
-                                <div class="flex justify-center items-center rounded-full w-[38px] h-[38px]"></div>
-                            </template>
-                            <template x-for="date in dates">
-                                <div class="flex justify-center items-center px-1.5" x-bind:class="
-                                date.status == 1 ? '' :
-                                (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
-                                date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
-                                date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
-                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="
-                                    date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
-                                    date.status == 1 ? 'bg-[#BED2B6] text-black' : 
-                                    (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
-                                    date.status == 4 ? 'bg-[#E5EAE3] text-black' : 
-                                    date.status == 5 ? 'bg-white text-[#DDDDDD]' : 
-                                    date.status == 6 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 7 ? 'bg-white text-black border border-solid border-[#DDDDDD]' : 
-                                    date.status == 8 ? 'bg-white text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3 || date.status == 8) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
-                                        <template x-if="date.status == 6 || date.status == 7">
-                                            <div class="absolute -top-[4px] left-[3px] flex justify-center items-center w-8 h-[14px] bg-[#DDDDDD] rounded-full">
-                                                <p class="font-normal text-[9px] leading-[10px] text-black" x-text="date.status == 6 ? '출고' : '회수'">출고</p>
-                                            </div>
-                                        </template>
-                                        <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
-                                        <template x-if="date.showPrice">
-                                            <p class="absolute bottom-0 left-0 w-full font-normal text-[9px] leading-[10px] text-center" x-bind:class="
-                                            date.status == 2 ? 'top-[38px] text-[#00402F]' : 
-                                            date.status == 5 ? 'bottom-0 text-[#DDDDDD]' : 'bottom-0 text-black'" x-text="(date.price - date.areaDiscount).toLocaleString()">31,800</p>
-                                        </template>
-                                        <template x-if="date.status == 2 && selectedStatus == 1">
-                                            <div class="flex flex-col justify-center items-center w-[86px] h-[34px] bg-black bg-opacity-80 rounded-[12px] absolute -top-11 z-10">
-                                                <p class="font-bold text-[10px] leading-3 text-white" x-text="currentMonth + '월 ' + date.day + '일'">1월 22일</p>
-                                                <p class="font-medium text-[9px] leading-[11px] text-white">종료일을 선택하세요</p>
-                                                <div class="absolute top-[34px] z-10">
-                                                    <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M3.49691e-07 0.0583489L8 0.0583496L4 4.05835L3.49691e-07 0.0583489Z" fill="black" fill-opacity="0.8" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </template>
+                    </template>
+                    <template x-if="selectedStatus == 2">
+                        <div class="flex flex-col w-full">
+                            <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                            <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">이용기간</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(startDate) + ' ~ ' + formatDate(endDate)">01. 22(일) ~ 01. 26(목)</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">회수일</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(collectDate)">01. 27(금)</p>
+                                </div>
+                            </div>
+                            <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                            <div class="flex flex-col gap-[4.79px] px-7 py-5">
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">주문금액</p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666]" x-text="(price * rentDays).toLocaleString()">100원</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="(areaDiscount * rentDays).toLocaleString()">100원</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
+                                    <div class="flex gap-2 items-center">
+                                        <p class="font-extrabold text-lg leading-5 text-[#00402F]">
+                                            <?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?>
+                                        </p>
+                                        <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="totalPrice.toLocaleString()">1000원</p>
+                                        <p class="font-bold text-xs leading-[14px] text-[#00402F]">멤버십 할인 적용가</p>
                                     </div>
                                 </div>
-                            </template>
+                            </div>
+                        </div>
+                    </template>
+                    <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
+                    <div class="mt-[15px] mb-5 flex flex-col items-center w-full px-[13px]">
+                        <div class="flex justify-center items-center px-2.5 py-[5px] bg-[#F5F5F5] rounded-[10px]">
+                            <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
+                        </div>
+                        <p class="mt-2 font-bold text-[11px] leading-[13px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
+                        <div class="mt-[26px] flex flex-col w-full px-7 relative">
+                            <div class="w-full px-[23px] mt-5">
+                                <img class="min-w-full" src="images/rent_discount.png" alt="">
+                            </div>
+                            <div class="flex justify-between absolute left-0 w-full px-7">
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-4"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-8"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-12"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
+                            </div>
+                            <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
+                            <div class="mt-2 flex justify-between w-full px-[7px]">
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>~<?= $site_Data['INT_DEND2'] ?>일</p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?></p>
+                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <template x-if="selectedStatus == 1">
-                    <div class="flex flex-col w-full">
-                        <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
-                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="selectedStatus == 2">
-                    <div class="flex flex-col w-full">
-                        <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="flex flex-col gap-[8.62px] px-7 py-[14px]">
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">출고일</p>
-                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(exportDate)">01. 20(금)</p>
-                            </div>
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">이용기간</p>
-                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(startDate) + ' ~ ' + formatDate(endDate)">01. 22(일) ~ 01. 26(목)</p>
-                            </div>
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">회수일</p>
-                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="formatDate(collectDate)">01. 27(금)</p>
-                            </div>
-                        </div>
-                        <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="flex flex-col gap-[4.79px] px-7 py-5">
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">주문금액</p>
-                                <p class="font-bold text-xs leading-[14px] line-through text-[#666666]"><?= number_format($arr_Data['INT_PRICE']) ?></p>
-                            </div>
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
-                                <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="areaDiscount.toLocaleString()">100원</p>
-                            </div>
-                            <div class="flex">
-                                <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
-                                <div class="flex gap-2 items-center">
-                                    <p class="font-extrabold text-lg leading-5 text-[#00402F]">
-                                        <?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?>
-                                    </p>
-                                    <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="totalPrice.toLocaleString()">1000원</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#00402F]">멤버십 할인 적용가</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-                <div class="mt-[15px] mb-5 flex flex-col items-center w-full px-[13px]">
-                    <div class="flex justify-center items-center px-2.5 py-[5px] bg-[#F5F5F5] rounded-[10px]">
-                        <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
-                    </div>
-                    <p class="mt-2 font-bold text-[11px] leading-[13px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
-                    <div class="mt-[26px] flex flex-col w-full px-7 relative">
-                        <div class="w-full px-[23px] mt-5">
-                            <img class="min-w-full" src="images/rent_discount.png" alt="">
-                        </div>
-                        <div class="flex justify-between absolute left-0 w-full px-7">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-4"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-8"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-12"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
-                        </div>
-                        <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
-                        <div class="mt-2 flex justify-between w-full px-[7px]">
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>~<?= $site_Data['INT_DEND2'] ?>일</p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?></p>
-                            <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="absolute bottom-16">
-                <div x-show="showCalendarAlert" class="flex flex-col justify-center items-center gap-3 px-[50px] py-5 bg-black bg-opacity-80 border border-solid border-[#D9D9D9] rounded-[11px]" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14 0.00023987C17.713 0.00023987 21.2739 1.47517 23.8995 4.10066C26.5251 6.72616 28 10.2873 28 14.0001C28 17.7129 26.5251 21.274 23.8995 23.8996C21.274 26.5251 17.7129 28 14 28C10.2871 28 6.7261 26.5251 4.10046 23.8996C1.47494 21.2741 0 17.7129 0 14.0001C0.00398445 10.2883 1.48034 6.72988 4.1049 4.10486C6.7297 1.48033 10.288 0.00396002 14.0002 0L14 0.00023987ZM14 22.4002C14.3713 22.4002 14.7275 22.2527 14.99 21.99C15.2525 21.7275 15.3999 21.3715 15.3999 21.0002C15.3999 20.6288 15.2525 20.2727 14.99 20.0102C14.7275 19.7477 14.3713 19.6001 14 19.6001C13.6287 19.6001 13.2725 19.7477 13.01 20.0102C12.7475 20.2727 12.6001 20.6288 12.6001 21.0002C12.6001 21.3715 12.7475 21.7275 13.01 21.99C13.2725 22.2527 13.6287 22.4002 14 22.4002ZM12.6001 16.8002C12.6001 17.3004 12.8668 17.7626 13.2999 18.0126C13.733 18.2627 14.2669 18.2627 14.7001 18.0126C15.1332 17.7626 15.3999 17.3004 15.3999 16.8002V6.99976C15.3999 6.4996 15.1332 6.03741 14.7001 5.78733C14.267 5.53725 13.7331 5.53725 13.2999 5.78733C12.8668 6.03741 12.6001 6.4996 12.6001 6.99976V16.8002Z" fill="white" />
-                    </svg>
-                    <p class="font-medium text-[15px] leading-[17px] text-center text-white">
-                        해당 날짜엔 이용이 불가합니다.<br>
-                        다른 일을 선택해주세요.
-                    </p>
+                <div class="absolute bottom-16">
+                    <div x-show="showCalendarAlert" class="flex flex-col justify-center items-center gap-3 px-[50px] py-5 bg-black bg-opacity-80 border border-solid border-[#D9D9D9] rounded-[11px]" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 0.00023987C17.713 0.00023987 21.2739 1.47517 23.8995 4.10066C26.5251 6.72616 28 10.2873 28 14.0001C28 17.7129 26.5251 21.274 23.8995 23.8996C21.274 26.5251 17.7129 28 14 28C10.2871 28 6.7261 26.5251 4.10046 23.8996C1.47494 21.2741 0 17.7129 0 14.0001C0.00398445 10.2883 1.48034 6.72988 4.1049 4.10486C6.7297 1.48033 10.288 0.00396002 14.0002 0L14 0.00023987ZM14 22.4002C14.3713 22.4002 14.7275 22.2527 14.99 21.99C15.2525 21.7275 15.3999 21.3715 15.3999 21.0002C15.3999 20.6288 15.2525 20.2727 14.99 20.0102C14.7275 19.7477 14.3713 19.6001 14 19.6001C13.6287 19.6001 13.2725 19.7477 13.01 20.0102C12.7475 20.2727 12.6001 20.6288 12.6001 21.0002C12.6001 21.3715 12.7475 21.7275 13.01 21.99C13.2725 22.2527 13.6287 22.4002 14 22.4002ZM12.6001 16.8002C12.6001 17.3004 12.8668 17.7626 13.2999 18.0126C13.733 18.2627 14.2669 18.2627 14.7001 18.0126C15.1332 17.7626 15.3999 17.3004 15.3999 16.8002V6.99976C15.3999 6.4996 15.1332 6.03741 14.7001 5.78733C14.267 5.53725 13.7331 5.53725 13.2999 5.78733C12.8668 6.03741 12.6001 6.4996 12.6001 6.99976V16.8002Z" fill="white" />
+                        </svg>
+                        <p class="font-medium text-[15px] leading-[17px] text-center text-white">
+                            해당 날짜엔 이용이 불가합니다.<br>
+                            다른 일을 선택해주세요.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php
+    }
+    ?>
 
     <div id="basket_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
         <div class="mb-5 flex flex-col gap-[12.5px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
