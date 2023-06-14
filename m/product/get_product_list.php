@@ -9,6 +9,8 @@ $filter_discount = $_GET['filter_discount'];
 $filter_brands = json_decode($_GET['filter_brands'], true);
 $filter_sizes = json_decode($_GET['filter_sizes'], true);
 $filter_styles = json_decode($_GET['filter_styles'], true);
+$start_date = $_GET['start_date'];
+$end_date = $_GET['end_date'];
 
 $order_by = $_GET['order_by'];
 
@@ -37,6 +39,33 @@ if (count($filter_styles) > 0) {
     }
     $filter_styles_string = implode(' OR ', $filter_styles_array);
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
+}
+if ($start_date && $end_date) {
+    $SQL_QUERY =    'SELECT 
+                        A.STR_GOODCODE
+                    FROM 
+                        ' . $Tname . 'comm_goods_cart A
+                    WHERE 
+                        (STR_SDATE >= "' . $start_date . '" AND STR_EDATE <= "' . $end_date . '")
+                        OR
+                        (STR_SDATE <= "' . $start_date . '" AND STR_EDATE >= "' . $start_date . '")
+                        OR
+                        (STR_SDATE <= "' . $end_date . '" AND STR_EDATE >= "' . $end_date . '")
+                        OR
+                        (STR_SDATE <= "' . $start_date . '" AND STR_EDATE >= "' . $end_date . '")';
+
+    $rented_list_result = mysql_query($SQL_QUERY);
+
+    $str_goodcode_array = array();
+    while ($row = mysql_fetch_assoc($rented_list_result)) {
+        $str_goodcode_array[] = $row['STR_GOODCODE'];
+    }
+
+    $filter_rented_string = implode(',', $str_goodcode_array);
+    
+    if ($filter_rented_string) {
+        $FILTER_QUERY .= 'AND A.STR_GOODCODE NOT IN (' . $filter_rented_string . ') ';
+    }
 }
 
 $ORDERBY_QUERY = 'A.INT_LIKE DESC ';

@@ -460,6 +460,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 }
 
                 dates.push({
+                    date: date,
                     day: day,
                     status: status   // Disable: 0, Enable: 1, Picked Start: 2, Picked End: 3, Period: 4, Hide: 5, Export: 6, Collect: 7
                 });
@@ -470,34 +471,30 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.currentMonth = month;
             this.firstDayOfWeek = firstDayOfWeek;
         },
-        selectDate(day, month, year) {
+        selectDate(date) {
+            var selectedDate = date.date;
+
             if (this.selectedStatus == 0) {
-                this.startDate = new Date(year, month - 1, day);
-                this.exportDate = new Date(year, month - 1, day);
-                this.exportDate.setDate(this.exportDate.getDate() - 2);
+                this.startDate = new Date(selectedDate);
                 this.selectedStatus++;
             } else if (this.selectedStatus == 1) {
-                if (year == this.startDate.getFullYear() && (month - 1) == this.startDate.getMonth() && day == this.startDate.getDate()) {
+                if (selectedDate.getTime() == this.startDate.getTime()) {
                     // 시작날짜를 눌렀을때 시작해제
                     this.selectedStatus = 0;
                     this.startDate = null;
-                    this.exportDate = null;
                 } else {
-                    this.endDate = new Date(year, month - 1, day);
-                    this.collectDate = new Date(year, month - 1, day);
-                    this.collectDate.setDate(this.collectDate.getDate() + 1);
+                    this.endDate = new Date(selectedDate);
                     this.selectedStatus++;
                 }
             } else if (this.selectedStatus == 2) {
-                if (year == this.endDate.getFullYear() && (month - 1) == this.endDate.getMonth() && day == this.endDate.getDate()) {
+                if (selectedDate.getTime() == this.endDate.getTime()) {
                     // 마감날짜를 눌렀을때 마감해제
                     this.selectedStatus = 1;
                     this.endDate = null;
-                    this.collectDate = null;
                 }
             }
 
-            this.generateDates(month, year);
+            this.generateDates(selectedDate.getMonth() + 1, selectedDate.getFullYear());
         },
         formatDate(date) {
             const year = date.getFullYear().toString().slice(-2);
@@ -508,6 +505,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         },
         applyFilter() {
             showCalendar = false;
+            start_date = this.startDate;
+            end_date = this.endDate;
             searchProduct();
         },
         initDate() {
@@ -596,7 +595,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
                                     date.status == 1 ? 'bg-[#BED2B6] text-black' : 
                                     (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
-                                    date.status == 4 ? 'bg-[#E5EAE3] text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date.day, currentMonth, currentYear) : showAlert()">
+                                    date.status == 4 ? 'bg-[#E5EAE3] text-black' : 'bg-white text-[#DDDDDD]'" x-on:click="(date.status == 1 || date.status == 2 || date.status == 3) ? selectDate(date) : showAlert()">
                                         <p class="font-bold text-xs leading-[14px]" x-text="date.day"></p>
                                     </div>
                                 </div>
@@ -904,14 +903,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     });
 
     function searchProduct(append = false) {
+        var start_date_str = '';
+        if (start_date) {
+            start_date_str = start_date.getFullYear().toString() + '-' + (start_date.getMonth() + 1).toString().padStart(2, '0') + '-' + start_date.getDate().toString().padStart(2, '0');
+        }
+        var end_date_str = '';
+        if (end_date) {
+            end_date_str = end_date.getFullYear().toString() + '-' + (end_date.getMonth() + 1).toString().padStart(2, '0') + '-' + end_date.getDate().toString().padStart(2, '0');
+        }
+
         url = "get_product_list.php";
         url += "?page=" + current_page;
         url += "&filter_discount=" + filter_discount;
         url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
         url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));
         url += "&filter_styles=" + encodeURIComponent(JSON.stringify(filter_styles));
-        url += "&start_date=" + start_date;
-        url += "&end_date=" + end_date;
+        url += "&start_date=" + start_date_str;
+        url += "&end_date=" + end_date_str;
         url += "&order_by=" + order_by;
         url += "&product_type=" + <?= $product_type ?>;
 
