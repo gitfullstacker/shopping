@@ -96,14 +96,10 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
-            $query =    "SELECT * 
-                            FROM " . $Tname . "comm_com_code 
-                        WHERE 
-                            str_service = 'Y' 
-                            AND int_gubun = 2";
-            $brand_list_result = mysql_query($query);
-            
-            while ($row = mysql_fetch_assoc($brand_list_result)) {
+            if (mysql_num_rows($top_brand_list_result) > 0) {
+                mysql_data_seek($top_brand_list_result, 0);
+            }
+            while ($row = mysql_fetch_assoc($top_brand_list_result)) {
             ?>
                 <?php
                 $main_banner = '';
@@ -149,7 +145,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                             while ($product_row = mysql_fetch_assoc($brand_product_list)) {
                             ?>
-                                <div class="flex flex-col <?= $product_row ?: 'animate-pulse' ?>">
+                                <a href="/m/product/detail.php?str_goodcode=<?= $product_row['STR_GOODCODE'] ?>" class="flex flex-col <?= $product_row ?: 'animate-pulse' ?>">
                                     <div class="w-[118px] h-[118px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-md">
                                         <img class="w-full" src="/admincenter/files/good/<?= $product_row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                                     </div>
@@ -187,7 +183,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                         }
                                         ?>
                                     </div>
-                                </div>
+                                </a>
                             <?php
                             }
                             ?>
@@ -701,9 +697,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     searchKey: '',
                     list: [
                         <?php
-                        if (mysql_num_rows($brand_list_result) > 0) {
-                            mysql_data_seek($brand_list_result, 0);
-                        }
+                        $query =    "SELECT * 
+                                        FROM " . $Tname . "comm_com_code 
+                                    WHERE 
+                                        str_service = 'Y' 
+                                        AND int_gubun = 2";
+                        $brand_list_result = mysql_query($query);
                         while ($row = mysql_fetch_assoc($brand_list_result)) {
                         ?>
                             {

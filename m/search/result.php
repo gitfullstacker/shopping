@@ -333,7 +333,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function openFilter() {
-        url = "index.php";
+        url = "filter.php";
         url += "?filter_categories=" + encodeURIComponent(JSON.stringify(filter_categories));
         url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
         url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));

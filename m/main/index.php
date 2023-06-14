@@ -461,7 +461,7 @@ $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 			?>
 				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
+						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1q'] ?>" onerror="this.style.display = 'none'" alt="rent">
 					</div>
 					<p class="brand"><?= $row['STR_CODE'] ?></p>
 					<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
@@ -531,7 +531,7 @@ $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 			?>
 				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
 					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="rent">
+						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
 					</div>
 					<p class="brand"><?= $row['STR_CODE'] ?></p>
 					<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
