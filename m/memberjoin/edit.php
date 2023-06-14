@@ -1,23 +1,51 @@
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script language="javascript" src="js/join.js"></script>
+<script language="javascript" src="js/edit.js"></script>
+
+<?php
+// 사용자정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_member AS A
+                WHERE
+                    A.STR_USERID="' . $arr_Auth[0] . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+
+$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+?>
 
 <form class="mt-[30px] flex flex-col w-full px-[14px]" name="frm" method="post" enctype="multipart/form-data">
     <div class="flex justify-center">
-        <p class="font-extrabold text-lg leading-5 text-center text-black">회원가입</p>
+        <p class="font-extrabold text-lg leading-5 text-center text-black">회원정보 수정</p>
     </div>
 
-    <!-- 계정 정보 -->
+    <!-- 회원 기본 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-sm leading-4 text-black">계정 정보 <span class="text-[#DA2727]">*</span></p>
+        <p class="font-extrabold text-sm leading-4 text-black">회원 기본 정보</p>
         <div class="flex flex-col gap-[15px] w-full">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">아이디</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();" disabled>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="idView_Proc"></span>
+            </div>
+            <div class="flex flex-col gap-[5px] w-full">
+                <p class="font-bold text-xs leading-[14px] text-black">현재 비밀번호</p>
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd0" maxlength="20" onKeyUp="pass_org_check();" placeholder="비밀번호를 입력해 주세요">
+                <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_password0"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">비밀번호</p>
@@ -26,27 +54,34 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">비밀번호 확인</p>
-                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd2" maxlength="20" onKeyUp="pass_con_check();" placeholder="비밀번호를 다시 입력해 주세요">
+                <input type="password" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_passwd2" maxlength="20" onKeyUp="pass_con_check();" placeholder="새 비밀번호를 다시 입력해 주세요">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_password2"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이메일</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_email" placeholder="이메일">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_email" value="<?= $arr_Data['STR_EMAIL'] ?>" placeholder="이메일">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_email"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
+                <?php
+                $str_hp = explode('-', $arr_Data['STR_HP']);
+
+                $str_hp1 = $str_hp[0] ?: '010';
+                $str_hp2 = $str_hp[1] ?: '';
+                $str_hp3 = $str_hp[2] ?: '';
+                ?>
                 <div class="grid grid-cols-3 gap-[5px]">
                     <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
+                        <option value="010" <?= $str_hp1 == '010' ? 'selected' : '' ?>>010</option>
+                        <option value="011" <?= $str_hp1 == '011' ? 'selected' : '' ?>>011</option>
+                        <option value="016" <?= $str_hp1 == '016' ? 'selected' : '' ?>>016</option>
+                        <option value="017" <?= $str_hp1 == '017' ? 'selected' : '' ?>>017</option>
+                        <option value="018" <?= $str_hp1 == '018' ? 'selected' : '' ?>>018</option>
+                        <option value="019" <?= $str_hp1 == '019' ? 'selected' : '' ?>>019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" maxlength="4" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" maxlength="4" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $str_hp2 ?>" maxlength="4" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $str_hp3 ?>" maxlength="4" placeholder="5678">
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
                 <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
@@ -69,22 +104,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_name" id="str_name" placeholder="에이블랑">
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_name" id="str_name" value="<?= $arr_Data['STR_NAME'] ?>" placeholder="에이블랑">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_name"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
+                <?php
+                $str_telp = explode('-', $arr_Data['STR_TELEP']);
+
+                $str_telp1 = $str_telp[0] ?: '010';
+                $str_telp2 = $str_telp[1] ?: '';
+                $str_telp3 = $str_telp[2] ?: '';
+                ?>
                 <div class="grid grid-cols-3 gap-[5px]">
                     <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep1" id="str_telep1">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
+                        <option value="010" <?= $str_telp1 == '010' ? 'selected' : '' ?>>010</option>
+                        <option value="011" <?= $str_telp1 == '011' ? 'selected' : '' ?>>011</option>
+                        <option value="016" <?= $str_telp1 == '016' ? 'selected' : '' ?>>016</option>
+                        <option value="017" <?= $str_telp1 == '017' ? 'selected' : '' ?>>017</option>
+                        <option value="018" <?= $str_telp1 == '018' ? 'selected' : '' ?>>018</option>
+                        <option value="019" <?= $str_telp1 == '019' ? 'selected' : '' ?>>019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" id="str_telep2" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" id="str_telep3" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" id="str_telep2" value="<?= $str_telp2 ?>" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" id="str_telep3" value="<?= $str_telp3 ?>" placeholder="5678">
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -148,17 +190,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                 <p class="font-bold text-xs leading-[14px] text-black">주소</p>
                 <div class="flex gap-[5px] items-center">
                     <div class="grow">
-                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" placeholder="우편번호" disabled>
+                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" value="<?= $arr_Data['STR_POST'] ?>" placeholder="우편번호" disabled>
                     </div>
                     <a href="javascript:execDaumPostcode();" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </a>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" placeholder="기본주소" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" value="<?= $arr_Data['STR_ADDR1'] ?>" placeholder="기본주소" disabled>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" placeholder="상세 주소를 입력해 주세요">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" value="<?= $arr_Data['STR_ADDR2'] ?>" placeholder="상세 주소를 입력해 주세요">
                 </div>
             </div>
         </div>
@@ -174,24 +216,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">성별</p>
             <div class="flex gap-[15px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="2">
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="2" <?= $arr_Data['STR_SEX'] == 2 ? 'checked' : '' ?>>
                     <label for="woman" class="font-normal text-xs leading-[14px] text-[#666666]">여성</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="1">
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="1" <?= $arr_Data['STR_SEX'] == 1 ? 'checked' : '' ?>>
                     <label for="man" class="font-normal text-xs leading-[14px] text-[#666666]">남성</label>
                 </div>
             </div>
         </div>
         <div class="flex flex-col gap-[5px] w-full">
             <p class="font-bold text-xs leading-[14px] text-black">생년월일</p>
+            <?php
+            $str_birth_year = substr($arr_Data['STR_BIRTH'], 0, 4);
+            $str_birth_month = substr($arr_Data['STR_BIRTH'], 4, 2);
+            $str_birth_day = substr($arr_Data['STR_BIRTH'], 6, 2);
+            ?>
             <div class="grid grid-cols-3 gap-[5px] items-center">
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_year">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_year" disabled>
                         <?php
                         for ($i = 0; $i < 150; $i++) {
                         ?>
-                            <option value="<?= $i + 1900 ?>" <?= $i == 50 ? 'selected' : '' ?>><?= $i + 1900 ?></option>
+                            <option value="<?= $i + 1900 ?>" <?= $str_birth_year == ($i + 1900) ? 'selected' : '' ?>><?= $i + 1900 ?></option>
                         <?php
                         }
                         ?>
@@ -203,11 +250,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     </span>
                 </div>
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month" disabled>
                         <?php
                         for ($i = 0; $i < 12; $i++) {
                         ?>
-                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
+                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>" <?= $str_birth_month == ($i + 1) ? 'selected' : '' ?>><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
                         <?php
                         }
                         ?>
@@ -219,11 +266,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
                     </span>
                 </div>
                 <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day" disabled>
                         <?php
                         for ($i = 0; $i < 31; $i++) {
                         ?>
-                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
+                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>" <?= $str_birth_day == ($i + 1) ? 'selected' : '' ?>><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
                         <?php
                         }
                         ?>
@@ -248,11 +295,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
             <p class="font-bold text-xs leading-[14px] text-black">마케팅 수신동의</p>
             <div class="flex gap-[18px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="str_mail_f" id="str_mail_f" value="Y">
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="str_mail_f" id="str_mail_f" value="Y" <?= $arr_Data['STR_MAIL_F'] == 'Y' ? 'checked' : '' ?>>
                     <label for="str_mail_f" class="font-normal text-xs leading-[14px] text-[#666666]">이메일 수신동의</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="str_sms_f" id="str_sms_f" value="Y">
+                    <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="str_sms_f" id="str_sms_f" value="Y" <?= $arr_Data['STR_SMS_F'] == 'Y' ? 'checked' : '' ?>>
                     <label for="str_sms_f" class="font-normal text-xs leading-[14px] text-[#666666]">SMS 수신동의</label>
                 </div>
             </div>
@@ -268,9 +315,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         </p>
     </div>
 
-    <a href="javascript:Save_Click();" class="mt-[30px] flex justify-center items-center w-full h-[45px] bg-black border-[0.72px] border-solid border-[#DDDDDD]">
-        <p class="font-bold text-xs leading-[14px] text-center text-white">가입하기</p>
-    </a>
+    <div class="mt-[30px] flex flex-row gap-[5px] w-full">
+        <button class="flex justify-center items-center w-full h-[45px] bg-white border-[0.72px] border-solid border-[#DDDDDD]">
+            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소</p>
+        </button>
+        <a href="javascript:Save_Click();" class="flex justify-center items-center w-full h-[45px] bg-black border-[0.72px] border-solid border-[#DDDDDD]">
+            <p class="font-bold text-xs leading-[14px] text-center text-white">수정</p>
+        </a>
+    </div>
+
 </form>
 
 <?

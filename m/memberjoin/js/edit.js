@@ -1,25 +1,13 @@
 function Save_Click() {
 	if (ValidChk() == false) return;
-	document.frm.target = "_self";
-	document.frm.action = "join_proc.php";
+	document.frm.action = "edit_proc.php";
 	document.frm.submit();
 }
 
-function ValidChk() {
+function ValidChk(old_password) {
 	// 아이디, 비밀번호 입력체크, 이름, 주민번호, 전화번호
 	var f = document.frm;
 
-	if (chkSpace(document.getElementById("str_userid").value)) {
-		document.getElementById('idView_Proc').innerHTML = "아이디를 입력해 주세요.";
-		f.str_userid.focus();
-		return false;
-	} else {
-		document.getElementById('idView_Proc').innerHTML = "";
-	}
-	if (str_userid_check() == false) {
-		f.str_userid.focus();
-		return false;
-	}
 	if (!check_pass(frm.str_passwd1.value)) {
 		document.getElementById('alert_password1').innerHTML = "* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요.";
 		f.str_passwd1.focus();
@@ -115,8 +103,17 @@ function str_passwd_check() {
 		document.frm.str_passwd2.value = "";
 		return false;
 	}
-	
+
 	return true;
+}
+
+// 현재 비밀번호
+function pass_org_check() {
+	if (!check_pass(frm.str_passwd0.value)) {
+		document.getElementById('alert_password0').innerHTML = "* 영문, 숫자, 특수문자, 8-20자 이내로 입력해 주세요.";
+	} else {
+		document.getElementById('alert_password0').innerHTML = "";
+	}
 }
 
 // 비밀번호
