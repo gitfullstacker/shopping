@@ -62,12 +62,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         str_service = 'Y' 
                         " . $where_query . "
                         AND int_gubun = 2";
-        $brand_list_result = mysql_query($query);
+        $top_brand_list_result = mysql_query($query);
         ?>
         <div class="flex items-start gap-4 px-[16px] pb-1 overflow-x-auto">
             <?php
             $index = 0;
-            while ($row = mysql_fetch_assoc($brand_list_result)) {
+            while ($row = mysql_fetch_assoc($top_brand_list_result)) {
             ?>
                 <?php
                 $mini_banner = '';
@@ -96,9 +96,13 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
-            if (mysql_num_rows($brand_list_result) > 0) {
-                mysql_data_seek($brand_list_result, 0);
-            }
+            $query =    "SELECT * 
+                            FROM " . $Tname . "comm_com_code 
+                        WHERE 
+                            str_service = 'Y' 
+                            AND int_gubun = 2";
+            $brand_list_result = mysql_query($query);
+            
             while ($row = mysql_fetch_assoc($brand_list_result)) {
             ?>
                 <?php
@@ -244,7 +248,26 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         ?>
         <div class="product-section">
             <div class="top-section">
-                <div x-data="{ 
+                <?php
+                if ($product_type == 1) {
+                ?>
+                    <div x-data="{ 
+                    filterSubscription: false,
+                    toogleSubscription() {
+                        this.filterSubscription = !this.filterSubscription;
+                        filter_subscription = this.filterSubscription;
+                        searchProduct();
+                    }
+                }" class="discount-view" x-on:click="toogleSubscription()">
+                        <div class="w-[22.87px] h-[13.24px] p-[1px] rounded-[13.24px] flex items-center" x-bind:class="filterSubscription ? 'bg-[#4BCA36] justify-end' : 'bg-[#DDDDDD] justify-start'">
+                            <div class="w-[10.97px] h-[10.97px] rounded-full bg-white"></div>
+                        </div>
+                        <p>구독 가능</p>
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <div x-data="{ 
                     filterDiscount: false,
                     toogleDiscount() {
                         this.filterDiscount = !this.filterDiscount;
@@ -252,11 +275,15 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         searchProduct();
                     }
                 }" class="discount-view" x-on:click="toogleDiscount()">
-                    <div class="w-[22.87px] h-[13.24px] p-[1px] rounded-[13.24px] flex items-center" x-bind:class="filterDiscount ? 'bg-[#4BCA36] justify-end' : 'bg-[#DDDDDD] justify-start'">
-                        <div class="w-[10.97px] h-[10.97px] rounded-full bg-white"></div>
+                        <div class="w-[22.87px] h-[13.24px] p-[1px] rounded-[13.24px] flex items-center" x-bind:class="filterDiscount ? 'bg-[#4BCA36] justify-end' : 'bg-[#DDDDDD] justify-start'">
+                            <div class="w-[10.97px] h-[10.97px] rounded-full bg-white"></div>
+                        </div>
+                        <p>할인 상품보기</p>
                     </div>
-                    <p>할인 상품보기</p>
-                </div>
+                <?php
+                }
+                ?>
+
                 <div x-data="{ 
                     showOrderBy: false,
                     selectedValue: 'favorite',
@@ -891,6 +918,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 <script>
     current_page = 1;
     window.filter_discount = false;
+    window.filter_subscription = false;
     window.filter_brands = [];
     window.filter_sizes = [];
     window.filter_styles = [];
@@ -915,6 +943,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url = "get_product_list.php";
         url += "?page=" + current_page;
         url += "&filter_discount=" + filter_discount;
+        url += "&filter_subscription=" + filter_subscription;
         url += "&filter_brands=" + encodeURIComponent(JSON.stringify(filter_brands));
         url += "&filter_sizes=" + encodeURIComponent(JSON.stringify(filter_sizes));
         url += "&filter_styles=" + encodeURIComponent(JSON.stringify(filter_styles));

@@ -57,7 +57,7 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-//구독멤버십정보얻기
+// 구독멤버십정보얻기
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
@@ -70,7 +70,7 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-//렌트멤버십정보얻기
+// 렌트멤버십정보얻기
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
@@ -82,6 +82,9 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 렌트가능한 상품정보 얻기
+$rent_number = fnc_cart_info($str_goodcode);
 ?>
 
 <div x-data="{
@@ -93,6 +96,10 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
     showSubscriptionAlert: false,
     showVintagePanel: false,
     goSubscription() {
+        if (<?= $rent_number ?> == 0) {
+            alert('해당 가방은 RENTED되었습니다');
+            return;
+        }
         if (<?= $subscription_membership_Data ? 'false' : 'true' ?>) {
             this.showSubscriptionAlert = true;
         } else {
@@ -755,6 +762,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $SQL_QUERY =    'SELECT 
                                     A.*, 
                                     B.STR_CODE, 
+                                    COUNT(C.STR_SGOODCODE) AS RENT_NUM, 
                                     (SELECT COUNT(C.INT_NUMBER) FROM ' . $Tname . 'comm_goods_cart C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . $arr_Auth[0] . '" AND C.INT_STATE=6) AS CART_NUM
                                 FROM 
                                     ' . $Tname . 'comm_goods_master A
@@ -762,11 +770,18 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     ' . $Tname . 'comm_com_code B
                                 ON
                                     A.INT_BRAND=B.INT_NUMBER
+                                LEFT JOIN
+                                    ' . $Tname . 'comm_goods_master_sub C
+                                ON
+                                    A.STR_GOODCODE=C.STR_GOODCODE
+                                    AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)
+                                    AND C.STR_SERVICE="Y"
                                 WHERE 
                                     (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
                                     AND A.STR_GOODCODE!="' . $arr_Data['STR_GOODCODE'] . '" 
                                     AND A.INT_TYPE=' . $arr_Data['INT_TYPE'] . ' 
                                     AND A.INT_BRAND=' . $arr_Data['INT_BRAND'] . ' 
+                                GROUP BY A.STR_GOODCODE
                                 ORDER BY A.INT_VIEW DESC
                                 LIMIT 4';
 
@@ -780,7 +795,17 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <div class="flex justify-center items-center w-[30px] h-[30px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
                                 <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
                             </div>
+
                             <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+                            <?php
+                            if ($row['RENT_NUM'] == 0 && $row['INT_TYPE'] == 1) {
+                            ?>
+                                <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                                    <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
                             <?php
                             if ($row['CART_NUM'] > 0) {
@@ -932,7 +957,7 @@ $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         FROM  
                             ' . $Tname . 'comm_goods_cart A
                         WHERE 
-                            A.INT_STATE IN (1, 2, 3, 4, 5, 6) 
+                            A.INT_STATE NOT IN (0, 10, 11) 
                             AND A.STR_GOODCODE="' . $str_goodcode . '"
                         ORDER BY A.DTM_INDATE ASC';
         $rent_result = mysql_query($SQL_QUERY);

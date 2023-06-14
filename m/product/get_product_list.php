@@ -6,6 +6,7 @@ $per_page = 16;
 $page = $_GET['page'] ?: 1;
 $offset = ($page - 1) * $per_page;
 $filter_discount = $_GET['filter_discount'];
+$filter_subscription = $_GET['filter_subscription'];
 $filter_brands = json_decode($_GET['filter_brands'], true);
 $filter_sizes = json_decode($_GET['filter_sizes'], true);
 $filter_styles = json_decode($_GET['filter_styles'], true);
@@ -15,12 +16,16 @@ $end_date = $_GET['end_date'];
 $order_by = $_GET['order_by'];
 
 $FILTER_QUERY = 'A.STR_GOODCODE IS NOT NULL ';
+$HAVING_QUERY = '';
 if ($filter_discount == 'true') {
-    $FILTER_QUERY .= 'AND INT_DISCOUNT IS NOT NULL ';
+    $FILTER_QUERY .= 'AND A.INT_DISCOUNT IS NOT NULL ';
+}
+if ($filter_subscription == 'true') {
+    $HAVING_QUERY .= 'HAVING COUNT(C.STR_SGOODCODE) > 0 ';
 }
 if (count($filter_brands) > 0) {
     $filter_brands_string = implode(',', $filter_brands);
-    $FILTER_QUERY .= 'AND INT_BRAND IN (' . $filter_brands_string . ') ';
+    $FILTER_QUERY .= 'AND A.INT_BRAND IN (' . $filter_brands_string . ') ';
 }
 if (count($filter_sizes) > 0) {
     $filter_sizes_array = array();
@@ -62,7 +67,7 @@ if ($start_date && $end_date) {
     }
 
     $filter_rented_string = implode(',', $str_goodcode_array);
-    
+
     if ($filter_rented_string) {
         $FILTER_QUERY .= 'AND A.STR_GOODCODE NOT IN (' . $filter_rented_string . ') ';
     }
@@ -87,22 +92,31 @@ switch ($order_by) {
         break;
 }
 
-$SQL_QUERY = 'SELECT 
-                A.*, B.STR_CODE
+$SQL_QUERY =    'SELECT 
+                    A.*, B.STR_CODE, COUNT(C.STR_SGOODCODE) AS RENT_NUM
                 FROM 
-                ' . $Tname . 'comm_goods_master A
+                    ' . $Tname . 'comm_goods_master A
                 LEFT JOIN
-                ' . $Tname . 'comm_com_code B
+                    ' . $Tname . 'comm_com_code B
                 ON
-                A.INT_BRAND=B.INT_NUMBER
+                    A.INT_BRAND=B.INT_NUMBER
+                LEFT JOIN
+                    ' . $Tname . 'comm_goods_master_sub C
+                ON
+                    A.STR_GOODCODE=C.STR_GOODCODE
+                    AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)
+                    AND C.STR_SERVICE="Y"
                 WHERE 
-                (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-                AND 
-                A.INT_TYPE=' . $product_type . ' 
-                AND 
-                ' . $FILTER_QUERY . '
+                    (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+                    AND 
+                    A.INT_TYPE=' . $product_type . ' 
+                    AND 
+                    ' . $FILTER_QUERY . '
+                GROUP BY 
+                    A.STR_GOODCODE
+                ' . $HAVING_QUERY . '
                 ORDER BY 
-                ' . $ORDERBY_QUERY . '
+                    ' . $ORDERBY_QUERY . '
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
 
@@ -112,6 +126,20 @@ $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
     $price = '';
     $color = '';
+
+    $rented_content = '';
+    if ($product_type == 1) {
+        if ($row['RENT_NUM'] == 0) {
+            $rented_content = '
+                <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                    <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
+                </div>
+            ';
+        } else {
+            $rented_content = '';
+        }
+    }
+
     switch ($product_type) {
         case 1:
             $SQL_QUERY =    'SELECT
@@ -177,6 +205,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
                 <div class="absolute top-2 left-2 w-[30px] h-[30px] flex justify-center items-center bg-[' . $color . '] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">
                     <p class="font-extrabold text-[9px] leading-[10px] text-white">' . $row['INT_DISCOUNT'] . '%</p>
                 </div>
+                ' . $rented_content . '
             </div>
             <p class="brand w-full">' . $row['STR_CODE'] . '</p>
             <p class="title w-full">' . $row['STR_GOODNAME'] . '</p>
