@@ -12,8 +12,8 @@ $filter_sizes = json_decode($_GET['filter_sizes'], true);
 $filter_styles = json_decode($_GET['filter_styles'], true);
 $start_date = $_GET['start_date'];
 $end_date = $_GET['end_date'];
-
 $order_by = $_GET['order_by'];
+$is_sub_membership = $_GET['is_sub_membership'] == 'true' ? true : false;
 
 $FILTER_QUERY = 'A.STR_GOODCODE IS NOT NULL ';
 $HAVING_QUERY = '';
@@ -152,22 +152,11 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
             $arr_Rlt_Data = mysql_query($SQL_QUERY);
             $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-            //구독멤버십정보얻기
-            $SQL_QUERY =    'SELECT
-                                A.*
-                            FROM 
-                                ' . $Tname . 'comm_membership AS A
-                            WHERE
-                                A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
-                                AND A.INT_TYPE=1
-                                AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
-
-            $arr_Rlt_Data = mysql_query($SQL_QUERY);
-            $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+            
 
             $color = '#EEAC4C';
 
-            if ($subscription_membership_Data) {
+            if ($is_sub_membership) {
                 $price = '';
             } else {
                 $price = '

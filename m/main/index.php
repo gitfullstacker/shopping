@@ -16,18 +16,8 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-//구독멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
-                    AND A.INT_TYPE=1
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
-
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+//구독멤버십 여부확인
+$is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 ?>
 
 <!-- 슬라이더 -->
@@ -261,7 +251,7 @@ $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 									?>
 											<div class="flex flex-row gap-1 items-end">
 												<?php
-												if (!$subscription_membership_Data) {
+												if (!$is_sub_membership) {
 												?>
 													<p class="font-bold text-[13px] leading-[14px] text-black">
 														<span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원

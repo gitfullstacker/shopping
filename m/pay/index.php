@@ -82,17 +82,40 @@ if (($site_Data['INT_DSTART1'] ?: 0) <= $use_days && $use_days <= ($site_Data['I
 }
 
 //구독멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_TYPE=' . $int_type . '
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=1 ";
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$subscription_membership_Data=mysql_fetch_assoc($arr_Rlt_Data);
+
+//렌트멤버십정보얻기
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=2 ";
+
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //카드정보얻기
 $SQL_QUERY =    'SELECT
@@ -299,7 +322,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="mt-[10px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
                         <div class="mt-1.5 flex gap-2 items-center">
                             <?php
-                            if ($subscription_Data) {
+                            if ($subscription_membership_Data) {
                             ?>
                                 <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
                             <?php
@@ -366,7 +389,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-                <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= ($product_Data['INT_TYPE'] == 1 && $subscription_Data) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
+                <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= ($product_Data['INT_TYPE'] == 1 && $subscription_membership_Data) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
@@ -459,8 +482,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">MEMBERSHIP</p>
 
                 <?php
-                if ($subscription_Data) {
-                    $sub_end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
+                if ($subscription_membership_Data) {
+                    $sub_end_date = $subscription_membership_Data['DTM_EDATE']; // Replace with your actual end date
 
                     $current_date = date('Y-m-d'); // Get the current date
 
@@ -676,7 +699,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
         <?php
         if ($int_type == 1) {
-            if ($subscription_Data) {
+            if ($subscription_membership_Data) {
         ?>
                 <button type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="paySubscription()">
                     <span class="font-extrabold text-lg text-center text-white">구독하기</span>

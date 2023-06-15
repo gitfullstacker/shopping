@@ -30,6 +30,9 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//구독멤버십 여부확인
+$is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 ?>
 
 <!-- Body -->
@@ -950,6 +953,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url += "&end_date=" + end_date_str;
         url += "&order_by=" + order_by;
         url += "&product_type=" + <?= $product_type ?>;
+        url += "&is_sub_membership=" + <?= $is_sub_membership ?>;
 
         $.ajax({
             url: url,

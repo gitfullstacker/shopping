@@ -57,30 +57,40 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-// 구독멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
-                    AND A.INT_TYPE=1
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+//구독멤버십정보얻기
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=1 ";
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$subscription_membership_Data=mysql_fetch_assoc($arr_Rlt_Data);
 
-// 렌트멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . ($arr_Auth[0] ?: '') . '"
-                    AND A.INT_TYPE=2
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+//렌트멤버십정보얻기
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=2 ";
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
 $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 // 렌트가능한 상품정보 얻기

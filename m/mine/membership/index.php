@@ -18,16 +18,11 @@ $SQL_QUERY =	"SELECT
                     `".$Tname."comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
-                    AND 
-                    A.STR_PASS='0' 
-                    AND
-                    date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND
-                    date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
-                    AND
-                    A.STR_USERID='$arr_Auth[0]'
-                    AND
-                    B.INT_TYPE=1 ";
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=1 ";
 
 $arr_Rlt_Data=mysql_query($SQL_QUERY);
 $subscription_Data=mysql_fetch_assoc($arr_Rlt_Data);
@@ -41,16 +36,11 @@ $SQL_QUERY =	"SELECT
                     `".$Tname."comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
-                    AND 
-                    A.STR_PASS='0' 
-                    AND
-                    date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND
-                    date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
-                    AND
-                    A.STR_USERID='$arr_Auth[0]'
-                    AND
-                    B.INT_TYPE=2 ";
+                    AND A.STR_PTYPE='1'
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                    AND B.INT_TYPE=2 ";
 
 $arr_Rlt_Data=mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);

@@ -27,8 +27,8 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
-$SQL_QUERY .= "where a.int_number is not null and a.str_ptype='1' and a.str_pass='0' and b.int_type=" . $int_type . " ";
+$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number and c.int_type=" . $int_type . " order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
+$SQL_QUERY .= "where a.int_number is not null and a.str_ptype='1' and a.str_pass='0' and b.int_type=" . $int_type;
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -59,7 +59,7 @@ $l_limit = $last + 1;
 
 $SQL_QUERY = "select date_add(b.str_edate,interval 1 day) as str_sdate,date_add(b.str_edate,interval 1 month) as str_edate,a.*,d.str_name,d.str_hp,b.int_snumber from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
+$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number and c.int_type=" . $int_type . " order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
 $SQL_QUERY .= "where a.int_number is not null and a.str_ptype='1' and a.str_pass='0' and b.int_type=" . $int_type . " ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by str_edate asc ";
