@@ -92,7 +92,7 @@
 
 			<?
 			$Sql_Query2 =	" SELECT 
-							B.*,A.STR_PTYPE,A.STR_CANCEL,A.STR_CARDCODE,A.STR_PASS
+							B.*,A.STR_PTYPE,A.STR_CANCEL1,A.STR_CARDCODE,A.STR_PASS
 						FROM `"
 							.$Tname."comm_member_pay` AS A
 							INNER JOIN

@@ -165,7 +165,7 @@ br{mso-data-placement:same-cell;}
 			?>
 		</td>		
 		<td align="center" <?=$rowspan?> style='mso-number-format:"\@";'>
-			<?switch (mysql_result($arr_ex_Data,$int_I,str_cancel)) {
+			<?switch (mysql_result($arr_ex_Data,$int_I,str_cancel1)) {
 				case  "0" : echo "-"; break;
 				case  "1" : echo "결제취소신청중"; break;
 			}

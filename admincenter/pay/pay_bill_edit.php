@@ -90,7 +90,7 @@
 								<td>상태</td>
 								<td colspan=3>
 									<?if (Fnc_Om_Conv_Default($arr_Data['STR_PASS'],"0")=="0") {?>결제완료<?}else{?>결제취소<?}?>
-									<?if ($arr_Data['STR_CANCEL']=="1") {?> <font color="red">(취소요청중)</font><?}?>
+									<?if ($arr_Data['STR_CANCEL1']=="1") {?> <font color="red">(취소요청중)</font><?}?>
 								</td>
 							</tr>
 							<?if ($RetrieveFlag=="UPDATE") {?>

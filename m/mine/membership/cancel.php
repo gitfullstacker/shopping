@@ -9,23 +9,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?php
 $int_type = $_GET['int_type'];
 
-//구독멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_TYPE=' . $int_type . '
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+$SQL_QUERY =	"SELECT 
+                    B.*
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND 
+                    A.STR_PASS='0' 
+                    AND
+                    date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND
+                    date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND
+                    A.STR_USERID='$arr_Auth[0]'
+                    AND
+                    B.INT_TYPE=" . $int_type;
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-if (!$arr_Rlt_Data) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
-$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$arr_Data=mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -36,7 +40,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </p>
         <div class="mt-[13px] flex py-3 justify-center border-t-[0.5px] border-b-[0.5px] border-[#E0E0E0] w-full">
             <p class="font-semibold text-[15px] leading-[18px] text-[#6A696C]">
-                멤버십 종료 예정일: <span class="text-black"><?= date('Y. m. d', strtotime($arr_Data['DTM_EDATE'])) ?></span>
+                멤버십 종료 예정일: <span class="text-black"><?= date('Y. m. d', strtotime($arr_Data['STR_EDATE'])) ?></span>
             </p>
         </div>
         <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -143,8 +147,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
 <script>
     function cancelMembership() {
-        url = "cancel_proc.php";
-        url += "?int_number=<?= $arr_Data['INT_NUMBER'] ?>";
+        url = "membership_proc.php";
+        url += "?RetrieveFlag=CANCEL";
+        url += "&int_type=<?= $int_type ?>";
+        url += "&int_number=<?= $arr_Data['INT_NUMBER'] ?>";
 
         $.ajax({
             url: url,

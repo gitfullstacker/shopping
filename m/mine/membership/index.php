@@ -11,7 +11,7 @@ $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 2);
 
 //구독멤버십정보얻기
 $SQL_QUERY =	"SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
+                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
                     .$Tname."comm_member_pay` AS A
                 INNER JOIN
@@ -29,12 +29,12 @@ $SQL_QUERY =	"SELECT
                     AND
                     B.INT_TYPE=1 ";
 
-$arr_Data=mysql_query($SQL_QUERY);
-$subscription_Data=mysql_fetch_assoc($arr_Data);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$subscription_Data=mysql_fetch_assoc($arr_Rlt_Data);
 
 //렌트멤버십정보얻기
 $SQL_QUERY =	"SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
+                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
                     .$Tname."comm_member_pay` AS A
                 INNER JOIN
@@ -52,8 +52,8 @@ $SQL_QUERY =	"SELECT
                     AND
                     B.INT_TYPE=2 ";
 
-$arr_Data=mysql_query($SQL_QUERY);
-$rent_Data = mysql_fetch_assoc($arr_Data);
+$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -61,8 +61,8 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
         <p class="font-extrabold text-lg leading-5 text-black">멤버십 관리</p>
         <div class="mt-[14px] flex flex-row gap-10">
             <?php
-            $sub_menu_color = $subscription_Data['STR_CANCEL'] == '0' ? '#EDA02F' : '#6A696C';
-            $ren_menu_color = $rent_Data['STR_CANCEL'] == '0' ? '#00402F' : '#6A696C';
+            $sub_menu_color = $subscription_Data['STR_CANCEL1'] == '0' ? '#EDA02F' : '#6A696C';
+            $ren_menu_color = $rent_Data['STR_CANCEL2'] == '0' ? '#00402F' : '#6A696C';
             ?>
             <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 1 ? 'text-[<?= $ren_menu_color ?>]' : 'text-[#999999]'">블랑 렌트 멤버십</p>
@@ -75,7 +75,7 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
             <?php
             if ($rent_Data) {
                 // 가입자인 경우
-                if ($rent_Data['STR_CANCEL'] == '0') {
+                if ($rent_Data['STR_CANCEL2'] == '0') {
             ?>
                     <!-- 장기 이용 -->
                     <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
@@ -86,8 +86,8 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">BLANC RENT CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
-                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['DTM_EDATE'])) ?></span><br>
-                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($rent_Data['DTM_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
+                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['STR_EDATE'])) ?></span><br>
+                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($rent_Data['STR_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
                         </p>
                     </div>
                     <a href="/m/mine/membership/cancel.php?int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
@@ -107,7 +107,7 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                 } else {
                 ?>
                     <!-- 해지 신청됨 -->
-                    <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
+                    <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#F5F5F5] border border-solid border-[#DDDDDD] rounded-[10px]">
                         <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
                             <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 12L0 1L5.5 6L9 0L12.5 6L18 1L16 12H2ZM16 15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V14H16V15Z" fill="#D9D9D9" />
@@ -115,12 +115,12 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">BLANC RENT CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">
-                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['DTM_EDATE'])) ?></span><br>
+                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['STR_EDATE'])) ?></span><br>
                             *멤버십 해지신청 완료되었으며<br>
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $rent_Data['INT_NUMBER'] ?>, <?= $rent_Data['INT_TYPE'] ?>)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $rent_Data['INT_NUMBER'] ?>, 2)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -152,9 +152,9 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         멤버십 가입 후 할인 된 가격으로 렌트해보세요!
                     </p>
                 </div>
-                <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <a href="membership_proc.php?RetrieveFlag=JOIN&int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -176,8 +176,8 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
             <?php
             if ($subscription_Data) {
                 // 가입자인 경우
-                if ($subscription_Data['STR_CANCEL'] == '0') {
-                    $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
+                if ($subscription_Data['STR_CANCEL1'] == '0') {
+                    $end_date = $subscription_Data['STR_EDATE']; // Replace with your actual end date
 
                     $current_date = date('Y-m-d'); // Get the current date
 
@@ -197,7 +197,7 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
                             구독 멤버십 잔여일이 <span class="font-bold underline"><?= $sub_days_left ?>일</span> 남았습니다.<br>
-                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($subscription_Data['DTM_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
+                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($subscription_Data['STR_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
                         </p>
                     </div>
                     <a href="/m/mine/membership/cancel.php?int_type=1" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
@@ -227,12 +227,12 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">MEMBERSHIP CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">
-                            구독 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($subscription_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($subscription_Data['DTM_EDATE'])) ?></span><br>
+                            구독 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($subscription_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($subscription_Data['STR_EDATE'])) ?></span><br>
                             *멤버십 해지신청 완료되었으며<br>
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $subscription_Data['INT_NUMBER'] ?>, <?= $subscription_Data['INT_TYPE'] ?>)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $subscription_Data['INT_NUMBER'] ?>, 1)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -265,9 +265,9 @@ $rent_Data = mysql_fetch_assoc($arr_Data);
                         멤버십 가입 후 다양한 가방을 구독해보세요!
                     </p>
                 </div>
-                <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <a href="membership_proc.php?RetrieveFlag=JOIN&int_type=1" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">구독 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -329,8 +329,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function restoreMembership() {
-        url = "restore_proc.php";
-        url += "?int_number=" + restore_int_number;
+        url = "membership_proc.php";
+        url += "?RetrieveFlag=RESTORE";
+        url += "&int_type=" + restore_int_type;
+        url += "&int_number=" + restore_int_number;
 
         $.ajax({
             url: url,

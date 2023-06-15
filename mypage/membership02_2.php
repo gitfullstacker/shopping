@@ -5,7 +5,7 @@
 	$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no],"");
 	
 	$Sql_Query =	" SELECT 
-					B.*,A.STR_PTYPE,A.STR_CANCEL
+					B.*,A.STR_PTYPE,A.STR_CANCEL1
 				FROM `"
 					.$Tname."comm_member_pay` AS A
 					INNER JOIN

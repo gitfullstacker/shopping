@@ -38,7 +38,7 @@
 	$f_limit=$first;
 	$l_limit=$last + 1 ;
 
-	$SQL_QUERY = "select a.*,b.str_ptype,b.str_cardcode,b.str_cancel,b.str_pass from ";
+	$SQL_QUERY = "select a.*,b.str_ptype,b.str_cardcode,b.str_cancel1,b.str_pass from ";
 	$SQL_QUERY.=$Tname;
 	$SQL_QUERY.="comm_member_pay_info a inner join ".$Tname."comm_member_pay b on a.int_number=b.int_number ";
 	$SQL_QUERY.="where a.int_number is not null and b.str_userid='$arr_Auth[0]' ";
@@ -75,7 +75,7 @@
 
 					<?
 					$Sql_Query =	" SELECT 
-									B.*,A.STR_PTYPE,A.STR_CANCEL,A.STR_CARDCODE,A.STR_PASS
+									B.*,A.STR_PTYPE,A.STR_CANCEL1,A.STR_CARDCODE,A.STR_PASS
 								FROM `"
 									.$Tname."comm_member_pay` AS A
 									INNER JOIN
@@ -119,7 +119,7 @@
 							<?if (mysql_result($arr_Data,0,str_pass)=="1") {?>
 								<a href="#;" class="btn btn_ylw"><span>해지완료</span></a>
 							<?}else{?>
-								<?if (mysql_result($arr_Data,0,str_cancel)=="1") {?>
+								<?if (mysql_result($arr_Data,0,str_cancel1)=="1") {?>
 									<a href="javascript:fnc_cancel('<?=mysql_result($arr_Data,0,int_number)?>');" class="btn btn_ylw"><span>해지신청중</span></a>
 								<?}else{?>
 									<a href="javascript:fnc_mse('<?=mysql_result($arr_Data,0,int_number)?>');" class="btn btn_ylw"><span>해지신청하기</span></a>
@@ -156,7 +156,7 @@
 					
 					<?
 					$Sql_Query =	" SELECT 
-									B.*,A.STR_PTYPE,A.STR_CANCEL,A.STR_CARDCODE,A.STR_PASS
+									B.*,A.STR_PTYPE,A.STR_CANCEL1,A.STR_CARDCODE,A.STR_PASS
 								FROM `"
 									.$Tname."comm_member_pay` AS A
 									INNER JOIN
@@ -357,7 +357,7 @@
 									<td>
 										<?if (mysql_result($result,$i,str_ptype)=="2") {?>
 											<?if (mysql_result($result,$i,str_pass)=="0") {?>
-												<?if (mysql_result($result,$i,str_cancel)=="0") {?>
+												<?if (mysql_result($result,$i,str_cancel1)=="0") {?>
 													<a href="javascript:fnc_es('<?=mysql_result($result,$i,int_number)?>')">취소신청</a>
 												<?}else{?>
 													취소신청중

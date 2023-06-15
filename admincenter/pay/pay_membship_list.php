@@ -203,7 +203,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td><?= number_format(mysql_result($result, $i, int_price)) ?>원</td>
 												<td><?= mysql_result($result, $i, str_cardcode) ?></td>
 												<td>
-													<? switch (mysql_result($result, $i, str_cancel)) {
+													<? switch (mysql_result($result, $i, str_cancel1)) {
 														case  "0":
 															echo "-";
 															break;

@@ -14,7 +14,7 @@
 			$arr_Set_Data= Array();
 			$arr_Column_Name = Array();
 			
-			$arr_Column_Name[0]		= "STR_CANCEL";
+			$arr_Column_Name[0]		= "STR_CANCEL1";
 			$arr_Column_Name[1]		= "INT_ESCE";
 			$arr_Column_Name[2]		= "STR_ESCONT";
 			
@@ -53,7 +53,7 @@
 			$arr_Set_Data= Array();
 			$arr_Column_Name = Array();
 			
-			$arr_Column_Name[0]		= "STR_CANCEL";
+			$arr_Column_Name[0]		= "STR_CANCEL1";
 			$arr_Column_Name[1]		= "INT_ESCE";
 			$arr_Column_Name[2]		= "STR_ESCONT";
 			

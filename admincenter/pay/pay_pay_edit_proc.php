@@ -8,7 +8,7 @@
 	$str_gubun = Fnc_Om_Conv_Default($_REQUEST[str_gubun],"1");
 	$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no],"");
 	$str_pass = Fnc_Om_Conv_Default($_REQUEST[str_pass],"0");
-	$str_cancel = Fnc_Om_Conv_Default($_REQUEST[str_cancel],"0");
+	$str_cancel1 = Fnc_Om_Conv_Default($_REQUEST[str_cancel1],"0");
 	$str_amemo = Fnc_Om_Conv_Default($_REQUEST[str_amemo],"");
 
 	$chkItem1 = Fnc_Om_Conv_Default($_REQUEST[chkItem1],"");
@@ -16,7 +16,7 @@
 	switch($RetrieveFlag){
 		case "UPDATE" :
 
-			$SQL_QUERY = " UPDATE ".$Tname."comm_member_pay SET STR_PASS='$str_pass',STR_CANCEL='$str_cancel',STR_AMEMO='".addslashes($str_amemo)."' ";
+			$SQL_QUERY = " UPDATE ".$Tname."comm_member_pay SET STR_PASS='$str_pass',STR_CANCEL1='$str_cancel1',STR_AMEMO='".addslashes($str_amemo)."' ";
 			$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
 
 			$result=mysql_query($SQL_QUERY);

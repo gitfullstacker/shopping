@@ -73,17 +73,17 @@
 								<td colspan=3>
 									<input type="radio" value="0" name="str_pass" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_PASS'],"0")=="0") {?>checked<?}?>> 결제완료
 									<input type="radio" value="1" name="str_pass" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_PASS'],"0")=="1") {?>checked<?}?>> 결제취소
-									<?if ($arr_Data['STR_CANCEL']=="1") {?> <font color="red">(취소요청중)</font><?}?>
+									<?if ($arr_Data['STR_CANCEL1']=="1") {?> <font color="red">(취소요청중)</font><?}?>
 								</td>
 							</tr>
 							<tr>
 								<td>취소신청</td>
 								<td colspan=3>
-									<input type="radio" value="0" name="str_cancel" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL'],"0")=="0") {?>checked<?}?>> 정상
-									<input type="radio" value="1" name="str_cancel" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL'],"0")=="1") {?>checked<?}?>> 취소요청중
+									<input type="radio" value="0" name="str_cancel1" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'],"0")=="0") {?>checked<?}?>> 정상
+									<input type="radio" value="1" name="str_cancel1" class=null <?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'],"0")=="1") {?>checked<?}?>> 취소요청중
 								</td>
 							</tr>
-							<?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL'],"0")=="1") {?>
+							<?if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'],"0")=="1") {?>
 							<tr>
 								<td>취소사유</td>
 								<td colspan=3><?=$arr_Data['STR_CODE']?><br><?=$arr_Data['STR_ESCONT']?></td>

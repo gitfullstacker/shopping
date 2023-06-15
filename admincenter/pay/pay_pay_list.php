@@ -238,7 +238,7 @@
 								<td><?=number_format(mysql_result($result,$i,int_price))?>원</td>
 								<td><?=fnc_card_kind(mysql_result($result,$i,str_cardcode))?></td>
 								<td>
-									<?switch (mysql_result($result,$i,str_cancel)) {
+									<?switch (mysql_result($result,$i,str_cancel1)) {
 										case  "0" : echo "-"; break;
 										case  "1" : echo "결제취소신청중"; break;
 									}

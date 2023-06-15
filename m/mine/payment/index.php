@@ -9,9 +9,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?php
 //카드정보얻기
 $SQL_QUERY =    "SELECT 
-                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-    . $Tname . "comm_member_pay` AS A
+                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CARDCODE, A.STR_PASS
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
                 WHERE
                     A.STR_PASS='0' 
                     AND

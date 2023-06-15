@@ -61,7 +61,7 @@
 			$arr_Set_Data= Array();
 			$arr_Column_Name = Array();
 			
-			$arr_Column_Name[0]		= "STR_CANCEL";
+			$arr_Column_Name[0]		= "STR_CANCEL1";
 			
 			$arr_Set_Data[0]		= "1";
 

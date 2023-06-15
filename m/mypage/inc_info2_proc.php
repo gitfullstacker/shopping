@@ -394,7 +394,7 @@
 		$arr_Column_Name[11]		= "STR_CARDCODE";
 		$arr_Column_Name[12]		= "STR_CARDNAME";
 		$arr_Column_Name[13]		= "DTM_INDATE";
-		$arr_Column_Name[14]		= "STR_CANCEL";
+		$arr_Column_Name[14]		= "STR_CANCEL1";
 		$arr_Column_Name[15]		= "STR_PASS";
 
 		$SQL_QUERY = "select ifnull(max(int_number),0)+1 as lastnumber from ".$Tname."comm_member_pay " ;
