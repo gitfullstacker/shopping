@@ -125,14 +125,18 @@ $rent_number = fnc_cart_info($str_goodcode);
         }
     },
     addVintageCount() {
-        this.vintageCount++;
-        this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
-        this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+        if (this.vintageCount < 1) {
+            this.vintageCount++;
+            this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+            this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+        }
     },
     removeVintageCount() {
-        this.vintageCount--;
-        this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
-        this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount
+        if (this.vintageCount > 0) {
+            this.vintageCount--;
+            this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+            this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+        }
     },
     initVintageCount() {
         this.vintageCount = 0;

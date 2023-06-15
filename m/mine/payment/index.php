@@ -8,16 +8,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
 <?php
 //카드정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*, B.STR_BATCH_KEY
-                FROM 
-                    ' . $Tname . 'comm_member AS A
-                LEFT JOIN 
-                    ' . $Tname . 'comm_member_payment AS B
-                ON
-                    A.STR_USERID=B.STR_USERID
+$SQL_QUERY =    "SELECT 
+                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+    . $Tname . "comm_member_pay` AS A
                 WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"';
+                    A.STR_PASS='0' 
+                    AND
+                    A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE
+                LIMIT 1 ";
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -31,7 +31,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
     <p class="font-extrabold text-lg leading-5 text-black">자동 결제 수단 등록</p>
     <?php
-    if (!$card_Data['STR_BATCH_KEY']) {
+    if ($card_Data) {
     ?>
         <!-- 카드가 등록된 상태 -->
         <div class="flex flex-col items-center gap-8 w-full">
@@ -43,7 +43,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </svg>
                 </button>
                 <div class="flex p-[15px] h-[112px]">
-                    <p class="font-bold text-xs leading-[14px] text-white">삼성카드</p>
+                    <p class="font-bold text-xs leading-[14px] text-white"><?= fnc_card_kind($card_Data['STR_CARDCODE']) ?></p>
                 </div>
                 <hr class="border-t-[1px] border-white">
                 <div class="flex-1 flex justify-end items-center px-[15px]">
@@ -101,7 +101,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-extrabold text-sm leading-[15px] text-black">결제 내역</p>
             <hr class="mt-[14px] border-t-[0.5px] border-solid border-[#E0E0E0]" />
             <div class="mt-[15px] relative flex w-full">
-                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[45px] font-normal text-xs leading-[14px] text-[#666666]">
+                <select name="" id="filter_period" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[45px] font-normal text-xs leading-[14px] text-[#666666]" onchange="changePeriod()">
                     <option value="3">최근 3개월</option>
                     <option value="6">최근 6개월</option>
                     <option value="12">최근 12개월</option>
@@ -112,29 +112,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </svg>
                 </div>
             </div>
-            <div class="mt-2 flex flex-col w-full">
-                <?php
-                for ($i = 0; $i < 5; $i++) {
-                ?>
-                    <div class="flex flex-row w-full justify-between py-[15px] border-b-[0.5px] border-[#E0E0E0]">
-                        <div class="flex flex-col">
-                            <p class="font-normal text-[10px] leading-[11px] text-[#999999]">2023.02.12</p>
-                            <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]">결제완료</p>
-                            <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: 20230210100</p>
-                        </div>
-                        <div class="flex flex-col justify-between">
-                            <div class="flex items-center gap-[5px]">
-                                <p class="font-normal text-[10px] leading-[11px] text-[#999999]">상세보기</p>
-                                <svg width="5" height="8" viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.990783 7.35158L4.87327 4.02704C4.91936 3.98747 4.95192 3.94459 4.97097 3.89842C4.99032 3.85224 5 3.80277 5 3.75C5 3.69723 4.99032 3.64776 4.97097 3.60158C4.95192 3.55541 4.91936 3.51253 4.87327 3.47295L0.990783 0.138522C0.883256 0.0461741 0.748848 0 0.587558 0C0.426268 0 0.288019 0.0494723 0.172812 0.148417C0.0576043 0.247361 0 0.362797 0 0.494723C0 0.626649 0.0576043 0.742084 0.172812 0.841029L3.55991 3.75L0.172812 6.65897C0.0652847 6.75132 0.0115209 6.86504 0.0115209 7.00013C0.0115209 7.13549 0.0691247 7.25264 0.184332 7.35158C0.299539 7.45053 0.433948 7.5 0.587558 7.5C0.741168 7.5 0.875576 7.45053 0.990783 7.35158Z" fill="#999999" />
-                                </svg>
-                            </div>
-                            <p class="font-bold text-xs leading-[14px] text-black">55,000원</p>
-                        </div>
-                    </div>
-                <?
-                }
-                ?>
+            <div id="pay_list" class="mt-2 flex flex-col w-full">
             </div>
         </div>
     <?php
@@ -145,3 +123,31 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    filter_period = '3';
+    int_card = <?= $card_Data['INT_NUMBER'] ?>;
+
+    $(document).ready(function() {
+        searchPay();
+    });
+
+    function searchPay(page = 0) {
+        url = "get_pay_list.php";
+        url += "?page=" + page;
+        url += "&filter_period=" + filter_period;
+        url += "&int_card=" + int_card;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#pay_list").html(result);
+            }
+        });
+    }
+
+    function changePeriod() {
+        filter_period = document.getElementById("filter_period").value;
+        searchPay();
+    }
+</script>

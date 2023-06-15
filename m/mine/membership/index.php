@@ -10,40 +10,50 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 2);
 
 //구독멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_TYPE=1
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND 
+                    A.STR_PASS='0' 
+                    AND
+                    date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND
+                    date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND
+                    A.STR_USERID='$arr_Auth[0]'
+                    AND
+                    B.INT_TYPE=1 ";
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-if (!$arr_Rlt_Data) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
-$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Data=mysql_query($SQL_QUERY);
+$subscription_Data=mysql_fetch_assoc($arr_Data);
 
 //렌트멤버십정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_membership AS A
-                WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_TYPE=2
-                    AND CURDATE() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+$SQL_QUERY =	"SELECT 
+                    B.*, A.STR_PTYPE, A.STR_CANCEL, A.STR_CARDCODE, A.STR_PASS
+                FROM `"
+                    .$Tname."comm_member_pay` AS A
+                INNER JOIN
+                    `".$Tname."comm_member_pay_info` AS B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
+                    AND 
+                    A.STR_PASS='0' 
+                    AND
+                    date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
+                    AND
+                    date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND
+                    A.STR_USERID='$arr_Auth[0]'
+                    AND
+                    B.INT_TYPE=2 ";
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-if (!$arr_Rlt_Data) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
-$rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Data=mysql_query($SQL_QUERY);
+$rent_Data = mysql_fetch_assoc($arr_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -51,8 +61,8 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <p class="font-extrabold text-lg leading-5 text-black">멤버십 관리</p>
         <div class="mt-[14px] flex flex-row gap-10">
             <?php
-            $sub_menu_color = $subscription_Data['INT_STATE'] == 0 ? '#EDA02F' : '#6A696C';
-            $ren_menu_color = $rent_Data['INT_STATE'] == 0 ? '#00402F' : '#6A696C';
+            $sub_menu_color = $subscription_Data['STR_CANCEL'] == '0' ? '#EDA02F' : '#6A696C';
+            $ren_menu_color = $rent_Data['STR_CANCEL'] == '0' ? '#00402F' : '#6A696C';
             ?>
             <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 1 ? 'text-[<?= $ren_menu_color ?>]' : 'text-[#999999]'">블랑 렌트 멤버십</p>
@@ -65,7 +75,7 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($rent_Data) {
                 // 가입자인 경우
-                if ($rent_Data['INT_STATE'] == 0) {
+                if ($rent_Data['STR_CANCEL'] == '0') {
             ?>
                     <!-- 장기 이용 -->
                     <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
@@ -166,7 +176,7 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($subscription_Data) {
                 // 가입자인 경우
-                if ($subscription_Data['INT_STATE'] == 0) {
+                if ($subscription_Data['STR_CANCEL'] == '0') {
                     $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
 
                     $current_date = date('Y-m-d'); // Get the current date
