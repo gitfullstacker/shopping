@@ -1,6 +1,6 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
-$enc_data = Fnc_Om_Conv_Default($_REQUEST[enc_data], "");
+$enc_data = Fnc_Om_Conv_Default($_REQUEST['enc_data'], "");
 ?>
 <html>
 
