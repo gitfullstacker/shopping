@@ -115,7 +115,7 @@ function str_passwd_check() {
 		document.frm.str_passwd2.value = "";
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -366,24 +366,25 @@ function fnc_cen() {
 }
 
 function verifyPhone() {
-	var f = document.frm;
+	fnPopup();
+	// var f = document.frm;
 
-	if (chkSpace(f.str_hp2.value)) {
-		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
-		f.str_hp2.focus();
-		return false;
-	}
-	if (chkSpace(f.str_hp3.value)) {
-		document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
-		f.str_hp3.focus();
-		return false;
-	}
+	// if (chkSpace(f.str_hp2.value)) {
+	// 	document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
+	// 	f.str_hp2.focus();
+	// 	return false;
+	// }
+	// if (chkSpace(f.str_hp3.value)) {
+	// 	document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
+	// 	f.str_hp3.focus();
+	// 	return false;
+	// }
 
-	$('#phone_verify_btn p').html('인증완료');
-	$('#phone_verify_btn').prop('disabled', true);
-	$('#str_hp1').prop('disabled', true);
-	$('#str_hp2').prop('disabled', true);
-	$('#str_hp3').prop('disabled', true);
+	// $('#phone_verify_btn p').html('인증완료');
+	// $('#phone_verify_btn').prop('disabled', true);
+	// $('#str_hp1').prop('disabled', true);
+	// $('#str_hp2').prop('disabled', true);
+	// $('#str_hp3').prop('disabled', true);
 }
 
 function setSameDeliveryInfo() {
@@ -396,4 +397,9 @@ function setSameDeliveryInfo() {
 		$('#str_telep2').val();
 		$('#str_telep3').val();
 	}
+}
+
+function fnPopup() {
+	var enc_data = document.form_chk.EncodeData.value;
+	window.open('nice.php?enc_data=' + enc_data, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }
