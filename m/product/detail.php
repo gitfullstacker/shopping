@@ -299,20 +299,9 @@ $rent_number = fnc_cart_info($str_goodcode);
             <!-- 프리미엄 멤버십 (정기결제) -->
             <div class="flex px-[14px] mt-4 w-full">
                 <div class="flex flex-col gap-2.5 w-full border-[0.72px] border-solid border-[#DDDDDD] bg-[#FFF3E1] p-[14px]">
-                    <div x-data="{ checked: <?= $subscription_membership_Data ? 'true' : 'false' ?> }" class="flex flex-row gap-1.5 items-center">
-                        <div class="flex w-4 h-4">
-                            <svg x-show="!checked" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.36" y="0.36" width="15.28" height="15.28" fill="white" stroke="#DDDDDD" stroke-width="0.72" />
-                            </svg>
-                            <svg x-show="checked" class="w-4 h-4" style="display: none;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.75556 11.7333L13.0222 5.46667L11.7778 4.22222L6.75556 9.24444L4.22222 6.71111L2.97778 7.95556L6.75556 11.7333ZM0 16V0H16V16H0Z" fill="black" />
-                            </svg>
-                        </div>
-                        <p class="font-extrabold text-[15px] leading-[17px] text-black">프리미엄 멤버십 <span class="font-bold text-xs leading-[13px] text-[#666666]">(정기결제)</span></p>
-                    </div>
-                    <button type="button" class="flex justify-center items-center w-full h-10 bg-[#EEAC4C]">
+                    <a href="/m/mine/membership/index.php?int_type=1" class="flex justify-center items-center w-full h-10 bg-[#EEAC4C]">
                         <p class="font-bold text-sm leading-4 text-white">정기구독 월 <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
-                    </button>
+                    </a>
                 </div>
             </div>
         <?php

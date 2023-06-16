@@ -182,6 +182,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <!-- 배송정보 -->
     <div x-data="{
         type: 1,
+        customCompleted: false,
         deliveryInfo: {
             main: {
                 name: '<?= $user_Data['STR_NAME'] ?>',
@@ -217,6 +218,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 this.deliveryInfo.new.address1 = document.getElementById('new_delivery_address').value;
                 this.deliveryInfo.new.address2 = document.getElementById('new_delivery_detail_address').value;
                 this.deliveryInfo.new.postal = document.getElementById('new_delivery_postal_code').value;
+
+                this.customCompleted = true;
             }
         }
     }" class="flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
@@ -238,10 +241,10 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </a>
         </div>
         <!-- 기본 배송지 -->
-        <div x-show="type == 1" class="mt-[15px] flex flex-col w-full">
-            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="deliveryInfo.main.name">에이블랑</p>
-            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="'(' + deliveryInfo.main.postal + ') ' + deliveryInfo.main.address1 + ' ' + deliveryInfo.main.address2">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
-            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="deliveryInfo.main.telep + ' / ' + deliveryInfo.main.hp">010-9556-6439 / 031-572-6439</p>
+        <div x-show="type == 1 || customCompleted" class="mt-[15px] flex flex-col w-full">
+            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="customCompleted ? deliveryInfo.new.name : deliveryInfo.main.name">에이블랑</p>
+            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="customCompleted ? ('(' + deliveryInfo.new.postal + ') ' + deliveryInfo.new.address1 + ' ' + deliveryInfo.new.address2) : ('(' + deliveryInfo.main.postal + ') ' + deliveryInfo.main.address1 + ' ' + deliveryInfo.main.address2)">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
+            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="customCompleted ? (deliveryInfo.new.telep + ' / ' + deliveryInfo.new.hp) : (deliveryInfo.main.telep + ' / ' + deliveryInfo.main.hp)">010-9556-6439 / 031-572-6439</p>
             <div class="mt-3 relative flex w-full">
                 <select name="delivery_memo_type" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]" x-model="messageType">
                     <option value="" selected>배송시 요청사항을 선택해 주세요</option>
@@ -264,7 +267,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </template>
         </div>
         <!-- 신규 배송지 -->
-        <div x-show="type == 2" class="mt-[15px] flex flex-col gap-[15px] w-full" style="display: none;">
+        <div x-show="type == 2 && !customCompleted" class="mt-[15px] flex flex-col gap-[15px] w-full" style="display: none;">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
                 <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_name" placeholder="이름을 입력해 주세요">
