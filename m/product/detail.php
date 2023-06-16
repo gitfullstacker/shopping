@@ -1016,9 +1016,15 @@ $rent_number = fnc_cart_info($str_goodcode);
             startDate: null,
             endDate: null,
             collectDate: null,
-            price: 0,
-            areaDiscount: 0,
-            totalPrice: 0,
+            price: {
+                originPrice: <?= $arr_Data['INT_PRICE'] ?>,
+                discount: {
+                    product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
+                    area: 0,
+                    membership: 0
+                },
+                totalPrice: 0
+            },
             rentDays: 0,
             startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
             startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
@@ -1041,7 +1047,6 @@ $rent_number = fnc_cart_info($str_goodcode);
 
                     status = 1;
                     showPrice = false;
-                    price = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?>;
                     areaDiscount = 0;
                     rentDays = 0;
 
@@ -1176,6 +1181,8 @@ $rent_number = fnc_cart_info($str_goodcode);
                         }
                     }
 
+                    areaDiscount = this.getAreaDiscount(rentDays);
+
                     dates.push({
                         date: date,
                         day: day,
@@ -1183,9 +1190,8 @@ $rent_number = fnc_cart_info($str_goodcode);
                         status: status,
                         showPrice: showPrice,
                         rentDays: rentDays,
-                        price: price,
-                        areaDiscount: this.getAreaDiscount(rentDays),
-                        totalPrice: (price - this.getAreaDiscount(rentDays)) * rentDays
+                        areaDiscount: areaDiscount,
+                        totalPrice: (this.price.originPrice - this.price.originPrice * (this.price.discount.product + areaDiscount + this.price.discount.membership) / 100) * rentDays
                     });
                 }
 
@@ -1212,9 +1218,8 @@ $rent_number = fnc_cart_info($str_goodcode);
                         this.endDate = new Date(selectedDate);
                         this.collectDate = new Date(selectedDate);
                         this.collectDate.setDate(this.collectDate.getDate() + 1);
-                        this.areaDiscount = date.areaDiscount;
-                        this.totalPrice = date.totalPrice;
-                        this.price = date.price;
+                        this.price.discount.area = date.areaDiscount;
+                        this.price.totalPrice = date.totalPrice;
                         this.rentDays = date.rentDays;
                         this.selectedStatus++;
 
@@ -1241,13 +1246,13 @@ $rent_number = fnc_cart_info($str_goodcode);
 
                 // 구간1
                 if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
-                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT1'] / 100 ?>;
+                    areaDiscount = <?= $site_Data['INT_DISCOUNT1'] ?>;
                 } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
-                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT2'] / 100 ?>;
+                    areaDiscount = <?= $site_Data['INT_DISCOUNT2'] ?>;
                 } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
-                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT3'] / 100 ?>;
+                    areaDiscount = <?= $site_Data['INT_DISCOUNT3'] ?>;
                 } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
-                    areaDiscount = <?= $arr_Data['INT_PRICE'] * $site_Data['INT_DISCOUNT4'] / 100 ?>;
+                    areaDiscount = <?= $site_Data['INT_DISCOUNT4'] ?>;
                 }
 
                 return areaDiscount;
@@ -1411,20 +1416,26 @@ $rent_number = fnc_cart_info($str_goodcode);
                             <div class="flex flex-col gap-[4.79px] px-7 py-5">
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">주문금액</p>
-                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666]" x-text="(price * rentDays).toLocaleString()">100원</p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666]" x-text="(price.originPrice * rentDays).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="(areaDiscount * rentDays).toLocaleString()">100원</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.area / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">금액할인가</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.product / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">멤버십할인</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.membership / 100) * rentDays).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
                                     <div class="flex gap-2 items-center">
-                                        <p class="font-extrabold text-lg leading-5 text-[#00402F]">
-                                            <?= $arr_Data['INT_DISCOUNT'] ? (number_format($arr_Data['INT_DISCOUNT']) . '%') : '' ?>
-                                        </p>
-                                        <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="totalPrice.toLocaleString()">1000원</p>
-                                        <p class="font-bold text-xs leading-[14px] text-[#00402F]">멤버십 할인 적용가</p>
+                                        <p class="font-extrabold text-lg leading-5 text-[#00402F]" x-text="(price.discount.area + price.discount.product + price.discount.membership).toLocaleString() + '%'">30%</p>
+                                        <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="price.totalPrice.toLocaleString() + '원'">1000원</p>
+                                        <p class="font-bold text-xs leading-[14px] text-[#00402F]">할인혜택 적용가</p>
                                     </div>
                                 </div>
                             </div>
