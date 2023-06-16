@@ -19,11 +19,6 @@ function ValidChk() {
 		f.str_title.focus();
 		return false;
 	}
-	if (chkSpace(f.str_cont.value)) {
-		alert("\n내용이 입력되지 않았습니다");
-		f.str_cont.focus();
-		return false;
-	}
 	return true;
 }
 

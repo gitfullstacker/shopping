@@ -248,7 +248,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 							</div>
 							<div class="flex flex-col items-start">
 								<p class="font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-								<p class="mt-[3.36px] font-medium text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+								<p class="mt-[3.36px] font-medium text-xs leading-[14px] text-[#333333] line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
 								<div class="mt-2 price-section">
 									<?php
 									switch ($row['INT_TYPE']) {
@@ -390,7 +390,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 					</div>
 				</div>
 				<p class="brand"><?= $row['STR_CODE'] ?></p>
-				<p class="title"><?= $row['STR_GOODNAME'] ?></p>
+				<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
 				<div class="price-section">
 					<p class="current-price"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
 					<p class="origin-price <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
