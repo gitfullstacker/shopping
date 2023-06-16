@@ -43,7 +43,7 @@ if ($search_key) {
 }
 
 $SQL_QUERY = 'SELECT 
-                COUNT(A.STR_GOODCODE)
+                COUNT(A.STR_GOODCODE) AS COUNT
                 FROM 
                 ' . $Tname . 'comm_goods_master A
                 WHERE 

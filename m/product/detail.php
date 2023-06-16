@@ -544,6 +544,18 @@ $rent_number = fnc_cart_info($str_goodcode);
                 <!-- 기본정보 -->
                 <div class="flex flex-col gap-1.5">
                     <p class="font-bold text-sm leading-4 text-black">기본정보</p>
+                    <?php
+                    if ($arr_Data['INT_TYPE'] == 2) {
+                    ?>
+                        <div class="flex flex-row">
+                            <div class="w-[55px]">
+                                <p class="font-semibold text-xs text-[#666666]">리테일가</p>
+                            </div>
+                            <p class="font-semibold text-xs text-[#666666]"><?= number_format($arr_Data['INT_RPRICE']) ?>원</p>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <div class="flex flex-row">
                         <div class="w-[55px]">
                             <p class="font-semibold text-xs text-[#666666]">소재</p>
