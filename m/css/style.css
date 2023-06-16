@@ -3277,3 +3277,15 @@ img, video {
 .event-popup.scrollbar-thumb {
   display: none;
 }
+
+@media (min-width: 411px) {
+  .footer-btn-div {
+    right: calc((100vw - 410px) / 2 + 5px);
+  }
+}
+
+@media (max-width: 410px) {
+  .footer-btn-div {
+    right: 5px;
+  }
+}

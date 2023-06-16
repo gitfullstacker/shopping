@@ -68,7 +68,7 @@ if (!$hide_footer_menu) {
 <?php
 if ($show_footer_hbutton || $show_footer_sbutton) {
 ?>
-	<div class="flex flex-col gap-[5px] fixed bottom-[70.23px]" style="right: calc((100vw - 410px) / 2 + 5px);">
+	<div class="flex flex-col gap-[5px] fixed bottom-[70.23px] footer-btn-div">
 		<?php
 		if ($show_footer_hbutton) {
 		?>
