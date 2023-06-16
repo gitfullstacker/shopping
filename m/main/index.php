@@ -35,31 +35,36 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 	$home_banner_list_result = mysql_query($SQL_QUERY);
 	?>
 	<div x-data="{
-        imageCount: 3,
-        slider: 1,
-        containerWidth: 0,
-        handleScroll() {
-            const scrollPosition = this.$refs.sliderContainer.scrollLeft;
-            const slider = Math.round(scrollPosition / this.containerWidth) + 1;
+			imageCount: 3,
+			slider: 1,
+			containerWidth: 0,
+			handleScroll() {
+				const scrollPosition = this.$refs.sliderContainer.scrollLeft;
+				const slider = Math.round(scrollPosition / this.containerWidth) + 1;
 
-            this.slider = slider;
-        },
-        init() {
-            this.imageCount = this.$refs.sliderContainer.children.length;
-            this.containerWidth = this.$refs.sliderContainer.offsetWidth;
+				if (this.$refs.sliderContainer.scrollLeft >= this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
+					this.$refs.sliderContainer.scrollTo(0, 0); // Scroll to the beginning
+				}
+				
+				this.slider = slider;
+			},
+			init() {
+				setInterval(() => {
+					this.imageCount = this.$refs.sliderContainer.children.length;
+					this.containerWidth = this.$refs.sliderContainer.offsetWidth;
 
-            setInterval(() => {
-                this.slider++;
-                if (this.slider > this.imageCount) {
-                    this.slider = 1;
-                }
-                this.$refs.sliderContainer.scrollTo({
-                    left: (this.slider - 1) * this.containerWidth,
-                    behavior: 'smooth'
-                });
-            }, 3000);
-        }
-    }" class="flex w-full relative">
+					if (this.slider + 1 > this.imageCount) {
+						this.slider = 1;
+					} else {
+						this.slider++;
+					}
+					this.$refs.sliderContainer.scrollTo({
+						left: (this.slider - 1) * this.containerWidth,
+						behavior: 'smooth'
+					});
+				}, 3000);
+			}
+		}" class="flex w-full relative">
 		<div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
 			<?php
 			while ($row = mysql_fetch_assoc($home_banner_list_result)) {

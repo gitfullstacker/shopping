@@ -10,6 +10,58 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <script language="javascript" src="js/edit.js"></script>
 
 <?php
+$_SESSION['PHONE_VERIFY'] = 'EDIT';
+
+$authtype = "";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
+
+$popgubun     = "N";        //Y : 취소버튼 있음 / N : 취소버튼 없음
+$customize     = "";            //없으면 기본 웹페이지 / Mobile : 모바일페이지
+
+$reqseq = "REQ_0123456789";     // 요청 번호, 이는 성공/실패후에 같은 값으로 되돌려주게 되므로
+// 업체에서 적절하게 변경하여 쓰거나, 아래와 같이 생성한다.
+$reqseq = `$cb_encode_path SEQ $sitecode`;
+
+// CheckPlus(본인인증) 처리 후, 결과 데이타를 리턴 받기위해 다음예제와 같이 http부터 입력합니다.
+$returnurl = "http://" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_success.php";    // 성공시 이동될 URL
+$errorurl = "http://" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_fail.php";        // 실패시 이동될 URL
+
+// reqseq값은 성공페이지로 갈 경우 검증을 위하여 세션에 담아둔다.
+
+$_SESSION["REQ_SEQ"] = $reqseq;
+
+// 입력될 plain 데이타를 만든다.
+$plaindata =  "7:REQ_SEQ" . strlen($reqseq) . ":" . $reqseq .
+    "8:SITECODE" . strlen($sitecode) . ":" . $sitecode .
+    "9:AUTH_TYPE" . strlen($authtype) . ":" . $authtype .
+    "7:RTN_URL" . strlen($returnurl) . ":" . $returnurl .
+    "7:ERR_URL" . strlen($errorurl) . ":" . $errorurl .
+    "11:POPUP_GUBUN" . strlen($popgubun) . ":" . $popgubun .
+    "9:CUSTOMIZE" . strlen($customize) . ":" . $customize;
+
+$enc_data = `$cb_encode_path ENC $sitecode $sitepasswd $plaindata`;
+
+if ($enc_data == -1) {
+    $returnMsg = "암/복호화 시스템 오류입니다.";
+    $enc_data = "";
+} else if ($enc_data == -2) {
+    $returnMsg = "암호화 처리 오류입니다.";
+    $enc_data = "";
+} else if ($enc_data == -3) {
+    $returnMsg = "암호화 데이터 오류 입니다.";
+    $enc_data = "";
+} else if ($enc_data == -9) {
+    $returnMsg = "입력값 오류 입니다.";
+    $enc_data = "";
+}
+
+$str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], $_SESSION['USERJ_CERT']);
+$str_name = Fnc_Om_Conv_Default($_REQUEST['str_name'], $_SESSION['USERJ_NAME']);
+$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp'], $_SESSION['USERJ_HP']);
+$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth'], $_SESSION['USERJ_BIRTH']);
+$str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], $_SESSION['USERJ_SEX']);
+?>
+
+<?php
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*
@@ -65,27 +117,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <?php
-                $str_hp = explode('-', $arr_Data['STR_HP']);
+                if ($str_hp) {
+                    $sTemp = Split("-", Fnc_Om_Conv_Default($str_hp, "--"));
+                } else {
+                    $old_str_hp = explode('-', $arr_Data['STR_HP']);
 
-                $str_hp1 = $str_hp[0] ?: '010';
-                $str_hp2 = $str_hp[1] ?: '';
-                $str_hp3 = $str_hp[2] ?: '';
+                    $sTemp[0] = $old_str_hp[0] ?: '010';
+                    $sTemp[1] = $old_str_hp[1] ?: '';
+                    $sTemp[2] = $old_str_hp[2] ?: '';
+                }
                 ?>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1">
-                        <option value="010" <?= $str_hp1 == '010' ? 'selected' : '' ?>>010</option>
-                        <option value="011" <?= $str_hp1 == '011' ? 'selected' : '' ?>>011</option>
-                        <option value="016" <?= $str_hp1 == '016' ? 'selected' : '' ?>>016</option>
-                        <option value="017" <?= $str_hp1 == '017' ? 'selected' : '' ?>>017</option>
-                        <option value="018" <?= $str_hp1 == '018' ? 'selected' : '' ?>>018</option>
-                        <option value="019" <?= $str_hp1 == '019' ? 'selected' : '' ?>>019</option>
-                    </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $str_hp2 ?>" maxlength="4" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $str_hp3 ?>" maxlength="4" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" value="<?= $sTemp[0] ?>" maxlength="3" placeholder="010" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $sTemp[1] ?>" maxlength="4" placeholder="1234" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $sTemp[2] ?>" maxlength="4" placeholder="5678" disabled>
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
                 <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">인증</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $str_hp ? '인증됨' : '인증' ?></p>
                 </button>
             </div>
         </div>
@@ -324,6 +373,17 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </a>
     </div>
 
+</form>
+
+<form name="form_chk" method="post">
+    <input type="hidden" name="m" id="m" value="checkplusSerivce"> <!-- 필수 데이타로, 누락하시면 안됩니다. -->
+    <input type="hidden" name="EncodeData" id="EncodeData" value="<?= $enc_data ?>"> <!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+
+    <!-- 업체에서 응답받기 원하는 데이타를 설정하기 위해 사용할 수 있으며, 인증결과 응답시 해당 값을 그대로 송신합니다.
+			    	 해당 파라미터는 추가하실 수 없습니다. -->
+    <input type="hidden" name="param_r1" id="param_r1" value="">
+    <input type="hidden" name="param_r2" id="param_r2" value="">
+    <input type="hidden" name="param_r3" id="param_r3" value="">
 </form>
 
 <?

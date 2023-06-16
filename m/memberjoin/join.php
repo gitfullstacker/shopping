@@ -1,4 +1,4 @@
-<?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
@@ -6,7 +6,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script language="javascript" src="js/join.js"></script>
 
-<?
+<?php
+$_SESSION['PHONE_VERIFY'] = 'JOIN';
+
 $authtype = "";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
 $popgubun     = "N";        //Y : 취소버튼 있음 / N : 취소버튼 없음
@@ -48,6 +50,12 @@ if ($enc_data == -1) {
     $returnMsg = "입력값 오류 입니다.";
     $enc_data = "";
 }
+
+$str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], $_SESSION['USERJ_CERT']);
+$str_name = Fnc_Om_Conv_Default($_REQUEST['str_name'], $_SESSION['USERJ_NAME']);
+$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp'], $_SESSION['USERJ_HP']);
+$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth'], $_SESSION['USERJ_BIRTH']);
+$str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], $_SESSION['USERJ_SEX']);
 ?>
 
 <form class="mt-[30px] flex flex-col w-full px-[14px]" name="frm" method="post" enctype="multipart/form-data">
@@ -82,20 +90,18 @@ if ($enc_data == -1) {
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
-                    </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" maxlength="4" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" maxlength="4" placeholder="5678">
+                    <?php
+                    if ($str_hp) {
+                        $sTemp = Split("-", Fnc_Om_Conv_Default($str_hp, "--"));
+                    }
+                    ?>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" value="<?= $sTemp[0] ?>" maxlength="3" placeholder="010" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $sTemp[1] ?>" maxlength="4" placeholder="1234" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $sTemp[2] ?>" maxlength="4" placeholder="5678" disabled>
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
                 <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">인증</p>
+                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $str_hp ? '인증됨' : '인증' ?></p>
                 </button>
             </div>
         </div>

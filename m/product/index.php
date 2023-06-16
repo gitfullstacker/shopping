@@ -953,7 +953,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url += "&end_date=" + end_date_str;
         url += "&order_by=" + order_by;
         url += "&product_type=" + <?= $product_type ?>;
-        url += "&is_sub_membership=" + <?= $is_sub_membership ?>;
+        url += "&is_sub_membership=" + '<?= $is_sub_membership ?: '' ?>';
 
         $.ajax({
             url: url,

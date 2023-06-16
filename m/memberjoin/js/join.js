@@ -401,6 +401,5 @@ function setSameDeliveryInfo() {
 
 function fnPopup() {
 	var enc_data = document.form_chk.EncodeData.value;
-	console.log(enc_data);
 	window.open('nice.php?enc_data=' + enc_data, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }

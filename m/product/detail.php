@@ -58,40 +58,54 @@ $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //구독멤버십정보얻기
-$SQL_QUERY =	"SELECT 
+$SQL_QUERY =    "SELECT 
                     B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
-                    .$Tname."comm_member_pay` AS A
+    . $Tname . "comm_member_pay` AS A
                 INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
+                    `" . $Tname . "comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
                     AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
                     AND A.STR_USERID='$arr_Auth[0]'
                     AND B.INT_TYPE=1 ";
 
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
-$subscription_membership_Data=mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //렌트멤버십정보얻기
-$SQL_QUERY =	"SELECT 
+$SQL_QUERY =    "SELECT 
                     B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
-                    .$Tname."comm_member_pay` AS A
+    . $Tname . "comm_member_pay` AS A
                 INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
+                    `" . $Tname . "comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
                     AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
                     AND A.STR_USERID='$arr_Auth[0]'
                     AND B.INT_TYPE=2 ";
 
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 구독상품인 경우 입고알람이 되여있는지 확인
+if ($arr_Data['INT_TYPE'] == 1) {
+    $SQL_QUERY =    'SELECT 
+                        COUNT(A.STR_GOODCODE) AS COUNT 
+                    FROM 
+                        ' . $Tname . 'comm_member_alarm AS A
+                    WHERE
+                        A.STR_USERID="' . $arr_Auth[0] . '"
+                        AND A.STR_GOODCODE=' . $str_goodcode;
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $alarm_Data = mysql_fetch_assoc($arr_Rlt_Data);
+}
 
 // 렌트가능한 상품정보 얻기
 $rent_number = fnc_cart_info($str_goodcode);
@@ -106,10 +120,6 @@ $rent_number = fnc_cart_info($str_goodcode);
     showSubscriptionAlert: false,
     showVintagePanel: false,
     goSubscription() {
-        if (<?= $rent_number ?> == 0) {
-            alert('해당 가방은 RENTED되었습니다');
-            return;
-        }
         if (<?= $subscription_membership_Data ? 'false' : 'true' ?>) {
             this.showSubscriptionAlert = true;
         } else {
@@ -158,27 +168,28 @@ $rent_number = fnc_cart_info($str_goodcode);
     <div class="flex flex-col w-full">
         <!-- 슬라이더 -->
         <div x-data="{
-        imageCount: 3,
-        slider: 1,
-        handleScroll() {
-            const containerWidth = this.$refs.sliderContainer.offsetWidth;
-            const scrollPosition = this.$refs.sliderContainer.scrollLeft;
-            const slider = Math.round(scrollPosition / containerWidth) + 1;
+                imageCount: 3,
+                slider: 1,
+                handleScroll() {
+                    const containerWidth = this.$refs.sliderContainer.offsetWidth;
+                    const scrollPosition = this.$refs.sliderContainer.scrollLeft;
+                    const slider = Math.round(scrollPosition / containerWidth) + 1;
 
-            if (this.$refs.sliderContainer.scrollLeft > this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
-                this.$refs.sliderContainer.scrollLeft = 1;
-            }
-            
-            this.slider = slider;
-        },
-        init() {
-            this.imageCount = this.$refs.sliderContainer.children.length;
-        }
-    }" class="flex w-full relative">
+                    if (this.$refs.sliderContainer.scrollLeft >= this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
+                        this.$refs.sliderContainer.scrollTo(0, 0); // Scroll to the beginning
+                    }
+
+                    this.slider = slider;
+                },
+                init() {
+                    this.imageCount = this.$refs.sliderContainer.children.length;
+                }
+            }" class="flex w-full relative">
             <div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
                 <?php
                 for ($i = 1; $i <= 5; $i++) {
                     if ($arr_Data['STR_IMAGE' . $i]) {
+                        $first_image = $first_image ?: $arr_Data['STR_IMAGE' . $i];
                 ?>
                         <div class="snap-always snap-center w-[410px] h-[500px] bg-gray-100">
                             <img class="w-[410px]" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
@@ -187,6 +198,9 @@ $rent_number = fnc_cart_info($str_goodcode);
                     }
                 }
                 ?>
+                <div class="snap-always snap-center w-[410px] h-[500px] bg-gray-100">
+                    <img class="w-[410px]" src="/admincenter/files/good/<?= $first_image ?>" onerror="this.style.display='none'" alt="">
+                </div>
             </div>
             <div class="absolute w-full flex justify-center px-[77px] bottom-[14.45px]">
                 <div class="flex w-full bg-[#C6C6C6] h-[1.55px]">
@@ -897,14 +911,22 @@ $rent_number = fnc_cart_info($str_goodcode);
         <?php
         switch ($arr_Data['INT_TYPE']) {
             case 1:
+                if ($rent_number > 0) {
         ?>
-                <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goSubscription()">
-                    <span class="font-extrabold text-lg text-center text-white">구독하기</span>
-                </button>
-            <?php
+                    <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goSubscription()">
+                        <span class="font-extrabold text-lg text-center text-white">구독하기</span>
+                    </button>
+                <?php
+                } else {
+                ?>
+                    <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" onclick="showAlarmConfirmPanel()">
+                        <span class="font-extrabold text-lg text-center text-white">입고알림 신청하기</span>
+                    </button>
+                <?php
+                }
                 break;
             case 2:
-            ?>
+                ?>
                 <button class="grow flex justify-center items-center h-[50px] bg-black border border-solid border-[#D9D9D9]" x-on:click="goRent()">
                     <span class="font-extrabold text-lg text-center text-white">렌트하기</span>
                 </button>
@@ -1551,6 +1573,76 @@ $rent_number = fnc_cart_info($str_goodcode);
         </div>
     </div>
 
+    <div id="alarm_confirm_panel" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+        <div class="mb-5 flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative">
+            <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('alarm_confirm_panel').classList.add('hidden');">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <div class="flex justify-center items-center w-full py-[15px] border-b-[0.5px] border-[#E0E0E0]">
+                <p class="font-bold text-[15px] leading-[17px] text-black">입고알림 신청</p>
+            </div>
+            <div class="flex flex-col gap-[15px] w-full px-[14px] pt-[15px] pb-[25px]">
+                <div class="flex flex-row gap-2.5">
+                    <div class="w-[91px] h-[91px] flex justify-center items-center bg-[#F9F9F9] p-2.5">
+                        <img class="w-full" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <div class="flex justify-center items-center w-[34px] h-[18px] py-1 bg-[#EEAC4C]">
+                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">구독</p>
+                        </div>
+                        <p class="mt-2.5 font-bold text-xs leading-3 text-black"><?= $arr_Data['STR_BRAND'] ?></p>
+                        <p class="mt-2 font-extrabold text-xs leading-3 text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?: '' ?></p>
+                        <p class="mt-1 font-bold text-[13px] leading-[14px] text-black">
+                            <span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
+                        </p>
+                    </div>
+                </div>
+                <p class="font-bold text-xs leading-[18px] text-[#666666]">
+                    상품이 재입고되면 알림톡 또는 SMS가 발송됩니다.<br>
+                    입고 알림을 신청하시겠습니까?
+                </p>
+                <div class="flex flex-col gap-1.5 px-3 items-start py-[15px] bg-[#F5F5F5]">
+                    <div class="flex flex-row gap-[3px] items-center">
+                        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 9.42345e-05C6.95869 9.42345e-05 8.35761 0.579531 9.38911 1.61098C10.4206 2.64242 11 4.04144 11 5.50005C11 6.95866 10.4206 8.35763 9.38911 9.38912C8.35765 10.4206 6.95862 11 5.5 11C4.04138 11 2.6424 10.4206 1.6109 9.38912C0.579442 8.35768 0 6.95866 0 5.50005C0.00156498 4.04184 0.581562 2.64388 1.61264 1.61263C2.64381 0.581558 4.04162 0.00164996 5.5 9.42345e-05ZM5.5 8.80007C5.64585 8.80007 5.78581 8.74215 5.88893 8.63893C5.99206 8.53581 6.04998 8.39593 6.04998 8.2501C6.04998 8.10416 5.99206 7.96429 5.88893 7.86117C5.78581 7.75804 5.64586 7.70003 5.5 7.70003C5.35414 7.70003 5.21419 7.75804 5.11107 7.86117C5.00794 7.96429 4.95002 8.10417 4.95002 8.2501C4.95002 8.39595 5.00794 8.53581 5.11107 8.63893C5.21419 8.74215 5.35414 8.80007 5.5 8.80007ZM4.95002 6.60008C4.95002 6.79658 5.05481 6.97815 5.22497 7.0764C5.39512 7.17464 5.60487 7.17464 5.77504 7.0764C5.9452 6.97815 6.04998 6.79658 6.04998 6.60008V2.74991C6.04998 2.55342 5.94519 2.37184 5.77504 2.2736C5.60488 2.17535 5.39513 2.17535 5.22497 2.2736C5.0548 2.37184 4.95002 2.55341 4.95002 2.74991V6.60008Z" fill="#333333" />
+                        </svg>
+                        <p class="font-bold text-[10px] leading-[14px] text-black">재입고 알림 서비스 안내</p>
+                    </div>
+                    <p class="font-normal text-[9px] leading-[14px] text-[#666666]">
+                        -재입고 알림 서비스는 신청 후 30일간 유효합니다. (30일 이후에는<br>
+                        재입고시에도 알림이 되지 않습니다.)<br>
+                        -신청 상품의 옵션 및 가격 등의 상품정보가 변동될 수 있으니 재입고시<br>
+                        상품정보 확인 후 구매하시기 바랍니다.<br>
+                        -신청한 상품은 마이페이지 > 입고알림내역 에서 확인 가능합니다.<br>
+                        -개인정보의 SMS 수신동의 여부와 관계없이 알림 메시지가 발송됩니다.<br>
+                    </p>
+                </div>
+                <button class="flex justify-center items-center w-full h-[40px] bg-black border-[0.8px] border-solid border-[#D9D9D9]" onclick="setAlarm()">
+                    <p class="font-bold text-xs leading-[14px] text-white">입고알림 신청하기</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="alarm_result_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+        <div class="mb-5 flex flex-col gap-[12.5px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+            <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('alarm_result_dialog').classList.add('hidden');">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <p class="font-bold text-[15px] leading-[17px] text-black">입고알림 신청이 완료되었습니다.</p>
+            <a href="/m/mine/favorite/index.php" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+                <p class="font-bold text-[10px] leading-[11px] text-[#666666]">입고알림 내역 바로가기</p>
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.52603 9.0481L5.45631 4.95636C5.50296 4.90765 5.53592 4.85488 5.55521 4.79805C5.5748 4.74122 5.58459 4.68033 5.58459 4.61538C5.58459 4.55044 5.5748 4.48955 5.55521 4.43272C5.53592 4.37589 5.50296 4.32312 5.45631 4.27441L1.52603 0.170489C1.41718 0.0568296 1.28112 0 1.11785 0C0.95457 0 0.814619 0.060889 0.697994 0.182667C0.581368 0.304445 0.523056 0.446519 0.523056 0.60889C0.523056 0.77126 0.581368 0.913335 0.697994 1.03511L4.12678 4.61538L0.697994 8.19566C0.589143 8.30932 0.534719 8.44928 0.534719 8.61555C0.534719 8.78214 0.593031 8.92632 0.709656 9.0481C0.826282 9.16988 0.962345 9.23077 1.11785 9.23077C1.27335 9.23077 1.40941 9.16988 1.52603 9.0481Z" fill="#666666" />
+                </svg>
+            </a>
+        </div>
+    </div>
+
     <?php
     $hide_footer_menu = true;
     $show_footer_sbutton = true;
@@ -1714,5 +1806,37 @@ $rent_number = fnc_cart_info($str_goodcode);
             var imagePanel = document.getElementById('relative_image_panel');
             imagePanel.classList.remove('hidden');
             document.getElementById('scrollContainer').scrollLeft = 410 * index;
+        }
+
+        function showAlarmConfirmPanel() {
+            if (<?= $alarm_Data['COUNT'] ?: 0 ?> > 0) {
+                alert('이미 입고알람을 신청하셨습니다.');
+                return;
+            }
+            document.getElementById('alarm_confirm_panel').classList.remove('hidden');
+        }
+
+        function setAlarm() {
+            $.ajax({
+                url: "/m/product/set_alarm.php",
+                data: {
+                    str_goodcode: '<?= $str_goodcode ?>'
+                },
+                success: function(resultString) {
+                    result = JSON.parse(resultString);
+                    if (result['status'] == 401) {
+                        alert('사용자로그인을 하여야 합니다.');
+
+                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                    }
+                    if (result['status'] == 200) {
+                        if (result['data'] == true) {
+                            document.getElementById('alarm_confirm_panel').classList.add('hidden');
+                            document.getElementById('alarm_result_dialog').classList.remove('hidden');
+                        }
+                    }
+                }
+            });
         }
     </script>

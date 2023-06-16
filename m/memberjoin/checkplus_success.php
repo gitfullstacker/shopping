@@ -173,7 +173,7 @@
   			//self.close();
 
 			document.frm.target = "_self";
-			document.frm.action = "join02.php";
+			document.frm.action = "<?= $_SESSION['PHONE_VERIFY'] == 'JOIN' ? 'join.php' : 'edit.php' ?>";
 			document.frm.submit();
     	</script>
     	<?

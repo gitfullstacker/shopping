@@ -33,13 +33,14 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], "plan");
             this.slider = slider;
         },
         init() {
-            this.imageCount = this.$refs.sliderContainer.children.length;
-            this.containerWidth = this.$refs.sliderContainer.offsetWidth;
-
             setInterval(() => {
-                this.slider++;
-                if (this.slider > this.imageCount) {
+                this.imageCount = this.$refs.sliderContainer.children.length;
+                this.containerWidth = this.$refs.sliderContainer.offsetWidth;
+                
+                if (this.slider + 1 > this.imageCount) {
                     this.slider = 1;
+                } else {
+                    this.slider++;
                 }
                 this.$refs.sliderContainer.scrollTo({
                     left: (this.slider - 1) * this.containerWidth,
@@ -52,8 +53,8 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], "plan");
             <?php
             while ($row = mysql_fetch_assoc($home_banner_list_result)) {
             ?>
-                <a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-always snap-center w-screen h-[467px] bg-gray-100">
-                    <img class="w-screen h-full object-cover" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
+                <a href="<?= $row['STR_URL1'] ?>" class="snap-always snap-center w-[410px] h-[467px] bg-gray-100">
+                    <img class="w-[410px] h-full object-cover" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
                 </a>
             <?php
             }
