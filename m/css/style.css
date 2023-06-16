@@ -3255,3 +3255,25 @@ img, video {
 .custom-scrollbar.scrollbar-thumb {
   display: none;
 }
+
+/* Webkit-based browsers */
+.event-popup::-webkit-scrollbar {
+  display: none;
+}
+
+.event-popup::-webkit-scrollbar-track {
+  display: none;
+}
+
+.event-popup::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+/* Firefox */
+.event-popup.scrollbar-track {
+  display: none;
+}
+
+.event-popup.scrollbar-thumb {
+  display: none;
+}

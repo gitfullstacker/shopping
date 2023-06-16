@@ -49,15 +49,42 @@
 							' . $Tname . 'comm_event AS A
 						WHERE
 							A.STR_SERVICE="Y"
-						ORDER BY A.DTM_INDATE DESC
-						LIMIT 1';
+						ORDER BY A.DTM_INDATE DESC';
 
-		$arr_Rlt_Data = mysql_query($SQL_QUERY);
-		$event_Data = mysql_fetch_assoc($arr_Rlt_Data);
+		$event_list_result = mysql_query($SQL_QUERY);
 		?>
-		<a href="/m/eventzone/detail.php?int_number=<?= $event_Data['INT_NUMBER'] ?>" class="flex items-center justify-center h-[37.58px] px-4 bg-black">
-			<p class="font-bold text-[13px] leading-[15px] text-white line-clamp-1"><?= $event_Data['STR_TITLE'] ?></p>
-		</a>
+		<div x-data="{
+				scrollHeight: 37.58,
+				eventCount: 3,
+				slider: 1,
+				init() {
+					setInterval(() => {
+						this.eventCount = this.$refs.scrollContainer.children.length;
+						
+						if (this.slider + 1 > this.eventCount) {
+							this.slider = 1;
+						} else {
+							this.slider++;
+						}
+						this.$refs.scrollContainer.scrollTo({
+							top: (this.slider - 1) * this.scrollHeight,
+							behavior: 'smooth'
+						});
+					}, 4000);
+				}
+			}" class="flex flex-col w-full h-[37.58px] px-4 bg-black overflow-y-auto event-popup" x-ref="scrollContainer">
+			<?php
+			while ($row = mysql_fetch_assoc($event_list_result)) {
+			?>
+				<a href="/m/eventzone/detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="flex-none">
+					<div class="flex justify-center items-center w-full h-[37.58px]">
+						<p class="font-bold text-[13px] leading-[15px] text-white text-center line-clamp-1"><?= $row['STR_TITLE'] ?></p>
+					</div>
+				</a>
+			<?php
+			}
+			?>
+		</div>
 		<?php
 		if (!$hide_header) {
 		?>
