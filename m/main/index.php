@@ -271,7 +271,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 										?>
 											<div class="flex flex-row gap-1 items-end">
 												<p class="font-bold text-[13px] leading-[14px] text-black">
-													<span class="font-medium">일</span><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+													<span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
 												</p>
 												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
 													<?= number_format($row['INT_PRICE']) ?>원

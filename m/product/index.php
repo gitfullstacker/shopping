@@ -563,7 +563,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                 </button>
             </div>
             <hr class="border-t-[0.5px] border-[#E0E0E0] w-full" />
-            <div class="flex flex-col items-center w-full overflow-auto h-[600px]">
+            <div class="flex flex-col items-center w-full overflow-auto h-[450px]">
                 <div class="flex flex-col items-center justify-center px-8 pt-[34px] pb-7">
                     <p class="font-medium text-base leading-[18px] text-black">예약날짜 설정하기</p>
                     <div class="mt-[17px] flex gap-[13px] items-center">
