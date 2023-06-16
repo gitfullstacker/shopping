@@ -658,7 +658,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <div class="mt-7 flex flex-row gap-[5px] w-full overflow-auto">
                         <?php
                         $SQL_QUERY =    'SELECT
-                                            B.IMG_F_NAME
+                                            A.BD_SEQ, B.IMG_F_NAME
                                         FROM 
                                             `' . $Tname . 'b_bd_data@01` A
                                         LEFT JOIN
@@ -681,9 +681,9 @@ switch ($arr_Data['INT_TYPE']) {
 
                         while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
                         ?>
-                            <div class="flex-none w-20 h-20 bg-gray-100">
+                            <a href="/m/review/detail.php?bd_seq=<?= $image_row['BD_SEQ'] ?>" class="flex-none w-20 h-20 bg-gray-100">
                                 <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
-                            </div>
+                            </a>
                         <?php
                         }
                         ?>
