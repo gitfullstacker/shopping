@@ -576,9 +576,9 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 
 		while ($row = mysql_fetch_assoc($review_banner_list_result)) {
 		?>
-			<div class="w-full min-h-[130px] flex bg-gray-100">
+			<a href="<?= $row['STR_URL1'] ?>" class="w-full min-h-[130px] flex bg-gray-100">
 				<img class="object-cover object-center" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
-			</div>
+			</a>
 		<?php
 		}
 
