@@ -53,10 +53,15 @@
             $best_review_list_result = mysql_query($SQL_QUERY);
 
             while ($row = mysql_fetch_assoc($best_review_list_result)) {
+                if ($row['IMG_F_NAME']) {
+                    $image_url = '/admincenter/files/boad/2/' . $row['IMG_F_NAME'];
+                } else {
+                    $image_url = '/admincenter/files/good/' . $row['STR_IMAGE1'];
+                }
             ?>
                 <a href="/m/review/detail.php?bd_seq=<?= $row['BD_SEQ'] ?>" class="flex flex-col w-full">
                     <div class="flex relative w-full h-[167px] bg-gray-100">
-                        <img class="flex w-full object-cover object-center" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
+                        <img class="flex w-full object-cover object-center" src="<?= $image_url ?>" onerror="this.style.display='none'" alt="">
                         <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
                             <p class="font-extrabold text-[9px] leading-[10px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
                             <p class="font-bold text-[9px] leading-[10px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
