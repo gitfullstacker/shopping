@@ -1085,7 +1085,7 @@ $rent_number = fnc_cart_info($str_goodcode);
                         }
                     } else if (this.selectedStatus == 1) {
                         const disableEndDay = new Date(this.startDate);
-                        disableEndDay.setDate(disableEndDay.getDate() + 0);
+                        disableEndDay.setDate(disableEndDay.getDate() + 2);
 
                         const finalEndday = new Date(this.startDate);
                         finalEndday.setDate(finalEndday.getDate() + 14);
