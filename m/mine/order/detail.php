@@ -26,7 +26,8 @@ $SQL_QUERY =    'SELECT
                 ON
                     A.STR_USERID=D.STR_USERID
                 WHERE 
-                    A.INT_NUMBER=' . $int_number;
+                    A.INT_STATE IN (1, 2, 3, 4, 5, 6, 10)
+                    AND A.INT_NUMBER=' . $int_number;
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -36,27 +37,29 @@ if (!$arr_Rlt_Data) {
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-$current_state = '접수중';
+$current_state = '취소됨';
 
-switch ($arr_Data['ORDER_STATE']) {
+switch ($arr_Data['INT_STATE']) {
     case 1:
         $current_state = '주문접수';
         break;
-
     case 2:
         $current_state = '상품준비';
         break;
-
     case 3:
         $current_state = '배송중';
         break;
-
     case 4:
+        $current_state = '배송완료';
+        break;
+    case 5:
+        $current_state = '반납중';
+        break;
+    case 6:
         $current_state = '이용중';
         break;
-
-    case 5:
-        $current_state = '반납';
+    case 10:
+        $current_state = '반납완료';
         break;
 }
 ?>
@@ -109,24 +112,138 @@ switch ($arr_Data['ORDER_STATE']) {
                 <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $current_state ?></p>
                 <p class="font-bold text-xs leading-[14px] text-black underline">
                     <?php
-                    if ($arr_Data['ORDER_STATE'] == 1) {
+                    if ($arr_Data['INT_STATE'] == 1) {
                         echo '우체국택배';
-                    } else if ($arr_Data['ORDER_STATE'] == 2 || $arr_Data['ORDER_STATE'] == 3 || $arr_Data['ORDER_STATE'] == 4 || $arr_Data['ORDER_STATE'] == 5) {
+                    } else if ($arr_Data['INT_STATE'] == 2 || $arr_Data['INT_STATE'] == 3 || $arr_Data['INT_STATE'] == 4 || $arr_Data['INT_STATE'] == 5) {
                         echo '우체국택배(' . $arr_Data['INT_NUMBER'] . ')';
                     }
                     ?>
                 </p>
             </div>
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] px-[14px]">
-                <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                </div>
-                <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                </a>
-                <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="col-span-2 w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                </a>
+                <?php
+                switch ($arr_Data['INT_STATE']) {
+                        // 주문접수
+                    case 1:
+                ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 상품준비
+                    case 2:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 배송중
+                    case 3:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 배송완료
+                    case 4:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 반납중
+                    case 5:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 이용중
+                    case 6:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                    <?php
+                        break;
+                        // 반납완료
+                    case 10:
+                    ?>
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
+                        </button>
+                <?php
+                        break;
+                }
+                ?>
             </div>
         </div>
         <!-- 주문정보 -->
@@ -150,7 +267,7 @@ switch ($arr_Data['ORDER_STATE']) {
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">주문처리상태</p>
                     <p class="font-medium text-xs leading-[14px] text-[#000000]">
                         <?php
-                        switch ($arr_Data['ORDER_STATE']) {
+                        switch ($arr_Data['INT_STATE']) {
                             case 1:
                                 echo '접수중';
                                 break;
@@ -181,49 +298,57 @@ switch ($arr_Data['ORDER_STATE']) {
                 </div>
             </div>
         </div>
+
         <!-- 결제정보 -->
-        <div class="flex flex-col w-full">
-            <p class="font-bold text-[15px] leading-[17px] text-black px-[14px]">결제정보</p>
-            <hr class="mt-3 border-t border-[#E0E0E0]" />
-            <div class="flex flex-col w-full px-[14px]">
-                <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-medium text-xs leading-[14px] text-[#666666]">결제수단</p>
-                    <p class="font-medium text-xs leading-[14px] text-[#000000]">ABLANC PAY(자동결제)</p>
-                </div>
-                <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-medium text-xs leading-[14px] text-[#666666]">상품금액</p>
-                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
-                </div>
-                <div class="flex flex-col gap-2.5 w-full py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <div class="flex items-center justify-between">
-                        <p class="font-medium text-xs leading-[14px] text-[#666666]">상품할인금액</p>
-                        <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PDISCOUNT'] + $arr_Data['INT_MDISCOUNT']) ?>원</p>
+        <?php
+        if ($arr_Data['INT_TYPE'] != 1) {
+        ?>
+            <div class="flex flex-col w-full">
+                <p class="font-bold text-[15px] leading-[17px] text-black px-[14px]">결제정보</p>
+                <hr class="mt-3 border-t border-[#E0E0E0]" />
+                <div class="flex flex-col w-full px-[14px]">
+                    <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]">결제수단</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#000000]">ABLANC PAY(자동결제)</p>
                     </div>
-                    <div class="flex flex-col gap-2.5 w-full">
+                    <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]">상품금액</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
+                    </div>
+                    <div class="flex flex-col gap-2.5 w-full py-3 border-b-[0.5px] border-[#E0E0E0]">
                         <div class="flex items-center justify-between">
-                            <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                            <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_PDISCOUNT']) ?>원</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#666666]">상품할인금액</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= number_format($arr_Data['INT_PDISCOUNT'] + $arr_Data['INT_MDISCOUNT']) ?>원</p>
+                        </div>
+                        <div class="flex flex-col gap-2.5 w-full">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
+                                <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_PDISCOUNT']) ?>원</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+                                <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_MDISCOUNT']) ?>원</p>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <p class="font-medium text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                            <p class="font-medium text-[11px] leading-3 text-[#000000]">-<?= number_format($arr_Data['INT_MDISCOUNT']) ?>원</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#666666]">쿠폰할인</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_COUPON']) ?>원</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-xs leading-[14px] text-[#666666]">적립금사용</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_SAVED']) ?>원</p>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <p class="font-medium text-xs leading-[14px] text-[#666666]">쿠폰할인</p>
-                        <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_COUPON']) ?>원</p>
+                    <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
+                        <p class="font-medium text-xs leading-[14px] text-[#DA2727]">총 결제금액</p>
+                        <p class="font-bold text-[15px] leading-[17px] text-[#000000]"><?= number_format($arr_Data['INT_TPRICE']) ?>원</p>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <p class="font-medium text-xs leading-[14px] text-[#666666]">적립금사용</p>
-                        <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_SAVED']) ?>원</p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
-                    <p class="font-medium text-xs leading-[14px] text-[#DA2727]">총 결제금액</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-[#000000]"><?= number_format($arr_Data['INT_TPRICE']) ?>원</p>
                 </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
+
         <!-- 배송정보 -->
         <div class="flex flex-col w-full">
             <p class="font-bold text-[15px] leading-[17px] text-black px-[14px]">배송정보</p>

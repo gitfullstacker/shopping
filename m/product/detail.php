@@ -518,15 +518,27 @@ switch ($arr_Data['INT_TYPE']) {
                 <div class="flex flex-col gap-1.5">
                     <p class="font-bold text-sm leading-4 text-black">기본정보</p>
                     <?php
-                    if ($arr_Data['INT_TYPE'] == 2) {
+                    switch ($arr_Data['INT_TYPE']) {
+                        case 1:
                     ?>
-                        <div class="flex flex-row">
-                            <div class="w-[55px]">
-                                <p class="font-semibold text-xs text-[#666666]">리테일가</p>
+                            <div class="flex flex-row">
+                                <div class="w-[55px]">
+                                    <p class="font-semibold text-xs text-[#666666]">리테일가</p>
+                                </div>
+                                <p class="font-semibold text-xs text-[#666666]"><?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                             </div>
-                            <p class="font-semibold text-xs text-[#666666]"><?= number_format($arr_Data['INT_RPRICE']) ?>원</p>
-                        </div>
+                        <?php
+                            break;
+                        case 2:
+                        ?>
+                            <div class="flex flex-row">
+                                <div class="w-[55px]">
+                                    <p class="font-semibold text-xs text-[#666666]">리테일가</p>
+                                </div>
+                                <p class="font-semibold text-xs text-[#666666]"><?= number_format($arr_Data['INT_RPRICE']) ?>원</p>
+                            </div>
                     <?php
+                            break;
                     }
                     ?>
                     <div class="flex flex-row">
@@ -1392,12 +1404,12 @@ switch ($arr_Data['INT_TYPE']) {
                                     <p class="font-bold text-xs leading-[14px] line-through text-[#666666]" x-text="(price.originPrice * rentDays).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
-                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.area / 100) * rentDays).toLocaleString() + '원'">100원</p>
-                                </div>
-                                <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">금액할인가</p>
                                     <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.product / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.area / 100) * rentDays).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">멤버십할인</p>
