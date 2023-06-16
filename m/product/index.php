@@ -36,7 +36,14 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 ?>
 
 <!-- Body -->
-<div x-data="{ showCalendar: false, showOption: 0 }" class="main-body">
+<div x-data="{
+        showCalendar: false,
+        showOption: 0,
+        rentDate: {
+            start: null,
+            end: null
+        }
+    }" class="main-body">
     <!-- 브랜드검색 -->
     <div x-data="{ 
         pick: 0, 
@@ -208,7 +215,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                 <p class="title">ABLANC RENT</p>
                 <div class="filter-section">
                     <p class="description">이용하고 싶은 날짜를 선택해주세요!</p>
-                    <button class="select-btn" x-on:click="showCalendar = true">시작 날짜 선택</button>
+                    <button class="select-btn" x-on:click="showCalendar = true" x-text="(rentDate.start != null && rentDate.end != null) ? (rentDate.start + ' ~ ' + rentDate.end) : '시작 날짜 선택'">시작 날짜 선택</button>
                     <div class="filter-list">
                         <button class="item-btn" x-on:click="showOption = 1">브랜드</button>
                         <button class="item-btn" x-on:click="showOption = 2">사이즈</button>
@@ -529,10 +536,21 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
             
             return `${year}.${month}.${day}`;
         },
+        formatDateWithWeek(date) {
+            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+            const year = date.getFullYear().toString().slice(-2);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const weekday = weekdays[date.getDay()];
+            
+            return `${year}. ${month}. ${day} (${weekday})`;
+        },
         applyFilter() {
             showCalendar = false;
             start_date = this.startDate;
             end_date = this.endDate;
+            rentDate.start = start_date ? this.formatDateWithWeek(start_date) : null;
+            rentDate.end = end_date ? this.formatDateWithWeek(end_date) : null;
             searchProduct();
         },
         initDate() {
@@ -543,6 +561,8 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
             this.generateDates(this.currentMonth, this.currentYear);
             start_date = null;
             end_date = null;
+            rentDate.start = null;
+            rentDate.end = null;
         },
         showAlert() {
             this.showCalendarAlert = true;
