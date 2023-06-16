@@ -57,58 +57,31 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-//구독멤버십정보얻기
-$SQL_QUERY =    "SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-    . $Tname . "comm_member_pay` AS A
-                INNER JOIN
-                    `" . $Tname . "comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=1 ";
+switch ($arr_Data['INT_TYPE']) {
+    case 1:
+        //구독멤버십가입 여부 확인
+        $is_subscription_membership = fnc_sub_member_info() > 0 ? true : false;
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+        // 입고알람이 되여있는지 확인
+        $SQL_QUERY =    'SELECT 
+                            COUNT(A.STR_GOODCODE) AS COUNT 
+                        FROM 
+                            ' . $Tname . 'comm_member_alarm AS A
+                        WHERE
+                            A.STR_USERID="' . $arr_Auth[0] . '"
+                            AND A.STR_GOODCODE=' . $str_goodcode;
 
-//렌트멤버십정보얻기
-$SQL_QUERY =    "SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-    . $Tname . "comm_member_pay` AS A
-                INNER JOIN
-                    `" . $Tname . "comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=2 ";
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $alarm_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
-// 구독상품인 경우 입고알람이 되여있는지 확인
-if ($arr_Data['INT_TYPE'] == 1) {
-    $SQL_QUERY =    'SELECT 
-                        COUNT(A.STR_GOODCODE) AS COUNT 
-                    FROM 
-                        ' . $Tname . 'comm_member_alarm AS A
-                    WHERE
-                        A.STR_USERID="' . $arr_Auth[0] . '"
-                        AND A.STR_GOODCODE=' . $str_goodcode;
-
-    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-    $alarm_Data = mysql_fetch_assoc($arr_Rlt_Data);
+        // 렌트가능한 상품정보 얻기
+        $rent_number = fnc_cart_info($str_goodcode);
+        break;
+    case 2:
+        //렌트멤버십가입 여부 확인
+        $is_rent_membership = fnc_ren_member_info() > 0 ? true : false;
+        break;
 }
-
-// 렌트가능한 상품정보 얻기
-$rent_number = fnc_cart_info($str_goodcode);
 ?>
 
 <div x-data="{
@@ -120,7 +93,7 @@ $rent_number = fnc_cart_info($str_goodcode);
     showSubscriptionAlert: false,
     showVintagePanel: false,
     goSubscription() {
-        if (<?= $subscription_membership_Data ? 'false' : 'true' ?>) {
+        if (<?= $is_subscription_membership ? 'false' : 'true' ?>) {
             this.showSubscriptionAlert = true;
         } else {
             window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
@@ -242,9 +215,9 @@ $rent_number = fnc_cart_info($str_goodcode);
                 case 2:
                 ?>
                     <?php
-                    if ($rent_membership_Data) {
+                    if ($is_rent_membership) {
                     ?>
-                        <p class="mt-[15px] font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <p class="mt-[15px] font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                     <?php
                     } else {
                     ?>
@@ -253,16 +226,26 @@ $rent_number = fnc_cart_info($str_goodcode);
                     }
                     ?>
                     <div class="mt-[7px] flex gap-2 items-end">
-                        <p class="font-extrabold text-lg leading-5 text-[#00402F] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
+                        <?php
+                        if ($is_rent_membership) {
+                        ?>
+                            <p class="font-extrabold text-lg leading-5 text-[#00402F]"><?= number_format(($arr_Data['INT_DISCOUNT'] ?: 0) + 30) ?>%</p>
+                        <?php
+                        } else {
+                        ?>
+                            <p class="font-extrabold text-lg leading-5 text-[#00402F] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
+                        <?php
+                        }
+                        ?>
                         <p class="font-extrabold text-lg leading-5 text-[#333333]">일 <?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         <?php
-                        if ($rent_membership_Data) {
+                        if ($is_rent_membership) {
                         ?>
                             <p class="font-semibold text-[14px] leading-4 text-[#666666]">멤버십 혜택가</p>
                         <?php
                         } else {
                         ?>
-                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
+                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                         <?php
                         }
                         ?>
@@ -275,17 +258,7 @@ $rent_number = fnc_cart_info($str_goodcode);
                     <div class="mt-[7px] flex gap-2 items-end">
                         <p class="font-extrabold text-lg leading-5 text-[#7E6B5A] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
                         <p class="font-extrabold text-lg leading-5 text-[#333333]"><?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                        <?php
-                        if ($rent_membership_Data) {
-                        ?>
-                            <p class="font-semibold text-[14px] leading-4 text-[#666666]">멤버십 혜택가</p>
-                        <?php
-                        } else {
-                        ?>
-                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666]"><?= $arr_Data['INT_DISCOUNT'] ? ('일 ' . number_format($arr_Data['INT_PRICE']) . '원') : '' ?></p>
-                        <?php
-                        }
-                        ?>
+                        <p class="font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                     </div>
             <?php
                     break;
@@ -867,7 +840,7 @@ $rent_number = fnc_cart_info($str_goodcode);
                             <?php
                             switch ($row['INT_TYPE']) {
                                 case 1:
-                                    if (!$subscription_membership_Data) {
+                                    if (!$is_subscription_membership) {
                             ?>
                                         <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                     <?php
@@ -1021,7 +994,7 @@ $rent_number = fnc_cart_info($str_goodcode);
                 discount: {
                     product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
                     area: 0,
-                    membership: 0
+                    membership: <?= $is_rent_membership ? 30 : 0 ?>
                 },
                 totalPrice: 0
             },

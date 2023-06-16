@@ -64,58 +64,57 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-// 구간할인정보
-$date1 = new DateTime($start_date);
-$date2 = new DateTime($end_date);
+switch ($int_type) {
+    case 1:
+        //구독멤버십가입 여부 확인
+        $is_subscription_membership = fnc_sub_member_info() > 0 ? true : false;
 
-$use_days = $date1->diff($date2)->d + 1;
+        //구독멤버십정보얻기
+        if ($is_subscription_membership) {
+            $SQL_QUERY =    "SELECT 
+                                B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
+                            FROM 
+                                `" . $Tname . "comm_member_pay` AS A
+                            INNER JOIN
+                                `" . $Tname . "comm_member_pay_info` AS B
+                            ON
+                                A.INT_NUMBER=B.INT_NUMBER
+                                AND A.STR_PTYPE='1'
+                                AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
+                                AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
+                                AND A.STR_USERID='$arr_Auth[0]'
+                                AND B.INT_TYPE=1 ";
 
-$area_discount = 0;
-if (($site_Data['INT_DSTART1'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND1'] ?: 0)) {
-    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART2'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND2'] ?: 0)) {
-    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART3'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND3'] ?: 0)) {
-    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
-} else if (($site_Data['INT_DSTART4'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND4'] ?: 0)) {
-    $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
+            $arr_Rlt_Data = mysql_query($SQL_QUERY);
+            $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
+        }
+
+        break;
+    case 2:
+        //렌트멤버십가입 여부 확인
+        $is_rent_membership = fnc_ren_member_info() > 0 ? true : false;
+
+        // 구간할인정보
+        $date1 = new DateTime($start_date);
+        $date2 = new DateTime($end_date);
+
+        $use_days = $date1->diff($date2)->d + 1;
+
+        $area_discount = 0;
+        if (($site_Data['INT_DSTART1'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND1'] ?: 0)) {
+            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
+        } else if (($site_Data['INT_DSTART2'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND2'] ?: 0)) {
+            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
+        } else if (($site_Data['INT_DSTART3'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND3'] ?: 0)) {
+            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
+        } else if (($site_Data['INT_DSTART4'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND4'] ?: 0)) {
+            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
+        }
+
+        break;
+    case 3:
+        break;
 }
-
-//구독멤버십정보얻기
-$SQL_QUERY =	"SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-                    .$Tname."comm_member_pay` AS A
-                INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=1 ";
-
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
-$subscription_membership_Data=mysql_fetch_assoc($arr_Rlt_Data);
-
-//렌트멤버십정보얻기
-$SQL_QUERY =	"SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-                    .$Tname."comm_member_pay` AS A
-                INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=2 ";
-
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
-$rent_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //카드정보얻기
 $SQL_QUERY =    'SELECT
@@ -133,11 +132,11 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     type: '',
     payAmount: {
         totalPrice: 0,
-        price: <?= $product_Data['INT_TYPE'] == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
+        price: <?= $int_type == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
         useDays: <?= $use_days ?>,
         discount: {
-            product: <?= $product_Data['INT_TYPE'] == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
-            membership: 0
+            product: <?= $int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
+            membership: <?= $int_type == 2 && $is_rent_membership ? (($product_Data['INT_PRICE'] * 30 / 100) * $use_days) : 0 ?>
         },
         coupon: 0,
         saved: 0,
@@ -314,18 +313,18 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <img class="w-full" src="/admincenter/files/good/<?= $product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
             </div>
             <div class="flex flex-col justify-start">
-                <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[<?= ($product_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($product_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                    <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($product_Data['INT_TYPE'] == 1 ? '구독' : ($product_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[<?= ($int_type == 1 ? '#EEAC4C' : ($int_type == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
+                    <p class="font-normal text-[10px] leading-[11px] text-center text-white"><?= ($int_type == 1 ? '구독' : ($int_type == 2 ? '렌트' : '빈티지'))  ?></p>
                 </div>
                 <p class="mt-[15px] font-bold text-xs leading-[14px] text-[#666666]"><?= $product_Data['STR_GOODNAME'] ?></p>
                 <?php
-                switch ($product_Data['INT_TYPE']) {
+                switch ($int_type) {
                     case 1:
                 ?>
                         <p class="mt-[10px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
                         <div class="mt-1.5 flex gap-2 items-center">
                             <?php
-                            if ($subscription_membership_Data) {
+                            if ($is_subscription_membership) {
                             ?>
                                 <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
                             <?php
@@ -365,7 +364,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <hr class="mt-5 w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
         <div class="mt-[15px] flex flex-col gap-1.5">
             <?php
-            switch ($product_Data['INT_TYPE']) {
+            switch ($int_type) {
                 case 1:
             ?>
                     <div class="flex gap-5">
@@ -392,13 +391,13 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-                <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= ($product_Data['INT_TYPE'] == 1 && $subscription_membership_Data) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
+                <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= ($int_type == 1 && $is_subscription_membership) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
                 <p class="font-medium text-xs leading-[14px] text-[#666666]">
                     <?php
-                    switch ($product_Data['INT_TYPE']) {
+                    switch ($int_type) {
                         case 1:
                             echo '미해당';
                             break;
@@ -485,7 +484,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">MEMBERSHIP</p>
 
                 <?php
-                if ($subscription_membership_Data) {
+                if ($is_subscription_membership && $subscription_membership_Data) {
                     $sub_end_date = $subscription_membership_Data['DTM_EDATE']; // Replace with your actual end date
 
                     $current_date = date('Y-m-d'); // Get the current date
@@ -645,10 +644,16 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
                         <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.product) + '원'"></p>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
-                        <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.membership) + '원'"></p>
-                    </div>
+                    <?php
+                    if ($int_type == 2) {
+                    ?>
+                        <div class="flex items-center justify-between">
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.membership) + '원'"></p>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
                         <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.coupon) + '원'"></p>
@@ -658,7 +663,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.saved) + '원'"></p>
                     </div>
                     <?php
-                    if ($product_Data['INT_TYPE'] == 2) {
+                    if ($int_type == 2) {
                     ?>
                         <div class="flex items-center justify-between">
                             <p class="font-bold text-[15px] leading-[17px] text-black">구간할인</p>
@@ -702,7 +707,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
         <?php
         if ($int_type == 1) {
-            if ($subscription_membership_Data) {
+            if ($is_subscription_membership) {
         ?>
                 <button type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]" onclick="paySubscription()">
                     <span class="font-extrabold text-lg text-center text-white">구독하기</span>
@@ -710,7 +715,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             } else {
             ?>
-                <a href="/m/mine/membership/index.php" type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
+                <a href="/m/mine/membership/index.php?int_type=1" type="button" class="grow flex justify-center items-center h-[66px] bg-black border border-solid border-[#D9D9D9]">
                     <span class="font-extrabold text-lg text-center text-white">구독 멤버십 가입하러 가기</span>
                 </a>
             <?php
