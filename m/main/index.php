@@ -41,10 +41,6 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			handleScroll() {
 				const scrollPosition = this.$refs.sliderContainer.scrollLeft;
 				const slider = Math.round(scrollPosition / this.containerWidth) + 1;
-
-				if (this.$refs.sliderContainer.scrollLeft >= this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
-					this.$refs.sliderContainer.scrollTo(0, 0); // Scroll to the beginning
-				}
 				
 				this.slider = slider;
 			},
