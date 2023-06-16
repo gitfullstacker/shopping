@@ -50,7 +50,7 @@ $SQL_QUERY =    'SELECT
 $favorite_product_result = mysql_query($SQL_QUERY);
 ?>
 
-<div class="mt-1.5 flex flex-col w-full px-[14px]">
+<div class="mt-1.5 flex flex-col w-full min-h-screen px-[14px]">
     <div x-data="{
         type: 1,
         removeLikeAll() {
