@@ -43,7 +43,7 @@ switch ($RetrieveFlag) {
         $arr_Column_Name[11]    =     "INT_DSTAR";
         $arr_Column_Name[12]    =     "BD_ITEM1";
         $arr_Column_Name[13]    =     "BD_ITEM2";
-        $arr_Column_Name[14]    =     "STR_CART";
+        $arr_Column_Name[14]    =     "INT_CART";
 
         $arr_Set_Data[0]        = $new_id;
         $arr_Set_Data[1]        = 2;
@@ -173,7 +173,7 @@ switch ($RetrieveFlag) {
         $arr_Column_Name[2]     =     "DTM_INDATE";
         $arr_Column_Name[3]     =     "STR_ORDERIDX";
         $arr_Column_Name[4]     =     "INT_VALUE";
-        $arr_Column_Name[5]     =     "STR_CART";
+        $arr_Column_Name[5]     =     "INT_CART";
 
         $arr_Set_Data[0]        = $arr_Auth[0];
         $arr_Set_Data[1]        = "Y";

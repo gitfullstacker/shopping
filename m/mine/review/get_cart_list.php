@@ -15,11 +15,11 @@ $SQL_QUERY = 'SELECT
                 LEFT JOIN
                     `' . $Tname . 'b_bd_data@01` D
                 ON
-                    A.INT_NUMBER=D.STR_CART
+                    A.INT_NUMBER=D.INT_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.INT_STATE IN (4, 5, 6, 10)
-                    AND D.STR_CART IS NULL
+                    AND D.INT_CART IS NULL
                     AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
 
 $result = mysql_query($SQL_QUERY);
@@ -49,11 +49,11 @@ $SQL_QUERY =    'SELECT
                 LEFT JOIN
                     `' . $Tname . 'b_bd_data@01` D
                 ON
-                    A.INT_NUMBER=D.STR_CART
+                    A.INT_NUMBER=D.INT_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.INT_STATE IN (4, 5, 6, 10)
-                    AND D.STR_CART IS NULL
+                    AND D.INT_CART IS NULL
                     AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '

@@ -10,40 +10,51 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 2);
 
 //구독멤버십정보얻기
-$SQL_QUERY =	"SELECT 
+$SQL_QUERY =    "SELECT 
                     B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
-                    .$Tname."comm_member_pay` AS A
+    . $Tname . "comm_member_pay` AS A
                 INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
+                    `" . $Tname . "comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
                     AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
                     AND A.STR_USERID='$arr_Auth[0]'
                     AND B.INT_TYPE=1 ";
 
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
-$subscription_Data=mysql_fetch_assoc($arr_Rlt_Data);
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //렌트멤버십정보얻기
-$SQL_QUERY =	"SELECT 
+$SQL_QUERY =    "SELECT 
                     B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
                 FROM `"
-                    .$Tname."comm_member_pay` AS A
+    . $Tname . "comm_member_pay` AS A
                 INNER JOIN
-                    `".$Tname."comm_member_pay_info` AS B
+                    `" . $Tname . "comm_member_pay_info` AS B
                 ON
                     A.INT_NUMBER=B.INT_NUMBER
                     AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 
+                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
+                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
                     AND A.STR_USERID='$arr_Auth[0]'
                     AND B.INT_TYPE=2 ";
 
-$arr_Rlt_Data=mysql_query($SQL_QUERY);
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 금액정보얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -142,9 +153,9 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         멤버십 가입 후 할인 된 가격으로 렌트해보세요!
                     </p>
                 </div>
-                <a href="membership_proc.php?RetrieveFlag=JOIN&int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <button type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="joinMembership(2)">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </a>
+                </button>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -255,9 +266,9 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         멤버십 가입 후 다양한 가방을 구독해보세요!
                     </p>
                 </div>
-                <a href="membership_proc.php?RetrieveFlag=JOIN&int_type=1" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <button type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="joinMembership(1)">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </a>
+                </button>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">구독 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -304,6 +315,13 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 </div>
 
+<form name="join_membership" action="membership_proc.php" method="post">
+    <input type="hidden" name="RetrieveFlag" value="JOIN">
+    <input type="hidden" name="int_type" value="">
+    <input type="hidden" name="ordr_idxx" value="">
+    <input type="hidden" name="good_mny" value="0">
+</form>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
@@ -311,7 +329,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 <script>
     var restore_int_number;
     var restore_int_type;
-    
+
     function showRestoreConfirm(int_number, int_type) {
         restore_int_number = int_number;
         restore_int_type = int_type;
@@ -330,5 +348,38 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 window.location.href = 'index.php?int_type=' + restore_int_type;
             }
         });
+    }
+
+    function joinMembership(int_type) {
+        init_orderid();
+        // 운영환경
+        // document.forms.auto_pay_form.submit();
+        // 개발환경
+        switch (int_type) {
+            case 1:
+                document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE1'] ?: 0 ?>;
+                break;
+            case 2:
+                document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE2'] ?: 0 ?>;
+                break;
+        }
+        document.forms.join_membership.int_type.value = int_type;
+        document.forms.join_membership.submit();
+    }
+
+    function init_orderid() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var time = today.getTime();
+
+        if (parseInt(month) < 10) {
+            month = "0" + month;
+        }
+
+        var vOrderID = year + "" + month + "" + date + "" + time;
+
+        document.forms.join_membership.ordr_idxx.value = vOrderID;
     }
 </script>

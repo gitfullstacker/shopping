@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE AS PRODUCT_PRICE, B.INT_DISCOUNT, C.STR_CODE, D.STR_NAME AS USER_NAME
+                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE AS PRODUCT_PRICE, B.INT_DISCOUNT, C.STR_CODE, D.STR_NAME AS USER_NAME, COALESCE((SELECT COUNT(E.BD_SEQ) FROM `' . $Tname . 'b_bd_data@01` E WHERE E.INT_CART = A.INT_NUMBER), 0) AS BD_COUNT
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -122,126 +122,54 @@ switch ($arr_Data['INT_STATE']) {
             </div>
             <div class="mt-[15px] grid grid-cols-2 gap-[5px] px-[14px]">
                 <?php
-                switch ($arr_Data['INT_STATE']) {
-                        // 주문접수
-                    case 1:
+                if ($arr_Data['INT_STATE'] == 1 || $arr_Data['INT_STATE'] == 2 || $arr_Data['INT_STATE'] == 3) {
+                    // 주문접수,상품준비(관리자확인),배송중
                 ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 상품준비
-                    case 2:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 배송중
-                    case 3:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 배송완료
-                    case 4:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 반납중
-                    case 5:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 이용중
-                    case 6:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
-                    <?php
-                        break;
-                        // 반납완료
-                    case 10:
-                    ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
-                        <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                        </a>
-                        <a href="/m/mine/order/extension.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
-                        </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(<?= $arr_Data['INT_NUMBER'] ?>, <?= $arr_Data['INT_TYPE'] ?>)">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
-                        </button>
+                    <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
+                    </div>
+                    <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                    </a>
                 <?php
-                        break;
+                } else if ($arr_Data['INT_STATE'] == 4 || $arr_Data['INT_STATE'] == 6) {
+                    // 배송완료,이용중
+                ?>
+                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= $arr_Data['BD_COUNT'] == 0 ? '' : 'col-span-2' ?>" onclick="returnOrder()">
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
+                    </button>
+                    <?php
+                    if ($arr_Data['BD_COUNT'] == 0) {
+                    ?>
+                        <a href="/m/mine/review/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">리뷰 작성</p>
+                            <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                                <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                            </div>
+                        </a>
+                    <?php
+                    }
+                    ?>
+                <?php
+                } else if ($arr_Data['INT_STATE'] == 5 || $arr_Data['INT_STATE'] == 10) {
+                    // 배송/반납완료
+                ?>
+                    <a href="/m/product/detail.php?str_goodcode=<?= $arr_Data['STR_GOODNAME'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= ($arr_Data['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($arr_Data['DTM_EDIT_DATE'])))) ? '' : 'col-span-2' ?>">
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">재이용 하기</p>
+                    </a>
+                    <?php
+                    if ($arr_Data['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($arr_Data['DTM_EDIT_DATE'])))) {
+                    ?>
+                        <a href="/m/mine/review/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">리뷰 작성</p>
+                            <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
+                                <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
+                            </div>
+                        </a>
+                    <?php
+                    }
+                    ?>
+                <?php
                 }
                 ?>
             </div>
@@ -257,7 +185,7 @@ switch ($arr_Data['INT_STATE']) {
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">주문일자</p>
-                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= date('Y. m. d', strtotime($arr_Data['ORDER_DATE'])) ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= date('Y. m. d', strtotime($arr_Data['DTM_INDATE'])) ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">주문자</p>
@@ -386,6 +314,116 @@ switch ($arr_Data['INT_STATE']) {
     </div>
 </div>
 
+<div id="cancel_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('cancel_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">취소 신청이 완료되었습니다.</p>
+        <a href="/m/product/index.php" id="cancel_dialog_btn" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">다른 가방 렌트하기</p>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.52603 9.0481L5.45631 4.95636C5.50296 4.90765 5.53592 4.85488 5.55521 4.79805C5.5748 4.74122 5.58459 4.68033 5.58459 4.61538C5.58459 4.55044 5.5748 4.48955 5.55521 4.43272C5.53592 4.37589 5.50296 4.32312 5.45631 4.27441L1.52603 0.170489C1.41718 0.0568296 1.28112 0 1.11785 0C0.95457 0 0.814619 0.060889 0.697994 0.182667C0.581368 0.304445 0.523056 0.446519 0.523056 0.60889C0.523056 0.77126 0.581368 0.913335 0.697994 1.03511L4.12678 4.61538L0.697994 8.19566C0.589143 8.30932 0.534719 8.44928 0.534719 8.61555C0.534719 8.78214 0.593031 8.92632 0.709656 9.0481C0.826282 9.16988 0.962345 9.23077 1.11785 9.23077C1.27335 9.23077 1.40941 9.16988 1.52603 9.0481Z" fill="#666666" />
+            </svg>
+        </a>
+    </div>
+</div>
+
+<div id="return_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('return_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">반납 날짜를 선택해주세요.</p>
+        <div class="relative">
+            <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates" onchange="doReturnOrder(this.value)">
+                <option value="">반납 날짜</option>
+                <?php
+                $startDate = new DateTime(); // Current date
+                $endDate = new DateTime($arr_Data['STR_EDATE']); // Specific date
+
+                $dateRange = new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
+
+                foreach ($dateRange as $date) {
+                ?>
+                    <option value="<?= $date->format('Y-m-d') ?>"><?= $date->format('Y-m-d') ?></option>
+                <?php
+                }
+                ?>
+            </select>
+            <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
+            </svg>
+        </div>
+    </div>
+</div>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
+
+<script>
+    function returnOrder() {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=RETURNORDER";
+        url += "&int_cart=<?= $int_number ?>";
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                document.location = "detail.php?int_number=<?= $int_number ?>";
+            }
+        });
+    }
+
+    function cancelOrder() {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=CANCELORDER";
+        url += "&int_cart=<?= $int_number ?>";
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                document.getElementById('cancel_dialog').classList.remove('hidden');
+                searchOrder(current_page);
+
+                switch (<?= $int_type ?: 1 ?>) {
+                    case 1:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=1');
+                        $('#cancel_dialog_btn p').html('다른 가방 구독하기');
+                        break;
+                    case 2:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=2');
+                        $('#cancel_dialog_btn p').html('다른 가방 렌트하기');
+                        break;
+                    case 3:
+                        $('#cancel_dialog_btn').attr('href', '/m/product/index.php?product_type=3');
+                        $('#cancel_dialog_btn p').html('다른 가방 구매하기');
+                        break;
+                }
+            }
+        });
+    }
+
+    function returnOrder() {
+        document.getElementById('return_dialog').classList.remove('hidden');
+    }
+
+    function doReturnOrder(d_date) {
+        url = "order_proc.php";
+        url += "?RetrieveFlag=RETURNORDER";
+        url += "&int_cart=<?= $int_number ?>";
+        url += "&d_date=" + d_date;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                document.location = "detail.php?int_number=<?= $int_number ?>";
+            }
+        });
+    }
+</script>

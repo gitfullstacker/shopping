@@ -198,10 +198,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </button>
         <p class="font-bold text-[15px] leading-[17px] text-black">반납 날짜를 선택해주세요.</p>
         <div class="relative">
-            <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates">
+            <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates" onchange="doReturnOrder(this.value)">
                 <option value="">반납 날짜</option>
-                <option value="">2023-03-10</option>
-                <option value="">2023-03-11</option>
             </select>
             <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
@@ -216,6 +214,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
 <script>
     current_page = 0;
+    return_int_number = 0;
 
     $(document).ready(function() {
         searchOrder();
@@ -263,43 +262,32 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         });
     }
 
-    function returnOrder(int_cart) {
+    function returnOrder(int_number, end_date) {
+        return_int_number = int_number;
+        document.getElementById('return_dialog').classList.remove('hidden');
+
+        var dateRange = getDateRange(new Date(), new Date(end_date));
+
+        var selectElement = document.getElementById("return_dates");
+
+        for (var i = 0; i < dateRange.length; i++) {
+            var option = document.createElement("option");
+            option.value = dateRange[i];
+            option.text = dateRange[i];
+            selectElement.appendChild(option);
+        }
+    }
+
+    function doReturnOrder(d_date) {
         url = "order_proc.php";
         url += "?RetrieveFlag=RETURNORDER";
-        url += "&int_cart=" + int_cart;
+        url += "&int_cart=" + return_int_number;
+        url += "&d_date=" + d_date;
 
         $.ajax({
             url: url,
             success: function(result) {
-                document.getElementById('return_dialog').classList.remove('hidden');
-
-                var currentDate = new Date();
-                var nextDate = new Date();
-                nextDate.setDate(currentDate.getDate() + 1);
-
-                var currentDateString = currentDate.toLocaleDateString();
-                var nextDateString = nextDate.toLocaleDateString();
-
-                var options = [{
-                        value: "",
-                        text: "반납 날짜"
-                    },
-                    {
-                        value: currentDateString,
-                        text: currentDateString
-                    },
-                    {
-                        value: nextDateString,
-                        text: nextDateString
-                    }
-                ];
-
-                $('#return_dates').html('');
-
-                $.each(options, function(index, option) {
-                    var formattedDate = option.value.split('-').reverse().join('-');
-                    $('#return_dates').append($('<option></option>').val(option.value).text(option.text));
-                });
+                document.location = "index.php";
             }
         });
     }
@@ -315,5 +303,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 searchOrder(current_page);
             }
         });
+    }
+
+    function getDateRange(startDate, endDate) {
+        var dateArray = [];
+        var currentDate = startDate;
+
+        while (currentDate <= endDate) {
+            var dateString = currentDate.toISOString().split('T')[0];
+            dateArray.push(dateString);
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dateArray;
     }
 </script>

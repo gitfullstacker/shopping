@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.INT_NUMBER AS A_INT_NUMBER, B.DTM_INDATE AS A_DTM_INDATE, B.STR_CONT AS A_STR_CONT
+                    A.*, B.INT_NUMBER AS A_INT_NUMBER, B.DTM_INDATE AS A_DTM_INDATE, B.STR_CONT AS A_STR_CONT, B.STR_IMAGE1 AS A_STR_IMAGE1
                 FROM 
                     ' . $Tname . 'comm_member_qna AS A
                 LEFT JOIN
@@ -103,14 +103,17 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex justify-between items-center">
                 <div class="flex flex-col gap-1.5">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">[상품문의]</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['A_STR_CONT'] ?></p>
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_TITLE'] ?></p>
                 </div>
                 <p class="font-bold text-xs leading-[14px] text-black">답변완료</p>
             </div>
         </div>
-        <p class="mt-5 font-bold text-xs leading-[19px] text-[#666666]">
-            <?= $arr_Data['STR_CONT'] ?>
-        </p>
+        <div class="mt-5 flex flex-col w-full">
+            <img class="w-full" src="/admincenter/files/qna/<?= $arr_Data['A_STR_IMAGE1'] ?>" alt="">
+            <p class="mt-5 font-bold text-xs leading-[19px] text-[#666666]">
+                <?= $arr_Data['A_STR_CONT'] ?>
+            </p>
+        </div>
     <?php
     }
     ?>

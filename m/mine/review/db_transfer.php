@@ -8,7 +8,7 @@ $arr_Data_Cnt = mysql_num_rows($arr_Data);
 
 for ($i = 0; $i < $arr_Data_Cnt; $i++) {
     $arr_Column_Name[0]     =     "STR_GOODCODE";
-    $arr_Column_Name[1]     =     "STR_CART";
+    $arr_Column_Name[1]     =     "INT_CART";
     $arr_Column_Name[2]     =     "STR_USERID";
     $arr_Column_Name[3]     =     "INT_GOOD_TYPE";
     $arr_Column_Name[4]     =     "STR_CONTENT";

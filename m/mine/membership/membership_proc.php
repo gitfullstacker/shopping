@@ -4,9 +4,10 @@ fnc_MLogin_Chk();
 ?>
 <?php
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "");
-
+$ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], "");
+$good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
 switch ($RetrieveFlag) {
     case "JOIN":
@@ -35,27 +36,6 @@ switch ($RetrieveFlag) {
             exit;
         }
 
-        // 금액정보얻기
-        $SQL_QUERY =    'SELECT
-                            A.*
-                        FROM 
-                            ' . $Tname . 'comm_site_info AS A
-                        WHERE
-                            A.INT_NUMBER=1';
-
-        $arr_Rlt_Data = mysql_query($SQL_QUERY);
-        $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
-        $price = 0;
-        switch ($int_type) {
-            case 1:
-                $price = $site_Data['INT_PPRICE1'];
-                break;
-            case 2:
-                $price = $site_Data['INT_PPRICE2'];
-                break;
-        }
-
         $arr_Set_Data = array();
         $arr_Column_Name = array();
 
@@ -68,10 +48,10 @@ switch ($RetrieveFlag) {
         $arr_Column_Name[6] = "INT_TYPE";
 
         $arr_Set_Data[0] = $card_Data['INT_NUMBER'];
-        $arr_Set_Data[1] = $price;
+        $arr_Set_Data[1] = $good_mny;
         $arr_Set_Data[2] = date('Y-m-d');
         $arr_Set_Data[3] = date('Y-m-d', strtotime("+1 month -1 day"));
-        $arr_Set_Data[4] = '';
+        $arr_Set_Data[4] = $ordr_idxx;
         $arr_Set_Data[5] = date("Y-m-d H:i:s");
         $arr_Set_Data[6] = $int_type;
 
@@ -92,7 +72,7 @@ switch ($RetrieveFlag) {
         mysql_query($Sql_Query);
         ?>
         <script language="javascript">
-            window.location.href = "index.php";
+            window.location.href = "index.php?int_type=<?= $int_type ?>";
         </script>
 
 <?php

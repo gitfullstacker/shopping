@@ -14,7 +14,7 @@ $SQL_QUERY = 'SELECT
                 LEFT JOIN
                     ' . $Tname . 'comm_goods_cart AS B
                 ON
-                    A.STR_CART=B.INT_NUMBER
+                    A.INT_CART=B.INT_NUMBER
                 LEFT JOIN
                     ' . $Tname . 'comm_goods_master AS C
                 ON

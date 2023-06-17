@@ -25,11 +25,31 @@ if ($Txt_eindate != "") {
 	$Str_Query .= " and date_format(a.dtm_indate, '%Y-%m-%d') <= '$Txt_eindate' ";
 }
 
-$SQL_QUERY = "select count(a.int_number) from ";
-$SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number and c.int_type=" . $int_type . " order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
-$SQL_QUERY .= "where a.int_number is not null and a.str_ptype='1' and a.str_pass='0' and b.int_type=" . $int_type;
-$SQL_QUERY .= $Str_Query;
+$SQL_QUERY	= 	"SELECT 
+					COUNT(a.int_number)
+				FROM
+					" . $Tname . "comm_member_pay a
+				LEFT JOIN
+					(
+					SELECT 
+						c.int_number, MAX(c.int_snumber) AS max_snumber
+					FROM
+						" . $Tname . "comm_member_pay_info c
+					WHERE
+						c.int_type = " . $int_type . "
+					GROUP BY c.int_number
+					) sub ON a.int_number = sub.int_number
+				LEFT JOIN
+					" . $Tname . "comm_member_pay_info b ON b.int_snumber = sub.max_snumber
+				LEFT JOIN
+					" . $Tname . "comm_member d ON a.str_userid = d.str_userid
+				WHERE
+					a.int_number IS NOT NULL
+					AND a.str_ptype = '1'
+					AND a.str_pass = '0'
+					AND b.int_type = " . $int_type . "
+					" . $Str_Query;
+
 $result = mysql_query($SQL_QUERY);
 
 if (!result) {
@@ -57,13 +77,38 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select date_add(b.str_edate,interval 1 day) as str_sdate,date_add(b.str_edate,interval 1 month) as str_edate,a.*,d.str_name,d.str_hp,b.int_snumber from ";
-$SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member_pay_info b on a.int_number=b.int_number and b.int_snumber = (select c.int_snumber from " . $Tname . "comm_member_pay_info c where c.int_number=a.int_number and c.int_type=" . $int_type . " order by c.int_snumber desc limit 1) left join " . $Tname . "comm_member d on a.str_userid=d.str_userid ";
-$SQL_QUERY .= "where a.int_number is not null and a.str_ptype='1' and a.str_pass='0' and b.int_type=" . $int_type . " ";
-$SQL_QUERY .= $Str_Query;
-$SQL_QUERY .= "order by str_edate asc ";
-$SQL_QUERY .= "limit $f_limit,$l_limit";
+$SQL_QUERY	= 	"SELECT 
+					DATE_ADD(b.str_edate, INTERVAL 1 DAY) AS str_sdate,
+					DATE_ADD(b.str_edate, INTERVAL 1 MONTH) AS str_edate,
+					a.*,
+					d.str_name,
+					d.str_hp,
+					b.int_snumber,
+					b.int_sprice
+				FROM
+					" . $Tname . "comm_member_pay a
+				LEFT JOIN
+					(
+					SELECT 
+						c.int_number, MAX(c.int_snumber) AS max_snumber
+					FROM
+						" . $Tname . "comm_member_pay_info c
+					WHERE
+						c.int_type = " . $int_type . "
+					GROUP BY c.int_number
+					) sub ON a.int_number = sub.int_number
+				LEFT JOIN
+					" . $Tname . "comm_member_pay_info b ON b.int_snumber = sub.max_snumber
+				LEFT JOIN
+					" . $Tname . "comm_member d ON a.str_userid = d.str_userid
+				WHERE
+					a.int_number IS NOT NULL
+					AND a.str_ptype = '1'
+					AND a.str_pass = '0'
+					AND b.int_type = " . $int_type . "
+					" . $Str_Query . "
+				ORDER BY str_edate ASC
+				LIMIT " . $f_limit . "," . $l_limit;
 
 $result = mysql_query($SQL_QUERY);
 if (!$result) {
@@ -200,7 +245,7 @@ $total_record_limit = mysql_num_rows($result);
 														<font color=0074BA><b><?= mysql_result($result, $i, str_name) ?></b></font>(<?= mysql_result($result, $i, str_userid) ?>)
 													</span></td>
 												<td><?= mysql_result($result, $i, str_hp) ?></td>
-												<td><?= number_format(mysql_result($result, $i, int_price)) ?>원</td>
+												<td><?= number_format(mysql_result($result, $i, int_sprice)) ?>원</td>
 												<td><?= mysql_result($result, $i, str_cardcode) ?></td>
 												<td>
 													<? switch (mysql_result($result, $i, str_cancel1)) {

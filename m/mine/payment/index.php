@@ -51,7 +51,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
             </div>
             <!-- 대표 카드 변경 -->
-            <button class="flex justify-center items-center w-full h-[45px] border-[0.72px] border-solid border-[#DDDDDD] bg-whtie" onclick="javascript:document.forms.auto_pay_form.submit();">
+            <button type="button" class="flex justify-center items-center w-full h-[45px] border-[0.72px] border-solid border-[#DDDDDD] bg-whtie" onclick="changeCard()">
                 <p class="font-bold text-xs leading-[14px] text-[#666666]">대표 카드 변경</p>
             </button>
         </div>
@@ -61,7 +61,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 등록된 카드가 없는 상태 -->
         <div class="flex">
             <!-- 카드 -->
-            <button class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[280px] h-[165px]" onclick="javascript:document.forms.auto_pay_form.submit();">
+            <button type="button" class="mt-[22px] flex flex-col gap-[15px] justify-center items-center border border-solid border-[#DDDDDD] bg-white rounded-[10px] w-[280px] h-[165px]" onclick="addCard()">
                 <div class="flex justify-center items-center w-[42px] h-[42px] bg-white border border-solid border-[#DDDDDD] rounded-full">
                     <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.17 0V7.84H16.8V9.31H9.17V17.64H7.63V9.31H0V7.84H7.63V0H9.17Z" fill="#DDDDDD" />
@@ -120,13 +120,23 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 </div>
 
+<form name="add_card" action="add_card_proc.php" method="post">
+    <input type="hidden" name="good_mny" value="0">
+    <input type="hidden" name="batch_key" value="">
+    <input type="hidden" name="res_cd" value="0000">
+    <input type="hidden" name="res_msg" value="">
+    <input type="hidden" name="ordr_idxx" value="">
+    <input type="hidden" name="card_cd" value="CCSS">
+    <input type="hidden" name="card_name" value="">
+</form>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
     filter_period = '3';
-    int_card = <?= $card_Data['INT_NUMBER'] ?>;
+    int_card = '<?= $card_Data['INT_NUMBER'] ?>';
 
     $(document).ready(function() {
         searchPay();
@@ -149,5 +159,33 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     function changePeriod() {
         filter_period = document.getElementById("filter_period").value;
         searchPay();
+    }
+
+    function changeCard() {
+        
+    }
+
+    function addCard() {
+        init_orderid();
+        // 운영환경
+        // document.forms.auto_pay_form.submit();
+        // 개발환경
+        document.forms.add_card.submit();
+    }
+
+    function init_orderid() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var time = today.getTime();
+
+        if (parseInt(month) < 10) {
+            month = "0" + month;
+        }
+
+        var vOrderID = year + "" + month + "" + date + "" + time;
+
+        document.forms.add_card.ordr_idxx.value = vOrderID;
     }
 </script>
