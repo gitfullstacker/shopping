@@ -67,6 +67,7 @@ $total_record = mysql_result($result, 0, 0);
             searchKey: '<?= $_GET['search_key'] ?: '' ?>',
             search() {
                 window.search_key = this.searchKey;
+                window.current_page = 1;
                 searchProduct();
             }
         }" class="relative w-full">
@@ -116,6 +117,7 @@ $total_record = mysql_result($result, 0, 0);
                         this.showOrderBy = false;
 
                         window.order_by = this.selectedValue;
+                        window.current_page = 1;
                         searchProduct();
                     }
                 }" class="flex gap-1 items-center relative">
@@ -247,14 +249,20 @@ $total_record = mysql_result($result, 0, 0);
     </div>
     <div class="mt-[6px] grid grid-cols-2 gap-x-[13.5px] gap-y-[30px] w-full px-[14px]" id="product_list">
     </div>
-    <div class="mt-5 flex px-[14px] w-full">
-        <button class="w-full flex gap-[3px] justify-center items-center h-[38px] border-[0.7px] border-solid border-[#DDDDDD] bg-white rounded" onclick="seeMoreClick()">
-            <span class="text-bold text-[11px] leading-[11px] text-black">더보기</span>
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.14661 1.33063L5.15716 5.21312C5.10967 5.2592 5.05822 5.29176 5.00281 5.31081C4.9474 5.33017 4.88803 5.33984 4.82471 5.33984C4.76138 5.33984 4.70202 5.33017 4.64661 5.31081C4.5912 5.29176 4.53975 5.2592 4.49225 5.21312L0.490934 1.33063C0.380116 1.2231 0.324707 1.08869 0.324707 0.927402C0.324707 0.766111 0.384074 0.627863 0.502807 0.512655C0.621541 0.397448 0.760063 0.339844 0.918374 0.339844C1.07669 0.339844 1.21521 0.397448 1.33394 0.512655L4.82471 3.89975L8.31547 0.512655C8.42629 0.405128 8.56275 0.351365 8.72486 0.351365C8.88729 0.351365 9.02787 0.408968 9.14661 0.524176C9.26534 0.639383 9.32471 0.773791 9.32471 0.927401C9.32471 1.08101 9.26534 1.21542 9.14661 1.33063Z" fill="#333333" />
-            </svg>
-        </button>
-    </div>
+    <?php
+    if ($total_record > 0) {
+    ?>
+        <div class="mt-5 flex px-[14px] w-full" id="see_more_btn">
+            <button class="w-full flex gap-[3px] justify-center items-center h-[38px] border-[0.7px] border-solid border-[#DDDDDD] bg-white rounded" onclick="seeMoreClick()">
+                <span class="text-bold text-[11px] leading-[11px] text-black">더보기</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.14661 1.33063L5.15716 5.21312C5.10967 5.2592 5.05822 5.29176 5.00281 5.31081C4.9474 5.33017 4.88803 5.33984 4.82471 5.33984C4.76138 5.33984 4.70202 5.33017 4.64661 5.31081C4.5912 5.29176 4.53975 5.2592 4.49225 5.21312L0.490934 1.33063C0.380116 1.2231 0.324707 1.08869 0.324707 0.927402C0.324707 0.766111 0.384074 0.627863 0.502807 0.512655C0.621541 0.397448 0.760063 0.339844 0.918374 0.339844C1.07669 0.339844 1.21521 0.397448 1.33394 0.512655L4.82471 3.89975L8.31547 0.512655C8.42629 0.405128 8.56275 0.351365 8.72486 0.351365C8.88729 0.351365 9.02787 0.408968 9.14661 0.524176C9.26534 0.639383 9.32471 0.773791 9.32471 0.927401C9.32471 1.08101 9.26534 1.21542 9.14661 1.33063Z" fill="#333333" />
+                </svg>
+            </button>
+        </div>
+    <?php
+    }
+    ?>
 </div>
 
 <?
@@ -295,6 +303,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 }
             }
         });
+
+        if (<?= $total_record ?: 0 ?> < (current_page * 16)) {
+            document.getElementById('see_more_btn').classList.add('hidden');
+        } else {
+            document.getElementById('see_more_btn').classList.remove('hidden');
+        }
     }
 
     function seeMoreClick() {
