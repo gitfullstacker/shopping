@@ -27,13 +27,13 @@ $brand_list_result = mysql_query($query);
             searchKey: '',
             list: [
                 {
-                    value: 1,
+                    value: 2,
                     title: 'Rent',
                     ktitle: '렌트',
                     checked: false
                 },
                 {
-                    value: 2,
+                    value: 1,
                     title: 'Subscription',
                     ktitle: '구독',
                     checked: false
