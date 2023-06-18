@@ -88,7 +88,7 @@ if ($RetrieveFlag == "UPDATE") {
 													<td width="100%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE1'] ?>&nbsp;</td>
 												</tr>
 												<tr>
-													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE1'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE1'] ?>" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE1'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE1'] ?>" style="width: 250px" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
 												</tr>
 											</table>
 										</td>
@@ -105,7 +105,7 @@ if ($RetrieveFlag == "UPDATE") {
 													<td width="100%" align="center" valign="middle" height="20"><?= $arr_Data['STR_IMAGE2'] ?>&nbsp;</td>
 												</tr>
 												<tr>
-													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE2'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE2'] ?>" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+													<td align="center" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_IMAGE2'] == "")) { ?><img src="/admincenter/files/event/<?= $arr_Data['STR_IMAGE2'] ?>" style="width: 250px" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
 												</tr>
 											</table>
 										</td>
