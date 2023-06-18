@@ -681,7 +681,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <?php
                     }
                     ?>
-
                 </div>
                 <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
                 <div class="mt-[5px] flex items-center justify-between">
