@@ -7,6 +7,7 @@ Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 $page = Fnc_Om_Conv_Default($_REQUEST['page'], 1);
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "1");
 
 if ($RetrieveFlag == "UPDATE") {
 
@@ -58,6 +59,7 @@ if ($RetrieveFlag == "UPDATE") {
 							<form id="frm" name="frm" target="_self" method="POST" action="event_edit.php" enctype="multipart/form-data">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="str_no" value="<?= $str_no ?>">
+								<input type="hidden" name="int_type" value="<?= $int_type ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
 								<input type="hidden" name="str_dimage1" value="<?= $arr_Data['STR_IMAGE1'] ?>">
 								<input type="hidden" name="str_dimage2" value="<?= $arr_Data['STR_IMAGE2'] ?>">

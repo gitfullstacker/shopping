@@ -6,6 +6,7 @@ Fnc_Acc_Admin();
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 $str_title = Fnc_Om_Conv_Default($_REQUEST['str_title'], "");
 $str_stitle = Fnc_Om_Conv_Default($_REQUEST['str_stitle'], "");
 $str_cont = Fnc_Om_Conv_Default($_REQUEST['str_cont'], "");
@@ -61,9 +62,9 @@ switch ($RetrieveFlag) {
 		$str_dimage2 = $arr_Temp[0];
 
 		$SQL_QUERY = 	"INSERT INTO " . $Tname . "comm_event 
-							(STR_TITLE, STR_STITLE, STR_CONT, STR_BIGO, STR_IMAGE1, STR_IMAGE2, DTM_INDATE, STR_SERVICE) 
+							(STR_TITLE, STR_STITLE, STR_CONT, STR_BIGO, STR_IMAGE1, STR_IMAGE2, DTM_INDATE, STR_SERVICE, INT_TYPE) 
 						VALUES 
-							('$str_title', '$str_stitle', '$str_cont', '$str_bigo', '$str_dimage1', '$str_dimage2', '" . date("Y-m-d H:i:s") . "','$str_service')";
+							('$str_title', '$str_stitle', '$str_cont', '$str_bigo', '$str_dimage1', '$str_dimage2', '" . date("Y-m-d H:i:s") . "','$str_service', '$int_type')";
 
 		mysql_query($SQL_QUERY);
 
@@ -113,6 +114,7 @@ switch ($RetrieveFlag) {
 						,STR_IMAGE1='$str_dimage1'
 						,STR_IMAGE2='$str_dimage2'
 						,STR_SERVICE='$str_service'
+						,INT_TYPE='$int_type'
 					WHERE
 						INT_NUMBER='$str_no' ";
 

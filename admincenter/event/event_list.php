@@ -278,7 +278,7 @@ $total_record_limit = mysql_num_rows($result);
                                 </div>
 
                                 <div style="float:right;">
-                                    <img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew();">
+                                    <img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew('<?= $int_type ?>');">
                                 </div>
                             </form>
 
