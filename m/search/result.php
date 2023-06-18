@@ -304,7 +304,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             }
         });
 
-        if (<?= $total_record ?: 0 ?> < (current_page * 16)) {
+        if (<?= $total_record ?: 0 ?> <= (current_page * 16)) {
             document.getElementById('see_more_btn').classList.add('hidden');
         } else {
             document.getElementById('see_more_btn').classList.remove('hidden');
