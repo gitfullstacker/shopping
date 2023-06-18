@@ -1417,7 +1417,7 @@ switch ($arr_Data['INT_TYPE']) {
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
-                                    <div class="flex gap-2 items-center">
+                                    <div class="flex gap-2 items-end">
                                         <p class="font-extrabold text-lg leading-5 text-[#00402F]" x-text="(price.discount.area + price.discount.product + price.discount.membership).toLocaleString() + '%'">30%</p>
                                         <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="price.totalPrice.toLocaleString() + '원'">1000원</p>
                                         <p class="font-bold text-xs leading-[14px] text-[#00402F]">할인혜택 적용가</p>
