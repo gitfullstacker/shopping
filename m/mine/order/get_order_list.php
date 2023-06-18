@@ -52,7 +52,7 @@ $SQL_QUERY =    'SELECT
 
 $order_list_result = mysql_query($SQL_QUERY);
 
-if (mysql_num_rows($order_list_result) > 0) {
+if ($end_page > 0) {
     $result = '<div class="flex flex-col gap-[25px] w-full">';
     while ($row = mysql_fetch_assoc($order_list_result)) {
         $str_delivery_status;
@@ -91,7 +91,7 @@ if (mysql_num_rows($order_list_result) > 0) {
                     <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                 </a>
             ';
-        } else if ($row['ORDER_STATE'] == 4 || $row['ORDER_STATE'] == 6) {
+        } else if (($row['ORDER_STATE'] == 4 || $row['ORDER_STATE'] == 6) && $row['INT_TYPE'] != 3) {
             // 배송완료,이용중
             $str_action_buttons = '
                 <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 ? '' : 'col-span-2') . '" onclick="returnOrder(\'' . $row['INT_NUMBER'] . '\', \'' . $row['STR_EDATE'] . '\')">
@@ -106,7 +106,7 @@ if (mysql_num_rows($order_list_result) > 0) {
                         </div>
                     </a>';
             }
-        } else if ($row['ORDER_STATE'] == 5 || $row['ORDER_STATE'] == 10) {
+        } else if (($row['ORDER_STATE'] == 5 || $row['ORDER_STATE'] == 10) && $row['INT_TYPE'] != 3) {
             // 배송/반납완료
             $str_action_buttons = '
                 <a href="/m/product/detail.php?str_goodcode=' . $row['STR_GOODNAME'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($row['DTM_EDIT_DATE']))) ? '' : 'col-span-2') . '">
@@ -194,27 +194,27 @@ if (mysql_num_rows($order_list_result) > 0) {
 
     // Pagination
     $result .= '
-    <div class="mt-[30px] flex gap-[23px] justify-center items-center">
-        <button type="button" onclick="searchOrder(' . (($page - 1) < 0 ? '0' : $page - 1) . ')">
-            <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
-            </svg>
-        </button>
-        <div class="flex gap-[9.6px] items-center">';
+        <div class="mt-[30px] flex gap-[23px] justify-center items-center">
+            <button type="button" onclick="searchOrder(' . (($page - 1) < 0 ? '0' : $page - 1) . ')">
+                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.7191 15.6874L6.80358 16.4055L0.682153 8.59663L6.78563 0.787764L7.7191 1.46992L2.11827 8.59663L7.7191 15.6874Z" fill="black" />
+                </svg>
+            </button>
+            <div class="flex gap-[9.6px] items-center">';
     for ($i = $start_page; $i <= $end_page; $i++) {
-        $result .=
-            '<button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchOrder(' . $i . ')">
-            <p class="font-bold text-xs leading-[14px] text-center ' . ($i == $page ? 'text-white' : 'text-black') . '">' . $i . '</p>
-        </button>';
+        $result .= '
+            <button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchOrder(' . $i . ')">
+                <p class="font-bold text-xs leading-[14px] text-center ' . ($i == $page ? 'text-white' : 'text-black') . '">' . $i . '</p>
+            </button>';
     }
     $result .= '
-        </div>
-        <button type="button" onclick="searchOrder(' . (($page + 1) > $last_page ? $last_page : $page + 1) . ')">
-            <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
-            </svg>
-        </button>
-    </div>';
+            </div>
+            <button type="button" onclick="searchOrder(' . (($page + 1) > $last_page ? $last_page : $page + 1) . ')">
+                <svg width="8" height="17" viewBox="0 0 8 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.280895 15.6874L1.19642 16.4055L7.31785 8.59663L1.21437 0.787764L0.280895 1.46992L5.88173 8.59663L0.280895 15.6874Z" fill="black" />
+                </svg>
+            </button>
+        </div>';
 } else {
     $result = '
         <div class="flex flex-col gap-5 items-center pt-[55px] pb-[70px]">

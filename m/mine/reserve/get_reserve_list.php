@@ -41,7 +41,7 @@ $SQL_QUERY =    'SELECT
 
 $reserve_list_result = mysql_query($SQL_QUERY);
 
-if (mysql_num_rows($reserve_list_result) > 0) {
+if ($end_page > 0) {
     $result = '<div class="flex flex-col gap-[15px] w-full">';
     while ($row = mysql_fetch_assoc($reserve_list_result)) {
         $result .= '
@@ -51,7 +51,7 @@ if (mysql_num_rows($reserve_list_result) > 0) {
                     <p class="mt-1.5 font-bold text-xs leading-14px text-[#666666]">' . ($row['STR_INCOME'] == 'Y' ? '주문 적립' : '주문 시 사용') . '</p>
                     <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . $row['STR_ORDERIDX'] . '</p>
                 </div>
-                <p class="font-bold text-xs leading-[14px] text-[#000000] whitespace-nowrap">' . ($row['STR_INCOME'] == 'Y' ? '+' : '') . number_format($row['INT_VALUE']) . '원</p>
+                <p class="font-bold text-xs leading-[14px] text-[#000000] whitespace-nowrap">' . ($row['STR_INCOME'] == 'Y' ? '+' : '-') . number_format($row['INT_VALUE']) . '원</p>
             </div>';
     }
     $result .= '</div>';
@@ -66,8 +66,8 @@ if (mysql_num_rows($reserve_list_result) > 0) {
             </button>
             <div class="flex gap-[9.6px] items-center">';
     for ($i = $start_page; $i <= $end_page; $i++) {
-        $result .=
-            '<button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchCart(' . $i . ')">
+        $result .= '
+            <button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchCart(' . $i . ')">
                 <p class="font-bold text-xs leading-[14px] text-center ' . ($i == $page ? 'text-white' : 'text-black') . '">' . $i . '</p>
             </button>';
     }

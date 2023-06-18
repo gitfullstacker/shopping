@@ -162,39 +162,42 @@ switch ($RetrieveFlag) {
             $mileage = $arr_Data['INT_MILEAGE'];
         }
 
-        $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
-        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        // 마일리지 등록
+        if ($mileage) {
+            $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
+            $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
-        $arr_Get_Data = array();
-        $arr_Column_Name = array();
+            $arr_Get_Data = array();
+            $arr_Column_Name = array();
 
-        $arr_Column_Name[0]     =     "STR_USERID";
-        $arr_Column_Name[1]     =     "STR_INCOME";
-        $arr_Column_Name[2]     =     "DTM_INDATE";
-        $arr_Column_Name[3]     =     "STR_ORDERIDX";
-        $arr_Column_Name[4]     =     "INT_VALUE";
-        $arr_Column_Name[5]     =     "INT_CART";
+            $arr_Column_Name[0]     =     "STR_USERID";
+            $arr_Column_Name[1]     =     "STR_INCOME";
+            $arr_Column_Name[2]     =     "DTM_INDATE";
+            $arr_Column_Name[3]     =     "STR_ORDERIDX";
+            $arr_Column_Name[4]     =     "INT_VALUE";
+            $arr_Column_Name[5]     =     "INT_CART";
 
-        $arr_Set_Data[0]        = $arr_Auth[0];
-        $arr_Set_Data[1]        = "Y";
-        $arr_Set_Data[2]        = date("Y-m-d H:i:s");
-        $arr_Set_Data[3]        = "";
-        $arr_Set_Data[4]        = $mileage;
-        $arr_Set_Data[5]        = $_REQUEST['int_cart'];
+            $arr_Set_Data[0]        = $arr_Auth[0];
+            $arr_Set_Data[1]        = "Y";
+            $arr_Set_Data[2]        = date("Y-m-d H:i:s");
+            $arr_Set_Data[3]        = "";
+            $arr_Set_Data[4]        = $mileage;
+            $arr_Set_Data[5]        = $_REQUEST['int_cart'];
 
-        $arr_Sub1 = "";
-        $arr_Sub2 = "";
-        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
-            if ($int_I != 0) {
-                $arr_Sub1 .=  ",";
-                $arr_Sub2 .=  ",";
+            $arr_Sub1 = "";
+            $arr_Sub2 = "";
+            for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+                if ($int_I != 0) {
+                    $arr_Sub1 .=  ",";
+                    $arr_Sub2 .=  ",";
+                }
+                $arr_Sub1 .=  $arr_Column_Name[$int_I];
+                $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
             }
-            $arr_Sub1 .=  $arr_Column_Name[$int_I];
-            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
-        }
 
-        $Sql_Query = "INSERT INTO `" . $Tname . "comm_mileage_history` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-        mysql_query($Sql_Query);
+            $Sql_Query = "INSERT INTO `" . $Tname . "comm_mileage_history` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+            mysql_query($Sql_Query);
+        }
 ?>
         <script language="javascript">
             window.location.href = "index.php";

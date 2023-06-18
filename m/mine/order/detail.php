@@ -132,7 +132,7 @@ switch ($arr_Data['INT_STATE']) {
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
                 <?php
-                } else if ($arr_Data['INT_STATE'] == 4 || $arr_Data['INT_STATE'] == 6) {
+                } else if (($arr_Data['INT_STATE'] == 4 || $arr_Data['INT_STATE'] == 6) && $arr_Data['INT_TYPE'] != 3) {
                     // 배송완료,이용중
                 ?>
                     <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= $arr_Data['BD_COUNT'] == 0 ? '' : 'col-span-2' ?>" onclick="returnOrder()">
@@ -151,7 +151,7 @@ switch ($arr_Data['INT_STATE']) {
                     }
                     ?>
                 <?php
-                } else if ($arr_Data['INT_STATE'] == 5 || $arr_Data['INT_STATE'] == 10) {
+                } else if (($arr_Data['INT_STATE'] == 5 || $arr_Data['INT_STATE'] == 10) && $arr_Data['INT_TYPE'] != 3) {
                     // 배송/반납완료
                 ?>
                     <a href="/m/product/detail.php?str_goodcode=<?= $arr_Data['STR_GOODNAME'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= ($arr_Data['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($arr_Data['DTM_EDIT_DATE'])))) ? '' : 'col-span-2' ?>">
@@ -264,7 +264,7 @@ switch ($arr_Data['INT_STATE']) {
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="font-medium text-xs leading-[14px] text-[#666666]">적립금사용</p>
-                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_SAVED']) ?>원</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
                         </div>
                     </div>
                     <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">

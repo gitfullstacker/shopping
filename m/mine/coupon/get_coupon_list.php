@@ -14,8 +14,7 @@ $SQL_QUERY =    'SELECT
                 FROM 
                     ' . $Tname . 'comm_member_stamp A
                 WHERE 
-                    A.STR_USED="N"
-                    AND A.STR_USERID="' . $arr_Auth[0] . '"
+                    A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
                     AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"';
 
@@ -32,7 +31,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.DTM_SDATE, A.DTM_EDATE, B.*
+                    A.STR_USED, A.DTM_SDATE, A.DTM_EDATE, B.*
                 FROM 
                     ' . $Tname . 'comm_member_stamp A
                 LEFT JOIN
@@ -40,8 +39,7 @@ $SQL_QUERY =    'SELECT
                 ON
                     A.INT_STAMP=B.INT_PROD
                 WHERE 
-                    A.STR_USED="N"
-                    AND A.STR_USERID="' . $arr_Auth[0] . '"
+                    A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
                     AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"
                 ORDER BY A.DTM_INDATE DESC
@@ -50,12 +48,12 @@ $SQL_QUERY =    'SELECT
 
 $coupon_list_result = mysql_query($SQL_QUERY);
 
-if (mysql_num_rows($coupon_list_result) > 0) {
+if ($end_page > 0) {
     $result = '<div class="flex flex-col w-full divide-y-[0.5px] divide-[#E0E0E0]">';
     while ($row = mysql_fetch_assoc($coupon_list_result)) {
         $result .= '
         <div class="flex w-full py-[15px]">
-            <div class="flex flex-col w-full bg-white border border-solid border-[#DDDDDD] divide-y-[0.5px] divide-[#E0E0E0]">
+            <div class="flex flex-col w-full bg-white border border-solid border-[#DDDDDD] divide-y-[0.5px] divide-[#E0E0E0] ' . ($row['STR_USED'] == 'Y' ? 'bg-[#f5f5f5] opacity-70' : '') . '">
                 <div class="px-[15px] py-3 flex flex-col">
                     <p class="font-extrabold text-xl leading-[23px] text-black">' . ($row['INT_PRICE'] ? number_format($row['INT_PRICE']) . '원' : number_format($row['INT_PERCENT']) . '%') . '</p>
                     <p class="mt-[1px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_PROD'] . '</p>
@@ -79,8 +77,8 @@ if (mysql_num_rows($coupon_list_result) > 0) {
             </button>
             <div class="flex gap-[9.6px] items-center">';
     for ($i = $start_page; $i <= $end_page; $i++) {
-        $result .=
-            '<button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchCoupon(' . $i . ')">
+        $result .= '
+            <button type="button" class="flex justify-center items-center w-[25.28px] h-[25.28px] border border-solid border-[#DDDDDD] ' . ($i == $page ? 'bg-black' : 'bg-white') . '" onclick="searchCoupon(' . $i . ')">
                 <p class="font-bold text-xs leading-[14px] text-center ' . ($i == $page ? 'text-white' : 'text-black') . '">' . $i . '</p>
             </button>';
     }

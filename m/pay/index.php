@@ -133,21 +133,25 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     payAmount: {
         totalPrice: 0,
         price: <?= $int_type == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
-        useDays: <?= $use_days ?>,
+        useDays: <?= $use_days ?: 0 ?>,
         discount: {
             product: <?= $int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
             membership: <?= $int_type == 2 && $is_rent_membership ? (($product_Data['INT_PRICE'] * 30 / 100) * $use_days) : 0 ?>
         },
         coupon: 0,
-        saved: 0,
+        mileage: 0,
         section: <?= $area_discount * $use_days ?>
     },
     calTotalPrice() {
-        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.saved - this.payAmount.section;
+        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.section;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
         this.payAmount.coupon = selectedOption.getAttribute('price');
+        this.calTotalPrice();
+    },
+    changeMileage(mileage) {
+        this.payAmount.mileage = mileage;
         this.calTotalPrice();
     },
     formatNumber(number) {
@@ -172,11 +176,13 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="discount_product" x-bind:value="payAmount.discount.product">
     <input type="hidden" name="discount_membership" x-bind:value="payAmount.discount.membership">
     <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
-    <input type="hidden" name="saved" x-bind:value="payAmount.saved">
+    <input type="hidden" name="mileage" x-bind:value="payAmount.mileage">
 
     <input type="hidden" name="start_date" value="<?= $start_date ?>">
     <input type="hidden" name="end_date" value="<?= $end_date ?>">
     <input type="hidden" name="count" value="<?= $count ?>">
+
+    <input type="hidden" name="str_orderidx" value="">
 
     <!-- 배송정보 -->
     <div x-data="{
@@ -321,16 +327,16 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 switch ($int_type) {
                     case 1:
                 ?>
-                        <p class="mt-[10px] font-bold text-xs text-[#666666]">월정액 구독 전용</p>
+                        <p class="mt-[10px] font-bold text-xs leading-[14px] text-[#666666]">월정액 구독 전용</p>
                         <div class="mt-1.5 flex gap-2 items-center">
                             <?php
                             if ($is_subscription_membership) {
                             ?>
-                                <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
+                                <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
                             <?php
                             } else {
                             ?>
-                                <p class="font-bold text-xs text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
+                                <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
                             <?php
                             }
                             ?>
@@ -342,17 +348,17 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     ?>
                         <p class="mt-[10px] font-medium text-xs leading-[14px] text-[#666666] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">할인가</p>
                         <div class="mt-1.5 flex gap-1 items-center">
-                            <p class="font-bold text-xs text-[#00402F] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['INT_DISCOUNT'] ?>%</p>
-                            <p class="font-bold text-[13px] leading-[15px] text-[#333333]"><span class="font-medium">일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                            <p class="font-bold text-xs leading-[14px] text-[#00402F] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['INT_DISCOUNT'] ?>%</p>
+                            <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="font-medium">일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         </div>
                     <?php
                         break;
                     case 3:
                     ?>
-                        <p class="mt-[10px] font-bold text-xs line-through text-[#666666]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_PRICE']) . '원') : '' ?></p>
+                        <p class="mt-[10px] font-bold text-xs leading-[14px] line-through text-[#666666] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($product_Data['INT_PRICE']) ?>원</p>
                         <div class="mt-1.5 flex gap-2 items-center">
-                            <p class="font-bold text-xs text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? (number_format($product_Data['INT_DISCOUNT']) . '%') : '' ?></p>
-                            <p class="font-bold text-xs text-[#333333]"><?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                            <p class="font-bold text-xs leading-[14px] text-[#7E6B5A] <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['INT_DISCOUNT'] ?>%</p>
+                            <p class="font-bold text-xs leading-[14px] text-[#333333]"><?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                         </div>
                 <?php
                         break;
@@ -420,7 +426,19 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="mt-[15px] relative flex w-full">
             <?php
             $SQL_QUERY =    'SELECT 
-                                A.DTM_SDATE, A.DTM_EDATE, B.*
+                                COUNT(A.INT_NUMBER) AS STAMP_COUNT
+                            FROM 
+                                ' . $Tname . 'comm_member_stamp A
+                            WHERE 
+                                A.STR_USERID="' . $arr_Auth[0] . '"
+                                AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
+                                AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"';
+
+            $total_coupon_result = mysql_query($SQL_QUERY);
+            $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
+
+            $SQL_QUERY =    'SELECT 
+                                A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_PRICE, B.STR_PROD
                             FROM 
                                 ' . $Tname . 'comm_member_stamp A
                             LEFT JOIN
@@ -436,12 +454,12 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
             $coupon_list_result = mysql_query($SQL_QUERY);
             ?>
-            <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
-                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= mysql_num_rows($coupon_list_result) ?>장</option>
+            <select name="int_stamp" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
+                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= $total_coupon_data['STAMP_COUNT'] ?>장</option>
                 <?php
                 while ($row = mysql_fetch_assoc($coupon_list_result)) {
                 ?>
-                    <option value="<?= $row['INT_PROD'] ?>" price="<?= $row['INT_PRICE'] ?>"><?= $row['STR_PROD'] ?></option>
+                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['INT_PRICE'] ?>"><?= $row['STR_PROD'] ?></option>
                 <?php
                 }
                 ?>
@@ -453,23 +471,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </div>
         </div>
         <div class="mt-[5px] flex gap-[5px]">
-            <div class="relative flex w-full">
-                <select name="" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]">
-                    <option value="">0원</option>
-                </select>
-                <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                    </svg>
-                </div>
-            </div>
-            <button type="button" class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]">
+            <input type="number" min="0" max="100" step="1" name="" id="mileage_input" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" oninput="validateMoneyInput(this, <?= $user_Data['INT_MILEAGE'] ?: 0 ?>)" x-on:change="changeMileage($event.target.value)">
+            <button type="button" class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]" onclick="document.getElementById('mileage_input').value = <?= $user_Data['INT_MILEAGE'] ?: 0 ?>" x-on:click="changeMileage(<?= $user_Data['INT_MILEAGE'] ?: 0 ?>)">
                 <span class="font-bold text-xs leading-[15px] text-center text-white">전액사용</span>
             </button>
         </div>
         <div class="mt-1.5 flex gap-1.5 items-center">
             <p class="font-bold text-[10px] leading-3 text-[#666666]">사용가능 적립금</p>
-            <p class="font-bold text-[10px] leading-3 text-black">3,000원</p>
+            <p class="font-bold text-[10px] leading-3 text-black"><?= number_format($user_Data['INT_MILEAGE'] ?: 0) ?>원</p>
         </div>
     </div>
 
@@ -660,7 +669,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
-                        <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.saved) + '원'"></p>
+                        <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.mileage) + '원'"></p>
                     </div>
                     <?php
                     if ($int_type == 2) {
@@ -759,6 +768,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
+    init_orderid();
+
     $(document).ready(function() {
         // 주소 검색 버튼 클릭 이벤트 처리
         $('#search_address').click(function() {
@@ -803,5 +814,32 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         }
 
         return true;
+    }
+
+    function validateMoneyInput(input, max_value = 0) {
+        // Get the entered value
+        let value = parseFloat(input.value);
+
+        // Check if the entered value is within the specified range
+        if (isNaN(value) || value < 0 || value > max_value) {
+            // Clear the input value
+            input.value = '';
+        }
+    }
+
+    function init_orderid() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var time = today.getTime();
+
+        if (parseInt(month) < 10) {
+            month = "0" + month;
+        }
+
+        var vOrderID = year + "" + month + "" + date + "" + time;
+
+        document.forms.frm.str_orderidx.value = vOrderID;
     }
 </script>
