@@ -101,7 +101,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                         case 1:
                                     ?>
                                             <div class="mt-2.5 flex flex-col gap-[3.4px]">
-                                                <p class="font-medium text-xs leading-[15px] text-[#999999]">월정액 구독 전용</p>
+                                                <p class="font-medium text-xs leading-[14px] text-[#999999]">월정액 구독 전용</p>
                                                 <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                             </div>
                                         <?php
