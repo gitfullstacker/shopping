@@ -29,6 +29,27 @@ if (!$arr_Rlt_Data) {
     exit;
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+$SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
+$end_days_result = mysql_query($SQL_QUERY);
+$end_days_array = array();
+while ($row = mysql_fetch_assoc($end_days_result)) {
+    $end_days_array[] = $row['STR_DAY'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
+$end_dates_result = mysql_query($SQL_QUERY);
+$end_dates_array = array();
+while ($row = mysql_fetch_assoc($end_dates_result)) {
+    $end_dates_array[] = $row['STR_DATE'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
+$end_weeks_result = mysql_query($SQL_QUERY);
+$end_weeks_array = array();
+while ($row = mysql_fetch_assoc($end_weeks_result)) {
+    $end_weeks_array[] = $row['STR_WEEK'];
+}
 ?>
 
 <div class="flex flex-col w-full">
@@ -262,13 +283,55 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         });
     }
 
-    function returnOrder(int_number, end_date) {
+    function returnOrder(int_number) {
         return_int_number = int_number;
         document.getElementById('return_dialog').classList.remove('hidden');
 
-        var dateRange = getDateRange(new Date(), new Date(end_date));
-
         var selectElement = document.getElementById("return_dates");
+
+        var temp_date = new Date();
+        var start_date = null;
+        var end_date = null;
+
+        if (new Date().getHours() < 17) {
+            temp_date.setDate(temp_date.getDate() + 1);
+        } else {
+            temp_date.setDate(temp_date.getDate() + 2);
+        }
+
+        // 불가일 검사
+        const endDDays = <?= str_replace('"', '\'', json_encode($end_days_array)) ?>;
+        const endDWeeks = <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>;
+        const endDDates = <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>;
+
+        do {
+            var setted = true;
+            const dateString = temp_date.getFullYear().toString() + '-' + (temp_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_date.getDate().toString().padStart(2, '0');
+
+            if (endDDays.includes(temp_date.getDate().toString())) {
+                setted = false;
+            } else if (endDWeeks.includes(temp_date.getDay().toString())) {
+                setted = false;
+            } else if (endDDates.includes(dateString)) {
+                setted = false;
+            }
+
+            if (setted) {
+                if (start_date == null) {
+                    start_date = new Date(temp_date);
+                } else {
+                    end_date = new Date(temp_date);
+                }
+            }
+
+            temp_date.setDate(temp_date.getDate() + 1);
+        } while (start_date == null || end_date == null);
+
+        while (selectElement.options.length > 1) {
+            selectElement.remove(1);
+        }
+
+        var dateRange = getDateRange(start_date, end_date);
 
         for (var i = 0; i < dateRange.length; i++) {
             var option = document.createElement("option");
@@ -310,8 +373,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         var currentDate = startDate;
 
         while (currentDate <= endDate) {
-            var dateString = currentDate.toISOString().split('T')[0];
-            dateArray.push(dateString);
+            dateArray.push(currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0'));
             currentDate.setDate(currentDate.getDate() + 1);
         }
 

@@ -94,7 +94,7 @@ if ($end_page > 0) {
         } else if (($row['ORDER_STATE'] == 4 || $row['ORDER_STATE'] == 6) && $row['INT_TYPE'] != 3) {
             // 배송완료,이용중
             $str_action_buttons = '
-                <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 ? '' : 'col-span-2') . '" onclick="returnOrder(\'' . $row['INT_NUMBER'] . '\', \'' . $row['STR_EDATE'] . '\')">
+                <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 ? '' : 'col-span-2') . '" onclick="returnOrder(\'' . $row['INT_NUMBER'] . '\')">
                     <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
                 </button>';
             if ($row['BD_COUNT'] == 0) {

@@ -62,6 +62,27 @@ switch ($arr_Data['INT_STATE']) {
         $current_state = '반납완료';
         break;
 }
+
+$SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
+$end_days_result = mysql_query($SQL_QUERY);
+$end_days_array = array();
+while ($row = mysql_fetch_assoc($end_days_result)) {
+    $end_days_array[] = $row['STR_DAY'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
+$end_dates_result = mysql_query($SQL_QUERY);
+$end_dates_array = array();
+while ($row = mysql_fetch_assoc($end_dates_result)) {
+    $end_dates_array[] = $row['STR_DATE'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
+$end_weeks_result = mysql_query($SQL_QUERY);
+$end_weeks_array = array();
+while ($row = mysql_fetch_assoc($end_weeks_result)) {
+    $end_weeks_array[] = $row['STR_WEEK'];
+}
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full">
@@ -342,18 +363,6 @@ switch ($arr_Data['INT_STATE']) {
         <div class="relative">
             <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates" onchange="doReturnOrder(this.value)">
                 <option value="">반납 날짜</option>
-                <?php
-                $startDate = new DateTime(); // Current date
-                $endDate = new DateTime($arr_Data['STR_EDATE']); // Specific date
-
-                $dateRange = new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
-
-                foreach ($dateRange as $date) {
-                ?>
-                    <option value="<?= $date->format('Y-m-d') ?>"><?= $date->format('Y-m-d') ?></option>
-                <?php
-                }
-                ?>
             </select>
             <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
@@ -367,19 +376,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
-    function returnOrder() {
-        url = "order_proc.php";
-        url += "?RetrieveFlag=RETURNORDER";
-        url += "&int_cart=<?= $int_number ?>";
-
-        $.ajax({
-            url: url,
-            success: function(result) {
-                document.location = "detail.php?int_number=<?= $int_number ?>";
-            }
-        });
-    }
-
     function cancelOrder() {
         url = "order_proc.php";
         url += "?RetrieveFlag=CANCELORDER";
@@ -411,6 +407,59 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
     function returnOrder() {
         document.getElementById('return_dialog').classList.remove('hidden');
+
+        var selectElement = document.getElementById("return_dates");
+
+        var temp_date = new Date();
+        var start_date = null;
+        var end_date = null;
+
+        if (new Date().getHours() < 17) {
+            temp_date.setDate(temp_date.getDate() + 1);
+        } else {
+            temp_date.setDate(temp_date.getDate() + 2);
+        }
+
+        // 불가일 검사
+        const endDDays = <?= str_replace('"', '\'', json_encode($end_days_array)) ?>;
+        const endDWeeks = <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>;
+        const endDDates = <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>;
+
+        do {
+            var setted = true;
+            const dateString = temp_date.getFullYear().toString() + '-' + (temp_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_date.getDate().toString().padStart(2, '0');
+
+            if (endDDays.includes(temp_date.getDate().toString())) {
+                setted = false;
+            } else if (endDWeeks.includes(temp_date.getDay().toString())) {
+                setted = false;
+            } else if (endDDates.includes(dateString)) {
+                setted = false;
+            }
+
+            if (setted) {
+                if (start_date == null) {
+                    start_date = new Date(temp_date);
+                } else {
+                    end_date = new Date(temp_date);
+                }
+            }
+
+            temp_date.setDate(temp_date.getDate() + 1);
+        } while (start_date == null || end_date == null);
+
+        while (selectElement.options.length > 1) {
+            selectElement.remove(1);
+        }
+
+        var dateRange = getDateRange(start_date, end_date);
+
+        for (var i = 0; i < dateRange.length; i++) {
+            var option = document.createElement("option");
+            option.value = dateRange[i];
+            option.text = dateRange[i];
+            selectElement.appendChild(option);
+        }
     }
 
     function doReturnOrder(d_date) {
@@ -425,5 +474,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 document.location = "detail.php?int_number=<?= $int_number ?>";
             }
         });
+    }
+
+    function getDateRange(startDate, endDate) {
+        var dateArray = [];
+        var currentDate = startDate;
+
+        while (currentDate <= endDate) {
+            dateArray.push(currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0'));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dateArray;
     }
 </script>

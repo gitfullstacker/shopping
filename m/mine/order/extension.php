@@ -89,7 +89,6 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 구분 -->
         <hr class="mt-[23px] border-t-[0.5px] border-[#E0E0E0] w-full" />
 
-
         <?php
         $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=1';
         $start_days_result = mysql_query($SQL_QUERY);

@@ -1037,9 +1037,9 @@ switch ($arr_Data['INT_TYPE']) {
                             status = 0;
                         } else {
                             // 일 | 날짜 | 요일
-                            if (this.startDDays.includes(date.getDate())) {
+                            if (this.startDDays.includes(date.getDate().toString())) {
                                 status = 0;
-                            } else if (this.startDWeeks.includes(date.getDay())) {
+                            } else if (this.startDWeeks.includes(date.getDay().toString())) {
                                 status = 0;
                             } else if (this.startDDates.includes(dateString)) {
                                 status = 0;
@@ -1079,9 +1079,9 @@ switch ($arr_Data['INT_TYPE']) {
                             } else {
                                 status = 0;
                             }
-                        } else if (this.endDDays.includes(date.getDate())) {
+                        } else if (this.endDDays.includes(date.getDate().toString())) {
                             status = 0;
-                        } else if (this.endDWeeks.includes(date.getDay())) {
+                        } else if (this.endDWeeks.includes(date.getDay().toString())) {
                             status = 0;
                         } else if (this.endDDates.includes(dateString)) {
                             status = 0;
