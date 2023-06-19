@@ -367,24 +367,20 @@ function fnc_cen() {
 
 function verifyPhone() {
 	fnPopup();
-	// var f = document.frm;
+}
 
-	// if (chkSpace(f.str_hp2.value)) {
-	// 	document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
-	// 	f.str_hp2.focus();
-	// 	return false;
-	// }
-	// if (chkSpace(f.str_hp3.value)) {
-	// 	document.getElementById('alert_hp').innerHTML = "* 휴대폰을 입력해 주세요.";
-	// 	f.str_hp3.focus();
-	// 	return false;
-	// }
+function setVerifyPhoneNumber(phoneNumber) {
+	var phone_array = phoneNumber.split("-");
 
-	// $('#phone_verify_btn p').html('인증완료');
-	// $('#phone_verify_btn').prop('disabled', true);
-	// $('#str_hp1').prop('disabled', true);
-	// $('#str_hp2').prop('disabled', true);
-	// $('#str_hp3').prop('disabled', true);
+	$('#str_hp1').val(phone_array[0]);
+	$('#str_hp1').prop('disabled', true);
+	$('#str_hp2').val(phone_array[1]);
+	$('#str_hp2').prop('disabled', true);
+	$('#str_hp3').val(phone_array[2]);
+	$('#str_hp3').prop('disabled', true);
+
+	$('#phone_verify_btn p').html('인증완료');
+	$('#phone_verify_btn').prop('disabled', true);
 }
 
 function setSameDeliveryInfo() {

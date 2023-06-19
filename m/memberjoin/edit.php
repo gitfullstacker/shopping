@@ -53,12 +53,6 @@ if ($enc_data == -1) {
     $returnMsg = "입력값 오류 입니다.";
     $enc_data = "";
 }
-
-$str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], $_SESSION['USERJ_CERT']);
-$str_name = Fnc_Om_Conv_Default($_REQUEST['str_name'], $_SESSION['USERJ_NAME']);
-$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp'], $_SESSION['USERJ_HP']);
-$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth'], $_SESSION['USERJ_BIRTH']);
-$str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], $_SESSION['USERJ_SEX']);
 ?>
 
 <?php
@@ -117,15 +111,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <?php
-                if ($str_hp) {
-                    $sTemp = Split("-", Fnc_Om_Conv_Default($str_hp, "--"));
-                } else {
-                    $old_str_hp = explode('-', $arr_Data['STR_HP']);
-
-                    $sTemp[0] = $old_str_hp[0] ?: '010';
-                    $sTemp[1] = $old_str_hp[1] ?: '';
-                    $sTemp[2] = $old_str_hp[2] ?: '';
-                }
+                $sTemp = Split("-", Fnc_Om_Conv_Default($arr_Data['STR_HP'], "--"));
                 ?>
                 <div class="grid grid-cols-3 gap-[5px]">
                     <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" value="<?= $sTemp[0] ?>" maxlength="3" placeholder="010" disabled>
