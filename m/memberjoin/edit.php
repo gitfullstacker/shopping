@@ -1,8 +1,6 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
 fnc_MLogin_Chk();
-var_dump($cb_encode_path);
-exit;
 ?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
@@ -41,7 +39,8 @@ $plaindata =  "7:REQ_SEQ" . strlen($reqseq) . ":" . $reqseq .
     "9:CUSTOMIZE" . strlen($customize) . ":" . $customize;
 
 $enc_data = `$cb_encode_path ENC $sitecode $sitepasswd $plaindata`;
-
+var_dump($enc_data);
+exit;
 if ($enc_data == -1) {
     $returnMsg = "암/복호화 시스템 오류입니다.";
     $enc_data = "";
