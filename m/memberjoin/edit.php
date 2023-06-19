@@ -1,6 +1,8 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
 fnc_MLogin_Chk();
+var_dump($cb_encode_path);
+exit;
 ?>
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
