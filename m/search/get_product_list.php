@@ -87,15 +87,15 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
         case 1:
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
-                    <p class="font-extrabold text-xs leading-[14px] text-[#EEAC4C] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">20%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="font-extrabold text-xs leading-[14px] text-[#EEAC4C] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
+                    <p class="font-bold text-xs leading-[14px] text-black">월 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
                 </div>
             ';
             break;
         case 2:
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
-                    <p class="font-extrabold text-xs leading-[14px] text-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">20%</p>
+                    <p class="font-extrabold text-xs leading-[14px] text-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
                     <p class="font-bold text-xs leading-[14px] text-black">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
                 </div>
             ';
@@ -103,8 +103,8 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
         case 3:
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
-                    <p class="font-extrabold text-xs leading-[14px] text-[#7E6B5A] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">20%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                    <p class="font-extrabold text-xs leading-[14px] text-[#7E6B5A] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
+                    <p class="font-bold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
                 </div>
             ';
             break;
