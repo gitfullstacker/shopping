@@ -13,9 +13,11 @@ function searchReview(page = 0) {
         url: url,
         success: function (result) {
             $("#review_list").html(result);
-            $('html, body').animate({
-                scrollTop: $("#review_list").offset().top - 150
-            }, 500);
+            if (page > 0) {
+                $('html, body').animate({
+                    scrollTop: $("#review_list").offset().top - 150
+                }, 500);
+            }
         }
     });
 }
