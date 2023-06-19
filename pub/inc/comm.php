@@ -22,7 +22,7 @@
 
     $sitecode = "AC430";				// NICE로부터 부여받은 사이트 코드
     $sitepasswd = "Gj9tUHSzgRBx";			// NICE로부터 부여받은 사이트 패스워드
-    $cb_encode_path = $_SERVER['DOCUMENT_ROOT'] . "/nice/mo/linux/CPClient_linux_x64";		// NICE로부터 받은 암호화 프로그램의 위치 (절대경로+모듈명)
+    $cb_encode_path = $_SERVER['DOCUMENT_ROOT'] . "/nice/mo/CPClient";		// NICE로부터 받은 암호화 프로그램의 위치 (절대경로+모듈명)
     
     if ($_COOKIE["USER_FLAG_SESSION"]=="1"){ //셰션을 유지한다.
     
