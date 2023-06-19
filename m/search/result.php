@@ -150,10 +150,10 @@ $total_record = mysql_result($result, 0, 0);
                     <?php
                     switch ($filter_categories[$i]) {
                         case 1:
-                            echo '렌트';
+                            echo '구독';
                             break;
                         case 2:
-                            echo '구독';
+                            echo '렌트';
                             break;
                         case 3:
                             echo '중고';
