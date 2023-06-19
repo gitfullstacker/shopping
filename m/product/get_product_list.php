@@ -5,7 +5,7 @@ $product_type = $_GET['product_type'];
 $per_page = 16;
 $page = $_GET['page'] ?: 1;
 $offset = ($page - 1) * $per_page;
-$filter_discount = $_GET['filter_discount'];
+$filter_discount = $_GET['filter_discount'] == 'true' ? true : false;
 $filter_subscription = $_GET['filter_subscription'];
 $filter_brands = json_decode($_GET['filter_brands'], true);
 $filter_sizes = json_decode($_GET['filter_sizes'], true);

@@ -1206,7 +1206,7 @@ function fnc_pay_info()
 	return $arr_To_Data_Cnt;
 }
 
-function fnc_sub_member_info()
+function fnc_sub_member_info($user_id = null)
 {
 	global $Tname;
 	global $arr_Auth;
@@ -1224,7 +1224,7 @@ function fnc_sub_member_info()
 						AND
 						date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
 						AND
-						A.STR_USERID='$arr_Auth[0]'
+						A.STR_USERID='" . ($user_id ? $user_id : $arr_Auth[0]) . "'
 						AND
 						B.INT_TYPE=1 ";
 
@@ -1234,7 +1234,7 @@ function fnc_sub_member_info()
 	return $arr_To_Data_Cnt;
 }
 
-function fnc_ren_member_info()
+function fnc_ren_member_info($user_id = null)
 {
 	global $Tname;
 	global $arr_Auth;
@@ -1252,7 +1252,7 @@ function fnc_ren_member_info()
 						AND
 						date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
 						AND
-						A.STR_USERID='$arr_Auth[0]'
+						A.STR_USERID='" . ($user_id ? $user_id : $arr_Auth[0]) . "'
 						AND
 						B.INT_TYPE=2 ";
 
