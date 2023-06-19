@@ -542,31 +542,32 @@ switch ($arr_Data['INT_TYPE']) {
 
                     <div class="mt-2.5 flex flex-col gap-1.5">
                         <?php
-                        $dimensions = preg_split('/\s*X\s*/', str_replace('cm', '', $arr_Data['STR_SIZE']));
+                        preg_match_all('/\d+(\.\d+)?/', $arr_Data['STR_SIZE'], $matches);
+                        $size_array = $matches[0];
                         ?>
                         <div class="flex items-center">
                             <div class="w-[65px]">
                                 <p class="font-semibold text-xs text-[#666666]">A 가로</p>
                             </div>
-                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[0] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $size_array[0] ?: '0' ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
                                 <p class="font-semibold text-xs text-[#666666]">B 폭</p>
                             </div>
-                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[1] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $size_array[1] ?: '0' ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
                                 <p class="font-semibold text-xs text-[#666666]">C 높이</p>
                             </div>
-                            <p class="font-semibold text-xs text-[#666666]"><?= $dimensions[2] ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= $size_array[2] ?: '0' ?> cm</p>
                         </div>
                         <div class="flex items-center">
                             <div class="w-[65px]">
                                 <p class="font-semibold text-xs text-[#666666]">D 스트랩</p>
                             </div>
-                            <p class="font-semibold text-xs text-[#666666]"><?= str_replace('cm', '', $arr_Data['STR_LENGTH']) ?> cm</p>
+                            <p class="font-semibold text-xs text-[#666666]"><?= preg_replace('/[^0-9]/', '', $arr_Data['STR_LENGTH']) ?> cm</p>
                         </div>
                     </div>
                 </div>

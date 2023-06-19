@@ -330,8 +330,12 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													?>
 												</tr>
 												<tr>
-													<td>크기</td>
-													<td><input type=text name=str_size value="<?= $arr_Data['STR_SIZE'] ?>"></td>
+													<td>크기(cm)</td>
+													<?php
+													preg_match_all('/\d+(\.\d+)?/', $arr_Data['STR_SIZE'], $matches);
+													$size_array = $matches[0];
+													?>
+													<td>가로: <input type=number name=str_transverse value="<?= $size_array[0] ?: '' ?>" style="width: 40px"> 세로: <input type=number name=str_width value="<?= $size_array[1] ?: '' ?>" style="width: 40px"> 높이: <input type=number name=str_height value="<?= $size_array[2] ?: '' ?>" style="width: 40px"></td>
 													<td><?= $int_type == 2 ? '렌트가' : '정가' ?></td>
 													<td><input type=text name=int_price value="<?= $arr_Data['INT_PRICE'] ?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()"></td>
 												</tr>
@@ -348,8 +352,8 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 												}
 												?>
 												<tr>
-													<td>스트랩길이</td>
-													<td><input type=text name=str_length value="<?= $arr_Data['STR_LENGTH'] ?>"></td>
+													<td>스트랩길이(cm)</td>
+													<td><input type=number name=str_length value="<?= preg_replace('/[^0-9]/', '', $arr_Data['STR_LENGTH']) ?>"></td>
 													<td>할인%</td>
 													<td>
 														<input type=text name=int_discount value="<?= $arr_Data['INT_DISCOUNT'] ?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()">
