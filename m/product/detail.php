@@ -214,41 +214,10 @@ switch ($arr_Data['INT_TYPE']) {
 
                 case 2:
                 ?>
-                    <?php
-                    if ($is_rent_membership) {
-                    ?>
-                        <p class="mt-[15px] font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
-                    <?php
-                    } else {
-                    ?>
-                        <p class="mt-[15px] font-semibold text-[14px] leading-4 text-[#666666]">할인가</p>
-                    <?php
-                    }
-                    ?>
+                    <p class="mt-[15px] font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                     <div class="mt-[7px] flex gap-2 items-end">
-                        <?php
-                        if ($is_rent_membership) {
-                        ?>
-                            <p class="font-extrabold text-lg leading-5 text-[#00402F]"><?= number_format(($arr_Data['INT_DISCOUNT'] ?: 0) + 30) ?>%</p>
-                        <?php
-                        } else {
-                        ?>
-                            <p class="font-extrabold text-lg leading-5 text-[#00402F] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
-                        <?php
-                        }
-                        ?>
+                        <p class="font-extrabold text-lg leading-5 text-[#00402F] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= number_format($arr_Data['INT_DISCOUNT']) ?>%</p>
                         <p class="font-extrabold text-lg leading-5 text-[#333333]">일 <?= number_format($arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100) ?>원</p>
-                        <?php
-                        if ($is_rent_membership) {
-                        ?>
-                            <p class="font-semibold text-[14px] leading-4 text-[#666666]">멤버십 혜택가</p>
-                        <?php
-                        } else {
-                        ?>
-                            <p class="font-semibold text-[14px] leading-4 line-through text-[#666666] <?= $arr_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= number_format($arr_Data['INT_PRICE']) ?>원</p>
-                        <?php
-                        }
-                        ?>
                     </div>
                 <?php
                     break;
@@ -354,7 +323,7 @@ switch ($arr_Data['INT_TYPE']) {
                         <?php
                         } else {
                         ?>
-                            <p class="font-semibold text-xs text-[#666666]">최소 3일 ~ 최대 12일</p>
+                            <p class="font-semibold text-xs text-[#666666]">최소 3일 ~ 최대 14일</p>
                         <?php
                         }
                         ?>
