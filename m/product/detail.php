@@ -974,8 +974,9 @@ switch ($arr_Data['INT_TYPE']) {
                 originPrice: <?= $arr_Data['INT_PRICE'] ?>,
                 discount: {
                     product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
-                    area: 0,
-                    membership: <?= $is_rent_membership ? 30 : 0 ?>
+                    areaMoney: 0,
+                    membership: <?= $is_rent_membership ? 30 : 0 ?>,
+                    membershipMoney: 0
                 },
                 totalPrice: 0
             },
@@ -1137,6 +1138,9 @@ switch ($arr_Data['INT_TYPE']) {
 
                     areaDiscount = this.getAreaDiscount(rentDays);
 
+                    productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
+                    totalPrice = productSPrice - productSPrice * areaDiscount / 100;
+
                     dates.push({
                         date: date,
                         day: day,
@@ -1145,7 +1149,7 @@ switch ($arr_Data['INT_TYPE']) {
                         showPrice: showPrice,
                         rentDays: rentDays,
                         areaDiscount: areaDiscount,
-                        totalPrice: (this.price.originPrice - this.price.originPrice * (this.price.discount.product + areaDiscount + this.price.discount.membership) / 100) * rentDays
+                        totalPrice: totalPrice
                     });
                 }
 
@@ -1172,8 +1176,21 @@ switch ($arr_Data['INT_TYPE']) {
                         this.endDate = new Date(selectedDate);
                         this.collectDate = new Date(selectedDate);
                         this.collectDate.setDate(this.collectDate.getDate() + 1);
-                        this.price.discount.area = date.areaDiscount;
-                        this.price.totalPrice = date.totalPrice;
+                        
+                        sumTotalPrice = 0;
+                        sumAreaPrice = 0;
+                        selectedStartDate = this.startDate;
+                        selectedEndDate = this.endDate;
+                        productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
+                        this.dates.forEach(function(eachDay) {
+                            if (eachDay.date.getTime() >= selectedStartDate.getTime() && eachDay.date.getTime() <= selectedEndDate.getTime()) {
+                                sumTotalPrice += eachDay.totalPrice;
+                                sumAreaPrice += productSPrice * eachDay.areaDiscount / 100;
+                            }
+                        });
+                        this.price.discount.membershipMoney = sumTotalPrice * this.price.discount.membership / 100;
+                        this.price.totalPrice = sumTotalPrice - this.price.discount.membershipMoney;
+                        this.price.discount.areaMoney = sumAreaPrice;
                         this.rentDays = date.rentDays;
                         this.selectedStatus++;
 
@@ -1378,16 +1395,16 @@ switch ($arr_Data['INT_TYPE']) {
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.area / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + (price.discount.areaMoney).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">멤버십할인</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.membership / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + (price.discount.membershipMoney).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black"></p>
                                     <div class="flex gap-2 items-end">
-                                        <p class="font-extrabold text-lg leading-5 text-[#00402F]" x-text="(price.discount.area + price.discount.product + price.discount.membership).toLocaleString() + '%'">30%</p>
+                                        <p class="font-extrabold text-lg leading-5 text-[#00402F]" x-text="(Math.floor(price.totalPrice / (price.originPrice * rentDays) * 100)).toLocaleString() + '%'">30%</p>
                                         <p class="font-extrabold text-lg leading-5 text-[#333333]" x-text="price.totalPrice.toLocaleString() + '원'">1000원</p>
                                         <p class="font-bold text-xs leading-[14px] text-[#00402F]">할인혜택 적용가</p>
                                     </div>

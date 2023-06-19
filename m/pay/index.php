@@ -101,15 +101,25 @@ switch ($int_type) {
         $use_days = $date1->diff($date2)->d + 1;
 
         $area_discount = 0;
-        if (($site_Data['INT_DSTART1'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND1'] ?: 0)) {
-            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
-        } else if (($site_Data['INT_DSTART2'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND2'] ?: 0)) {
-            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
-        } else if (($site_Data['INT_DSTART3'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND3'] ?: 0)) {
-            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
-        } else if (($site_Data['INT_DSTART4'] ?: 0) <= $use_days && $use_days <= ($site_Data['INT_DEND4'] ?: 0)) {
-            $area_discount += $product_Data['INT_PRICE'] * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
+        $total_rent_money = 0;
+
+        $updated_price = $product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100;
+        for ($rent_number = 1; $rent_number <= $use_days; $rent_number++) {
+            if (($site_Data['INT_DSTART1'] ?: 0) <= $rent_number && $rent_number <= ($site_Data['INT_DEND1'] ?: 0)) {
+                $area_discount += $updated_price * ($site_Data['INT_DISCOUNT1'] ?: 0) / 100;
+            } else if (($site_Data['INT_DSTART2'] ?: 0) <= $rent_number && $rent_number <= ($site_Data['INT_DEND2'] ?: 0)) {
+                $area_discount += $updated_price * ($site_Data['INT_DISCOUNT2'] ?: 0) / 100;
+            } else if (($site_Data['INT_DSTART3'] ?: 0) <= $rent_number && $rent_number <= ($site_Data['INT_DEND3'] ?: 0)) {
+                $area_discount += $updated_price * ($site_Data['INT_DISCOUNT3'] ?: 0) / 100;
+            } else if (($site_Data['INT_DSTART4'] ?: 0) <= $rent_number && $rent_number <= ($site_Data['INT_DEND4'] ?: 0)) {
+                $area_discount += $updated_price * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
+            }
         }
+
+        $total_rent_money = $updated_price * $use_days - $area_discount;
+
+        $membership_discount = $total_rent_money * ($is_rent_membership ? 30 : 0) / 100;
+        $total_rent_money = $total_rent_money - $membership_discount;
 
         break;
     case 3:
@@ -136,14 +146,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         useDays: <?= $use_days ?: 0 ?>,
         discount: {
             product: <?= $int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
-            membership: <?= $int_type == 2 && $is_rent_membership ? (($product_Data['INT_PRICE'] * 30 / 100) * $use_days) : 0 ?>
+            membership: <?= $membership_discount ?: 0 ?>
         },
         coupon: 0,
         mileage: 0,
-        section: <?= $area_discount * $use_days ?>
+        area: <?= $area_discount ?: 0 ?>
     },
     calTotalPrice() {
-        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.section;
+        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.area;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -676,7 +686,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     ?>
                         <div class="flex items-center justify-between">
                             <p class="font-bold text-[15px] leading-[17px] text-black">구간할인</p>
-                            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.section) + '원'"></p>
+                            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.area) + '원'"></p>
                         </div>
                     <?php
                     }
