@@ -70,6 +70,12 @@ http://scripts.sil.org/OFL
 	src: local('Pretendard Thin'), url('/font/woff2/Pretendard-Thin.woff2') format('woff2'), url('/font/woff/Pretendard-Thin.woff') format('woff');
 }
 
+@font-face {
+	font-family : "Renner400BookWeb";
+	src: url('/font/Renner400Book.eot');
+	src: url('/font/Renner400Book.eot?#iefix') format('embedded-opentype'), url('/font/Renner400Book.woff') format('woff'), url('/font/Renner400Book.ttf') format('truetype');
+}
+
 /* common */
 html {margin:0;padding:0;overflow-x:hidden}
 body {background-color:transparent;overflow-x:hidden;font-size:0.688em; line-height:1.25em; }
