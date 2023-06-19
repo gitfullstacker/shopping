@@ -2,6 +2,7 @@
 
 <?php
 $product_type = Fnc_Om_Conv_Default($_REQUEST['product_type'], 1);
+$int_brand = Fnc_Om_Conv_Default($_REQUEST['int_brand'], null);
 
 $topmenu = 2;
 switch ($product_type) {
@@ -737,7 +738,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                                 value: <?= $row['INT_NUMBER'] ?>,
                                 title: '<?= $row['STR_CODE'] ?>',
                                 ktitle: '<?= $row['STR_KCODE'] ?>',
-                                checked: false
+                                checked: <?= $row['INT_NUMBER'] == $int_brand ? 'true' : 'false' ?>
                             },
                         <?php
                         }
@@ -844,8 +845,20 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                     }
                 }
             },
-            removeSelectedItem(index) {
-                this.content[showOption].list[index].checked = false;
+            removeSelectedItem(contentIndex, index) {
+                this.content[contentIndex].list[index].checked = false;
+
+                switch (contentIndex) {
+                    case 1:
+                        window.filter_brands = window.filter_brands.filter(item => item !== this.content[contentIndex].list[index].value);
+                        break;
+                    case 2:
+                        window.filter_sizes = window.filter_sizes.filter(item => item !== this.content[contentIndex].list[index].value);
+                        break;
+                    case 3:
+                        window.filter_styles = window.filter_styles.filter(item => item !== this.content[contentIndex].list[index].value);
+                        break;
+                }
             },
             applyFilter() {
                 showOption = 0;
@@ -916,7 +929,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         <template x-if="item.checked">
                             <div class="flex justify-center items-center gap-[1px] px-2 py-[3px] bg-[#666666] rounded-md">
                                 <p class="font-bold text-xs leading-3 text-white" x-text="item.title">BALENCIA</p>
-                                <button type="button" class="flex justify-center items-center" x-on:click="removeSelectedItem(index)">
+                                <button type="button" class="flex justify-center items-center" x-on:click="removeSelectedItem(contentIndex, index)">
                                     <p class="font-bold text-sm leading-[14px] text-white">×</p>
                                 </button>
                             </div>
@@ -946,7 +959,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     current_page = 1;
     window.filter_discount = false;
     window.filter_subscription = false;
-    window.filter_brands = [];
+    window.filter_brands = [<?= $int_brand ?: '' ?>];
     window.filter_sizes = [];
     window.filter_styles = [];
     window.start_date = null;
