@@ -152,7 +152,8 @@
         </form>
 
         <script language="javascript">
-            window.close();
+            // window.close();
+            console.log(<?= addHyphen($mobileno) ?>);
             window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>');
         </script>
     <?
