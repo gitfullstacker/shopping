@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
 <?php
-// 입고알람 상품
+// 입고알림 상품
 $SQL_QUERY =    'SELECT 
                     B.*, C.STR_CODE
                 FROM 
@@ -72,7 +72,7 @@ $favorite_product_result = mysql_query($SQL_QUERY);
         </div>
 
 
-        <!-- 입고알람 -->
+        <!-- 입고알림 -->
         <div x-data="{ noData: <?= mysql_num_rows($alarm_product_result) > 0 ? 'false' : 'true' ?> }" x-show="type == 1" class="mt-[18px] flex flex-col w-full" style="display: none;">
             <div x-show="noData" id="no_alarm_list" class="flex flex-col gap-5 items-center mt-[77px]">
                 <svg width="65" height="71" viewBox="0 0 65 71" fill="none" xmlns="http://www.w3.org/2000/svg">
