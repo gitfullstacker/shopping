@@ -101,7 +101,7 @@ if ($end_page > 0) {
                 <div class="mt-[14px] flex gap-[35px] items-center w-full">
                     <div class="flex flex-col gap-[5px]">
                         <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')</p>
+                        <p class="font-bold text-xs leading-[14px] text-[#999999]">' . ($row['BD_SEQ'] ? '작성 완료' : ('작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')')) . '</p>
                     </div>
                     <a href="' . ($row['BD_SEQ'] ? '#' : ('create.php?int_cart=' . $row['INT_NUMBER'])) . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-[11px] leading-[12px] text-black">' . ($row['BD_SEQ'] ? '리뷰 작성 완료' : '리뷰 작성') . '</p>
