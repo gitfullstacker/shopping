@@ -305,6 +305,19 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<td><input type=text name=str_material value="<?= $arr_Data['STR_MATERIAL'] ?>"></td>
 												</tr>
 												<tr>
+													<td>가방형태이미지</td>
+													<td colspan=3>
+														<table class=tb>
+															<tr>
+																<td width="<?= 100 / 7 ?>%" align="left" valign="middle" height="20"><?= $arr_Data['STR_TIMAGE'] ?>&nbsp;</td>
+															</tr>
+															<tr>
+																<td align="left" valign="middle" height="150"><? if ($RetrieveFlag == "UPDATE") { ?><? if (!($arr_Data['STR_TIMAGE'] == "")) { ?><img src="/admincenter/files/good/<?= $arr_Data['STR_TIMAGE'] ?>" width="150" height="150" border="0"><? } else { ?>&nbsp;<? } ?><? } else { ?>&nbsp;<? } ?></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
 													<td>가방형태(이미지 업로드)</td>
 													<td><input type=file name=str_Timage style="width:200;" onChange="uploadImageCheck(this)"> (700*700) <? if (!($arr_Data['STR_TIMAGE'] == "")) { ?>- 삭제시 <input type="checkbox" name="str_del_timg" value="Y" class="null"><? } ?></td>
 													<?php
