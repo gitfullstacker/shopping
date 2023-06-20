@@ -9,10 +9,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?php
 $_SESSION['PHONE_VERIFY'] = 'JOIN';
 
-$authtype = "";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
+$authtype = "M";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
 $popgubun     = "N";        //Y : 취소버튼 있음 / N : 취소버튼 없음
-$customize     = "";            //없으면 기본 웹페이지 / Mobile : 모바일페이지
+$customize     = "Mobile";            //없으면 기본 웹페이지 / Mobile : 모바일페이지
 
 $reqseq = "REQ_0123456789";     // 요청 번호, 이는 성공/실패후에 같은 값으로 되돌려주게 되므로
 // 업체에서 적절하게 변경하여 쓰거나, 아래와 같이 생성한다.
