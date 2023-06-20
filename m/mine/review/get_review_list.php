@@ -88,8 +88,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 if ($end_page > 0) {
     $result = '
         <div class="mt-[15px] mb-[23px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
-            <p class="font-bold text-[10px] leading-[14px] text-black">후기 작성 안내</p>
-            <p class="font-bold text-[10px] leading-[14px] text-[#999999]">
+            <p class="font-bold text-sm leading-[14px] text-black">후기 작성 안내</p>
+            <p class="font-normal text-[10px] leading-[14px] text-[#999999]">
                 -사진 후기 ' . number_format($site_Data['INT_STAMP2']) . '원, 글 후기 ' . number_format($site_Data['INT_STAMP1']) . '원 적립금이 지급됩니다.<br />
                 -작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
                 -등급에 따라 차등으로 적립 혜택이 달라질 수 있습니다.<br />

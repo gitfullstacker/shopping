@@ -67,8 +67,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 if ($end_page > 0) {
     $result = '
         <div class="mt-[15px] mb-[23px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
-            <p class="font-bold text-[10px] leading-[14px] text-black">후기 작성 안내</p>
-            <p class="font-bold text-[10px] leading-[14px] text-[#999999]">
+            <p class="font-bold text-sm leading-[14px] text-black">후기 작성 안내</p>
+            <p class="font-normal text-[10px] leading-[14px] text-[#999999]">
                 -사진 후기 ' . number_format($site_Data['INT_STAMP2']) . '원, 글 후기 ' . number_format($site_Data['INT_STAMP1']) . '원 적립금이 지급됩니다.<br />
                 -작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
                 -등급에 따라 차등으로 적립 혜택이 달라질 수 있습니다.<br />
@@ -95,16 +95,16 @@ if ($end_page > 0) {
                         </div>
                         <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
                         <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
-                        <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
+                        <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
                     </div>
                 </div>
                 <div class="mt-[14px] flex gap-[35px] items-center w-full">
                     <div class="flex flex-col gap-[5px]">
                         <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
-                        <p class="font-bold text-xs leading-[14px] text-[#999999]">' . ($row['BD_SEQ'] ? '작성 완료' : ('작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')')) . '</p>
+                        <p class="font-medium text-xs leading-[14px] text-[#999999]">' . ($row['BD_SEQ'] ? '작성 완료' : ('작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')')) . '</p>
                     </div>
-                    <a href="' . ($row['BD_SEQ'] ? '#' : ('create.php?int_cart=' . $row['INT_NUMBER'])) . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-black">' . ($row['BD_SEQ'] ? '리뷰 작성 완료' : '리뷰 작성') . '</p>
+                    <a href="' . ($row['BD_SEQ'] ? '#' : ('create.php?int_cart=' . $row['INT_NUMBER'])) . '" class="grow flex justify-center items-center h-10 bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-xs leading-[14px] text-black">' . ($row['BD_SEQ'] ? '리뷰 작성 완료' : '리뷰 작성') . '</p>
                     </a>
                 </div>
             </div>';

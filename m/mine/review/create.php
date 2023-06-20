@@ -63,7 +63,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </div>
             <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_BRAND'] ?></p>
             <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
-            <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+            <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
             <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
         </div>
     </div>
@@ -181,7 +181,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         <div class="mt-[23px] flex flex-col gap-[5px] w-full">
             <p class="font-bold text-xs leading-[14px] text-black">상품 리뷰를 남겨주세요</p>
-            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-bold text-xs leading-[19px] placeholder:text-[#999999]" name="str_content" id="str_content" placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
+            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-normal text-xs leading-[19px] placeholder:text-[#999999]" name="str_content" id="str_content" placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
 도움수가 올라가면 탑리뷰어가 될 확률도 높아져요!
 반품, 환불 관련 내용은 고객센터 1:1 문의로 별도 문의해주세요."></textarea>
         </div>
@@ -208,7 +208,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         <div class="mt-1 flex w-full bg-[#F5F5F5] px-[9px] py-[15px]">
             <p class="font-bold text-[10px] leading-[14px] text-black"></p>
-            <p class="font-bold text-[10px] leading-[16px] text-[#999999]">
+            <p class="font-normal text-[10px] leading-[16px] text-[#999999]">
                 -사진 후기 <?= number_format($site_Data['INT_STAMP2']) ?>원, 글 후기 <?= number_format($site_Data['INT_STAMP1']) ?>원 적립금이 지급됩니다.<br />
                 -작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
                 -등급에 따라 차등으로 적립 혜택이 달라질 수 있습니다.<br />
