@@ -46,7 +46,7 @@
 						<input type="hidden" name="page" value="<?=$page?>">
 						<input type="hidden" name="Obj">
 
-						<div class="title title_top">스탬프관리</div>
+						<div class="title title_top">적립금관리</div>
 
 
 						<table class=tb>
@@ -63,7 +63,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>사용스템프수</td>
+								<td>사용적립금수</td>
 								<td colspan="3"><font class=def><input type=text name=int_stamp value="<?=$arr_Data['INT_STAMP']?>" size=20> ※ 숫자만 기입 / 사용스템프는 '-'로 넣으세요.</td>
 							</tr>
 							<?if ($RetrieveFlag=="UPDATE") {?>

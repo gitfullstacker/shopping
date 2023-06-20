@@ -41,8 +41,10 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <div class="mt-[15px] flex flex-col gap-[23px] w-full">
         <div class="relative w-full">
-            <select class="w-full h-[45px] pl-[15px] pr-[30px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-14px placeholder:text-[#666666]">
-                <option value="1">최근 3개월</option>
+            <select class="w-full h-[45px] pl-[15px] pr-[30px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-14px placeholder:text-[#666666]" onchange="handlePeriodChange(this.value)">
+                <option value="3">최근 3개월</option>
+                <option value="6">최근 6개월</option>
+                <option value="12">최근 12개월</option>
             </select>
             <div class="absolute top-[19.6px] right-5">
                 <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +62,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
+    period = 3;
+
     $(document).ready(function() {
         searchReserve();
     });
@@ -67,6 +71,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     function searchReserve(page = 0) {
         url = "get_reserve_list.php";
         url += "?page=" + page;
+        url += "&period=" + period;
 
         $.ajax({
             url: url,
@@ -74,5 +79,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 $("#reserve_list").html(result);
             }
         });
+    }
+
+    function handlePeriodChange(period_value) {
+        period = period_value;
+        searchReserve();
     }
 </script>

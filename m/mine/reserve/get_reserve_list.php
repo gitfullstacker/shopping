@@ -1,6 +1,8 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 
 <?php
+$period = Fnc_Om_Conv_Default($_REQUEST['period'], "3");
+
 $per_page = 5;
 $page = $_GET['page'] ?: 1;
 $offset = ($page - 1) * $per_page;
@@ -14,7 +16,7 @@ $SQL_QUERY = 'SELECT
                     ' . $Tname . 'comm_mileage_history A
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
+                    AND A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL ' . $period . ' MONTH)';
 
 $result = mysql_query($SQL_QUERY);
 
@@ -34,7 +36,7 @@ $SQL_QUERY =    'SELECT
                     ' . $Tname . 'comm_mileage_history A
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+                    AND A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL ' . $period . ' MONTH)
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;

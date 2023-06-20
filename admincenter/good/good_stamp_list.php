@@ -171,20 +171,22 @@
 						</table>
 
 						<table width=100% cellpadding=0 cellspacing=0 border=0>
-							<tr><td class=rnd colspan=8></td></tr>
+							<tr><td class=rnd colspan=9></td></tr>
 							<tr class=rndbg>
 								<th>번호</th>
 								<th>쿠폰명</th>
 								<th>가격</th>
 								<th>퍼센트</th>
 								<th>사용기간</th>
+								<th>쿠폰번호</th>
 								<th>등록일</th>
 								<th>출력유무</th>
 								<th>수정</th>
 							</tr>
-							<tr><td class=rnd colspan=8></td></tr>
+							<tr><td class=rnd colspan=9></td></tr>
 							<col width=5% align=center>
 							<col width=35% align=left>
+							<col width=10% align=center>
 							<col width=10% align=center>
 							<col width=10% align=center>
 							<col width=10% align=center>
@@ -203,6 +205,7 @@
 								<td><?=number_format(mysql_result($result,$i,int_price))?>원</td>
 								<td><?=number_format(mysql_result($result,$i,int_percent))?>%</td>
 								<td><?=number_format(mysql_result($result,$i,int_months))?>개월</td>
+								<td><?=mysql_result($result,$i,str_num)?></td>
 								<td><font class=ver81 color=616161><?=substr(mysql_result($result,$i,dtm_indate),0,10)?></font></td>
 								<td><font class=small color=616161>
 									<?switch (mysql_result($result,$i,str_service)) {
@@ -213,7 +216,7 @@
 								</font></td>
 								<td><a href="javascript:RowClick('<?=mysql_result($result,$i,int_prod)?>');"><img src="/admincenter/img/i_edit.gif"></a></td>
 							</tr>
-							<tr><td colspan=8 class=rndline></td></tr>
+							<tr><td colspan=9 class=rndline></td></tr>
 							<?$count++;?>
 							<?
 							$article_num--;

@@ -13,6 +13,7 @@
 	$int_price = Fnc_Om_Conv_Default($_REQUEST[int_price],"0");
 	$int_percent = Fnc_Om_Conv_Default($_REQUEST[int_percent],"0");
 	$int_months = Fnc_Om_Conv_Default($_REQUEST[int_months],"3");
+	$str_num = Fnc_Om_Conv_Default($_REQUEST[str_num],"");
 
 	$str_del_img1 = Fnc_Om_Conv_Default($_REQUEST[str_del_img1],"N");
 
@@ -66,6 +67,7 @@
 			$arr_Column_Name[6]		= "INT_PRICE";
 			$arr_Column_Name[7]		= "INT_PERCENT";
 			$arr_Column_Name[8]		= "INT_MONTHS";
+			$arr_Column_Name[9]		= "STR_NUM";
 			
 			$arr_Set_Data[0]		= $lastnumber;
 			$arr_Set_Data[1]		= addslashes($str_prod);
@@ -76,6 +78,7 @@
 			$arr_Set_Data[6]		= $int_price;
 			$arr_Set_Data[7]		= $int_percent;
 			$arr_Set_Data[8]		= $int_months;
+			$arr_Set_Data[9]		= $str_num;
 			
 			$arr_Sub1 = "";
 			$arr_Sub2 = "";
@@ -127,6 +130,7 @@
 			$arr_Column_Name[5]		= "INT_PRICE";
 			$arr_Column_Name[6]		= "INT_PERCENT";
 			$arr_Column_Name[7]		= "INT_MONTHS";
+			$arr_Column_Name[8]		= "STR_NUM";
 
 			$arr_Set_Data[0]		= $str_no;
 			$arr_Set_Data[1]		= addslashes($str_prod);
@@ -136,6 +140,7 @@
 			$arr_Set_Data[5]		= $int_price;
 			$arr_Set_Data[6]		= $int_percent;
 			$arr_Set_Data[7]		= $int_months;
+			$arr_Set_Data[8]		= $str_num;
 			
 			$arr_Sub = "";
 

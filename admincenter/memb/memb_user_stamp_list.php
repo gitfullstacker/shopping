@@ -85,7 +85,7 @@
 						<input type="hidden" name="str_userid" value="<?=$str_userid?>">
 						<input type="hidden" name="page" value="<?=$page?>">
 						<input type="hidden" name="str_no">
-						<div class="title title_top">스탬프관리</div>
+						<div class="title title_top">적립금관리</div>
 
 						<table class=tb>
 							<col class=cellC style="width:12%"><col class=cellL style="width:88%">
@@ -131,7 +131,7 @@
 							<tr class=rndbg>
 								<th>번호</th>
 								<th>구분</th>
-								<th>스탬프</th>
+								<th>적립금</th>
 								<th>등록일</th>
 								<th>수정</th>
 								<th>삭제</th>

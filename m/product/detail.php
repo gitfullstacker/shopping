@@ -62,7 +62,7 @@ switch ($arr_Data['INT_TYPE']) {
         //구독멤버십가입 여부 확인
         $is_subscription_membership = fnc_sub_member_info() > 0 ? true : false;
 
-        // 입고알람이 되여있는지 확인
+        // 입고알림이 되여있는지 확인
         $SQL_QUERY =    'SELECT 
                             COUNT(A.STR_GOODCODE) AS COUNT 
                         FROM 
@@ -1794,7 +1794,7 @@ switch ($arr_Data['INT_TYPE']) {
 
         function showAlarmConfirmPanel() {
             if (<?= $alarm_Data['COUNT'] ?: 0 ?> > 0) {
-                alert('이미 입고알람을 신청하셨습니다.');
+                alert('이미 입고알림을 신청하셨습니다.');
                 return;
             }
             document.getElementById('alarm_confirm_panel').classList.remove('hidden');

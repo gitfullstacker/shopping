@@ -100,6 +100,12 @@
 												<input type="number" name="int_months" value="<?=$arr_Data['INT_MONTHS']?>">개월
 											</td>
 										</tr>
+										<tr> 
+											<td>쿠폰번호</td>
+											<td colspan="3">
+												<input type="text" name="str_num" value="<?=$arr_Data['STR_NUM']?>">
+											</td>
+										</tr>
 										<tr>
 											<td>출력여부</td>
 											<td colspan="3">

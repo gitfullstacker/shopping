@@ -157,7 +157,19 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
-        this.payAmount.coupon = selectedOption.getAttribute('price');
+        const couponValue = selectedOption.getAttribute('price');
+        const couponPercent = selectedOption.getAttribute('percent');
+
+        if (couponValue > 0) {
+            this.payAmount.coupon = couponValue;
+        } else {
+            if (couponPercent > 0) {
+                const beforePrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.mileage - this.payAmount.area;
+                this.payAmount.coupon = beforePrice * couponPercent / 100;
+            } else {
+                this.payAmount.coupon = 0;
+            }
+        }
         this.calTotalPrice();
     },
     changeMileage(mileage) {
@@ -448,7 +460,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
 
             $SQL_QUERY =    'SELECT 
-                                A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_PRICE, B.STR_PROD
+                                A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_PRICE, B.INT_PERCENT, B.STR_PROD
                             FROM 
                                 ' . $Tname . 'comm_member_stamp A
                             LEFT JOIN
@@ -469,7 +481,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <?php
                 while ($row = mysql_fetch_assoc($coupon_list_result)) {
                 ?>
-                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['INT_PRICE'] ?>"><?= $row['STR_PROD'] ?></option>
+                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['INT_PRICE'] ?: 0 ?>" percent="<?= $row['INT_PERCENT'] ?: 0 ?>"><?= $row['STR_PROD'] ?></option>
                 <?php
                 }
                 ?>

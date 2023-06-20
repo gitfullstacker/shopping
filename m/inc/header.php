@@ -16,23 +16,22 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
 
-
 	<link href="/m/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="/m/css/swiper.min.css">
 	<script src="/m/js/swiper.min.js"></script>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 	<link rel="styleSheet" href="/pub/css/dhtml_calendar.css">
 	<script src="/admincenter/js/common.js"></script>
 	<script src="/pub/js/CommScript.js"></script>
 	<script src="/pub/js/dhtml_calendar.js"></script>
 
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+	<script src="//cdn.tailwindcss.com"></script>
+	<script defer src="//cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
 <body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
