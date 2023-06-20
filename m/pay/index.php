@@ -448,9 +448,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="mt-[15px] relative flex w-full">
             <?php
             $SQL_QUERY =    'SELECT 
-                                COUNT(A.INT_NUMBER) AS STAMP_COUNT
+                                COUNT(A.INT_NUMBER) AS COUPON_COUNT
                             FROM 
-                                ' . $Tname . 'comm_member_stamp A
+                                ' . $Tname . 'comm_member_coupon A
                             WHERE 
                                 A.STR_USERID="' . $arr_Auth[0] . '"
                                 AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
@@ -460,13 +460,13 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
 
             $SQL_QUERY =    'SELECT 
-                                A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_PRICE, B.INT_PERCENT, B.STR_PROD
+                                A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_VALUE, B.STR_PERCENT, B.STR_TITLE
                             FROM 
-                                ' . $Tname . 'comm_member_stamp A
+                                ' . $Tname . 'comm_member_coupon A
                             LEFT JOIN
-                                ' . $Tname . 'comm_stamp_prod B
+                                ' . $Tname . 'comm_coupon B
                             ON
-                                A.INT_STAMP=B.INT_PROD
+                                A.INT_COUPON=B.INT_NUMBER
                             WHERE 
                                 A.STR_USED="N"
                                 AND A.STR_USERID="' . $arr_Auth[0] . '"
@@ -476,12 +476,12 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
             $coupon_list_result = mysql_query($SQL_QUERY);
             ?>
-            <select name="int_stamp" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
-                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= $total_coupon_data['STAMP_COUNT'] ?>장</option>
+            <select name="int_coupon" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
+                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= $total_coupon_data['COUPON_COUNT'] ?>장</option>
                 <?php
                 while ($row = mysql_fetch_assoc($coupon_list_result)) {
                 ?>
-                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['INT_PRICE'] ?: 0 ?>" percent="<?= $row['INT_PERCENT'] ?: 0 ?>"><?= $row['STR_PROD'] ?></option>
+                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['STR_PERCENT'] == 'N' ? ($row['INT_VALUE'] ?: 0) : 0 ?>" percent="<?= $row['STR_PERCENT'] == 'Y' ? ($row['INT_VALUE'] ?: 0) : 0 ?>"><?= $row['STR_TITLE'] ?></option>
                 <?php
                 }
                 ?>

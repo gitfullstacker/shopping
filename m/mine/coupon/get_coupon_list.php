@@ -15,7 +15,7 @@ $end_page = 1;
 $SQL_QUERY =    'SELECT 
                     COUNT(A.INT_NUMBER)
                 FROM 
-                    ' . $Tname . 'comm_member_stamp A
+                    ' . $Tname . 'comm_member_coupon A
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
@@ -36,11 +36,11 @@ $end_page = min($start_page + 4, $last_page);
 $SQL_QUERY =    'SELECT 
                     A.STR_USED, A.DTM_SDATE, A.DTM_EDATE, B.*
                 FROM 
-                    ' . $Tname . 'comm_member_stamp A
+                    ' . $Tname . 'comm_member_coupon A
                 LEFT JOIN
-                    ' . $Tname . 'comm_stamp_prod B
+                    ' . $Tname . 'comm_coupon B
                 ON
-                    A.INT_STAMP=B.INT_PROD
+                    A.INT_COUPON=B.INT_NUMBER
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
@@ -58,12 +58,12 @@ if ($end_page > 0) {
         <div class="flex w-full py-[15px]">
             <div class="flex flex-col w-full bg-white border border-solid border-[#DDDDDD] divide-y-[0.5px] divide-[#E0E0E0] ' . ($row['STR_USED'] == 'Y' ? 'bg-[#f5f5f5] opacity-70' : '') . '">
                 <div class="px-[15px] py-3 flex flex-col">
-                    <p class="font-extrabold text-xl leading-[23px] text-black">' . ($row['INT_PRICE'] ? number_format($row['INT_PRICE']) . '원' : number_format($row['INT_PERCENT']) . '%') . '</p>
-                    <p class="mt-[1px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_PROD'] . '</p>
+                    <p class="font-extrabold text-xl leading-[23px] text-black">' . (number_format($row['INT_VALUE']) . ($row['STR_PERCENT'] == 'N' ? '원' : '%')) . '</p>
+                    <p class="mt-[1px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_TITLE'] . '</p>
                     <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_SDATE'])) . ' ~ ' . date('Y.m.d H:i:s', strtotime($row['DTM_SDATE'])) . ' 까지</p>
                 </div>
                 <div class="px-[15px] py-3 flex items-center">
-                    <p class="font-bold text-[10px] leading-[11px] text-[#999999]">렌트 카테고리 상품 40,000원 이상 결제시(일부 상품 제외)</p>
+                    <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . $row['STR_DESC'] . '</p>
                 </div>
             </div>
         </div>';

@@ -9,7 +9,7 @@
 		}
 
 		document.frm.target = "_self";
-		document.frm.action = "good_stamp_edit_proc.php";
+		document.frm.action = "coupon_edit_proc.php";
 		document.frm.submit();
 	}
 	function ValidChk()	{
@@ -20,9 +20,9 @@
 	        return false;
 	   	}
 	   	*/
-		if(chkSpace(f.str_prod.value)){
-	       	alert("\n상품명이 입력되지 않았습니다");
-	       	f.str_prod.focus();
+		if(chkSpace(f.str_title.value)){
+	       	alert("\n쿠폰명이 입력되지 않았습니다");
+	       	f.str_title.focus();
 	        return false;
 	   	}
 		return true;
@@ -55,6 +55,5 @@
 					}
 				}
 			}
-
 		}
 	}

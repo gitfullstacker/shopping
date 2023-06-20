@@ -24,7 +24,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <div x-show="menu == 2" class="flex flex-col w-full">
         <form class="mt-[15px] flex gap-[5px] items-center w-full" action="add_coupon_proc.php" method="post" onsubmit="return checkVal()">
-            <input type="text" class="grow px-[15px] h-[45px] bg-white border border-solid border-[#DDDDDD] rounded-[3px] font-bold text-xs leading-[12px] placeholder:text-[#666666]" id="str_num" name="str_num" placeholder="쿠폰 번호를 입력해주세요">
+            <input type="text" class="grow px-[15px] h-[45px] bg-white border border-solid border-[#DDDDDD] rounded-[3px] font-bold text-xs leading-[12px] placeholder:text-[#666666]" id="str_code" name="str_code" placeholder="쿠폰 번호를 입력해주세요">
             <button type="submit" class="w-[97px] h-[45px] flex justify-center items-center bg-black border border-solid border-[#DDDDDD] rounded-[3px]">
                 <p class="font-bold text-xs leading-[12px] text-white">발급받기</p>
             </button>
@@ -66,7 +66,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function checkVal() {
-        if (document.getElementById('str_num').value == '') {
+        if (document.getElementById('str_code').value == '') {
             alert('쿠폰번호를 넣어주세요.');
             return false;
         }

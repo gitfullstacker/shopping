@@ -1,17 +1,17 @@
 	function RowClick(str_no) {
 		document.frm.str_no.value = str_no;
 		document.frm.RetrieveFlag.value="UPDATE";
-		document.frm.action = "good_stamp_edit.php"
+		document.frm.action = "coupon_edit.php"
 		document.frm.submit();
 	}
 	function AddNew() {
 		document.frm.RetrieveFlag.value="INSERT";
-		document.frm.action = "good_stamp_edit.php";
+		document.frm.action = "coupon_edit.php";
 		document.frm.submit();
 	}
 	function fnc_search() {
 		document.frm.page.value=1;
-		document.frm.action = "good_stamp_list.php";
+		document.frm.action = "coupon_list.php";
 		document.frm.submit();
 	}
 	function Adelete_Click() {
@@ -41,7 +41,7 @@
 	       	}else{
 	       		if (!confirm("한번 삭제한 데이터는 복구할 수 없습니다.\n정말로 삭제하시겠습니까?")) return
 	       		document.frm.encoding="multipart/form-data";
-				document.frm.action = "good_stamp_edit_proc.php";
+				document.frm.action = "coupon_edit_proc.php";
 				document.frm.RetrieveFlag.value="ADELETE";
 				document.frm.submit();
 			}
@@ -100,6 +100,6 @@
 
 	function fnc_fdelete(str_no,str_fno) {
 		fnc_Iframe()
-		lbl_Iframe.window.location.href="good_stamp_edit_proc.php?str_no="+str_no+"&str_fno="+str_fno;
+		lbl_Iframe.window.location.href="coupon_edit_proc.php?str_no="+str_no+"&str_fno="+str_fno;
 	}
 

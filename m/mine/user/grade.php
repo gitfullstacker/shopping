@@ -66,48 +66,30 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <!-- 내가 받고 있는 혜택 -->
         <div class=" flex flex-col gap-[14px] w-full">
             <p class="font-extrabold text-lg leading-5 text-black">내가 받고 있는 혜택</p>
-            <?php
-            switch ($arr_Data['STR_GRADE']) {
-                case 'G':
-            ?>
-                    <div class="grid grid-cols-2 gap-[5px] w-full">
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">5,000원 할인쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">신규 가입 쿠폰 1회 지급</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 5,000원 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급</p>
-                        </div>
-                    </div>
-                    <?php
-                    break;
-                    ?>
-                    <div class="grid grid-cols-2 gap-[5px] w-full">
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">50,000원 VIP 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">VIP 등급 달성 축하 쿠폰 지급</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 50,000원 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급 / 결제액과  무관하게 사용 가능 </p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">적립금 5% 혜택</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">등급 달성 후 모든 결제에 적용</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">빈티지 전용 10% 할인쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급 / 빈티지 카테고리 상품만 적용가능</p>
-                        </div>
-                    </div>
-            <?php
-                case 'B':
+            <div class="grid grid-cols-2 gap-[5px] w-full">
+                <?php
+                $SQL_QUERY =    "SELECT
+                                            A.*
+                                        FROM
+                                            " . $Tname . "comm_coupon A
+                                        WHERE
+                                            A.STR_GRADE='" . $arr_Data['STR_GRADE'] . "'
+                                            AND A.STR_AUTO='Y'
+                                            AND A.STR_SERVICE='Y'
+                                        ORDER BY A.INT_NUMBER ASC";
 
-                    break;
-            }
-            ?>
+                $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
+                while ($row = mysql_fetch_assoc($arr_Rlt_Data)) {
+                ?>
+                    <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">5,000원 할인쿠폰</p>
+                        <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">신규 가입 쿠폰 1회 지급</p>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
         </div>
 
         <!-- 등급별 혜택 안내 -->
@@ -141,14 +123,28 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <hr class="mt-[13px] border-t-[0.5px] border-[#E0E0E0]" />
 
                     <div class="mt-[15px] grid grid-cols-2 gap-[5px] w-full">
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">5,000원 할인쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">신규 가입 쿠폰 1회 지급</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 5,000원 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급</p>
-                        </div>
+                        <?php
+                        $SQL_QUERY =    "SELECT
+                                            A.*
+                                        FROM
+                                            " . $Tname . "comm_coupon A
+                                        WHERE
+                                            A.STR_GRADE='G'
+                                            AND A.STR_AUTO='Y'
+                                            AND A.STR_SERVICE='Y'
+                                        ORDER BY A.INT_NUMBER ASC";
+
+                        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                        while ($row = mysql_fetch_assoc($arr_Rlt_Data)) {
+                        ?>
+                            <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_TITLE'] ?></p>
+                                <p class="font-medium text-[10px] leading-3 text-center text-[#999999]"><?= $row['STR_DESC'] ?></p>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </template>
@@ -162,22 +158,28 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <hr class="mt-[13px] border-t-[0.5px] border-[#E0E0E0]" />
 
                     <div class="mt-[15px] grid grid-cols-2 gap-[5px] w-full">
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">50,000원 VIP 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">VIP 등급 달성 축하 쿠폰 지급</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">생일 50,000원 쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급 / 결제액과  무관하게 사용 가능 </p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">적립금 5% 혜택</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">등급 달성 후 모든 결제에 적용</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">빈티지 전용 10% 할인쿠폰</p>
-                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">연 1회 지급 / 빈티지 카테고리 상품만 적용가능</p>
-                        </div>
+                        <?php
+                        $SQL_QUERY =    "SELECT
+                                            A.*
+                                        FROM
+                                            " . $Tname . "comm_coupon A
+                                        WHERE
+                                            A.STR_GRADE='B'
+                                            AND A.STR_AUTO='Y'
+                                            AND A.STR_SERVICE='Y'
+                                        ORDER BY A.INT_NUMBER ASC";
+
+                        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+                        while ($row = mysql_fetch_assoc($arr_Rlt_Data)) {
+                        ?>
+                            <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_TITLE'] ?></p>
+                                <p class="font-medium text-[10px] leading-3 text-center text-[#999999]"><?= $row['STR_DESC'] ?></p>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </template>

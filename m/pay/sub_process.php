@@ -22,7 +22,7 @@ $price = Fnc_Om_Conv_Default($_REQUEST['price'], 0);
 $discount_product = Fnc_Om_Conv_Default($_REQUEST['discount_product'], 0);
 $discount_membership = Fnc_Om_Conv_Default($_REQUEST['discount_membership'], 0);
 $coupon = Fnc_Om_Conv_Default($_REQUEST['coupon'], 0);
-$int_stamp = Fnc_Om_Conv_Default($_REQUEST['int_stamp'], '');
+$int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], '');
 $mileage = Fnc_Om_Conv_Default($_REQUEST['mileage'], 0);
 
 $start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
@@ -209,8 +209,8 @@ if ($mileage) {
 }
 
 // 쿠폰 사용한 경우
-if ($int_stamp) {
-    $Sql_Query = "UPDATE `" . $Tname . "comm_member_stamp` SET STR_USED='Y' WHERE INT_NUMBER=" . $int_stamp;
+if ($int_coupon) {
+    $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_COUPON=" . $int_coupon;
     mysql_query($Sql_Query);
 }
 ?>
