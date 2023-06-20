@@ -66,7 +66,7 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-// 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 6: 이용중, 10: 반납완료, 11: 취소
+// 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 10: 반납완료, 11: 취소
 $int_state = 1;
 
 if ($int_type == 1) {

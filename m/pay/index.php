@@ -71,19 +71,14 @@ switch ($int_type) {
 
         //구독멤버십정보얻기
         if ($is_subscription_membership) {
-            $SQL_QUERY =    "SELECT 
-                                B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
+            $SQL_QUERY =    'SELECT 
+                                A.*
                             FROM 
-                                `" . $Tname . "comm_member_pay` AS A
-                            INNER JOIN
-                                `" . $Tname . "comm_member_pay_info` AS B
-                            ON
-                                A.INT_NUMBER=B.INT_NUMBER
-                                AND A.STR_PTYPE='1'
-                                AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-                                AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-                                AND A.STR_USERID='$arr_Auth[0]'
-                                AND B.INT_TYPE=1 ";
+                                `' . $Tname . 'comm_membership` A
+                            WHERE 
+                                A.STR_USERID = "' . $arr_Auth[0] . '"
+                                AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+                                AND A.INT_TYPE = 1';
 
             $arr_Rlt_Data = mysql_query($SQL_QUERY);
             $subscription_membership_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -453,8 +448,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 ' . $Tname . 'comm_member_coupon A
                             WHERE 
                                 A.STR_USERID="' . $arr_Auth[0] . '"
-                                AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
-                                AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"';
+                                AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
             $total_coupon_result = mysql_query($SQL_QUERY);
             $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
@@ -470,8 +464,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             WHERE 
                                 A.STR_USED="N"
                                 AND A.STR_USERID="' . $arr_Auth[0] . '"
-                                AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
-                                AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"
+                                AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
                             ORDER BY A.DTM_INDATE DESC';
 
             $coupon_list_result = mysql_query($SQL_QUERY);
@@ -518,9 +511,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 if ($is_subscription_membership && $subscription_membership_Data) {
                     $sub_end_date = $subscription_membership_Data['DTM_EDATE']; // Replace with your actual end date
 
-                    $current_date = date('Y-m-d'); // Get the current date
-
-                    $datetime1 = new DateTime($current_date);
+                    $datetime1 = new DateTime();
                     $datetime2 = new DateTime($sub_end_date);
                     $interval = $datetime1->diff($datetime2);
 
@@ -542,8 +533,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         </div>
                         <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                             <p class="font-bold text-xs leading-[14px] text-black">멤버십 결제 안내</p>
-                            <p class="font-medium text-[10px] leading-3 text-[#666666]">
-                                -멤버십 결제는 구독권이 갱신되는 매월 1일에 등록하신 카드로 자동결제 됩니다.
+                            <p class="font-medium text-[10px] leading-[14px] text-[#666666]">
+                                -멤버십 결제는 구독권이 갱신되는 매월 1일에 등록하신 카드로 자동결제 됩니다.<br>
                                 (마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 카드 삭제 및 변경가능합니다.)
                             </p>
                         </div>

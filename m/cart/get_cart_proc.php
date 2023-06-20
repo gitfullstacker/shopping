@@ -15,8 +15,8 @@
      	
 			$Sql_Query =	" SELECT 
 							A.*
-						FROM `"
-							.$Tname."comm_goods_cart` AS A
+						FROM 
+							`" .$Tname."comm_goods_cart` AS A
 						WHERE
 							A.INT_NUMBER='".$str_no."' ";
 

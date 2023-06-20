@@ -58,7 +58,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 				$SQL_QUERY =    'SELECT
 									COUNT(A.INT_NUMBER) AS NUM
 								FROM 
-									' . $Tname . 'comm_member_stamp A
+									' . $Tname . 'comm_member_coupon A
 								WHERE 
 									A.STR_USED="N"
 									AND A.STR_USERID="' . $arr_Auth[0] . '"

@@ -12,15 +12,9 @@ $SQL_QUERY = 'SELECT
                     COUNT(A.INT_NUMBER)
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
-                LEFT JOIN
-                    `' . $Tname . 'b_bd_data@01` D
-                ON
-                    A.INT_NUMBER=D.INT_CART
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
-                    AND A.INT_STATE IN (4, 5, 6, 10)
-                    AND D.INT_CART IS NULL
-                    AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
+                    AND A.INT_STATE IN (4, 5, 6, 10)';
 
 $result = mysql_query($SQL_QUERY);
 
@@ -35,7 +29,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, B.INT_MILEAGE, C.STR_CODE 
+                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, B.INT_MILEAGE, C.STR_CODE, D.BD_SEQ 
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -53,23 +47,32 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.INT_STATE IN (4, 5, 6, 10)
-                    AND D.INT_CART IS NULL
-                    AND A.DTM_EDIT_DATE >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
 
 $cart_list_result = mysql_query($SQL_QUERY);
 
+// 금액정보 얻기
+$SQL_QUERY =	" SELECT
+						*
+                FROM 
+                    " . $Tname . "comm_site_info
+                WHERE
+                    INT_NUMBER=1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 if ($end_page > 0) {
     $result = '
         <div class="mt-[15px] mb-[23px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
             <p class="font-bold text-[10px] leading-[14px] text-black">후기 작성 안내</p>
             <p class="font-bold text-[10px] leading-[14px] text-[#999999]">
-                -사진 후기 100원, 글 후기 50원 적립금이 지급됩니다.<br />
+                -사진 후기 ' . number_format($site_Data['INT_STAMP2']) . '원, 글 후기 ' . number_format($site_Data['INT_STAMP1']) . '원 적립금이 지급됩니다.<br />
                 -작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
                 -등급에 따라 차등으로 적립 혜택이 달라질 수 있습니다.<br />
-                -주간 베스트 후기로 선정 시 5,000원이 추가로 적립됩니다.<br />
+                -주간 베스트 후기로 선정 시 ' . number_format($site_Data['INT_STAMP3']) . '원이 추가로 적립됩니다.<br />
                 -후기 작성은 배송완료일로부터 30일 이내 가능합니다.
             </p>
         </div>
@@ -100,8 +103,8 @@ if ($end_page > 0) {
                         <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
                         <p class="font-bold text-xs leading-[14px] text-[#999999]">작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')</p>
                     </div>
-                    <a href="create.php?int_cart=' . $row['INT_NUMBER'] . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                        <p class="font-bold text-[11px] leading-[12px] text-black">리뷰 작성</p>
+                    <a href="' . ($row['BD_SEQ'] ? '#' : ('create.php?int_cart=' . $row['INT_NUMBER'])) . '" class="grow flex justify-center items-center h-[35px] bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <p class="font-bold text-[11px] leading-[12px] text-black">' . ($row['BD_SEQ'] ? '리뷰 작성 완료' : '리뷰 작성') . '</p>
                     </a>
                 </div>
             </div>';

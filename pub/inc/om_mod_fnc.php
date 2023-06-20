@@ -1211,22 +1211,14 @@ function fnc_sub_member_info($user_id = null)
 	global $Tname;
 	global $arr_Auth;
 
-	$Sql_Query =	" SELECT 
-						B.*
-					FROM `"
-		. $Tname . "comm_member_pay` AS A
-						INNER JOIN
-						`" . $Tname . "comm_member_pay_info` AS B
-						ON
-						A.INT_NUMBER=B.INT_NUMBER
-						AND
-						date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-						AND
-						date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-						AND
-						A.STR_USERID='" . ($user_id ? $user_id : $arr_Auth[0]) . "'
-						AND
-						B.INT_TYPE=1 ";
+	$Sql_Query =    'SELECT 
+						A.*
+					FROM 
+						`' . $Tname . 'comm_membership` A
+					WHERE 
+						A.STR_USERID = "' . $arr_Auth[0] . '"
+						AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+						AND A.INT_TYPE = 1';
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$arr_To_Data_Cnt = mysql_num_rows($arr_To_Data);
@@ -1239,22 +1231,14 @@ function fnc_ren_member_info($user_id = null)
 	global $Tname;
 	global $arr_Auth;
 
-	$Sql_Query =	" SELECT 
-						B.*
-					FROM `"
-		. $Tname . "comm_member_pay` AS A
-						INNER JOIN
-						`" . $Tname . "comm_member_pay_info` AS B
-						ON
-						A.INT_NUMBER=B.INT_NUMBER
-						AND
-						date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-						AND
-						date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-						AND
-						A.STR_USERID='" . ($user_id ? $user_id : $arr_Auth[0]) . "'
-						AND
-						B.INT_TYPE=2 ";
+	$Sql_Query =    'SELECT 
+						A.*
+					FROM 
+						`' . $Tname . 'comm_membership` A
+					WHERE 
+						A.STR_USERID = "' . $arr_Auth[0] . '"
+						AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+						AND A.INT_TYPE = 2';
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$arr_To_Data_Cnt = mysql_num_rows($arr_To_Data);

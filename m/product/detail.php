@@ -536,7 +536,17 @@ switch ($arr_Data['INT_TYPE']) {
                 <div class="flex flex-col">
                     <p class="mt-1.5 font-bold text-sm leading-4 text-black">사이즈정보</p>
                     <div class="mt-1.5 flex flex-col gap-7 justify-center items-center w-full pt-7 pb-[20px] bg-white">
-                        <img class="w-[222px] h-[252px]" src="/admincenter/files/good/<?= $arr_Data['STR_TIMAGE'] ?>" onerror="this.style.display = 'none'" alt="size" />
+                        <?php
+                        if ($arr_Data['STR_TIMAGE']) {
+                        ?>
+                            <img class="w-[222px] h-[252px]" src="/admincenter/files/good/<?= $arr_Data['STR_TIMAGE'] ?>" onerror="this.style.display = 'none'" alt="" />
+                        <?php
+                        } else {
+                        ?>
+                            <img class="w-[222px] h-[252px]" src="images/product_size.png" onerror="this.style.display = 'none'" alt="" />
+                        <?php
+                        }
+                        ?>
                         <p class="font-semibold text-[10px] text-center text-[#999999]">*측정 위치 및 방법에 따라 1~3cm 정도 오차가 생길 수 있습니다.</p>
                     </div>
 

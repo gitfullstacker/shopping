@@ -51,7 +51,7 @@ if ($end_page > 0) {
                 <div class="flex flex-col w-full">
                     <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
                     <p class="mt-1.5 font-bold text-xs leading-14px text-[#666666]">' . ($row['STR_INCOME'] == 'Y' ? '주문 적립' : '주문 시 사용') . '</p>
-                    <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . $row['STR_ORDERIDX'] . '</p>
+                    <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . ($row['STR_INCOME'] == 'Y' ? $row['INT_CART'] : $row['STR_ORDERIDX']) . '</p>
                 </div>
                 <p class="font-bold text-xs leading-[14px] text-[#000000] whitespace-nowrap">' . ($row['STR_INCOME'] == 'Y' ? '+' : '-') . number_format($row['INT_VALUE']) . '원</p>
             </div>';

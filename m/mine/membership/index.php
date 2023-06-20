@@ -10,37 +10,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 2);
 
 //구독멤버십정보얻기
-$SQL_QUERY =    "SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-    . $Tname . "comm_member_pay` AS A
-                INNER JOIN
-                    `" . $Tname . "comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=1 ";
+$SQL_QUERY =    'SELECT 
+                    A.*
+                FROM 
+                    `' . $Tname . 'comm_membership` A
+                WHERE 
+                    A.STR_USERID = "' . $arr_Auth[0] . '"
+					AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+					AND A.INT_TYPE = 1';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //렌트멤버십정보얻기
-$SQL_QUERY =    "SELECT 
-                    B.*, A.STR_PTYPE, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
-                FROM `"
-    . $Tname . "comm_member_pay` AS A
-                INNER JOIN
-                    `" . $Tname . "comm_member_pay_info` AS B
-                ON
-                    A.INT_NUMBER=B.INT_NUMBER
-                    AND A.STR_PTYPE='1'
-                    AND date_format(B.STR_SDATE, '%Y-%m-%d') <= '" . date("Y-m-d") . "'
-                    AND date_format(B.STR_EDATE, '%Y-%m-%d') >= '" . date("Y-m-d") . "' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                    AND B.INT_TYPE=2 ";
+$SQL_QUERY =    'SELECT 
+                    A.*
+                FROM 
+                    `' . $Tname . 'comm_membership` A
+                WHERE 
+                    A.STR_USERID = "' . $arr_Auth[0] . '"
+                    AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+                    AND A.INT_TYPE = 2';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -62,8 +52,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <p class="font-extrabold text-lg leading-5 text-black">멤버십 관리</p>
         <div class="mt-[14px] flex flex-row gap-10">
             <?php
-            $sub_menu_color = $subscription_Data['STR_CANCEL1'] == '0' ? '#EDA02F' : '#6A696C';
-            $ren_menu_color = $rent_Data['STR_CANCEL2'] == '0' ? '#00402F' : '#6A696C';
+            $sub_menu_color = $subscription_Data['STR_CANCEL'] == 'N' ? '#EDA02F' : '#6A696C';
+            $ren_menu_color = $rent_Data['STR_CANCEL'] == 'N' ? '#00402F' : '#6A696C';
             ?>
             <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 1 ? 'text-[<?= $ren_menu_color ?>]' : 'text-[#999999]'">블랑 렌트 멤버십</p>
@@ -76,7 +66,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($rent_Data) {
                 // 가입자인 경우
-                if ($rent_Data['STR_CANCEL2'] == '0') {
+                if ($rent_Data['STR_CANCEL'] == 'N') {
             ?>
                     <!-- 장기 이용 -->
                     <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
@@ -87,8 +77,8 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">BLANC RENT CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
-                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['STR_EDATE'])) ?></span><br>
-                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($rent_Data['STR_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
+                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['DTM_EDATE'])) ?></span><br>
+                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($rent_Data['DTM_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
                         </p>
                     </div>
                     <a href="/m/mine/membership/cancel.php?int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
@@ -116,7 +106,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">BLANC RENT CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">
-                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['STR_EDATE'])) ?></span><br>
+                            블랑 렌트 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($rent_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($rent_Data['DTM_EDATE'])) ?></span><br>
                             *멤버십 해지신청 완료되었으며<br>
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
@@ -177,12 +167,10 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($subscription_Data) {
                 // 가입자인 경우
-                if ($subscription_Data['STR_CANCEL1'] == '0') {
-                    $end_date = $subscription_Data['STR_EDATE']; // Replace with your actual end date
+                if ($subscription_Data['STR_CANCEL'] == 'N') {
+                    $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
 
-                    $current_date = date('Y-m-d'); // Get the current date
-
-                    $sub_datetime1 = new DateTime($current_date);
+                    $sub_datetime1 = new DateTime();
                     $sub_datetime2 = new DateTime($end_date);
                     $sub_interval = $sub_datetime1->diff($sub_datetime2);
 
@@ -198,7 +186,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
                             구독 멤버십 잔여일이 <span class="font-bold underline"><?= $sub_days_left ?>일</span> 남았습니다.<br>
-                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($subscription_Data['STR_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
+                            *다음달 <span class="font-bold underline"><?= date('d', strtotime($subscription_Data['DTM_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
                         </p>
                     </div>
                     <a href="/m/mine/membership/cancel.php?int_type=1" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
@@ -228,7 +216,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">MEMBERSHIP CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">
-                            구독 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($subscription_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($subscription_Data['STR_EDATE'])) ?></span><br>
+                            구독 멤버십 기간: <span class="font-bold underline"><?= date('Y.m.d', strtotime($subscription_Data['DTM_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($subscription_Data['DTM_EDATE'])) ?></span><br>
                             *멤버십 해지신청 완료되었으며<br>
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>

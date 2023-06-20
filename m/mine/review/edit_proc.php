@@ -138,31 +138,30 @@ switch ($RetrieveFlag) {
             }
         }
 
-        // 마일리지 지급
-        $SQL_QUERY =    'SELECT
-                            A.INT_MILEAGE, A.STR_PMILEAGE, A.INT_PRICE
+        // 금액정보 얻기
+        $SQL_QUERY =    " SELECT
+                            *
                         FROM 
-                            ' . $Tname . 'comm_goods_master AS A
+                            " . $Tname . "comm_site_info
                         WHERE
-                            A.STR_GOODCODE="' . $_REQUEST['str_goodcode'] . '"';
+                            INT_NUMBER=1 ";
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-        if (!$arr_Rlt_Data) {
-            echo 'Could not run query: ' . mysql_error();
-            exit;
-        }
-        $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
+        // 적립금 지급
         $mileage = 0;
-
-        if ($arr_Data['STR_PMILEAGE'] == 'Y') {
-            $mileage = $arr_Data['INT_PRICE'] * $arr_Data['INT_MILEAGE'] / 100;
+        $str_gubun = '1';
+        if (count($str_images) > 0) {
+            // 포토 마일리지
+            $mileage = $site_Data['INT_STAMP2'];
+            $str_gubun = '1';
         } else {
-            $mileage = $arr_Data['INT_MILEAGE'];
+            // 텍스트 마일리지
+            $mileage = $site_Data['INT_STAMP1'];
+            $str_gubun = '2';
         }
 
-        // 마일리지 등록
         if ($mileage) {
             $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
             $arr_Rlt_Data = mysql_query($SQL_QUERY);
@@ -176,6 +175,7 @@ switch ($RetrieveFlag) {
             $arr_Column_Name[3]     =     "STR_ORDERIDX";
             $arr_Column_Name[4]     =     "INT_VALUE";
             $arr_Column_Name[5]     =     "INT_CART";
+            $arr_Column_Name[6]     =     "STR_GUBUN";
 
             $arr_Set_Data[0]        = $arr_Auth[0];
             $arr_Set_Data[1]        = "Y";
@@ -183,6 +183,7 @@ switch ($RetrieveFlag) {
             $arr_Set_Data[3]        = "";
             $arr_Set_Data[4]        = $mileage;
             $arr_Set_Data[5]        = $_REQUEST['int_cart'];
+            $arr_Set_Data[6]        = $str_gubun;
 
             $arr_Sub1 = "";
             $arr_Sub2 = "";
@@ -353,6 +354,7 @@ switch ($RetrieveFlag) {
 
     case "DELETE":
         $bd_seq = Fnc_Om_Conv_Default($_REQUEST['bd_seq'], "");
+        $int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
 
         if ($bd_seq) {
             // 이미지 지우기
@@ -362,6 +364,21 @@ switch ($RetrieveFlag) {
             // 리뷰 지우기
             $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_bd_data@01` WHERE BD_SEQ=' . $bd_seq;
             mysql_query($SQL_QUERY);
+
+            // 적립금 삭제
+            $Sql_Query = 'SELECT * FROM `' . $Tname . 'comm_mileage_history` WHERE STR_INCOME="Y" AND STR_USERID="' . $arr_Auth[0] . '" AND INT_CART=' . $int_cart;
+            $arr_Rlt_Data = mysql_query($Sql_Query);
+            $hitory_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+            if ($hitory_Data['INT_VALUE']) {
+                if ($hitory_Data['INT_NUMBER']) {
+                    $SQL_QUERY =  'DELETE FROM `' . $Tname . 'comm_mileage_history` WHERE INT_NUMBER=' . $hitory_Data['INT_NUMBER'];
+                    mysql_query($SQL_QUERY);
+
+                    $SQL_QUERY =  'UPDATE `' . $Tname . 'comm_member` SET INT_MILEAGE = INT_MILEAGE-' . $hitory_Data['INT_VALUE'] . ' WHERE STR_USERID="' . $arr_Auth[0] . '"';
+                    mysql_query($SQL_QUERY);
+                }
+            }
         }
     ?>
         <script language="javascript">
