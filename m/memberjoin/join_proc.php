@@ -18,12 +18,13 @@ $str_service = Fnc_Om_Conv_Default($_REQUEST['str_service'], "Y");
 $str_escecode = Fnc_Om_Conv_Default($_REQUEST['str_escecode'], "");
 $str_drcontents = Fnc_Om_Conv_Default($_REQUEST['str_drcontents'], "");
 $str_same_account = Fnc_Om_Conv_Default($_REQUEST['same_account'], "");
-$str_spost = $str_post;
-$str_saddr1 = $str_addr1;
-$str_saddr2 = $str_addr2;
+$str_spost = Fnc_Om_Conv_Default($_REQUEST['str_spost'], "");
+$str_saddr1 = Fnc_Om_Conv_Default($_REQUEST['str_saddr1'], "");
+$str_saddr2 = Fnc_Om_Conv_Default($_REQUEST['str_saddr2'], "");
 $str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth_year'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_month'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_day'], "");
 $str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], "");
 $str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], "");
+$str_shp = Fnc_Om_Conv_Default($_REQUEST['str_shp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp3'], "");
 
 $arr_Set_Data = array();
 $arr_Column_Name = array();
@@ -54,6 +55,7 @@ $arr_Column_Name[22]		= "STR_SADDR2";
 $arr_Column_Name[23]		= "STR_CERT";
 $arr_Column_Name[24]		= "STR_BIRTH";
 $arr_Column_Name[25]		= "STR_SEX";
+$arr_Column_Name[26]		= "STR_SHP";
 
 $arr_Set_Data[0]		= $str_userid;
 $arr_Set_Data[1]		= "1";
@@ -81,6 +83,7 @@ $arr_Set_Data[22]		= $str_saddr2;
 $arr_Set_Data[23]		= $str_cert;
 $arr_Set_Data[24]		= $str_birth;
 $arr_Set_Data[25]		= $str_sex;
+$arr_Set_Data[26]		= $str_shp;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";

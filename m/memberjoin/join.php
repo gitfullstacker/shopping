@@ -84,9 +84,9 @@ if ($enc_data == -1) {
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" maxlength="3" placeholder="010" disabled>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" maxlength="4" placeholder="1234" disabled>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" maxlength="4" placeholder="5678" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" maxlength="3" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" maxlength="4" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" maxlength="4" placeholder="5678" readonly>
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
                 <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
@@ -115,7 +115,7 @@ if ($enc_data == -1) {
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep1" id="str_telep1">
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp1" id="str_shp1">
                         <option value="010">010</option>
                         <option value="011">011</option>
                         <option value="016">016</option>
@@ -123,8 +123,8 @@ if ($enc_data == -1) {
                         <option value="018">018</option>
                         <option value="019">019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" id="str_telep2" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" id="str_telep3" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp2" id="str_shp2" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp3" id="str_shp3" placeholder="5678">
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -167,12 +167,9 @@ if ($enc_data == -1) {
                                 }
 
                                 // 우편번호와 주소 및 영문주소 정보를 해당 필드에 넣는다.
-                                //document.getElementById('str_post').value = data.postcode1+data.postcode2;
-                                document.getElementById('str_post').value = data.zonecode;
-                                //document.getElementById('str_post2').value = data.postcode2;
-                                document.getElementById('str_addr1').value = fullAddr;
-                                //document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
-                                document.getElementById('str_addr2').focus();
+                                document.getElementById('str_spost').value = data.zonecode;
+                                document.getElementById('str_saddr1').value = fullAddr;
+                                document.getElementById('str_saddr2').focus();
 
                                 // iframe을 넣은 element를 안보이게 한다.
                                 element_layer.style.display = 'none';
@@ -188,17 +185,17 @@ if ($enc_data == -1) {
                 <p class="font-bold text-xs leading-[14px] text-black">주소</p>
                 <div class="flex gap-[5px] items-center">
                     <div class="grow">
-                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" placeholder="우편번호" disabled>
+                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_spost" id="str_spost" placeholder="우편번호" readonly>
                     </div>
                     <a href="javascript:execDaumPostcode();" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </a>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" placeholder="기본주소" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_saddr1" id="str_saddr1" placeholder="기본주소" readonly>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" placeholder="상세 주소를 입력해 주세요">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_saddr2" id="str_saddr2" placeholder="상세 주소를 입력해 주세요">
                 </div>
             </div>
         </div>
@@ -226,54 +223,9 @@ if ($enc_data == -1) {
         <div class="flex flex-col gap-[5px] w-full">
             <p class="font-bold text-xs leading-[14px] text-black">생년월일</p>
             <div class="grid grid-cols-3 gap-[5px] items-center">
-                <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_year">
-                        <?php
-                        for ($i = 0; $i < 150; $i++) {
-                        ?>
-                            <option value="<?= $i + 1900 ?>" <?= $i == 50 ? 'selected' : '' ?>><?= $i + 1900 ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span class="absolute top-5 right-[19px]">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.6932 1.18894L5.85752 5.84793C5.79995 5.90323 5.73759 5.9423 5.67042 5.96516C5.60326 5.98839 5.5313 6 5.45455 6C5.37779 6 5.30583 5.98839 5.23867 5.96516C5.1715 5.9423 5.10914 5.90323 5.05157 5.84793L0.201487 1.18894C0.0671621 1.05991 -2.22989e-07 0.898617 -2.31449e-07 0.705069C-2.39909e-07 0.51152 0.0719594 0.345622 0.215879 0.207373C0.359798 0.0691242 0.527704 -4.99904e-07 0.719597 -5.08292e-07C0.911489 -5.1668e-07 1.0794 0.0691242 1.22331 0.207373L5.45454 4.27189L9.68578 0.207373C9.8201 0.0783406 9.98551 0.013824 10.182 0.013824C10.3789 0.013824 10.5493 0.0829482 10.6932 0.221197C10.8371 0.359446 10.9091 0.520736 10.9091 0.705068C10.9091 0.8894 10.8371 1.05069 10.6932 1.18894Z" fill="#333333" />
-                        </svg>
-                    </span>
-                </div>
-                <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month">
-                        <?php
-                        for ($i = 0; $i < 12; $i++) {
-                        ?>
-                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span class="absolute top-5 right-[19px]">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.6932 1.18894L5.85752 5.84793C5.79995 5.90323 5.73759 5.9423 5.67042 5.96516C5.60326 5.98839 5.5313 6 5.45455 6C5.37779 6 5.30583 5.98839 5.23867 5.96516C5.1715 5.9423 5.10914 5.90323 5.05157 5.84793L0.201487 1.18894C0.0671621 1.05991 -2.22989e-07 0.898617 -2.31449e-07 0.705069C-2.39909e-07 0.51152 0.0719594 0.345622 0.215879 0.207373C0.359798 0.0691242 0.527704 -4.99904e-07 0.719597 -5.08292e-07C0.911489 -5.1668e-07 1.0794 0.0691242 1.22331 0.207373L5.45454 4.27189L9.68578 0.207373C9.8201 0.0783406 9.98551 0.013824 10.182 0.013824C10.3789 0.013824 10.5493 0.0829482 10.6932 0.221197C10.8371 0.359446 10.9091 0.520736 10.9091 0.705068C10.9091 0.8894 10.8371 1.05069 10.6932 1.18894Z" fill="#333333" />
-                        </svg>
-                    </span>
-                </div>
-                <div class="relative w-full">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day">
-                        <?php
-                        for ($i = 0; $i < 31; $i++) {
-                        ?>
-                            <option value="<?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span class="absolute top-5 right-[19px]">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.6932 1.18894L5.85752 5.84793C5.79995 5.90323 5.73759 5.9423 5.67042 5.96516C5.60326 5.98839 5.5313 6 5.45455 6C5.37779 6 5.30583 5.98839 5.23867 5.96516C5.1715 5.9423 5.10914 5.90323 5.05157 5.84793L0.201487 1.18894C0.0671621 1.05991 -2.22989e-07 0.898617 -2.31449e-07 0.705069C-2.39909e-07 0.51152 0.0719594 0.345622 0.215879 0.207373C0.359798 0.0691242 0.527704 -4.99904e-07 0.719597 -5.08292e-07C0.911489 -5.1668e-07 1.0794 0.0691242 1.22331 0.207373L5.45454 4.27189L9.68578 0.207373C9.8201 0.0783406 9.98551 0.013824 10.182 0.013824C10.3789 0.013824 10.5493 0.0829482 10.6932 0.221197C10.8371 0.359446 10.9091 0.520736 10.9091 0.705068C10.9091 0.8894 10.8371 1.05069 10.6932 1.18894Z" fill="#333333" />
-                        </svg>
-                    </span>
-                </div>
+                <input type="text" class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_year" id="str_birth_year" placeholder="1900" readonly>
+                <input type="text" class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month" id="str_birth_month" placeholder="01" readonly>
+                <input type="text" class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day" id="str_birth_day" placeholder="01" readonly>
             </div>
         </div>
     </div>

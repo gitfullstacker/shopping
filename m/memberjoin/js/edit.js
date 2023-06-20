@@ -366,15 +366,12 @@ function verifyPhone() {
 	fnPopup();
 }
 
-function setVerifyPhoneNumber(phoneNumber) {
+function setVerifyPhoneNumber(phoneNumber, birthday) {
 	var phone_array = phoneNumber.split("-");
 
 	$('#str_hp1').val(phone_array[0]);
-	$('#str_hp1').prop('disabled', true);
 	$('#str_hp2').val(phone_array[1]);
-	$('#str_hp2').prop('disabled', true);
 	$('#str_hp3').val(phone_array[2]);
-	$('#str_hp3').prop('disabled', true);
 
 	$('#phone_verify_btn p').html('인증완료');
 	$('#phone_verify_btn').prop('disabled', true);
@@ -382,13 +379,13 @@ function setVerifyPhoneNumber(phoneNumber) {
 
 function setSameDeliveryInfo() {
 	if (document.getElementById('same_account').checked) {
-		$('#str_telep1').val($('#str_hp1').val());
-		$('#str_telep2').val($('#str_hp2').val());
-		$('#str_telep3').val($('#str_hp3').val());
+		$('#str_shp1').val($('#str_hp1').val());
+		$('#str_shp2').val($('#str_hp2').val());
+		$('#str_shp3').val($('#str_hp3').val());
 	} else {
-		$('#str_telep1').val();
-		$('#str_telep2').val();
-		$('#str_telep3').val();
+		$('#str_shp1').val();
+		$('#str_shp2').val();
+		$('#str_shp3').val();
 	}
 }
 

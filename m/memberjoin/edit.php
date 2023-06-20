@@ -75,6 +75,10 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <form class="mt-[30px] flex flex-col w-full px-[14px]" name="frm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="str_post" value="<?= $arr_Data['STR_POST'] ?>">
+    <input type="hidden" name="str_addr1" value="<?= $arr_Data['STR_ADDR1'] ?>">
+    <input type="hidden" name="str_addr2" value="<?= $arr_Data['STR_ADDR2'] ?>">
+
     <div class="flex justify-center">
         <p class="font-extrabold text-lg leading-5 text-center text-black">회원정보 수정</p>
     </div>
@@ -85,7 +89,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col gap-[15px] w-full">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">아이디</p>
-                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();" disabled>
+                <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_userid" id="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" placeholder="아이디" onKeyUp="fnc_idcheck();str_userid_check2();" readonly>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="idView_Proc"></span>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -114,9 +118,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $sTemp = Split("-", Fnc_Om_Conv_Default($arr_Data['STR_HP'], "--"));
                 ?>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" value="<?= $sTemp[0] ?>" maxlength="3" placeholder="010" disabled>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $sTemp[1] ?>" maxlength="4" placeholder="1234" disabled>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $sTemp[2] ?>" maxlength="4" placeholder="5678" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp1" name="str_hp1" value="<?= $sTemp[0] ?>" maxlength="3" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp2" name="str_hp2" value="<?= $sTemp[1] ?>" maxlength="4" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_hp3" name="str_hp3" value="<?= $sTemp[2] ?>" maxlength="4" placeholder="5678" readonly>
                 </div>
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_hp"></span>
                 <button type="button" id="phone_verify_btn" class="flex justify-center items-center w-full h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]" onclick="verifyPhone()">
@@ -145,23 +149,23 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <?php
-                $str_telp = explode('-', $arr_Data['STR_TELEP']);
+                $str_shp = explode('-', $arr_Data['STR_SHP']);
 
-                $str_telp1 = $str_telp[0] ?: '010';
-                $str_telp2 = $str_telp[1] ?: '';
-                $str_telp3 = $str_telp[2] ?: '';
+                $str_shp1 = $str_shp[0] ?: '010';
+                $str_shp2 = $str_shp[1] ?: '';
+                $str_shp3 = $str_shp[2] ?: '';
                 ?>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep1" id="str_telep1">
-                        <option value="010" <?= $str_telp1 == '010' ? 'selected' : '' ?>>010</option>
-                        <option value="011" <?= $str_telp1 == '011' ? 'selected' : '' ?>>011</option>
-                        <option value="016" <?= $str_telp1 == '016' ? 'selected' : '' ?>>016</option>
-                        <option value="017" <?= $str_telp1 == '017' ? 'selected' : '' ?>>017</option>
-                        <option value="018" <?= $str_telp1 == '018' ? 'selected' : '' ?>>018</option>
-                        <option value="019" <?= $str_telp1 == '019' ? 'selected' : '' ?>>019</option>
+                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp1" id="str_shp1">
+                        <option value="010" <?= $str_shp1 == '010' ? 'selected' : '' ?>>010</option>
+                        <option value="011" <?= $str_shp1 == '011' ? 'selected' : '' ?>>011</option>
+                        <option value="016" <?= $str_shp1 == '016' ? 'selected' : '' ?>>016</option>
+                        <option value="017" <?= $str_shp1 == '017' ? 'selected' : '' ?>>017</option>
+                        <option value="018" <?= $str_shp1 == '018' ? 'selected' : '' ?>>018</option>
+                        <option value="019" <?= $str_shp1 == '019' ? 'selected' : '' ?>>019</option>
                     </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep2" id="str_telep2" value="<?= $str_telp2 ?>" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_telep3" id="str_telep3" value="<?= $str_telp3 ?>" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp2" id="str_shp2" maxlength="4" value="<?= $str_shp2 ?>" placeholder="1234">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp3" id="str_shp3" maxlength="4" value="<?= $str_shp3 ?>" placeholder="5678">
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -204,12 +208,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 }
 
                                 // 우편번호와 주소 및 영문주소 정보를 해당 필드에 넣는다.
-                                //document.getElementById('str_post').value = data.postcode1+data.postcode2;
-                                document.getElementById('str_post').value = data.zonecode;
-                                //document.getElementById('str_post2').value = data.postcode2;
-                                document.getElementById('str_addr1').value = fullAddr;
-                                //document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
-                                document.getElementById('str_addr2').focus();
+                                document.getElementById('str_spost').value = data.zonecode;
+                                document.getElementById('str_saddr1').value = fullAddr;
+                                document.getElementById('str_saddr2').focus();
 
                                 // iframe을 넣은 element를 안보이게 한다.
                                 element_layer.style.display = 'none';
@@ -225,17 +226,17 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="font-bold text-xs leading-[14px] text-black">주소</p>
                 <div class="flex gap-[5px] items-center">
                     <div class="grow">
-                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_post" id="str_post" value="<?= $arr_Data['STR_POST'] ?>" placeholder="우편번호" disabled>
+                        <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_spost" id="str_spost" value="<?= $arr_Data['STR_SPOST'] ?>" placeholder="우편번호" readonly>
                     </div>
                     <a href="javascript:execDaumPostcode();" class="flex justify-center items-center w-[97px] h-[45px] bg-[#EBEBEB] border border-solid border-[#DDDDDD]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">검색</p>
                     </a>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr1" id="str_addr1" value="<?= $arr_Data['STR_ADDR1'] ?>" placeholder="기본주소" disabled>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_saddr1" id="str_saddr1" value="<?= $arr_Data['STR_SADDR1'] ?>" placeholder="기본주소" readonly>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_addr2" id="str_addr2" value="<?= $arr_Data['STR_ADDR2'] ?>" placeholder="상세 주소를 입력해 주세요">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_saddr2" id="str_saddr2" value="<?= $arr_Data['STR_SADDR2'] ?>" placeholder="상세 주소를 입력해 주세요">
                 </div>
             </div>
         </div>

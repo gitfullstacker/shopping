@@ -16,10 +16,11 @@ $str_email = Fnc_Om_Conv_Default($_REQUEST['str_email'], "");
 $str_tuserid = Fnc_Om_Conv_Default($_REQUEST['str_tuserid'], "");
 $str_mail_f = Fnc_Om_Conv_Default($_REQUEST['str_mail_f'], "N");
 $str_sms_f = Fnc_Om_Conv_Default($_REQUEST['str_sms_f'], "N");
-$str_spost = $str_post;
-$str_saddr1 = $str_addr1;
-$str_saddr2 = $str_addr2;
+$str_spost = Fnc_Om_Conv_Default($_REQUEST['str_spost'], "");
+$str_saddr1 = Fnc_Om_Conv_Default($_REQUEST['str_saddr1'], "");
+$str_saddr2 = Fnc_Om_Conv_Default($_REQUEST['str_saddr2'], "");
 $str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], "");
+$str_shp = Fnc_Om_Conv_Default($_REQUEST['str_shp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp3'], "");
 
 // 현재 비밀번호 체크
 $SQL_QUERY = 'SELECT COUNT(STR_USERID) AS NUM FROM `' . $Tname . 'comm_member` WHERE STR_PASSWD=password("' . $str_org_passwd . '") AND STR_USERID="' . $arr_Auth[0] . '"';
@@ -61,6 +62,7 @@ $arr_Column_Name[12]	= "STR_SPOST";
 $arr_Column_Name[13]	= "STR_SADDR1";
 $arr_Column_Name[14]	= "STR_SADDR2";
 $arr_Column_Name[15]	= "STR_SEX";
+$arr_Column_Name[16]	= "STR_SHP";
 
 $arr_Set_Data[0]		= $str_passwd;
 $arr_Set_Data[1]		= $str_name;
@@ -78,6 +80,7 @@ $arr_Set_Data[12]		= $str_spost;
 $arr_Set_Data[13]		= $str_saddr1;
 $arr_Set_Data[14]		= $str_saddr2;
 $arr_Set_Data[15]		= $str_sex;
+$arr_Set_Data[16]		= $str_shp;
 
 $arr_Sub = "";
 
