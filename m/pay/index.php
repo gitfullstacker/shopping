@@ -146,14 +146,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         useDays: <?= $use_days ?: 0 ?>,
         discount: {
             product: <?= $int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
-            membership: <?= $membership_discount ?: 0 ?>
+            membership: <?= $membership_discount ?: 0 ?>,
+            area: <?= $area_discount ?: 0 ?>
         },
         coupon: 0,
-        mileage: 0,
-        area: <?= $area_discount ?: 0 ?>
+        mileage: 0
     },
     calTotalPrice() {
-        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.area;
+        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.discount.area;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -164,7 +164,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.payAmount.coupon = couponValue;
         } else {
             if (couponPercent > 0) {
-                const beforePrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.mileage - this.payAmount.area;
+                const beforePrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.mileage - this.payAmount.discount.area;
                 this.payAmount.coupon = beforePrice * couponPercent / 100;
             } else {
                 this.payAmount.coupon = 0;
@@ -679,7 +679,11 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     if ($int_type == 2) {
                     ?>
                         <div class="flex items-center justify-between">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 구간할인</p>
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.area) + '원'"></p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄷ 멤버십할인</p>
                             <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.membership) + '원'"></p>
                         </div>
                     <?php
@@ -693,16 +697,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>
                         <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.mileage) + '원'"></p>
                     </div>
-                    <?php
-                    if ($int_type == 2) {
-                    ?>
-                        <div class="flex items-center justify-between">
-                            <p class="font-bold text-[15px] leading-[17px] text-black">구간할인</p>
-                            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.area) + '원'"></p>
-                        </div>
-                    <?php
-                    }
-                    ?>
                 </div>
                 <hr class="mt-[5px] w-full border-t-[0.5px] border-solid border-[#E0E0E0]" />
                 <div class="mt-[5px] flex items-center justify-between">
