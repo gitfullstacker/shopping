@@ -19,8 +19,8 @@ $reqseq = "REQ_0123456789";     // 요청 번호, 이는 성공/실패후에 같
 $reqseq = `$cb_encode_path SEQ $sitecode`;
 
 // CheckPlus(본인인증) 처리 후, 결과 데이타를 리턴 받기위해 다음예제와 같이 http부터 입력합니다.
-$returnurl = "http://" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_success.php";    // 성공시 이동될 URL
-$errorurl = "http://" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_fail.php";        // 실패시 이동될 URL
+$returnurl = "//" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_success.php";    // 성공시 이동될 URL
+$errorurl = "//" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_fail.php";        // 실패시 이동될 URL
 
 // reqseq값은 성공페이지로 갈 경우 검증을 위하여 세션에 담아둔다.
 
@@ -132,7 +132,7 @@ if ($enc_data == -1) {
                     <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1;width:20px;height:20px;" onclick="closeDaumPostcode()" alt="닫기 버튼">
                 </div>
 
-                <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+                <script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
                 <script>
                     // 우편번호 찾기 화면을 넣을 element
                     var element_layer = document.getElementById('layer');
