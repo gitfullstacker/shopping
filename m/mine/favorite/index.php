@@ -112,7 +112,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 1:
                         ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#EEAC4C]">
@@ -124,7 +124,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 2:
                             ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#00402F]">
@@ -135,7 +135,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 3:
                             ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#7E6B5A]">
@@ -181,7 +181,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 1:
                         ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#EEAC4C]">
@@ -193,7 +193,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 2:
                             ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#00402F] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#00402F]">
@@ -204,7 +204,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             case 3:
                             ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
-                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
+                                    <p class="font-extrabold text-[13px] leading-[15px] text-[#7E6B5A] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $row['INT_DISCOUNT'] ?>%</p>
                                     <p class="font-bold text-[13px] leading-[15px] text-black"><?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#7E6B5A]">
