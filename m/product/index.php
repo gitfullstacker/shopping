@@ -372,43 +372,43 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
             <div class="grid grid-cols-2 gap-x-[15px] gap-y-5 w-full">
                 <?php
                 $SQL_QUERY =    'SELECT 
-                                A.BD_SEQ,
-                                A.CONF_SEQ,
-                                A.MEM_ID,
-                                A.BD_CONT,
-                                A.BD_REG_DATE,
-                                A.BD_ITEM2,
-                                IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
-                                C.STR_GOODNAME,
-                                C.STR_IMAGE1,
-                                C.INT_DISCOUNT,
-                                C.INT_PRICE,
-                                C.INT_TYPE,
-                                D.STR_CODE
-                            FROM 
-                                `' . $Tname . 'b_bd_data@01` A
-                            LEFT JOIN
-                                `' . $Tname . 'b_img_data@01` B
-                            ON
-                                A.CONF_SEQ=B.CONF_SEQ
-                                AND
-                                A.BD_SEQ=B.BD_SEQ
-                                AND
-                                B.IMG_ALIGN=1
-                            LEFT JOIN
-                                ' . $Tname . 'comm_goods_master C
-                            ON
-                                A.BD_ITEM1=C.STR_GOODCODE
-                            LEFT JOIN
-                                ' . $Tname . 'comm_com_code D
-                            ON
-                                C.INT_BRAND=D.INT_NUMBER
-                            WHERE 
-                                A.CONF_SEQ=2
-                                AND A.BD_ID_KEY IS NOT NULL
-                                AND C.INT_TYPE=' . $product_type . '
-                            ORDER BY A.BD_ORDER DESC
-                            LIMIT 4';
+                                    A.BD_SEQ,
+                                    A.CONF_SEQ,
+                                    A.MEM_ID,
+                                    A.BD_CONT,
+                                    A.BD_REG_DATE,
+                                    A.BD_ITEM2,
+                                    IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                                    C.STR_GOODNAME,
+                                    C.STR_IMAGE1,
+                                    C.INT_DISCOUNT,
+                                    C.INT_PRICE,
+                                    C.INT_TYPE,
+                                    D.STR_CODE
+                                FROM 
+                                    `' . $Tname . 'b_bd_data@01` A
+                                LEFT JOIN
+                                    `' . $Tname . 'b_img_data@01` B
+                                ON
+                                    A.CONF_SEQ=B.CONF_SEQ
+                                    AND
+                                    A.BD_SEQ=B.BD_SEQ
+                                    AND
+                                    B.IMG_ALIGN=1
+                                LEFT JOIN
+                                    ' . $Tname . 'comm_goods_master C
+                                ON
+                                    A.BD_ITEM1=C.STR_GOODCODE
+                                LEFT JOIN
+                                    ' . $Tname . 'comm_com_code D
+                                ON
+                                    C.INT_BRAND=D.INT_NUMBER
+                                WHERE 
+                                    A.CONF_SEQ=2
+                                    AND A.BD_ID_KEY IS NOT NULL
+                                    AND C.INT_TYPE=' . $product_type . '
+                                ORDER BY A.BD_ORDER DESC
+                                LIMIT 4';
 
                 $review_list_result = mysql_query($SQL_QUERY);
 

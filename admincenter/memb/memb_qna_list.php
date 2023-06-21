@@ -67,7 +67,7 @@
 	$SQL_QUERY.="comm_member_qna a ";
 	$SQL_QUERY.="where a.int_number is not null ";
 	$SQL_QUERY.=$Str_Query;
-	$SQL_QUERY.="order by a.dtm_indate desc ";
+	$SQL_QUERY.="order by a.int_idx desc, a.int_level asc ";
 	$SQL_QUERY.="limit $f_limit,$l_limit";
 
 	$result = mysql_query($SQL_QUERY);
