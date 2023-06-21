@@ -80,7 +80,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <p class="font-bold text-xs leading-[14px] text-[#666666]">[<?= $type_name ?>]</p>
                 <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_TITLE'] ?></p>
             </div>
-            <a href="remove_qna_list.php?int_number=<?= $arr_Data['INT_NUMBER'] ?>" class="flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] w-[50px] h-[25px]">
+            <a href="remove_qna_list.php?int_number=<?= $int_number ?>" class="flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] w-[50px] h-[25px]">
                 <p class="font-bold text-[9px] leading-[9px] text-[#666666]">삭제</p>
             </a>
         </div>
