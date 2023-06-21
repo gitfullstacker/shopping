@@ -18,6 +18,13 @@
     background: #050303;
 }
 
+.main-body>.menu-section.top-menu-section {
+    position: fixed;
+    top: 55px;
+    max-width: 410px;
+    z-index: 10;
+}
+
 .main-body>.menu-section>.item {
     position: relative;
     display: flex;
@@ -51,8 +58,8 @@
 .main-body>.fashion-brand>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #333333;
 }
@@ -61,19 +68,14 @@
     margin-top: 9px;
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 17px;
     text-align: center;
     color: #333333;
 }
 
-.main-body>.fashion-brand>.product-list {
-    width: 100%;
-    height: 50px;
-}
-
 .main-body>.review-section {
-    margin-top: 96px;
+    padding-top: 96px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,8 +84,8 @@
 .main-body>.review-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #333333;
 }
@@ -92,7 +94,7 @@
     margin-top: 9px;
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 17px;
     text-align: center;
     color: #333333;
@@ -161,16 +163,16 @@
 
 .main-body>.review-section>.review-list>.item>.header-section>.brand {
     font-style: normal;
-    font-weight: 800;
-    font-size: 9px;
+    font-weight: 600;
+    font-size: 12px;
     line-height: 10px;
     color: #666666;
 }
 
 .main-body>.review-section>.review-list>.item>.header-section>.title {
     font-style: normal;
-    font-weight: 700;
-    font-size: 9px;
+    font-weight: 500;
+    font-size: 12px;
     line-height: 10px;
     color: #333333;
 }
@@ -195,9 +197,9 @@
 
 .main-body>.review-section>.review-list>.item>.content-section>.review-content {
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 11px;
-    line-height: 12px;
+    line-height: 13px;
     color: #333333;
 }
 
@@ -225,14 +227,14 @@
     color: #FFFFFF;
 }
 
-.main-body>.subscription-section {
+.main-body>.membership-section {
     margin-top: 100px;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.main-body>.subscription-section>.header-section {
+.main-body>.membership-section>.header-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -242,31 +244,31 @@
     height: 132px;
 }
 
-.main-body>.subscription-section>.header-section>.title {
+.main-body>.membership-section>.header-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #333333;
 }
 
-.main-body>.subscription-section>.header-section>.description {
+.main-body>.membership-section>.header-section>.description {
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 16px;
     text-align: center;
     color: #333333;
 }
 
-.main-body>.subscription-section>.menu-section {
+.main-body>.membership-section>.menu-section {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.main-body>.subscription-section>.menu-section>.item {
+.main-body>.membership-section>.menu-section>.item {
     position: relative;
     height: 50px;
     flex: 1 1 0%;
@@ -275,40 +277,40 @@
     align-items: center;
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 16px;
     text-align: center;
     color: #FFFFFF;
 }
 
-.main-body>.subscription-section>.menu-section>.item>svg {
+.main-body>.membership-section>.menu-section>.item>svg {
     display: none;
     position: absolute;
     top: -4px;
     left: 50% - 20px;
 }
 
-.main-body>.subscription-section>.menu-section>.item.active>svg {
+.main-body>.membership-section>.menu-section>.item.active>svg {
     display: block;
 }
 
-.main-body>.subscription-section>.menu-section>.item:nth-child(1) {
+.main-body>.membership-section>.menu-section>.item:nth-child(1) {
     background: #00402F;
 }
 
-.main-body>.subscription-section>.menu-section>.item:nth-child(2) {
+.main-body>.membership-section>.menu-section>.item:nth-child(2) {
     background: #EEAC4C;
 }
 
-.main-body>.subscription-section>.content-section {
+.main-body>.membership-section>.content-section {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.main-body>.subscription-section>.content-section>.header-section {
+.main-body>.membership-section>.content-section>.header-section {
     position: relative;
-    background-image: url('../images/subscription_main.png');
+    background-size: cover;
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -317,7 +319,15 @@
     gap: 9px;
 }
 
-.main-body>.subscription-section>.content-section>.header-section>.background {
+.main-body>.membership-section>.content-section>.header-section.rent-section {
+    background-image: url('../images/rent_main.png');
+}
+
+.main-body>.membership-section>.content-section>.header-section.subscription-section {
+    background-image: url('../images/subscription_main.png');
+}
+
+.main-body>.membership-section>.content-section>.header-section>.background {
     position: absolute;
     top: 0;
     left: 0;
@@ -326,27 +336,27 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
-.main-body>.subscription-section>.content-section>.header-section>.title {
+.main-body>.membership-section>.content-section>.header-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #FFFFFF;
-    z-index: 10;
+    z-index: 3;
 }
 
-.main-body>.subscription-section>.content-section>.header-section>.description {
+.main-body>.membership-section>.content-section>.header-section>.description {
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 16px;
     text-align: center;
     color: #FFFFFF;
-    z-index: 10;
+    z-index: 3;
 }
 
-.main-body>.subscription-section>.content-section>.content-list {
+.main-body>.membership-section>.content-section>.content-list {
     display: flex;
     flex-direction: column;
     gap: 9px;
@@ -354,11 +364,18 @@
     padding-right: 20px;
     padding-top: 28px;
     padding-bottom: 28px;
-    background: #E5EAE3;
     width: 100%;
 }
 
-.main-body>.subscription-section>.content-section>.content-list>.item {
+.main-body>.membership-section>.content-section>.content-list.rent-section {
+    background: #E5EAE3;
+}
+
+.main-body>.membership-section>.content-section>.content-list.subscription-section {
+    background: #F7ECDC;
+}
+
+.main-body>.membership-section>.content-section>.content-list>.item {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -372,19 +389,19 @@
     border-radius: 10px;
 }
 
-.main-body>.subscription-section>.content-section>.content-list>.item>.icon {
+.main-body>.membership-section>.content-section>.content-list>.item>.icon {
     width: 60px;
     height: 60px;
 }
 
-.main-body>.subscription-section>.content-section>.content-list>.item>.item-content {
+.main-body>.membership-section>.content-section>.content-list>.item>.item-content {
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.main-body>.subscription-section>.content-section>.content-list>.item>.item-content>.title {
+.main-body>.membership-section>.content-section>.content-list>.item>.item-content>.title {
     font-style: normal;
     font-weight: 700;
     font-size: 12px;
@@ -392,15 +409,15 @@
     color: #000000;
 }
 
-.main-body>.subscription-section>.content-section>.content-list>.item>.item-content>.description {
+.main-body>.membership-section>.content-section>.content-list>.item>.item-content>.description {
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
 }
 
-.main-body>.rent-system-section {
+.main-body>.delivery-system-section {
     margin-top: 46px;
     display: flex;
     flex-direction: column;
@@ -409,16 +426,16 @@
     padding-right: 14px;
 }
 
-.main-body>.rent-system-section>.title {
+.main-body>.delivery-system-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #000000;
 }
 
-.main-body>.rent-system-section>.system-list {
+.main-body>.delivery-system-section>.system-list {
     margin-top: 28px;
     padding-left: 10px;
     padding-right: 10px;
@@ -427,13 +444,13 @@
     gap: 9px;
 }
 
-.main-body>.rent-system-section>.system-list>.item {
+.main-body>.delivery-system-section>.system-list>.item {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.main-body>.rent-system-section>.system-list>.item>.icon {
+.main-body>.delivery-system-section>.system-list>.item>.icon {
     width: 95px;
     height: 95px;
     display: flex;
@@ -444,7 +461,7 @@
     border-radius: 100%;
 }
 
-.main-body>.rent-system-section>.system-list>.item>.title {
+.main-body>.delivery-system-section>.system-list>.item>.title {
     margin-top: 15px;
     font-style: normal;
     font-weight: 700;
@@ -454,21 +471,21 @@
     color: #000000;
 }
 
-.main-body>.rent-system-section>.system-list>.item>.description {
+.main-body>.delivery-system-section>.system-list>.item>.description {
     margin-top: 5px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
     line-height: 17px;
     text-align: center;
     color: #666666;
 }
 
-.main-body>.rent-system-section>.system-list>.splitter {
+.main-body>.delivery-system-section>.system-list>.splitter {
     padding-top: 47px;
 }
 
-.main-body>.rent-system-section>.guid-section {
+.main-body>.delivery-system-section>.guid-section {
     margin-top: 25px;
     background: #F5F5F5;
     padding-top: 15px;
@@ -480,24 +497,24 @@
     gap: 7px;
 }
 
-.main-body>.rent-system-section>.guid-section>.title {
+.main-body>.delivery-system-section>.guid-section>.title {
     font-style: normal;
     font-weight: 700;
-    font-size: 10px;
-    line-height: 140%;
+    font-size: 12px;
+    line-height: 14px;
     color: #000000;
 }
 
-.main-body>.rent-system-section>.guid-section>.description {
+.main-body>.delivery-system-section>.guid-section>.description {
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 10px;
     line-height: 160%;
     color: #999999;
 }
 
 .main-body>.service-findout-section {
-    margin-top: 96px;
+    padding-top: 96px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -509,8 +526,8 @@
 .main-body>.service-findout-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #000000;
 }
@@ -566,7 +583,7 @@
 
 .main-body>.service-findout-section>.service-list>.item>.content-section>.description {
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
@@ -590,8 +607,8 @@
 .main-body>.question-section>.title {
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 140%;
+    font-size: 25px;
+    line-height: 27px;
     text-align: center;
     color: #333333;
 }
@@ -623,13 +640,13 @@
 .main-body>.question-section>.question-list>.item>.header-section>.question {
     font-style: normal;
     font-weight: 800;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 16px;
 }
 
 .main-body>.question-section>.question-list>.item>.body-section>.answer {
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
