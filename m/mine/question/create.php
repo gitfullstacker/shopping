@@ -65,13 +65,13 @@ if ($int_cart) {
     <form action="create_proc.php" method="post" class="flex flex-col gap-[15px]" onsubmit="return validateForm()" enctype="multipart/form-data">
         <input type="hidden" name="int_cart" value="<?= $int_cart ?>">
         <div class="flex flex-col gap-[5px]">
-            <p class="font-bold text-xs leading-[14px] text-black">제목</p>
-            <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="str_title" id="str_title" placeholder="제목을 입력해주세요">
+            <p class="font-bold text-sm leading-4 text-black">제목</p>
+            <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] px-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_title" id="str_title" placeholder="제목을 입력해주세요">
         </div>
         <div class="flex flex-col gap-[5px]">
-            <p class="font-bold text-xs leading-[14px] text-black">상담분류</p>
+            <p class="font-bold text-sm leading-4 text-black">상담분류</p>
             <div class="relative w-full">
-                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
+                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
                     <option value="" selected>선택 안함</option>
                     <option value="1">교환</option>
                     <option value="2">환불</option>
@@ -93,8 +93,8 @@ if ($int_cart) {
             </div>
         </div>
         <div class="flex flex-col gap-[5px]">
-            <p class="font-bold text-xs leading-[14px] text-black">문의내용</p>
-            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-bold text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont" placeholder="안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.
+            <p class="font-bold text-sm leading-4 text-black">문의내용</p>
+            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-normal text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont" placeholder="안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.
 
 폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며,
 사전 안내없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.
@@ -105,11 +105,11 @@ if ($int_cart) {
 "></textarea>
         </div>
         <div class="flex flex-col gap-[5px]">
-            <p class="font-bold text-xs leading-[14px] text-black">이미지 첨부</p>
+            <p class="font-bold text-sm leading-4 text-black">이미지 첨부</p>
             <div class="flex gap-[5px]">
                 <div class="grow flex flex-col gap-2.5">
                     <input type="file" class="hidden" name="str_image" id="image_input" onchange="handleFileChange(event)" />
-                    <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" name="images" id="image_names" readonly>
+                    <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="images" id="image_names" readonly>
                     <p class="font-bold text-[10px] leading-[15px] text-[#999999]">이미지 파일(JPG, PNG, GIF)를 기준으로 최대 10MB이하,
                         최대 3개까지 등록가능합니다.</p>
                 </div>
@@ -131,9 +131,9 @@ if ($int_cart) {
         </div>
 
         <div class="mt-[15px] flex gap-[5px] w-full">
-            <button type="reset" class="flex justify-center items-center border border-solid border-[#DDDDDD] bg-white w-full h-[45px]">
+            <a href="index.php" class="flex justify-center items-center border border-solid border-[#DDDDDD] bg-white w-full h-[45px]">
                 <p class="font-bold text-xs leading-[14px] text-[#666666]">취소</p>
-            </button>
+            </a>
             <button type="submit" class="flex justify-center items-center border border-solid border-[#DDDDDD] bg-black w-full h-[45px]">
                 <p class="font-bold text-xs leading-[14px] text-white">작성</p>
             </button>
