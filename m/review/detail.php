@@ -18,6 +18,7 @@ $SQL_QUERY =    'SELECT
                     A.BD_REG_DATE,
                     A.BD_ITEM2,
                     IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                    C.STR_GOODCODE,
                     C.STR_GOODNAME,
                     C.STR_IMAGE1,
                     C.INT_DISCOUNT,
@@ -58,7 +59,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 <!-- Body -->
 <div class="main-body">
     <div class="review-detail">
-        <div class="product-detail">
+        <a href="/m/product/detail.php?str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="product-detail">
             <div class="image">
                 <img src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
             </div>
@@ -70,7 +71,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="title"><?= $arr_Data['STR_GOODNAME'] ?></div>
                 <div class="score"><?= str_repeat('★', $arr_Data['BD_ITEM2']) ?></div>
             </div>
-        </div>
+        </a>
         <div class="spliter"></div>
         <div class="flex flex-col gap-1 items-center w-full">
             <?php
