@@ -81,6 +81,17 @@ $SQL_QUERY =    'SELECT
 
 $product_list_result = mysql_query($SQL_QUERY);
 
+// 금액정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
     switch ($row['INT_TYPE']) {
@@ -88,7 +99,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
                     <p class="font-extrabold text-xs leading-[14px] text-[#EEAC4C] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">월 ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                    <p class="font-bold text-xs leading-[14px] text-black">월 ' . number_format($site_Data['INT_OPRICE1']) . '원</p>
                 </div>
             ';
             break;

@@ -22,6 +22,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink" />
 
 <?php
+// 금액정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 

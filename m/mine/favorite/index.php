@@ -48,6 +48,17 @@ $SQL_QUERY =    'SELECT
                     A.STR_USERID="' . $arr_Auth[0] . '"';
 
 $favorite_product_result = mysql_query($SQL_QUERY);
+
+// 금액정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-1.5 flex flex-col w-full min-h-screen px-[14px]">
@@ -102,7 +113,7 @@ $favorite_product_result = mysql_query($SQL_QUERY);
                         ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
                                     <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
-                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#EEAC4C]">
                                     <p class="font-normal text-[9px] leading-[9px] text-center text-white">구독</p>
@@ -171,7 +182,7 @@ $favorite_product_result = mysql_query($SQL_QUERY);
                         ?>
                                 <div class="mt-[8.4px] flex gap-1 items-center">
                                     <p class="font-extrabold text-[13px] leading-[15px] text-[#EEAC4C]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></p>
-                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+                                    <p class="font-bold text-[13px] leading-[15px] text-black"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
                                 </div>
                                 <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[#EEAC4C]">
                                     <p class="font-normal text-[9px] leading-[9px] text-center text-white">구독</p>
