@@ -26,6 +26,17 @@ fnc_MLogin_Chk();
                     ORDER BY B.INT_TYPE ASC, A.DTM_INDATE DESC';
 
     $product_result = mysql_query($SQL_QUERY);
+
+    // 금액정보 얻기
+    $SQL_QUERY =    'SELECT
+                        A.*
+                    FROM 
+                        ' . $Tname . 'comm_site_info AS A
+                    WHERE
+                        A.INT_NUMBER=1';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 
     <?php
@@ -125,6 +136,11 @@ fnc_MLogin_Chk();
                                                     구독
                                                 </p>
                                             </div>
+                                            <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
+                                            <p class="font-bold text-xs leading-[14px] text-[#999999] mt-2.5">월정액 구독 전용</p>
+                                            <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
+                                                <span class="text-[#EEAC4C]">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+                                            </p>
                                         <?php
                                             break;
                                         case 2:
@@ -134,27 +150,11 @@ fnc_MLogin_Chk();
                                                     렌트
                                                 </p>
                                             </div>
-                                    <?php
-                                            break;
-                                    }
-                                    ?>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
-                                    <?php
-                                    switch ($row['INT_TYPE']) {
-                                        case 1:
-                                    ?>
-                                            <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-                                            <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
-                                                <span class="text-[#EEAC4C]">월</span><?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
-                                            </p>
-                                        <?php
-                                            break;
-                                        case 2:
-                                        ?>
+                                            <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
                                             <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
                                             <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
                                                 <span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>
-                                                <?= $row ? '일 ' . (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                                일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
                                             </p>
                                     <?php
                                             break;
