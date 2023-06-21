@@ -25,8 +25,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     </div>
     <div class="flex flex-col gap-[39px] w-full py-5 border-t-[0.5px] border-b-[0.5px] border-[#E0E0E0] px-2">
         <a href="/m/main/" class="font-bold text-[19px] leading-[22px]">홈</a>
-        <a href="/m/product/index.php?product_type=1" class="font-bold text-[19px] leading-[22px]">명품렌트</a>
-        <a href="/m/product/index.php?product_type=2" class="font-bold text-[19px] leading-[22px]">명품구독</a>
+        <a href="/m/product/index.php?product_type=2" class="font-bold text-[19px] leading-[22px]">명품렌트</a>
+        <a href="/m/product/index.php?product_type=1" class="font-bold text-[19px] leading-[22px]">명품구독</a>
         <a href="/m/product/index.php?product_type=3" class="font-bold text-[19px] leading-[22px]">중고명품</a>
         <a href="/m/eventzone/index.php" class="font-bold text-[19px] leading-[22px]">이벤트존</a>
     </div>
