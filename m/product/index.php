@@ -353,22 +353,25 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
     </div>
 
     <!-- Review -->
-    <div class="review">
-        <div class="top-section">
-            <div class="left-section">
-                <p class="title">REVIEW</p>
-                <p class="description">실시간 리뷰</p>
+    <?php
+    if ($product_type != 3) {
+    ?>
+        <div class="review">
+            <div class="top-section">
+                <div class="left-section">
+                    <p class="title">REVIEW</p>
+                    <p class="description">실시간 리뷰</p>
+                </div>
+                <a href="/m/review/index.php" class="right-section">
+                    <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.56897 1.12354L14.1346 6.05335L8.56897 10.7839" stroke="black" stroke-width="1.08333" stroke-miterlimit="10" />
+                        <path d="M14.1347 6.05322H0.212161" stroke="black" stroke-width="1.08333" stroke-miterlimit="10" />
+                    </svg>
+                </a>
             </div>
-            <a href="/m/review/index.php" class="right-section">
-                <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.56897 1.12354L14.1346 6.05335L8.56897 10.7839" stroke="black" stroke-width="1.08333" stroke-miterlimit="10" />
-                    <path d="M14.1347 6.05322H0.212161" stroke="black" stroke-width="1.08333" stroke-miterlimit="10" />
-                </svg>
-            </a>
-        </div>
-        <div class="grid grid-cols-2 gap-x-[15px] gap-y-5 w-full">
-            <?php
-            $SQL_QUERY =    'SELECT 
+            <div class="grid grid-cols-2 gap-x-[15px] gap-y-5 w-full">
+                <?php
+                $SQL_QUERY =    'SELECT 
                                 A.BD_SEQ,
                                 A.CONF_SEQ,
                                 A.MEM_ID,
@@ -407,31 +410,34 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                             ORDER BY A.BD_ORDER DESC
                             LIMIT 4';
 
-            $review_list_result = mysql_query($SQL_QUERY);
+                $review_list_result = mysql_query($SQL_QUERY);
 
-            while ($row = mysql_fetch_assoc($review_list_result)) {
-                if ($row['IMG_F_NAME']) {
-                    $image_url = '/admincenter/files/boad/2/' . $row['IMG_F_NAME'];
-                } else {
-                    $image_url = '/admincenter/files/good/' . $row['STR_IMAGE1'];
-                }
-            ?>
-                <a href="/m/review/detail.php?bd_seq=<?= $row['BD_SEQ'] ?>" class="flex flex-col w-full">
-                    <div class="flex relative w-full h-[167px] bg-gray-100">
-                        <img class="flex w-full object-cover object-center" src="<?= $image_url ?>" onerror="this.style.display = 'none'" alt="">
-                        <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
-                            <p class="font-semibold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-                            <p class="font-medium text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+                while ($row = mysql_fetch_assoc($review_list_result)) {
+                    if ($row['IMG_F_NAME']) {
+                        $image_url = '/admincenter/files/boad/2/' . $row['IMG_F_NAME'];
+                    } else {
+                        $image_url = '/admincenter/files/good/' . $row['STR_IMAGE1'];
+                    }
+                ?>
+                    <a href="/m/review/detail.php?bd_seq=<?= $row['BD_SEQ'] ?>" class="flex flex-col w-full">
+                        <div class="flex relative w-full h-[167px] bg-gray-100">
+                            <img class="flex w-full object-cover object-center" src="<?= $image_url ?>" onerror="this.style.display = 'none'" alt="">
+                            <div class="absolute left-0 bottom-0 w-full px-[9px] py-[8px] flex flex-col justify-center gap-[3px] bg-[#F8F8F8] bg-opacity-80">
+                                <p class="font-semibold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+                                <p class="font-medium text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['BD_ITEM2']) ?></p>
-                    <p class="mt-1.5 font-medium text-[11px] leading-[15px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
-                </a>
-            <?php
-            }
-            ?>
+                        <p class="mt-[11px] font-extrabold text-xs leading-[14px] text-[#333333]"><?= str_repeat('★', $row['BD_ITEM2']) ?></p>
+                        <p class="mt-1.5 font-medium text-[11px] leading-[15px] text-[#333333] line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
+                    </a>
+                <?php
+                }
+                ?>
+            </div>
         </div>
-    </div>
+    <?php
+    }
+    ?>
 
     <div x-show="showCalendar" x-transition x-data="{
         currentYear: null,

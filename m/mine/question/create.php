@@ -125,9 +125,10 @@ if ($int_cart) {
         <hr class="mt-1.5 border-t-[0.5] border-[#E0E0E0]" />
 
         <div class="mt-1 flex w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-            <p class="font-bold text-[10px] leading-[16px] text-[#999999]">
+            <p class="font-normal text-[10px] leading-[16px] text-[#999999]">
                 -한번 등록한 상담내용은 수정이 불가능합니다.<br />
-                -상담 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) 주말 및 공휴일 휴무</p>
+                -상담 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) 주말 및 공휴일 휴무
+            </p>
         </div>
 
         <div class="mt-[15px] flex gap-[5px] w-full">

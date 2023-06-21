@@ -88,7 +88,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <div class="mt-4 flex flex-col w-full">
         <img class="w-full" src="/admincenter/files/qna/<?= $arr_Data['STR_IMAGE1'] ?>" alt="">
-        <p class="mt-5 font-bold text-xs leading-[19px] text-[#666666]">
+        <p class="mt-5 font-normal text-xs leading-[19px] text-[#666666]">
             <?= $arr_Data['STR_CONT'] ?>
         </p>
     </div>
@@ -110,7 +110,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <div class="mt-5 flex flex-col w-full">
             <img class="w-full" src="/admincenter/files/qna/<?= $arr_Data['A_STR_IMAGE1'] ?>" alt="">
-            <p class="mt-5 font-bold text-xs leading-[19px] text-[#666666]">
+            <p class="mt-5 font-normal text-xs leading-[19px] text-[#666666]">
                 <?= $arr_Data['A_STR_CONT'] ?>
             </p>
         </div>
