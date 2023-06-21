@@ -139,7 +139,7 @@ fnc_MLogin_Chk();
                                             <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
                                             <p class="font-bold text-xs leading-[14px] text-[#999999] mt-2.5">월정액 구독 전용</p>
                                             <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
-                                                <span class="text-[#EEAC4C]">월</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+                                                <span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
                                             </p>
                                         <?php
                                             break;
@@ -226,12 +226,10 @@ fnc_MLogin_Chk();
                                         </p>
                                     </div>
                                     <p class="font-bold text-xs leading-[14px] text-[#666666] mt-[15px]"><?= $row['STR_GOODNAME'] ?></p>
-                                    <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>">일 <?= number_format($row['INT_PRICE']) ?>원</p>
-                                    <p class="font-extrabold text-xs text-[14px] text-[#7E6B5A]">
-                                        <?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?>
-                                    </p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#999999] mt-2.5 <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                                     <p class="font-bold text-xs leading-[14px] text-black mt-1.5">
-                                        <?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        <span class="text-[#7E6B5A]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span>
+                                        <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
                                     </p>
                                 </div>
                             </a>
@@ -307,33 +305,33 @@ fnc_MLogin_Chk();
 
                             <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                         </div>
-                        <p class="mt-[5.52px] font-extrabold text-[9px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-                        <p class="mt-[3.27px] font-bold text-[9px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
+                        <p class="mt-[5.52px] font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+                        <p class="mt-[3.27px] font-bold text-xs leading-[14px] text-[#333333]"><?= $row['STR_GOODNAME'] ?></p>
                         <div class="mt-[7.87px] flex gap-[3px] items-center">
                             <?php
                             switch ($row['INT_TYPE']) {
                                 case 2:
                             ?>
                                     <p class="font-bold text-xs leading-[14px] text-black">
-                                        <?= $row ? '일 ' . (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        일 <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
                                     </p>
-                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                                 <?php
                                     break;
                                 case 1:
                                 ?>
                                     <p class="font-bold text-xs leading-[14px] text-black">
-                                        <span class="text-[#EEAC4C]">월</span><?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        <span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
                                     </p>
-                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                                 <?php
                                     break;
                                 case 3:
                                 ?>
                                     <p class="font-bold text-xs leading-[14px] text-black">
-                                        <?= $row ? (number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?: '0') . '원' : '' ?>
+                                        <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
                                     </p>
-                                    <p class="font-bold text-[10px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+                                    <p class="font-bold text-xs leading-[14px] line-through text-[#666666] <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
                             <?php
                                     break;
                             }
