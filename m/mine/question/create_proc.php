@@ -62,7 +62,7 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
         $arr_Sub2 .=  ",";
     }
     $arr_Sub1 .=  $arr_Column_Name[$int_I];
-    $arr_Sub2 .=  "'" . $arr_Set_Data[$int_I] . "'";
+    $arr_Sub2 .=  $arr_Set_Data[$int_I] != null ? "'" . $arr_Set_Data[$int_I] . "'" : "NULL";
 }
 
 $Sql_Query = "INSERT INTO `" . $Tname . "comm_member_qna` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";

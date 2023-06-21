@@ -25,15 +25,15 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 <div x-data="{ menu: 1 }" class="mt-[30px] flex flex-col w-full px-[14px]">
     <div class="flex justify-center">
-        <p class="font-extrabold text-lg leading-[20px] text-black">적립금 현황</p>
+        <p class="font-extrabold text-lg leading-5 text-black">적립금 현황</p>
     </div>
     <div class="mt-[14px] flex flex-col w-full divide-y-[0.5px] divide-[#E0E0E0] bg-white border border-solid border-[#DDDDDD]">
         <div class="flex flex-col gap-[5px] px-[15px] py-5">
-            <p class="font-bold text-xs leading-[14px] text-[#666666]">나의 적립금</p>
+            <p class="font-bold text-sm leading-4 text-[#666666]">나의 적립금</p>
             <p class="font-extrabold text-[25px] leading-[28px] text-black"><?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
         </div>
         <div class="px-[15px] py-3">
-            <p class="font-bold text-[10px] leading-[11px] text-[#999999]">소멸예정 적립금(30일 이내 소멸예정): <?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
+            <p class="font-medium text-xs leading-[14px] text-[#999999]">소멸예정 적립금(30일 이내 소멸예정): <?= number_format($arr_Data['INT_MILEAGE']) ?>원</p>
         </div>
     </div>
 
@@ -41,7 +41,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <div class="mt-[15px] flex flex-col gap-[23px] w-full">
         <div class="relative w-full">
-            <select class="w-full h-[45px] pl-[15px] pr-[30px] bg-white border border-solid border-[#DDDDDD] font-bold text-xs leading-14px placeholder:text-[#666666]" onchange="handlePeriodChange(this.value)">
+            <select class="w-full h-[45px] pl-[15px] pr-[30px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-14px placeholder:text-[#666666]" onchange="handlePeriodChange(this.value)">
                 <option value="3">최근 3개월</option>
                 <option value="6">최근 6개월</option>
                 <option value="12">최근 12개월</option>

@@ -85,7 +85,7 @@ if ($end_page > 0) {
         $result .= '
             <a href="detail.php?int_number=' . $row['INT_NUMBER'] . '" class="flex justify-between items-center gap-4 pb-[15px] border-b-[0.5px] border-[#E0E0E0]">
                 <div class="flex-1 flex flex-col gap-1.5">
-                    <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
+                    <p class="font-normal text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">[' . $type_name . ']</p>
                     <p class="font-bold text-xs leading-[14px] text-[#666666] line-clamp-1">' . $row['STR_TITLE'] . '</p>
                 </div>

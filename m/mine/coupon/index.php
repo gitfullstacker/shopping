@@ -12,10 +12,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
     </div>
     <div class="mt-[14px] flex justify-center items-center gap-16 w-full">
         <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">나의 쿠폰</p>
+            <p class="font-bold text-sm leading-4" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">나의 쿠폰</p>
         </div>
         <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2">
-            <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">쿠폰 등록</p>
+            <p class="font-bold text-sm leading-4" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">쿠폰 등록</p>
         </div>
     </div>
 
@@ -24,7 +24,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <div x-show="menu == 2" class="flex flex-col w-full">
         <form class="mt-[15px] flex gap-[5px] items-center w-full" action="add_coupon_proc.php" method="post" onsubmit="return checkVal()">
-            <input type="text" class="grow px-[15px] h-[45px] bg-white border border-solid border-[#DDDDDD] rounded-[3px] font-bold text-xs leading-[12px] placeholder:text-[#666666]" id="str_code" name="str_code" placeholder="쿠폰 번호를 입력해주세요">
+            <input type="text" class="grow px-[15px] h-[45px] bg-white border border-solid border-[#DDDDDD] rounded-[3px] font-normal text-xs leading-[12px] placeholder:text-[#666666]" id="str_code" name="str_code" placeholder="쿠폰 번호를 입력해주세요">
             <button type="submit" class="w-[97px] h-[45px] flex justify-center items-center bg-black border border-solid border-[#DDDDDD] rounded-[3px]">
                 <p class="font-bold text-xs leading-[12px] text-white">발급받기</p>
             </button>
@@ -33,8 +33,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <hr class="mt-[23px] border-t-[0.5px] broder-[#E0E0E0]" />
 
         <div class="mt-[15px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
-            <p class="font-bold text-[10px] leading-[14px] text-black">쿠폰 발급 안내</p>
-            <p class="font-bold text-[10px] leading-[14px] text-[#999999]">
+            <p class="font-bold text-xs leading-[14px] text-black">쿠폰 발급 안내</p>
+            <p class="font-normal text-[10px] leading-[14px] text-[#999999]">
                 -에이블랑의 회원이어야 발급 받을 수 있습니다.<br />
                 -쿠폰의 발급 기간 및 유효 기간을 꼭 확인해주세요.<br />
                 -쿠폰 사용시 최소 구매금액이 있으며, 일부 상품은 사용에 제한이 있을 수 있습니다.<br />

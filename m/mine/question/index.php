@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <p class="font-extrabold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
         <p class="mt-[13px] font-bold text-xs leading-[14px] text-black">CS NUMBER : 02-6013-0616</p>
         <p class="mt-[5px] font-bold text-xs leading-[14px] text-black">KAKAOTALK : @빈느</p>
-        <p class="mt-[15px] font-bold text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
+        <p class="mt-[15px] font-medium text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
     </div>
     <a href="create.php" class="mt-[15px] w-full h-[45px] flex justify-center items-center bg-black border border-solid border-[#DDDDDD]">
         <p class="font-bold text-xs leading-[12px] text-white">1:1 문의 작성하기</p>
