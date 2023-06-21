@@ -10,11 +10,17 @@ $start_page = 1;
 $end_page = 1;
 
 $int_gubun = $_GET['int_gubun'];
+$search_key = $_GET['search_key'];
 
+$SQL_WHERE_QUERY = '';
 if ($int_gubun == 0) {
-    $SQL_WHERE_QUERY = 'A.STR_MSERVICE="Y"';
+    $SQL_WHERE_QUERY .= ' AND A.STR_MSERVICE="Y"';
 } else {
-    $SQL_WHERE_QUERY = 'A.INT_GUBUN=' . $int_gubun;
+    $SQL_WHERE_QUERY .= ' AND A.INT_GUBUN=' . $int_gubun;
+}
+
+if ($search_key) {
+    $SQL_WHERE_QUERY .= ' AND (A.STR_QUEST LIKE "%' . $search_key . '%" OR A.STR_ANSWER LIKE "%' . $search_key . '%")';
 }
 
 $SQL_QUERY = 'SELECT 
@@ -22,6 +28,7 @@ $SQL_QUERY = 'SELECT
                 FROM 
                     ' . $Tname . 'comm_faq A
                 WHERE 
+                    A.INT_NUMBER IS NOT NULL
                     ' . $SQL_WHERE_QUERY;
 
 $result = mysql_query($SQL_QUERY);
@@ -45,7 +52,8 @@ $SQL_QUERY =    'SELECT
                 ON
                     A.INT_GUBUN=B.INT_NUMBER
                 WHERE 
-                ' . $SQL_WHERE_QUERY . '
+                    A.INT_NUMBER IS NOT NULL
+                    ' . $SQL_WHERE_QUERY . '
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
@@ -68,7 +76,7 @@ while ($row = mysql_fetch_assoc($ask_list_result)) {
                 </div>
             </div>
             <div x-show="!isCollapsed" class="flex bg-[#F5F5F5] p-[22px]">
-                <div class="flex flex-col w-full font-bold text-xs leading-[140%] text-[#666666]">
+                <div class="flex flex-col w-full font-normal text-xs leading-[14px] text-[#666666]">
                 ' . $row['STR_ANSWER'] . '
                 </div>
             </div>
