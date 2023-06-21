@@ -2,8 +2,8 @@
 <?php
 $int_number = $_GET['int_number'];
 $SQL_QUERY =    'DELETE FROM 
-                    ' . $Tname . 'comm_member_qna A 
-                WHERE A.INT_IDX=' . $int_number;
+                    ' . $Tname . 'comm_member_qna 
+                WHERE INT_IDX=' . $int_number;
 mysql_query($SQL_QUERY);
 ?>
 
