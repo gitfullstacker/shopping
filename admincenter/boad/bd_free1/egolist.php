@@ -407,7 +407,7 @@ $str_Url = "egolist.php" . $str_String;
 								<th><a href="javascript:fnc_All_Chk(document.frm_List);"><img src="<?= $str_Board_Icon_Img ?>ic_chk.gif" align="absMiddle" border="0"></a></th>
 								<th>번호</th>
 								<th>상품</th>
-								<th>제목</th>
+								<th>내용</th>
 								<th>만족도</th>
 								<th>file</th>
 								<th>작성자</th>
@@ -522,10 +522,10 @@ $str_Url = "egolist.php" . $str_String;
 								<?= mysql_result($arr_Notice_Data, $int_I, bd_view_cnt) ?>
 							</td>
 							<td align="center">
-								
+
 							</td>
 							<td align="center">
-								
+
 							</td>
 		</td>
 	</tr>
@@ -588,7 +588,10 @@ $str_Url = "egolist.php" . $str_String;
 					//	= 메모글 갯수 출력 종료
 					// ========================
 
-					$str_Tmp = stripslashes(mysql_result($arr_Get_Data, $int_I, bd_title));
+					$length = 20;
+					$withoutTags = strip_tags(mysql_result($arr_Get_Data, $int_I, bd_cont));
+					$truncated = mb_strlen($withoutTags, 'UTF-8') > $length ? mb_substr($withoutTags, 0, $length, 'UTF-8') . '...' : $withoutTags;
+					$str_Tmp = stripslashes($truncated);
 
 					$str_Tmp = Fnc_Conv_View($str_Tmp, 0);
 
