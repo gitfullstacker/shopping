@@ -14,6 +14,7 @@ $Txt_service = Fnc_Om_Conv_Default($_REQUEST[Txt_service], "");
 $Txt_gubun = Fnc_Om_Conv_Default($_REQUEST[Txt_gubun], "");
 $Txt_sms_f = Fnc_Om_Conv_Default($_REQUEST[Txt_sms_f], "");
 $Txt_mail_f = Fnc_Om_Conv_Default($_REQUEST[Txt_mail_f], "");
+$Txt_grade = Fnc_Om_Conv_Default($_REQUEST[Txt_grade], "");
 
 $Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
 $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
@@ -47,18 +48,18 @@ if ($Txt_service != "") {
 	$Str_Query .= " and a.str_service = '$Txt_service' ";
 }
 if ($Txt_gubun != "") {
-	//$Str_Query .= " and a.str_userid = '$Txt_gubun' ";
-	$Str_Query .= " and a.str_userid in (select f.str_userid from `" . $Tname . "comm_member` as f left join (select ifnull(d.str_ptype,0) as mtype,d.str_userid from `" . $Tname . "comm_member_pay` as d inner join `" . $Tname . "comm_member_pay_info` as e on d.int_number=e.int_number and d.str_pass='0' and date_format(e.str_sdate, '%Y-%m-%d') <= '" . date("Y-m-d") . "' and date_format(e.str_edate, '%Y-%m-%d') >= '" . date("Y-m-d") . "') as g on f.str_userid=g.str_userid where ";
 	if ($Txt_gubun == "0") {
-		$Str_Query .= " mtype is null ";
+		$Str_Query .= " and (b.int_number IS NULL and c.int_number IS NULL) ";
 	}
 	if ($Txt_gubun == "1") {
-		$Str_Query .= " mtype = '1' ";
+		$Str_Query .= " and c.int_number IS NOT NULL ";
 	}
 	if ($Txt_gubun == "2") {
-		$Str_Query .= " mtype = '2' ";
+		$Str_Query .= " and b.int_number IS NOT NULL ";
 	}
-	$Str_Query .= " ) ";
+	if ($Txt_gubun == "3") {
+		$Str_Query .= " and (b.int_number IS NOT NULL and c.int_number IS NOT NULL) ";
+	}
 }
 if ($Txt_sms_f != "") {
 	$Str_Query .= " and a.str_sms_f = '$Txt_sms_f' ";
@@ -67,6 +68,9 @@ if ($Txt_mail_f != "") {
 	$Str_Query .= " and a.str_mail_f = '$Txt_mail_f' ";
 }
 
+if ($Txt_grade) {
+	$Str_Query .= " and a.str_grade = '$Txt_grade' ";
+}
 
 if ($Txt_sindate != "") {
 	$Str_Query .= " and date_format(a.dtm_indate, '%Y-%m-%d') >= '$Txt_sindate' ";
@@ -82,10 +86,25 @@ if ($Txt_eacdate != "") {
 	$Str_Query .= " and date_format(a.dtm_acdate, '%Y-%m-%d') <= '$Txt_eacdate' ";
 }
 
-$SQL_QUERY = "select count(a.str_userid) from " . $Tname . "comm_member a where a.int_gubun<=2 ";
+$SQL_QUERY = 	"select 
+					count(a.str_userid) 
+				from 
+					" . $Tname . "comm_member a 
+				LEFT JOIN 
+					" . $Tname . "comm_membership b 
+				ON
+					a.str_userid = b.str_userid
+					AND NOW() BETWEEN b.dtm_sdate AND b.dtm_edate
+					AND b.int_type = 1
+				LEFT JOIN 
+					" . $Tname . "comm_membership c 
+				ON
+					a.str_userid = c.str_userid
+					AND NOW() BETWEEN c.dtm_sdate AND c.dtm_edate
+					AND c.int_type = 2
+				where a.int_gubun<=2 ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
-
 
 if (!result) {
 	error("QUERY_ERROR");
@@ -205,13 +224,18 @@ $total_record_limit = mysql_num_rows($result);
 									</tr>
 									<tr>
 										<td>회원구분</td>
-										<td colspan="3">
+										<td>
 											<select name="Txt_gubun">
 												<option value="" selected> 전체 </option>
 												<option value="0" <? if ($Txt_gubun == "0") { ?>selected<? } ?>> 일반회원 </option>
-												<option value="1" <? if ($Txt_gubun == "1") { ?>selected<? } ?>> 멥버십회원 </option>
-												<option value="2" <? if ($Txt_gubun == "2") { ?>selected<? } ?>> 1개월권회원 </option>
+												<option value="1" <? if ($Txt_gubun == "1") { ?>selected<? } ?>> 렌트멤버십 </option>
+												<option value="2" <? if ($Txt_gubun == "2") { ?>selected<? } ?>> 구독멤버십 </option>
+												<option value="3" <? if ($Txt_gubun == "3") { ?>selected<? } ?>> 렌트/구독멤버십 </option>
 											</select>
+										</td>
+										<td>태그등급</td>
+										<td>
+											<input type="checkbox" name="Txt_grade" id="Txt_grade" value="B" <? if ($Txt_grade == "B") { ?>checked<? } ?>><label for="Txt_grade">BLACK</label>
 										</td>
 									</tr>
 									<tr style="display:none;">
