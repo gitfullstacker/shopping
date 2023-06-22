@@ -166,7 +166,7 @@
       }
         else
         {
-            $res_data = $this->mf_exec( $home_dir  . "/bin/pp_cli " . "\"".
+            $res_data = $this->mf_exec( $home_dir  . "/bin/pp_cli_64 " . "\"".
                                     "site_cd="   . $site_cd             . "," .
                                     "site_key="  . $site_key            . "," .
                                     "tx_cd="     . $tx_cd               . "," .
