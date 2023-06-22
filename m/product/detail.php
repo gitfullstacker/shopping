@@ -583,18 +583,20 @@ switch ($arr_Data['INT_TYPE']) {
                 </div>
             </div>
             <!-- 상품이미지 -->
-            <!-- <div class="mt-7 flex flex-col w-full">
-                <img class="w-full" src="/admincenter/files/good/" alt="related">
-            </div> -->
-            <!-- 더보기 버튼 -->
-            <!-- <button class="mt-7 flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white">
-                <span class="font-bold text-[11px] text-black">더보기</span>
-                <div class="flex items-center">
-                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576043 0.435356 4.59757e-07 0.593667 4.53547e-07C0.751979 4.47336e-07 0.890501 0.0576043 1.00923 0.172811L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.011521 8.40016 0.011521C8.56259 0.011521 8.70317 0.0691244 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587557C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#333333" />
-                    </svg>
+            <div x-data="{ showFullContent: false }" class="mt-7 flex flex-col gap-7 w-full">
+                <div class="flex flex-col w-full" x-ref="content" x-bind:style="showFullContent ? 'max-height: none' : 'max-height: 300px; overflow: hidden'">
+                    <?= $arr_Data['STR_CONTENTS'] ?>
                 </div>
-            </button> -->
+                <!-- 더보기 버튼 -->
+                <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent">
+                    <span class="font-bold text-[11px] text-black" x-text="showFullContent ? '접기' : '더보기'">더보기</span>
+                    <div class="flex items-center" x-bind:style="showFullContent ? 'rotate: 180deg;' : ''">
+                        <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576043 0.435356 4.59757e-07 0.593667 4.53547e-07C0.751979 4.47336e-07 0.890501 0.0576043 1.00923 0.172811L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.011521 8.40016 0.011521C8.56259 0.011521 8.70317 0.0691244 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587557C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#333333" />
+                        </svg>
+                    </div>
+                </button>
+            </div>
         </div>
 
         <!-- 구분선 -->
