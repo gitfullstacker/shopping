@@ -74,7 +74,7 @@ function convertEncode($string)
 
     <div id="sample_wrap">
 
-        <form name="form_order" method="post" action="./pp_cli_hub.php">
+        <form name="form_order" method="post" action="./pp_cli_hub.php" style="display: none;">
 
             <h1>[신용카드 정기과금 결제요청] <span> 신용카드 정기과금 결제요청 샘플 페이지</span></h1>
             <!-- 상단 문구 -->

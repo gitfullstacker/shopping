@@ -87,7 +87,7 @@ if ($req_tx == "pay") {
   </script>
 </head>
 
-<body>
+<body onload="sendResult();">
   <form name="resultForm" method="post" action="/m/mine/membership/result_proc.php">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
