@@ -81,7 +81,7 @@ if ($res_cd == "0000") {
 } else {
 ?>
     <script language="javascript">
-        alert('카드설정이 실패하였습니다.');
+        alert('카드설정이 실패하였습니다. <?= $res_cd ?>');
         window.location.href = "index.php";
     </script>
 <?php
