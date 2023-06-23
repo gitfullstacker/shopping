@@ -9,8 +9,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <?
 $SQL_QUERY =	" SELECT
 					UR.*
-				FROM "
-	. $Tname . "comm_member AS UR
+				FROM 
+					" . $Tname . "comm_member AS UR
 				WHERE
 					UR.STR_USERID='$arr_Auth[0]' ";
 

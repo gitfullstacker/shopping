@@ -26,6 +26,17 @@ if (!$arr_Rlt_Data) {
     exit;
 }
 $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 사용자정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_member AS A
+                WHERE
+                    A.STR_USERID="' . $arr_Auth[0] . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -37,7 +48,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col items-center gap-8 w-full">
             <!-- 카드 -->
             <div class="mt-[22px] flex flex-col border border-solid border-black bg-[#2395FF] rounded-[10px] relative w-[280px] h-[165px]">
-                <button class="absolute top-2 right-2 flex justify-center items-center w-[14px] h-[14px] bg-black">
+                <button class="absolute top-2 right-2 flex justify-center items-center w-[14px] h-[14px] bg-black" onclick="deleteCard()">
                     <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
                     </svg>
@@ -120,14 +131,16 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 </div>
 
-<form name="add_card" action="add_card_proc.php" method="post">
-    <input type="hidden" name="good_mny" value="0">
-    <input type="hidden" name="batch_key" value="">
-    <input type="hidden" name="res_cd" value="0000">
-    <input type="hidden" name="res_msg" value="">
+<form name="add_card" action="/payment/linux/auto_pay/mobile_auth/order_mobile.php" method="post">
+    <input type="hidden" name="str_userid" value="<?= $user_Data['STR_USERID'] ?>">
     <input type="hidden" name="ordr_idxx" value="">
-    <input type="hidden" name="card_cd" value="CCSS">
-    <input type="hidden" name="card_name" value="">
+    <input type="hidden" name="good_name" value="카드등록">
+    <input type="hidden" name="good_mny" value="0">
+    <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
+    <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+    <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
+    <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
+    <input type="hidden" name="kcp_group_id" value="">
 </form>
 
 <?
@@ -162,30 +175,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function changeCard() {
-        
+        if (confirm("정말로 카드를 변경하시겠습니까?")) {
+            document.forms.add_card.submit();
+        }
     }
 
     function addCard() {
-        init_orderid();
-        // 운영환경
-        // document.forms.auto_pay_form.submit();
-        // 개발환경
-        document.forms.add_card.submit();
+        window.location.href = "delete_card_proc.php";
     }
 
-    function init_orderid() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = today.getMonth() + 1;
-        var date = today.getDate();
-        var time = today.getTime();
-
-        if (parseInt(month) < 10) {
-            month = "0" + month;
+    function deleteCard() {
+        if (confirm("정말로 카드를 삭제하시겠습니까?")) {
+            window.location.href = "delete_card_proc.php";
         }
-
-        var vOrderID = year + "" + month + "" + date + "" + time;
-
-        document.forms.add_card.ordr_idxx.value = vOrderID;
     }
 </script>

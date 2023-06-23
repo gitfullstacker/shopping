@@ -80,7 +80,7 @@
           if( txt[0].replace(/^\s*/,'').replace(/\s*$/,'') == '0000' )
           {
             document.getElementById("approval").value = txt[1].replace(/^\s*/,'').replace(/\s*$/,'');
-			alert("성공적으로 거래가 등록 되었습니다.");
+			// alert("성공적으로 거래가 등록 되었습니다.");
             PayUrl = txt[2].replace(/^\s*/,'').replace(/\s*$/,'');
             call_pay_form();
           }
