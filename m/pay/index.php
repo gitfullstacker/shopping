@@ -614,6 +614,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <p class="font-bold text-[15px] leading-[17px] text-black">일반결제</p>
                         <div class="flex flex-col gap-1.5 w-full">
                             <div x-data="{ cardType: 1 }" class="flex flex-row gap-[5px]">
+                                <input type="hidden" name="card_type" x-model="cardType">
                                 <button type="button" class="flex justify-center items-center w-full h-[35px] border-[0.72px] border-solid rounded-[3px]" x-bind:class="cardType == 1 ? 'border-black' : 'border-[#DDDDDD]'" x-on:click="cardType = 1">
                                     <p class="font-bold text-[11px] leading-3 text-[#666666]">신용/체크카드</p>
                                 </button>

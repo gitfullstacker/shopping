@@ -73,7 +73,7 @@ switch ($RetrieveFlag) {
         mysql_query($Sql_Query);
 
         // 이전 멤버십 삭제
-        $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $arr_Auth[0] . "' AND INT_TYPE=" . $int_type;
+        $Sql_Query = "DELETE FROM `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $arr_Auth[0] . "' AND INT_TYPE=" . $int_type;
         mysql_query($Sql_Query);
 
         // 멤버십 등록

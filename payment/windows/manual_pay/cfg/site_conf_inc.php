@@ -22,9 +22,9 @@
     /* = * g_conf_log_dir 변수 설정                                                 = */
     /* =   log 디렉토리 설정                                                        = */
     /* ============================================================================== */
-    $g_conf_home_dir  = "C:/APM_Setup/htdocs/NHNKCP_PAYMENT_STANDARD_WINDOWS_PHP";              // 절대경로 입력
-    $g_conf_key_dir   = "C:/APM_Setup/htdocs/NHNKCP_PAYMENT_STANDARD_WINDOWS_PHP/bin/pub.key";  // pub.key 파일의 경로 입력(파일명까지 입력)
-    $g_conf_log_dir   = "C:/APM_Setup/htdocs/NHNKCP_PAYMENT_STANDARD_WINDOWS_PHP/log";          // log 절대경로 입력
+    $g_conf_home_dir  = $_SERVER['DOCUMENT_ROOT']."/payment/windows/manual_pay";              // 절대경로 입력
+    $g_conf_key_dir   = $_SERVER['DOCUMENT_ROOT']."/payment/windows/manual_pay/bin/pub.key";  // pub.key 파일의 경로 입력(파일명까지 입력)
+    $g_conf_log_dir   = $_SERVER['DOCUMENT_ROOT']."/payment/windows/manual_pay/log";          // log 절대경로 입력
     
     /* ============================================================================== */
     /* = ※ 주의 ※                                                                 = */

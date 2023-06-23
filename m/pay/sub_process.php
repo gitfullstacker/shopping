@@ -28,6 +28,7 @@ $mileage = Fnc_Om_Conv_Default($_REQUEST['mileage'], 0);
 $start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
 $end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
 $count = Fnc_Om_Conv_Default($_REQUEST['count'], 1);
+$card_type = Fnc_Om_Conv_Default($_REQUEST['card_type'], 1);
 
 $str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
 
@@ -54,6 +55,16 @@ if ($int_type == 1 && fnc_cart_info($str_goodcode) == 0) {
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
     $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 }
+
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_goods_master AS A
+                WHERE
+                    A.STR_GOODCODE="' . $str_goodcode . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$product_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
@@ -166,59 +177,59 @@ mysql_query($SQL_QUERY);
 $SQL_QUERY = "SELECT MAX(INT_NUMBER) AS last_number FROM `" . $Tname . "comm_goods_cart`";
 $result = mysql_query($SQL_QUERY);
 $last_Data = mysql_fetch_assoc($result);
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-// 마일리지 사용한 경우
-if ($mileage) {
-    // 마일리지 제거
-    $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE=(INT_MILEAGE - " . $mileage . ") WHERE STR_USERID='" . $arr_Auth[0] . "'";
-    mysql_query($Sql_Query);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-    // 마일리지 제거 등록
-    $arr_Set_Data = array();
-    $arr_Column_Name = array();
+<body onload="init_orderid();submitPay();">
+    <form name="pay_form" action="/payment/windows/manual_pay/mobile_sample/order_mobile.php" method="post">
+        <input type="hidden" name="ordr_idxx" value="">
+        <input type="hidden" name="ipgm_date" value="">
+        <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
+        <input type="hidden" name="good_mny" value="<?= $total_price ?>">
+        <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
+        <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+        <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
+        <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
+        <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
+        <input type="hidden" name="quotaopt" value="00">
+        <input type="hidden" name="card_type" value="<?= $card_type ?>">
+        <input type="hidden" name="int_cart" value="<?= $last_Data['last_number'] ?>">
+        <input type="hidden" name="int_coupon" value="<?= $int_coupon ?>">
+    </form>
 
-    $arr_Column_Name[0]        = "STR_USERID";
-    $arr_Column_Name[1]        = "STR_INCOME";
-    $arr_Column_Name[2]        = "DTM_INDATE";
-    $arr_Column_Name[3]        = "STR_ORDERIDX";
-    $arr_Column_Name[4]        = "INT_VALUE";
-    $arr_Column_Name[5]        = "INT_CART";
+    <script language="javascript">
+        function init_orderid() {
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = today.getMonth() + 1;
+            var date = today.getDate();
+            var time = today.getTime();
 
-    $arr_Set_Data[0]        = $arr_Auth[0];
-    $arr_Set_Data[1]        = "N";
-    $arr_Set_Data[2]        = date("Y-m-d H:i:s");
-    $arr_Set_Data[3]        = $str_orderidx;
-    $arr_Set_Data[4]        = $mileage;
-    $arr_Set_Data[5]        = $last_Data['last_number'];
+            if (parseInt(month) < 10)
+                month = "0" + month;
 
-    $arr_Sub1 = "";
-    $arr_Sub2 = "";
+            if (parseInt(date) < 10)
+                date = "0" + date;
 
-    for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+            var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
+            var ipgm_date = year + "" + month + "" + date;
 
-        if ($int_I != 0) {
-            $arr_Sub1 .=  ",";
-            $arr_Sub2 .=  ",";
+            document.forms.pay_form.ordr_idxx.value = order_idxx;
+            document.forms.pay_form.ipgm_date.value = ipgm_date;
         }
-        $arr_Sub1 .=  $arr_Column_Name[$int_I];
-        $arr_Sub2 .=  "'" . $arr_Set_Data[$int_I] . "'";
-    }
 
-    $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_mileage_history` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-    mysql_query($SQL_QUERY);
-}
+        function submitPay() {
+            document.forms.pay_form.submit();
+        }
+        // window.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
+    </script>
+</body>
 
-// 쿠폰 사용한 경우
-if ($int_coupon) {
-    $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_COUPON=" . $int_coupon;
-    mysql_query($Sql_Query);
-}
-?>
-
-<script language="javascript">
-    window.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
-</script>
-
-<?php
-exit;
-?>
+</html>
