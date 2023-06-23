@@ -2,14 +2,14 @@
 /* ============================================================================== */
 /* =   PAGE : 결제 요청 PAGE                                                    = */
 /* = -------------------------------------------------------------------------- = */
-/* =   이 페이지는 Payplus.js를 통해서 결제자가 배치키 발급을 요청을 하는 페이지    = */
+/* =   이 페이지는 Payplus Plug-in을 통해서 결제자가 결제 요청을 하는 페이지    = */
 /* =   입니다. 아래의 ※ 필수, ※ 옵션 부분과 매뉴얼을 참조하셔서 연동을        = */
 /* =   진행하여 주시기 바랍니다.                                                = */
 /* = -------------------------------------------------------------------------- = */
 /* =   연동시 오류가 발생하는 경우 아래의 주소로 접속하셔서 확인하시기 바랍니다.= */
-/* =   접속 주소 : https://kcp.co.kr/technique.requestcode.do                   = */
+/* =   접속 주소 : https://kcp.co.kr/technique.requestcode.do			        = */
 /* = -------------------------------------------------------------------------- = */
-/* =   Copyright (c)  2023   NHN Inc.   All Rights Reserverd.                   = */
+/* =   Copyright (c)  2021   KCP Inc.   All Rights Reserverd.                   = */
 /* ============================================================================== */
 ?>
 <?
@@ -30,19 +30,20 @@ include "../cfg/site_conf_inc.php";       // 환경설정 파일 include
 ?>
 <?
 /* kcp와 통신후 kcp 서버에서 전송되는 결제 요청 정보 */
-$res_cd          = $_POST["res_cd"]; // 응답 코드
-$tran_cd         = $_POST["tran_cd"]; // 트랜잭션 코드
-$ordr_idxx       = $_POST["ordr_idxx"]; // 쇼핑몰 주문번호
-$good_name       = $_POST["good_name"]; // 상품명
-$good_mny        = $_POST["good_mny"]; // 결제 금액
-$buyr_name       = $_POST["buyr_name"]; // 주문자명
-$buyr_tel1       = $_POST["buyr_tel1"]; // 주문자 전화번호
+$req_tx          = $_POST["req_tx"]; // 요청 종류         
+$res_cd          = $_POST["res_cd"]; // 응답 코드         
+$tran_cd         = $_POST["tran_cd"]; // 트랜잭션 코드     
+$ordr_idxx       = $_POST["ordr_idxx"]; // 쇼핑몰 주문번호   
+$good_name       = $_POST["good_name"]; // 상품명            
+$good_mny        = $_POST["good_mny"]; // 결제 총금액       
+$buyr_name       = $_POST["buyr_name"]; // 주문자명          
+$buyr_tel1       = $_POST["buyr_tel1"]; // 주문자 전화번호   
 $buyr_tel2       = $_POST["buyr_tel2"]; // 주문자 핸드폰 번호
 $buyr_mail       = $_POST["buyr_mail"]; // 주문자 E-mail 주소
-$use_pay_method  = $_POST["use_pay_method"]; // 결제 방법
-
+$use_pay_method  = $_POST["use_pay_method"]; // 결제 방법  
 $enc_info        = $_POST["enc_info"]; // 암호화 정보       
 $enc_data        = $_POST["enc_data"]; // 암호화 데이터     
+
 /* 기타 파라메터 추가 부분 - Start - */
 $param_opt_1    = $_POST["param_opt_1"]; // 기타 파라메터 추가 부분
 $param_opt_2    = $_POST["param_opt_2"]; // 기타 파라메터 추가 부분
@@ -65,7 +66,7 @@ function convertEncode($string) {
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 
 <head>
-    <title>*** NHN KCP ***</title>
+    <title>*** KCP [AX-HUB Version] ***</title>
     <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
     <meta http-equiv="Cache-Control" content="No-Cache">
     <meta http-equiv="Pragma" content="No-Cache">
@@ -219,18 +220,18 @@ function convertEncode($string) {
                     <b>※ PC에서 결제요청시 오류가 발생합니다. ※</b>
                 </div>
                 <div class="btnset" id="display_pay_button" style="display:block">
-                    <input name="" id="submit_button" type="button" class="submit" value="결제요청" onclick="kcp_AJAX();">
+                    <input name="" type="button" class="submit" value="결제요청" onclick="kcp_AJAX();">
                     <a href="../index.html" class="home">처음으로</a>
                 </div>
             </div>
             <!--footer-->
             <div class="footer">
-                Copyright (c) NHN KCP INC. All Rights reserved.
+                Copyright (c) KCP INC. All Rights reserved.
             </div>
             <!--//footer-->
 
             <!-- 공통정보 -->
-            <input type="hidden" name="req_tx" value='pay'> <!-- 요청 구분 -->
+            <input type="hidden" name="req_tx" value="pay"> <!-- 요청 구분 -->
             <input type="hidden" name="shop_name" value="<?= $g_conf_site_name ?>"> <!-- 사이트 이름 -->
             <input type="hidden" name="site_cd" value="<?= $g_conf_site_cd   ?>"> <!-- 사이트 키 -->
             <input type="hidden" name="currency" value="410" /> <!-- 통화 코드 -->
@@ -260,10 +261,11 @@ function convertEncode($string) {
     </div>
 
     <form name="pay_form" method="post" action="pp_cli_hub.php">
+        <input type="hidden" name="req_tx" value="<?= $req_tx ?>"> <!-- 요청 구분          -->
         <input type="hidden" name="res_cd" value="<?= $res_cd ?>"> <!-- 결과 코드          -->
         <input type="hidden" name="tran_cd" value="<?= $tran_cd ?>"> <!-- 트랜잭션 코드      -->
         <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>"> <!-- 주문번호           -->
-        <input type="hidden" name="good_mny" value="<?= $good_mny ?>"> <!-- 결제금액           -->
+        <input type="hidden" name="good_mny" value="<?= $good_mny ?>"> <!-- 휴대폰 결제금액    -->
         <input type="hidden" name="good_name" value="<?= $good_name ?>"> <!-- 상품명             -->
         <input type="hidden" name="buyr_name" value="<?= $buyr_name ?>"> <!-- 주문자명           -->
         <input type="hidden" name="buyr_tel1" value="<?= $buyr_tel1 ?>"> <!-- 주문자 전화번호    -->
