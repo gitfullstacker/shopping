@@ -83,6 +83,9 @@ $int_state = 1;
 if ($int_type == 1) {
     $start_date = date("Y-m-d");
     $end_date = date("Y-m-d", strtotime("+1 month"));
+    $str_paid = "Y";
+} else {
+    $str_paid = "N";
 }
 
 $arr_Set_Data = array();
@@ -122,6 +125,7 @@ $arr_Column_Name[30]        = "INT_PDISCOUNT";
 $arr_Column_Name[31]        = "INT_MDISCOUNT";
 $arr_Column_Name[32]        = "INT_COUPON";
 $arr_Column_Name[33]        = "INT_MILEAGE";
+$arr_Column_Name[34]        = "STR_PAID";
 
 $arr_Set_Data[0]        = $arr_Auth[0];
 $arr_Set_Data[1]        = $delivery_name;
@@ -157,6 +161,7 @@ $arr_Set_Data[30]        = $discount_product;
 $arr_Set_Data[31]        = $discount_membership;
 $arr_Set_Data[32]        = $coupon;
 $arr_Set_Data[33]        = $mileage;
+$arr_Set_Data[34]        = $str_paid;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";
@@ -226,6 +231,12 @@ $last_Data = mysql_fetch_assoc($result);
         }
 
         function submitPay() {
+            if (<?= $int_type ?> == 2) {
+                document.forms.pay_form.action = "/payment/linux/auto_pay/mobile_auth/order_mobile.php";
+            } else {
+                document.forms.pay_form.action = "/payment/windows/manual_pay/mobile_sample/order_mobile.php";
+            }
+            
             document.forms.pay_form.submit();
         }
         // window.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
