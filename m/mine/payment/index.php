@@ -181,7 +181,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function addCard() {
-        window.location.href = "delete_card_proc.php";
+        document.forms.add_card.submit();
     }
 
     function deleteCard() {

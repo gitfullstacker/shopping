@@ -45,6 +45,32 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 사용자정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_member AS A
+                WHERE
+                    A.STR_USERID="' . $arr_Auth[0] . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$user_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//카드정보얻기
+$SQL_QUERY =    "SELECT 
+                    A.STR_BILLCODE
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
+                WHERE
+                    A.STR_PTYPE='1'
+                    AND A.STR_PASS='0' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE
+                LIMIT 1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -303,11 +329,18 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 </div>
 
-<form name="join_membership" action="membership_proc.php" method="post">
+<form name="join_membership" action="/payment/linux/auto_pay/payx/order.php" method="post">
     <input type="hidden" name="RetrieveFlag" value="JOIN">
     <input type="hidden" name="int_type" value="">
     <input type="hidden" name="ordr_idxx" value="">
+    <input type="hidden" name="good_name" value="">
     <input type="hidden" name="good_mny" value="0">
+    <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
+    <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+    <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
+    <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
+    <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
+    <input type="hidden" name="quotaopt" value="00">
 </form>
 
 <?
@@ -339,15 +372,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function joinMembership(int_type) {
-        init_orderid();
-        // 운영환경
-        // document.forms.auto_pay_form.submit();
-        // 개발환경
         switch (int_type) {
             case 1:
+                document.forms.join_membership.good_name.value = '구독멤버십';
                 document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE1'] ?: 0 ?>;
                 break;
             case 2:
+                document.forms.join_membership.good_name.value = '렌트멥버십';
                 document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE2'] ?: 0 ?>;
                 break;
         }
