@@ -123,7 +123,7 @@ if ($end_page > 0) {
                         <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(' . $row['INT_NUMBER'] . ')">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
                         </button>
-                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                         </a>
                     ';
@@ -134,6 +134,15 @@ if ($end_page > 0) {
                         </div>
                         <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </div>
+                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
+                        </a>
+                    ';
+                } else if ($row['INT_TYPE'] == 3) {
+                    $str_action_buttons = '
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                         </div>
                         <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
