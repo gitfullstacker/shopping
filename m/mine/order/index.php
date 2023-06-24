@@ -229,6 +229,20 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
     </div>
 </div>
 
+<div id="return_result_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('return_result_dialog').classList.add('hidden');document.location.href = 'index.php';">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">반납 신청이 완료되었습니다.</p>
+        <a href="index.php" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">확인</p>
+        </a>
+    </div>
+</div>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
@@ -350,7 +364,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                document.location = "index.php";
+                document.getElementById('return_dialog').classList.add('hidden');
+                document.getElementById('return_result_dialog').classList.remove('hidden');
             }
         });
     }
