@@ -239,7 +239,6 @@ $last_Data = mysql_fetch_assoc($result);
             
             document.forms.pay_form.submit();
         }
-        // window.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
     </script>
 </body>
 

@@ -181,7 +181,7 @@ function convertEncode($string) {
                 <table class="tbl" cellpadding="0" cellspacing="0">
                     <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value=""></td>
+                        <td><input type="text" name="ordr_idxx" class="w200" value="<?= $_POST['ordr_idxx'] ?: '' ?>"></td>
                     </tr>
                     <tr>
                         <th>상품명</th>
@@ -250,8 +250,8 @@ function convertEncode($string) {
 
             <!-- 추가 파라미터 ( 가맹점에서 별도의 값전달시 param_opt 를 사용하여 값 전달 ) -->
             <input type="hidden" name="param_opt_1" value="<?= $_POST['str_userid'] ?: '' ?>">
-            <input type="hidden" name="param_opt_2" value="">
-            <input type="hidden" name="param_opt_3" value="">
+            <input type="hidden" name="param_opt_2" value="<?= $_POST['int_cart'] ?: '' ?>">
+            <input type="hidden" name="param_opt_3" value="<?= $_POST['int_coupon'] ?: '' ?>">
 
             <!-- 결제 정보 등록시 응답 타입 ( 필드가 없거나 값이 '' 일경우 TEXT, 값이 XML 또는 JSON 지원 -->
             <input type="hidden" name="response_type" value="TEXT" />

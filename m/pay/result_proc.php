@@ -22,9 +22,13 @@ function convertEncode($string)
 if ($res_cd == "0000") {
     // 사용자정보 얻기
     $SQL_QUERY =    'SELECT
-                        A.*
+                        A.*, B.INT_TYPE
                     FROM 
                         ' . $Tname . 'comm_goods_cart AS A
+                    LEFT JOIN
+                        ' . $Tname . 'comm_goods_master AS B
+                    ON
+                        A.STR_GOODCODE = B.STR_GOODCODE
                     WHERE
                         A.INT_NUMBER=' . $int_cart;
 
@@ -130,8 +134,8 @@ if ($res_cd == "0000") {
     mysql_query($Sql_Query);
 ?>
     <script language="javascript">
-        alert('카드설정이 성공하였습니다.');
-        window.location.href = "index.php";
+        alert('결제가 성공하였습니다.');
+        window.location.href = "paid.php?int_number=<?= $cart_Data['INT_NUMBER'] ?>";
     </script>
 <?php
     exit;
@@ -140,8 +144,8 @@ if ($res_cd == "0000") {
     mysql_query($Sql_Query);
 ?>
     <script language="javascript">
-        alert('카드설정이 실패하였습니다. <?= $res_cd ?>');
-        window.location.href = "index.php";
+        alert('결제가 실패하였습니다. <?= $res_cd ?>');
+        window.location.href = "index.php?int_type=<?= $cart_Data['INT_TYPE'] ?>&str_goodcode=<?= $cart_Data['STR_GOODCODE'] ?>";
     </script>
 <?php
     exit;

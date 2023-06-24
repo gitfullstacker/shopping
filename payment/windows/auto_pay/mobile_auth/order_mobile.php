@@ -219,7 +219,7 @@ function convertEncode($string) {
                     <b>※ PC에서 결제요청시 오류가 발생합니다. ※</b>
                 </div>
                 <div class="btnset" id="display_pay_button" style="display:block">
-                    <input name="" id="submit_button" type="button" class="submit" value="결제요청" onclick="kcp_AJAX();">
+                    <input name="" type="button" class="submit" value="결제요청" onclick="kcp_AJAX();">
                     <a href="../index.html" class="home">처음으로</a>
                 </div>
             </div>
@@ -230,7 +230,7 @@ function convertEncode($string) {
             <!--//footer-->
 
             <!-- 공통정보 -->
-            <input type="hidden" name="req_tx" value='pay'> <!-- 요청 구분 -->
+            <input type="hidden" name="req_tx" value="pay"> <!-- 요청 구분 -->
             <input type="hidden" name="shop_name" value="<?= $g_conf_site_name ?>"> <!-- 사이트 이름 -->
             <input type="hidden" name="site_cd" value="<?= $g_conf_site_cd   ?>"> <!-- 사이트 키 -->
             <input type="hidden" name="currency" value="410" /> <!-- 통화 코드 -->
@@ -249,8 +249,8 @@ function convertEncode($string) {
 
             <!-- 추가 파라미터 ( 가맹점에서 별도의 값전달시 param_opt 를 사용하여 값 전달 ) -->
             <input type="hidden" name="param_opt_1" value="<?= $_POST['str_userid'] ?: '' ?>">
-            <input type="hidden" name="param_opt_2" value="">
-            <input type="hidden" name="param_opt_3" value="">
+            <input type="hidden" name="param_opt_2" value="<?= $_POST['int_cart'] ?: '' ?>">
+            <input type="hidden" name="param_opt_3" value="<?= $_POST['int_coupon'] ?: '' ?>">
 
             <!-- 결제 정보 등록시 응답 타입 ( 필드가 없거나 값이 '' 일경우 TEXT, 값이 XML 또는 JSON 지원 -->
             <input type="hidden" name="response_type" value="TEXT" />

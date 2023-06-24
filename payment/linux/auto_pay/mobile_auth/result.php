@@ -93,7 +93,7 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
 </head>
 
 <body onload="sendResult();">
-  <form name="resultForm" method="post" action="/m/mine/payment/result_proc.php">
+  <form name="resultForm" method="post" action="<?= $param_opt_2 ? '/m/pay/result_proc.php' : '/m/mine/payment/result_proc.php' ?>">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
     <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
@@ -101,6 +101,8 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
     <input type="hidden" name="card_name" value="<?= $card_name ?>">
     <input type="hidden" name="batch_key" value="<?= $batch_key ?>">
     <input type="hidden" name="str_userid" value="<?= $param_opt_1 ?>">
+    <input type="hidden" name="int_cart" value="<?= $param_opt_2 ?>">
+    <input type="hidden" name="int_coupon" value="<?= $param_opt_3 ?>">
   </form>
 </body>
 
