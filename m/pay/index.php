@@ -140,9 +140,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         price: <?= $int_type == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
         useDays: <?= $use_days ?: 0 ?>,
         discount: {
-            product: <?= $int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>,
-            membership: <?= $membership_discount ?: 0 ?>,
-            area: <?= $area_discount ?: 0 ?>
+            product: <?= round($int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100), -2) ?>,
+            membership: <?= round($membership_discount ?: 0, -2) ?>,
+            area: <?= round($area_discount ?: 0, -2) ?>
         },
         coupon: 0,
         mileage: 0
@@ -160,7 +160,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         } else {
             if (couponPercent > 0) {
                 const beforePrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.mileage - this.payAmount.discount.area;
-                this.payAmount.coupon = beforePrice * couponPercent / 100;
+                this.payAmount.coupon = this.roundNumber(beforePrice * couponPercent / 100);
             } else {
                 this.payAmount.coupon = 0;
             }
@@ -173,6 +173,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     },
     formatNumber(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+    roundNumber(number) {
+        return Math.round(number / 100) * 100;
     },
     init() {
         this.calTotalPrice();

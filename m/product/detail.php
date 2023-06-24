@@ -981,6 +981,7 @@ switch ($arr_Data['INT_TYPE']) {
                 originPrice: <?= $arr_Data['INT_PRICE'] ?>,
                 discount: {
                     product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
+                    productMoney: 0,
                     areaMoney: 0,
                     membership: <?= $is_rent_membership ? 30 : 0 ?>,
                     membershipMoney: 0
@@ -1144,9 +1145,9 @@ switch ($arr_Data['INT_TYPE']) {
                     }
 
                     areaDiscount = this.getAreaDiscount(rentDays);
-
-                    productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
-                    totalPrice = productSPrice - productSPrice * areaDiscount / 100;
+                    productDiscount = this.price.originPrice * this.price.discount.product / 100;
+                    productSPrice = this.price.originPrice - productDiscount;
+                    totalPrice = this.roundNumber(productSPrice - productSPrice * areaDiscount / 100);
 
                     dates.push({
                         date: date,
@@ -1155,6 +1156,7 @@ switch ($arr_Data['INT_TYPE']) {
                         status: status,
                         showPrice: showPrice,
                         rentDays: rentDays,
+                        productDiscount: productDiscount,
                         areaDiscount: areaDiscount,
                         totalPrice: totalPrice
                     });
@@ -1186,6 +1188,7 @@ switch ($arr_Data['INT_TYPE']) {
                         
                         sumTotalPrice = 0;
                         sumAreaPrice = 0;
+                        sumProductPrice = 0;
                         selectedStartDate = this.startDate;
                         selectedEndDate = this.endDate;
                         productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
@@ -1193,11 +1196,14 @@ switch ($arr_Data['INT_TYPE']) {
                             if (eachDay.date.getTime() >= selectedStartDate.getTime() && eachDay.date.getTime() <= selectedEndDate.getTime()) {
                                 sumTotalPrice += eachDay.totalPrice;
                                 sumAreaPrice += productSPrice * eachDay.areaDiscount / 100;
+                                sumProductPrice += eachDay.productDiscount;
                             }
                         });
-                        this.price.discount.membershipMoney = sumTotalPrice * this.price.discount.membership / 100;
-                        this.price.totalPrice = sumTotalPrice - this.price.discount.membershipMoney;
-                        this.price.discount.areaMoney = sumAreaPrice;
+                        this.price.discount.areaMoney = this.roundNumber(sumAreaPrice);
+                        this.price.discount.productMoney = this.roundNumber(sumProductPrice);
+                        this.price.discount.membershipMoney = this.roundNumber(sumTotalPrice * this.price.discount.membership / 100);
+                        // this.price.totalPrice = this.roundNumber(sumTotalPrice - this.price.discount.membershipMoney);
+                        this.price.totalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney - this.price.discount.membershipMoney;
                         this.rentDays = date.rentDays;
                         this.selectedStatus++;
 
@@ -1255,6 +1261,9 @@ switch ($arr_Data['INT_TYPE']) {
             showAlert() {
                 this.showCalendarAlert = true;
                 setTimeout(() => this.showCalendarAlert = false, 2000);
+            },
+            roundNumber(number) {
+                return Math.round(number / 100) * 100;
             },
             init() {
                 today = new Date();
@@ -1398,7 +1407,7 @@ switch ($arr_Data['INT_TYPE']) {
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">금액할인가</p>
-                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + ((price.originPrice * price.discount.product / 100) * rentDays).toLocaleString() + '원'">100원</p>
+                                    <p class="font-bold text-xs leading-[14px] text-[#666666]" x-text="'-' + (price.discount.productMoney).toLocaleString() + '원'">100원</p>
                                 </div>
                                 <div class="flex">
                                     <p class="w-[60px] font-bold text-xs leading-[14px] text-black">구간할인가</p>
