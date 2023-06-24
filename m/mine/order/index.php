@@ -243,6 +243,17 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
     </div>
 </div>
 
+<div id="show_delivery_dialog" class="w-full h-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden">
+    <div class="mt-[30%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('show_delivery_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <iframe id="delivery_frame" src="" frameborder="0"></iframe>
+    </div>
+</div>
+
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
@@ -393,5 +404,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         }
 
         return dateArray;
+    }
+
+    function openDeliveryDialog(delivery_id) {
+        // Create the iframe element
+        var iframe = document.getElementById('delivery_frame');
+
+        // Set the iframe properties
+        iframe.src = 'https://m.epost.go.kr/postal/mobile/mobile.trace.RetrieveDomRigiTraceList.comm?sid1=' + delivery_id; // Replace with your desired URL
+        iframe.style.width = '300px'; // Set the width of the iframe
+        iframe.style.height = '500px'; // Set the height of the iframe
+        iframe.style.border = 'none'; // Remove iframe border
+
+        document.getElementById('show_delivery_dialog').classList.remove('hidden');
     }
 </script>

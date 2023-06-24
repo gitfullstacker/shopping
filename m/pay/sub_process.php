@@ -33,7 +33,20 @@ $card_type = Fnc_Om_Conv_Default($_REQUEST['card_type'], 1);
 $str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
 
 // 구독할 상품이 있는지 검색
-if ($int_type == 1 && fnc_cart_info($str_goodcode) == 0) {
+$SQL_QUERY =    'SELECT
+                        A.STR_SGOODCODE
+                    FROM 
+                        ' . $Tname . 'comm_goods_master_sub AS A
+                    WHERE
+                        A.STR_SERVICE = "Y"
+                        AND A.STR_GOODCODE = "' . $str_goodcode . '"
+                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
+                    LIMIT 1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+if (!$rent_Data['STR_SGOODCODE']) {
 ?>
     <script language="javascript">
         alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
@@ -41,19 +54,6 @@ if ($int_type == 1 && fnc_cart_info($str_goodcode) == 0) {
     </script>
 <?
     exit;
-} else {
-    // 구독가능한 서브상품얻기
-    $SQL_QUERY =    'SELECT
-                        A.STR_SGOODCODE
-                    FROM 
-                        ' . $Tname . 'comm_goods_master_sub AS A
-                    WHERE
-                        A.STR_SERVICE = "Y"
-                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
-                    LIMIT 1';
-
-    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-    $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 }
 
 $SQL_QUERY =    'SELECT
@@ -182,64 +182,77 @@ mysql_query($SQL_QUERY);
 $SQL_QUERY = "SELECT MAX(INT_NUMBER) AS last_number FROM `" . $Tname . "comm_goods_cart`";
 $result = mysql_query($SQL_QUERY);
 $last_Data = mysql_fetch_assoc($result);
+
+if ($int_type != 1) {
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
 
-<body onload="init_orderid();submitPay();">
-    <form name="pay_form" action="/payment/windows/manual_pay/mobile_sample/order_mobile.php" method="post">
-        <input type="hidden" name="ordr_idxx" value="">
-        <input type="hidden" name="ipgm_date" value="">
-        <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
-        <input type="hidden" name="good_mny" value="<?= $total_price ?>">
-        <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-        <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
-        <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
-        <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
-        <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
-        <input type="hidden" name="quotaopt" value="00">
-        <input type="hidden" name="card_type" value="<?= $card_type ?>">
-        <input type="hidden" name="int_cart" value="<?= $last_Data['last_number'] ?>">
-        <input type="hidden" name="int_coupon" value="<?= $int_coupon ?>">
-    </form>
+    <body onload="init_orderid();submitPay();">
+        <form name="pay_form" action="/payment/windows/manual_pay/mobile_sample/order_mobile.php" method="post">
+            <input type="hidden" name="ordr_idxx" value="">
+            <input type="hidden" name="ipgm_date" value="">
+            <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
+            <input type="hidden" name="good_mny" value="<?= $total_price ?>">
+            <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
+            <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+            <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
+            <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
+            <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
+            <input type="hidden" name="quotaopt" value="00">
+            <input type="hidden" name="card_type" value="<?= $card_type ?>">
+            <input type="hidden" name="int_cart" value="<?= $last_Data['last_number'] ?>">
+            <input type="hidden" name="int_coupon" value="<?= $int_coupon ?>">
+        </form>
 
-    <script language="javascript">
-        function init_orderid() {
-            var today = new Date();
-            var year = today.getFullYear();
-            var month = today.getMonth() + 1;
-            var date = today.getDate();
-            var time = today.getTime();
+        <script language="javascript">
+            function init_orderid() {
+                var today = new Date();
+                var year = today.getFullYear();
+                var month = today.getMonth() + 1;
+                var date = today.getDate();
+                var time = today.getTime();
 
-            if (parseInt(month) < 10)
-                month = "0" + month;
+                if (parseInt(month) < 10)
+                    month = "0" + month;
 
-            if (parseInt(date) < 10)
-                date = "0" + date;
+                if (parseInt(date) < 10)
+                    date = "0" + date;
 
-            var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
-            var ipgm_date = year + "" + month + "" + date;
+                var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
+                var ipgm_date = year + "" + month + "" + date;
 
-            document.forms.pay_form.ordr_idxx.value = order_idxx;
-            document.forms.pay_form.ipgm_date.value = ipgm_date;
-        }
-
-        function submitPay() {
-            if (<?= $int_type ?> == 2) {
-                document.forms.pay_form.action = "/payment/linux/auto_pay/mobile_auth/order_mobile.php";
-            } else {
-                document.forms.pay_form.action = "/payment/windows/manual_pay/mobile_sample/order_mobile.php";
+                document.forms.pay_form.ordr_idxx.value = order_idxx;
+                document.forms.pay_form.ipgm_date.value = ipgm_date;
             }
-            
-            document.forms.pay_form.submit();
-        }
-    </script>
-</body>
 
-</html>
+            function submitPay() {
+                if (<?= $int_type ?> == 2) {
+                    document.forms.pay_form.action = "/payment/linux/auto_pay/mobile_auth/order_mobile.php";
+                } else {
+                    document.forms.pay_form.action = "/payment/windows/manual_pay/mobile_sample/order_mobile.php";
+                }
+
+                document.forms.pay_form.submit();
+            }
+        </script>
+    </body>
+
+    </html>
+<?php
+} else {
+    ?>
+    <script>
+        document.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
+    </script>
+    <?php
+}
+
+exit;
+?>

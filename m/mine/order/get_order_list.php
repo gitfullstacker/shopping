@@ -31,7 +31,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.INT_STATE AS ORDER_STATE, A.DTM_INDATE AS ORDER_DATE, B.*, C.STR_CODE, COALESCE((SELECT COUNT(E.BD_SEQ) FROM `' . $Tname . 'b_bd_data@01` E WHERE E.INT_CART = A.INT_NUMBER), 0) AS BD_COUNT
+                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.INT_STATE AS ORDER_STATE, A.DTM_INDATE AS ORDER_DATE, A.STR_DELICODE, B.*, C.STR_CODE, COALESCE((SELECT COUNT(E.BD_SEQ) FROM `' . $Tname . 'b_bd_data@01` E WHERE E.INT_CART = A.INT_NUMBER), 0) AS BD_COUNT
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -97,7 +97,7 @@ if ($end_page > 0) {
             case 2:
                 // 상품준비중
                 $str_action_buttons = '
-                    <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
                 ';
@@ -105,9 +105,9 @@ if ($end_page > 0) {
             case 3:
                 // 배송중
                 $str_action_buttons = '
-                    <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                    </div>
+                    </button>
                     <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
@@ -117,9 +117,9 @@ if ($end_page > 0) {
                 // 이용중
                 if ($row['INT_TYPE'] == 1) {
                     $str_action_buttons = '
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
+                        </button>
                         <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(' . $row['INT_NUMBER'] . ')">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
                         </button>
@@ -129,9 +129,9 @@ if ($end_page > 0) {
                     ';
                 } else if ($row['INT_TYPE'] == 2) {
                     $str_action_buttons = '
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
+                        </button>
                         <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
                         </div>
@@ -141,9 +141,9 @@ if ($end_page > 0) {
                     ';
                 } else if ($row['INT_TYPE'] == 3) {
                     $str_action_buttons = '
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                        </div>
+                        </button>
                         <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                         </a>
