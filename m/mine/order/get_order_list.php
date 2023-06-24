@@ -153,15 +153,15 @@ if ($end_page > 0) {
             case 5:
                 // 반납중
                 $str_action_buttons = '
-                    <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
                 ';
                 break;
-            case 6:
+            case 10:
                 // 반납완료
                 $str_action_buttons = '
-                    <a href="/m/product/detail.php?str_goodcode=' . $row['STR_GOODNAME'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . (($row['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($row['DTM_EDIT_DATE'])))) ? '' : 'col-span-2') . '">
+                    <a href="/m/product/detail.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . (($row['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($row['DTM_EDIT_DATE'])))) ? '' : 'col-span-2') . '">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">재이용 하기</p>
                     </a>
                 ';
@@ -177,48 +177,6 @@ if ($end_page > 0) {
                     ';
                 }
                 break;
-        }
-
-        if ($row['ORDER_STATE'] == 1 || $row['ORDER_STATE'] == 2 || $row['ORDER_STATE'] == 3) {
-            // 주문접수,상품준비(관리자확인),배송중
-            $str_action_buttons = '
-                <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
-                </div>
-                <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
-                </a>
-            ';
-        } else if ($row['ORDER_STATE'] == 4 && $row['INT_TYPE'] != 3) {
-            // 배송완료
-            $str_action_buttons = '
-                <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 ? '' : 'col-span-2') . '" onclick="returnOrder(\'' . $row['INT_NUMBER'] . '\')">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
-                </button>';
-            if ($row['BD_COUNT'] == 0) {
-                $str_action_buttons .= '
-                    <a href="/m/mine/review/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
-                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">리뷰 작성</p>
-                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
-                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
-                        </div>
-                    </a>';
-            }
-        } else if (($row['ORDER_STATE'] == 5 || $row['ORDER_STATE'] == 10) && $row['INT_TYPE'] != 3) {
-            // 배송/반납완료
-            $str_action_buttons = '
-                <a href="/m/product/detail.php?str_goodcode=' . $row['STR_GOODNAME'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] ' . ($row['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($row['DTM_EDIT_DATE']))) ? '' : 'col-span-2') . '">
-                    <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">재이용 하기</p>
-                </a>';
-            if ($row['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($row['DTM_EDIT_DATE'])))) {
-                $str_action_buttons .= '
-                    <a href="/m/mine/review/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] relative">
-                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">리뷰 작성</p>
-                        <div class="absolute -top-[10px] right-0 flex justify-center items-center w-[64px] h-5 bg-[#DDDDDD] rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-none">
-                            <p class="font-bold text-[10px] leading-[11px] text-black">적립금 지급!</p>
-                        </div>
-                    </a>';
-            }
         }
 
         $product_detail = '';

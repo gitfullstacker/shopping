@@ -223,10 +223,10 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         </a>
                     <?php
                         break;
-                    case 6:
+                    case 10:
                         // 반납완료
                     ?>
-                        <a href="/m/product/detail.php?str_goodcode=<?= $arr_Data['STR_GOODNAME'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= ($arr_Data['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($arr_Data['DTM_EDIT_DATE'])))) ? '' : 'col-span-2' ?>">
+                        <a href="/m/product/detail.php?str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] <?= ($arr_Data['BD_COUNT'] == 0 && (time() <= strtotime('+1 week', strtotime($arr_Data['DTM_EDIT_DATE'])))) ? '' : 'col-span-2' ?>">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">재이용 하기</p>
                         </a>
                         <?php
@@ -366,11 +366,11 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">주소</p>
-                    <p class="font-medium text-xs leading-[14px] text-[#000000]">(<?= $arr_Data['STR_POST'] ?>) <?= $arr_Data['STR_ADDR1'] ?> <?= $arr_Data['STR_ADDR2'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000] max-w-[280px]">(<?= $arr_Data['STR_POST'] ?>) <?= $arr_Data['STR_ADDR1'] ?> <?= $arr_Data['STR_ADDR2'] ?></p>
                 </div>
                 <div class="flex items-center justify-between py-3 border-b-[0.5px] border-[#E0E0E0]">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">배송메세지</p>
-                    <p class="font-medium text-xs leading-[14px] text-[#000000]"><?= $arr_Data['STR_MEMO'] ?></p>
+                    <p class="font-medium text-xs leading-[14px] text-[#000000] max-w-[280px]"><?= $arr_Data['STR_MEMO'] ?></p>
                 </div>
             </div>
         </div>
