@@ -28,8 +28,6 @@ $str_re_f = Fnc_Om_Conv_Default($_REQUEST[str_re_f], "N");
 $str_service = Fnc_Om_Conv_Default($_REQUEST[str_service], "N");
 $str_myn = Fnc_Om_Conv_Default($_REQUEST[str_myn], "N");
 $str_mmyn = Fnc_Om_Conv_Default($_REQUEST[str_mmyn], "N");
-$int_mileage = Fnc_Om_Conv_Default($_REQUEST[int_mileage], "0");
-$str_pmileage = Fnc_Om_Conv_Default($_REQUEST[str_pmileage], "N");
 $to_int_type = Fnc_Om_Conv_Default($_REQUEST[to_int_type], "0");
 $int_type = Fnc_Om_Conv_Default($_REQUEST[int_type], "1");
 $int_grade = Fnc_Om_Conv_Default($_REQUEST[int_grade], "1");
@@ -348,14 +346,12 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[32] = "INT_DISCOUNT";
 		$arr_Column_Name[33] = "STR_TSIZE";
 		$arr_Column_Name[34] = "STR_STYLE";
-		$arr_Column_Name[35] = "INT_MILEAGE";
-		$arr_Column_Name[36] = "STR_PMILEAGE";
-		$arr_Column_Name[37] = "INT_VIEW";
-		$arr_Column_Name[38] = "STR_TIMAGE";
-		$arr_Column_Name[39] = "INT_TYPE";
-		$arr_Column_Name[40] = "INT_GRADE";
-		$arr_Column_Name[41] = "STR_COLOR_VAL";
-		$arr_Column_Name[42] = "INT_RPRICE";
+		$arr_Column_Name[35] = "INT_VIEW";
+		$arr_Column_Name[36] = "STR_TIMAGE";
+		$arr_Column_Name[37] = "INT_TYPE";
+		$arr_Column_Name[38] = "INT_GRADE";
+		$arr_Column_Name[39] = "STR_COLOR_VAL";
+		$arr_Column_Name[40] = "INT_RPRICE";
 
 		$arr_Set_Data[0] = $lastnumber;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -392,14 +388,12 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[32] = $int_discount ?: null;
 		$arr_Set_Data[33] = $str_tsize;
 		$arr_Set_Data[34] = $str_style;
-		$arr_Set_Data[35] = $int_mileage ?: null;
-		$arr_Set_Data[36] = $str_pmileage;
-		$arr_Set_Data[37] = 0;
-		$arr_Set_Data[38] = $str_dtimage;
-		$arr_Set_Data[39] = $int_type;
-		$arr_Set_Data[40] = $int_grade;
-		$arr_Set_Data[41] = $str_color_val;
-		$arr_Set_Data[42] = $int_rprice;
+		$arr_Set_Data[35] = 0;
+		$arr_Set_Data[36] = $str_dtimage;
+		$arr_Set_Data[37] = $int_type;
+		$arr_Set_Data[38] = $int_grade;
+		$arr_Set_Data[39] = $str_color_val;
+		$arr_Set_Data[40] = $int_rprice;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -697,12 +691,10 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[28] = "INT_DISCOUNT";
 		$arr_Column_Name[29] = "STR_TSIZE";
 		$arr_Column_Name[30] = "STR_STYLE";
-		$arr_Column_Name[31] = "INT_MILEAGE";
-		$arr_Column_Name[32] = "STR_PMILEAGE";
-		$arr_Column_Name[33] = "STR_TIMAGE";
-		$arr_Column_Name[34] = "INT_GRADE";
-		$arr_Column_Name[35] = "STR_COLOR_VAL";
-		$arr_Column_Name[36] = "INT_RPRICE";
+		$arr_Column_Name[31] = "STR_TIMAGE";
+		$arr_Column_Name[32] = "INT_GRADE";
+		$arr_Column_Name[33] = "STR_COLOR_VAL";
+		$arr_Column_Name[34] = "INT_RPRICE";
 
 		$arr_Set_Data[0] = $str_no;
 		$arr_Set_Data[1] = addslashes($str_goodname);
@@ -735,12 +727,10 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[28] = $int_discount ?: null;
 		$arr_Set_Data[29] = $str_tsize;
 		$arr_Set_Data[30] = $str_style;
-		$arr_Set_Data[31] = $int_mileage ?: null;
-		$arr_Set_Data[32] = $str_pmileage;
-		$arr_Set_Data[33] = $str_dtimage;
-		$arr_Set_Data[34] = $int_grade;
-		$arr_Set_Data[35] = $str_color_val;
-		$arr_Set_Data[36] = $int_rprice;
+		$arr_Set_Data[31] = $str_dtimage;
+		$arr_Set_Data[32] = $int_grade;
+		$arr_Set_Data[33] = $str_color_val;
+		$arr_Set_Data[34] = $int_rprice;
 
 		$arr_Sub = "";
 
@@ -1414,11 +1404,10 @@ switch ($RetrieveFlag) {
 			$arr_Column_Name[29]		= "INT_DISCOUNT";
 			$arr_Column_Name[30]		= "STR_TSIZE";
 			$arr_Column_Name[31]		= "STR_STYLE";
-			$arr_Column_Name[32]		= "INT_MILEAGE";
-			$arr_Column_Name[33]		= "INT_VIEW";
-			$arr_Column_Name[34]		= "STR_TIMAGE";
-			$arr_Column_Name[35]		= "INT_TYPE";
-			$arr_Column_Name[36]		= "STR_COLOR_VAL";
+			$arr_Column_Name[32]		= "INT_VIEW";
+			$arr_Column_Name[33]		= "STR_TIMAGE";
+			$arr_Column_Name[34]		= "INT_TYPE";
+			$arr_Column_Name[35]		= "STR_COLOR_VAL";
 
 			$arr_Set_Data[0]		= $lastnumber;
 			$arr_Set_Data[1]		= $row['STR_GOODNAME'];
@@ -1455,11 +1444,10 @@ switch ($RetrieveFlag) {
 			$arr_Set_Data[29]		= $row['INT_DISCOUNT'] ?: null;
 			$arr_Set_Data[30]		= $row['STR_TSIZE'];
 			$arr_Set_Data[31]		= $row['STR_STYLE'];
-			$arr_Set_Data[32]		= $row['INT_MILEAGE'] ?: null;
-			$arr_Set_Data[33]		= $row['INT_VIEW'] ?: null;
-			$arr_Set_Data[34]		= $str_dtimage;
-			$arr_Set_Data[35]		= $to_int_type;
-			$arr_Set_Data[36]		= $str_color_val;
+			$arr_Set_Data[32]		= $row['INT_VIEW'] ?: null;
+			$arr_Set_Data[33]		= $str_dtimage;
+			$arr_Set_Data[34]		= $to_int_type;
+			$arr_Set_Data[35]		= $str_color_val;
 
 			$arr_Sub1 = "";
 			$arr_Sub2 = "";

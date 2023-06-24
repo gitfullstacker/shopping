@@ -29,7 +29,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, B.INT_MILEAGE, C.STR_CODE, D.BD_SEQ 
+                    A.*, B.STR_GOODNAME, B.STR_IMAGE1, B.INT_TYPE, C.STR_CODE, D.BD_SEQ 
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
@@ -100,7 +100,7 @@ if ($end_page > 0) {
                 </div>
                 <div class="mt-[14px] flex gap-[35px] items-center w-full">
                     <div class="flex flex-col gap-[5px]">
-                        <p class="font-bold text-xs leading-[14px] text-black">적립가능한 마일리지: ' . number_format($row['INT_MILEAGE']) . '</p>
+                        <p class="font-bold text-xs leading-[14px] text-black">텍스트 리뷰: ' . number_format($site_Data['INT_STAMP1']) . '₩ / 포토 리뷰: ' . number_format($site_Data['INT_STAMP2']) . '₩</p>
                         <p class="font-medium text-xs leading-[14px] text-[#999999]">' . ($row['BD_SEQ'] ? '작성 완료' : ('작성기한 D-' . $d_day . '(' . date('Y.m.d', strtotime($endDate)) . ')')) . '</p>
                     </div>
                     <a href="' . ($row['BD_SEQ'] ? '#' : ('create.php?int_cart=' . $row['INT_NUMBER'])) . '" class="grow flex justify-center items-center h-10 bg-white border border-solid border-[#DDDDDD] rounded-[3px]">

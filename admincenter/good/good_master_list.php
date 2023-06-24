@@ -268,7 +268,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=19></td>
+										<td class=rnd colspan=18></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
@@ -283,7 +283,6 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 										<th>소트</th>
 										<th>태그</th>
 										<th>관련상품</th>
-										<th>마일리지</th>
 										<th>메인출력</th>
 										<th>조회수</th>
 										<th>등록일</th>
@@ -292,7 +291,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 										<th>삭제</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=19></td>
+										<td class=rnd colspan=18></td>
 									</tr>
 									<col width=4% align=center>
 									<col width=6% align=center>
@@ -304,14 +303,13 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 									<col width=15% align=center>
 									<col width=4% align=center>
 									<col width=4% align=center>
-									<col width=3% align=center>
+									<col width=4% align=center>
 									<col width=6% align=center>
-									<col width=7% align=center>
 									<col width=4% align=center>
-									<col width=3% align=center>
+									<col width=5% align=center>
 									<col width=4% align=center>
-									<col width=3% align=center>
-									<col width=3% align=center>
+									<col width=5% align=center>
+									<col width=5% align=center>
 									<col width=3% align=center>
 									<? $count = 0; ?>
 									<? if ($total_record_limit != 0) { ?>
@@ -444,9 +442,6 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 													</span>
 												</td>
 												<td>
-													<?= mysql_result($result, $i, str_pmileage) == 'Y' ? mysql_result($result, $i, int_mileage) . '%' : number_format(mysql_result($result, $i, int_mileage)) ?>
-												</td>
-												<td>
 													<table class=tb style="border:0px;">
 														<col style="padding-left:0px;width:20%;">
 														<col style="padding-left:0px;width:80%;">
@@ -496,7 +491,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, str_goodcode) ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=19 class=rndline></td>
+												<td colspan=18 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?

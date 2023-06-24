@@ -385,19 +385,10 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<td><input type=text name=str_origin value="<?= $arr_Data['STR_ORIGIN'] ?>"></td>
 												</tr>
 												<tr>
-													<td>마일리지</td>
-													<td>
-														<input type=text name=int_mileage value="<?= $arr_Data['INT_MILEAGE'] ?>" style="ime-mode:inactive" onKeyUp="hangulcheck(this,0);" onkeypress="num_only()">
-														<input type="checkbox" name="str_pmileage" id="str_pmileage" value="Y" <?= $arr_Data['STR_PMILEAGE'] == 'Y' ? 'checked' : '' ?>><label for="str_pmileage">퍼센트</label>
-													</td>
-													<td>색상</td>
-													<td><input type=text name=str_color value="<?= $arr_Data['STR_COLOR'] ?>"></td>
-												</tr>
-												<tr>
 													<td>색상</td>
 													<td><input type=text name=str_color_val value="<?= $arr_Data['STR_COLOR_VAL'] ?>"> 형식: (#ffffff)</td>
-													<td></td>
-													<td></td>
+													<td>색상</td>
+													<td><input type=text name=str_color value="<?= $arr_Data['STR_COLOR'] ?>"></td>
 												</tr>
 												<tr>
 													<td>출력여부</td>
