@@ -89,7 +89,7 @@ if ($end_page > 0) {
                     <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
-                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(' . $row['INT_NUMBER'] . ', ' . $row['INT_TYPE'] . ')">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
                     </button>
                 ';

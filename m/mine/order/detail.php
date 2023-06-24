@@ -150,7 +150,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                         </a>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder()">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
                         </button>
                     <?php
@@ -166,7 +166,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                     case 3:
                         // 배송중
                     ?>
-                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog()">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                         </div>
                         <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
@@ -180,7 +180,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <?php
                         if ($arr_Data['INT_TYPE'] == 1) {
                         ?>
-                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog()">
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                             </div>
                             <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(<?= $arr_Data['INT_NUMBER'] ?>)">
@@ -192,7 +192,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <?php
                         } else if ($arr_Data['INT_TYPE'] == 2) {
                         ?>
-                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog()">
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                             </div>
                             <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
@@ -204,7 +204,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <?php
                         } else if ($arr_Data['INT_TYPE'] == 3) {
                         ?>
-                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog()">
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                             </div>
                             <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
@@ -409,14 +409,49 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
             </svg>
         </button>
         <p class="font-bold text-[15px] leading-[17px] text-black">반납 날짜를 선택해주세요.</p>
-        <div class="relative">
-            <select class="w-[144px] h-[30px] bg-white border-[0.72px] border-solid border-[#DDDDDD] px-[38px]" name="" id="return_dates" onchange="doReturnOrder(this.value)">
-                <option value="">반납 날짜</option>
-            </select>
-            <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
-            </svg>
+        <div x-data="{
+                selectedValue: '',
+                showSelectPanel: false,
+                selectItem(value) {
+                    this.selectedValue = value;
+                    this.showSelectPanel = false;
+                    doReturnOrder(value);
+                }
+            }" class="w-[144px] h-[30px] flex justify-center items-center bg-white border-[0.72px] border-solid border-[#DDDDDD] relative">
+            <div class="flex gap-[18px] items-center cursor-pointer" x-on:click="showSelectPanel = true" x-on:click.outside="showSelectPanel = false">
+                <p value="font-bold text-[10px] leading-3 text-[#666666]" x-text="selectedValue == '' ? '반납 날짜' : selectedValue">반납 날짜</p>
+                <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
+                </svg>
+            </div>
+            <div id="return_dates" x-show="showSelectPanel" class="absolute top-[30px] left-0 flex flex-col w-full bg-white border-[0.72px] border-solid border-[#DDDDDD]">
+            </div>
         </div>
+    </div>
+</div>
+
+<div id="return_result_dialog" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden" style="height: calc(100vh - 66px);">
+    <div class="mt-[60%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('return_result_dialog').classList.add('hidden');document.location.href = 'index.php';">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <p class="font-bold text-[15px] leading-[17px] text-black">반납 신청이 완료되었습니다.</p>
+        <a href="index.php" class="flex flex-row gap-[12.3px] items-center justify-center px-5 py-2.5 bg-white border-[0.84px] border-solid border-[#D9D9D9]">
+            <p class="font-bold text-[10px] leading-[11px] text-[#666666]">확인</p>
+        </a>
+    </div>
+</div>
+
+<div id="show_delivery_dialog" class="w-full h-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-start max-w-[410px] hidden">
+    <div class="mt-[30%] flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-[35px]">
+        <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('show_delivery_dialog').classList.add('hidden');">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+            </svg>
+        </button>
+        <iframe id="delivery_frame" src="" frameborder="0"></iframe>
     </div>
 </div>
 
@@ -497,17 +532,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             temp_date.setDate(temp_date.getDate() + 1);
         } while (start_date == null || end_date == null);
 
-        while (selectElement.options.length > 1) {
-            selectElement.remove(1);
+        while (selectElement.firstChild) {
+            selectElement.removeChild(selectElement.firstChild);
         }
 
         var dateRange = getDateRange(start_date, end_date);
 
         for (var i = 0; i < dateRange.length; i++) {
-            var option = document.createElement("option");
-            option.value = dateRange[i];
-            option.text = dateRange[i];
-            selectElement.appendChild(option);
+            var button = document.createElement("button");
+            button.className = "py-[17px] flex justify-center items-center hover:bg-gray-100";
+            button.setAttribute("x-on:click", "selectItem('" + dateRange[i] + "')");
+
+            var p = document.createElement("p");
+            p.className = "font-bold text-[10px] leading-3 text-[#666666]";
+            p.textContent = dateRange[i];
+
+            button.appendChild(p);
+            selectElement.appendChild(button);
         }
     }
 
@@ -520,7 +561,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                document.location = "detail.php?int_number=<?= $int_number ?>";
+                document.getElementById('return_dialog').classList.add('hidden');
+                document.getElementById('return_result_dialog').classList.remove('hidden');
             }
         });
     }
@@ -535,5 +577,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         }
 
         return dateArray;
+    }
+
+    function openDeliveryDialog() {
+        // Create the iframe element
+        var iframe = document.getElementById('delivery_frame');
+
+        // Set the iframe properties
+        iframe.src = 'https://m.epost.go.kr/postal/mobile/mobile.trace.RetrieveDomRigiTraceList.comm?sid1=<?= $arr_Data['STR_DELICODE'] ?>'; // Replace with your desired URL
+        iframe.style.width = '300px'; // Set the width of the iframe
+        iframe.style.height = '500px'; // Set the height of the iframe
+        iframe.style.border = 'none'; // Remove iframe border
+
+        document.getElementById('show_delivery_dialog').classList.remove('hidden');
     }
 </script>
