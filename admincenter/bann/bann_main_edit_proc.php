@@ -28,7 +28,7 @@
 	switch($RetrieveFlag){
      	case "INSERT" :
 
-			$str_Temp=Fnc_Om_File_Save($str_image1,getRandomFileName($str_image1_name),$str_dimage1,0,0,"",$str_Add_Tag);
+			$str_Temp=Fnc_Om_File_Save($str_image1,$str_image1_name,$str_dimage1,0,0,"",$str_Add_Tag);
 
 			if ($str_Temp[0] == "0") {
 				?>
@@ -70,7 +70,7 @@
 
 		case "UPDATE" :
 
-			$str_Temp=Fnc_Om_File_Save($str_image1,getRandomFileName($str_image1_name),$str_dimage1,0,0,$str_del_img1,$str_Add_Tag);
+			$str_Temp=Fnc_Om_File_Save($str_image1,$str_image1_name,$str_dimage1,0,0,$str_del_img1,$str_Add_Tag);
 
 			if ($str_Temp[0] == "0") {
 				?>

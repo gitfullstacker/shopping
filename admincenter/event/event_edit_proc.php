@@ -35,7 +35,7 @@ if (!is_dir($str_Add_Tag)) {
 switch ($RetrieveFlag) {
 	case "INSERT":
 
-		$str_Temp = Fnc_Om_File_Save($str_Image1, getRandomFileName($str_Image_name1), $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image1, $str_Image_name1, $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 ?>
 			<script language="javascript">
@@ -48,7 +48,7 @@ switch ($RetrieveFlag) {
 		$arr_Temp = $str_Temp[1];
 		$str_dimage1 = $arr_Temp[0];
 
-		$str_Temp = Fnc_Om_File_Save($str_Image2, getRandomFileName($str_Image_name2), $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image2, $str_Image_name2, $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
 			<script language="javascript">
@@ -80,7 +80,7 @@ switch ($RetrieveFlag) {
 
 	case "UPDATE":
 
-		$str_Temp = Fnc_Om_File_Save($str_Image1, getRandomFileName($str_Image_name1), $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image1, $str_Image_name1, $str_dimage1, '', '', $str_del_img1, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
 			<script language="javascript">
@@ -93,7 +93,7 @@ switch ($RetrieveFlag) {
 		$arr_Temp = $str_Temp[1];
 		$str_dimage1 = $arr_Temp[0];
 
-		$str_Temp = Fnc_Om_File_Save($str_Image2, getRandomFileName($str_Image_name2), $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
+		$str_Temp = Fnc_Om_File_Save($str_Image2, $str_Image_name2, $str_dimage2, '', '', $str_del_img2, $str_Add_Tag);
 		if ($str_Temp[0] == "0") {
 		?>
 			<script language="javascript">

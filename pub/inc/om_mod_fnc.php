@@ -468,7 +468,7 @@ function Fnc_Om_Stamp_In($str_userid, $str_gubun, $int_stamp, $str_cont)
 
 function Fnc_Om_File_Save($str_Image1, $str_Image1_name, $str_dimage1, $s_pto_width1, $s_pto_height1, $str_del_img1, $str_Add_Tag)
 {
-
+	$str_Image1_name = getRandomFileName($str_Image1_name);
 	$Gob_F = 1;
 
 	if ($str_del_img1 == "Y") {
