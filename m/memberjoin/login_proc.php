@@ -76,6 +76,23 @@ if (!$rcd_cnt) { ?>
 	$SQL_QUERY =	"UPDATE " . $Tname . "comm_member SET INT_LOGIN=INT_LOGIN+1,DTM_ACDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='$str_userid' ";
 	$result = mysql_query($SQL_QUERY);
 
+	// 등급 재설정
+	$SQL_QUERY = 'SELECT A.DTM_GRADEDATE FROM `' . $Tname . 'comm_member` A WHERE A.STR_GRADE = "B" AND A.STR_USERID = "' . $str_userid . '"';
+	$arr_Rlt_Data = mysql_query($SQL_QUERY);
+	$user_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+	if ($user_Data['DTM_GRADEDATE']) {
+		$datetime = new DateTime($user_Data['DTM_GRADEDATE']);
+		$currentDatetime = new DateTime();
+
+		$interval = $currentDatetime->diff($datetime);
+
+		if ($interval->y > 1) {
+			$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_GRADE='G', DTM_GRADEDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='" . $str_userid . "'";
+			mysql_query($Sql_Query);
+		}
+	}
+
 	// 생일쿠폰 자동발행
 	if (substr(mysql_result($rel, 0, 'STR_BIRTH'), 4, 2) == date('m') && substr(mysql_result($rel, 0, 'STR_BIRTH'), 6, 2) == date('d')) {
 		// 해당하는 생일쿠폰선택
@@ -87,7 +104,6 @@ if (!$rcd_cnt) { ?>
 
 		if ($coupon_Data['NUM'] == 0) {
 			// 생일쿠폰 자동발행
-			
 			$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_coupon` A WHERE INT_NUMBER=' . $int_coupon;
 			$arr_Rlt_Data = mysql_query($SQL_QUERY);
 

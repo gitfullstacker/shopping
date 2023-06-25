@@ -1454,4 +1454,27 @@ function getSpentMoney($str_userid)
 	return ($good_money_Data['SUM_MONEY'] ?: 0) + ($membership_money_Data['SUM_MONEY'] ?: 0);
 }
 
+function addBlackCoupons($str_userid)
+{
+	global $Tname;
+
+	$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_GRADE='B', DTM_GRADEDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='" . $str_userid . "'";
+	mysql_query($Sql_Query);
+
+	// VIP쿠폰
+	$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_coupon` A WHERE INT_NUMBER=3';
+	$arr_Rlt_Data = mysql_query($SQL_QUERY);
+	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+	$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_coupon` (STR_USERID, INT_COUPON, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $str_userid . '", ' . $arr_Data['INT_NUMBER'] . ', "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
+	mysql_query($SQL_QUERY);
+
+	// 빈티지전용 할인 쿠폰
+	$SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_coupon` A WHERE INT_NUMBER=5';
+	$arr_Rlt_Data = mysql_query($SQL_QUERY);
+	$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+	$SQL_QUERY = 'INSERT INTO `' . $Tname . 'comm_member_coupon` (STR_USERID, INT_COUPON, DTM_INDATE, DTM_SDATE, DTM_EDATE) VALUES ("' . $str_userid . '", ' . $arr_Data['INT_NUMBER'] . ', "' . date("Y-m-d H:i:s") . '", "' . date("Y-m-d H:i:s") . '", "' . date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . '+' . $arr_Data['INT_MONTHS'] . ' months')) . '") ';
+	mysql_query($SQL_QUERY);
+}
 ?>

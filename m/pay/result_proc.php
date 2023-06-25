@@ -148,8 +148,7 @@ if ($res_cd == "0000") {
         $total_spent_money = getSpentMoney($user_Data['STR_USERID']);
 
         if ($total_spent_money >= 2000000) {
-            $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_GRADE='B', DTM_GRADEDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='" . $user_Data['STR_USERID'] . "'";
-            mysql_query($Sql_Query);
+            addBlackCoupons($user_Data['STR_USERID']);
         }
     }
 ?>
