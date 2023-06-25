@@ -20,7 +20,6 @@ function convertEncode($string)
 }
 
 if ($res_cd == "0000") {
-    // 사용자정보 얻기
     $SQL_QUERY =    'SELECT
                         A.*, B.INT_TYPE
                     FROM 
@@ -40,6 +39,17 @@ if ($res_cd == "0000") {
     }
 
     $cart_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+    // 사용자정보 얻기
+    $SQL_QUERY =    'SELECT
+                        A.*
+                    FROM 
+                        ' . $Tname . 'comm_member AS A
+                    WHERE
+                        A.STR_USERID="' . $cart_Data['STR_USERID'] . '"';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     $arr_Set_Data = array();
     $arr_Column_Name = array();
@@ -132,6 +142,16 @@ if ($res_cd == "0000") {
     // 결제상태 반영
     $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET STR_PAID='Y' WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
     mysql_query($Sql_Query);
+
+    // 사용한 금액체크
+    if ($user_Data['STR_GRADE'] != 'B') {
+        $total_spent_money = getSpentMoney($user_Data['STR_USERID']);
+
+        if ($total_spent_money >= 2000000) {
+            $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_GRADE='B', DTM_GRADEDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='" . $user_Data['STR_USERID'] . "'";
+            mysql_query($Sql_Query);
+        }
+    }
 ?>
     <script language="javascript">
         alert('결제가 성공하였습니다.');

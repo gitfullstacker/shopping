@@ -140,6 +140,16 @@ if ($res_cd == "0000") {
 
     $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
     mysql_query($Sql_Query);
+
+    // 사용한 금액체크
+    if ($user_Data['STR_GRADE'] != 'B') {
+        $total_spent_money = getSpentMoney($user_Data['STR_USERID']);
+
+        if ($total_spent_money >= 2000000) {
+            $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_GRADE='B', DTM_GRADEDATE='" . date("Y-m-d H:i:s") . "' WHERE STR_USERID='" . $user_Data['STR_USERID'] . "'";
+            mysql_query($Sql_Query);
+        }
+    }
     ?>
     <script language="javascript">
         alert('멤버십결제가 성공하였습니다.');

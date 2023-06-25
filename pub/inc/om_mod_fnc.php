@@ -1417,4 +1417,41 @@ function getRandomFileName($fileName)
 	}
 }
 
+function getSpentMoney($str_userid)
+{
+	global $Tname;
+
+	// 상품구매 1년 총결제액
+	$Sql_Query =    'SELECT 
+                        IFNULL(SUM(A.INT_PRICE), 0) AS SUM_MONEY
+                    FROM 
+                        `' . $Tname . 'comm_good_pay` AS A
+                    WHERE
+						A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+						AND A.DTM_INDATE <= CURDATE()
+                        AND A.STR_USERID="' . $str_userid . '"';
+
+	$arr_To_Data = mysql_query($Sql_Query);
+	$good_money_Data = mysql_fetch_assoc($arr_To_Data);
+
+	// 멤버십구매 1년 총결제액
+	$Sql_Query =    'SELECT 
+                        IFNULL(SUM(A.INT_SPRICE), 0) AS SUM_MONEY
+                    FROM 
+                        `' . $Tname . 'comm_member_pay_info` AS A
+					LEFT JOIN
+						`' . $Tname . 'comm_member_pay` AS B
+					ON
+						A.INT_NUMBER = B.INT_NUMBER
+                    WHERE
+						A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+						AND A.DTM_INDATE <= CURDATE()
+                        AND B.STR_USERID="' . $str_userid . '"';
+
+	$arr_To_Data = mysql_query($Sql_Query);
+	$membership_money_Data = mysql_fetch_assoc($arr_To_Data);
+
+	return ($good_money_Data['SUM_MONEY'] ?: 0) + ($membership_money_Data['SUM_MONEY'] ?: 0);
+}
+
 ?>

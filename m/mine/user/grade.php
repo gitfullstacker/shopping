@@ -50,11 +50,12 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
             </div>
             <?php
-            if ($arr_Data['STR_GRADE'] == 'G') {
+            if ($arr_Data['STR_GRADE'] != 'B') {
+                $total_spent_money = getSpentMoney($arr_Auth[0]);
             ?>
                 <div class="flex justify-between items-center">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">다음달 [블랙] 등급 승급까지 필요한 이용금액</p>
-                    <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= number_format(2000000 - $arr_Data['INT_SMONEY']) ?>원</p>
+                    <p class="font-bold text-xs leading-[14px] text-[#666666]"><?= number_format(2000000 - $total_spent_money) ?>원</p>
                 </div>
             <?php
             }
