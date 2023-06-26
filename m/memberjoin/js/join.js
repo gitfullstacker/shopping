@@ -70,6 +70,13 @@ function ValidChk() {
 	} else {
 		document.getElementById('alert_email').innerHTML = "";
 	}
+	if (!document.frm.agree_terms.checked || !document.frm.agree_payment.checked) {
+		document.getElementById('alert_agree').innerHTML = "* 약관동의에 동의하셔야 합니다.";
+		document.frm.str_email.value = "";
+		return false;
+	} else {
+		document.getElementById('alert_agree').innerHTML = "";
+	}
 }
 
 function str_userid_check() {

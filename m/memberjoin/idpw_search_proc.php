@@ -7,7 +7,6 @@ $str_name = Fnc_Om_Conv_Default($_REQUEST[str_name], "");
 $str_hp = Fnc_Om_Conv_Default($_REQUEST[str_hp1], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_hp2], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_hp3], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST[str_userid], "");
 $str_rname = Fnc_Om_Conv_Default($_REQUEST[str_rname], "");
-$str_rhp = Fnc_Om_Conv_Default($_REQUEST[str_rhp1], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_rhp2], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_rhp3], "");
 $str_password = Fnc_Om_Conv_Default($_REQUEST[str_password], "");
 
 switch ($RetrieveFlag) {
@@ -58,7 +57,7 @@ switch ($RetrieveFlag) {
 						AND 
 						STR_NAME='$str_rname'
 						AND 
-						STR_HP='$str_rhp' ";
+						STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
 		$rcd_cnt = mysql_num_rows($arr_sub_Data);
@@ -73,7 +72,7 @@ switch ($RetrieveFlag) {
 		} else {
 		?>
 			<script language="javascript">
-				window.location.href = "idpw_search.php?menu=2&pwd_step=2&str_userid=<?= $str_userid ?>&str_rname=<?= $str_rname ?>&str_rhp=<?= $str_rhp ?>";
+				window.location.href = "idpw_search.php?menu=2&pwd_step=2&str_userid=<?= $str_userid ?>&str_rname=<?= $str_rname ?>&str_hp=<?= $str_hp ?>";
 			</script>
 		<?
 		}
@@ -89,7 +88,7 @@ switch ($RetrieveFlag) {
 							AND 
 							STR_NAME='$str_rname'
 							AND 
-							STR_HP='$str_rhp' ";
+							STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
 		$rcd_cnt = mysql_num_rows($arr_sub_Data);
@@ -102,7 +101,7 @@ switch ($RetrieveFlag) {
 			</script>
 <?
 		} else {
-			$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_rhp'";
+			$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_hp'";
 			mysql_query($Sql_Query);
 
 			echo 'successful';

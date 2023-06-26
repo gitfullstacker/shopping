@@ -39,17 +39,21 @@ if (count($filter_styles) > 0) {
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
 }
 if ($search_key) {
-    $FILTER_QUERY .= 'AND A.STR_GOODNAME LIKE "%' . $search_key . '%" ';
+    $FILTER_QUERY .= 'AND (A.STR_GOODNAME LIKE "%' . $search_key . '%" || B.STR_KCODE LIKE "%' . $search_key . '%" || B.STR_CODE LIKE "%' . $search_key . '%") ';
 }
 
-$SQL_QUERY = 'SELECT 
-                COUNT(A.STR_GOODCODE) AS COUNT
+$SQL_QUERY =    'SELECT 
+                    COUNT(A.STR_GOODCODE) AS COUNT
                 FROM 
-                ' . $Tname . 'comm_goods_master A
+                    ' . $Tname . 'comm_goods_master A
+                LEFT JOIN
+                    ' . $Tname . 'comm_com_code B
+                ON
+                    A.INT_BRAND=B.INT_NUMBER
                 WHERE 
-                (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
-                AND 
-                ' . $FILTER_QUERY;
+                    (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
+                    AND 
+                    ' . $FILTER_QUERY;
 
 $result = mysql_query($SQL_QUERY);
 

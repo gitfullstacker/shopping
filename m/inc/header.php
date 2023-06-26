@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="/m/css/swiper.min.css">
 	<script src="/m/js/swiper.min.js"></script>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>

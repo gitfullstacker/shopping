@@ -115,16 +115,9 @@ if ($enc_data == -1) {
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp1" id="str_shp1">
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
-                    </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp2" id="str_shp2" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp3" id="str_shp3" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp1" name="str_shp1" maxlength="3" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp2" name="str_shp2" maxlength="4" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp3" name="str_shp3" maxlength="4" placeholder="5678" readonly>
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -227,6 +220,31 @@ if ($enc_data == -1) {
                 <input type="text" class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_month" id="str_birth_month" placeholder="01" readonly>
                 <input type="text" class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="str_birth_day" id="str_birth_day" placeholder="01" readonly>
             </div>
+        </div>
+    </div>
+
+    <!-- 구분 -->
+    <hr class="mt-[30px] mb-[20px] border-t-[0.5px] border-[#E0E0E0]" />
+
+    <!-- 약관동의 -->
+    <div class="mt-4 flex flex-col gap-[19px] w-full">
+        <p class="font-extrabold text-sm leading-4 text-black">약관동의 <span class="text-[#DA2727]">*</span></p>
+        <div class="flex flex-col gap-2.5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
+                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
+                </div>
+                <a href="/m/help/deposit_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
+                    <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+                </div>
+                <a href="/m/help/privacy_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+            </div>
+            <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_agree"></span>
         </div>
     </div>
 

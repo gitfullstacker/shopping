@@ -21,6 +21,9 @@
     session_start();
 
     $enc_data = $_REQUEST["EncodeData"];        // 암호화된 결과 데이타
+    $param_r1 = $_REQUEST["param_r1"];
+    $param_r2 = $_REQUEST["param_r2"];
+    $param_r3 = $_REQUEST["param_r3"];
 
     //////////////////////////////////////////////// 문자열 점검///////////////////////////////////////////////
     if (preg_match('~[^0-9a-zA-Z+/=]~', $enc_data, $match)) {
@@ -124,18 +127,20 @@
     if ($str_result == "1") {
         $name = iconv("EUC-KR", "UTF-8", $name) ? iconv("EUC-KR", "UTF-8", $name) : $name;
 
-        $Sql_Query =    " SELECT A.STR_USERID FROM `" . $Tname . "comm_member` AS A WHERE STR_HP='" . addHyphen($mobileno) . "' ";
-        $arr_Data = mysql_query($Sql_Query);
-        $arr_Data_Cnt = mysql_num_rows($arr_Data);
+        if (!$param_r1) {
+            $Sql_Query =    " SELECT A.STR_USERID FROM `" . $Tname . "comm_member` AS A WHERE STR_HP='" . addHyphen($mobileno) . "' ";
+            $arr_Data = mysql_query($Sql_Query);
+            $arr_Data_Cnt = mysql_num_rows($arr_Data);
 
-        if ($arr_Data_Cnt) {
+            if ($arr_Data_Cnt) {
     ?>
-            <script language="javascript">
-                alert("핸드폰이 이미 등록되어 있습니다.");
-                window.close();
-            </script>
+                <script language="javascript">
+                    alert("핸드폰이 이미 등록되어 있습니다.");
+                    window.close();
+                </script>
         <?
-            exit;
+                exit;
+            }
         }
 
         $_SESSION['USERJ_CERT'] = "M";

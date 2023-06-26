@@ -156,16 +156,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $str_shp3 = $str_shp[2] ?: '';
                 ?>
                 <div class="grid grid-cols-3 gap-[5px]">
-                    <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp1" id="str_shp1">
-                        <option value="010" <?= $str_shp1 == '010' ? 'selected' : '' ?>>010</option>
-                        <option value="011" <?= $str_shp1 == '011' ? 'selected' : '' ?>>011</option>
-                        <option value="016" <?= $str_shp1 == '016' ? 'selected' : '' ?>>016</option>
-                        <option value="017" <?= $str_shp1 == '017' ? 'selected' : '' ?>>017</option>
-                        <option value="018" <?= $str_shp1 == '018' ? 'selected' : '' ?>>018</option>
-                        <option value="019" <?= $str_shp1 == '019' ? 'selected' : '' ?>>019</option>
-                    </select>
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp2" id="str_shp2" maxlength="4" value="<?= $str_shp2 ?>" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_shp3" id="str_shp3" maxlength="4" value="<?= $str_shp3 ?>" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp1" name="str_shp1" maxlength="3" value="<?= $str_shp1 ?>" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp2" name="str_shp2" maxlength="4" value="<?= $str_shp2 ?>" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" id="str_shp3" name="str_shp3" maxlength="4" value="<?= $str_shp3 ?>" placeholder="5678" readonly>
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">

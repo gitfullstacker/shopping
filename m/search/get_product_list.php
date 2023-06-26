@@ -40,7 +40,7 @@ if (count($filter_styles) > 0) {
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
 }
 if ($search_key) {
-    $FILTER_QUERY .= 'AND A.STR_GOODNAME LIKE "%' . $search_key . '%" ';
+    $FILTER_QUERY .= 'AND (A.STR_GOODNAME LIKE "%' . $search_key . '%" || B.STR_KCODE LIKE "%' . $search_key . '%" || B.STR_CODE LIKE "%' . $search_key . '%") ';
 }
 
 $ORDERBY_QUERY = 'A.INT_LIKE DESC ';
