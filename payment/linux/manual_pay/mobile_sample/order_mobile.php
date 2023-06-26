@@ -61,6 +61,13 @@ function convertEncode($string)
         return $string;
     }
 }
+
+session_start(); // Start the session
+
+// Get the session variable value
+if (isset($_POST['str_goodcode'])) {
+    $_SESSION['pay_str_goodcode'] = $_POST['str_goodcode'];
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -131,7 +138,7 @@ function convertEncode($string)
             if (pay_form.res_cd.value == "3001") {
                 alert("사용자가 취소하였습니다.");
                 pay_form.res_cd.value = "";
-                window.location.href="/m/product/detail.php?str_goodcode=<?= $_POST['param_opt_3'] ?>";
+                window.location.href="/m/product/detail.php?str_goodcode=<?= $_SESSION['pay_str_goodcode'] ?>";
                 return;
             }
 
@@ -379,7 +386,7 @@ function convertEncode($string)
             <!-- 추가 파라미터 ( 가맹점에서 별도의 값전달시 param_opt 를 사용하여 값 전달 ) -->
             <input type="hidden" name="param_opt_1" value="<?= $_REQUEST['int_cart'] ?: '' ?>">
             <input type="hidden" name="param_opt_2" value="<?= $_REQUEST['int_coupon'] ?: '' ?>">
-            <input type="hidden" name="param_opt_3" value="<?= $_REQUEST['str_goodcode'] ?: '' ?>">
+            <input type="hidden" name="param_opt_3" value="">
 
             <!-- 결제 정보 등록시 응답 타입 ( 필드가 없거나 값이 '' 일경우 TEXT, 값이 XML 또는 JSON 지원 -->
             <input type="hidden" name="response_type" value="TEXT" />
