@@ -14,6 +14,7 @@ $str_percent = Fnc_Om_Conv_Default($_REQUEST['str_percent'], "N");
 $str_service = Fnc_Om_Conv_Default($_REQUEST['str_service'], "Y");
 $int_months = Fnc_Om_Conv_Default($_REQUEST['int_months'], "3");
 $str_code = Fnc_Om_Conv_Default($_REQUEST['str_code'], "");
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "0");
 
 $chkItem1 = Fnc_Om_Conv_Default($_REQUEST['chkItem1'], "");
 
@@ -31,6 +32,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[5]		= "STR_PERCENT";
 		$arr_Column_Name[6]		= "INT_MONTHS";
 		$arr_Column_Name[7]		= "STR_CODE";
+		$arr_Column_Name[8]		= "INT_TYPE";
 
 		$arr_Set_Data[0]		= $str_title;
 		$arr_Set_Data[1]		= $str_desc;
@@ -40,6 +42,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[5]		= $str_percent;
 		$arr_Set_Data[6]		= $int_months;
 		$arr_Set_Data[7]		= $str_code;
+		$arr_Set_Data[8]		= $int_type;
 
 		$arr_Sub1 = "";
 		$arr_Sub2 = "";
@@ -76,6 +79,7 @@ switch ($RetrieveFlag) {
 		$arr_Column_Name[4]		= "STR_PERCENT";
 		$arr_Column_Name[5]		= "INT_MONTHS";
 		$arr_Column_Name[6]		= "STR_CODE";
+		$arr_Column_Name[7]		= "INT_TYPE";
 
 		$arr_Set_Data[0]		= $str_title;
 		$arr_Set_Data[1]		= $str_desc;
@@ -84,6 +88,7 @@ switch ($RetrieveFlag) {
 		$arr_Set_Data[4]		= $str_percent;
 		$arr_Set_Data[5]		= $int_months;
 		$arr_Set_Data[6]		= $str_code;
+		$arr_Set_Data[7]		= $int_type;
 
 		$arr_Sub = "";
 

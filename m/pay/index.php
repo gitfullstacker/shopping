@@ -468,6 +468,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 A.STR_USED="N"
                                 AND A.STR_USERID="' . $arr_Auth[0] . '"
                                 AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
+                                AND (B.INT_TYPE=0 OR B.INT_TYPE=' . $int_type . ')
                             ORDER BY A.DTM_INDATE DESC';
 
             $coupon_list_result = mysql_query($SQL_QUERY);
@@ -678,7 +679,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.area) + '원'"></p>
                         </div>
                         <div class="flex items-center justify-between">
-                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄷ 멤버십할인</p>
+                            <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 멤버십할인</p>
                             <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.membership) + '원'"></p>
                         </div>
                     <?php

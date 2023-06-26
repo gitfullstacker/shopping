@@ -45,17 +45,20 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 				this.slider = slider;
 			},
 			init() {
+				this.imageCount = this.$refs.sliderContainer.children.length;
 				setInterval(() => {
 					this.imageCount = this.$refs.sliderContainer.children.length;
 					this.containerWidth = this.$refs.sliderContainer.offsetWidth;
 
+					nextSlider = 0;
 					if (this.slider + 1 > this.imageCount) {
-						this.slider = 1;
+						nextSlider = 1;
 					} else {
-						this.slider++;
+						nextSlider = this.slider + 1;
 					}
+
 					this.$refs.sliderContainer.scrollTo({
-						left: (this.slider - 1) * this.containerWidth,
+						left: (nextSlider - 1) * this.containerWidth,
 						behavior: 'smooth'
 					});
 				}, 3000);

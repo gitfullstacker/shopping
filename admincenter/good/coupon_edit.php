@@ -115,6 +115,17 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													</td>
 												</tr>
 												<tr>
+													<td>적용상품</td>
+													<td colspan="3">
+														<select name="int_type">
+															<option value="0" <?= $arr_Data['INT_TYPE'] == 0 ? 'selected' : '' ?>>모든 제품</option>
+															<option value="1" <?= $arr_Data['INT_TYPE'] == 1 ? 'selected' : '' ?>>구독전용</option>
+															<option value="2" <?= $arr_Data['INT_TYPE'] == 2 ? 'selected' : '' ?>>렌트전용</option>
+															<option value="3" <?= $arr_Data['INT_TYPE'] == 3 ? 'selected' : '' ?>>빈티지전용</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
 													<td>출력여부</td>
 													<td colspan="3">
 														<input type="radio" value="Y" name="str_service" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_SERVICE'], 'Y') == 'Y') { ?>checked<? } ?>> 출력

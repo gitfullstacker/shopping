@@ -176,7 +176,7 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=8></td>
+										<td class=rnd colspan=9></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
@@ -185,19 +185,21 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 										<th>사용기간</th>
 										<th>쿠폰번호</th>
 										<th>등록일</th>
+										<th>적용상품</th>
 										<th>출력유무</th>
 										<th>수정</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=8></td>
+										<td class=rnd colspan=9></td>
 									</tr>
 									<col width=5% align=center>
 									<col width=35% align=left>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=10% align=center>
-									<col width=15% align=center>
 									<col width=10% align=center>
+									<col width=10% align=center>
+									<col width=5% align=center>
 									<col width=5% align=center>
 									<? $count = 0; ?>
 									<? if ($total_record_limit != 0) { ?>
@@ -219,6 +221,25 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													<font class=ver81 color=616161><?= substr(mysql_result($result, $i, "dtm_indate"), 0, 10) ?></font>
 												</td>
 												<td>
+													<font color=616161>
+														<? switch (mysql_result($result, $i, "int_type")) {
+															case  0:
+																echo "모든 제품";
+																break;
+															case  1:
+																echo "구독전용";
+																break;
+															case  2:
+																echo "렌트전용";
+																break;
+															case  3:
+																echo "빈티지전용";
+																break;
+														}
+														?>
+													</font>
+												</td>
+												<td>
 													<font class=small color=616161>
 														<? switch (mysql_result($result, $i, "str_service")) {
 															case  "Y":
@@ -234,7 +255,7 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, "int_number") ?>');"><img src="/admincenter/img/i_edit.gif"></a></td>
 											</tr>
 											<tr>
-												<td colspan=8 class=rndline></td>
+												<td colspan=9 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?
