@@ -50,7 +50,7 @@ if (!$rent_Data['STR_SGOODCODE'] && ($int_type == 1 || $int_type == 3)) {
 ?>
     <script language="javascript">
         alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
-        window.location.href = "/m/product/detail?str_goodcode=<?= $str_goodcode ?>";
+        window.location.href = "/m/product/detail.php?str_goodcode=<?= $str_goodcode ?>";
     </script>
 <?
     exit;
