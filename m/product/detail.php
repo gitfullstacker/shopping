@@ -368,33 +368,33 @@ switch ($arr_Data['INT_TYPE']) {
 
         <!-- 메뉴 -->
         <div id="menu_panel" class="mt-[15px] flex justify-around bg-white border-t-[0.5px] border-b-[0.5px] border-solid border-[#E0E0E0]">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 1 ? 'font-bold text-black' : 'font-medium text-[#999999]'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 2 ? 'font-bold text-black' : 'font-medium text-[#999999]'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 3 ? 'font-bold text-black' : 'font-medium text-[#999999]'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 4 ? 'font-bold text-black' : 'font-medium text-[#999999]'">관련상품</p>
             </div>
         </div>
 
         <!-- 톱메뉴 -->
         <div id="top_menu_panel" class="fixed top-[56px] flex justify-around bg-white border-b-[0.5px] border-solid border-[#E0E0E0] w-full max-w-[410px] z-10 hidden">
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 1 ? 'font-bold' : 'font-medium'">상품정보</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 1 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 1" onclick="scrollToDiv('menu_div1')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 1 ? 'font-bold text-black' : 'font-medium text-[#999999]'">상품정보</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 2 ? 'font-bold' : 'font-medium'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 2 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 2" onclick="scrollToDiv('menu_div2')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 2 ? 'font-bold text-black' : 'font-medium text-[#999999]'"><?= $arr_Data['INT_TYPE'] != 3 ? '상세후기' : '1:1문의' ?></p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 3 ? 'font-bold' : 'font-medium'">이용안내</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 3 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 3" onclick="scrollToDiv('menu_div3')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 3 ? 'font-bold text-black' : 'font-medium text-[#999999]'">이용안내</p>
             </div>
-            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' text-black border-b border-black' : 'text-[#999999]'" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
-                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu = 4 ? 'font-bold' : 'font-medium'">관련상품</p>
+            <div class="flex justify-center items-center px-[12px] py-2.5" x-bind:class="$store.detailMenu == 4 ? ' border-b border-black' : ''" x-on:click="$store.detailMenu = 4" onclick="scrollToDiv('menu_div4')">
+                <p class="text-[14px] leading-4 text-center" x-bind:class="$store.detailMenu == 4 ? 'font-bold text-black' : 'font-medium text-[#999999]'">관련상품</p>
             </div>
         </div>
 
@@ -585,7 +585,7 @@ switch ($arr_Data['INT_TYPE']) {
             <!-- 상품이미지 -->
             <div x-data="{ showFullContent: false }" class="mt-7 flex flex-col gap-7 w-full">
                 <div class="flex flex-col w-full" x-ref="content" x-bind:style="showFullContent ? 'max-height: none' : 'max-height: 300px; overflow: hidden'">
-                    <?= $arr_Data['STR_CONTENTS'] ?>
+                    <?= str_replace('\"', '', $arr_Data['STR_CONTENTS']) ?>
                 </div>
                 <!-- 더보기 버튼 -->
                 <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent">

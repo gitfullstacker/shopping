@@ -122,7 +122,7 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
     $index = 0;
     while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
         $index++;
-        $images .= '<img class="min-w-full object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" x-bind:class="selectedImage == ' . $index . ' ? \'h-[410px]\' : (selectedImage == 0 ? \'h-[120px]\' : \'hidden\')" onerror="this.style.display = \'none\'" alt="" x-on:click="selectedImage == ' . $index . ' ? (selectedImage = 0) : (selectedImage = ' . $index . ')">';
+        $images .= '<img class="min-w-full object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" x-bind:class="selectedImage == ' . $index . ' ? \'w-full object-fill\' : (selectedImage == 0 ? \'h-[120px]\' : \'hidden\')" onerror="this.style.display = \'none\'" alt="" x-on:click="selectedImage == ' . $index . ' ? (selectedImage = 0) : (selectedImage = ' . $index . ')">';
     }
 
     $result .= '
