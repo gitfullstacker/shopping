@@ -1798,7 +1798,7 @@ switch ($arr_Data['INT_TYPE']) {
 
         function isElementHidden(element) {
             var rect = element.getBoundingClientRect();
-            return rect.bottom <= 100;
+            return rect.bottom <= 110;
         }
 
         function showRelativeImage(index) {
