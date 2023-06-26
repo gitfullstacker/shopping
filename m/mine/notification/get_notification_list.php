@@ -47,6 +47,10 @@ $notification_list_result = mysql_query($SQL_QUERY);
 
 $result = '<div class="flex flex-col w-full border-t-[0.5px] border-[#E0E0E0]">';
 while ($row = mysql_fetch_assoc($notification_list_result)) {
+    $description = str_replace('\"', '', $row['BD_CONT']);
+    $description = str_replace('font-family:', '', $description);
+    $description = str_replace('font-size:', '', $description);
+
     $result .= '
         <div x-data="{ isCollapsed: true }" class="flex flex-col w-full">
             <div class="flex justify-between items-center py-[15px] border-b-[0.5px] border-[#E0E0E0]" x-on:click="isCollapsed = !isCollapsed">
@@ -61,7 +65,7 @@ while ($row = mysql_fetch_assoc($notification_list_result)) {
                 </div>
             </div>
             <div x-show="!isCollapsed" class="items-center bg-[#F5F5F5] p-[22px] font-normal text-xs leading-[14px] text-[#666666]">
-            ' . str_replace('\"', '', $row['BD_CONT']) . '
+            ' . $description . '
             </div>
         </div>';
 }
