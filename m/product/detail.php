@@ -1786,7 +1786,7 @@ switch ($arr_Data['INT_TYPE']) {
             for (var i = 1; i <= 4; i++) {
                 var menu = document.getElementById('menu_div' + i);
 
-                if (menu.getBoundingClientRect().top <= 100) {
+                if (menu.getBoundingClientRect().top <= 120) {
                     Alpine.store('detailMenu', i);
                 }
             }
