@@ -1786,7 +1786,7 @@ switch ($arr_Data['INT_TYPE']) {
             for (var i = 1; i <= 4; i++) {
                 var menu = document.getElementById('menu_div' + i);
 
-                if (menu.getBoundingClientRect().top < 100) {
+                if (menu.getBoundingClientRect().top <= 100) {
                     Alpine.store('detailMenu', i);
                 }
             }
@@ -1798,7 +1798,7 @@ switch ($arr_Data['INT_TYPE']) {
 
         function isElementHidden(element) {
             var rect = element.getBoundingClientRect();
-            return rect.bottom <= 110;
+            return rect.bottom <= 100;
         }
 
         function showRelativeImage(index) {
