@@ -236,7 +236,7 @@ if ($int_type != 1) {
                 if (<?= $int_type ?> == 2) {
                     document.forms.pay_form.action = "/payment/linux/auto_pay/mobile_auth/order_mobile.php";
                 } else {
-                    document.forms.pay_form.action = "/payment/windows/manual_pay/mobile_sample/order_mobile.php";
+                    document.forms.pay_form.action = "/payment/linux/manual_pay/mobile_sample/order_mobile.php";
                 }
 
                 document.forms.pay_form.submit();
