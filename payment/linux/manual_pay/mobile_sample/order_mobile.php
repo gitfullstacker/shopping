@@ -131,6 +131,7 @@ function convertEncode($string)
             if (pay_form.res_cd.value == "3001") {
                 alert("사용자가 취소하였습니다.");
                 pay_form.res_cd.value = "";
+                window.location.href="/m/product/detail.php?str_goodcode=<?= $_POST['str_goodcode'] ?>";
                 return;
             }
 
