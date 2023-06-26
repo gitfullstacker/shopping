@@ -61,13 +61,6 @@ function convertEncode($string)
         return $string;
     }
 }
-
-session_start(); // Start the session
-
-// Get the session variable value
-if (isset($_POST['str_goodcode'])) {
-    $_SESSION['pay_str_goodcode'] = $_POST['str_goodcode'];
-}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -138,7 +131,7 @@ if (isset($_POST['str_goodcode'])) {
             if (pay_form.res_cd.value == "3001") {
                 alert("사용자가 취소하였습니다.");
                 pay_form.res_cd.value = "";
-                window.location.href="/m/product/detail.php?str_goodcode=<?= $_SESSION['pay_str_goodcode'] ?>";
+                window.location.href="/m/main/index.php";
                 return;
             }
 
