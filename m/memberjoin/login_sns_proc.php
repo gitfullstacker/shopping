@@ -92,18 +92,17 @@ $rcd_cnt = mysql_num_rows($rel);
 	if (!$rcd_cnt) {
 	?>
 		<script language="javascript">
-			document.forms.join_frm.submit();
+			document.join_frm.submit();
 		</script>
 	<?
 	} else {
 	?>
 		<script language=javascript>
 			{
-				document.forms.login_frm.submit();
+				document.login_frm.submit();
 			}
 		</script>
 	<?
-		exit;
 	}
 	?>
 </body>
