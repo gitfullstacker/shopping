@@ -90,7 +90,7 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode  ";
 $SQL_QUERY .= "where a.int_number is not null and a.int_state not in ('0') and c.int_type=" . $int_type . " ";
@@ -289,7 +289,7 @@ $total_record_limit = mysql_num_rows($result);
 													</span></td>
 												<td style="text-align:left;">[<?= mysql_result($result, $i, str_usercode) ?>] <?= mysql_result($result, $i, str_goodname) ?></td>
 												<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?></td>
-												<td><?= mysql_result($result, $i, str_hp) ?></td>
+												<td><?= mysql_result($result, $i, member_hp) ?></td>
 												<td><?= mysql_result($result, $i, str_rdate) ?></td>
 												<td>
 													<select name="int_state" onchange="fnc_state('<?= mysql_result($result, $i, int_number) ?>',this.value)">
