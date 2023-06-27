@@ -143,9 +143,7 @@ if ($arr_Data) {
 // $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_join.html?str_name=" . urlencode($str_name) . "&str_userid=" . urlencode($str_userid));
 // $body = $snoopy->results;
 
-Fnc_Om_Sendmail("에이블랑에 회원이 되신 것을 환영합니다.", $body, Fnc_Om_Store_Info(2), $str_email);
-
-
+// Fnc_Om_Sendmail("에이블랑에 회원이 되신 것을 환영합니다.", $body, Fnc_Om_Store_Info(2), $str_email);
 ?>
 <script language="javascript">
 	alert("회원가입을 축하드립니다.");

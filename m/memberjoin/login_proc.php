@@ -1,7 +1,7 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
 $login_type = Fnc_Om_Conv_Default($_REQUEST['login_type'], "default");
-$login_type = Fnc_Om_Conv_Default($_REQUEST['str_email'], "");
+$str_email = Fnc_Om_Conv_Default($_REQUEST['str_email'], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], $_REQUEST['str_userid2']);
 $str_passwd = $_REQUEST['str_passwd'];
 $idsave = Fnc_Om_Conv_Default($_REQUEST['idsave'], "0");

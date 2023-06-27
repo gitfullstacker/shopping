@@ -87,6 +87,7 @@ $rcd_cnt = mysql_num_rows($rel);
 	<form name="login_frm" action="/m/memberjoin/login_proc.php" method="post">
 		<input type="hidden" name="login_type" value="sns">
 		<input type="hidden" name="str_email" value="<?= $str_email ?>">
+		<input type="hidden" name="str_userid" value="<?= $str_userid ?>">
 	</form>
 	<?php
 	if (!$rcd_cnt) {
