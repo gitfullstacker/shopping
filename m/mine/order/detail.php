@@ -116,6 +116,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         case 2:
                         ?>
                             <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: <?= date('Y.m.d', strtotime($arr_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'])) ?></p>
+                            <p class="mt-[3px] font-medium text-xs leading-[14px] text-[#999999]">반납: <?= date('Y.m.d', strtotime($arr_Data['STR_EDATE'] . ' +1 day')) ?></p>
                             <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black"><?= number_format($arr_Data['PRODUCT_PRICE']) ?>원</p>
                         <?php
                             break;

@@ -50,11 +50,9 @@
 					</form>
 					
 					<script type="text/javascript">
-						<!--
 						window.onload = function() {
 							document.frm.str_userid.focus();
 						}
-						//-->
 					</script>
 
 					

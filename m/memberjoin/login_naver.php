@@ -4,7 +4,7 @@
     // 네이버 로그인 API를 호출하기 위한 클라이언트 ID와 시크릿 키 값
     client_id = "jcs1GgEIyTrIaYrnffvx";
     client_secret = "pE18Auqzs9";
-    redirect_uri = "http://localhost/m/memberjoin/login_naver_callback.php";
+    redirect_uri = "http://ablanccompany.cafe24.com/m/memberjoin/login_naver_callback.php";
     state = "1234";
 
     // URL for the Naver login page

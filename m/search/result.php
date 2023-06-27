@@ -38,9 +38,6 @@ if (count($filter_styles) > 0) {
     $filter_styles_string = implode(' OR ', $filter_styles_array);
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
 }
-if ($search_key) {
-    $FILTER_QUERY .= 'AND (A.STR_GOODNAME LIKE "%' . $search_key . '%" || B.STR_KCODE LIKE "%' . $search_key . '%" || B.STR_CODE LIKE "%' . $search_key . '%") ';
-}
 
 $SQL_QUERY =    'SELECT 
                     COUNT(A.STR_GOODCODE) AS COUNT

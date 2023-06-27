@@ -183,7 +183,7 @@ if ($end_page > 0) {
         switch ($row['INT_TYPE']) {
             case 1:
                 $product_detail = '
-                    <div class="w-[40px] h-[18px] flex justify-center items-center bg-[#EEAC4C]">
+                    <div class="w-[34px] h-[18px] flex justify-center items-center bg-[#EEAC4C]">
                         <p class="font-normal text-[10px] leading-[11px] text-center text-white">구독</p>
                     </div>
                     <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
@@ -195,12 +195,13 @@ if ($end_page > 0) {
                 break;
             case 2:
                 $product_detail = '
-                    <div class="w-[40px] h-[18px] flex justify-center items-center bg-[#00402F]">
+                    <div class="w-[34px] h-[18px] flex justify-center items-center bg-[#00402F]">
                         <p class="font-normal text-[10px] leading-[11px] text-center text-white">렌트</p>
                     </div>
                     <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black">' . $row['STR_CODE'] . '</p>
                     <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
                     <p class="mt-[9px] font-medium text-xs leading-[14px] text-[#999999]">기간: ' . date('Y.m.d', strtotime($row['STR_SDATE'])) . ' ~ ' . date('Y.m.d', strtotime($row['STR_EDATE'])) . '</p>
+                    <p class="mt-[3px] font-medium text-xs leading-[14px] text-[#999999]">반납: ' . date('Y.m.d', strtotime($row['STR_EDATE'] . ' +1 day')) . '</p>
                     <p class="mt-[3px] font-extrabold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE']) . '원</p>
                 ';
                 break;

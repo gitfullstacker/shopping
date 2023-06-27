@@ -8,10 +8,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 
 <div class="flex flex-col w-full px-[14px]">
     <div x-data="{
-            searchKey: '<?= $_GET['search_key'] ?: '' ?>',
+            searchKey: '',
             search() {
-                window.search_key = this.searchKey;
-                searchProduct();
+                searchByKey(this.searchKey);
             }
         }" class="mt-[11.26px] relative w-full">
         <input type="text" class="w-full h-[38px] bg-[#F8F8F8] border border-solid border-[#E0E0E0] rounded-[4px] pl-3 pr-7 font-medium text-xs leading-[14px] placeholder:text-[#C4C4C4]" x-model="searchKey" x-on:keydown.enter="search()" placeholder="검색어를 입력해주세요.">
@@ -25,7 +24,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     <!-- 최근 검색어 -->
     <div class="mt-[25.17px] flex flex-col w-full gap-5">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">최근 검색어</p>
-        <p class="font-semibold text-xs leading-[14px] text-[#9D9D9D]">최근 검색어가 없습니다.</p>
+        <?php
+        $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize($_COOKIE['SEARCH_KEY_DATA']) : array();
+
+        if (count($searchHistory) > 0) {
+        ?>
+            <div class="grid grid-cols-2 gap-0.5 w-full">
+                <?php
+                foreach ($searchHistory as $key => $value) {
+                ?>
+                    <button class="flex flex-col gap-0.5 px-3 py-[7px] bg-[#F8F8F8]" onclick="searchByKey('<?= $value ?>')">
+                        <p class="font-bold text-xs leading-[14px] text-black"><?= $value ?></p>
+                    </button>
+                <?php
+                }
+                ?>
+            </div>
+        <?php
+        } else {
+        ?>
+            <p class="font-semibold text-xs leading-[14px] text-[#9D9D9D]">최근 검색어가 없습니다.</p>
+        <?php
+        }
+        ?>
     </div>
 
     <!-- BRAND -->
@@ -58,12 +79,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
 <script>
     current_page = 1;
-    window.search_key = '';
+
+    function searchByKey(search_key) {
+        url = "result_before.php";
+        url += "?search_key=" + search_key;
+
+        document.location.href = url;
+    }
 
     function searchProduct(int_brand = '') {
         url = "result.php";
-        url += "?search_key=" + search_key;
-        url += "&filter_brands=" + (int_brand ? encodeURIComponent(JSON.stringify([int_brand])) : '');
+        url += "?filter_brands=" + (int_brand ? encodeURIComponent(JSON.stringify([int_brand])) : '');
 
         document.location.href = url;
     }
