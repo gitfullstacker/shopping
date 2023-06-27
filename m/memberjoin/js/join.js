@@ -377,6 +377,8 @@ function verifyPhone() {
 }
 
 function setVerifyPhoneNumber(phoneNumber, birthday) {
+	$('#str_cert').val('M');
+
 	var phone_array = phoneNumber.split("-");
 
 	$('#str_hp1').val(phone_array[0]);

@@ -10,9 +10,9 @@ function SelectClick(str_no) {
 	document.frm.action = "event_select.php"
 	document.frm.submit();
 }
-function AddNew(int_type) {
+function AddNew() {
 	document.frm.RetrieveFlag.value = "INSERT";
-	document.frm.action = "event_edit.php?int_type=" + int_type;
+	document.frm.action = "event_edit.php";
 	document.frm.submit();
 }
 function fnc_search() {

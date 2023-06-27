@@ -201,7 +201,7 @@ if ($bln_Main_Bd == False) {
 
 $Sql_Query .= " A.BD_ID_KEY IS NOT NULL ";
 $Sql_Query .= $Sql_Add_Query;
-$Sql_Query .= " ORDER BY BD_BEST DESC, BD_EDIT_DATE DESC ";
+$Sql_Query .= " ORDER BY BD_BEST DESC, BD_REG_DATE DESC ";
 $Sql_Query .= "limit $f_limit,$l_limit";
 
 $arr_Get_Data = mysql_query($Sql_Query);

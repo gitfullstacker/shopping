@@ -105,6 +105,7 @@ $total_record_limit = mysql_num_rows($result);
                                 <input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
                                 <input type="hidden" name="page" value="<?= $page ?>">
                                 <input type="hidden" name="str_no">
+                                <input type="hidden" name="int_type" value="<?= $int_type ?>">
 
                                 <table class=tb>
                                     <col class=cellC style="width:12%">
@@ -278,7 +279,7 @@ $total_record_limit = mysql_num_rows($result);
                                 </div>
 
                                 <div style="float:right;">
-                                    <img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew('<?= $int_type ?>');">
+                                    <img src="/admincenter/img/btn_regist_s.gif" alt="등록" border=0 align=absmiddle style="cursor:hand" onClick="AddNew();">
                                 </div>
                             </form>
 

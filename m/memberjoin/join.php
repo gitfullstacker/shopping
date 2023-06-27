@@ -53,6 +53,8 @@ if ($enc_data == -1) {
 ?>
 
 <form class="mt-[30px] flex flex-col w-full px-[14px]" name="frm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="str_cert" id="str_cert" value="">
+    
     <div class="flex justify-center">
         <p class="font-extrabold text-lg leading-5 text-center text-black">회원가입</p>
     </div>
