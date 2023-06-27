@@ -63,32 +63,17 @@ $SQL_QUERY .= "comm_member AS OM
 
 $rel = mysql_query($SQL_QUERY);
 $rcd_cnt = mysql_num_rows($rel);
-
-if (!$rcd_cnt) {
-?>
-	<script language="javascript">
-		document.forms.join_frm.submit();
-	</script>
-<?
-} else {
-?>
-	<script language=javascript>
-		{
-			document.forms.login_frm.submit();
-		}
-	</script>
-<?
-	exit;
-}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SNS PROC</title>
 </head>
+
 <body>
 	<form name="join_frm" action="/m/memberjoin/join_proc.php" method="post">
 		<input type="hidden" name="join_type" value="sns">
@@ -103,5 +88,24 @@ if (!$rcd_cnt) {
 		<input type="hidden" name="login_type" value="sns">
 		<input type="hidden" name="str_email" value="<?= $str_email ?>">
 	</form>
+	<?php
+	if (!$rcd_cnt) {
+	?>
+		<script language="javascript">
+			document.forms.join_frm.submit();
+		</script>
+	<?
+	} else {
+	?>
+		<script language=javascript>
+			{
+				document.forms.login_frm.submit();
+			}
+		</script>
+	<?
+		exit;
+	}
+	?>
 </body>
+
 </html>
