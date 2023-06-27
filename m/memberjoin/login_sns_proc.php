@@ -99,9 +99,7 @@ $rcd_cnt = mysql_num_rows($rel);
 	} else {
 	?>
 		<script language=javascript>
-			{
-				document.login_frm.submit();
-			}
+			document.login_frm.submit();
 		</script>
 	<?
 	}

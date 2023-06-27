@@ -34,6 +34,16 @@ $str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], "");
 $str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], "");
 $str_shp = Fnc_Om_Conv_Default($_REQUEST['str_shp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp3'], "");
 
+if (!$str_userid) {
+?>
+	<script language="javascript">
+		alert("입력정보가 정확하지 않습니다.");
+		window.location.href = "login.php";
+	</script>
+<?php
+	exit;
+}
+
 $arr_Set_Data = array();
 $arr_Column_Name = array();
 
@@ -109,8 +119,10 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
 $Sql_Query = "INSERT INTO `" . $Tname . "comm_member` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
 mysql_query($Sql_Query);
 
-$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_passwd') WHERE STR_USERID='$str_userid' ";
-mysql_query($Sql_Query);
+if ($str_passwd) {
+	$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_passwd') WHERE STR_USERID='$str_userid' ";
+	mysql_query($Sql_Query);
+}
 
 // 신규가입쿠폰 가입시 자동발행
 $SQL_QUERY = 'SELECT A.* FROM `' . $Tname . 'comm_coupon` A WHERE INT_NUMBER=1';
@@ -149,3 +161,6 @@ if ($arr_Data) {
 	alert("회원가입을 축하드립니다.");
 	window.location.href = "login.php";
 </script>
+
+<?php
+exit;
