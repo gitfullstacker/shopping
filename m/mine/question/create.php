@@ -11,7 +11,7 @@ $int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], '');
 
 if ($int_cart) {
     $SQL_QUERY =    'SELECT
-                        A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
+                        A.*,B.STR_GOODNAME,B.STR_IMAGE1 AS PRODUCT_IMAGE,B.INT_GRADE,B.INT_TYPE,B.INT_PRICE,C.STR_CODE AS STR_BRAND
                     FROM 
                         ' . $Tname . 'comm_goods_cart AS A
                     LEFT JOIN
@@ -41,7 +41,7 @@ if ($int_cart) {
     </div>
 
     <?php
-    if ($arr_Data) {
+    if ($arr_Data['INT_TYPE'] == 3) {
     ?>
         <div class="mt-[14px] flex gap-[11px]">
             <div class="flex justify-center items-center w-[120px] h-[120px] bg-[#F9F9F9] p-2.5">
@@ -53,7 +53,36 @@ if ($int_cart) {
                 </div>
                 <p class="mt-1.5 font-bold text-[15px] leading-[17px] text-black"><?= $arr_Data['STR_BRAND'] ?></p>
                 <p class="mt-[2px] font-bold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GOODNAME'] ?></p>
-                <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+                <?php
+                if ($arr_Data['INT_TYPE'] == 3) {
+                    $grade = '';
+                    switch ($arr_Data['INT_GRADE']) {
+                        case 1:
+                            $grade = 'PRESERVED';
+                            break;
+                        case 2:
+                            $grade = 'S CLASS';
+                            break;
+                        case 3:
+                            $grade = 'A CLASS';
+                            break;
+                        case 4:
+                            $grade = 'B CLASS';
+                            break;
+                        case 5:
+                            $grade = 'C CLASS';
+                            break;
+                    }
+                ?>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">등급: <?= $grade ?></p>
+                <?php
+                } else {
+                ?>
+                    <p class="mt-[9px] font-bold text-xs leading-[14px] text-[#999999]">기간: <?= $arr_Data['STR_SDATE'] ?> ~ <?= $arr_Data['STR_EDATE'] ?></p>
+                <?php
+                }
+                ?>
+
                 <p class="mt-[3px] font-bold text-xs leading-[14px] text-black"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
             </div>
         </div>
@@ -94,15 +123,8 @@ if ($int_cart) {
         </div>
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-sm leading-4 text-black">문의내용</p>
-            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-normal text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont" placeholder="안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.
-
-폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며,
-사전 안내없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.
-
--주문번호: 
--휴대폰: 
--불량/AS 문의일 경우 반드시 사진첨부를 부탁드립니다.
-"></textarea>
+            <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-normal text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont">
+            </textarea>
         </div>
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-sm leading-4 text-black">이미지 첨부</p>
@@ -147,6 +169,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
+    initDescription();
+
+    function initDescription() {
+        var initText = "안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.\n\n" +
+            "폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며,\n" +
+            "사전 안내없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.\n\n" +
+            "-주문번호: \n" +
+            "-휴대폰: \n" +
+            "-불량/AS 문의일 경우 반드시 사진첨부를 부탁드립니다.";
+
+        document.getElementById("str_cont").value = initText;
+    }
+
     function handleFileChange(event) {
         const image_input = event.target;
         const files = image_input.files;

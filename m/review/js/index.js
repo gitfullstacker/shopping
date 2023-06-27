@@ -1,4 +1,4 @@
-filter_type = 'all';
+window.filter_type = 'all';
 
 $(document).ready(function () {
     searchReview();

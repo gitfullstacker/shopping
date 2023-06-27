@@ -60,7 +60,7 @@ if ($end_page > 0) {
                 <div class="px-[15px] py-3 flex flex-col">
                     <p class="font-extrabold text-xl leading-[23px] text-black">' . (number_format($row['INT_VALUE']) . ($row['STR_PERCENT'] == 'N' ? '원' : '%')) . '</p>
                     <p class="mt-[1px] font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_TITLE'] . '</p>
-                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_SDATE'])) . ' ~ ' . date('Y.m.d H:i:s', strtotime($row['DTM_SDATE'])) . ' 까지</p>
+                    <p class="mt-2.5 font-bold text-xs leading-[14px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_SDATE'])) . ' ~ ' . date('Y.m.d H:i:s', strtotime($row['DTM_EDATE'])) . ' 까지</p>
                 </div>
                 <div class="px-[15px] py-3 flex items-center">
                     <p class="font-bold text-[10px] leading-[11px] text-[#999999]">' . $row['STR_DESC'] . '</p>

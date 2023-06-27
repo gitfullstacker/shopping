@@ -92,6 +92,17 @@ switch ($order_by) {
         break;
 }
 
+// 금액정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 $SQL_QUERY =    'SELECT 
                     A.*, B.STR_CODE, COUNT(C.STR_SGOODCODE) AS RENT_NUM
                 FROM 
@@ -142,20 +153,8 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
 
     switch ($product_type) {
         case 1:
-            $SQL_QUERY =    'SELECT
-                                A.*
-                            FROM 
-                                ' . $Tname . 'comm_site_info AS A
-                            WHERE
-                                A.INT_NUMBER=1';
-
-            $arr_Rlt_Data = mysql_query($SQL_QUERY);
-            $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
-            
-
             $color = '#EEAC4C';
-
+            
             if ($is_sub_membership) {
                 $price = '';
             } else {

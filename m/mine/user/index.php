@@ -339,9 +339,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
-
-<script language="javascript" src="js/user_info.js"></script>
-
 <link rel="styleSheet" href="/css/sumoselect.css">
 <script type="text/javascript" src="/js/custominputfile.min.js"></script>
 <script type="text/javascript">

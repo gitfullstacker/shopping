@@ -1,8 +1,6 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
 
-<link href="css/detail.css" rel="stylesheet" type="text/css" id="cssLink" />
-
 <?php
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 
@@ -631,30 +629,31 @@ switch ($arr_Data['INT_TYPE']) {
                 <!-- 해당 상품 리뷰목록 -->
                 <div x-show="reviewMenu == 1" class="mt-[27px] flex flex-col w-full">
                     <p class="font-extrabold text-lg leading-5 text-black">REVIEW</p>
-                    <div class="mt-7 flex flex-row gap-[5px] w-full overflow-auto">
+                    <?php
+                    $SQL_QUERY =    'SELECT
+                                        A.BD_SEQ, B.IMG_F_NAME
+                                    FROM 
+                                        `' . $Tname . 'b_bd_data@01` A
+                                    LEFT JOIN
+                                        `' . $Tname . 'b_img_data@01` B
+                                    ON
+                                        A.CONF_SEQ=B.CONF_SEQ
+                                        AND
+                                        A.BD_SEQ=B.BD_SEQ
+                                    LEFT JOIN
+                                        `' . $Tname . 'comm_goods_master` C
+                                    ON
+                                        A.BD_ITEM1=C.STR_GOODCODE
+                                    WHERE
+                                        C.INT_TYPE=' . $arr_Data['INT_TYPE'] . '
+                                        AND C.STR_GOODCODE=' . $arr_Data['STR_GOODCODE'] . '
+                                        AND B.IMG_F_NAME <> ""
+                                        LIMIT 10';
+
+                    $review_img_list_result = mysql_query($SQL_QUERY);
+                    ?>
+                    <div class="my-7 flex flex-row gap-[5px] w-full overflow-auto <?= mysql_num_rows($review_img_list_result) > 0 ? '' : 'hidden' ?>">
                         <?php
-                        $SQL_QUERY =    'SELECT
-                                            A.BD_SEQ, B.IMG_F_NAME
-                                        FROM 
-                                            `' . $Tname . 'b_bd_data@01` A
-                                        LEFT JOIN
-                                            `' . $Tname . 'b_img_data@01` B
-                                        ON
-                                            A.CONF_SEQ=B.CONF_SEQ
-                                            AND
-                                            A.BD_SEQ=B.BD_SEQ
-                                        LEFT JOIN
-                                            `' . $Tname . 'comm_goods_master` C
-                                        ON
-                                            A.BD_ITEM1=C.STR_GOODCODE
-                                        WHERE
-                                            C.INT_TYPE=' . $arr_Data['INT_TYPE'] . '
-                                            AND C.STR_GOODCODE=' . $arr_Data['STR_GOODCODE'] . '
-                                            AND B.IMG_F_NAME <> ""
-                                            LIMIT 10';
-
-                        $review_img_list_result = mysql_query($SQL_QUERY);
-
                         while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
                         ?>
                             <a href="/m/review/detail.php?bd_seq=<?= $image_row['BD_SEQ'] ?>" class="flex-none w-20 h-20 bg-gray-100">
@@ -664,7 +663,7 @@ switch ($arr_Data['INT_TYPE']) {
                         }
                         ?>
                     </div>
-                    <div class="mt-[38px] flex flex-col w-full" id="own_review_list"></div>
+                    <div class="mt-2.5 flex flex-col w-full" id="own_review_list"></div>
                 </div>
                 <!-- 관련 상품 리뷰목록 -->
                 <div x-show="reviewMenu == 2" id="related_review_list" class="mt-[27px] flex flex-col w-full">
@@ -782,7 +781,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <a href="detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="flex flex-col w-full">
                         <div class="w-full flex justify-center items-center relative px-2.5 bg-[#F9F9F9] rounded-[5px] h-[176px]">
                             <!-- 타그 -->
-                            <div class="flex justify-center items-center w-[30px] h-[30px] bg-[#00402F] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+                            <div class="flex justify-center items-center w-[30px] h-[30px] bg-[<?= ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>] absolute top-2 left-2 <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
                                 <p class="font-extrabold text-[9px] text-center text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
                             </div>
 
@@ -1665,6 +1664,7 @@ switch ($arr_Data['INT_TYPE']) {
                 url: url,
                 success: function(result) {
                     $("#own_review_list").html(result);
+                    console.log('lllsdf')
                 }
             });
         }

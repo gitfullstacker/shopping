@@ -150,6 +150,7 @@ $total_record_limit = mysql_num_rows($result);
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
 								<input type="hidden" name="str_no">
+								<input type="hidden" name="int_type" value="<?= $int_type ?>">
 
 								<table class=tb>
 									<col class=cellC style="width:12%">
@@ -248,7 +249,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td><?= number_format(mysql_result($result, $i, int_sprice)) ?>원</td>
 												<td><?= mysql_result($result, $i, str_cardcode) ?></td>
 												<td>
-													<? switch (mysql_result($result, $i, str_cancel1)) {
+													<? switch (mysql_result($result, $i, ($int_type == 1 ? 'str_cancel1' : 'str_cancel2'))) {
 														case  "0":
 															echo "-";
 															break;
@@ -279,7 +280,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
 												</td>
-												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
+												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
 											</tr>
 											<tr>
 												<td colspan=11 style="padding-top:0px;padding-bottom:5px;">

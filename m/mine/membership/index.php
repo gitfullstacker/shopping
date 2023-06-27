@@ -59,12 +59,11 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 //카드정보얻기
 $SQL_QUERY =    "SELECT 
-                    A.STR_BILLCODE
+                    A.STR_BILLCODE, A.INT_NUMBER
                 FROM 
                     `" . $Tname . "comm_member_pay` AS A
                 WHERE
-                    A.STR_PTYPE='1'
-                    AND A.STR_PASS='0' 
+                    A.STR_PASS='0' 
                     AND A.STR_USERID='$arr_Auth[0]'
                 ORDER BY DTM_INDATE
                 LIMIT 1 ";
@@ -78,8 +77,8 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <p class="font-extrabold text-lg leading-5 text-black">멤버십 관리</p>
         <div class="mt-[14px] flex flex-row gap-10">
             <?php
-            $sub_menu_color = $subscription_Data['STR_CANCEL'] == 'N' ? '#EDA02F' : '#6A696C';
-            $ren_menu_color = $rent_Data['STR_CANCEL'] == 'N' ? '#00402F' : '#6A696C';
+            $sub_menu_color = $subscription_Data['STR_CANCEL'] == '0' ? '#EDA02F' : '#6A696C';
+            $ren_menu_color = $rent_Data['STR_CANCEL'] == '0' ? '#00402F' : '#6A696C';
             ?>
             <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 1 ? 'text-[<?= $ren_menu_color ?>]' : 'text-[#999999]'">블랑 렌트 멤버십</p>
@@ -92,7 +91,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($rent_Data) {
                 // 가입자인 경우
-                if ($rent_Data['STR_CANCEL'] == 'N') {
+                if ($rent_Data['STR_CANCEL'] == '0') {
             ?>
                     <!-- 장기 이용 -->
                     <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#BCDDB1] border border-solid border-[#DDDDDD] rounded-[10px]">
@@ -137,7 +136,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $rent_Data['INT_NUMBER'] ?>, 2)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $card_Data['INT_NUMBER'] ?>, 2)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -193,7 +192,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <?php
             if ($subscription_Data) {
                 // 가입자인 경우
-                if ($subscription_Data['STR_CANCEL'] == 'N') {
+                if ($subscription_Data['STR_CANCEL'] == '0') {
                     $end_date = $subscription_Data['DTM_EDATE']; // Replace with your actual end date
 
                     $sub_datetime1 = new DateTime();
@@ -247,7 +246,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $subscription_Data['INT_NUMBER'] ?>, 1)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $card_Data['INT_NUMBER'] ?>, 1)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -366,7 +365,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                window.location.href = 'index.php?int_type=' + restore_int_type;
+                // window.location.href = 'index.php?int_type=' + restore_int_type;
             }
         });
     }

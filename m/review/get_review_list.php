@@ -14,18 +14,26 @@ $filter_type = $_GET['filter_type'];
 $FILTER_QUERY = 'AND C.INT_TYPE IS NOT NULL ';
 switch ($filter_type) {
     case 'all':
-        $FILTER_QUERY = 'AND C.INT_TYPE IS NOT NULL ';
+        $FILTER_QUERY = 'AND (C.INT_TYPE = 1 OR C.INT_TYPE = 2) ';
         break;
     case 'rent':
-        $FILTER_QUERY = 'AND C.INT_TYPE=1 ';
+        $FILTER_QUERY = 'AND C.INT_TYPE = 2 ';
         break;
     case 'subscription':
-        $FILTER_QUERY = 'AND C.INT_TYPE=2 ';
-        break;
-    case 'used':
-        $FILTER_QUERY = 'AND C.INT_TYPE=3 ';
+        $FILTER_QUERY = 'AND C.INT_TYPE = 1 ';
         break;
 }
+
+// 금액정보 얻기
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_site_info AS A
+                WHERE
+                    A.INT_NUMBER=1';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 $SQL_QUERY = 'SELECT 
                     COUNT(A.BD_SEQ)
@@ -72,6 +80,7 @@ $SQL_QUERY =    'SELECT
 					A.BD_CONT,
 					A.BD_REG_DATE,
                     A.BD_ITEM2,
+                    C.STR_GOODCODE,
 					C.STR_GOODNAME,
 					C.STR_IMAGE1,
                     C.INT_DISCOUNT,
@@ -125,20 +134,40 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
         $images .= '<img class="min-w-full object-cover" src="/admincenter/files/boad/2/' . $image_row['IMG_F_NAME'] . '" x-bind:class="selectedImage == ' . $index . ' ? \'w-full object-fill\' : (selectedImage == 0 ? \'h-[120px]\' : \'hidden\')" onerror="this.style.display = \'none\'" alt="" x-on:click="selectedImage == ' . $index . ' ? (selectedImage = 0) : (selectedImage = ' . $index . ')">';
     }
 
+    $price = '';
+    switch ($row['INT_TYPE']) {
+        case 1:
+            $price = '
+                <p class="mt-1 font-medium text-xs leading-[14px] text-black">월 ' . number_format($site_Data['INT_OPRICE1']) . '원</p>
+                ';
+            break;
+        case 2:
+            $price = '
+                <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through decoration-[#999999] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">일 ' . number_format($row['INT_PRICE']) . '원</p>
+                <p class="mt-1 font-medium text-xs leading-[14px] text-black"><span class="text-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '% </span>일 ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                ';
+            break;
+        case 3:
+            $price = '
+                <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through decoration-[#999999] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . number_format($row['INT_PRICE']) . '원</p>
+                <p class="mt-1 font-medium text-xs leading-[14px] text-black"><span class="text-[#7E6B5A] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '% </span>' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                ';
+            break;
+    }
+
     $result .= '
     <div class="flex flex-col w-full py-5">
-        <a href="/m/review/detail.php?bd_seq=' . $row['BD_SEQ'] . '" class="flex gap-2.5 items-center">
+        <a href="/m/product/detail.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="flex gap-2.5 items-center">
             <div class="w-[91px] h-[91px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded">
                 <img class="w-full" src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" onerror="this.style.display=\'none\'" alt="">
             </div>
             <div class="flex flex-col">
                 <div class="w-[25px] h-[14px] flex justify-center items-center bg-[' . ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) . ']">
-                    <p class="font-normal text-[8px] leading-[8px] text-white">' . ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지')) . '</p>
+                    <p class="font-normal text-[9px] leading-[9px] text-white">' . ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지')) . '</p>
                 </div>
-                <p class="mt-1.5 font-bold text-[11px] leading-[12px] text-black">' . $row['STR_CODE'] . '</p>
-                <p class="mt-1 font-bold text-[9px] leading-[10px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
-                <p class="mt-2.5 font-bold text-[9px] leading-[10px] text-[#999999] line-through decoration-[#999999] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">일 ' . number_format($row['INT_PRICE']) . '원</p>
-                <p class="mt-1 font-bold text-[9px] leading-[10px] text-black"><span class="text-[#00402F]">' . $row['INT_DISCOUNT'] . '%</span> 일 ' . number_format($row['INT_PRICE'] * ($row['INT_DISCOUNT'] ?: 1)) . '원</p>
+                <p class="mt-1.5 font-bold text-xs leading-[14px] text-black">' . $row['STR_CODE'] . '</p>
+                <p class="mt-1 font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_GOODNAME'] . '</p>
+                ' . $price . '
             </div>
         </a>
         <div class="mt-[15px] flex justify-between items-center">

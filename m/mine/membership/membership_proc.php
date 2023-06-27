@@ -169,7 +169,9 @@ switch ($RetrieveFlag) {
                             ' . $SET_QUERY . ' 
                         WHERE 
                             INT_NUMBER=' . $int_number;
-
+                            
+        mysql_query($SQL_QUERY);
+        
         // 멤버십에 반영
         $SQL_QUERY =    'UPDATE 
                             ' . $Tname . 'comm_membership 

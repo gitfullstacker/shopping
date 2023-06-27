@@ -441,11 +441,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     </div>
 
     <!-- 쿠폰/적립금 -->
-    <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
-        <p class="font-extrabold text-lg leading-5 text-[#333333]">쿠폰/적립금</p>
-        <div class="mt-[15px] relative flex w-full">
-            <?php
-            $SQL_QUERY =    'SELECT 
+    <?php
+    if ($int_type != 1) {
+    ?>
+        <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+            <p class="font-extrabold text-lg leading-5 text-[#333333]">쿠폰/적립금</p>
+            <div class="mt-[15px] relative flex w-full">
+                <?php
+                $SQL_QUERY =    'SELECT 
                                 COUNT(A.INT_NUMBER) AS COUPON_COUNT
                             FROM 
                                 ' . $Tname . 'comm_member_coupon A
@@ -453,10 +456,10 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 A.STR_USERID="' . $arr_Auth[0] . '"
                                 AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
-            $total_coupon_result = mysql_query($SQL_QUERY);
-            $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
+                $total_coupon_result = mysql_query($SQL_QUERY);
+                $total_coupon_data = mysql_fetch_assoc($total_coupon_result);
 
-            $SQL_QUERY =    'SELECT 
+                $SQL_QUERY =    'SELECT 
                                 A.INT_NUMBER, A.DTM_SDATE, A.DTM_EDATE, B.INT_VALUE, B.STR_PERCENT, B.STR_TITLE
                             FROM 
                                 ' . $Tname . 'comm_member_coupon A
@@ -471,35 +474,38 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 AND (B.INT_TYPE=0 OR B.INT_TYPE=' . $int_type . ')
                             ORDER BY A.DTM_INDATE DESC';
 
-            $coupon_list_result = mysql_query($SQL_QUERY);
-            ?>
-            <select name="int_coupon" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
-                <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= $total_coupon_data['COUPON_COUNT'] ?>장</option>
-                <?php
-                while ($row = mysql_fetch_assoc($coupon_list_result)) {
+                $coupon_list_result = mysql_query($SQL_QUERY);
                 ?>
-                    <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['STR_PERCENT'] == 'N' ? ($row['INT_VALUE'] ?: 0) : 0 ?>" percent="<?= $row['STR_PERCENT'] == 'Y' ? ($row['INT_VALUE'] ?: 0) : 0 ?>"><?= $row['STR_TITLE'] ?></option>
-                <?php
-                }
-                ?>
-            </select>
-            <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                </svg>
+                <select name="int_coupon" id="" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-on:change="changeCoupon($event.target)">
+                    <option value="" price="0">사용가능 쿠폰 <?= mysql_num_rows($coupon_list_result) ?>장 / 전체 <?= $total_coupon_data['COUPON_COUNT'] ?>장</option>
+                    <?php
+                    while ($row = mysql_fetch_assoc($coupon_list_result)) {
+                    ?>
+                        <option value="<?= $row['INT_NUMBER'] ?>" price="<?= $row['STR_PERCENT'] == 'N' ? ($row['INT_VALUE'] ?: 0) : 0 ?>" percent="<?= $row['STR_PERCENT'] == 'Y' ? ($row['INT_VALUE'] ?: 0) : 0 ?>"><?= $row['STR_TITLE'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                    </svg>
+                </div>
+            </div>
+            <div class="mt-[5px] flex gap-[5px]">
+                <input type="number" min="0" max="100" step="1" name="" id="mileage_input" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" oninput="validateMoneyInput(this, <?= $user_Data['INT_MILEAGE'] ?: 0 ?>)" x-on:change="changeMileage($event.target.value)">
+                <button type="button" class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]" onclick="document.getElementById('mileage_input').value = <?= $user_Data['INT_MILEAGE'] ?: 0 ?>" x-on:click="changeMileage(<?= $user_Data['INT_MILEAGE'] ?: 0 ?>)">
+                    <span class="font-bold text-xs leading-[15px] text-center text-white">전액사용</span>
+                </button>
+            </div>
+            <div class="mt-1.5 flex gap-1.5 items-center">
+                <p class="font-bold text-[10px] leading-3 text-[#666666]">사용가능 적립금</p>
+                <p class="font-bold text-[10px] leading-3 text-black"><?= number_format($user_Data['INT_MILEAGE'] ?: 0) ?>원</p>
             </div>
         </div>
-        <div class="mt-[5px] flex gap-[5px]">
-            <input type="number" min="0" max="100" step="1" name="" id="mileage_input" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" oninput="validateMoneyInput(this, <?= $user_Data['INT_MILEAGE'] ?: 0 ?>)" x-on:change="changeMileage($event.target.value)">
-            <button type="button" class="w-[97px] h-[35px] flex justify-center items-center bg-black border-[0.72px] border-solid rounded-[3px]" onclick="document.getElementById('mileage_input').value = <?= $user_Data['INT_MILEAGE'] ?: 0 ?>" x-on:click="changeMileage(<?= $user_Data['INT_MILEAGE'] ?: 0 ?>)">
-                <span class="font-bold text-xs leading-[15px] text-center text-white">전액사용</span>
-            </button>
-        </div>
-        <div class="mt-1.5 flex gap-1.5 items-center">
-            <p class="font-bold text-[10px] leading-3 text-[#666666]">사용가능 적립금</p>
-            <p class="font-bold text-[10px] leading-3 text-black"><?= number_format($user_Data['INT_MILEAGE'] ?: 0) ?>원</p>
-        </div>
-    </div>
+    <?php
+    }
+    ?>
 
     <!-- 결제방법 -->
     <div class="mt-[15px] flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
@@ -706,22 +712,28 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 
     <!-- 약관동의 -->
-    <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
-        <div class="flex justify-between items-center">
-            <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
-                <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
+    <?php
+    if ($int_type != 1) {
+    ?>
+        <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
+                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
+                </div>
+                <a href="/m/help/deposit_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>
-            <a href="/m/help/deposit_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
-        </div>
-        <div class="flex justify-between items-center">
-            <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
-                <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
+                    <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+                </div>
+                <a href="/m/help/privacy_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>
-            <a href="/m/help/privacy_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
         </div>
-    </div>
+    <?php
+    }
+    ?>
 
     <!-- 하단 메뉴 -->
     <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
@@ -795,8 +807,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     });
 
     function paySubscription() {
-        if (ValidChk() == false) return;
-
         document.frm.action = "sub_process.php";
         document.frm.submit();
     }

@@ -48,11 +48,6 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div class="flex flex-col items-center gap-8 w-full">
             <!-- 카드 -->
             <div class="mt-[22px] flex flex-col border border-solid border-black bg-[#2395FF] rounded-[10px] relative w-[280px] h-[165px]">
-                <button class="absolute top-2 right-2 flex justify-center items-center w-[14px] h-[14px] bg-black" onclick="deleteCard()">
-                    <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
-                    </svg>
-                </button>
                 <div class="flex p-[15px] h-[112px]">
                     <p class="font-bold text-xs leading-[14px] text-white"><?= fnc_card_kind($card_Data['STR_CARDCODE']) ?></p>
                 </div>
