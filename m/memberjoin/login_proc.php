@@ -1,10 +1,18 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <?
-$NextPage = $_REQUEST[NextPage];
-$str_userid = Fnc_Om_Conv_Default($_REQUEST[str_userid], $_REQUEST[str_userid2]);
-$str_passwd = $_REQUEST[str_passwd];
-$idsave = Fnc_Om_Conv_Default($_REQUEST[idsave], "0");
-$idsession = Fnc_Om_Conv_Default($_REQUEST[idsession], "0");
+$login_type = Fnc_Om_Conv_Default($_REQUEST['login_type'], "default");
+$login_type = Fnc_Om_Conv_Default($_REQUEST['str_email'], "");
+$str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], $_REQUEST['str_userid2']);
+$str_passwd = $_REQUEST['str_passwd'];
+$idsave = Fnc_Om_Conv_Default($_REQUEST['idsave'], "0");
+$idsession = Fnc_Om_Conv_Default($_REQUEST['idsession'], "0");
+
+if ($login_type == "default") {
+	$login_query = "";
+	// $login_query = "AND OM.STR_PASSWD=password('$str_passwd')";
+} else {
+	$login_query = "AND OM.STR_EMAIL='$str_email'";
+}
 
 $SQL_QUERY =	" SELECT
 					 OM.STR_USERID,
@@ -22,14 +30,13 @@ $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_member AS OM
 				 WHERE
 					 OM.STR_USERID='$str_userid'
-					 
+					 " . $login_query . "
 					 AND
 					 OM.STR_SERVICE='Y'
 					 AND
 					 OM.INT_GUBUN<=91";
 
-//  AND
-//  OM.STR_PASSWD=password('$str_passwd')
+
 
 $rel = mysql_query($SQL_QUERY);
 $rcd_cnt = mysql_num_rows($rel);
@@ -122,7 +129,7 @@ if (!$rcd_cnt) { ?>
 ?>
 	<script language=javascript>
 		{
-			window.location = "<?= Fnc_Om_Conv_Default($NextPage, "/m/main/index.php") ?>"
+			window.location = "/m/main/index.php"
 		}
 	</script>
 <?

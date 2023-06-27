@@ -1,11 +1,20 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php"; ?>
 <?
+$join_type = Fnc_Om_Conv_Default($_REQUEST['join_type'], "default");
+
+if ($login_type == "default") {
+	$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp3'], "");
+	$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth_year'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_month'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_day'], "");
+} else {
+	$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp'], "");
+	$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth'], "");
+}
+
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
 $str_menu_level = Fnc_Om_Conv_Default($_REQUEST['str_menu_level'], "00");
 $str_passwd = Fnc_Om_Conv_Default($_REQUEST['str_passwd1'], "");
 $str_name = Fnc_Om_Conv_Default($_REQUEST['str_name'], "");
-$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp3'], "");
 $str_telep = Fnc_Om_Conv_Default($_REQUEST['str_telep1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_telep2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_telep3'], "");
 $str_post = Fnc_Om_Conv_Default($_REQUEST['str_post'], "");
 $str_addr1 = Fnc_Om_Conv_Default($_REQUEST['str_addr1'], "");
@@ -21,7 +30,6 @@ $str_same_account = Fnc_Om_Conv_Default($_REQUEST['same_account'], "");
 $str_spost = Fnc_Om_Conv_Default($_REQUEST['str_spost'], "");
 $str_saddr1 = Fnc_Om_Conv_Default($_REQUEST['str_saddr1'], "");
 $str_saddr2 = Fnc_Om_Conv_Default($_REQUEST['str_saddr2'], "");
-$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth_year'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_month'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_day'], "");
 $str_sex = Fnc_Om_Conv_Default($_REQUEST['str_sex'], "");
 $str_cert = Fnc_Om_Conv_Default($_REQUEST['str_cert'], "");
 $str_shp = Fnc_Om_Conv_Default($_REQUEST['str_shp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_shp3'], "");
