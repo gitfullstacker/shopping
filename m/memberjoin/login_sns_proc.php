@@ -8,6 +8,16 @@ $user_info = $_GET['user_info'];
 // decode user information from JSON format
 $user = json_decode($user_info, true);
 
+if ($user['resultcode'] != '200') {
+?>
+	<script>
+		alert(<?= $user['message'] ?>);
+		window.location.href = "login.php";
+	</script>
+<?php
+	exit;
+}
+
 $str_userid = '';
 $str_email = '';
 $str_photo = '';
