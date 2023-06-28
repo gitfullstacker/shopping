@@ -92,7 +92,7 @@
                     <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
-                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
+                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" onerror="this.style.display = 'none'" alt="">
                     <?php
                     }
                     ?>
