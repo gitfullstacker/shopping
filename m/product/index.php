@@ -106,7 +106,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
             }
             ?>
         </div>
-        <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
+        <div x-ref="scroll-div scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
             if (mysql_num_rows($top_brand_list_result) > 0) {
                 mysql_data_seek($top_brand_list_result, 0);

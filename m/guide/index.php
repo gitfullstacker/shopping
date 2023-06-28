@@ -152,7 +152,7 @@
     <div id="menu_div2" class="review-section">
         <p class="title">이미 수많은 회원이 <br />에이블랑 서비스를 이용하고 있어요</p>
         <p class="description">5000개의 리뷰가 검증하는 에이블랑</p>
-        <div class="review-list snap-x">
+        <div class="scroll-div review-list snap-x">
             <?php
             $SQL_QUERY =    'SELECT 
                                 A.BD_SEQ,
