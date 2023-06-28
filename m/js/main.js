@@ -24,10 +24,7 @@ sliders.forEach((slider) => {
     }
     const x = e.pageX - slider.offsetLeft;
     const scroll = x - startX;
-    slider.scrollTo({
-      left: scrollLeft - scroll,
-      behavior: 'smooth'
-    });
+    slider.scrollLeft = scrollLeft - scroll;
     const links = document.querySelectorAll('.scroll-div a');
     links.forEach((link) => {
       link.style.pointerEvents = 'none';
