@@ -76,7 +76,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         AND int_gubun = 2";
         $top_brand_list_result = mysql_query($query);
         ?>
-        <div class="flex items-start gap-4 px-[16px] pb-1 overflow-x-auto">
+        <div class="scroll-div flex items-start gap-4 px-[16px] pb-1 overflow-x-auto">
             <?php
             $index = 0;
             while ($row = mysql_fetch_assoc($top_brand_list_result)) {
@@ -106,7 +106,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
             }
             ?>
         </div>
-        <div x-ref="scroll-div scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
+        <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
             if (mysql_num_rows($top_brand_list_result) > 0) {
                 mysql_data_seek($top_brand_list_result, 0);
