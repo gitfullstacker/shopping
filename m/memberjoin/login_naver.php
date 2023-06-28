@@ -5,7 +5,7 @@
     client_secret = "pE18Auqzs9";
     redirect_uri = window.location.origin + "/m/memberjoin/login_naver_callback.php";
     alert(redirect_uri);
-    return;
+    console.log(redirect_uri);
     state = "1234";
 
     // URL for the Naver login page
@@ -14,5 +14,5 @@
     loginUrl += "&redirect_uri=" + redirect_uri;
     loginUrl += "&state=" + state;
 
-    window.location.href = loginUrl;
+    // window.location.href = loginUrl;
 </script>
