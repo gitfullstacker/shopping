@@ -11,7 +11,7 @@ $user = json_decode($user_info, true);
 if ($user['resultcode'] != '200') {
 ?>
 	<script>
-		alert(<?= $user['message'] ?>);
+		alert('<?= $user['message'] ?>');
 		window.location.href = "login.php";
 	</script>
 <?php
