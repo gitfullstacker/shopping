@@ -4,6 +4,8 @@ $topmenu = 1;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
+<script src="js/index.js" defer></script>
+
 <?php
 // 금액정보얻기
 $SQL_QUERY =    'SELECT
@@ -117,7 +119,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="eventzone-scroll-list">
+	<div class="scroll-div eventzone-scroll-list">
 		<?php
 		$SQL_QUERY = 	'SELECT 
 							A.*
@@ -154,7 +156,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="categorypick-scroll-list">
+	<div class="scroll-div categorypick-scroll-list">
 		<?php
 		for ($i = 0; $i < 3; $i++) {
 
@@ -330,7 +332,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</div>
 	</div>
-	<div class="topbrand-scroll-list">
+	<div class="scroll-div topbrand-scroll-list">
 		<?
 		while ($row = mysql_fetch_assoc($brand_list_result)) {
 		?>
@@ -361,7 +363,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="product-scroll-list">
+	<div class="scroll-div product-scroll-list">
 		<?php
 		$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
@@ -434,7 +436,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 		<img class="min-w-full object-cover" src="/admincenter/files/bann/<?= $rent_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rentnew">
 	</div>
 	<div class="mt-[13px] flex px-[14px]">
-		<div class="product-scroll-list">
+		<div class="scroll-div product-scroll-list">
 			<?
 			$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
@@ -504,7 +506,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 	</div>
 
 	<div class="mt-[13px] flex px-[14px]">
-		<div class="product-scroll-list">
+		<div class="scroll-div product-scroll-list">
 			<?
 			$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE

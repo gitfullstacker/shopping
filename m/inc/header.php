@@ -19,6 +19,7 @@
 	<link href="/m/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="/m/css/swiper.min.css">
 	<script src="/m/js/swiper.min.js"></script>
+	<script src="/m/js/main.js" defer></script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 

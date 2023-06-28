@@ -75,7 +75,7 @@ if ($RetrieveFlag == "UPDATE") {
 									<tr>
 										<td>결제금액</td>
 										<td>
-											<font class=def><?= number_format($arr_Data['INT_PRICE']) ?>원
+											<font class=def><?= number_format($arr_Data['INT_SPRICE']) ?>원
 										</td>
 										<td>결제일</td>
 										<td>
