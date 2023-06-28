@@ -202,9 +202,9 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 $img_list_result = mysql_query($SQL_QUERY);
                 while ($row = mysql_fetch_assoc($img_list_result)) {
                 ?>
-                    <div x-data="{ deleteImage: false }" class="image-container" x-show="!deleteImage">
+                    <div x-data="{ deleteImage: false }" class="image-container min-h-[120px] bg-gray-100" x-show="!deleteImage">
                         <input type="hidden" name="str_dimage<?= $row['IMG_ALIGN'] ?>" x-bind:value="deleteImage">
-                        <img class="preview-image" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" alt="">
+                        <img class="preview-image" src="/admincenter/files/boad/2/<?= $row['IMG_F_NAME'] ?>" onerror="this.style.display = 'none'" alt="">
                         <button type="button" class="delete-button" x-on:click="deleteImage = true">
                             <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.208 2.976L0 0.636001L0.648 0L2.856 2.34L5.064 0L5.712 0.636001L3.504 2.976L5.712 5.316L5.064 5.952L2.856 3.612L0.648 5.952L0 5.316L2.208 2.976Z" fill="white" />
@@ -218,7 +218,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">이미지 첨부</p>
             <div class="flex gap-[5px]">
                 <div class="grow flex flex-col gap-2.5">
-                    <input type="file" class="hidden" name="str_image[]" id="image_input" onchange="handleFileChange(event)" multiple />
+                    <input type="file" class="hidden" name="str_image[]" id="image_input" onchange="handleFileChange(event)" accept=".jpg,.png,.gif" multiple />
                     <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" id="image_names" readonly>
                     <p class="font-bold text-[10px] leading-[15px] text-[#999999]">이미지 파일(JPG, PNG, GIF)를 기준으로 최대 10MB이하,
                         최대 3개까지 등록가능합니다.</p>
@@ -262,13 +262,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         const files = image_input.files;
         const image_names = document.getElementById('image_names');
 
+        image_names.value = '';
         if (files.length > 0) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 image_names.value += file.name + ', ';
             }
-        } else {
-            image_names.value = '';
         }
     }
 

@@ -1,5 +1,4 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
-<script language="javascript" src="js/common.js"></script>
 
 <?php
 $per_page = 5;
@@ -124,17 +123,23 @@ while ($row = mysql_fetch_assoc($review_list_result)) {
                 <p class="font-bold text-xs text-[#666666]">' . substr($row['MEM_ID'], 0, 3) . '***</p>
                 <p class="font-medium text-xs text-[#999999]">' . date('Y/m/d', strtotime($row['BD_REG_DATE'])) . '</p>
             </div>
-            <div x-data="{ isCollapsed: true }" class="flex flex-col gap-2.5 w-full">
-                <p class="font-medium text-xs leading-[18px] text-[#666666]" x-bind:class="isCollapsed ? \'line-clamp-4\' : \'\'">
+            <div x-data="{
+                    isCollapsed: true,
+                    showButton: true,
+                    init() {
+                        this.showButton = $refs.contents.scrollHeight > 54 ? true : false;
+                    }
+                }" class="flex flex-col gap-2.5 w-full">
+                <p x-ref="contents" class="font-medium text-xs leading-[18px] text-[#666666]" x-bind:class="isCollapsed ? \'line-clamp-3\' : \'\'">
                     ' . strip_tags($row['BD_CONT']) . '
                 </p>
-                <button x-show="isCollapsed" class="flex flex-row gap-[3px] items-center" x-on:click="isCollapsed = false">
+                <button x-show="isCollapsed && showButton" class="flex flex-row gap-[3px] items-center" x-on:click="isCollapsed = false">
                     <p class="font-bold text-[11px] leading-[12px] text-black">더보기</p>
                     <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576043 0.435356 4.59757e-07 0.593667 4.53547e-07C0.751979 4.47336e-07 0.890501 0.0576043 1.00923 0.172811L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.011521 8.40016 0.011521C8.56259 0.011521 8.70317 0.0691244 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587557C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#333333" />
                     </svg>
                 </button>
-                <button x-show="!isCollapsed" class="flex flex-row gap-[3px] items-center" x-on:click="isCollapsed = true">
+                <button x-show="!isCollapsed && showButton" class="flex flex-row gap-[3px] items-center" x-on:click="isCollapsed = true">
                     <p class="font-bold text-[11px] leading-[12px] text-black">접기</p>
                     <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.1781 4.00922L4.16755 0.126728C4.21504 0.0806447 4.26649 0.0480795 4.3219 0.0290319C4.37731 0.00967705 4.43668 -2.42689e-07 4.5 -2.39322e-07C4.56332 -2.35954e-07 4.62269 0.00967706 4.6781 0.0290319C4.73351 0.0480795 4.78496 0.0806448 4.83245 0.126728L8.83377 4.00922C8.94459 4.11674 9 4.25115 9 4.41244C9 4.57373 8.94063 4.71198 8.8219 4.82719C8.70317 4.9424 8.56464 5 8.40633 5C8.24802 5 8.1095 4.9424 7.99077 4.82719L4.5 1.44009L1.00923 4.82719C0.898417 4.93471 0.761953 4.98848 0.599842 4.98848C0.437414 4.98848 0.296834 4.93087 0.1781 4.81567C0.0593667 4.70046 -8.36071e-08 4.56605 -7.68926e-08 4.41244C-7.01781e-08 4.25883 0.0593667 4.12442 0.1781 4.00922Z" fill="#333333" />

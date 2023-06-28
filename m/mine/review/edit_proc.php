@@ -261,7 +261,7 @@ switch ($RetrieveFlag) {
                 if (Fnc_Om_Conv_Default($_REQUEST['str_dimage' . $row['IMG_ALIGN']], "") == "true") {
                     Fnc_Om_File_Delete($str_Add_Tag, $row['IMG_F_NAME']);
 
-                    $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_img_data@01` WHERE IMG_SEQ=' . $row['IMG_SEQ'];
+                    $SQL_QUERY =    'DELETE FROM `' . $Tname . 'b_img_data@01` WHERE IMG_SEQ=' . $row['IMG_SEQ'] . ' AND BD_SEQ=' . $row['BD_SEQ'] . ' AND CONF_SEQ=' . $row['CONF_SEQ'];
                     mysql_query($SQL_QUERY);
                 }
 
@@ -270,75 +270,79 @@ switch ($RetrieveFlag) {
 
             $index = 0;
             for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
-                for ($j = $index; $j < 3; $j++) {
-                    $SQL_QUERY =    'SELECT
-                                        COUNT(A.IMG_SEQ) AS NUM
-                                    FROM 
-                                        `' . $Tname . 'b_img_data@01` AS A
-                                    WHERE
-                                        A.BD_SEQ=' . $bd_seq . '
-                                        AND A.IMG_ALIGN=' . ($j + 1);
+                if ($_FILES['str_image']['tmp_name'][$i]) {
+                    for ($j = $index; $j < 3; $j++) {
+                        $SQL_QUERY =    'SELECT
+                                            COUNT(A.IMG_SEQ) AS NUM
+                                        FROM 
+                                            `' . $Tname . 'b_img_data@01` AS A
+                                        WHERE
+                                            A.BD_SEQ=' . $bd_seq . '
+                                            AND A.IMG_ALIGN=' . ($j + 1);
 
-                    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-                    $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+                        $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-                    if ($arr_Data['NUM'] == 0) {
-                        $obj_File = $_FILES['str_image']['tmp_name'][$i];
-                        $obj_File_name = $_FILES['str_image']['name'][$i];
-                        $obj_File_size = $_FILES['str_image']['size'][$i];
+                        if ($arr_Data['NUM'] == 0) {
+                            $obj_File = $_FILES['str_image']['tmp_name'][$i];
+                            $obj_File_name = $_FILES['str_image']['name'][$i];
+                            $obj_File_size = $_FILES['str_image']['size'][$i];
 
-                        $full_name = explode(".", "$obj_File_name");
+                            $full_name = explode(".", "$obj_File_name");
 
-                        $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
+                            $str_Temp = Fnc_Om_File_Save($obj_File, $obj_File_name, "", 0, 0, "", $str_Add_Tag);
 
-                        // ID 얻기
-                        $Sql_Query = "SELECT IFNULL(MAX(IMG_SEQ), 0)+1 AS SEQ FROM `" . $Tname . "b_img_data@01`";
-                        $result = mysql_query($Sql_Query);
-                        if (!result) {
-                            error("QUERY_ERROR");
-                            exit;
-                        }
-                        $new_img_id = mysql_result($result, 0, 0);
-
-                        // BD_ID_KEY 생성
-                        $bd_id_key = Fnc_Om_Id_Key_Create();
-
-                        $arr_Get_Data = array();
-                        $arr_Column_Name = array();
-
-                        $arr_Column_Name[0]     =     "IMG_SEQ";
-                        $arr_Column_Name[1]     =     "BD_SEQ";
-                        $arr_Column_Name[2]     =     "CONF_SEQ";
-                        $arr_Column_Name[3]     =     "IMG_ID_KEY";
-                        $arr_Column_Name[4]     =     "IMG_ALIGN";
-                        $arr_Column_Name[5]     =     "IMG_F_NAME";
-                        $arr_Column_Name[6]     =     "IMG_F_NICK";
-                        $arr_Column_Name[7]     =     "IMG_REG_DATE";
-
-                        $arr_Set_Data[0]        = $new_img_id;
-                        $arr_Set_Data[1]        = $bd_seq;
-                        $arr_Set_Data[2]        = 2;
-                        $arr_Set_Data[3]        = $bd_id_key;
-                        $arr_Set_Data[4]        = ($j + 1);
-                        $arr_Set_Data[5]        = $str_Temp[1][0];
-                        $arr_Set_Data[6]        = $str_Temp[1][0];
-                        $arr_Set_Data[7]        = date("Y-m-d H:i:s");
-
-                        $arr_Sub1 = "";
-                        $arr_Sub2 = "";
-                        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
-                            if ($int_I != 0) {
-                                $arr_Sub1 .=  ",";
-                                $arr_Sub2 .=  ",";
+                            // ID 얻기
+                            $Sql_Query = "SELECT IFNULL(MAX(IMG_SEQ), 0)+1 AS SEQ FROM `" . $Tname . "b_img_data@01`";
+                            $result = mysql_query($Sql_Query);
+                            if (!result) {
+                                error("QUERY_ERROR");
+                                exit;
                             }
-                            $arr_Sub1 .=  $arr_Column_Name[$int_I];
-                            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
-                        }
+                            $new_img_id = mysql_result($result, 0, 0);
 
-                        $Sql_Query = "INSERT INTO `" . $Tname . "b_img_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-                        mysql_query($Sql_Query);
-                    } else {
-                        $index++;
+                            // BD_ID_KEY 생성
+                            $bd_id_key = Fnc_Om_Id_Key_Create();
+
+                            $arr_Get_Data = array();
+                            $arr_Column_Name = array();
+
+                            $arr_Column_Name[0]     =     "IMG_SEQ";
+                            $arr_Column_Name[1]     =     "BD_SEQ";
+                            $arr_Column_Name[2]     =     "CONF_SEQ";
+                            $arr_Column_Name[3]     =     "IMG_ID_KEY";
+                            $arr_Column_Name[4]     =     "IMG_ALIGN";
+                            $arr_Column_Name[5]     =     "IMG_F_NAME";
+                            $arr_Column_Name[6]     =     "IMG_F_NICK";
+                            $arr_Column_Name[7]     =     "IMG_REG_DATE";
+
+                            $arr_Set_Data[0]        = $new_img_id;
+                            $arr_Set_Data[1]        = $bd_seq;
+                            $arr_Set_Data[2]        = 2;
+                            $arr_Set_Data[3]        = $bd_id_key;
+                            $arr_Set_Data[4]        = ($j + 1);
+                            $arr_Set_Data[5]        = $str_Temp[1][0];
+                            $arr_Set_Data[6]        = $str_Temp[1][0];
+                            $arr_Set_Data[7]        = date("Y-m-d H:i:s");
+
+                            $arr_Sub1 = "";
+                            $arr_Sub2 = "";
+                            for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+                                if ($int_I != 0) {
+                                    $arr_Sub1 .=  ",";
+                                    $arr_Sub2 .=  ",";
+                                }
+                                $arr_Sub1 .=  $arr_Column_Name[$int_I];
+                                $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : "null";
+                            }
+
+                            $Sql_Query = "INSERT INTO `" . $Tname . "b_img_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+                            mysql_query($Sql_Query);
+                            
+                            break;
+                        } else {
+                            $index++;
+                        }
                     }
                 }
             }

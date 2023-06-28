@@ -16,7 +16,7 @@
 	<meta property="og:url" content="http://www.ablanc.co.kr">
 
     <link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
-    
+
     <link href="/m/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/m/css/swiper.min.css">
     <script src="/m/js/swiper.min.js"></script>
@@ -35,7 +35,7 @@
     <script defer src="//cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
+<body class="w-full max-w-[410px] overflow-hidden">
     <div class="fixed top-0 flex flex-col max-w-[410px] w-full border-b border-[#C6C6C6] bg-white z-20">
         <div class="relative flex justify-center items-center h-[55px]">
             <!-- Back button -->
@@ -65,8 +65,8 @@
 
     <script language="javascript">
         window.addEventListener('load', function() {
-            var bodyElement = document.body;
-            bodyElement.style.display = 'block';
+            // var bodyElement = document.body;
+            // bodyElement.style.display = 'block';
         });
     </script>
 

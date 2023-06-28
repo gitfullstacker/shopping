@@ -619,10 +619,10 @@ switch ($arr_Data['INT_TYPE']) {
             <div x-data="{ reviewMenu: 1 }" class="mt-[25px] flex flex-col px-[14px]">
                 <!-- 메뉴 -->
                 <div class="flex gap-10 justify-center">
-                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 1">
+                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 1 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 1;searchOwnReview();">
                         <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 1 ? 'font-bold' : 'font-medium'">해당 상품 리뷰</p>
                     </div>
-                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 2">
+                    <div class="px-[9px] pb-[3px] flex justify-center" x-bind:class="reviewMenu == 2 ? 'border-b border-b-[#6A696C] text-[#6A696C]' : 'text-[#999999]'" x-on:click="reviewMenu = 2;searchRelatedReview();">
                         <p class="font-bold text-sm leading-4 text-center" x-bind:class="reviewMenu == 2 ? 'font-bold' : 'font-medium'">관련 상품 리뷰</p>
                     </div>
                 </div>
@@ -1654,6 +1654,7 @@ switch ($arr_Data['INT_TYPE']) {
             searchOwnReview();
             searchRelatedReview();
         });
+        const isTextClamped = elm => elm.scrollHeight > elm.clientHeight
 
         function searchOwnReview(page = 0) {
             url = "get_own_review_list.php";
@@ -1664,7 +1665,6 @@ switch ($arr_Data['INT_TYPE']) {
                 url: url,
                 success: function(result) {
                     $("#own_review_list").html(result);
-                    console.log('lllsdf')
                 }
             });
         }

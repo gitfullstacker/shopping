@@ -34,7 +34,7 @@
 	<script defer src="//cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 </head>
 
-<body class="w-full max-w-[410px] overflow-hidden" style="display: none;">
+<body class="w-full max-w-[410px] overflow-hidden">
 	<!-- <link rel="stylesheet" href="/m/css/sidenav.min.css" type="text/css"> -->
 	<link rel="stylesheet" href="/m/css/font-awesome.min.css">
 
@@ -131,8 +131,8 @@
 
 	<script language="javascript">
 		window.addEventListener('load', function() {
-			var bodyElement = document.body;
-			bodyElement.style.display = 'block';
+			// var bodyElement = document.body;
+			// bodyElement.style.display = 'block';
 		});
 
 		$(function() {

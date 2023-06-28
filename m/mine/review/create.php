@@ -190,7 +190,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">이미지 첨부</p>
             <div class="flex gap-[5px]">
                 <div class="grow flex flex-col gap-2.5">
-                    <input type="file" class="hidden" name="str_image[]" id="image_input" onchange="handleFileChange(event)" multiple />
+                    <input type="file" class="hidden" name="str_image[]" id="image_input" onchange="handleFileChange(event)" accept=".jpg,.png,.gif" multiple />
                     <input type="text" class="grow h-[45px] border border-solid border-[#DDDDDD] px-4 font-bold text-xs leading-[14px] placeholder:text-[#999999]" id="image_names" readonly>
                     <p class="font-bold text-[10px] leading-[15px] text-[#999999]">이미지 파일(JPG, PNG, GIF)를 기준으로 최대 10MB이하,
                         최대 3개까지 등록가능합니다.</p>
@@ -234,13 +234,12 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
         const files = image_input.files;
         const image_names = document.getElementById('image_names');
 
+        image_names.value = '';
         if (files.length > 0) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 image_names.value += file.name + ', ';
             }
-        } else {
-            image_names.value = '';
         }
     }
 
