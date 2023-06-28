@@ -7,8 +7,7 @@ $user_info = $_GET['user_info'];
 
 // decode user information from JSON format
 $user = json_decode(stripslashes($user_info), true);
-var_dump($user);
-exit;
+
 if ($user['resultcode'] != '00') {
 ?>
 	<script>
