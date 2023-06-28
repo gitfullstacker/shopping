@@ -7,7 +7,7 @@ $user_info = $_GET['user_info'];
 
 // decode user information from JSON format
 $user = json_decode($user_info, true);
-var_dump($user);
+var_dump($_GET['user_info']);
 exit;
 if ($user['resultcode'] != '200') {
 ?>
