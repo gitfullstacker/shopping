@@ -5,10 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
 <?php
-$filter_categories = json_decode($_GET['filter_categories'], true);
-$filter_brands = json_decode($_GET['filter_brands'], true);
-$filter_sizes = json_decode($_GET['filter_sizes'], true);
-$filter_styles = json_decode($_GET['filter_styles'], true);
+$filter_categories = json_decode(stripslashes($_GET['filter_categories']), true);
+$filter_brands = json_decode(stripslashes($_GET['filter_brands']), true);
+$filter_sizes = json_decode(stripslashes($_GET['filter_sizes']), true);
+$filter_styles = json_decode(stripslashes($_GET['filter_styles']), true);
 $search_key = $_GET['search_key'] ?: '';
 
 $FILTER_QUERY = 'A.STR_GOODCODE IS NOT NULL ';
