@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
     <link href="//www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <title>에이블랑_ABLANC</title>
-    
+
     <meta name="description" content="구찌, 샤넬, 생로랑 등 21개 브랜드, 700개 명품을 무제한 이용하는 명품 구독 서비스">
-	<meta name="Keywords" content="명품대여, 에이블랑, 가방렌탈, 명품가방대여, 명품가방렌탈, 가방대여, 율럽, 명품렌탈, 명품백대여, 명품백렌탈, ABLANC, 명품가방렌트, 에이블랑후기, 명품구독, 명품가방구독">
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="에이블랑_명품구독서비스">
-	<meta property="og:description" content="구찌, 샤넬, 생로랑 등 21개 브랜드, 700개 명품을 무제한 이용하는 명품 구독 서비스">
-	<meta property="og:url" content="http://www.ablanc.co.kr">
+    <meta name="Keywords" content="명품대여, 에이블랑, 가방렌탈, 명품가방대여, 명품가방렌탈, 가방대여, 율럽, 명품렌탈, 명품백대여, 명품백렌탈, ABLANC, 명품가방렌트, 에이블랑후기, 명품구독, 명품가방구독">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="에이블랑_명품구독서비스">
+    <meta property="og:description" content="구찌, 샤넬, 생로랑 등 21개 브랜드, 700개 명품을 무제한 이용하는 명품 구독 서비스">
+    <meta property="og:url" content="http://www.ablanc.co.kr">
 
     <link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
 
@@ -33,6 +33,36 @@
 
     <script src="//cdn.tailwindcss.com"></script>
     <script defer src="//cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        marquee: 'marquee 25s linear infinite',
+                        marquee2: 'marquee2 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': {
+                                transform: 'translateX(0%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(-100%)'
+                            },
+                        },
+                        marquee2: {
+                            '0%': {
+                                transform: 'translateX(100%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(0%)'
+                            },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="w-full max-w-[410px] overflow-hidden">

@@ -40,10 +40,9 @@
         <p class="title">당신을 기다리는<br />1000개의 명품백</p>
         <p class="description">전 세계에서 사랑받고 있는 프리미엄 브랜드의<br />가방들을 제한없이 만나보세요</p>
         <div class="mt-7 flex flex-col w-full">
-            <marquee width="100%" height="128px" direction="left">
-                <div class="flex">
-                    <?php
-                    $SQL_QUERY =    'SELECT 
+            <div class="relative flex overflow-x-hidden">
+                <?php
+                $SQL_QUERY =    'SELECT 
                                         A.STR_IMAGE1
                                     FROM 
                                         `' . $Tname . 'comm_goods_master` A
@@ -52,8 +51,10 @@
                                         AND A.INT_TYPE = 1
                                     LIMIT 10';
 
-                    $product_list_result = mysql_query($SQL_QUERY);
-
+                $product_list_result = mysql_query($SQL_QUERY);
+                ?>
+                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                    <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
                         <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
@@ -61,11 +62,22 @@
                     }
                     ?>
                 </div>
-            </marquee>
-            <marquee width="100%" height="128px" direction="right">
-                <div class="flex">
+                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
                     <?php
-                    $SQL_QUERY =    'SELECT 
+                    if (mysql_num_rows($product_list_result) > 0) {
+                        mysql_data_seek($product_list_result, 0);
+                    }
+                    while ($row = mysql_fetch_assoc($product_list_result)) {
+                    ?>
+                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="relative flex overflow-x-hidden">
+                <?php
+                $SQL_QUERY =    'SELECT 
                                         A.STR_IMAGE1
                                     FROM 
                                         `' . $Tname . 'comm_goods_master` A
@@ -74,8 +86,10 @@
                                         AND A.INT_TYPE = 2
                                     LIMIT 10';
 
-                    $product_list_result = mysql_query($SQL_QUERY);
-
+                $product_list_result = mysql_query($SQL_QUERY);
+                ?>
+                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                    <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
                         <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
@@ -83,11 +97,22 @@
                     }
                     ?>
                 </div>
-            </marquee>
-            <marquee width="100%" height="128px" direction="left">
-                <div class="flex">
+                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
                     <?php
-                    $SQL_QUERY =    'SELECT 
+                    if (mysql_num_rows($product_list_result) > 0) {
+                        mysql_data_seek($product_list_result, 0);
+                    }
+                    while ($row = mysql_fetch_assoc($product_list_result)) {
+                    ?>
+                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="relative flex overflow-x-hidden">
+                <?php
+                $SQL_QUERY =    'SELECT 
                                         A.STR_IMAGE1
                                     FROM 
                                         `' . $Tname . 'comm_goods_master` A
@@ -96,8 +121,10 @@
                                         AND A.INT_TYPE = 3
                                     LIMIT 10';
 
-                    $product_list_result = mysql_query($SQL_QUERY);
-
+                $product_list_result = mysql_query($SQL_QUERY);
+                ?>
+                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                    <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
                         <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
@@ -105,7 +132,19 @@
                     }
                     ?>
                 </div>
-            </marquee>
+                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
+                    <?php
+                    if (mysql_num_rows($product_list_result) > 0) {
+                        mysql_data_seek($product_list_result, 0);
+                    }
+                    while ($row = mysql_fetch_assoc($product_list_result)) {
+                    ?>
+                        <img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" class="w-32 h-32 object-cover" alt="">
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
 
