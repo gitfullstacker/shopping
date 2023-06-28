@@ -23,8 +23,7 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($curl);
 $response = json_decode($result, true);
 curl_close($curl);
-var_dump($response);
-exit;
+
 // 액세스 토큰과 리프레시 토큰 저장하기
 $access_token = $response['access_token'];
 $refresh_token = $response['refresh_token'];
@@ -41,7 +40,8 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($curl);
 $response = json_decode($result, true);
 curl_close($curl);
-
+var_dump($response);
+exit;
 // encode user information in JSON format
 $user_info = json_encode($response);
 
