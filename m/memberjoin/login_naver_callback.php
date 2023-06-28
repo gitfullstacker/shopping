@@ -43,6 +43,6 @@ curl_close($curl);
 var_dump($response);
 exit;
 // encode user information in JSON format
-$user_info = json_encode($response);
+$user_info = json_encode(iconv('EUC-KR', 'UTF-8', $response));
 
 header("Location: /m/memberjoin/login_sns_proc.php?type=naver&user_info=" . urlencode($user_info));
