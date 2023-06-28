@@ -7,10 +7,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <?php
-$filter_categories = json_decode($_GET['filter_categories'], true) ?: array();
-$filter_brands = json_decode($_GET['filter_brands'], true) ?: array();
-$filter_sizes = json_decode($_GET['filter_sizes'], true) ?: array();
-$filter_styles = json_decode($_GET['filter_styles'], true) ?: array();
+$filter_categories = json_decode(stripslashes($_GET['filter_categories']), true) ?: array();
+$filter_brands = json_decode(stripslashes($_GET['filter_brands']), true) ?: array();
+$filter_sizes = json_decode(stripslashes($_GET['filter_sizes']), true) ?: array();
+$filter_styles = json_decode(stripslashes($_GET['filter_styles']), true) ?: array();
 
 $query = "SELECT * FROM " . $Tname . "comm_com_code where str_service = 'Y' and int_gubun = 2";
 $brand_list_result = mysql_query($query);
