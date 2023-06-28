@@ -40,9 +40,9 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($curl);
 $response = json_decode($result, true);
 curl_close($curl);
-var_dump($response);
+var_dump(iconv('EUC-KR', 'UTF-8', $response));
 exit;
 // encode user information in JSON format
-$user_info = json_encode(iconv('EUC-KR', 'UTF-8', $response));
+$user_info = json_encode($response);
 
 header("Location: /m/memberjoin/login_sns_proc.php?type=naver&user_info=" . urlencode($user_info));
