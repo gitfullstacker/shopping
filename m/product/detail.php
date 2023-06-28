@@ -1665,6 +1665,11 @@ switch ($arr_Data['INT_TYPE']) {
                 url: url,
                 success: function(result) {
                     $("#own_review_list").html(result);
+                    if (page > 0) {
+                        $('html, body').animate({
+                            scrollTop: $("#own_review_list").offset().top - 150
+                        }, 500);
+                    }
                 }
             });
         }
@@ -1680,6 +1685,11 @@ switch ($arr_Data['INT_TYPE']) {
                 url: url,
                 success: function(result) {
                     $("#related_review_list").html(result);
+                    if (page > 0) {
+                        $('html, body').animate({
+                            scrollTop: $("#related_review_list").offset().top - 150
+                        }, 500);
+                    }
                 }
             });
         }

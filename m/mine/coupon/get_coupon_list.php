@@ -1,8 +1,4 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
-<?
-fnc_MLogin_Chk();
-?>
-<script language="javascript" src="js/index.js"></script>
 
 <?php
 $per_page = 5;
