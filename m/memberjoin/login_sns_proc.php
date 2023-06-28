@@ -7,9 +7,8 @@ $user_info = $_GET['user_info'];
 
 // decode user information from JSON format
 $user = json_decode($user_info, true);
-var_dump($user);
-exit;
-if ($user['resultcode'] != '200') {
+
+if ($user['resultcode'] != '00') {
 ?>
 	<script>
 		alert('<?= $user['message'] ?>');
