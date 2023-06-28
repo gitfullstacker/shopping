@@ -53,7 +53,7 @@
 
                 $product_list_result = mysql_query($SQL_QUERY);
                 ?>
-                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                <div class="animate-marqueeLeft flex flex-row items-center whitespace-nowrap">
                     <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
@@ -62,7 +62,7 @@
                     }
                     ?>
                 </div>
-                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
+                <div class="absolute top-0 animate-marqueeLeft2 flex flex-row items-center whitespace-nowrap">
                     <?php
                     if (mysql_num_rows($product_list_result) > 0) {
                         mysql_data_seek($product_list_result, 0);
@@ -88,7 +88,7 @@
 
                 $product_list_result = mysql_query($SQL_QUERY);
                 ?>
-                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                <div class="animate-marqueeRight flex flex-row items-center whitespace-nowrap">
                     <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
@@ -97,7 +97,7 @@
                     }
                     ?>
                 </div>
-                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
+                <div class="absolute top-0 animate-marqueeRight2 flex flex-row items-center whitespace-nowrap">
                     <?php
                     if (mysql_num_rows($product_list_result) > 0) {
                         mysql_data_seek($product_list_result, 0);
@@ -123,7 +123,7 @@
 
                 $product_list_result = mysql_query($SQL_QUERY);
                 ?>
-                <div class="animate-marquee flex flex-row items-center whitespace-nowrap">
+                <div class="animate-marqueeLeft flex flex-row items-center whitespace-nowrap">
                     <?php
                     while ($row = mysql_fetch_assoc($product_list_result)) {
                     ?>
@@ -132,7 +132,7 @@
                     }
                     ?>
                 </div>
-                <div class="absolute top-0 animate-marquee2 flex flex-row items-center whitespace-nowrap">
+                <div class="absolute top-0 animate-marqueeLeft2 flex flex-row items-center whitespace-nowrap">
                     <?php
                     if (mysql_num_rows($product_list_result) > 0) {
                         mysql_data_seek($product_list_result, 0);

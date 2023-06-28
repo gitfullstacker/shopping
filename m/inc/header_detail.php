@@ -38,11 +38,13 @@
             theme: {
                 extend: {
                     animation: {
-                        marquee: 'marquee 25s linear infinite',
-                        marquee2: 'marquee2 25s linear infinite',
+                        marqueeLeft: 'marqueeLeft 25s linear infinite',
+                        marqueeLeft2: 'marqueeLeft2 25s linear infinite',
+                        marqueeRight: 'marqueeRight 25s linear infinite',
+                        marqueeRight2: 'marqueeRight2 25s linear infinite',
                     },
                     keyframes: {
-                        marquee: {
+                        marqueeLeft: {
                             '0%': {
                                 transform: 'translateX(0%)'
                             },
@@ -50,12 +52,28 @@
                                 transform: 'translateX(-100%)'
                             },
                         },
-                        marquee2: {
+                        marqueeLeft2: {
                             '0%': {
                                 transform: 'translateX(100%)'
                             },
                             '100%': {
                                 transform: 'translateX(0%)'
+                            },
+                        },
+                        marqueeRight: {
+                            '0%': {
+                                transform: 'translateX(100%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(200%)'
+                            },
+                        },
+                        marqueeRight2: {
+                            '0%': {
+                                transform: 'translateX(0%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(100%)'
                             },
                         },
                     },
