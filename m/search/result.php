@@ -38,6 +38,9 @@ if (count($filter_styles) > 0) {
     $filter_styles_string = implode(' OR ', $filter_styles_array);
     $FILTER_QUERY .= 'AND (' . $filter_styles_string . ') ';
 }
+if ($search_key) {
+    $FILTER_QUERY .= 'AND (A.STR_GOODNAME LIKE "%' . $search_key . '%" || B.STR_KCODE LIKE "%' . $search_key . '%" || B.STR_CODE LIKE "%' . $search_key . '%") ';
+}
 
 $SQL_QUERY =    'SELECT 
                     COUNT(A.STR_GOODCODE) AS COUNT
@@ -67,9 +70,7 @@ $total_record = mysql_result($result, 0, 0);
         <div x-data="{
             searchKey: '<?= $_GET['search_key'] ?: '' ?>',
             search() {
-                window.search_key = this.searchKey;
-                window.current_page = 1;
-                searchProduct();
+                searchByKey(this.searchKey);
             }
         }" class="relative w-full">
             <input type="text" class="w-full h-[38px] bg-[#F8F8F8] border border-solid border-[#E0E0E0] rounded-[4px] pl-3 pr-7 font-bold text-xs leading-[14px] placeholder:text-[#C4C4C4]" x-model="searchKey" x-on:keydown.enter="search()" placeholder="검색어를 입력해주세요.">
@@ -310,6 +311,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         } else {
             document.getElementById('see_more_btn').classList.remove('hidden');
         }
+    }
+
+    function searchByKey(search_key) {
+        url = "result_before.php";
+        url += "?search_key=" + search_key;
+
+        document.location.href = url;
     }
 
     function seeMoreClick() {
