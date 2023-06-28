@@ -55,7 +55,7 @@ $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_banner a ";
 $SQL_QUERY .= "where a.int_number is not null and a.int_gubun='$int_gubun' ";
 $SQL_QUERY .= $Str_Query;
-$SQL_QUERY .= "order by a.dtm_indate desc ";
+$SQL_QUERY .= "order by a.int_order asc, a.dtm_indate desc ";
 $SQL_QUERY .= "limit $f_limit,$l_limit";
 
 $result = mysql_query($SQL_QUERY);
@@ -93,7 +93,6 @@ $total_record_limit = mysql_num_rows($result);
 					<tr>
 						<td style="padding:10px">
 							<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
-
 
 							<form id="frm" name="frm" target="_self" method="POST" action="bann_main_list.php">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
@@ -140,9 +139,10 @@ $total_record_limit = mysql_num_rows($result);
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=7></td>
+										<td class=rnd colspan=8></td>
 									</tr>
 									<tr class=rndbg>
+										<th>순서</th>
 										<th>번호</th>
 										<th>배너</th>
 										<th>구분</th>
@@ -152,10 +152,11 @@ $total_record_limit = mysql_num_rows($result);
 										<th>삭제</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=7></td>
+										<td class=rnd colspan=8></td>
 									</tr>
 									<col width=5% align=center>
-									<col width=62% align=left>
+									<col width=5% align=center>
+									<col width=57% align=left>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=8% align=center>
@@ -166,6 +167,15 @@ $total_record_limit = mysql_num_rows($result);
 										<? $article_num = $total_record - $displayrow * ($page - 1); ?>
 										<? for ($i = 0; $i <= $displayrow - 1; $i++) { ?>
 											<tr height=110 align="center">
+												<td>
+													<div style="display: flex; flex-direction: row; gap:10px; align-items: center;justify-content: center;">
+														<div style="display: flex; flex-direction: column; gap:10px;">
+															<a href="javascript:OrderUpClick('<?= mysql_result($result, $i, int_number) ?>', '<?= $int_gubun ?>');"><img src="/admincenter/img/ico_arrow_up.gif"></a>
+															<a href="javascript:OrderDownClick('<?= mysql_result($result, $i, int_number) ?>', '<?= $int_gubun ?>');"><img src="/admincenter/img/ico_arrow_down.gif"></a>
+														</div>
+														<font class=ver81 color=616161><?= mysql_result($result, $i, int_order) ?></font>
+													</div>
+												</td>
 												<td>
 													<font class=ver81 color=616161><?= $article_num ?></font>
 												</td>
@@ -212,7 +222,6 @@ $total_record_limit = mysql_num_rows($result);
 														}
 													}
 													?>
-
 												</td>
 												<td>
 													<font class=small color=616161><? if (mysql_result($result, $i, str_service) == "Y") { ?>출력<? } else { ?>미출력<? } ?></font>
@@ -221,7 +230,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=7 class=rndline></td>
+												<td colspan=8 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?
