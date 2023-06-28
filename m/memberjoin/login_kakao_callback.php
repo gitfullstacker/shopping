@@ -5,7 +5,7 @@ $code = $_GET['code'];
 // 카카오 로그인 API를 호출할 때 사용한 정보
 $client_id = '4a0157d4a176c25b8687827537ecd8dd';
 $client_secret = 'lVzqj1OIV5bvhqaMuBm9X8OdAA7AsgLt';
-$redirect_uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] + '/m/memberjoin/login_kakao_callback.php';
+$redirect_uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/m/memberjoin/login_kakao_callback.php';
 
 // 카카오 로그인 API를 호출하여 액세스 토큰 발급받기
 $api_url = 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code'
