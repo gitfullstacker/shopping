@@ -8,6 +8,7 @@ $client_id = 'jcs1GgEIyTrIaYrnffvx';
 $client_secret = 'pE18Auqzs9';
 $redirect_uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] + '/m/memberjoin/login_naver_callback.php';
 var_dump($redirect_uri);
+exit;
 // 네이버 로그인 API를 호출하여 액세스 토큰 발급받기
 $api_url = 'https://nid.naver.com/oauth2.0/token?grant_type=authorization_code'
     . '&client_id=' . $client_id
