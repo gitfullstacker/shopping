@@ -6,8 +6,8 @@ $type = $_GET['type'];
 $user_info = $_GET['user_info'];
 
 // decode user information from JSON format
-$user = json_decode($user_info, true);
-var_dump(stripslashes($user_info));
+$user = json_decode(stripslashes($user_info), true);
+var_dump($user);
 exit;
 if ($user['resultcode'] != '00') {
 ?>
