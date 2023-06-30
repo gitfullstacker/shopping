@@ -141,8 +141,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         useDays: <?= $use_days ?: 0 ?>,
         discount: {
             product: <?= round($int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100), -2) ?>,
-            membership: <?= round($membership_discount ?: 0, -2) ?>,
-            area: <?= round($area_discount ?: 0, -2) ?>
+            area: <?= round($area_discount ?: 0, -2) ?>,
+            membership: <?= round($membership_discount ?: 0, -2) ?>
         },
         coupon: 0,
         mileage: 0
@@ -194,6 +194,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="total_price" x-bind:value="payAmount.totalPrice">
     <input type="hidden" name="price" x-bind:value="payAmount.price">
     <input type="hidden" name="discount_product" x-bind:value="payAmount.discount.product">
+    <input type="hidden" name="discount_area" x-bind:value="payAmount.discount.area">
     <input type="hidden" name="discount_membership" x-bind:value="payAmount.discount.membership">
     <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
     <input type="hidden" name="mileage" x-bind:value="payAmount.mileage">
@@ -671,7 +672,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-                        <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.discount.product + payAmount.discount.membership) + '원'"></p>
+                        <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.discount.product + payAmount.discount.area + payAmount.discount.membership) + '원'"></p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
