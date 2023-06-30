@@ -25,8 +25,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
     <div class="mt-[25.17px] flex flex-col w-full gap-5">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">최근 검색어</p>
         <?php
-        $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize($_COOKIE['SEARCH_KEY_DATA']) : array();
-var_dump($_COOKIE['SEARCH_KEY_DATA']);
+        $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize(stripslashes($_COOKIE['SEARCH_KEY_DATA'])) : array();
+
         if (count($searchHistory) > 0) {
         ?>
             <div class="grid grid-cols-2 gap-0.5 w-full">
