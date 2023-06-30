@@ -3,7 +3,7 @@
 $search_key = $_GET['search_key'] ?: '';
 
 if ($search_key) {
-    $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize($_COOKIE['SEARCH_KEY_DATA']) : array();
+    $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize(stripslashes($_COOKIE['SEARCH_KEY_DATA'])) : array();
 
     if (!in_array($search_key, $searchHistory)) {
         $searchHistory[] = $search_key;
