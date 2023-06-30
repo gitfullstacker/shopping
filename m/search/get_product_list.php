@@ -80,7 +80,7 @@ $SQL_QUERY =    'SELECT
                 OFFSET ' . $offset;
 
 $product_list_result = mysql_query($SQL_QUERY);
-var_dump($SQL_QUERY);
+
 // 금액정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*
