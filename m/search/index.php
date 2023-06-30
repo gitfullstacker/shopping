@@ -26,7 +26,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
         <p class="font-extrabold text-lg leading-5 text-[#333333]">최근 검색어</p>
         <?php
         $searchHistory = isset($_COOKIE['SEARCH_KEY_DATA']) ? unserialize($_COOKIE['SEARCH_KEY_DATA']) : array();
-
+var_dump($searchHistory);
         if (count($searchHistory) > 0) {
         ?>
             <div class="grid grid-cols-2 gap-0.5 w-full">
