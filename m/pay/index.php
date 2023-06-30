@@ -586,7 +586,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     ?>
                         <div class="w-[280px] h-[165px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
                             <div class="flex p-[15px] h-[112px]">
-                                <p class="font-bold text-xs leading-[14px] text-white">삼성카드</p>
+                                <p class="font-bold text-xs leading-[14px] text-white"><?= fnc_card_kind($payment_Data['STR_CARDCODE']) ?></p>
                             </div>
                             <hr class="border-t-[1px] border-white">
                             <div class="flex-1 flex justify-end items-center px-[15px]">
