@@ -4,10 +4,10 @@
 $per_page = 16;
 $page = $_GET['page'] ?: 1;
 $offset = ($page - 1) * $per_page;
-$filter_categories = json_decode($_GET['filter_categories'], true);
-$filter_brands = json_decode($_GET['filter_brands'], true);
-$filter_sizes = json_decode($_GET['filter_sizes'], true);
-$filter_styles = json_decode($_GET['filter_styles'], true);
+$filter_categories = json_decode(stripslashes($_GET['filter_categories']), true);
+$filter_brands = json_decode(stripslashes($_GET['filter_brands']), true);
+$filter_sizes = json_decode(stripslashes($_GET['filter_sizes']), true);
+$filter_styles = json_decode(stripslashes($_GET['filter_styles']), true);
 $search_key = $_GET['search_key'] ?: '';
 
 $order_by = $_GET['order_by'] ?: '';
