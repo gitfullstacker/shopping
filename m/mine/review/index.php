@@ -25,7 +25,7 @@ $view_mode = Fnc_Om_Conv_Default($_REQUEST['view_mode'], "cart");
     <div x-show="menu == 1" class="flex flex-col w-full" id="cart_list">
     </div>
 
-    <div x-show="menu == 2" class="flex flex-col w-full" id="review_list">
+    <div x-show="menu == 2" class="flex flex-col w-full" id="review_list" style="display: none;">
     </div>
 </div>
 
