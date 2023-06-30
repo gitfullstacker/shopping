@@ -293,8 +293,6 @@
 				$body = $snoopy->results; 
 				
 				Fnc_Om_Sendmail("신청하신 가방의 결제정보입니다.",$body,Fnc_Om_Store_Info(2),$buyr_mail);
-            
-            
             }
         }
         
