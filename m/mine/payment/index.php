@@ -13,8 +13,7 @@ $SQL_QUERY =    "SELECT
                 FROM 
                     `" . $Tname . "comm_member_pay` AS A
                 WHERE
-                    A.STR_PTYPE='1'
-                    AND A.STR_PASS='0' 
+                    A.STR_PASS='0' 
                     AND A.STR_USERID='$arr_Auth[0]'
                 ORDER BY DTM_INDATE
                 LIMIT 1 ";

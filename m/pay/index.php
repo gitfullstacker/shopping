@@ -122,12 +122,15 @@ switch ($int_type) {
 }
 
 //카드정보얻기
-$SQL_QUERY =    'SELECT
+$SQL_QUERY =    "SELECT 
                     A.*
                 FROM 
-                    ' . $Tname . 'comm_member_payment AS A
+                    `" . $Tname . "comm_member_pay` AS A
                 WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"';
+                    A.STR_PASS='0' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE
+                LIMIT 1 ";
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
