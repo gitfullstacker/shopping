@@ -365,7 +365,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                // window.location.href = 'index.php?int_type=' + restore_int_type;
+                window.location.href = 'index.php?int_type=' + restore_int_type;
             }
         });
     }
