@@ -43,13 +43,13 @@ function chkSpace(strValue) {
 
 function verifyPhone(gbn) {
 	if (ValidChk(gbn) == false) return;
-	fnPopup();
+	fnPopup(gbn);
 }
 
-function fnPopup() {
+function fnPopup(gbn) {
 	var enc_data = document.form_chk.EncodeData.value;
 	var gubun = '';
-	switch (document.frm.gbn.value) {
+	switch (gbn) {
 		case '1':
 			gubun = 'IDCHECK';
 			break;
