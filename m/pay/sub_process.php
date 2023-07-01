@@ -198,7 +198,7 @@ if ($int_type != 1) {
     </head>
 
     <body onload="init_orderid();submitPay();">
-        <form name="pay_form" action="/payment/windows/manual_pay/mobile_sample/order_mobile.php" method="post">
+        <form name="pay_form" action="" method="post">
             <input type="hidden" name="ordr_idxx" value="">
             <input type="hidden" name="ipgm_date" value="">
             <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
@@ -237,7 +237,7 @@ if ($int_type != 1) {
 
             function submitPay() {
                 if (<?= $int_type ?> == 2) {
-                    document.forms.pay_form.action = "/payment/linux/auto_pay/mobile_auth/order_mobile.php";
+                    document.forms.pay_form.action = "/payment/linux/auto_pay/payx/order.php";
                 } else {
                     document.forms.pay_form.action = "/payment/linux/manual_pay/mobile_sample/order_mobile.php";
                 }
