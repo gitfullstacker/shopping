@@ -108,7 +108,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <a href="/m/mine/membership/cancel.php?int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">블랑 렌트 멤버십 해지</p>
-                    </a>
+                </a>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                         <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 해지 안내</p>
                         <p class="font-normal text-[10px] leading-4 text-[#999999]">

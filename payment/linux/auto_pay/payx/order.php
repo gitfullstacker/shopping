@@ -86,7 +86,6 @@ function convertEncode($string)
                 <!-- 주문정보 타이틀 -->
                 <h2>&sdot; 주문 정보</h2>
                 <table class="tbl" cellpadding="0" cellspacing="0">
-
                     <!-- 지불 방법 -->
                     <tr>
                         <th>지불 방법</th>
