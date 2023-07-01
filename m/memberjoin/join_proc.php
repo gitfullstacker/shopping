@@ -1,9 +1,9 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php"; ?>
-<?
+<?php
 $join_type = Fnc_Om_Conv_Default($_REQUEST['join_type'], "default");
 
-if ($login_type == "default") {
+if ($join_type == "default") {
 	$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp1'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp2'], "") . "-" . Fnc_Om_Conv_Default($_REQUEST['str_hp3'], "");
 	$str_birth = Fnc_Om_Conv_Default($_REQUEST['str_birth_year'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_month'], "") . Fnc_Om_Conv_Default($_REQUEST['str_birth_day'], "");
 } else {

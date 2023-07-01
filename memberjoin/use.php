@@ -24,9 +24,6 @@
 					</script>
 					
 					<iframe src="use_txt.html" id="clause01" frameborder="0" width="100%" height="100%" scrolling="no" onload="autosize()"></iframe>
-					
-
-					
 				</div>
 			</div>
 			
