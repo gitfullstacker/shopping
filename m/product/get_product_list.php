@@ -147,8 +147,12 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
                     <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
                 </div>
             ';
-        } else if ($product_type == 3) {
-            continue;
+        } else if($product_type == 3) {
+            $rented_content = '
+                <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                    <p class="font-bold text-xs leading-[14px] text-white text-center">SOLD OUT</p>
+                </div>
+            ';
         }
     }
 
