@@ -133,6 +133,8 @@ $SQL_QUERY =    'SELECT
 
 $product_list_result = mysql_query($SQL_QUERY);
 
+$see_more = mysql_num_rows($product_list_result) == 16 ? true : false;
+
 $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
     $price = '';
@@ -207,6 +209,11 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
     ';
 }
 
-echo $result;
+echo json_encode(
+    array(
+        'products' => $result,
+        'see_more' => $see_more
+    )
+);
 
 ?>

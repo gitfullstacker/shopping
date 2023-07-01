@@ -1002,11 +1002,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
         $.ajax({
             url: url,
+            dataType: 'json',
             success: function(result) {
                 if (append) {
-                    $("#product_list").append(result);
+                    $("#product_list").append(result.products);
                 } else {
-                    $("#product_list").html(result);
+                    $("#product_list").html(result.products);
+                }
+
+                if (!result.see_more) {
+                    $('.see-more-btn').hide();
                 }
             }
         });
