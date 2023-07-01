@@ -371,18 +371,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function joinMembership(int_type) {
-        switch (int_type) {
-            case 1:
-                document.forms.join_membership.good_name.value = '구독멤버십';
-                document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE1'] ?: 0 ?>;
-                break;
-            case 2:
-                document.forms.join_membership.good_name.value = '렌트멥버십';
-                document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE2'] ?: 0 ?>;
-                break;
+        if (<?= $card_Data ? 'true' : 'false' ?>) {
+            switch (int_type) {
+                case 1:
+                    document.forms.join_membership.good_name.value = '구독멤버십';
+                    document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE1'] ?: 0 ?>;
+                    break;
+                case 2:
+                    document.forms.join_membership.good_name.value = '렌트멥버십';
+                    document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE2'] ?: 0 ?>;
+                    break;
+            }
+            document.forms.join_membership.int_type.value = int_type;
+            document.forms.join_membership.submit();
+        } else {
+            window.location.href = '/m/mine/payment/index.php';
         }
-        document.forms.join_membership.int_type.value = int_type;
-        document.forms.join_membership.submit();
     }
 
     function init_orderid() {
