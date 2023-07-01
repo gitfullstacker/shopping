@@ -996,7 +996,6 @@ switch ($RetrieveFlag) {
 		$Sql_Query = "INSERT INTO `" . $Tname . "comm_goods_master_sub` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
 		mysql_query($Sql_Query);
 
-
 		$SQL_QUERY = "select ifnull(count(str_sgoodcode),0) as lastnumber from " . $Tname . "comm_goods_master_sub where str_goodcode = '" . $str_no . "' ";
 		$arr_max_Data = mysql_query($SQL_QUERY);
 		$cnt = mysql_result($arr_max_Data, 0, lastnumber);

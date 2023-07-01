@@ -139,22 +139,23 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
     $color = '';
 
     $rented_content = '';
-    if ($product_type == 1) {
-        if ($row['RENT_NUM'] == 0) {
+
+    if ($row['RENT_NUM'] == 0) {
+        if ($product_type == 1) {
             $rented_content = '
                 <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
                     <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
                 </div>
             ';
-        } else {
-            $rented_content = '';
+        } else if ($product_type == 3) {
+            continue;
         }
     }
 
     switch ($product_type) {
         case 1:
             $color = '#EEAC4C';
-            
+
             if ($is_sub_membership) {
                 $price = '';
             } else {

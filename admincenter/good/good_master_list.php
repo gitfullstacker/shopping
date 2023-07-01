@@ -356,18 +356,18 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 												<td style="padding:3px;padding-right:15px;text-align:left;" valign="top">
 													<?
 													$Sql_Query =	" SELECT
-													A.*,B.INT_STATE
-												FROM `"
-														. $Tname . "comm_goods_master_sub` AS A
-													left join " . $Tname . "comm_goods_cart AS B 
-													ON 
-													A.STR_SGOODCODE=B.STR_SGOODCODE 
-													AND
-													B.INT_STATE IN ('1','2','3','4','5')
-												WHERE
-													A.STR_GOODCODE='" . mysql_result($result, $i, str_goodcode) . "'
-												ORDER BY
-													A.STR_SGOODCODE ASC ";
+																		A.*,B.INT_STATE
+																	FROM 
+																		`" . $Tname . "comm_goods_master_sub` AS A
+																		left join " . $Tname . "comm_goods_cart AS B 
+																		ON 
+																		A.STR_SGOODCODE=B.STR_SGOODCODE 
+																		AND
+																		B.INT_STATE IN ('1','2','3','4','5')
+																	WHERE
+																		A.STR_GOODCODE='" . mysql_result($result, $i, str_goodcode) . "'
+																	ORDER BY
+																		A.STR_SGOODCODE ASC ";
 
 													$arr_Data = mysql_query($Sql_Query);
 													$arr_Data_Cnt = mysql_num_rows($arr_Data);

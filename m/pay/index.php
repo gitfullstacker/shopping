@@ -578,50 +578,54 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <?php
         } else {
         ?>
-            <div class="flex flex-col w-full">
-                <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black">간편결제</p>
-                <div class="mt-3 flex flex-col gap-[25px] justify-center items-center w-full">
-                    <?php
-                    if ($payment_Data) {
-                    ?>
-                        <div class="w-[280px] h-[165px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
-                            <div class="flex p-[15px] h-[112px]">
-                                <p class="font-bold text-xs leading-[14px] text-white"><?= fnc_card_kind($payment_Data['STR_CARDCODE']) ?></p>
-                            </div>
-                            <hr class="border-t-[1px] border-white">
-                            <div class="flex-1 flex justify-end items-center px-[15px]">
-                                <p class="font-bold text-xs leading-[10px] text-white">**** **** **** 1234</p>
-                            </div>
-                        </div>
-                    <?php
-                    } else {
-                    ?>
-                        <a href="/m/mine/payment/index.php" class="w-[280px] h-[165px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
-                            <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
-                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.27684 0.225V8.065H16.9068V9.535H9.27684V17.865H7.73684V9.535H0.106836V8.065H7.73684V0.225H9.27684Z" fill="#DDDDDD" />
-                                </svg>
-                            </div>
-                            <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">결제 카드를 등록해주세요.</p>
-                            <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 <br />카드 삭제 및 변경가능합니다.</p>
-                        </a>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    if ($int_type == 2) {
-                    ?>
-                        <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-                            <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 혜택 안내</p>
-                            <p class="font-normal text-[10px] leading-3 text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                </div>
-
+            <div class="mt-[15px] flex flex-col w-full">
                 <?php
-                if ($int_type != 2) {
+                if ($int_type == 2) {
+                ?>
+                    <div class="flex flex-col gap-3 w-full">
+                        <p class="font-bold text-[15px] leading-[17px] text-black">간편결제</p>
+                        <div class="flex flex-col gap-[25px] justify-center items-center w-full">
+                            <?php
+                            if ($payment_Data) {
+                            ?>
+                                <div class="w-[280px] h-[165px] flex flex-col border border-solid border-[#DDDDDD] rounded-[10px] bg-[#2395FF]">
+                                    <div class="flex p-[15px] h-[112px]">
+                                        <p class="font-bold text-xs leading-[14px] text-white"><?= fnc_card_kind($payment_Data['STR_CARDCODE']) ?></p>
+                                    </div>
+                                    <hr class="border-t-[1px] border-white">
+                                    <div class="flex-1 flex justify-end items-center px-[15px]">
+                                        <p class="font-bold text-xs leading-[10px] text-white">**** **** **** 1234</p>
+                                    </div>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <a href="/m/mine/payment/index.php" class="w-[280px] h-[165px] flex flex-col justify-center items-center border border-solid border-[#DDDDDD] rounded-[10px]">
+                                    <div class="w-[42px] h-[42px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-full">
+                                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9.27684 0.225V8.065H16.9068V9.535H9.27684V17.865H7.73684V9.535H0.106836V8.065H7.73684V0.225H9.27684Z" fill="#DDDDDD" />
+                                        </svg>
+                                    </div>
+                                    <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-[#666666]">결제 카드를 등록해주세요.</p>
+                                    <p class="mt-2 font-medium text-xs leading-[14px] text-center text-[#666666]">마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 <br />카드 삭제 및 변경가능합니다.</p>
+                                </a>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($int_type == 2) {
+                            ?>
+                                <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
+                                    <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 혜택 안내</p>
+                                    <p class="font-normal text-[10px] leading-3 text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php
+                } else {
                 ?>
                     <!-- 일반결제 -->
                     <div class="mt-[25px] flex flex-col gap-1.5 w-full">
