@@ -9,6 +9,12 @@ function ValidChk() {
 	// 아이디, 비밀번호 입력체크, 이름, 주민번호, 전화번호
 	var f = document.frm;
 
+	if (document.getElementById("str_userid_chk").value == "0") {
+		f.str_userid.focus();
+		return false;
+	} else {
+		document.getElementById('idView_Proc').innerHTML = "";
+	}
 	if (chkSpace(document.getElementById("str_userid").value)) {
 		document.getElementById('idView_Proc').innerHTML = "아이디를 입력해 주세요.";
 		f.str_userid.focus();
@@ -111,7 +117,6 @@ function str_userid_check2() {
 		return;
 	}
 	fuc_set('join02_proc.php?RetrieveFlag=IDCHECK&str_userid=' + document.getElementById("str_userid").value, '_Proc');
-
 }
 
 // 비밀번호
