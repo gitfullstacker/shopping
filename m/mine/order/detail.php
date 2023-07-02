@@ -27,7 +27,7 @@ $SQL_QUERY =    'SELECT
                     A.STR_USERID=D.STR_USERID
                 WHERE 
                     A.INT_STATE IN (1, 2, 3, 4, 5, 6, 10)
-                    AND A.INT_NUMBER=' . $int_number;
+                    AND A.INT_NUMBER="' . $int_number . '"';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 

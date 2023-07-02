@@ -18,7 +18,7 @@ $SQL_QUERY =    'SELECT
                 ON
                     B.INT_BRAND=C.INT_NUMBER
                 WHERE
-                    A.INT_NUMBER=' . $int_number;
+                    A.INT_NUMBER="' . $int_number .'"';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
