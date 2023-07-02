@@ -744,7 +744,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         while ($row = mysql_fetch_assoc($brand_list_result)) {
                         ?>
                             {
-                                value: <?= $row['INT_NUMBER'] ?>,
+                                value: '<?= $row['INT_NUMBER'] ?>',
                                 title: '<?= $row['STR_CODE'] ?>',
                                 ktitle: '<?= $row['STR_KCODE'] ?>',
                                 checked: <?= $row['INT_NUMBER'] == $int_brand ? 'true' : 'false' ?>
