@@ -130,7 +130,7 @@ if ($res_cd == "0000") {
 
     // 쿠폰 사용한 경우
     if ($cart_Data['INT_COUPON']) {
-        $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_COUPON=" . $cart_Data['INT_COUPON'];
+        $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_NUMBER=" . $cart_Data['INT_COUPON'];
         mysql_query($Sql_Query);
     }
 
