@@ -97,11 +97,11 @@ $date = $today->format('d');
 $time = $today->getTimestamp();
 
 if (intval($month) < 10) {
-    $month = "0" . $month;
+    $month = $month;
 }
 
 if (intval($date) < 10) {
-    $date = "0" . $date;
+    $date = $date;
 }
 
 $order_idxx = $year . "" . $month . "" . $date . "" . $time;
