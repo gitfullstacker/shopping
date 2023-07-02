@@ -136,7 +136,7 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_COUPON']) ?>원</p>
+                    <p class="font-bold text-[15px] leading-[17px] text-black"><?= number_format($product_Data['INT_CDISCOUNT']) ?>원</p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">적립금사용</p>

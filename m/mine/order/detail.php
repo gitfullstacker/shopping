@@ -331,7 +331,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="font-medium text-xs leading-[14px] text-[#666666]">쿠폰할인</p>
-                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_COUPON']) ?>원</p>
+                            <p class="font-medium text-xs leading-[14px] text-[#000000]">-<?= number_format($arr_Data['INT_CDISCOUNT']) ?>원</p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p class="font-medium text-xs leading-[14px] text-[#666666]">적립금사용</p>
