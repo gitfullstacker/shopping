@@ -101,7 +101,7 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
 </head>
 
 <body onload="sendResult();">
-  <form name="resultForm" method="post" action="/m/mine/payment/result_proc.php">
+  <form name="resultForm" method="post" action="<?= $_SERVER['DOCUMENT_ROOT'] ?>/m/mine/payment/result_proc.php">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
     <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">

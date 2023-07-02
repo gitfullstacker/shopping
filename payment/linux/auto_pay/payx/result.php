@@ -98,9 +98,9 @@ if ($req_tx == "pay") {
 <body onload="sendResult();">
   <?php
   if ($good_name == '±¸µ¶¸â¹ö½Ê' || $good_name == '·»Æ®¸ã¹ö½Ê') {
-    $action_url = '/m/mine/membership/result_proc.php';
+    $action_url = $_SERVER['DOCUMENT_ROOT'] . '/m/mine/membership/result_proc.php';
   } else {
-    $action_url = '/m/pay/result_proc.php';
+    $action_url = $_SERVER['DOCUMENT_ROOT'] . '/m/pay/result_proc.php';
   }
   ?>
   <form name="resultForm" method="post" action="<?= $action_url ?>">

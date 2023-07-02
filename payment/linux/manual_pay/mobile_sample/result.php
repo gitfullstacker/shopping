@@ -169,7 +169,7 @@ if ($req_tx == "pay") {
 </head>
 
 <body onload="sendResult();">
-    <form name="resultForm" method="post" action="/m/pay/result_proc.php">
+    <form name="resultForm" method="post" action="<?= $_SERVER['DOCUMENT_ROOT'] ?>/m/pay/result_proc.php">
         <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
         <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
         <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
