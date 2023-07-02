@@ -7,8 +7,6 @@ $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $amount = Fnc_Om_Conv_Default($_REQUEST['amount'], "0");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
-$int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
-$int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], "");
 
 if ($res_cd == "0000") {
     $SQL_QUERY =    'SELECT
@@ -20,7 +18,7 @@ if ($res_cd == "0000") {
                     ON
                         A.STR_GOODCODE = B.STR_GOODCODE
                     WHERE
-                        A.INT_NUMBER=' . $int_cart;
+                        A.INT_NUMBER="' . $ordr_idxx . '"';
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
@@ -71,7 +69,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[6]        = $card_cd;
     $arr_Set_Data[7]        = $card_name;
     $arr_Set_Data[8]        = date("Y-m-d H:i:s");
-    $arr_Set_Data[9]        = $int_cart;
+    $arr_Set_Data[9]        = $ordr_idxx;
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";
@@ -131,8 +129,8 @@ if ($res_cd == "0000") {
     }
 
     // 쿠폰 사용한 경우
-    if ($int_coupon) {
-        $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_COUPON=" . $int_coupon;
+    if ($cart_Data['INT_COUPON']) {
+        $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_COUPON=" . $cart_Data['INT_COUPON'];
         mysql_query($Sql_Query);
     }
 

@@ -23,7 +23,7 @@ $discount_product = Fnc_Om_Conv_Default($_REQUEST['discount_product'], 0);
 $discount_area = Fnc_Om_Conv_Default($_REQUEST['discount_area'], 0);
 $discount_membership = Fnc_Om_Conv_Default($_REQUEST['discount_membership'], 0);
 $coupon = Fnc_Om_Conv_Default($_REQUEST['coupon'], 0);
-$int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], '');
+$int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], null);
 $mileage = Fnc_Om_Conv_Default($_REQUEST['mileage'], 0);
 
 $start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
@@ -77,6 +77,20 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//카드정보얻기
+$SQL_QUERY =    "SELECT 
+                    A.STR_BILLCODE, A.INT_NUMBER
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
+                WHERE
+                    A.STR_PASS='0' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE
+                LIMIT 1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 // 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 10: 반납완료, 11: 취소
 $int_state = 1;
@@ -145,7 +159,8 @@ $arr_Column_Name[31]        = "INT_PDISCOUNT";
 $arr_Column_Name[32]        = "INT_ADISCOUNT";
 $arr_Column_Name[33]        = "INT_MDISCOUNT";
 $arr_Column_Name[34]        = "INT_COUPON";
-$arr_Column_Name[35]        = "INT_MILEAGE";
+$arr_Column_Name[35]        = "INT_CDISCOUNT";
+$arr_Column_Name[36]        = "INT_MILEAGE";
 
 $arr_Set_Data[0]        = $order_idxx;
 $arr_Set_Data[1]        = $arr_Auth[0];
@@ -181,8 +196,9 @@ $arr_Set_Data[30]        = $price;
 $arr_Set_Data[31]        = $discount_product;
 $arr_Set_Data[32]        = $discount_area;
 $arr_Set_Data[33]        = $discount_membership;
-$arr_Set_Data[34]        = $coupon;
-$arr_Set_Data[35]        = $mileage;
+$arr_Set_Data[34]        = $int_coupon;
+$arr_Set_Data[35]        = $coupon;
+$arr_Set_Data[36]        = $mileage;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";
@@ -194,7 +210,7 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
         $arr_Sub2 .=  ",";
     }
     $arr_Sub1 .=  $arr_Column_Name[$int_I];
-    $arr_Sub2 .=  "'" . $arr_Set_Data[$int_I] . "'";
+    $arr_Sub2 .=  $arr_Set_Data[$int_I] == null ? "NULL" : "'" . $arr_Set_Data[$int_I] . "'";
 }
 
 $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_goods_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
@@ -225,7 +241,6 @@ if ($int_type != 1) {
             <input type="hidden" name="quotaopt" value="00">
             <input type="hidden" name="card_type" value="<?= $card_type ?>">
             <input type="hidden" name="int_cart" value="<?= $order_idxx ?>">
-            <input type="hidden" name="int_coupon" value="<?= $int_coupon ?>">
         </form>
 
         <script language="javascript">

@@ -11,11 +11,11 @@
 /* ============================================================================== */
 function convertEncode($string)
 {
-    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
-        return iconv('EUC-KR', 'UTF-8', $string);
-    } else {
-        return $string;
-    }
+  if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
+    return iconv('EUC-KR', 'UTF-8', $string);
+  } else {
+    return $string;
+  }
 }
 ?>
 <?
@@ -96,7 +96,14 @@ if ($req_tx == "pay") {
 </head>
 
 <body onload="sendResult();">
-  <form name="resultForm" method="post" action="<?= $param_opt_2 ? '/m/pay/result_proc.php' : '/m/mine/membership/result_proc.php' ?>">
+  <?php
+  if ($good_name == '±¸µ¶¸â¹ö½Ê' || $good_name == '·»Æ®¸ã¹ö½Ê') {
+    $action_url = '/m/mine/membership/result_proc.php';
+  } else {
+    $action_url = '/m/pay/result_proc.php';
+  }
+  ?>
+  <form name="resultForm" method="post" action="<?= $action_url ?>">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
     <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">

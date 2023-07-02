@@ -70,7 +70,7 @@ function convertEncode($string)
 }
 ?>
 
-<body onload="init_orderid();">
+<body onload="javascript:document.forms.form_order.submit();">
 
     <div id="sample_wrap">
 
@@ -94,7 +94,7 @@ function convertEncode($string)
                     <!-- 주문 번호 -->
                     <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value="" maxlength="40" /></td>
+                        <td><input type="text" name="ordr_idxx" class="w200" value="<?= $_POST['ordr_idxx'] ?>" maxlength="40" /></td>
                     </tr>
                     <!-- 상품명 -->
                     <tr>

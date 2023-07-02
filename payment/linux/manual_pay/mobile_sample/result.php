@@ -169,15 +169,13 @@ if ($req_tx == "pay") {
 </head>
 
 <body onload="sendResult();">
-    <form name="resultForm" method="post" action="/m/mine/payment/result_proc.php">
+    <form name="resultForm" method="post" action="/m/pay/result_proc.php">
         <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
         <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
         <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
         <input type="hidden" name="amount" value="<?= $amount ?>">
         <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
         <input type="hidden" name="card_name" value="<?= $card_name ?>">
-        <input type="hidden" name="int_cart" value="<?= $param_opt_1 ?>">
-        <input type="hidden" name="int_coupon" value="<?= $param_opt_2 ?>">
     </form>
 </body>
 
