@@ -1193,15 +1193,14 @@ switch ($arr_Data['INT_TYPE']) {
                         productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
                         this.dates.forEach(function(eachDay) {
                             if (eachDay.date.getTime() >= selectedStartDate.getTime() && eachDay.date.getTime() <= selectedEndDate.getTime()) {
-                                sumTotalPrice += eachDay.totalPrice;
                                 sumAreaPrice += productSPrice * eachDay.areaDiscount / 100;
                                 sumProductPrice += eachDay.productDiscount;
                             }
                         });
                         this.price.discount.areaMoney = this.roundNumber(sumAreaPrice);
                         this.price.discount.productMoney = this.roundNumber(sumProductPrice);
+                        sumTotalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney;
                         this.price.discount.membershipMoney = this.roundNumber(sumTotalPrice * this.price.discount.membership / 100);
-                        // this.price.totalPrice = this.roundNumber(sumTotalPrice - this.price.discount.membershipMoney);
                         this.price.totalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney - this.price.discount.membershipMoney;
                         this.rentDays = date.rentDays;
                         this.selectedStatus++;
