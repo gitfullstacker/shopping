@@ -980,6 +980,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     });
 
     function searchProduct(append = false) {
+        if (append) {
+            current_page++;
+        } else {
+            current_page = 1;
+        }
+
         var start_date_str = '';
         if (start_date) {
             start_date_str = start_date.getFullYear().toString() + '-' + (start_date.getMonth() + 1).toString().padStart(2, '0') + '-' + start_date.getDate().toString().padStart(2, '0');

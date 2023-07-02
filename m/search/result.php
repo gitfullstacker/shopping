@@ -119,7 +119,6 @@ $total_record = mysql_result($result, 0, 0);
                         this.showOrderBy = false;
 
                         window.order_by = this.selectedValue;
-                        window.current_page = 1;
                         searchProduct();
                     }
                 }" class="flex gap-1 items-center relative">
