@@ -51,7 +51,7 @@ $param_opt_3    = $_POST["param_opt_3"]; // 기타 파라메터 추가 부분
 /* 기타 파라메터 추가 부분 - End -   */
 
 $tablet_size     = "1.0"; // 화면 사이즈 고정
-$url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+$url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
 function convertEncode($string)
 {
