@@ -131,9 +131,12 @@ if ($res_cd == "0000") {
     // 쿠폰 사용한 경우
     if ($cart_Data['INT_COUPON']) {
         $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_NUMBER=" . $cart_Data['INT_COUPON'];
+        var_dump($cart_Data['INT_COUPON']);
+        exit;
         mysql_query($Sql_Query);
     }
-
+    var_dump($cart_Data['INT_COUPON']);
+    exit;
     // 결제상태 반영
     $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET INT_STATE=1 WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
     mysql_query($Sql_Query);
