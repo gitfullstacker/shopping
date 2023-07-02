@@ -9,6 +9,14 @@
 /* = -------------------------------------------------------------------------- = */
 /* =   Copyright (c)  2016   NHN KCP Inc.   All Rights Reserverd.               = */
 /* ============================================================================== */
+function convertEncode($string)
+{
+    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
+        return iconv('EUC-KR', 'UTF-8', $string);
+    } else {
+        return $string;
+    }
+}
 ?>
 
 <?
@@ -28,14 +36,14 @@ $buyr_tel2        = $_POST["buyr_tel2"];      // 구매자 휴대폰번호
 $buyr_mail        = $_POST["buyr_mail"];      // 구매자 E-Mail
 // 결과 코드
 $res_cd           = $_POST["res_cd"];      // 결과 코드
-$res_msg          = $_POST["res_msg"];      // 결과 메시지
+$res_msg          = convertEncode($_POST["res_msg"]);      // 결과 메시지
 $res_msg_bsucc    = "";
 // 공통
 $app_time         = $_POST["app_time"];      // 승인시간 (공통)
 $pnt_issue        = $_POST["pnt_issue"];      // 포인트 서비스사
 // 신용카드
 $card_cd          = $_POST["card_cd"];      // 카드 코드
-$card_name        = $_POST["card_name"];      // 카드명
+$card_name        = convertEncode($_POST["card_name"]);      // 카드명
 $app_no           = $_POST["app_no"];      // 승인번호
 $noinf            = $_POST["noinf"];      // 무이자 여부
 $quota            = $_POST["quota"];      // 할부개월

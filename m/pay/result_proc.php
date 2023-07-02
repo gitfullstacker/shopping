@@ -2,22 +2,13 @@
 
 <?php
 $res_cd = Fnc_Om_Conv_Default($_REQUEST['res_cd'], "");
-$res_msg = Fnc_Om_Conv_Default(convertEncode($_REQUEST['res_msg']), "");
+$res_msg = Fnc_Om_Conv_Default($_REQUEST['res_msg'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $amount = Fnc_Om_Conv_Default($_REQUEST['amount'], "0");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
-$card_name = Fnc_Om_Conv_Default(convertEncode($_REQUEST['card_name']), "");
+$card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 $int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
 $int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], "");
-
-function convertEncode($string)
-{
-    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
-        return iconv('EUC-KR', 'UTF-8', $string);
-    } else {
-        return $string;
-    }
-}
 
 if ($res_cd == "0000") {
     $SQL_QUERY =    'SELECT
@@ -146,7 +137,7 @@ if ($res_cd == "0000") {
     }
 
     // 결제상태 반영
-    $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET STR_PAID='Y' WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
+    $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET INT_STATE=1 WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
     mysql_query($Sql_Query);
 
     // 사용한 금액체크

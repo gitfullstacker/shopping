@@ -4,23 +4,14 @@ fnc_MLogin_Chk();
 ?>
 <?php
 $res_cd = Fnc_Om_Conv_Default($_REQUEST['res_cd'], "");
-$res_msg = Fnc_Om_Conv_Default(convertEncode($_REQUEST['res_msg']), "");
+$res_msg = Fnc_Om_Conv_Default($_REQUEST['res_msg'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
-$good_name = Fnc_Om_Conv_Default(convertEncode($_REQUEST['good_name']), "");
-$buyr_name = Fnc_Om_Conv_Default(convertEncode($_REQUEST['buyr_name']), "");
+$good_name = Fnc_Om_Conv_Default($_REQUEST['good_name'], "");
+$buyr_name = Fnc_Om_Conv_Default($_REQUEST['buyr_name'], "");
 $buyr_mail = Fnc_Om_Conv_Default($_REQUEST['buyr_mail'], "");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
-$card_name = Fnc_Om_Conv_Default(convertEncode($_REQUEST['card_name']), "");
-
-function convertEncode($string)
-{
-    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
-        return iconv('EUC-KR', 'UTF-8', $string);
-    } else {
-        return $string;
-    }
-}
+$card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 
 switch ($good_name) {
     case '구독멤버십':

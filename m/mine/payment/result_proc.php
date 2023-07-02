@@ -2,20 +2,12 @@
 
 <?php
 $res_cd = Fnc_Om_Conv_Default($_REQUEST['res_cd'], "");
-$res_msg = Fnc_Om_Conv_Default(convertEncode($_REQUEST['res_msg']), "");
+$res_msg = Fnc_Om_Conv_Default($_REQUEST['res_msg'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
-$card_name = Fnc_Om_Conv_Default(convertEncode($_REQUEST['card_name']), "");
+$card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 $batch_key = Fnc_Om_Conv_Default($_REQUEST['batch_key'], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
-
-function convertEncode($string) {
-    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
-        return iconv('EUC-KR', 'UTF-8', $string);
-    } else {
-        return $string;
-    }
-}
 
 if ($res_cd == "0000") {
     $SQL_QUERY =    'UPDATE ' . $Tname . 'comm_member_pay SET STR_PASS="1" WHERE STR_USERID="' . $str_userid . '"';

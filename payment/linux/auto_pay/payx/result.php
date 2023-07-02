@@ -9,6 +9,14 @@
 /* = -------------------------------------------------------------------------- = */
 /* =   Copyright (c)  2021   KCP Inc.   All Rights Reserverd.                   = */
 /* ============================================================================== */
+function convertEncode($string)
+{
+    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
+        return iconv('EUC-KR', 'UTF-8', $string);
+    } else {
+        return $string;
+    }
+}
 ?>
 <?
 /* ============================================================================== */
@@ -19,7 +27,7 @@ $pay_method       = $_POST["pay_method"];      // 사용 결제 수단
 $bSucc            = $_POST["bSucc"];      // 업체 DB 정상처리 완료 여부
 /* = -------------------------------------------------------------------------- = */
 $res_cd           = $_POST["res_cd"];      // 결과 코드
-$res_msg          = $_POST["res_msg"];      // 결과 메시지
+$res_msg          = convertEncode($_POST["res_msg"]);      // 결과 메시지
 $res_msg_bsucc    = "";
 $amount           = $_POST["amount"];      // 총금액
 $panc_mod_mny     = $_POST["panc_mod_mny"];      // 부분취소 요청금액
@@ -29,8 +37,8 @@ $mod_type         = $_POST["mod_type"];
 $ordr_idxx        = $_POST["ordr_idxx"];      // 주문번호
 $tno              = $_POST["tno"];      // KCP 거래번호
 $good_mny         = $_POST["good_mny"];      // 결제 금액
-$good_name        = $_POST["good_name"];      // 상품명
-$buyr_name        = $_POST["buyr_name"];      // 구매자명
+$good_name        = convertEncode($_POST["good_name"]);      // 상품명
+$buyr_name        = convertEncode($_POST["buyr_name"]);      // 구매자명
 $buyr_tel1        = $_POST["buyr_tel1"];      // 구매자 전화번호
 $buyr_tel2        = $_POST["buyr_tel2"];      // 구매자 휴대폰번호
 $buyr_mail        = $_POST["buyr_mail"];      // 구매자 E-Mail
@@ -38,7 +46,7 @@ $buyr_mail        = $_POST["buyr_mail"];      // 구매자 E-Mail
 // 신용카드
 $card_cd          = $_POST["card_cd"];      // 카드 코드
 $card_no          = $_POST["card_no"];      // 카드 번호
-$card_name        = $_POST["card_name"];      // 카드명
+$card_name        = convertEncode($_POST["card_name"]);      // 카드명
 $app_time         = $_POST["app_time"];      // 승인시간 (공통)
 $app_no           = $_POST["app_no"];      // 승인번호
 $quota            = $_POST["quota"];      // 할부개월

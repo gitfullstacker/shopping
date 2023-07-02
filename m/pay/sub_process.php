@@ -35,14 +35,14 @@ $str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
 
 // 구독할 상품이 있는지 검색
 $SQL_QUERY =    'SELECT
-                        A.STR_SGOODCODE
-                    FROM 
-                        ' . $Tname . 'comm_goods_master_sub AS A
-                    WHERE
-                        A.STR_SERVICE = "Y"
-                        AND A.STR_GOODCODE = "' . $str_goodcode . '"
-                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
-                    LIMIT 1';
+                    A.STR_SGOODCODE
+                FROM 
+                    ' . $Tname . 'comm_goods_master_sub AS A
+                WHERE
+                    A.STR_SERVICE = "Y"
+                    AND A.STR_GOODCODE = "' . $str_goodcode . '"
+                    AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
+                LIMIT 1';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -84,87 +84,105 @@ $int_state = 1;
 if ($int_type == 1) {
     $start_date = date("Y-m-d");
     $end_date = date("Y-m-d", strtotime("+1 month"));
-    $str_paid = "Y";
+    $int_state = 1;
 } else {
-    $str_paid = "N";
+    $int_state = 0;
 }
+
+// 주문번호 생성
+$today = new DateTime();
+$year = $today->format('Y');
+$month = $today->format('m');
+$date = $today->format('d');
+$time = $today->getTimestamp();
+
+if (intval($month) < 10) {
+    $month = "0" . $month;
+}
+
+if (intval($date) < 10) {
+    $date = "0" . $date;
+}
+
+$order_idxx = $year . "" . $month . "" . $date . "" . $time;
+$ipgm_date = $year . "" . $month . "" . $date;
 
 $arr_Set_Data = array();
 $arr_Column_Name = array();
 
-$arr_Column_Name[0]        = "STR_USERID";
-$arr_Column_Name[1]        = "STR_NAME";
-$arr_Column_Name[2]        = "STR_POST";
-$arr_Column_Name[3]        = "STR_ADDR1";
-$arr_Column_Name[4]        = "STR_ADDR2";
-$arr_Column_Name[5]        = "STR_PLACE1";
-$arr_Column_Name[6]        = "STR_PLACE2";
-$arr_Column_Name[7]        = "STR_MEMO";
-$arr_Column_Name[8]        = "STR_GOODCODE";
-$arr_Column_Name[9]        = "STR_SGOODCODE";
-$arr_Column_Name[10]        = "STR_SDATE";
-$arr_Column_Name[11]        = "STR_EDATE";
-$arr_Column_Name[12]        = "STR_REDATE";
-$arr_Column_Name[13]        = "DTM_INDATE";
-$arr_Column_Name[14]        = "INT_STATE";
-$arr_Column_Name[15]        = "STR_RPOST";
-$arr_Column_Name[16]        = "STR_RADDR1";
-$arr_Column_Name[17]        = "STR_RADDR2";
-$arr_Column_Name[18]        = "STR_METHOD";
-$arr_Column_Name[19]        = "STR_RDATE";
-$arr_Column_Name[20]        = "STR_RMEMO";
-$arr_Column_Name[21]        = "INT_DELICODE";
-$arr_Column_Name[22]        = "STR_DELICODE";
-$arr_Column_Name[23]        = "STR_AMEMO";
-$arr_Column_Name[24]        = "DTM_EDIT_DATE";
-$arr_Column_Name[25]        = "STR_TELEP";
-$arr_Column_Name[26]        = "STR_HP";
-$arr_Column_Name[27]        = "INT_COUNT";
-$arr_Column_Name[28]        = "INT_TPRICE";
-$arr_Column_Name[29]        = "INT_PRICE";
-$arr_Column_Name[30]        = "INT_PDISCOUNT";
-$arr_Column_Name[31]        = "INT_ADISCOUNT";
-$arr_Column_Name[32]        = "INT_MDISCOUNT";
-$arr_Column_Name[33]        = "INT_COUPON";
-$arr_Column_Name[34]        = "INT_MILEAGE";
-$arr_Column_Name[35]        = "STR_PAID";
+$arr_Column_Name[0]        = "INT_NUMBER";
+$arr_Column_Name[1]        = "STR_USERID";
+$arr_Column_Name[2]        = "STR_NAME";
+$arr_Column_Name[3]        = "STR_POST";
+$arr_Column_Name[4]        = "STR_ADDR1";
+$arr_Column_Name[5]        = "STR_ADDR2";
+$arr_Column_Name[6]        = "STR_PLACE1";
+$arr_Column_Name[7]        = "STR_PLACE2";
+$arr_Column_Name[8]        = "STR_MEMO";
+$arr_Column_Name[9]        = "STR_GOODCODE";
+$arr_Column_Name[10]        = "STR_SGOODCODE";
+$arr_Column_Name[11]        = "STR_SDATE";
+$arr_Column_Name[12]        = "STR_EDATE";
+$arr_Column_Name[13]        = "STR_REDATE";
+$arr_Column_Name[14]        = "DTM_INDATE";
+$arr_Column_Name[15]        = "INT_STATE";
+$arr_Column_Name[16]        = "STR_RPOST";
+$arr_Column_Name[17]        = "STR_RADDR1";
+$arr_Column_Name[18]        = "STR_RADDR2";
+$arr_Column_Name[19]        = "STR_METHOD";
+$arr_Column_Name[20]        = "STR_RDATE";
+$arr_Column_Name[21]        = "STR_RMEMO";
+$arr_Column_Name[22]        = "INT_DELICODE";
+$arr_Column_Name[23]        = "STR_DELICODE";
+$arr_Column_Name[24]        = "STR_AMEMO";
+$arr_Column_Name[25]        = "DTM_EDIT_DATE";
+$arr_Column_Name[26]        = "STR_TELEP";
+$arr_Column_Name[27]        = "STR_HP";
+$arr_Column_Name[28]        = "INT_COUNT";
+$arr_Column_Name[29]        = "INT_TPRICE";
+$arr_Column_Name[30]        = "INT_PRICE";
+$arr_Column_Name[31]        = "INT_PDISCOUNT";
+$arr_Column_Name[32]        = "INT_ADISCOUNT";
+$arr_Column_Name[33]        = "INT_MDISCOUNT";
+$arr_Column_Name[34]        = "INT_COUPON";
+$arr_Column_Name[35]        = "INT_MILEAGE";
 
-$arr_Set_Data[0]        = $arr_Auth[0];
-$arr_Set_Data[1]        = $delivery_name;
-$arr_Set_Data[2]        = $delivery_postal;
-$arr_Set_Data[3]        = $delivery_address1;
-$arr_Set_Data[4]        = $delivery_address2;
-$arr_Set_Data[5]        = '';
+$arr_Set_Data[0]        = $order_idxx;
+$arr_Set_Data[1]        = $arr_Auth[0];
+$arr_Set_Data[2]        = $delivery_name;
+$arr_Set_Data[3]        = $delivery_postal;
+$arr_Set_Data[4]        = $delivery_address1;
+$arr_Set_Data[5]        = $delivery_address2;
 $arr_Set_Data[6]        = '';
-$arr_Set_Data[7]        = $delivery_memo;
-$arr_Set_Data[8]        = $str_goodcode;
-$arr_Set_Data[9]        = $rent_Data['STR_SGOODCODE'] ?: '';
-$arr_Set_Data[10]        = $start_date;
-$arr_Set_Data[11]        = $end_date;
-$arr_Set_Data[12]        = '';
-$arr_Set_Data[13]        = date("Y-m-d H:i:s");
-$arr_Set_Data[14]        = $int_state;
-$arr_Set_Data[15]        = '';
+$arr_Set_Data[7]        = '';
+$arr_Set_Data[8]        = $delivery_memo;
+$arr_Set_Data[9]        = $str_goodcode;
+$arr_Set_Data[10]        = $rent_Data['STR_SGOODCODE'] ?: '';
+$arr_Set_Data[11]        = $start_date;
+$arr_Set_Data[12]        = $end_date;
+$arr_Set_Data[13]        = '';
+$arr_Set_Data[14]        = date("Y-m-d H:i:s");
+$arr_Set_Data[15]        = $int_state;
 $arr_Set_Data[16]        = '';
 $arr_Set_Data[17]        = '';
 $arr_Set_Data[18]        = '';
 $arr_Set_Data[19]        = '';
 $arr_Set_Data[20]        = '';
-$arr_Set_Data[21]        = 0;
-$arr_Set_Data[22]        = '';
+$arr_Set_Data[21]        = '';
+$arr_Set_Data[22]        = 0;
 $arr_Set_Data[23]        = '';
-$arr_Set_Data[24]        = date("Y-m-d H:i:s");
-$arr_Set_Data[25]        = $delivery_telep;
-$arr_Set_Data[26]        = $delivery_hp;
-$arr_Set_Data[27]        = $count;
-$arr_Set_Data[28]        = $total_price;
-$arr_Set_Data[29]        = $price;
-$arr_Set_Data[30]        = $discount_product;
-$arr_Set_Data[31]        = $discount_area;
-$arr_Set_Data[32]        = $discount_membership;
-$arr_Set_Data[33]        = $coupon;
-$arr_Set_Data[34]        = $mileage;
-$arr_Set_Data[35]        = $str_paid;
+$arr_Set_Data[24]        = '';
+$arr_Set_Data[25]        = date("Y-m-d H:i:s");
+$arr_Set_Data[26]        = $delivery_telep;
+$arr_Set_Data[27]        = $delivery_hp;
+$arr_Set_Data[28]        = $count;
+$arr_Set_Data[29]        = $total_price;
+$arr_Set_Data[30]        = $price;
+$arr_Set_Data[31]        = $discount_product;
+$arr_Set_Data[32]        = $discount_area;
+$arr_Set_Data[33]        = $discount_membership;
+$arr_Set_Data[34]        = $coupon;
+$arr_Set_Data[35]        = $mileage;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";
@@ -182,10 +200,6 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
 $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_goods_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
 mysql_query($SQL_QUERY);
 
-$SQL_QUERY = "SELECT MAX(INT_NUMBER) AS last_number FROM `" . $Tname . "comm_goods_cart`";
-$result = mysql_query($SQL_QUERY);
-$last_Data = mysql_fetch_assoc($result);
-
 if ($int_type != 1) {
 ?>
     <!DOCTYPE html>
@@ -197,10 +211,10 @@ if ($int_type != 1) {
         <title>Document</title>
     </head>
 
-    <body onload="init_orderid();submitPay();">
+    <body onload="submitPay();">
         <form name="pay_form" action="" method="post">
-            <input type="hidden" name="ordr_idxx" value="">
-            <input type="hidden" name="ipgm_date" value="">
+            <input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>">
+            <input type="hidden" name="ipgm_date" value="<?= $ipgm_date ?>">
             <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
             <input type="hidden" name="good_mny" value="<?= $total_price ?>">
             <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
@@ -210,31 +224,11 @@ if ($int_type != 1) {
             <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
             <input type="hidden" name="quotaopt" value="00">
             <input type="hidden" name="card_type" value="<?= $card_type ?>">
-            <input type="hidden" name="int_cart" value="<?= $last_Data['last_number'] ?>">
+            <input type="hidden" name="int_cart" value="<?= $order_idxx ?>">
             <input type="hidden" name="int_coupon" value="<?= $int_coupon ?>">
         </form>
 
         <script language="javascript">
-            function init_orderid() {
-                var today = new Date();
-                var year = today.getFullYear();
-                var month = today.getMonth() + 1;
-                var date = today.getDate();
-                var time = today.getTime();
-
-                if (parseInt(month) < 10)
-                    month = "0" + month;
-
-                if (parseInt(date) < 10)
-                    date = "0" + date;
-
-                var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
-                var ipgm_date = year + "" + month + "" + date;
-
-                document.forms.pay_form.ordr_idxx.value = order_idxx;
-                document.forms.pay_form.ipgm_date.value = ipgm_date;
-            }
-
             function submitPay() {
                 if (<?= $int_type ?> == 2) {
                     document.forms.pay_form.action = "/payment/linux/auto_pay/payx/order.php";
@@ -250,11 +244,11 @@ if ($int_type != 1) {
     </html>
 <?php
 } else {
-    ?>
+?>
     <script>
-        document.location.href = "paid.php?int_number=<?= $last_Data['last_number'] ?>";
+        document.location.href = "paid.php?int_number=<?= $order_idxx ?>";
     </script>
-    <?php
+<?php
 }
 
 exit;

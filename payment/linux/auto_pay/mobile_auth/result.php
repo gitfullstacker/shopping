@@ -9,6 +9,14 @@
 /* = -------------------------------------------------------------------------- = */
 /* =   Copyright (c)  2023   NHN KCP Inc.   All Rights Reserverd.                   = */
 /* ============================================================================== */
+function convertEncode($string)
+{
+    if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {
+        return iconv('EUC-KR', 'UTF-8', $string);
+    } else {
+        return $string;
+    }
+}
 ?>
 <?
 /* ============================================================================== */
@@ -30,17 +38,17 @@ include "../cfg/site_conf_inc.php";       // 환경설정 파일 include
 /* = -------------------------------------------------------------------------- = */
 // 결과 코드
 $res_cd           = $_POST["res_cd"];      // 결과 코드
-$res_msg          = $_POST["res_msg"];      // 결과 메시지
+$res_msg          = convertEncode($_POST["res_msg"]);      // 결과 메시지
 /* = -------------------------------------------------------------------------- = */
 // 주문 정보
 $ordr_idxx        = $_POST["ordr_idxx"];      // 주문번호
-$good_name        = $_POST["good_name"];      // 상품명
+$good_name        = convertEncode($_POST["good_name"]);      // 상품명
 $good_mny         = $_POST["good_mny"];      // 결제 금액
-$buyr_name        = $_POST["buyr_name"];      // 구매자명
+$buyr_name        = convertEncode($_POST["buyr_name"]);      // 구매자명
 /* = -------------------------------------------------------------------------- = */
 // 신용카드
 $card_cd          = $_POST["card_cd"];      // 카드 코드
-$card_name        = $_POST["card_name"];      // 카드명
+$card_name        = convertEncode($_POST["card_name"]);      // 카드명
 $batch_key        = $_POST["batch_key"];      // 배치 인증키
 /* = -------------------------------------------------------------------------- = */
 /* 기타 파라메터 추가 부분 - Start - */
