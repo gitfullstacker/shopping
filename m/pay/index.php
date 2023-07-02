@@ -96,7 +96,8 @@ switch ($int_type) {
         $use_days = $date1->diff($date2)->d + 1;
 
         $area_discount = 0;
-        $total_rent_money = 0;
+        $product_discount = 0;
+        $total_rent_money = $product_Data['INT_PRICE'] * $use_days;
 
         $updated_price = $product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100;
         for ($rent_number = 1; $rent_number <= $use_days; $rent_number++) {
@@ -109,15 +110,20 @@ switch ($int_type) {
             } else if (($site_Data['INT_DSTART4'] ?: 0) <= $rent_number && $rent_number <= ($site_Data['INT_DEND4'] ?: 0)) {
                 $area_discount += $updated_price * ($site_Data['INT_DISCOUNT4'] ?: 0) / 100;
             }
+
+            $product_discount += $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100;
         }
 
-        $total_rent_money = $updated_price * $use_days - $area_discount;
+        $product_discount = round($product_discount ?: 0, -2);
+        $area_discount = round($area_discount ?: 0, -2);
+        $total_rent_money = $total_rent_money - $product_discount - $area_discount;
 
-        $membership_discount = $total_rent_money * ($is_rent_membership ? 30 : 0) / 100;
+        $membership_discount = round(($total_rent_money * ($is_rent_membership ? 30 : 0) / 100) ?: 0, -2);
         $total_rent_money = $total_rent_money - $membership_discount;
 
         break;
     case 3:
+        $product_discount = round(($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?: 0, -2);
         break;
 }
 
@@ -143,9 +149,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         price: <?= $int_type == 2 ? ($product_Data['INT_PRICE'] * $use_days) : $product_Data['INT_PRICE'] ?>,
         useDays: <?= $use_days ?: 0 ?>,
         discount: {
-            product: <?= round($int_type == 2 ? (($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) * $use_days) : ($product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100), -2) ?>,
-            area: <?= round($area_discount ?: 0, -2) ?>,
-            membership: <?= round($membership_discount ?: 0, -2) ?>
+            product: <?= $product_discount ?: 0 ?>,
+            area: <?= $area_discount ?: 0 ?>,
+            membership: <?= $membership_discount ?: 0 ?>
         },
         coupon: 0,
         mileage: 0
