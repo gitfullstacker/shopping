@@ -286,6 +286,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     });
 
     function searchProduct(append = false) {
+        if (append) {
+            current_page++;
+        } else {
+            current_page = 1;
+        }
+
         url = "get_product_list.php";
         url += "?page=" + current_page;
         url += "&filter_categories=" + encodeURIComponent(JSON.stringify(filter_categories));
@@ -321,8 +327,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function seeMoreClick() {
-        current_page++;
-
         searchProduct(true);
     }
 
