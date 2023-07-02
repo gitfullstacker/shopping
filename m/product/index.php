@@ -1014,6 +1014,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
                 if (!result.see_more) {
                     $('.see-more-btn').hide();
+                } else {
+                    $('.see-more-btn').show();
                 }
             }
         });

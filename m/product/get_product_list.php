@@ -139,7 +139,7 @@ $SQL_QUERY =    'SELECT
 
 $product_list_result = mysql_query($SQL_QUERY);
 
-$see_more = mysql_num_rows($product_list_result) == 16 ? true : false;
+$see_more = mysql_num_rows($product_list_result) == $per_page ? true : false;
 
 $result = '';
 while ($row = mysql_fetch_assoc($product_list_result)) {
