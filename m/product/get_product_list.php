@@ -103,6 +103,12 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
+if ($product_type == 1 || $product_type == 3) {
+    $ADD_SQL = 'AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)';
+} else {
+    $ADD_SQL = '';
+}
+
 $SQL_QUERY =    'SELECT 
                     A.*, B.STR_CODE, COUNT(C.STR_SGOODCODE) AS RENT_NUM
                 FROM 
@@ -115,7 +121,7 @@ $SQL_QUERY =    'SELECT
                     ' . $Tname . 'comm_goods_master_sub C
                 ON
                     A.STR_GOODCODE=C.STR_GOODCODE
-                    AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)
+                    ' . $ADD_SQL . '
                     AND C.STR_SERVICE="Y"
                 WHERE 
                     (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
@@ -143,18 +149,28 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
     $rented_content = '';
 
     if ($row['RENT_NUM'] == 0) {
-        if ($product_type == 1) {
-            $rented_content = '
-                <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
-                    <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
-                </div>
-            ';
-        } else if($product_type == 3) {
-            $rented_content = '
-                <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
-                    <p class="font-bold text-xs leading-[14px] text-white text-center">SOLD OUT</p>
-                </div>
-            ';
+        switch ($product_type) {
+            case 1:
+                $rented_content = '
+                    <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                        <p class="font-bold text-xs leading-[14px] text-white text-center">RENTED</p>
+                    </div>
+                ';
+                break;
+            case 2:
+                $rented_content = '
+                    <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                        <p class="font-bold text-xs leading-[14px] text-white text-center">NO RENT</p>
+                    </div>
+                ';
+                break;
+            case 3:
+                $rented_content = '
+                    <div class="flex justify-center items-center w-full h-full bg-black bg-opacity-60 rounded-md absolute top-0 left-0">
+                        <p class="font-bold text-xs leading-[14px] text-white text-center">SOLD OUT</p>
+                    </div>
+                ';
+                break;
         }
     }
 
