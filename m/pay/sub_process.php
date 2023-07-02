@@ -33,28 +33,54 @@ $card_type = Fnc_Om_Conv_Default($_REQUEST['card_type'], 1);
 
 $str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
 
-// 구독할 상품이 있는지 검색
-$SQL_QUERY =    'SELECT
-                    A.STR_SGOODCODE
-                FROM 
-                    ' . $Tname . 'comm_goods_master_sub AS A
-                WHERE
-                    A.STR_SERVICE = "Y"
-                    AND A.STR_GOODCODE = "' . $str_goodcode . '"
-                    AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
-                LIMIT 1';
 
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-if (!$rent_Data['STR_SGOODCODE'] && ($int_type == 1 || $int_type == 3)) {
+if ($int_type == 1 || $int_type == 3) {
+    // 구독할 상품이 있는지 검색
+    $SQL_QUERY =    'SELECT
+                        A.STR_SGOODCODE
+                    FROM 
+                        ' . $Tname . 'comm_goods_master_sub AS A
+                    WHERE
+                        A.STR_SERVICE = "Y"
+                        AND A.STR_GOODCODE = "' . $str_goodcode . '"
+                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
+                    LIMIT 1';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+    if (!$rent_Data['STR_SGOODCODE']) {
 ?>
-    <script language="javascript">
-        alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
-        window.location.href = "/m/product/detail.php?str_goodcode=<?= $str_goodcode ?>";
-    </script>
-<?
-    exit;
+        <script language="javascript">
+            alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
+            window.location.href = "/m/product/detail.php?str_goodcode=<?= $str_goodcode ?>";
+        </script>
+    <?
+        exit;
+    }
+} else {
+    // 렌트할 상품이 있는지 검색
+    $SQL_QUERY =    'SELECT
+                        A.STR_SGOODCODE
+                    FROM 
+                        ' . $Tname . 'comm_goods_master_sub AS A
+                    WHERE
+                        A.STR_SERVICE = "Y"
+                        AND A.STR_GOODCODE = "' . $str_goodcode . '"
+                    LIMIT 1';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
+    if (!$rent_Data['STR_SGOODCODE']) {
+    ?>
+        <script language="javascript">
+            alert("죄송합니다. 해당 가방은 방금 RENTED되었습니다.\n다른 가방을 GET 해주세요!");
+            window.location.href = "/m/product/detail.php?str_goodcode=<?= $str_goodcode ?>";
+        </script>
+    <?
+        exit;
+    }
 }
 
 $SQL_QUERY =    'SELECT
@@ -217,7 +243,7 @@ $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_goods_cart` (" . $arr_Sub1 . ") VA
 mysql_query($SQL_QUERY);
 
 if ($int_type != 1) {
-?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
