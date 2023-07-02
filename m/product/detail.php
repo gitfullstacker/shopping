@@ -1432,22 +1432,24 @@ switch ($arr_Data['INT_TYPE']) {
                             <p class="font-bold text-xs leading-[14px] text-black">렌트 가격 할인 TIP!</p>
                         </div>
                         <p class="mt-2 font-bold text-[11px] leading-[13px] text-[#666666]">기간이 길어질수록 1일 렌트가가 내려갑니다.</p>
-                        <div class="mt-[26px] flex flex-col w-full px-7 relative">
-                            <div class="w-full px-[23px] mt-5">
-                                <img class="min-w-full" src="images/rent_discount.png" alt="">
-                            </div>
-                            <div class="flex justify-around absolute left-0 w-full px-[14px]">
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-4"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-8"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[60px] mt-12"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
-                            </div>
-                            <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
-                            <div class="mt-2 flex justify-between w-full px-[7px]">
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>일~<?= $site_Data['INT_DEND2'] ?>일</p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?>일</p>
-                                <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?>일</p>
+                        <div class="mt-[26px] flex flex-col w-full px-7">
+                            <div class="flex flex-col w-full relative">
+                                <div class="w-full pl-[28px] pr-[25px] mt-5">
+                                    <img class="min-w-full" src="images/rent_discount.png" alt="">
+                                </div>
+                                <div class="flex justify-between w-full px-[7px] absolute left-0">
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[16px]"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[32px]"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[46px]"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
+                                </div>
+                                <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
+                                <div class="mt-2 flex justify-between w-full px-[7px]">
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART1'] ?>일~<?= $site_Data['INT_DEND1'] ?>일</p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART2'] ?>일~<?= $site_Data['INT_DEND2'] ?>일</p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART3'] ?>일~<?= $site_Data['INT_DEND3'] ?>일</p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DSTART4'] ?>일~<?= $site_Data['INT_DEND4'] ?>일</p>
+                                </div>
                             </div>
                         </div>
                     </div>

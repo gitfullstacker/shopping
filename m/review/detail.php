@@ -65,7 +65,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             </div>
             <div class="information">
                 <div class="w-[25px] h-[14px] flex justify-center items-center bg-[<?= ($arr_Data['INT_TYPE'] == 1 ? '#EEAC4C' : ($arr_Data['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A'))  ?>]">
-                    <p class="font-normal text-[8px] leading-[8px] text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
+                    <p class="font-normal text-[9px] leading-[9px] text-white"><?= ($arr_Data['INT_TYPE'] == 1 ? '구독' : ($arr_Data['INT_TYPE'] == 2 ? '렌트' : '빈티지'))  ?></p>
                 </div>
                 <div class="brand"><?= $arr_Data['STR_CODE'] ?></div>
                 <div class="title"><?= $arr_Data['STR_GOODNAME'] ?></div>

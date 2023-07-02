@@ -66,11 +66,11 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 				}, 3000);
 			}
 		}" class="flex w-full relative">
-		<div class="scroll-div flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
+		<div class="scroll-div flex overflow-x-auto snap-x custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
 			<?php
 			while ($row = mysql_fetch_assoc($home_banner_list_result)) {
 			?>
-				<a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-always snap-center max-w-[410px] min-w-full h-[467px] bg-gray-100">
+				<a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-normal snap-center max-w-[410px] min-w-full h-[467px] bg-gray-100">
 					<img class="min-w-full h-full" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
 				</a>
 			<?php

@@ -62,8 +62,8 @@
     margin-top: 6px;
     font-style: normal;
     font-weight: 700;
-    font-size: 11px;
-    line-height: 12px;
+    font-size: 12px;
+    line-height: 14px;
     color: #000000;
 }
 
@@ -71,8 +71,8 @@
     margin-top: 5.4px;
     font-style: normal;
     font-weight: 700;
-    font-size: 9px;
-    line-height: 10px;
+    font-size: 12px;
+    line-height: 14px;
     color: #666666;
 }
 
@@ -118,6 +118,10 @@
     color: #666666;
 }
 
+.review-detail>.content>.top-section>.left-section>.date {
+    font-weight: 500;
+}
+
 .review-detail>.content>.top-section>.like-btn {
     display: flex;
     justify-content: center;
@@ -145,8 +149,8 @@
 .review-detail>.content>.description {
     margin-top: 9px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
-    line-height: 140%;
+    line-height: 17px;
     color: #666666;
 }
