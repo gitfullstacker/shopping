@@ -63,7 +63,9 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], "plan");
             infinite: true,
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true
+            dots: true,
+            autoplay: true,
+			autoplaySpeed: 3000,
         });
     });
 

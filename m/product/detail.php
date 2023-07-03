@@ -83,101 +83,74 @@ switch ($arr_Data['INT_TYPE']) {
 ?>
 
 <div x-data="{
-    rentDate: null,
-    vintageCount: 0,
-    vintageOMoney: 0,
-    vintageMoney: 0,
-    showCalendar: false,
-    showSubscriptionAlert: false,
-    showVintagePanel: false,
-    goSubscription() {
-        if (<?= $is_subscription_membership ? 'false' : 'true' ?>) {
-            this.showSubscriptionAlert = true;
-        } else {
-            window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
-        }
-    },
-    goRent() {
-        if (this.rentDate == null) {
-            this.showCalendar = true;
-        } else {
-            const startDate = this.rentDate.startDate.getFullYear().toString() + '-' + (this.rentDate.startDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.startDate.getDate().toString().padStart(2, '0');
-            const endDate = this.rentDate.endDate.getFullYear().toString() + '-' + (this.rentDate.endDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.endDate.getDate().toString().padStart(2, '0');
+        rentDate: null,
+        vintageCount: 0,
+        vintageOMoney: 0,
+        vintageMoney: 0,
+        showCalendar: false,
+        showSubscriptionAlert: false,
+        showVintagePanel: false,
+        goSubscription() {
+            if (<?= $is_subscription_membership ? 'false' : 'true' ?>) {
+                this.showSubscriptionAlert = true;
+            } else {
+                window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
+            }
+        },
+        goRent() {
+            if (this.rentDate == null) {
+                this.showCalendar = true;
+            } else {
+                const startDate = this.rentDate.startDate.getFullYear().toString() + '-' + (this.rentDate.startDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.startDate.getDate().toString().padStart(2, '0');
+                const endDate = this.rentDate.endDate.getFullYear().toString() + '-' + (this.rentDate.endDate.getMonth() + 1).toString().padStart(2, '0') + '-' + this.rentDate.endDate.getDate().toString().padStart(2, '0');
 
-            window.location.href = '/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&start_date=' + startDate + '&end_date=' + endDate;
+                window.location.href = '/m/pay/index.php?int_type=2&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&start_date=' + startDate + '&end_date=' + endDate;
+            }
+        },
+        goVintage() {
+            if (this.vintageCount == 0) {
+                this.addVintageCount();
+                this.showVintagePanel = true;
+            } else {
+                window.location.href = '/m/pay/index.php?int_type=3&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&count=' + this.vintageCount;
+            }
+        },
+        addVintageCount() {
+            if (this.vintageCount < 1) {
+                this.vintageCount++;
+                this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+                this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+            }
+        },
+        removeVintageCount() {
+            if (this.vintageCount > 0) {
+                this.vintageCount--;
+                this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
+                this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
+            }
+        },
+        initVintageCount() {
+            this.vintageCount = 0;
+            this.vintageOMoney = 0;
+            this.vintageMoney = 0;
         }
-    },
-    goVintage() {
-        if (this.vintageCount == 0) {
-            this.addVintageCount();
-            this.showVintagePanel = true;
-        } else {
-            window.location.href = '/m/pay/index.php?int_type=3&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>&count=' + this.vintageCount;
-        }
-    },
-    addVintageCount() {
-        if (this.vintageCount < 1) {
-            this.vintageCount++;
-            this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
-            this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
-        }
-    },
-    removeVintageCount() {
-        if (this.vintageCount > 0) {
-            this.vintageCount--;
-            this.vintageOMoney = <?= $arr_Data['INT_PRICE'] ?> * this.vintageCount;
-            this.vintageMoney = <?= $arr_Data['INT_PRICE'] - $arr_Data['INT_PRICE'] * $arr_Data['INT_DISCOUNT'] / 100 ?> * this.vintageCount;
-        }
-    },
-    initVintageCount() {
-        this.vintageCount = 0;
-        this.vintageOMoney = 0;
-        this.vintageMoney = 0;
-    }
-}" class="flex flex-col w-full">
+    }" class="flex flex-col w-full">
     <!-- 렌트 제품_상세_관련 상품 리뷰 -->
     <div class="flex flex-col w-full">
         <!-- 슬라이더 -->
-        <div x-data="{
-                imageCount: 3,
-                slider: 1,
-                handleScroll() {
-                    const containerWidth = this.$refs.sliderContainer.offsetWidth;
-                    const scrollPosition = this.$refs.sliderContainer.scrollLeft;
-                    const slider = Math.round(scrollPosition / containerWidth) + 1;
-
-                    if (this.$refs.sliderContainer.scrollLeft >= this.$refs.sliderContainer.scrollWidth - this.$refs.sliderContainer.clientWidth) {
-                        this.$refs.sliderContainer.scrollTo(0, 0); // Scroll to the beginning
-                    }
-
-                    this.slider = slider;
-                },
-                init() {
-                    this.imageCount = this.$refs.sliderContainer.children.length;
+        <div class="slider-section">
+            <?php
+            for ($i = 1; $i <= 5; $i++) {
+                if ($arr_Data['STR_IMAGE' . $i]) {
+                    $first_image = $first_image ?: $arr_Data['STR_IMAGE' . $i];
+            ?>
+                    <div class="bg-gray-100">
+                        <img class="w-[410px]" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                    </div>
+            <?php
                 }
-            }" class="flex w-full relative">
-            <div class="flex overflow-x-auto snap-x snap-mandatory custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
-                <?php
-                for ($i = 1; $i <= 5; $i++) {
-                    if ($arr_Data['STR_IMAGE' . $i]) {
-                        $first_image = $first_image ?: $arr_Data['STR_IMAGE' . $i];
-                ?>
-                        <div class="snap-always snap-center w-[410px] h-[500px] bg-gray-100">
-                            <img class="w-[410px]" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
-                        </div>
-                <?php
-                    }
-                }
-                ?>
-                <div class="snap-always snap-center w-[410px] h-[500px] bg-gray-100">
-                    <img class="w-[410px]" src="/admincenter/files/good/<?= $first_image ?>" onerror="this.style.display='none'" alt="">
-                </div>
-            </div>
-            <div class="absolute w-full flex justify-center px-[77px] bottom-[14.45px]">
-                <div class="flex w-full bg-[#C6C6C6] h-[1.55px]">
-                    <div class="h-[1.55px] bg-black" x-bind:class="slider == imageCount ? 'w-full' : 'w-[' + slider/imageCount * 100 + '%]'"></div>
-                </div>
-            </div>
+            }
+            ?>
         </div>
 
         <!-- 제품정보 -->
@@ -967,307 +940,307 @@ switch ($arr_Data['INT_TYPE']) {
         }
     ?>
         <div x-show="showCalendar" x-transition x-data="{
-            currentYear: null,
-            currentMonth: null,
-            firstDayOfWeek: 0,
-            dates: [],
-            selectedStatus: 0,
-            exportDate: null,
-            startDate: null,
-            endDate: null,
-            collectDate: null,
-            price: {
-                originPrice: <?= $arr_Data['INT_PRICE'] ?>,
-                discount: {
-                    product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
-                    productMoney: 0,
-                    areaMoney: 0,
-                    membership: <?= $is_rent_membership ? 30 : 0 ?>,
-                    membershipMoney: 0
+                currentYear: null,
+                currentMonth: null,
+                firstDayOfWeek: 0,
+                dates: [],
+                selectedStatus: 0,
+                exportDate: null,
+                startDate: null,
+                endDate: null,
+                collectDate: null,
+                price: {
+                    originPrice: <?= $arr_Data['INT_PRICE'] ?>,
+                    discount: {
+                        product: <?= $arr_Data['INT_DISCOUNT'] ?: 0 ?>,
+                        productMoney: 0,
+                        areaMoney: 0,
+                        membership: <?= $is_rent_membership ? 30 : 0 ?>,
+                        membershipMoney: 0
+                    },
+                    totalPrice: 0
                 },
-                totalPrice: 0
-            },
-            rentDays: 0,
-            startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
-            startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
-            startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
-            endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
-            endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
-            endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
-            showCalendarAlert: false,
-            rentDates: <?= str_replace('"', '\'', json_encode($rentDates)) ?>,
+                rentDays: 0,
+                startDDays: <?= str_replace('"', '\'', json_encode($start_days_array)) ?>,
+                startDWeeks: <?= str_replace('"', '\'', json_encode($start_weeks_array)) ?>,
+                startDDates: <?= str_replace('"', '\'', json_encode($start_dates_array)) ?>,
+                endDDays: <?= str_replace('"', '\'', json_encode($end_days_array)) ?>,
+                endDWeeks: <?= str_replace('"', '\'', json_encode($end_weeks_array)) ?>,
+                endDDates: <?= str_replace('"', '\'', json_encode($end_dates_array)) ?>,
+                showCalendarAlert: false,
+                rentDates: <?= str_replace('"', '\'', json_encode($rentDates)) ?>,
 
-            generateDates(month, year) {
-                year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
-                month = month == 0 ? 12 : month == 13 ? 1 : month;
-                const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
-                const daysInMonth = new Date(year, month, 0).getDate();
-                const dates = [];
-                
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const date = new Date(year, month - 1, day);
+                generateDates(month, year) {
+                    year = month == 0 ? year - 1 : month == 13 ? year + 1 : year;
+                    month = month == 0 ? 12 : month == 13 ? 1 : month;
+                    const firstDayOfWeek = new Date(year, month - 1, 1).getDay();
+                    const daysInMonth = new Date(year, month, 0).getDate();
+                    const dates = [];
+                    
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const date = new Date(year, month - 1, day);
 
-                    status = 1;
-                    showPrice = false;
-                    areaDiscount = 0;
-                    rentDays = 0;
+                        status = 1;
+                        showPrice = false;
+                        areaDiscount = 0;
+                        rentDays = 0;
 
-                    const year1 = date.getFullYear().toString();
-                    const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
-                    const day1 = date.getDate().toString().padStart(2, '0');
+                        const year1 = date.getFullYear().toString();
+                        const month1 = (date.getMonth() + 1).toString().padStart(2, '0');
+                        const day1 = date.getDate().toString().padStart(2, '0');
 
-                    const dateString = `${year1}-${month1}-${day1}`;
+                        const dateString = `${year1}-${month1}-${day1}`;
 
-                    if (this.selectedStatus == 0) {
-                        const enableToday = new Date();
-                        enableToday.setDate(enableToday.getDate() + 2);
+                        if (this.selectedStatus == 0) {
+                            const enableToday = new Date();
+                            enableToday.setDate(enableToday.getDate() + 2);
 
-                        // 이미 렌트한 날짜 제외
-                        var isDateBetween = false;
-                        for (var i = 0; i < this.rentDates.length; i++) {
-                            const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
-                            const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
+                            // 이미 렌트한 날짜 제외
+                            var isDateBetween = false;
+                            for (var i = 0; i < this.rentDates.length; i++) {
+                                const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
+                                const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
 
-                            if (date.getTime() >= rentStartDate.getTime() && date.getTime() <= rentEndDate.getTime()) {
-                                isDateBetween = true;
-                                break;
+                                if (date.getTime() >= rentStartDate.getTime() && date.getTime() <= rentEndDate.getTime()) {
+                                    isDateBetween = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (isDateBetween) {
-                            status = 0;
-                        } else if (date.getTime() < enableToday.getTime()) {
-                            status = 0;
-                        } else if (date.getDay() === 1 || date.getDay() === 2) {
-                            // Monday: 1, Tuesday: 2
-                            status = 0;
-                        } else {
-                            // 일 | 날짜 | 요일
-                            if (this.startDDays.includes(date.getDate().toString())) {
+                            if (isDateBetween) {
                                 status = 0;
-                            } else if (this.startDWeeks.includes(date.getDay().toString())) {
+                            } else if (date.getTime() < enableToday.getTime()) {
                                 status = 0;
-                            } else if (this.startDDates.includes(dateString)) {
+                            } else if (date.getDay() === 1 || date.getDay() === 2) {
+                                // Monday: 1, Tuesday: 2
                                 status = 0;
+                            } else {
+                                // 일 | 날짜 | 요일
+                                if (this.startDDays.includes(date.getDate().toString())) {
+                                    status = 0;
+                                } else if (this.startDWeeks.includes(date.getDay().toString())) {
+                                    status = 0;
+                                } else if (this.startDDates.includes(dateString)) {
+                                    status = 0;
+                                }
                             }
-                        }
-                    } else if (this.selectedStatus == 1) {
-                        const disableEndDay = new Date(this.startDate);
-                        disableEndDay.setDate(disableEndDay.getDate() + 2);
+                        } else if (this.selectedStatus == 1) {
+                            const disableEndDay = new Date(this.startDate);
+                            disableEndDay.setDate(disableEndDay.getDate() + 2);
 
-                        const finalEndday = new Date(this.startDate);
-                        finalEndday.setDate(finalEndday.getDate() + 14);
-                        
-                        // 다음 예약한 렌트 날짜 제외
-                        var isDateBetween = false;
-                        for (var i = 0; i < this.rentDates.length; i++) {
-                            const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
-                            const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
+                            const finalEndday = new Date(this.startDate);
+                            finalEndday.setDate(finalEndday.getDate() + 14);
+                            
+                            // 다음 예약한 렌트 날짜 제외
+                            var isDateBetween = false;
+                            for (var i = 0; i < this.rentDates.length; i++) {
+                                const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
+                                const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
 
-                            if (date.getTime() >= rentStartDate.getTime() && this.startDate.getTime() < rentEndDate.getTime()) {
-                                isDateBetween = true;
-                                break;
+                                if (date.getTime() >= rentStartDate.getTime() && this.startDate.getTime() < rentEndDate.getTime()) {
+                                    isDateBetween = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (isDateBetween) {
-                            status = 5;
-                        } else if (date.getTime() == this.startDate.getTime()) {
-                            status = 2;
-                            showPrice = true;
-                        } else if (date.getTime() > finalEndday.getTime()) {
-                            status = 0;
-                        } else if (date.getDay() === 5 || date.getDay() === 6) {
-                            // Friday: 1, Saturday: 2
-                            if (date.getTime() > this.startDate.getTime() && date.getTime() < finalEndday.getTime()) {
+                            if (isDateBetween) {
                                 status = 5;
+                            } else if (date.getTime() == this.startDate.getTime()) {
+                                status = 2;
+                                showPrice = true;
+                            } else if (date.getTime() > finalEndday.getTime()) {
+                                status = 0;
+                            } else if (date.getDay() === 5 || date.getDay() === 6) {
+                                // Friday: 1, Saturday: 2
+                                if (date.getTime() > this.startDate.getTime() && date.getTime() < finalEndday.getTime()) {
+                                    status = 5;
+                                    showPrice = true;
+                                } else {
+                                    status = 0;
+                                }
+                            } else if (this.endDDays.includes(date.getDate().toString())) {
+                                status = 0;
+                            } else if (this.endDWeeks.includes(date.getDay().toString())) {
+                                status = 0;
+                            } else if (this.endDDates.includes(dateString)) {
+                                status = 0;
+                            } else if (date.getTime() > this.startDate.getTime() && date.getTime() <= disableEndDay.getTime()) {
+                                status = 5;
+                                showPrice = true;
+                            } else if (date.getTime() > disableEndDay.getTime()) {
+                                status = 8;
                                 showPrice = true;
                             } else {
                                 status = 0;
                             }
-                        } else if (this.endDDays.includes(date.getDate().toString())) {
-                            status = 0;
-                        } else if (this.endDWeeks.includes(date.getDay().toString())) {
-                            status = 0;
-                        } else if (this.endDDates.includes(dateString)) {
-                            status = 0;
-                        } else if (date.getTime() > this.startDate.getTime() && date.getTime() <= disableEndDay.getTime()) {
-                            status = 5;
-                            showPrice = true;
-                        } else if (date.getTime() > disableEndDay.getTime()) {
-                            status = 8;
-                            showPrice = true;
+
+                            <!-- 출고 표시 -->
+                            if (date.getTime() == this.exportDate.getTime()) {
+                                status = 6;
+                            }
+
+                            <!-- 렌트 날짜 얻기 -->
+                            if (date.getTime() >= this.startDate.getTime()) {
+                                var diffMilliseconds = date.getTime() - this.startDate.getTime();
+                                var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
+
+                                rentDays = diffDays + 1;
+                            }
                         } else {
                             status = 0;
-                        }
-
-                        <!-- 출고 표시 -->
-                        if (date.getTime() == this.exportDate.getTime()) {
-                            status = 6;
-                        }
-
-                        <!-- 렌트 날짜 얻기 -->
-                        if (date.getTime() >= this.startDate.getTime()) {
-                            var diffMilliseconds = date.getTime() - this.startDate.getTime();
-                            var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
-
-                            rentDays = diffDays + 1;
-                        }
-                    } else {
-                        status = 0;
-                        if (date.getTime() == this.startDate.getTime()) {
-                            status = 2;
-                        } else if (date.getTime() == this.endDate.getTime()) {
-                            status = 3;
-                        } else if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
-                            status = 4;
-                        } else if (date.getTime() > this.endDate.getTime()) {
-                            status = 5;
-                        }
-
-                        <!-- 출고 표시 -->
-                        if (date.getTime() == this.exportDate.getTime()) {
-                            status = 6;
-                        }
-                        <!-- 회수 표시 -->
-                        if (date.getTime() == this.collectDate.getTime()) {
-                            status = 7;
-                        }
-
-                        <!-- 렌트 날짜 얻기 -->
-                        if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
-                            var diffMilliseconds = date.getTime() - this.startDate.getTime();
-                            var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
-
-                            rentDays = diffDays + 1;
-                        }
-                    }
-
-                    areaDiscount = this.getAreaDiscount(rentDays);
-                    productDiscount = this.price.originPrice * this.price.discount.product / 100;
-                    productSPrice = this.price.originPrice - productDiscount;
-                    totalPrice = this.roundNumber(productSPrice - productSPrice * areaDiscount / 100);
-
-                    dates.push({
-                        date: date,
-                        day: day,
-                        // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7, 시작날짜 선택시 선택가능: 8
-                        status: status,
-                        showPrice: showPrice,
-                        rentDays: rentDays,
-                        productDiscount: productDiscount,
-                        areaDiscount: areaDiscount,
-                        totalPrice: totalPrice
-                    });
-                }
-
-                this.dates = dates;
-                this.currentYear = year;
-                this.currentMonth = month;
-                this.firstDayOfWeek = firstDayOfWeek;
-            },
-            selectDate(date) {
-                var selectedDate = date.date;
-
-                if (this.selectedStatus == 0) {
-                    this.startDate = new Date(selectedDate);
-                    this.exportDate = new Date(selectedDate);
-                    this.exportDate.setDate(this.exportDate.getDate() - 2);
-                    this.selectedStatus++;
-                } else if (this.selectedStatus == 1) {
-                    if (selectedDate.getTime() == this.startDate.getTime()) {
-                        // 시작날짜를 눌렀을때 시작해제
-                        this.selectedStatus = 0;
-                        this.startDate = null;
-                        this.exportDate = null;
-                    } else {
-                        this.endDate = new Date(selectedDate);
-                        this.collectDate = new Date(selectedDate);
-                        this.collectDate.setDate(this.collectDate.getDate() + 1);
-                        
-                        sumTotalPrice = 0;
-                        sumAreaPrice = 0;
-                        sumProductPrice = 0;
-                        selectedStartDate = this.startDate;
-                        selectedEndDate = this.endDate;
-                        productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
-                        this.dates.forEach(function(eachDay) {
-                            if (eachDay.date.getTime() >= selectedStartDate.getTime() && eachDay.date.getTime() <= selectedEndDate.getTime()) {
-                                sumAreaPrice += productSPrice * eachDay.areaDiscount / 100;
-                                sumProductPrice += eachDay.productDiscount;
+                            if (date.getTime() == this.startDate.getTime()) {
+                                status = 2;
+                            } else if (date.getTime() == this.endDate.getTime()) {
+                                status = 3;
+                            } else if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
+                                status = 4;
+                            } else if (date.getTime() > this.endDate.getTime()) {
+                                status = 5;
                             }
+
+                            <!-- 출고 표시 -->
+                            if (date.getTime() == this.exportDate.getTime()) {
+                                status = 6;
+                            }
+                            <!-- 회수 표시 -->
+                            if (date.getTime() == this.collectDate.getTime()) {
+                                status = 7;
+                            }
+
+                            <!-- 렌트 날짜 얻기 -->
+                            if (date.getTime() >= this.startDate.getTime() && date.getTime() <= this.endDate.getTime()) {
+                                var diffMilliseconds = date.getTime() - this.startDate.getTime();
+                                var diffDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
+
+                                rentDays = diffDays + 1;
+                            }
+                        }
+
+                        areaDiscount = this.getAreaDiscount(rentDays);
+                        productDiscount = this.price.originPrice * this.price.discount.product / 100;
+                        productSPrice = this.price.originPrice - productDiscount;
+                        totalPrice = this.roundNumber(productSPrice - productSPrice * areaDiscount / 100);
+
+                        dates.push({
+                            date: date,
+                            day: day,
+                            // 선택불가능: 0, 선택가능: 1, 시작날짜: 2, 마감날짜: 3, 기간날짜: 4, 숨기기(시작일만 선택한경우는 마감선택불가능, 마감일을 넘는 경우): 5, 출고일: 6, 반납일: 7, 시작날짜 선택시 선택가능: 8
+                            status: status,
+                            showPrice: showPrice,
+                            rentDays: rentDays,
+                            productDiscount: productDiscount,
+                            areaDiscount: areaDiscount,
+                            totalPrice: totalPrice
                         });
-                        this.price.discount.areaMoney = this.roundNumber(sumAreaPrice);
-                        this.price.discount.productMoney = this.roundNumber(sumProductPrice);
-                        sumTotalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney;
-                        this.price.discount.membershipMoney = this.roundNumber(sumTotalPrice * this.price.discount.membership / 100);
-                        this.price.totalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney - this.price.discount.membershipMoney;
-                        this.rentDays = date.rentDays;
+                    }
+
+                    this.dates = dates;
+                    this.currentYear = year;
+                    this.currentMonth = month;
+                    this.firstDayOfWeek = firstDayOfWeek;
+                },
+                selectDate(date) {
+                    var selectedDate = date.date;
+
+                    if (this.selectedStatus == 0) {
+                        this.startDate = new Date(selectedDate);
+                        this.exportDate = new Date(selectedDate);
+                        this.exportDate.setDate(this.exportDate.getDate() - 2);
                         this.selectedStatus++;
+                    } else if (this.selectedStatus == 1) {
+                        if (selectedDate.getTime() == this.startDate.getTime()) {
+                            // 시작날짜를 눌렀을때 시작해제
+                            this.selectedStatus = 0;
+                            this.startDate = null;
+                            this.exportDate = null;
+                        } else {
+                            this.endDate = new Date(selectedDate);
+                            this.collectDate = new Date(selectedDate);
+                            this.collectDate.setDate(this.collectDate.getDate() + 1);
+                            
+                            sumTotalPrice = 0;
+                            sumAreaPrice = 0;
+                            sumProductPrice = 0;
+                            selectedStartDate = this.startDate;
+                            selectedEndDate = this.endDate;
+                            productSPrice = this.price.originPrice - this.price.originPrice * this.price.discount.product / 100;
+                            this.dates.forEach(function(eachDay) {
+                                if (eachDay.date.getTime() >= selectedStartDate.getTime() && eachDay.date.getTime() <= selectedEndDate.getTime()) {
+                                    sumAreaPrice += productSPrice * eachDay.areaDiscount / 100;
+                                    sumProductPrice += eachDay.productDiscount;
+                                }
+                            });
+                            this.price.discount.areaMoney = this.roundNumber(sumAreaPrice);
+                            this.price.discount.productMoney = this.roundNumber(sumProductPrice);
+                            sumTotalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney;
+                            this.price.discount.membershipMoney = this.roundNumber(sumTotalPrice * this.price.discount.membership / 100);
+                            this.price.totalPrice = this.price.originPrice * date.rentDays - this.price.discount.areaMoney - this.price.discount.productMoney - this.price.discount.membershipMoney;
+                            this.rentDays = date.rentDays;
+                            this.selectedStatus++;
 
-                        rentDate = {
-                            startDate: this.startDate,
-                            endDate: this.endDate
-                        };
+                            rentDate = {
+                                startDate: this.startDate,
+                                endDate: this.endDate
+                            };
+                        }
+                    } else if (this.selectedStatus == 2) {
+                        if (selectedDate.getTime() == this.endDate.getTime()) {
+                            // 마감날짜를 눌렀을때 마감해제
+                            this.selectedStatus = 1;
+                            this.endDate = null;
+                            this.collectDate = null;
+
+                            rentDate = null;
+                        }
                     }
-                } else if (this.selectedStatus == 2) {
-                    if (selectedDate.getTime() == this.endDate.getTime()) {
-                        // 마감날짜를 눌렀을때 마감해제
-                        this.selectedStatus = 1;
-                        this.endDate = null;
-                        this.collectDate = null;
 
-                        rentDate = null;
+                    this.generateDates(selectedDate.getMonth() + 1, selectedDate.getFullYear());
+                },
+                getAreaDiscount(rentDays) {
+                    areaDiscount = 0;
+
+                    // 구간1
+                    if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
+                        areaDiscount = <?= $site_Data['INT_DISCOUNT1'] ?>;
+                    } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
+                        areaDiscount = <?= $site_Data['INT_DISCOUNT2'] ?>;
+                    } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
+                        areaDiscount = <?= $site_Data['INT_DISCOUNT3'] ?>;
+                    } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
+                        areaDiscount = <?= $site_Data['INT_DISCOUNT4'] ?>;
                     }
+
+                    return areaDiscount;
+                },
+                formatDate(date) {
+                    const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+                    const year = date.getFullYear().toString().slice(-2);
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const weekday = weekdays[date.getDay()];
+                    
+                    return `${month}. ${day}(${weekday})`;
+                },
+                initDate() {
+                    this.selectedStatus = 0;
+                    this.startDate = null;
+                    this.endDate = null;
+                    this.generateDates(this.currentMonth, this.currentYear);
+
+                    rentDate = null;
+                },
+                showAlert() {
+                    this.showCalendarAlert = true;
+                    setTimeout(() => this.showCalendarAlert = false, 2000);
+                },
+                roundNumber(number) {
+                    return Math.round(number / 100) * 100;
+                },
+                init() {
+                    today = new Date();
+                    this.generateDates(today.getMonth() + 1, today.getFullYear());
                 }
-
-                this.generateDates(selectedDate.getMonth() + 1, selectedDate.getFullYear());
-            },
-            getAreaDiscount(rentDays) {
-                areaDiscount = 0;
-
-                // 구간1
-                if (<?= $site_Data['INT_DSTART1'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND1'] ?: 0 ?>) {
-                    areaDiscount = <?= $site_Data['INT_DISCOUNT1'] ?>;
-                } else if (<?= $site_Data['INT_DSTART2'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND2'] ?: 0 ?>) {
-                    areaDiscount = <?= $site_Data['INT_DISCOUNT2'] ?>;
-                } else if (<?= $site_Data['INT_DSTART3'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND3'] ?: 0 ?>) {
-                    areaDiscount = <?= $site_Data['INT_DISCOUNT3'] ?>;
-                } else if (<?= $site_Data['INT_DSTART4'] ?: 0 ?> <= rentDays && rentDays <= <?= $site_Data['INT_DEND4'] ?: 0 ?>) {
-                    areaDiscount = <?= $site_Data['INT_DISCOUNT4'] ?>;
-                }
-
-                return areaDiscount;
-            },
-            formatDate(date) {
-                const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-                const year = date.getFullYear().toString().slice(-2);
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
-                const weekday = weekdays[date.getDay()];
-                
-                return `${month}. ${day}(${weekday})`;
-            },
-            initDate() {
-                this.selectedStatus = 0;
-                this.startDate = null;
-                this.endDate = null;
-                this.generateDates(this.currentMonth, this.currentYear);
-
-                rentDate = null;
-            },
-            showAlert() {
-                this.showCalendarAlert = true;
-                setTimeout(() => this.showCalendarAlert = false, 2000);
-            },
-            roundNumber(number) {
-                return Math.round(number / 100) * 100;
-            },
-            init() {
-                today = new Date();
-                this.generateDates(today.getMonth() + 1, today.getFullYear());
-            }
-        }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
+            }" class="w-full bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
             <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full relative">
                 <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                     <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
@@ -1641,212 +1614,222 @@ switch ($arr_Data['INT_TYPE']) {
             </a>
         </div>
     </div>
+</div>
 
-    <?php
-    $hide_footer_menu = true;
-    $show_footer_sbutton = true;
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
-    ?>
+<script>
+    var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;
 
-    <script>
-        var is_basket = <?= $arr_Data['IS_BASKET'] ?: 0 ?>;
+    $(document).ready(function() {
+        searchOwnReview();
+        searchRelatedReview();
 
-        $(document).ready(function() {
-            searchOwnReview();
-            searchRelatedReview();
+        $('.slider-section').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            autoplay: true,
+			autoplaySpeed: 3000,
         });
-        const isTextClamped = elm => elm.scrollHeight > elm.clientHeight
+    });
+    const isTextClamped = elm => elm.scrollHeight > elm.clientHeight
 
-        function searchOwnReview(page = 0) {
-            url = "get_own_review_list.php";
-            url += "?page=" + page;
-            url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
+    function searchOwnReview(page = 0) {
+        url = "get_own_review_list.php";
+        url += "?page=" + page;
+        url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
 
-            $.ajax({
-                url: url,
-                success: function(result) {
-                    $("#own_review_list").html(result);
-                    if (page > 0) {
-                        $('html, body').animate({
-                            scrollTop: $("#own_review_list").offset().top - 150
-                        }, 500);
-                    }
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#own_review_list").html(result);
+                if (page > 0) {
+                    $('html, body').animate({
+                        scrollTop: $("#own_review_list").offset().top - 150
+                    }, 500);
                 }
-            });
-        }
-
-        function searchRelatedReview(page = 0) {
-            url = "get_related_review_list.php";
-            url += "?page=" + page;
-            url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
-            url += "&int_good_type=" + <?= $arr_Data['INT_TYPE'] ?>;
-            url += "&int_brand=" + <?= $arr_Data['INT_BRAND'] ?>;
-
-            $.ajax({
-                url: url,
-                success: function(result) {
-                    $("#related_review_list").html(result);
-                    if (page > 0) {
-                        $('html, body').animate({
-                            scrollTop: $("#related_review_list").offset().top - 150
-                        }, 500);
-                    }
-                }
-            });
-        }
-
-        function setReviewLike(bd_seq) {
-            $.ajax({
-                url: "/m/review/set_like.php",
-                data: {
-                    bd_seq: bd_seq
-                },
-                success: function(resultString) {
-                    result = JSON.parse(resultString);
-                    if (result['status'] == 401) {
-                        alert('사용자로그인을 하여야 합니다.');
-
-                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
-                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
-                    }
-                    if (result['status'] == 200) {
-                        $("#like_count_" + bd_seq).html(result['data']);
-                    }
-                }
-            });
-        }
-
-        function setProductLike(str_goodcode) {
-            $.ajax({
-                url: "/m/product/set_like.php",
-                data: {
-                    str_goodcode: str_goodcode
-                },
-                success: function(resultString) {
-                    result = JSON.parse(resultString);
-                    if (result['status'] == 401) {
-                        alert('사용자로그인을 하여야 합니다.');
-
-                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
-                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
-                    }
-                    if (result['status'] == 200) {
-                        if (result['data'] == true) {
-                            $("#is_like_no").hide();
-                            $("#is_like_yes").show();
-                        }
-                        if (result['data'] == false) {
-                            $("#is_like_no").show();
-                            $("#is_like_yes").hide();
-                        }
-                    }
-                }
-            });
-        }
-
-        function addProductBasket(str_goodcode) {
-            if (is_basket) {
-                document.getElementById('basket_dialog').classList.remove('hidden');
-                return;
-            }
-            $.ajax({
-                url: "/m/product/set_basket.php",
-                data: {
-                    str_goodcode: str_goodcode
-                },
-                success: function(resultString) {
-                    result = JSON.parse(resultString);
-                    if (result['status'] == 401) {
-                        alert('사용자로그인을 하여야 합니다.');
-
-                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
-                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
-                    }
-                    if (result['status'] == 200) {
-                        if (result['data'] == true) {
-                            is_basket = 1;
-                            document.getElementById('basket_dialog').classList.remove('hidden');
-                        }
-                    }
-                }
-            });
-        }
-
-        function scrollToDiv(name) {
-            const element = document.getElementById(name);
-            const topOffset = element.offsetTop - 100;
-            window.scrollTo({
-                top: topOffset,
-                behavior: 'smooth'
-            });
-        }
-
-        window.addEventListener('scroll', function() {
-            var staticMenu = document.getElementById('menu_panel');
-            var topMenu = document.getElementById('top_menu_panel');
-
-            if (isElementHidden(staticMenu)) {
-                topMenu.classList.remove('hidden');
-                setTopMenu();
-            } else {
-                topMenu.classList.add('hidden');
             }
         });
+    }
 
-        function setTopMenu() {
-            for (var i = 1; i <= 4; i++) {
-                var menu = document.getElementById('menu_div' + i);
+    function searchRelatedReview(page = 0) {
+        url = "get_related_review_list.php";
+        url += "?page=" + page;
+        url += "&str_goodcode=" + <?= $arr_Data['STR_GOODCODE'] ?>;
+        url += "&int_good_type=" + <?= $arr_Data['INT_TYPE'] ?>;
+        url += "&int_brand=" + <?= $arr_Data['INT_BRAND'] ?>;
 
-                if (menu.getBoundingClientRect().top <= 120) {
-                    Alpine.store('detailMenu', i);
+        $.ajax({
+            url: url,
+            success: function(result) {
+                $("#related_review_list").html(result);
+                if (page > 0) {
+                    $('html, body').animate({
+                        scrollTop: $("#related_review_list").offset().top - 150
+                    }, 500);
                 }
             }
-        }
+        });
+    }
 
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('detailMenu', 0);
-        })
+    function setReviewLike(bd_seq) {
+        $.ajax({
+            url: "/m/review/set_like.php",
+            data: {
+                bd_seq: bd_seq
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
 
-        function isElementHidden(element) {
-            var rect = element.getBoundingClientRect();
-            return rect.bottom <= 100;
-        }
-
-        function showRelativeImage(index) {
-            var imagePanel = document.getElementById('relative_image_panel');
-            imagePanel.classList.remove('hidden');
-            document.getElementById('scrollContainer').scrollLeft = 410 * index;
-        }
-
-        function showAlarmConfirmPanel() {
-            if (<?= $alarm_Data['COUNT'] ?: 0 ?> > 0) {
-                alert('이미 입고알림을 신청하셨습니다.');
-                return;
+                    const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                    document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                }
+                if (result['status'] == 200) {
+                    $("#like_count_" + bd_seq).html(result['data']);
+                }
             }
-            document.getElementById('alarm_confirm_panel').classList.remove('hidden');
-        }
+        });
+    }
 
-        function setAlarm() {
-            $.ajax({
-                url: "/m/product/set_alarm.php",
-                data: {
-                    str_goodcode: '<?= $str_goodcode ?>'
-                },
-                success: function(resultString) {
-                    result = JSON.parse(resultString);
-                    if (result['status'] == 401) {
-                        alert('사용자로그인을 하여야 합니다.');
+    function setProductLike(str_goodcode) {
+        $.ajax({
+            url: "/m/product/set_like.php",
+            data: {
+                str_goodcode: str_goodcode
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
 
-                        const str_url = encodeURIComponent(window.location.pathname + window.location.search);
-                        document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                    const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                    document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                }
+                if (result['status'] == 200) {
+                    if (result['data'] == true) {
+                        $("#is_like_no").hide();
+                        $("#is_like_yes").show();
                     }
-                    if (result['status'] == 200) {
-                        if (result['data'] == true) {
-                            document.getElementById('alarm_confirm_panel').classList.add('hidden');
-                            document.getElementById('alarm_result_dialog').classList.remove('hidden');
-                        }
+                    if (result['data'] == false) {
+                        $("#is_like_no").show();
+                        $("#is_like_yes").hide();
                     }
                 }
-            });
+            }
+        });
+    }
+
+    function addProductBasket(str_goodcode) {
+        if (is_basket) {
+            document.getElementById('basket_dialog').classList.remove('hidden');
+            return;
         }
-    </script>
+        $.ajax({
+            url: "/m/product/set_basket.php",
+            data: {
+                str_goodcode: str_goodcode
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+
+                    const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                    document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                }
+                if (result['status'] == 200) {
+                    if (result['data'] == true) {
+                        is_basket = 1;
+                        document.getElementById('basket_dialog').classList.remove('hidden');
+                    }
+                }
+            }
+        });
+    }
+
+    function scrollToDiv(name) {
+        const element = document.getElementById(name);
+        const topOffset = element.offsetTop - 100;
+        window.scrollTo({
+            top: topOffset,
+            behavior: 'smooth'
+        });
+    }
+
+    window.addEventListener('scroll', function() {
+        var staticMenu = document.getElementById('menu_panel');
+        var topMenu = document.getElementById('top_menu_panel');
+
+        if (isElementHidden(staticMenu)) {
+            topMenu.classList.remove('hidden');
+            setTopMenu();
+        } else {
+            topMenu.classList.add('hidden');
+        }
+    });
+
+    function setTopMenu() {
+        for (var i = 1; i <= 4; i++) {
+            var menu = document.getElementById('menu_div' + i);
+
+            if (menu.getBoundingClientRect().top <= 120) {
+                Alpine.store('detailMenu', i);
+            }
+        }
+    }
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('detailMenu', 0);
+    })
+
+    function isElementHidden(element) {
+        var rect = element.getBoundingClientRect();
+        return rect.bottom <= 100;
+    }
+
+    function showRelativeImage(index) {
+        var imagePanel = document.getElementById('relative_image_panel');
+        imagePanel.classList.remove('hidden');
+        document.getElementById('scrollContainer').scrollLeft = 410 * index;
+    }
+
+    function showAlarmConfirmPanel() {
+        if (<?= $alarm_Data['COUNT'] ?: 0 ?> > 0) {
+            alert('이미 입고알림을 신청하셨습니다.');
+            return;
+        }
+        document.getElementById('alarm_confirm_panel').classList.remove('hidden');
+    }
+
+    function setAlarm() {
+        $.ajax({
+            url: "/m/product/set_alarm.php",
+            data: {
+                str_goodcode: '<?= $str_goodcode ?>'
+            },
+            success: function(resultString) {
+                result = JSON.parse(resultString);
+                if (result['status'] == 401) {
+                    alert('사용자로그인을 하여야 합니다.');
+
+                    const str_url = encodeURIComponent(window.location.pathname + window.location.search);
+                    document.location.href = "/m/memberjoin/login.php?loc=" + str_url;
+                }
+                if (result['status'] == 200) {
+                    if (result['data'] == true) {
+                        document.getElementById('alarm_confirm_panel').classList.add('hidden');
+                        document.getElementById('alarm_result_dialog').classList.remove('hidden');
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+<?php
+$hide_footer_menu = true;
+$show_footer_sbutton = true;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
+?>

@@ -561,7 +561,9 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			infinite: true,
 			slidesToShow: 1,
 			slidesToScroll: 1,
-			dots: true
+			dots: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
 		});
 	});
 </script>

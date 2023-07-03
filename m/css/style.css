@@ -3304,7 +3304,7 @@ video {
   display: flex;
   width: 100% !important;
   height: 1.55px !important;
-  background-color: white;
+  background-color: #C6C6C6;
   margin: 0px !important;
 }
 
@@ -3317,5 +3317,45 @@ video {
 }
 
 .slider-section>button.slick-arrow {
+  display: none !important;
+}
+
+.scroll-section>.slick-list>.slick-track {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.scroll-section>.slick-list>.slick-track>.item {
+  width: 200px!important;
+  height: 304px;
+}
+
+.scroll-section>ul.slick-dots {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: center;
+  bottom: -24px;
+  padding-left: 77px;
+  padding-right: 77px;
+}
+
+.scroll-section>ul.slick-dots>li {
+  display: flex;
+  width: 100% !important;
+  height: 1.55px !important;
+  background-color: #C6C6C6;
+  margin: 0px !important;
+}
+
+.scroll-section>ul.slick-dots>li.slick-active {
+  background-color: black;
+}
+
+.scroll-section>ul.slick-dots>li>button {
+  display: none;
+}
+
+.scroll-section>button.slick-arrow {
   display: none !important;
 }

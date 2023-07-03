@@ -152,7 +152,7 @@
     <div id="menu_div2" class="review-section">
         <p class="title">이미 수많은 회원이 <br />에이블랑 서비스를 이용하고 있어요</p>
         <p class="description">5000개의 리뷰가 검증하는 에이블랑</p>
-        <div class="scroll-div review-list snap-x">
+        <div class="scroll-section review-list">
             <?php
             $SQL_QUERY =    'SELECT 
                                 A.BD_SEQ,
@@ -197,7 +197,7 @@
 
             while ($row = mysql_fetch_assoc($best_review_list_result)) {
             ?>
-                <div class="item snap-center">
+                <div class="item">
                     <div class="image flex items-center justify-center bg-gray-100">
                         <img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
                     </div>
@@ -631,9 +631,18 @@
     </div>
 </div>
 
-<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
-
 <script>
+    $(document).ready(function() {
+		$('.scroll-section').slick({
+			infinite: true,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			dots: true,
+            centerMode: true,
+            variableWidth: true
+		});
+	});
+    
     window.addEventListener('scroll', function() {
         var staticMenu = document.getElementById('menu_panel');
         var topMenu = document.getElementById('top_menu_panel');
@@ -659,3 +668,5 @@
         });
     }
 </script>
+
+<? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php"; ?>
