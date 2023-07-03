@@ -57,7 +57,7 @@ function fnPopup(gbn) {
 			gubun = 'PWCHECK';
 			break;
 	}
-	window.open('nice.php?enc_data=' + enc_data, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+	window.open('nice.php?enc_data=' + enc_data + '&gubun=' + gubun, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }
 
 function setVerifyPhoneNumber(phoneNumber, birthday) {
