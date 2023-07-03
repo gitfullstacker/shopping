@@ -2,6 +2,7 @@
 <?
 $enc_data = Fnc_Om_Conv_Default($_REQUEST['enc_data'], "");
 $gubun = Fnc_Om_Conv_Default($_REQUEST['gubun'], "");
+exit;
 ?>
 <html>
 
