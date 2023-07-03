@@ -676,8 +676,8 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                                 <div class="flex justify-between w-full px-[7px] absolute left-0">
                                     <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px]"><?= $site_Data['INT_DISCOUNT1'] ? $site_Data['INT_DISCOUNT1'] . '% 할인' : '할인혜택 없음' ?></p>
                                     <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[16px]"><?= $site_Data['INT_DISCOUNT2'] ? $site_Data['INT_DISCOUNT2'] . '% 할인' : '할인혜택 없음' ?></p>
-                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[32px]"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
-                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[46px]"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[31px]"><?= $site_Data['INT_DISCOUNT3'] ? $site_Data['INT_DISCOUNT3'] . '% 할인' : '할인혜택 없음' ?></p>
+                                    <p class="font-bold text-[10px] leading-[11px] text-[#666666] text-center w-[50px] mt-[45px]"><?= $site_Data['INT_DISCOUNT4'] ? $site_Data['INT_DISCOUNT4'] . '% 할인' : '할인혜택 없음' ?></p>
                                 </div>
                                 <hr class="mt-5 border-t-[0.5px] border-[#E0E0E0] w-full" />
                                 <div class="mt-2 flex justify-between w-full px-[7px]">
