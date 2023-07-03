@@ -48,26 +48,24 @@ function verifyPhone(gbn) {
 
 function fnPopup(gbn) {
 	var enc_data = document.form_chk.EncodeData.value;
-	var gubun = '';
+	
 	switch (gbn) {
 		case '1':
-			gubun = 'IDCHECK';
+			document.frm.RetrieveFlag.value = 'IDCHECK';
 			break;
 		case '2':
-			gubun = 'PWCHECK';
+			document.frm.RetrieveFlag.value = 'PWCHECK';
 			break;
 	}
-	window.open('nice.php?enc_data=' + enc_data + '&gubun=' + gubun, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+	
+	window.open('nice.php?enc_data=' + enc_data, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }
 
-function setVerifyPhoneNumber(phoneNumber, gbn) {
+function setVerifyPhoneNumber(phoneNumber) {
 	var phone_array = phoneNumber.split("-");
 	$('#str_hp1').val(phone_array[0]);
 	$('#str_hp2').val(phone_array[1]);
 	$('#str_hp3').val(phone_array[2]);
-
-	document.frm.gbn.value = gbn;
-	document.frm.RetrieveFlag.value = gbn;
 
 	document.frm.action = "idpw_search_proc.php";
 	document.frm.submit();

@@ -20,7 +20,7 @@ $reqseq = "REQ_0123456789";     // 요청 번호, 이는 성공/실패후에 같
 $reqseq = `$cb_encode_path SEQ $sitecode`;
 
 // CheckPlus(본인인증) 처리 후, 결과 데이타를 리턴 받기위해 다음예제와 같이 http부터 입력합니다.
-$returnurl = "//" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_success.php";    // 성공시 이동될 URL
+$returnurl = "//" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_success1.php";    // 성공시 이동될 URL
 $errorurl = "//" . $_SERVER["HTTP_HOST"] . "/m/memberjoin/checkplus_fail.php";        // 실패시 이동될 URL
 
 // reqseq값은 성공페이지로 갈 경우 검증을 위하여 세션에 담아둔다.

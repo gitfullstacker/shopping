@@ -127,20 +127,6 @@
     if ($str_result == "1") {
         $name = iconv("EUC-KR", "UTF-8", $name) ? iconv("EUC-KR", "UTF-8", $name) : $name;
 
-        $Sql_Query =    " SELECT A.STR_USERID FROM `" . $Tname . "comm_member` AS A WHERE STR_HP='" . addHyphen($mobileno) . "' ";
-        $arr_Data = mysql_query($Sql_Query);
-        $arr_Data_Cnt = mysql_num_rows($arr_Data);
-
-        if ($arr_Data_Cnt) {
-    ?>
-            <script language="javascript">
-                alert("핸드폰이 이미 등록되어 있습니다.");
-                window.close();
-            </script>
-        <?
-            exit;
-        }
-
         $_SESSION['USERJ_CERT'] = "M";
         $_SESSION['USERJ_NAME'] = $name;
         $_SESSION['USERJ_HP'] = addHyphen($mobileno);
@@ -150,7 +136,7 @@
 
         <script language="javascript">
             window.close();
-            window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
+            window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>');
         </script>
     <?
         exit;
