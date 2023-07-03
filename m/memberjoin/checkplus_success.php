@@ -127,7 +127,7 @@
     if ($str_result == "1") {
         $name = iconv("EUC-KR", "UTF-8", $name) ? iconv("EUC-KR", "UTF-8", $name) : $name;
 
-        if (!$param_r1) {
+        if ($param_r1 == "") {
             $Sql_Query =    " SELECT A.STR_USERID FROM `" . $Tname . "comm_member` AS A WHERE STR_HP='" . addHyphen($mobileno) . "' ";
             $arr_Data = mysql_query($Sql_Query);
             $arr_Data_Cnt = mysql_num_rows($arr_Data);
@@ -150,14 +150,9 @@
         $_SESSION['USERJ_SEX'] = $gender;
         ?>
 
-        <form id="frm" name="frm" target="_self" method="POST">
-            <input type="hidden" name="str_cert" value="M">
-            <input type="hidden" name="str_name" value="<?= $name ?>">
-            <input type="hidden" name="str_hp" value="<?= addHyphen($mobileno) ?>">
-        </form>
-
         <script language="javascript">
-            window.close();
+            console.log('<?= addHyphen($mobileno) ?>' + ' ' + '<?= $birthdate ?>')
+            // window.close();
             window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
         </script>
     <?

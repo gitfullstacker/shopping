@@ -62,7 +62,7 @@ function fnPopup(gbn) {
 
 function setVerifyPhoneNumber(phoneNumber, birthday) {
 	var phone_array = phoneNumber.split("-");
-
+	console.log(phoneNumber)
 	$('#str_hp1').val(phone_array[0]);
 	$('#str_hp2').val(phone_array[1]);
 	$('#str_hp3').val(phone_array[2]);
