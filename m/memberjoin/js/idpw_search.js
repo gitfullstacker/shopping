@@ -62,12 +62,11 @@ function fnPopup(gbn) {
 }
 
 function setVerifyPhoneNumber(phoneNumber) {
-	console.log(phoneNumber);
 	var phone_array = phoneNumber.split("-");
-	console.log(phone_array);
-	$('#str_hp1').val(phone_array[0]);
-	$('#str_hp2').val(phone_array[1]);
-	$('#str_hp3').val(phone_array[2]);
+
+	document.frm.str_hp1.value = phone_array[0];
+	document.frm.str_hp2.value = phone_array[1];
+	document.frm.str_hp3.value = phone_array[2];
 
 	document.frm.action = "idpw_search_proc.php";
 	document.frm.submit();
