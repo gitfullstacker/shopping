@@ -47,8 +47,9 @@ function verifyPhone(gbn) {
 }
 
 function fnPopup(gbn) {
-	var enc_data = document.form_chk.EncodeData.value;
+	var enc_data = document.forms[0].EncodeData.value;
 	var gubun = '';
+
 	switch (gbn) {
 		case '1':
 			gubun = 'IDCHECK';
@@ -56,8 +57,13 @@ function fnPopup(gbn) {
 		case '2':
 			gubun = 'PWCHECK';
 			break;
+		default:
+			// Handle any other cases if needed
+			break;
 	}
-	window.open('nice.php?gubun=' + gubun + '&enc_data=' + enc_data, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+
+	var url = 'nice.php?enc_data=' + encodeURIComponent(enc_data) + '&gubun=' + encodeURIComponent(gubun);
+	window.open(url, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }
 
 function setVerifyPhoneNumber(phoneNumber, birthday) {
