@@ -35,3 +35,21 @@ sliders.forEach((slider) => {
   slider.addEventListener('mouseup', stopDragging, false);
   slider.addEventListener('mouseleave', stopDragging, false);
 });
+
+$('.my_slider').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  dots: true,
+  infinite: true,
+  adaptiveHeight: true,
+  arrows: false
+}).on('wheel', (function (e) {
+  e.preventDefault();
+  if (e.originalEvent.deltaY < 0) {
+    $(this).slick('slickNext');
+  } else {
+    $(this).slick('slickPrev');
+  }
+}));

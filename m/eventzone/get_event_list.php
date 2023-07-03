@@ -1,5 +1,4 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
-<script language="javascript" src="js/common.js"></script>
 
 <?php
 $per_page = 4;

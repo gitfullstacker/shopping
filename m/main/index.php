@@ -4,8 +4,6 @@ $topmenu = 1;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
 ?>
 
-<script src="js/index.js" defer></script>
-
 <?php
 // 금액정보얻기
 $SQL_QUERY =    'SELECT
@@ -21,11 +19,10 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 //구독멤버십 여부확인
 $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 ?>
-
 <!-- 슬라이더 -->
-<div class="flex w-full overflow-hidden">
+<div class="slider-section">
 	<?php
-	$SQL_QUERY =     'SELECT 
+	$SQL_QUERY =    'SELECT 
 						A.*
 					FROM 
 						' . $Tname . 'comm_banner A
@@ -36,53 +33,15 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 
 	$home_banner_list_result = mysql_query($SQL_QUERY);
 	?>
-	<div x-data="{
-			imageCount: 3,
-			slider: 1,
-			containerWidth: 0,
-			handleScroll() {
-				const scrollPosition = this.$refs.sliderContainer.scrollLeft;
-				const slider = Math.round(scrollPosition / this.containerWidth) + 1;
-				
-				this.slider = slider;
-			},
-			init() {
-				this.imageCount = this.$refs.sliderContainer.children.length;
-				setInterval(() => {
-					this.imageCount = this.$refs.sliderContainer.children.length;
-					this.containerWidth = this.$refs.sliderContainer.offsetWidth;
-
-					nextSlider = 0;
-					if (this.slider + 1 > this.imageCount) {
-						nextSlider = 1;
-					} else {
-						nextSlider = this.slider + 1;
-					}
-
-					this.$refs.sliderContainer.scrollTo({
-						left: (nextSlider - 1) * this.containerWidth,
-						behavior: 'smooth'
-					});
-				}, 3000);
-			}
-		}" class="flex w-full relative">
-		<div class="scroll-div flex overflow-x-auto snap-x custom-scrollbar" x-ref="sliderContainer" x-on:scroll="handleScroll">
-			<?php
-			while ($row = mysql_fetch_assoc($home_banner_list_result)) {
-			?>
-				<a href="<?= $row['STR_URL1'] ?>" class="flex-none snap-normal snap-center max-w-[410px] min-w-full h-[467px] bg-gray-100">
-					<img class="min-w-full h-full" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
-				</a>
-			<?php
-			}
-			?>
-		</div>
-		<div class="absolute w-full flex justify-center px-[77px] bottom-[14.45px]">
-			<div class="flex w-full bg-[#C6C6C6] h-[1.55px]">
-				<div class="h-[1.55px] bg-black" x-bind:class="slider == imageCount ? 'w-full' : 'w-[' + slider/imageCount * 100 + '%]'"></div>
-			</div>
-		</div>
-	</div>
+	<?php
+	while ($row = mysql_fetch_assoc($home_banner_list_result)) {
+	?>
+		<a href="<?= $row['STR_URL1'] ?: '#' ?>">
+			<img class="min-w-full max-w-full w-full h-[467px]" src="/admincenter/files/bann/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="">
+		</a>
+	<?php
+	}
+	?>
 </div>
 
 <!-- 안내메뉴 -->
@@ -595,6 +554,17 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 		<p class="font-bold text-[11px] leading-[12px]">더 많은 리뷰 보러가기</p>
 	</a>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('.slider-section').slick({
+			infinite: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			dots: true
+		});
+	});
+</script>
 
 <?php
 $show_footer_hbutton = true;
