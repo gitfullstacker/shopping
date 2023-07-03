@@ -49,7 +49,6 @@ function verifyPhone(gbn) {
 function fnPopup(gbn) {
 	var enc_data = document.form_chk.EncodeData.value;
 	var gubun = '';
-
 	switch (gbn) {
 		case '1':
 			gubun = 'IDCHECK';
@@ -57,28 +56,19 @@ function fnPopup(gbn) {
 		case '2':
 			gubun = 'PWCHECK';
 			break;
-		default:
-			// Handle any other cases if needed
-			break;
 	}
-
-	var url = 'nice.php?enc_data=' + encodeURIComponent(enc_data) + '&gubun=' + encodeURIComponent(gubun);
-	window.open(url, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+	window.open('nice.php?enc_data=' + enc_data + '&gubun=' + gubun, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 }
 
-function setVerifyPhoneNumber(phoneNumber, birthday) {
+function setVerifyPhoneNumber(phoneNumber, gbn) {
 	var phone_array = phoneNumber.split("-");
-	console.log(phoneNumber)
 	$('#str_hp1').val(phone_array[0]);
 	$('#str_hp2').val(phone_array[1]);
 	$('#str_hp3').val(phone_array[2]);
 
 	document.frm.gbn.value = gbn;
-	if (gbn == "1") {
-		document.frm.RetrieveFlag.value = "IDCHECK";
-	} else {
-		document.frm.RetrieveFlag.value = "PWCHECK";
-	}
+	document.frm.RetrieveFlag.value = gbn;
+
 	document.frm.action = "idpw_search_proc.php";
 	document.frm.submit();
 }

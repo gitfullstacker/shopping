@@ -2,7 +2,6 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php"; ?>
 <?
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag], "");
-$gbn = Fnc_Om_Conv_Default($_REQUEST[gbn], "");
 $str_name = Fnc_Om_Conv_Default($_REQUEST[str_name], "");
 $str_hp = Fnc_Om_Conv_Default($_REQUEST[str_hp1], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_hp2], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_hp3], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST[str_userid], "");

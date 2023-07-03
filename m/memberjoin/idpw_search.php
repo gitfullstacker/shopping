@@ -55,7 +55,6 @@ if ($enc_data == -1) {
 <div x-data="{ menu: <?= $menu ?>, idStep: <?= $id_step ?>, pwdStep: <?= $pwd_step ?> }" class="mt-[30px] mb-[100px] flex flex-col w-full px-[14px]">
 	<form class="flex flex-col items-center" id="frm" name="frm" method="POST">
 		<input type="hidden" name="RetrieveFlag">
-		<input type="hidden" name="gbn">
 		<input type="hidden" name="str_hp1">
 		<input type="hidden" name="str_hp2">
 		<input type="hidden" name="str_hp3">
