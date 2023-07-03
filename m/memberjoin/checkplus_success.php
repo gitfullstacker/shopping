@@ -88,6 +88,7 @@
                 $conninfo = "";
                 $mobileno = "";
                 $mobileco = "";
+                exit;
             }
         }
     }
@@ -151,8 +152,7 @@
         ?>
 
         <script language="javascript">
-            console.log('<?= addHyphen($mobileno) ?>' + ' ' + '<?= $birthdate ?>')
-            // window.close();
+            window.close();
             if (<?= $param_r1 == '' ? 'true' : 'false' ?>) {
                 window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
             } else {
