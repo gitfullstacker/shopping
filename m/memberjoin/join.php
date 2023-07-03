@@ -7,8 +7,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 <script language="javascript" src="js/join.js"></script>
 
 <?php
-$_SESSION['PHONE_VERIFY'] = 'JOIN';
-
 $authtype = "M";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
 $popgubun     = "N";        //Y : 취소버튼 있음 / N : 취소버튼 없음

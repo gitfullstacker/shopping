@@ -10,12 +10,6 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], 1);
 $id_step = Fnc_Om_Conv_Default($_REQUEST['id_step'], 1);
 $pwd_step = Fnc_Om_Conv_Default($_REQUEST['pwd_step'], 1);
 
-$str_userid = Fnc_Om_Conv_Default($_REQUEST[str_userid], "");
-$str_rname = Fnc_Om_Conv_Default($_REQUEST[str_rname], "");
-$str_rhp = Fnc_Om_Conv_Default($_REQUEST[str_rhp1], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_rhp2], "") . "-" . Fnc_Om_Conv_Default($_REQUEST[str_rhp3], "");
-
-$_SESSION['PHONE_VERIFY'] = 'JOIN';
-
 $authtype = "M";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
 $popgubun     = "N";        //Y : 취소버튼 있음 / N : 취소버튼 없음
