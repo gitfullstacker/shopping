@@ -47,7 +47,7 @@ function verifyPhone(gbn) {
 }
 
 function fnPopup(gbn) {
-	var enc_data = document.forms[0].EncodeData.value;
+	var enc_data = document.form_chk.EncodeData.value;
 	var gubun = '';
 
 	switch (gbn) {
