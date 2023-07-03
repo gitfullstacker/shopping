@@ -22,6 +22,8 @@ switch ($RetrieveFlag) {
 						STR_SERVICE='Y' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
+		var_dump($SQL_QUERY);
+		exit;
 		$rcd_cnt = mysql_num_rows($arr_sub_Data);
 
 		if (!($rcd_cnt)) {
