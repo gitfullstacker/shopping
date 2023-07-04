@@ -66,7 +66,7 @@ if ($end_page > 0) {
                 $str_delivery_status = '배송중';
                 break;
             case 4:
-                if ($arr_Data['INT_TYPE'] == 3) {
+                if ($row['INT_TYPE'] == 3) {
                     $str_delivery_status = '배송완료';
                 } else {
                     $str_delivery_status = '이용중';
