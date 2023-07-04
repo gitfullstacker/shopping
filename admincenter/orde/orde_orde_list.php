@@ -24,6 +24,10 @@ if ($Txt_gbn == "1") {
 	$Str_Query .= " and a.int_state in ('5','10','11') ";
 }
 
+if ($int_type) {
+	$Str_Query .= " and c.int_type=" . $int_type . " ";
+}
+
 if ($Txt_state != "") {
 	$Str_Query .= " and a.int_state = '$Txt_state' ";
 }
@@ -61,7 +65,7 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode where a.int_number is not null and a.int_state not in ('0') and c.int_type=" . $int_type . " ";
+$SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode where a.int_number is not null and a.int_state not in ('0') ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -93,7 +97,7 @@ $l_limit = $last + 1;
 $SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode  ";
-$SQL_QUERY .= "where a.int_number is not null and a.int_state not in ('0') and c.int_type=" . $int_type . " ";
+$SQL_QUERY .= "where a.int_number is not null and a.int_state not in ('0') ";
 $SQL_QUERY .= $Str_Query;
 if ($Txt_gbn == "1") {
 	$SQL_QUERY .= "order by a.dtm_indate desc ";
