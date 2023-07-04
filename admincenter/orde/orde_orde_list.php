@@ -226,16 +226,28 @@ $total_record_limit = mysql_num_rows($result);
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=12></td>
+										<td class=rnd colspan="<?= $int_type != 3 ? '12' : '10' ?>"></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
 										<th>아이디</th>
 										<th>이름</th>
 										<th>상품</th>
-										<th>기간</th>
+										<?php
+										if ($int_type != 3) {
+										?>
+											<th>기간</th>
+										<?php
+										}
+										?>
 										<th>핸드폰</th>
-										<th>반납일자</th>
+										<?php
+										if ($int_type != 3) {
+										?>
+											<th>반납일자</th>
+										<?php
+										}
+										?>
 										<th>상태</th>
 										<th>입고알림</th>
 										<th>등록일</th>
@@ -243,15 +255,27 @@ $total_record_limit = mysql_num_rows($result);
 										<th>선택</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=12></td>
+										<td class=rnd colspan="<?= $int_type != 3 ? '12' : '10' ?>"></td>
 									</tr>
 									<col width=4% align=center>
 									<col width=7% align=center>
 									<col width=11% align=center>
 									<col width=16% align=left>
-									<col width=15% align=left>
+									<?php
+									if ($int_type != 3) {
+									?>
+										<col width=15% align=left>
+									<?php
+									}
+									?>
 									<col width=5% align=center>
-									<col width=8% align=center>
+									<?php
+									if ($int_type != 3) {
+									?>
+										<col width=8% align=center>
+									<?php
+									}
+									?>
 									<col width=8% align=center>
 									<col width=8% align=center>
 									<col width=10% align=center>
@@ -292,9 +316,21 @@ $total_record_limit = mysql_num_rows($result);
 															</b></font>
 													</span></td>
 												<td style="text-align:left;">[<?= mysql_result($result, $i, str_usercode) ?>] <?= mysql_result($result, $i, str_goodname) ?></td>
-												<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?></td>
+												<?php
+												if ($int_type != 3) {
+												?>
+													<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?></td>
+												<?php
+												}
+												?>
 												<td><?= mysql_result($result, $i, member_hp) ?></td>
-												<td><?= mysql_result($result, $i, str_rdate) ?></td>
+												<?php
+												if ($int_type != 3) {
+												?>
+													<td><?= mysql_result($result, $i, str_rdate) ?></td>
+												<?php
+												}
+												?>
 												<td>
 													<select name="int_state" onchange="fnc_state('<?= mysql_result($result, $i, int_number) ?>',this.value)">
 														<option value="1" <? if (mysql_result($result, $i, int_state) == "1") { ?>selected<? } ?>> 접수 </option>
@@ -350,7 +386,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=12 style="padding-top:0px;padding-bottom:5px;">
+												<td colspan="<?= $int_type != 3 ? '12' : '10' ?>" style="padding-top:0px;padding-bottom:5px;">
 													<table class=tb>
 														<col class=cellC style="width:10%">
 														<col class=cellL style="width:40%">
@@ -370,7 +406,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 											</tr>
 											<tr>
-												<td colspan=12 class=rndline></td>
+												<td colspan="<?= $int_type != 3 ? '12' : '10' ?>" class=rndline></td>
 											</tr>
 
 											<? $count++; ?>
