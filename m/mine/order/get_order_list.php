@@ -30,7 +30,7 @@ $start_page = max(1, $page - 2);
 $end_page = min($start_page + 4, $last_page);
 
 $SQL_QUERY =    'SELECT 
-                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.INT_STATE AS ORDER_STATE, A.DTM_INDATE AS ORDER_DATE, A.STR_DELICODE, B.*, C.STR_CODE, (SELECT IFNULL(COUNT(E.BD_SEQ), 0) FROM `' . $Tname . 'b_bd_data@01` E WHERE E.INT_CART = A.INT_NUMBER) AS BD_COUNT
+                    A.INT_NUMBER, A.STR_SDATE, A.STR_EDATE, A.INT_STATE AS ORDER_STATE, A.DTM_INDATE AS ORDER_DATE, A.DTM_EDIT_DATE, A.STR_DELICODE, B.*, C.STR_CODE, (SELECT IFNULL(COUNT(E.BD_SEQ), 0) FROM `' . $Tname . 'b_bd_data@01` E WHERE E.INT_CART = A.INT_NUMBER) AS BD_COUNT
                 FROM 
                     ' . $Tname . 'comm_goods_cart A
                 LEFT JOIN
