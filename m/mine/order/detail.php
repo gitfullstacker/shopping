@@ -184,7 +184,10 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                             <div class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog()">
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                             </div>
-                            <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder()">
+                                <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
+                            </button>
+                            <a href="/m/mine/question/create.php?int_cart=<?= $arr_Data['INT_NUMBER'] ?>" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                             </a>
                         <?php
