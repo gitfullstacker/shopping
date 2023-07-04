@@ -88,7 +88,7 @@ if ($end_page > 0) {
                     <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                     </a>
-                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(' . $row['INT_NUMBER'] . ', ' . $row['INT_TYPE'] . ')">
+                    <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="cancelOrder(\'' . $row['INT_NUMBER'] . '\', ' . $row['INT_TYPE'] . ')">
                         <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">취소 신청</p>
                     </button>
                 ';
@@ -119,7 +119,7 @@ if ($end_page > 0) {
                         <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                         </button>
-                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(' . $row['INT_NUMBER'] . ')">
+                        <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="returnOrder(\'' . $row['INT_NUMBER'] . '\')">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">반납 신청</p>
                         </button>
                         <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
