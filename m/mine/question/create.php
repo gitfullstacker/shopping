@@ -101,20 +101,28 @@ if ($int_cart) {
         <div class="flex flex-col gap-[5px]">
             <p class="font-bold text-sm leading-4 text-black">상담분류</p>
             <div class="relative w-full">
-                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type" <?= $int_type ? 'readonly' : '' ?>>
-                    <option value="" selected>선택 안함</option>
-                    <option value="1">교환</option>
-                    <option value="2">환불</option>
-                    <option value="3">취소(출하전 취소)</option>
-                    <option value="4">배송</option>
-                    <option value="5">불량/AS</option>
-                    <option value="6">주문/결제</option>
-                    <option value="7">상품/재입고</option>
-                    <option value="8">적립금</option>
-                    <option value="9">회원 관련</option>
-                    <option value="10">기타 문의</option>
-                    <option value="11">신고</option>
-                    <option value="12" <?= $int_type == '12' ? 'selected' : '' ?>>기간 연장</option>
+                <select class="w-full h-[45px] px-[15px] bg-white border border-solid border-[#DDDDDD] font-normal text-xs leading-[14px] text-[#999999]" name="int_type" id="int_type">
+                    <?php
+                    if ($int_type) {
+                    ?>
+                        <option value="12" selected>기간 연장</option>
+                    <?php
+                    } else {
+                    ?>
+                        <option value="" selected>선택 안함</option>
+                        <option value="1">교환</option>
+                        <option value="2">환불</option>
+                        <option value="3">취소(출하전 취소)</option>
+                        <option value="4">배송</option>
+                        <option value="5">불량/AS</option>
+                        <option value="6">주문/결제</option>
+                        <option value="7">상품/재입고</option>
+                        <option value="8">적립금</option>
+                        <option value="9">회원 관련</option>
+                        <option value="10">기타 문의</option>
+                        <option value="11">신고</option>
+                    <?php
+                    } ?>
                 </select>
                 <span class="absolute top-5 right-[19px]">
                     <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
