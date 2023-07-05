@@ -22,7 +22,7 @@ switch ($RetrieveFlag) {
 						STR_SERVICE='Y' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$user_Data = mysql_result($arr_sub_Data);
+		$user_Data = mysql_fetch_assoc($arr_sub_Data);
 		$rcd_cnt = mysql_num_rows($arr_sub_Data);
 
 		if (!($rcd_cnt)) {
@@ -41,7 +41,7 @@ switch ($RetrieveFlag) {
 		?>
 			<script language="javascript">
 				// alert("회원님의 이메일로 아이디를 발송해 드렸습니다.");
-				window.location.href = "idpw_search.php?menu=1&id_step=2&user_id=" + "<?= $user_Data['STR_USERID'] ?>";
+				window.location.href = "idpw_search.php?menu=1&id_step=2&user_id=<?= $user_Data['STR_USERID'] ?>";
 			</script>
 		<?
 			exit;
