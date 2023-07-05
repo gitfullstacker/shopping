@@ -9,6 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], 1);
 $id_step = Fnc_Om_Conv_Default($_REQUEST['id_step'], 1);
 $pwd_step = Fnc_Om_Conv_Default($_REQUEST['pwd_step'], 1);
+$user_id = Fnc_Om_Conv_Default($_REQUEST['user_id'], '');
 
 $authtype = "M";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
@@ -78,8 +79,8 @@ if ($enc_data == -1) {
 			</div>
 			<div x-show="idStep == 2" class="flex flex-col gap-7 w-full" id="search_id_result_panel">
 				<p class="font-medium text-[15px] leading-[22px] text-[#6A696C] text-center">
-					회원님의 이메일로 아이디를 발송했습니다.<br>
-					<span class="text-black">메일</span>을 확인해주세요.
+					휴대폰 인증이 완료되었습니다.<br>
+					고객님의 아이디는 <span class="text-black"><?= $user_id ?></span> 입니다.
 				</p>
 				<a href="/m/memberjoin/login.php" type="button" class="mt-[5px] flex justify-center items-center w-full h-[50px] bg-black border-[0.72px] border-[#DDDDDD]">
 					<p class="font-bold text-xs leading-[14px] text-white">로그인 바로가기</p>

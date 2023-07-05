@@ -22,9 +22,9 @@ switch ($RetrieveFlag) {
 						STR_SERVICE='Y' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$rcd_cnt = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_num_rows($arr_sub_Data);
 
-		if (!($rcd_cnt)) {
+		if (!($user_Data)) {
 ?>
 			<script language="javascript">
 				alert("회원정보가 일치하지 않습니다.");
@@ -36,11 +36,11 @@ switch ($RetrieveFlag) {
 			$snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_id.html?str_name=" . urlencode(mysql_result($arr_sub_Data, 0, STR_NAME)) . "&str_userid=" . urlencode(mysql_result($arr_sub_Data, 0, STR_USERID)));
 			$body = $snoopy->results;
 
-			Fnc_Om_Sendmail("회원님께서 요청하신 아이디를 알려드립니다.", $body, Fnc_Om_Store_Info(2), mysql_result($arr_sub_Data, 0, STR_EMAIL));
+			// Fnc_Om_Sendmail("회원님께서 요청하신 아이디를 알려드립니다.", $body, Fnc_Om_Store_Info(2), mysql_result($arr_sub_Data, 0, STR_EMAIL));
 		?>
 			<script language="javascript">
 				// alert("회원님의 이메일로 아이디를 발송해 드렸습니다.");
-				window.location.href = "idpw_search.php?menu=1&id_step=2";
+				window.location.href = "idpw_search.php?menu=1&id_step=2&user_id=" + "<?= $user_Data['STR_USERID'] ?>";
 			</script>
 		<?
 			exit;
@@ -59,9 +59,9 @@ switch ($RetrieveFlag) {
 						STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$rcd_cnt = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_num_rows($arr_sub_Data);
 
-		if (!($rcd_cnt)) {
+		if (!($user_Data)) {
 		?>
 			<script language="javascript">
 				alert("회원정보가 일치하지 않습니다.");
@@ -90,9 +90,9 @@ switch ($RetrieveFlag) {
 							STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$rcd_cnt = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_num_rows($arr_sub_Data);
 
-		if (!($rcd_cnt)) {
+		if (!($user_Data)) {
 		?>
 			<script language="javascript">
 				alert("회원정보가 일치하지 않습니다.");
