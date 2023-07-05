@@ -8,27 +8,27 @@ $amount = Fnc_Om_Conv_Default($_REQUEST['amount'], "0");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 
+$SQL_QUERY =    'SELECT
+                    A.*, B.INT_TYPE
+                FROM 
+                    ' . $Tname . 'comm_goods_cart AS A
+                LEFT JOIN
+                    ' . $Tname . 'comm_goods_master AS B
+                ON
+                    A.STR_GOODCODE = B.STR_GOODCODE
+                WHERE
+                    A.INT_NUMBER="' . $ordr_idxx . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+
+$cart_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 if ($res_cd == "0000") {
-    $SQL_QUERY =    'SELECT
-                        A.*, B.INT_TYPE
-                    FROM 
-                        ' . $Tname . 'comm_goods_cart AS A
-                    LEFT JOIN
-                        ' . $Tname . 'comm_goods_master AS B
-                    ON
-                        A.STR_GOODCODE = B.STR_GOODCODE
-                    WHERE
-                        A.INT_NUMBER="' . $ordr_idxx . '"';
-
-    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-
-    if (!$arr_Rlt_Data) {
-        echo 'Could not run query: ' . mysql_error();
-        exit;
-    }
-
-    $cart_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
     // 사용자정보 얻기
     $SQL_QUERY =    'SELECT
                         A.*
