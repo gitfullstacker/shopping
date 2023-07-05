@@ -243,6 +243,9 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 																	case 11:
 																		$int_type_str = '[신고]';
 																		break;
+																	case 12:
+																		$int_type_str = '[기간 연장]';
+																		break;
 																}
 																?>
 																<?= $int_type_str . ' ' . str_replace(chr(13), "<br>", Fnc_Om_Conv_Default(mysql_result($result, $i, str_cont), "")) ?>

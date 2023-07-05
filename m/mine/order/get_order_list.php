@@ -131,7 +131,10 @@ if ($end_page > 0) {
                         <button class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]" onclick="openDeliveryDialog(\'' . $row['STR_DELICODE'] . '\');">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">배송 조회</p>
                         </button>
-                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '&int_type=12" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">기간 연장</p>
+                        </a>
+                        <a href="/m/mine/question/create.php?int_cart=' . $row['INT_NUMBER'] . '" class="w-full h-10 flex justify-center items-center bg-white border border-solid border-[#DDDDDD] rounded-[3px] col-span-2">
                             <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">1:1 문의</p>
                         </a>
                     ';
