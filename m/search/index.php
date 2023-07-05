@@ -33,9 +33,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header.php";
                 <?php
                 foreach ($searchHistory as $key => $value) {
                 ?>
-                    <button class="flex flex-col gap-0.5 px-3 py-[7px] bg-[#F8F8F8]" onclick="searchByKey('<?= $value ?>')">
-                        <p class="font-bold text-xs leading-[14px] text-black"><?= $value ?></p>
-                    </button>
+                    <div class="flex w-full <?= $key % 2 == 1 ? 'border-l border-black' : '' ?>">
+                        <button class="flex flex-col gap-0.5 px-3 py-[7px] w-full" onclick="searchByKey('<?= $value ?>')">
+                            <p class="font-bold text-xs leading-[14px] text-black"><?= $value ?></p>
+                        </button>
+                    </div>
                 <?php
                 }
                 ?>
