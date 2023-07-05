@@ -260,7 +260,7 @@ if ($int_type != 1) {
             <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
             <input type="hidden" name="good_mny" value="<?= $total_price ?>">
             <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-            <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
+            <input type="hidden" name="buyr_mail" value="">
             <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
             <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
             <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
