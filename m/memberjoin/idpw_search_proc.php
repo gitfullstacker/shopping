@@ -32,9 +32,11 @@ switch ($RetrieveFlag) {
 			</script>
 		<?
 		} else {
-			$snoopy = new snoopy;
-			$snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_id.html?str_name=" . urlencode(mysql_result($arr_sub_Data, 0, STR_NAME)) . "&str_userid=" . urlencode(mysql_result($arr_sub_Data, 0, STR_USERID)));
-			$body = $snoopy->results;
+var_dump($user_Data);
+exit;
+			// $snoopy = new snoopy;
+			// $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_id.html?str_name=" . urlencode(mysql_result($arr_sub_Data, 0, STR_NAME)) . "&str_userid=" . urlencode(mysql_result($arr_sub_Data, 0, STR_USERID)));
+			// $body = $snoopy->results;
 
 			// Fnc_Om_Sendmail("회원님께서 요청하신 아이디를 알려드립니다.", $body, Fnc_Om_Store_Info(2), mysql_result($arr_sub_Data, 0, STR_EMAIL));
 		?>
