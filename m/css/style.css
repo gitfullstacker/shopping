@@ -3327,7 +3327,7 @@ video {
 }
 
 .scroll-section>.slick-list>.slick-track>.item {
-  width: 200px!important;
+  width: 200px !important;
   height: 304px;
 }
 
@@ -3358,4 +3358,13 @@ video {
 
 .scroll-section>button.slick-arrow {
   display: none !important;
+}
+
+*::-webkit-scrollbar {
+  width: 3px;
+  background-color: white;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: rgb(197, 197, 197);
 }
