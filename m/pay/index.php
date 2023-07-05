@@ -199,8 +199,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
     <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
 
-    <input type="hidden" name="good_mny" x-bind:value="payAmount.totalPrice">
-    <input type="hidden" name="total_price" x-bind:value="payAmount.totalPrice">
+    <input type="hidden" name="total_price" id="total_price" x-bind:value="payAmount.totalPrice">
     <input type="hidden" name="price" x-bind:value="payAmount.price">
     <input type="hidden" name="discount_product" x-bind:value="payAmount.discount.product">
     <input type="hidden" name="discount_area" x-bind:value="payAmount.discount.area">
@@ -845,6 +844,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         if (!checkbox1 || !checkbox2) {
             event.preventDefault(); // Prevent the default redirect behavior
             alert('약관동의에 동의하셔야 합니다.');
+            return false;
+        }
+
+        var total_price = $('#total_price').val();
+        if (total_price <= 0) {
+            alert('상품가격을 다시 확인해주십시요.');
             return false;
         }
 
