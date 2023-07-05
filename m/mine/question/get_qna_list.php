@@ -80,6 +80,9 @@ if ($end_page > 0) {
             case 11:
                 $type_name = '신고';
                 break;
+            case 12:
+                $type_name = '기간 연장';
+                break;
         }
 
         $result .= '

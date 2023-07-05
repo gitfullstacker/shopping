@@ -75,6 +75,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     case 11:
                         $type_name = '신고';
                         break;
+                    case 12:
+                        $type_name = '기간 연장';
+                        break;
                 }
                 ?>
                 <p class="font-bold text-xs leading-[14px] text-[#666666]">[<?= $type_name ?>]</p>
