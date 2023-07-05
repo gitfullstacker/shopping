@@ -22,7 +22,7 @@ switch ($RetrieveFlag) {
 						STR_SERVICE='Y' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$user_Data = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_query($arr_sub_Data);
 
 		if (!($user_Data)) {
 ?>
@@ -32,8 +32,6 @@ switch ($RetrieveFlag) {
 			</script>
 		<?
 		} else {
-var_dump($user_Data);
-exit;
 			// $snoopy = new snoopy;
 			// $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing_id.html?str_name=" . urlencode(mysql_result($arr_sub_Data, 0, STR_NAME)) . "&str_userid=" . urlencode(mysql_result($arr_sub_Data, 0, STR_USERID)));
 			// $body = $snoopy->results;
@@ -61,7 +59,7 @@ exit;
 						STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$user_Data = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_query($arr_sub_Data);
 
 		if (!($user_Data)) {
 		?>
@@ -92,7 +90,7 @@ exit;
 							STR_HP='$str_hp' ";
 
 		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$user_Data = mysql_num_rows($arr_sub_Data);
+		$user_Data = mysql_query($arr_sub_Data);
 
 		if (!($user_Data)) {
 		?>
