@@ -9,7 +9,7 @@ $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], '');
 
 // 상품정보 얻기
 $SQL_QUERY =    'SELECT
-                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE, C.STR_CODE AS STR_BRAND
+                    A.*, B.INT_TYPE, B.STR_IMAGE1, B.STR_GOODNAME, B.INT_PRICE AS PROD_PRICE, C.STR_CODE AS STR_BRAND
                 FROM 
                     ' . $Tname . 'comm_goods_cart AS A
                 LEFT JOIN
@@ -75,15 +75,15 @@ $product_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     break;
                 case 2:
                 ?>
-                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= $product_Data['INT_PRICE'] ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>">일 <?= $product_Data['PROD_PRICE'] ?>원</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#00402F]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?> 일</span> <?= number_format($product_Data['PROD_PRICE'] - $product_Data['PROD_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
                     <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#999999]">ㄴ기간: <?= date('Y.m.d', strtotime($product_Data['STR_SDATE'])) ?> ~ <?= date('Y.m.d', strtotime($product_Data['STR_EDATE'])) ?></p>
                 <?php
                     break;
                 case 3:
                 ?>
-                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['INT_PRICE'] ?>원</p>
-                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?></span> <?= number_format($product_Data['INT_PRICE'] - $product_Data['INT_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
+                    <p class="mt-2.5 font-medium text-xs leading-[14px] text-[#999999] line-through <?= $product_Data['INT_DISCOUNT'] ? '' : 'hidden' ?>"><?= $product_Data['PROD_PRICE'] ?>원</p>
+                    <p class="mt-1.5 font-bold text-xs leading-[14px] text-black"><span class="text-[#7E6B5A]"><?= $product_Data['INT_DISCOUNT'] ? $product_Data['INT_DISCOUNT'] . '%' : '' ?></span> <?= number_format($product_Data['PROD_PRICE'] - $product_Data['PROD_PRICE'] * $product_Data['INT_DISCOUNT'] / 100) ?>원</p>
             <?php
                     break;
             }
