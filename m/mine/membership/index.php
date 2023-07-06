@@ -17,7 +17,8 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     A.STR_USERID = "' . $arr_Auth[0] . '"
 					AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
-					AND A.INT_TYPE = 1';
+					AND A.INT_TYPE = 1
+                    AND A.STR_PASS = "0"';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $subscription_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -30,7 +31,8 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     A.STR_USERID = "' . $arr_Auth[0] . '"
                     AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
-                    AND A.INT_TYPE = 2';
+                    AND A.INT_TYPE = 2
+                    AND A.STR_PASS = "0"';
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);

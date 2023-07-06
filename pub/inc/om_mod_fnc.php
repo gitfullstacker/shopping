@@ -1218,7 +1218,8 @@ function fnc_sub_member_info($user_id = null)
 					WHERE 
 						A.STR_USERID = "' . $arr_Auth[0] . '"
 						AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
-						AND A.INT_TYPE = 1';
+						AND A.INT_TYPE = 1
+						AND A.STR_PASS = "0"';
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$arr_To_Data_Cnt = mysql_num_rows($arr_To_Data);
@@ -1238,7 +1239,8 @@ function fnc_ren_member_info($user_id = null)
 					WHERE 
 						A.STR_USERID = "' . $arr_Auth[0] . '"
 						AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE
-						AND A.INT_TYPE = 2';
+						AND A.INT_TYPE = 2
+						AND A.STR_PASS = "0"';
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$arr_To_Data_Cnt = mysql_num_rows($arr_To_Data);

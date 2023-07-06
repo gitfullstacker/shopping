@@ -96,12 +96,14 @@ $SQL_QUERY = 	"select
 					a.str_userid = b.str_userid
 					AND NOW() BETWEEN b.dtm_sdate AND b.dtm_edate
 					AND b.int_type = 1
+					AND b.str_pass = '0'
 				LEFT JOIN 
 					" . $Tname . "comm_membership c 
 				ON
 					a.str_userid = c.str_userid
 					AND NOW() BETWEEN c.dtm_sdate AND c.dtm_edate
 					AND c.int_type = 2
+					AND c.str_pass = '0'
 				where a.int_gubun<=2 ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
@@ -140,12 +142,14 @@ $SQL_QUERY = 	"SELECT a.*, ifnull(b.int_number, 0) as sub_int, ifnull(c.int_numb
 					a.str_userid = b.str_userid
 					AND NOW() BETWEEN b.dtm_sdate AND b.dtm_edate
 					AND b.int_type = 1
+					AND b.str_pass = '0'
 				LEFT JOIN 
 					" . $Tname . "comm_membership c 
 				ON
 					a.str_userid = c.str_userid
 					AND NOW() BETWEEN c.dtm_sdate AND c.dtm_edate
 					AND c.int_type = 2
+					AND c.str_pass = '0'
 				WHERE a.int_gubun<=2 ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.dtm_indate desc ";
