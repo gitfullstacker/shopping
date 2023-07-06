@@ -3320,6 +3320,15 @@ video {
   display: none !important;
 }
 
+.slider-section.slick-initialized.slick-slider.slick-dotted {
+  margin-bottom: 0px;
+}
+
+.slider-section img {
+  min-width: 100%;
+  height: 410px;
+}
+
 .scroll-section>.slick-list>.slick-track {
   display: flex;
   flex-direction: row;
