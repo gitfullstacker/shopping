@@ -22,6 +22,20 @@ $SQL_QUERY =    'SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//카드정보얻기
+$SQL_QUERY =    "SELECT 
+                    A.STR_BILLCODE, A.INT_NUMBER
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
+                WHERE
+                    A.STR_PASS='0' 
+                    AND A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE
+                LIMIT 1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
@@ -142,7 +156,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url = "membership_proc.php";
         url += "?RetrieveFlag=CANCEL";
         url += "&int_type=<?= $int_type ?>";
-        url += "&int_number=<?= $arr_Data['INT_NUMBER'] ?>";
+        url += "&int_number=<?= $card_Data['INT_NUMBER'] ?>";
 
         $.ajax({
             url: url,
