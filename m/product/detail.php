@@ -1,6 +1,8 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php"; ?>
 
+<link href="css/style.css" rel="stylesheet">
+
 <?php
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 
