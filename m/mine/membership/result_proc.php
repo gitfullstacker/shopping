@@ -184,6 +184,10 @@ if ($res_cd == "0000") {
         mysql_query($Sql_Query);
     }
 
+    // 결제상태 반영
+    $Sql_Query = "UPDATE `" . $Tname . "comm_membership_cart` SET INT_STATE=1 WHERE INT_NUMBER='" . $cart_Data['INT_NUMBER'] . "'";
+    mysql_query($Sql_Query);
+
     // 사용한 금액체크
     if ($user_Data['STR_GRADE'] != 'B') {
         $total_spent_money = getSpentMoney($cart_Data['STR_USERID']);
@@ -200,6 +204,8 @@ if ($res_cd == "0000") {
 <?php
     exit;
 } else {
+    $Sql_Query = "DELETE FROM `" . $Tname . "comm_membership_cart` WHERE INT_NUMBER='" . $cart_Data['INT_NUMBER'] . "'";
+    mysql_query($Sql_Query);
 ?>
     <script language="javascript">
         alert('멤버십결제가 실패하였습니다. <?= $res_cd ?>');

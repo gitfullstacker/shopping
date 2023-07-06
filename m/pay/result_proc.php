@@ -129,7 +129,7 @@ if ($res_cd == "0000") {
     }
 
     // 결제상태 반영
-    $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET INT_STATE=1 WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
+    $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET INT_STATE=1 WHERE INT_NUMBER='" . $cart_Data['INT_NUMBER'] . "'";
     mysql_query($Sql_Query);
 
     // 사용한 금액체크
@@ -148,7 +148,7 @@ if ($res_cd == "0000") {
 <?php
     exit;
 } else {
-    $Sql_Query = "DELETE FROM `" . $Tname . "comm_goods_cart` WHERE INT_NUMBER=" . $cart_Data['INT_NUMBER'];
+    $Sql_Query = "DELETE FROM `" . $Tname . "comm_goods_cart` WHERE INT_NUMBER='" . $cart_Data['INT_NUMBER'] . "'";
     mysql_query($Sql_Query);
 ?>
     <script language="javascript">
