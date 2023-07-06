@@ -276,7 +276,7 @@ switch ($arr_Data['INT_TYPE']) {
             <!-- 할인정보 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
                 <?php
-                $SQL_QUERY =    'SELECT A.STR_IMAGE1 
+                $SQL_QUERY =    'SELECT A.STR_IMAGE1, A.STR_URL1 
                                 FROM ' . $Tname . 'comm_banner A 
                                 WHERE 
                                     A.INT_GUBUN=13 
@@ -285,7 +285,11 @@ switch ($arr_Data['INT_TYPE']) {
                 $arr_Rlt_Data = mysql_query($SQL_QUERY);
                 $discount_banner_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
-                <img class="min-w-full" src="/admincenter/files/bann/<?= $discount_banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+
+                <a href="<?= $discount_banner_Data['STR_URL1'] ?: '#' ?>" class="flex w-full">
+                    <img class="min-w-full" src="/admincenter/files/bann/<?= $discount_banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+                </a>
+
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">렌트기간</p>
@@ -1633,7 +1637,7 @@ switch ($arr_Data['INT_TYPE']) {
             slidesToScroll: 1,
             dots: true,
             autoplay: true,
-			autoplaySpeed: 3000,
+            autoplaySpeed: 3000,
         });
     });
     const isTextClamped = elm => elm.scrollHeight > elm.clientHeight
