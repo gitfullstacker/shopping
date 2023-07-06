@@ -138,7 +138,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $card_Data['INT_NUMBER'] ?>, 2)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(2)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -248,7 +248,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             기간 종료 후 자동결제가 이루어지지 않습니다.<br>
                         </p>
                     </div>
-                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(<?= $card_Data['INT_NUMBER'] ?>, 1)">
+                    <button class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="showRestoreConfirm(1)">
                         <p class="font-bold text-xs leading-[14px] text-[#666666]">해지 신청 취소</p>
                     </button>
                     <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
@@ -366,11 +366,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
-    var restore_int_number;
     var restore_int_type;
 
-    function showRestoreConfirm(int_number, int_type) {
-        restore_int_number = int_number;
+    function showRestoreConfirm(int_type) {
         restore_int_type = int_type;
         document.getElementById('confirm_dialog').classList.remove('hidden');
     }
@@ -379,7 +377,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url = "membership_proc.php";
         url += "?RetrieveFlag=RESTORE";
         url += "&int_type=" + restore_int_type;
-        url += "&int_number=" + restore_int_number;
+        url += "&int_number=<?= $card_Data['INT_NUMBER'] ?>";
 
         $.ajax({
             url: url,
