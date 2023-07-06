@@ -53,7 +53,8 @@ if ($res_cd == "0000") {
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
     $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
+var_dump($SQL_QUERY);
+exit;
     if (!$card_Data) {
 ?>
         <script language="javascript">
