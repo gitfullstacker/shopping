@@ -27,7 +27,7 @@ function convertEncode($string)
 }
 ?>
 
-<? include "../../cfg/site_conf_inc.php"; ?>
+<? include "../../cfg/site_conf_inc_pc.php"; ?>
 
 <?
 /* = -------------------------------------------------------------------------- = */
@@ -75,6 +75,8 @@ function convertEncode($string)
                 alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
 
                 closeEvent();
+
+                window.location.href = "/m/mine/payment/index.php";
             }
         }
     </script>
@@ -99,6 +101,7 @@ function convertEncode($string)
             try {
                 KCP_Pay_Execute(form);
             } catch (e) {
+                console.log(e)
                 /* IE 에서 결제 정상종료시 throw로 스크립트 종료 */
             }
         }
@@ -126,7 +129,7 @@ function convertEncode($string)
     </script>
 </head>
 
-<body onload="init_orderid();" style="display: none;">
+<body onload="init_orderid();jsf__pay(document.formOrder);" style="display: none;">
 
     <div id="sample_wrap">
 
