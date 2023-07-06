@@ -83,7 +83,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[3] = date('Y-m-d', strtotime("+1 month -1 day"));
     $arr_Set_Data[4] = $ordr_idxx;
     $arr_Set_Data[5] = date("Y-m-d H:i:s");
-    $arr_Set_Data[6] = $cart_Data['int_type'];
+    $arr_Set_Data[6] = $cart_Data['INT_TYPE'];
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";
@@ -118,7 +118,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[0] = $cart_Data['STR_USERID'];
     $arr_Set_Data[1] = date('Y-m-d H:i:s');
     $arr_Set_Data[2] = date('Y-m-d H:i:s', strtotime("+1 month -1 day"));
-    $arr_Set_Data[3] = $cart_Data['int_type'];
+    $arr_Set_Data[3] = $cart_Data['INT_TYPE'];
     $arr_Set_Data[4] = date("Y-m-d H:i:s");
 
     $arr_Sub1 = "";
