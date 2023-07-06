@@ -27,7 +27,7 @@ function convertEncode($string)
 }
 ?>
 
-<? include "../../cfg/site_conf_inc_pc.php"; ?>
+<? include "../../cfg/site_conf_inc.php"; ?>
 
 <?
 /* = -------------------------------------------------------------------------- = */
@@ -101,7 +101,6 @@ function convertEncode($string)
             try {
                 KCP_Pay_Execute(form);
             } catch (e) {
-                console.log(e)
                 /* IE 에서 결제 정상종료시 throw로 스크립트 종료 */
             }
         }
