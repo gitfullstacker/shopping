@@ -102,7 +102,7 @@ if ($res_cd == "0000") {
     mysql_query($Sql_Query);
 
     // 이전 멤버십 삭제
-    $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $cart_Data['STR_USERID'] . "' AND INT_TYPE=" . $cart_Data['int_type'];
+    $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $cart_Data['STR_USERID'] . "' AND INT_TYPE=" . $cart_Data['INT_TYPE'];
     mysql_query($Sql_Query);
 
     // 멤버십 등록
@@ -195,7 +195,7 @@ if ($res_cd == "0000") {
     ?>
     <script language="javascript">
         alert('멤버십결제가 성공하였습니다.');
-        window.location.href = "index.php?int_type=<?= $cart_Data['int_type'] ?>";
+        window.location.href = "index.php?int_type=<?= $cart_Data['INT_TYPE'] ?>";
     </script>
 <?php
     exit;
