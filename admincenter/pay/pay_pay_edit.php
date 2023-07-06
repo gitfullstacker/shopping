@@ -55,6 +55,7 @@ if ($RetrieveFlag == "UPDATE") {
 								<input type="hidden" name="page" value="<?= $page ?>">
 								<input type="hidden" name="Obj">
 								<input type="hidden" name="int_type" value="<?= $int_type ?>">
+								<input type="hidden" name="str_userid" value="<?= $arr_Data['STR_USERID'] ?>">
 
 								<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 								<table class=tb>
