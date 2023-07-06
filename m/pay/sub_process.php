@@ -281,6 +281,7 @@ if ($int_type != 1) {
             <input type="hidden" name="quotaopt" value="00">
             <input type="hidden" name="card_type" value="<?= $card_type ?>">
             <input type="hidden" name="int_cart" value="<?= $order_idxx ?>">
+            <input type="hidden" name="str_goodcode" value="<?= $str_goodcode ?>">
         </form>
 
         <script language="javascript">
