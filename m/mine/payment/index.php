@@ -92,15 +92,6 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
     }
     ?>
 
-    <form class="hidden" name="auto_pay_form" action="/kcp_mobile_auto/mobile_auth/order_mobile.php" method="post">
-        <input type="hidden" name="good_name" value="">
-        <input type="hidden" name="good_mny" value="">
-        <input type="hidden" name="buyr_name" value="<?= $card_Data['STR_NAME'] ?>">
-        <input type="hidden" name="buyr_mail" value="<?= $card_Data['STR_EMAIL'] ?>">
-        <input type="hidden" name="buyr_tel1" value="<?= $card_Data['STR_TELEP'] ?>">
-        <input type="hidden" name="buyr_tel2" value="<?= $card_Data['STR_HP'] ?>">
-    </form>
-
     <div class="mt-[15px] flex flex-col gap-[7px] w-full px-[9px] py-[15px] bg-[#F5F5F5]">
         <p class="font-bold text-xs leading-[14px] text-black">자동 결제 수단 등록 안내</p>
         <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -138,7 +129,7 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 </div>
 
-<form name="add_card" action="<?= isMobileDevice() ? '/payment/linux/auto_pay/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/auth/request_key.php' ?>" method="post">
+<form name="add_card" action="<?= isMobileDevice() ? '/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/pc/auth/request_key.php' ?>" method="post">
     <input type="hidden" name="str_userid" value="<?= $user_Data['STR_USERID'] ?>">
     <input type="hidden" name="ordr_idxx" value="">
     <input type="hidden" name="good_name" value="카드등록">
