@@ -13,14 +13,21 @@ $buyr_mail = Fnc_Om_Conv_Default($_REQUEST['buyr_mail'], "");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 
-switch ($good_name) {
-    case '구독멤버십':
-        $int_type = 1;
-        break;
-    case '렌트멥버십':
-        $int_type = 2;
-        break;
+$SQL_QUERY =    'SELECT
+                    A.*
+                FROM 
+                    ' . $Tname . 'comm_membership_cart AS A
+                WHERE
+                    A.INT_NUMBER="' . $ordr_idxx . '"';
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+
+if (!$arr_Rlt_Data) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
 }
+
+$cart_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 if ($res_cd == "0000") {
     // 사용자정보 얻기
@@ -29,8 +36,7 @@ if ($res_cd == "0000") {
                     FROM 
                         ' . $Tname . 'comm_member AS A
                     WHERE
-                        A.STR_EMAIL="' . $buyr_mail . '"
-                        AND A.STR_NAME="' . $buyr_name . '"';
+                        A.STR_USERID="' . $cart_Data['STR_USERID'] . '"';
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
     $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -40,9 +46,8 @@ if ($res_cd == "0000") {
                     FROM 
                         `' . $Tname . 'comm_member_pay` AS A
                     WHERE
-                        A.STR_PTYPE="1"
                         AND A.STR_PASS="0" 
-                        AND A.STR_USERID="' . $user_Data['STR_USERID'] . '"
+                        AND A.STR_USERID="' . $cart_Data['STR_USERID'] . '"
                     ORDER BY DTM_INDATE
                     LIMIT 1 ';
 
@@ -78,7 +83,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[3] = date('Y-m-d', strtotime("+1 month -1 day"));
     $arr_Set_Data[4] = $ordr_idxx;
     $arr_Set_Data[5] = date("Y-m-d H:i:s");
-    $arr_Set_Data[6] = $int_type;
+    $arr_Set_Data[6] = $cart_Data['int_type'];
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";
@@ -97,7 +102,7 @@ if ($res_cd == "0000") {
     mysql_query($Sql_Query);
 
     // 이전 멤버십 삭제
-    $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $user_Data['STR_USERID'] . "' AND INT_TYPE=" . $int_type;
+    $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $cart_Data['STR_USERID'] . "' AND INT_TYPE=" . $cart_Data['int_type'];
     mysql_query($Sql_Query);
 
     // 멤버십 등록
@@ -110,10 +115,10 @@ if ($res_cd == "0000") {
     $arr_Column_Name[3] = "INT_TYPE";
     $arr_Column_Name[4] = "DTM_INDATE";
 
-    $arr_Set_Data[0] = $user_Data['STR_USERID'];
+    $arr_Set_Data[0] = $cart_Data['STR_USERID'];
     $arr_Set_Data[1] = date('Y-m-d H:i:s');
     $arr_Set_Data[2] = date('Y-m-d H:i:s', strtotime("+1 month -1 day"));
-    $arr_Set_Data[3] = $int_type;
+    $arr_Set_Data[3] = $cart_Data['int_type'];
     $arr_Set_Data[4] = date("Y-m-d H:i:s");
 
     $arr_Sub1 = "";
@@ -132,18 +137,65 @@ if ($res_cd == "0000") {
     $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
     mysql_query($Sql_Query);
 
+    // 마일리지 사용한 경우
+    if ($cart_Data['INT_MILEAGE']) {
+        // 마일리지 제거
+        $Sql_Query = "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE=(INT_MILEAGE - " . $cart_Data['INT_MILEAGE'] . ") WHERE STR_USERID='" . $cart_Data['STR_USERID'] . "'";
+        mysql_query($Sql_Query);
+
+        // 마일리지 제거 등록
+        $arr_Set_Data = array();
+        $arr_Column_Name = array();
+
+        $arr_Column_Name[0]        = "STR_USERID";
+        $arr_Column_Name[1]        = "STR_INCOME";
+        $arr_Column_Name[2]        = "DTM_INDATE";
+        $arr_Column_Name[3]        = "STR_ORDERIDX";
+        $arr_Column_Name[4]        = "INT_VALUE";
+        $arr_Column_Name[5]        = "INT_CART";
+
+        $arr_Set_Data[0]        = $cart_Data['STR_USERID'];
+        $arr_Set_Data[1]        = "N";
+        $arr_Set_Data[2]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[3]        = $str_orderidx;
+        $arr_Set_Data[4]        = $cart_Data['INT_MILEAGE'];
+        $arr_Set_Data[5]        = $cart_Data['INT_NUMBER'];
+
+        $arr_Sub1 = "";
+        $arr_Sub2 = "";
+
+        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+
+            if ($int_I != 0) {
+                $arr_Sub1 .=  ",";
+                $arr_Sub2 .=  ",";
+            }
+            $arr_Sub1 .=  $arr_Column_Name[$int_I];
+            $arr_Sub2 .=  "'" . $arr_Set_Data[$int_I] . "'";
+        }
+
+        $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_mileage_history` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        mysql_query($SQL_QUERY);
+    }
+
+    // 쿠폰 사용한 경우
+    if ($cart_Data['INT_COUPON']) {
+        $Sql_Query = "UPDATE `" . $Tname . "comm_member_coupon` SET STR_USED='Y' WHERE INT_NUMBER=" . $cart_Data['INT_COUPON'];
+        mysql_query($Sql_Query);
+    }
+
     // 사용한 금액체크
     if ($user_Data['STR_GRADE'] != 'B') {
-        $total_spent_money = getSpentMoney($user_Data['STR_USERID']);
+        $total_spent_money = getSpentMoney($cart_Data['STR_USERID']);
 
         if ($total_spent_money >= 2000000) {
-            addBlackCoupons($user_Data['STR_USERID']);
+            addBlackCoupons($cart_Data['STR_USERID']);
         }
     }
     ?>
     <script language="javascript">
         alert('멤버십결제가 성공하였습니다.');
-        window.location.href = "index.php?int_type=<?= $int_type ?>";
+        window.location.href = "index.php?int_type=<?= $cart_Data['int_type'] ?>";
     </script>
 <?php
     exit;

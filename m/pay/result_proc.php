@@ -40,12 +40,6 @@ if ($res_cd == "0000") {
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
     $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-    // 빈티지인 경우 서브상품 미출력으로 설정
-    // if ($cart_Data['INT_TYPE'] == 3) {
-    //     $Sql_Query = "UPDATE `" . $Tname . "comm_goods_master_sub` SET STR_SERVICE='N' WHERE STR_SGOODCODE='" . $cart_Data['STR_SGOODCODE'] . "' AND STR_GOODCODE='" . $cart_Data['STR_GOODCODE'] . "'";
-    //     mysql_query($Sql_Query);
-    // }
-
     $arr_Set_Data = array();
     $arr_Column_Name = array();
 
@@ -140,10 +134,10 @@ if ($res_cd == "0000") {
 
     // 사용한 금액체크
     if ($user_Data['STR_GRADE'] != 'B') {
-        $total_spent_money = getSpentMoney($user_Data['STR_USERID']);
+        $total_spent_money = getSpentMoney($cart_Data['STR_USERID']);
 
         if ($total_spent_money >= 2000000) {
-            addBlackCoupons($user_Data['STR_USERID']);
+            addBlackCoupons($cart_Data['STR_USERID']);
         }
     }
 ?>

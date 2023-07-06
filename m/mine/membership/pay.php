@@ -102,8 +102,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
     <input type="hidden" name="mileage" x-bind:value="payAmount.mileage">
 
-    <input type="hidden" name="str_orderidx" value="">
-
     <!-- 주문정보 -->
     <div class="px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
         <p class="font-extrabold text-lg leading-5 text-[#333333]">주문정보</p>
@@ -412,8 +410,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
-    init_orderid();
-
     function payKCP(int_type) {
         if (int_type == 2 && <?= $payment_Data ? 'false' : 'true' ?>) {
             document.getElementById('payment_alert').style.display = 'flex';
@@ -455,21 +451,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             // Clear the input value
             input.value = '';
         }
-    }
-
-    function init_orderid() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = today.getMonth() + 1;
-        var date = today.getDate();
-        var time = today.getTime();
-
-        if (parseInt(month) < 10) {
-            month = "0" + month;
-        }
-
-        var vOrderID = year + "" + month + "" + date + "" + time;
-
-        document.forms.frm.str_orderidx.value = vOrderID;
     }
 </script>

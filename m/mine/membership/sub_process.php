@@ -15,8 +15,6 @@ $coupon = Fnc_Om_Conv_Default($_REQUEST['coupon'], 0);
 $int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], null);
 $mileage = Fnc_Om_Conv_Default($_REQUEST['mileage'], 0);
 
-$str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
-
 // 사용자정보 얻기
 $SQL_QUERY =    'SELECT
                     A.*
@@ -41,6 +39,50 @@ $SQL_QUERY =    "SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+$order_idxx = $year . "" . $month . "" . $date . "" . $time;
+$ipgm_date = $year . "" . $month . "" . $date;
+
+$arr_Set_Data = array();
+$arr_Column_Name = array();
+
+$arr_Column_Name[0]        = "INT_NUMBER";
+$arr_Column_Name[1]        = "STR_USERID";
+$arr_Column_Name[2]        = "DTM_INDATE";
+$arr_Column_Name[3]        = "INT_STATE";
+$arr_Column_Name[4]        = "DTM_EDIT_DATE";
+$arr_Column_Name[5]        = "INT_TPRICE";
+$arr_Column_Name[6]        = "INT_PRICE";
+$arr_Column_Name[7]        = "INT_COUPON";
+$arr_Column_Name[8]        = "INT_CDISCOUNT";
+$arr_Column_Name[9]        = "INT_MILEAGE";
+
+$arr_Set_Data[0]        = $order_idxx;
+$arr_Set_Data[1]        = $arr_Auth[0];
+$arr_Set_Data[2]        = date("Y-m-d H:i:s");
+$arr_Set_Data[3]        = $int_state;
+$arr_Set_Data[4]        = date("Y-m-d H:i:s");
+$arr_Set_Data[5]        = $total_price;
+$arr_Set_Data[6]        = $price;
+$arr_Set_Data[7]        = $int_coupon;
+$arr_Set_Data[8]        = $coupon;
+$arr_Set_Data[9]        = $mileage;
+
+$arr_Sub1 = "";
+$arr_Sub2 = "";
+
+for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+
+    if ($int_I != 0) {
+        $arr_Sub1 .=  ",";
+        $arr_Sub2 .=  ",";
+    }
+    $arr_Sub1 .=  $arr_Column_Name[$int_I];
+    $arr_Sub2 .=  $arr_Set_Data[$int_I] == null ? "NULL" : "'" . $arr_Set_Data[$int_I] . "'";
+}
+
+$SQL_QUERY = "INSERT INTO `" . $Tname . "comm_membership_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+mysql_query($SQL_QUERY);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +95,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 <body onload="submitPay();">
     <form name="pay_form" action="/payment/linux/auto_pay/mo/payx/order.php" method="post">
-        <input type="hidden" name="ordr_idxx" value="<?= $str_orderidx ?>">
+        <input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>">
         <input type="hidden" name="good_name" value="<?= $good_name ?>">
         <input type="hidden" name="good_mny" value="<?= $total_price ?>">
         <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">

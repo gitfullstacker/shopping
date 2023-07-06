@@ -212,8 +212,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="end_date" value="<?= $end_date ?>">
     <input type="hidden" name="count" value="<?= $count ?>">
 
-    <input type="hidden" name="str_orderidx" value="">
-
     <!-- 배송정보 -->
     <div x-data="{
         type: 1,
@@ -808,8 +806,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
 
 <script>
-    init_orderid();
-
     $(document).ready(function() {
         // 주소 검색 버튼 클릭 이벤트 처리
         $('#search_address').click(function() {
@@ -869,21 +865,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             // Clear the input value
             input.value = '';
         }
-    }
-
-    function init_orderid() {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = today.getMonth() + 1;
-        var date = today.getDate();
-        var time = today.getTime();
-
-        if (parseInt(month) < 10) {
-            month = "0" + month;
-        }
-
-        var vOrderID = year + "" + month + "" + date + "" + time;
-
-        document.forms.frm.str_orderidx.value = vOrderID;
     }
 </script>

@@ -45,10 +45,6 @@ $end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
 $count = Fnc_Om_Conv_Default($_REQUEST['count'], 1);
 $card_type = Fnc_Om_Conv_Default($_REQUEST['card_type'], 1);
 
-$str_orderidx = Fnc_Om_Conv_Default($_REQUEST['str_orderidx'], '');
-
-
-
 if ($int_type == 1 || $int_type == 3) {
     // 구독할 상품이 있는지 검색
     $SQL_QUERY =    'SELECT
