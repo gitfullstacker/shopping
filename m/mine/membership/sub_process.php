@@ -40,8 +40,22 @@ $SQL_QUERY =    "SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
+// 주문번호 생성
+$today = new DateTime();
+$year = $today->format('Y');
+$month = $today->format('m');
+$date = $today->format('d');
+$time = $today->getTimestamp();
+
+if (intval($month) < 10) {
+    $month = $month;
+}
+
+if (intval($date) < 10) {
+    $date = $date;
+}
+
 $order_idxx = $year . "" . $month . "" . $date . "" . $time;
-$ipgm_date = $year . "" . $month . "" . $date;
 
 $arr_Set_Data = array();
 $arr_Column_Name = array();
@@ -84,8 +98,6 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
 }
 
 $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_membership_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-var_dump($SQL_QUERY);
-exit;
 mysql_query($SQL_QUERY);
 ?>
 <!DOCTYPE html>
