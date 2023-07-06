@@ -129,7 +129,7 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 </div>
 
-<form name="add_card" action="<?= isMobileDevice() ? '/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/pc/auth/request_key.php' ?>" method="post">
+<form name="add_card" action="<?= isMobileDevice() ? '/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/pc/sample/auth/request_key.php' ?>" method="post">
     <input type="hidden" name="str_userid" value="<?= $user_Data['STR_USERID'] ?>">
     <input type="hidden" name="ordr_idxx" value="">
     <input type="hidden" name="good_name" value="카드등록">
