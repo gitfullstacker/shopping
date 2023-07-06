@@ -90,14 +90,14 @@ if ($req_tx == "pay") {
     }
 
     function sendResult() {
-      // document.resultForm.submit();
+      document.resultForm.submit();
     }
   </script>
 </head>
 
 <body onload="sendResult();">
   <?php
-  if ($good_name == '±¸µ¶¸â¹ö½Ê' || $good_name == '·»Æ®¸ã¹ö½Ê') {
+  if ($_POST["good_name"] == '±¸µ¶¸â¹ö½Ê' || $_POST["good_name"] == '·»Æ®¸ã¹ö½Ê') {
     $action_url = '/m/mine/membership/result_proc.php';
   } else {
     $action_url = '/m/pay/result_proc.php';
