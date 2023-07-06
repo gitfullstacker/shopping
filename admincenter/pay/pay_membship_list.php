@@ -280,7 +280,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
 												</td>
-												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
+												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, 'int_number') ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
 											</tr>
 											<tr>
 												<td colspan=11 style="padding-top:0px;padding-bottom:5px;">

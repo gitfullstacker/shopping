@@ -317,8 +317,8 @@ function convertEncode($string)
                                 <select name="ActionResult" onchange="jsf__chk_type();" style="width:100%;height:35px;">
                                     <option value="" selected>선택하십시오</option>
                                     <option value="card" <?= $_POST['card_type'] == '1' ? 'selected' : '' ?>>신용카드</option>
-                                    <option value="acnt" <?= $_POST['card_type'] == '2' ? 'selected' : '' ?>>계좌이체</option>
-                                    <option value="vcnt">가상계좌</option>
+                                    <option value="acnt">계좌이체</option>
+                                    <option value="vcnt" <?= $_POST['card_type'] == '2' ? 'selected' : '' ?>>가상계좌</option>
                                     <option value="mobx">휴대폰</option>
                                     <option value="ocb">OK캐쉬백</option>
                                     <option value="tpnt">복지포인트</option>

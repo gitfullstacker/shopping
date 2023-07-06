@@ -9,6 +9,7 @@
 /* = -------------------------------------------------------------------------- = */
 /* =   Copyright (c)  2016   NHN KCP Inc.   All Rights Reserverd.               = */
 /* ============================================================================== */
+
 function convertEncode($string)
 {
     if (mb_detect_encoding($string, 'EUC-KR', true) !== false) {

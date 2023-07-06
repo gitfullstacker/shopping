@@ -3,6 +3,20 @@
 fnc_MLogin_Chk();
 ?>
 <?php
+
+function isMobileDevice() {
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    $mobileKeywords = array('mobile', 'android', 'iphone', 'ipod', 'blackberry', 'windows phone');
+    
+    foreach ($mobileKeywords as $keyword) {
+        if (stripos($userAgent, $keyword) !== false) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
 $str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], '');
 
@@ -274,7 +288,11 @@ if ($int_type != 1) {
                 if (<?= $int_type ?> == 2) {
                     document.forms.pay_form.action = "/payment/linux/auto_pay/payx/order.php";
                 } else {
-                    document.forms.pay_form.action = "/payment/linux/manual_pay/mobile_sample/order_mobile.php";
+                    if (<?= isMobileDevice() ? 'true' : 'false' ?>) {
+                        document.forms.pay_form.action = "/payment/linux/manual_pay/mobile_sample/order_mobile.php";
+                    } else {
+                        document.forms.pay_form.action = "/payment/linux/manual_pay/sample/order.php";
+                    }
                 }
 
                 document.forms.pay_form.submit();
