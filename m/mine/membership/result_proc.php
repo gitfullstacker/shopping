@@ -48,7 +48,7 @@ if ($res_cd == "0000") {
                     WHERE
                         AND A.STR_PASS="0" 
                         AND A.STR_USERID="' . $cart_Data['STR_USERID'] . '"
-                    ORDER BY DTM_INDATE
+                    ORDER BY DTM_INDATE DESC
                     LIMIT 1 ';
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
