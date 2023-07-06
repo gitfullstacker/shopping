@@ -157,12 +157,29 @@ function convertEncode($string)
 
             document.order_info.ordr_idxx.value = order_idxx;
         }
+
+        function sendResult(res_cd, res_msg, ordr_idxx, amount, card_cd, card_name) {
+            document.resultForm.res_cd.value = res_cd;
+            document.resultForm.res_msg.value = res_msg;
+            document.resultForm.ordr_idxx.value = ordr_idxx;
+            document.resultForm.amount.value = amount;
+            document.resultForm.card_cd.value = card_cd;
+            document.resultForm.card_name.value = card_name;
+            document.resultForm.submit();
+        }
     </script>
 </head>
 
 
 <body onload="jsf__pay(document.order_info);">
-
+    <form name="resultForm" method="post" action="/m/pay/result_proc.php">
+        <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
+        <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
+        <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
+        <input type="hidden" name="amount" value="<?= $amount ?>">
+        <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
+        <input type="hidden" name="card_name" value="<?= $card_name ?>">
+    </form>
 
     <div class="wrap">
 

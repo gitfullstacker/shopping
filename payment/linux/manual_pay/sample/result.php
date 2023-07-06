@@ -167,20 +167,13 @@ if ($req_tx == "pay") {
         }
 
         function sendResult() {
-            document.resultForm.submit();
+            window.close();
+            window.opener.sendResult('<?= $res_cd ?>', '<?= $res_msg ?>', '<?= $ordr_idxx ?>', '<?= $amount ?>', '<?= $card_cd ?>', '<?= $card_name ?>');
         }
     </script>
 </head>
 
 <body onload="sendResult();">
-    <form name="resultForm" method="post" action="/m/pay/result_proc.php">
-        <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
-        <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
-        <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
-        <input type="hidden" name="amount" value="<?= $amount ?>">
-        <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
-        <input type="hidden" name="card_name" value="<?= $card_name ?>">
-    </form>
 </body>
 
 </html>
