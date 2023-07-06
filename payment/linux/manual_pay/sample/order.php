@@ -133,7 +133,6 @@ function convertEncode($string)
                 KCP_Pay_Execute(form);
             } catch (e) {
                 /* IE 에서 결제 정상종료시 throw로 스크립트 종료 */
-                window.location.href = "/m/product/detail.php?str_goodcode=<?= $_POST['str_goodcode'] ?>";
             }
         }
 
