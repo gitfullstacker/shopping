@@ -623,7 +623,10 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             ?>
                                 <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                                     <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 혜택 안내</p>
-                                    <p class="font-normal text-[10px] leading-3 text-[#666666]">블랑 렌트 멤버십으로 30% 추가할인 되셨습니다. 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!</p>
+                                    <p class="font-normal text-[10px] leading-3 text-[#666666]">
+                                        블랑 렌트 멤버십으로 30% 추가할인 되셨습니다.<br>
+                                        블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!
+                                    </p>
                                 </div>
                             <?php
                             }
