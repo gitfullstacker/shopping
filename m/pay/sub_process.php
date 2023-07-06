@@ -287,7 +287,7 @@ if ($int_type != 1) {
         <script language="javascript">
             function submitPay() {
                 if (<?= $int_type ?> == 2) {
-                    document.forms.pay_form.action = "/payment/linux/auto_pay/payx/order.php";
+                    document.forms.pay_form.action = "/payment/linux/auto_pay/mo/payx/order.php";
                 } else {
                     if (<?= isMobileDevice() ? 'true' : 'false' ?>) {
                         document.forms.pay_form.action = "/payment/linux/manual_pay/mobile_sample/order_mobile.php";
