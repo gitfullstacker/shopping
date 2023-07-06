@@ -229,7 +229,7 @@ $brand_list_result = mysql_query($query);
                         </div>
                     </div>
                 </template>
-                <div class="flex flex-col w-full overflow-auto" style="height: calc(100vh - 108px);">
+                <div class="flex flex-col w-full overflow-auto" style="height: calc(100vh - 170px);">
                     <template x-for="(item, index) in content[showOption].list">
                         <template x-if="item.title.toLowerCase().includes(content[showOption].searchKey.toLowerCase()) || item.ktitle.toLowerCase().includes(content[showOption].searchKey.toLowerCase())">
                             <div class="w-full h-[52px] flex justify-start gap-[5px] items-center border-b border-[#E0E0E0] flex-none" x-on:click="selectItem(index);">
