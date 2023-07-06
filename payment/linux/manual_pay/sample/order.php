@@ -87,6 +87,8 @@ function convertEncode($string)
                 alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
 
                 closeEvent();
+                
+                window.location.href = "/m/product/detail.php?str_goodcode=<?= $_POST['str_goodcode'] ?>";
             }
         }
     </script>
