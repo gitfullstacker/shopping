@@ -736,7 +736,7 @@ switch ($arr_Data['INT_TYPE']) {
                                     ' . $Tname . 'comm_goods_master_sub C
                                 ON
                                     A.STR_GOODCODE=C.STR_GOODCODE
-                                    AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)
+                                    AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE IN (1, 2, 3, 4, 5) AND D.STR_GOODCODE=A.STR_GOODCODE)
                                     AND C.STR_SERVICE="Y"
                                 WHERE 
                                     (A.STR_SERVICE="Y" OR A.STR_SERVICE="R") 
@@ -927,7 +927,7 @@ switch ($arr_Data['INT_TYPE']) {
                         FROM  
                             ' . $Tname . 'comm_goods_cart A
                         WHERE 
-                            A.INT_STATE NOT IN (0, 10, 11) 
+                            A.INT_STATE IN (1, 2, 3, 4, 5) 
                             AND A.STR_GOODCODE="' . $str_goodcode . '"
                         ORDER BY A.DTM_INDATE ASC';
         $rent_result = mysql_query($SQL_QUERY);
@@ -1000,6 +1000,7 @@ switch ($arr_Data['INT_TYPE']) {
                             for (var i = 0; i < this.rentDates.length; i++) {
                                 const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
                                 const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
+                                rentEndDate.setDate(rentEndDate.getDate() + 1);
 
                                 if (date.getTime() >= rentStartDate.getTime() && date.getTime() <= rentEndDate.getTime()) {
                                     isDateBetween = true;

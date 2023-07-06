@@ -104,7 +104,7 @@ $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 if ($product_type == 1 || $product_type == 3) {
-    $ADD_SQL = 'AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE=A.STR_GOODCODE)';
+    $ADD_SQL = 'AND C.STR_SGOODCODE NOT IN (SELECT DISTINCT(D.STR_SGOODCODE) FROM ' . $Tname . 'comm_goods_cart D WHERE D.INT_STATE IN (1, 2, 3, 4, 5) AND D.STR_GOODCODE=A.STR_GOODCODE)';
 } else {
     $ADD_SQL = '';
 }

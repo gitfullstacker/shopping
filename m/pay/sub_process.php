@@ -44,7 +44,7 @@ if ($int_type == 1 || $int_type == 3) {
                     WHERE
                         A.STR_SERVICE = "Y"
                         AND A.STR_GOODCODE = "' . $str_goodcode . '"
-                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE NOT IN (0, 10, 11) AND D.STR_GOODCODE = "' . $str_goodcode . '")
+                        AND A.STR_SGOODCODE NOT IN (SELECT DISTINCT D.STR_SGOODCODE FROM ablanc_comm_goods_cart D WHERE D.INT_STATE IN (1, 2, 3, 4, 5) AND D.STR_GOODCODE = "' . $str_goodcode . '")
                     LIMIT 1';
 
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
