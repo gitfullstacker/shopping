@@ -1,13 +1,15 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 
 <?php
+fnc_MLogin_Chk();
+
 $res_cd = Fnc_Om_Conv_Default($_REQUEST['res_cd'], "");
 $res_msg = Fnc_Om_Conv_Default($_REQUEST['res_msg'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 $batch_key = Fnc_Om_Conv_Default($_REQUEST['batch_key'], "");
-$str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
+$str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], $arr_Auth[0]);
 
 if ($res_cd == "0000") {
     $SQL_QUERY =    'UPDATE ' . $Tname . 'comm_member_pay SET STR_PASS="1" WHERE STR_USERID="' . $str_userid . '"';
