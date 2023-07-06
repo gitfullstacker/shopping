@@ -156,10 +156,10 @@ $total_record_limit = mysql_num_rows($result);
 									</tr>
 									<col width=5% align=center>
 									<col width=5% align=center>
-									<col width=57% align=left>
+									<col width=50% align=left>
 									<col width=10% align=center>
 									<col width=10% align=center>
-									<col width=8% align=center>
+									<col width=10% align=center>
 									<col width=5% align=center>
 									<col width=5% align=center>
 									<? $count = 0; ?>

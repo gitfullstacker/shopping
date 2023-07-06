@@ -1206,7 +1206,7 @@ function fnc_pay_info()
 	return $arr_To_Data_Cnt;
 }
 
-function fnc_sub_member_info($user_id = null)
+function fnc_sub_member_info()
 {
 	global $Tname;
 	global $arr_Auth;
@@ -1227,7 +1227,7 @@ function fnc_sub_member_info($user_id = null)
 	return $arr_To_Data_Cnt;
 }
 
-function fnc_ren_member_info($user_id = null)
+function fnc_ren_member_info()
 {
 	global $Tname;
 	global $arr_Auth;
