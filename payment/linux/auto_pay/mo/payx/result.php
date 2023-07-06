@@ -90,7 +90,7 @@ if ($req_tx == "pay") {
     }
 
     function sendResult() {
-      document.resultForm.submit();
+      // document.resultForm.submit();
     }
   </script>
 </head>
