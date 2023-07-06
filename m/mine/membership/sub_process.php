@@ -56,17 +56,19 @@ $arr_Column_Name[6]        = "INT_PRICE";
 $arr_Column_Name[7]        = "INT_COUPON";
 $arr_Column_Name[8]        = "INT_CDISCOUNT";
 $arr_Column_Name[9]        = "INT_MILEAGE";
+$arr_Column_Name[10]        = "INT_TYPE";
 
 $arr_Set_Data[0]        = $order_idxx;
 $arr_Set_Data[1]        = $arr_Auth[0];
 $arr_Set_Data[2]        = date("Y-m-d H:i:s");
-$arr_Set_Data[3]        = $int_state;
+$arr_Set_Data[3]        = '0';
 $arr_Set_Data[4]        = date("Y-m-d H:i:s");
 $arr_Set_Data[5]        = $total_price;
 $arr_Set_Data[6]        = $price;
 $arr_Set_Data[7]        = $int_coupon;
 $arr_Set_Data[8]        = $coupon;
 $arr_Set_Data[9]        = $mileage;
+$arr_Set_Data[10]        = $int_type;
 
 $arr_Sub1 = "";
 $arr_Sub2 = "";
