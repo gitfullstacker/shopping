@@ -128,7 +128,7 @@ function convertEncode($string)
     </script>
 </head>
 
-<body onload="init_orderid();jsf__pay(document.formOrder);" style="display: none;">
+<body onload="init_orderid();jsf__pay(document.formOrder);">
 
     <div id="sample_wrap">
 
