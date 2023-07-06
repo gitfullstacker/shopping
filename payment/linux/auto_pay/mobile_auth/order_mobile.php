@@ -181,7 +181,7 @@ function convertEncode($string) {
                 <table class="tbl" cellpadding="0" cellspacing="0">
                     <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value="<?= $_POST['ordr_idxx'] ?: '' ?>"></td>
+                        <td><input type="text" name="ordr_idxx" class="w200" value=""></td>
                     </tr>
                     <tr>
                         <th>상품명</th>

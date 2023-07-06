@@ -170,9 +170,9 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         멤버십 가입 후 할인 된 가격으로 렌트해보세요!
                     </p>
                 </div>
-                <button type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="joinMembership(2)">
+                <a href="pay.php?int_type=2" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -281,9 +281,9 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         멤버십 가입 후 다양한 가방을 구독해보세요!
                     </p>
                 </div>
-                <button type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white" onclick="joinMembership(1)">
+                <a href="pay.php?int_type=1" type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
-                </button>
+                </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                     <p class="font-bold text-xs leading-[14px] text-black">구독 멤버십 안내</p>
                     <p class="font-normal text-[10px] leading-4 text-[#999999]">
@@ -349,7 +349,7 @@ if (intval($date) < 10) {
 $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 ?>
 
-<form name="join_membership" action="/payment/linux/auto_pay/payx/order.php" method="post">
+<form name="join_membership" action="sub_process.php" method="post">
     <input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>">
     <input type="hidden" name="good_name" value="">
     <input type="hidden" name="good_mny" value="0">

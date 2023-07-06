@@ -254,19 +254,16 @@ if ($int_type != 1) {
     </head>
 
     <body onload="submitPay();">
-        <form name="pay_form" action="" method="post">
+        <form name="join_membership" action="/payment/linux/auto_pay/payx/order.php" method="post">
             <input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>">
-            <input type="hidden" name="ipgm_date" value="<?= $ipgm_date ?>">
-            <input type="hidden" name="good_name" value="<?= $product_Data['STR_GOODNAME'] ?>">
-            <input type="hidden" name="good_mny" value="<?= $total_price ?>">
+            <input type="hidden" name="good_name" value="">
+            <input type="hidden" name="good_mny" value="0">
             <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-            <input type="hidden" name="buyr_mail" value="">
+            <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
             <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
             <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
             <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
             <input type="hidden" name="quotaopt" value="00">
-            <input type="hidden" name="card_type" value="<?= $card_type ?>">
-            <input type="hidden" name="int_cart" value="<?= $order_idxx ?>">
         </form>
 
         <script language="javascript">
