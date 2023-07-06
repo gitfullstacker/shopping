@@ -560,14 +560,14 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
         },
         applyFilter() {
             showCalendar = false;
-            start_date = this.startDate;
-            end_date = this.endDate;
+            start_date = new Date(this.startDate);
+            end_date = new Date(this.endDate);
             // 반납일(1일)과 출고일(2일)제외
             start_date.setDate(start_date.getDate() - 3);
             end_date.setDate(end_date.getDate() + 3);
 
-            rentDate.start = start_date ? this.formatDateWithWeek(start_date) : null;
-            rentDate.end = end_date ? this.formatDateWithWeek(end_date) : null;
+            rentDate.start = this.startDate ? this.formatDateWithWeek(this.startDate) : null;
+            rentDate.end = this.endDate ? this.formatDateWithWeek(this.endDate) : null;
             searchProduct();
         },
         initDate() {
