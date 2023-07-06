@@ -66,7 +66,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <script language="javascript">
         function submitPay() {
-            document.forms.pay_form.submit();
+            // document.forms.pay_form.submit();
         }
     </script>
 </body>
