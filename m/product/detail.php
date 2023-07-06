@@ -319,14 +319,14 @@ switch ($arr_Data['INT_TYPE']) {
             <!-- 최근상태 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[13px] w-full">
                 <p class="font-extrabold text-sm text-[#666666]">최근 상태를 확인해주세요.</p>
-                <div class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
+                <div class="scroll-div flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
                     <?php
                     for ($i = 6; $i <= 12; $i++) {
                         if ($arr_Data['STR_IMAGE' . $i]) {
                     ?>
-                            <div class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100" onclick="showRelativeImage(<?= $i - 6 ?>)">
+                            <a href="javascript:showRelativeImage(<?= $i - 6 ?>)" class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
                                 <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
-                            </div>
+                            </a>
                     <?php
                         }
                     }
