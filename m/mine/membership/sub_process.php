@@ -84,6 +84,8 @@ for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
 }
 
 $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_membership_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+var_dump($SQL_QUERY);
+exit;
 mysql_query($SQL_QUERY);
 ?>
 <!DOCTYPE html>
