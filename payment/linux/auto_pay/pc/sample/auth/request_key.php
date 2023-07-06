@@ -132,7 +132,7 @@ function convertEncode($string)
 
     <div id="sample_wrap">
 
-        <form name="formOrder" method="post" action="pp_cli_hub.php">
+        <form name="formOrder" method="post" action="pp_cli_hub.php" style="display: none;">
 
             <h1>[신용카드 정기과금] <span> 신용카드 정기과금 인증요청 샘플 페이지</span></h1>
             <!-- 상단 문구 -->
