@@ -281,7 +281,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         멤버십 가입 후 다양한 가방을 구독해보세요!
                     </p>
                 </div>
-                <a href="pay.php?int_type=1" type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
+                <a href="pay.php?int_type=2" type="button" class="mt-8 w-full h-[45px] flex justify-center items-center border-[0.72px] border-solid border-[#DDDDDD] bg-white">
                     <p class="font-bold text-xs leading-[14px] text-[#666666]">멤버십 가입하러 가기</p>
                 </a>
                 <div class="mt-[15px] flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">

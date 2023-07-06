@@ -97,19 +97,10 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
     <input type="hidden" name="good_name" value="<?= $int_type == 1 ? '구독멤버십' : '렌트멥버십' ?>">
 
-    <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-    <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
-    <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
-    <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
-
     <input type="hidden" name="total_price" id="total_price" x-bind:value="payAmount.totalPrice">
     <input type="hidden" name="price" x-bind:value="payAmount.price">
     <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
     <input type="hidden" name="mileage" x-bind:value="payAmount.mileage">
-
-    <input type="hidden" name="start_date" value="<?= $start_date ?>">
-    <input type="hidden" name="end_date" value="<?= $end_date ?>">
-    <input type="hidden" name="count" value="<?= $count ?>">
 
     <input type="hidden" name="str_orderidx" value="">
 
