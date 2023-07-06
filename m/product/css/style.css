@@ -1,4 +1,7 @@
 .slider-section img {
     min-width: 100%;
     height: 500px;
+    object-fit: contain;
+    object-position: center;
+    background-color: white;
 }

@@ -467,7 +467,7 @@ switch ($arr_Data['INT_TYPE']) {
                                 <div class="w-[55px]">
                                     <p class="font-semibold text-xs text-[#666666]">리테일가</p>
                                 </div>
-                                <p class="font-semibold text-xs text-[#666666]"><?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
+                                <p class="font-semibold text-xs text-[#666666]"><?= number_format($arr_Data['INT_PRICE']) ?>원</p>
                             </div>
                         <?php
                             break;
