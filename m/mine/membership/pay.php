@@ -57,16 +57,11 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     payAmount: {
         totalPrice: 0,
         price: <?= $int_type == 1 ? $site_Data['INT_PRICE1'] : $site_Data['INT_PRICE2'] ?>,
-        discount: {
-            product: <?= $product_discount ?: 0 ?>,
-            area: <?= $area_discount ?: 0 ?>,
-            membership: <?= $membership_discount ?: 0 ?>
-        },
         coupon: 0,
         mileage: 0
     },
     calTotalPrice() {
-        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.discount.area;
+        this.payAmount.totalPrice = this.payAmount.price - this.payAmount.coupon - this.payAmount.mileage;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -77,7 +72,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             this.payAmount.coupon = couponValue;
         } else {
             if (couponPercent > 0) {
-                const beforePrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.mileage - this.payAmount.discount.area;
+                const beforePrice = this.payAmount.price - this.payAmount.mileage;
                 this.payAmount.coupon = this.roundNumber(beforePrice * couponPercent / 100);
             } else {
                 this.payAmount.coupon = 0;
@@ -109,9 +104,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <input type="hidden" name="total_price" id="total_price" x-bind:value="payAmount.totalPrice">
     <input type="hidden" name="price" x-bind:value="payAmount.price">
-    <input type="hidden" name="discount_product" x-bind:value="payAmount.discount.product">
-    <input type="hidden" name="discount_area" x-bind:value="payAmount.discount.area">
-    <input type="hidden" name="discount_membership" x-bind:value="payAmount.discount.membership">
     <input type="hidden" name="coupon" x-bind:value="payAmount.coupon">
     <input type="hidden" name="mileage" x-bind:value="payAmount.mileage">
 
@@ -296,14 +288,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">주문금액</p>
                     <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.price) + '원'"></p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <p class="font-bold text-[15px] leading-[17px] text-black">상품 할인금액</p>
-                    <p class="font-bold text-[15px] leading-[17px] text-black" x-text="formatNumber(payAmount.discount.product + payAmount.discount.area + payAmount.discount.membership) + '원'"></p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <p class="font-bold text-[11px] leading-3 text-[#666666]">ㄴ 금액할인</p>
-                    <p class="font-bold text-[11px] leading-3 text-[#666666]" x-text="'-' + formatNumber(payAmount.discount.product) + '원'"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-bold text-[15px] leading-[17px] text-black">쿠폰할인</p>
