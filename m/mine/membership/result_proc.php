@@ -42,7 +42,7 @@ if ($res_cd == "0000") {
     $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     $SQL_QUERY =    'SELECT 
-                        A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
+                        A.*
                     FROM 
                         `' . $Tname . 'comm_member_pay` AS A
                     WHERE
