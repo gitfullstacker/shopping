@@ -46,7 +46,7 @@ $SQL_QUERY	= 	"SELECT
 				WHERE
 					a.int_number IS NOT NULL
 					AND a.str_ptype = '1'
-					AND a.str_pass = '0'
+					AND " . ($int_type == 1 ? 'a.str_pass1' : 'a.str_pass2') . " = '0'
 					AND b.int_type = " . $int_type . "
 					" . $Str_Query;
 
@@ -104,7 +104,7 @@ $SQL_QUERY	= 	"SELECT
 				WHERE
 					a.int_number IS NOT NULL
 					AND a.str_ptype = '1'
-					AND a.str_pass = '0'
+					AND " . ($int_type == 1 ? 'a.str_pass1' : 'a.str_pass2') . " = '0'
 					AND b.int_type = " . $int_type . "
 					" . $Str_Query . "
 				ORDER BY str_edate ASC
