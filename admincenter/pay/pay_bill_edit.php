@@ -213,11 +213,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 										</tr>
 									<? } ?>
 								</table>
-
-
-
 							</form>
-
 						</td>
 					</tr>
 				</table>
