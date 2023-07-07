@@ -153,7 +153,7 @@ if ($res_cd == "0000") {
 ?>
     <script language="javascript">
         alert('결제가 실패하였습니다. <?= $res_cd ?>');
-        window.location.href = "index.php?int_type=<?= $cart_Data['INT_TYPE'] ?>&str_goodcode=<?= $cart_Data['STR_GOODCODE'] ?>";
+        window.location.href = "/m/product/detail.php?str_goodcode=<?= $cart_Data['STR_GOODCODE'] ?>";
     </script>
 <?php
     exit;
