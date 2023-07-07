@@ -7,6 +7,7 @@
 
 $int_gubun = Fnc_Om_Conv_Default($_REQUEST['int_gubun'], "1");
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 
 $str_sdate = Fnc_Om_Conv_Default($_REQUEST['str_sdate'], "");
 $str_edate = Fnc_Om_Conv_Default($_REQUEST['str_edate'], "");
@@ -228,8 +229,7 @@ if ($req_tx == "pay") {
 
 /* ============================================================================== */
 /* =   05. 취소/매입 결과 처리                                                  = */
-/* = -------------------------------------------------------------------------- = */ 
-else if ($req_tx == "mod") {
+/* = -------------------------------------------------------------------------- = */ else if ($req_tx == "mod") {
     if ($res_cd == "0000") {
         if ($mod_type == "STPC") {
             $amount       = $c_PayPlus->mf_get_res_data("amount"); // 총 금액
@@ -250,25 +250,21 @@ if ($req_tx == "pay") {
         $arr_Set_Data = array();
         $arr_Column_Name = array();
 
-        $arr_Column_Name[0]        = "INT_SNUMBER";
-        $arr_Column_Name[1]        = "INT_NUMBER";
-        $arr_Column_Name[2]        = "INT_SPRICE";
-        $arr_Column_Name[3]        = "STR_SDATE";
-        $arr_Column_Name[4]        = "STR_EDATE";
-        $arr_Column_Name[5]        = "STR_OIDXCODE";
-        $arr_Column_Name[6]        = "DTM_INDATE";
+        $arr_Column_Name[0]        = "INT_NUMBER";
+        $arr_Column_Name[1]        = "INT_SPRICE";
+        $arr_Column_Name[2]        = "STR_SDATE";
+        $arr_Column_Name[3]        = "STR_EDATE";
+        $arr_Column_Name[4]        = "STR_OIDXCODE";
+        $arr_Column_Name[5]        = "DTM_INDATE";
+        $arr_Column_Name[6]        = "INT_TYPE";
 
-        $SQL_QUERY = "select ifnull(max(int_snumber),0)+1 as lastnumber from " . $Tname . "comm_member_pay_info ";
-        $arr_max_Data = mysql_query($SQL_QUERY);
-        $lastnumber2 = mysql_result($arr_max_Data, 0, lastnumber);
-
-        $arr_Set_Data[0]        = $lastnumber2;
-        $arr_Set_Data[1]        = $str_no;
-        $arr_Set_Data[2]        = $good_mny;
-        $arr_Set_Data[3]        = $str_sdate;
-        $arr_Set_Data[4]        = $str_edate;
-        $arr_Set_Data[5]        = $ordr_idxx;
-        $arr_Set_Data[6]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[0]        = $str_no;
+        $arr_Set_Data[1]        = $good_mny;
+        $arr_Set_Data[2]        = $str_sdate;
+        $arr_Set_Data[3]        = $str_edate;
+        $arr_Set_Data[4]        = $ordr_idxx;
+        $arr_Set_Data[5]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[6]        = $int_type;
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
@@ -284,6 +280,42 @@ if ($req_tx == "pay") {
         }
 
         $Sql_Query = "INSERT INTO `" . $Tname . "comm_member_pay_info` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        mysql_query($Sql_Query);
+
+        // 이전 멤버십 삭제
+        $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $str_userid . "' AND INT_TYPE=" . $int_type;
+        mysql_query($Sql_Query);
+
+        // 멤버십 등록
+        $arr_Set_Data = array();
+        $arr_Column_Name = array();
+
+        $arr_Column_Name[0] = "STR_USERID";
+        $arr_Column_Name[1] = "DTM_SDATE";
+        $arr_Column_Name[2] = "DTM_EDATE";
+        $arr_Column_Name[3] = "INT_TYPE";
+        $arr_Column_Name[4] = "DTM_INDATE";
+
+        $arr_Set_Data[0] = $str_userid;
+        $arr_Set_Data[1] = $str_sdate;
+        $arr_Set_Data[2] = $str_edate;
+        $arr_Set_Data[3] = $int_type;
+        $arr_Set_Data[4] = date("Y-m-d H:i:s");
+
+        $arr_Sub1 = "";
+        $arr_Sub2 = "";
+
+        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+
+            if ($int_I != 0) {
+                $arr_Sub1 .=  ",";
+                $arr_Sub2 .=  ",";
+            }
+            $arr_Sub1 .=  $arr_Column_Name[$int_I];
+            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : 'null ';
+        }
+
+        $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
 
         if (Fnc_Om_Store_Info(13) > 0) {
