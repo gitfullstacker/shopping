@@ -186,7 +186,7 @@ $total_record_limit = mysql_num_rows($result);
 									<tr>
 										<td class=pageInfo>총 <b><?= $total_record ?></b>건, <b><?= $page ?></b> of <?= $total_page ?> Pages</td>
 										<td align=right>
-											<button type="button" onclick="popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>&int_type=<?= $int_type ?>',800,500);">
+											<button type="button" onclick="popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
 												빌링작업
 											</button>
 											<select name=displayrow onchange="fnc_search()">

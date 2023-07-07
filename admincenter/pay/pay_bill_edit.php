@@ -108,8 +108,12 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 										</td>
 									</tr>
 									<tr>
+										<td>결제명</td>
+										<td>
+											<font class=def><?= $int_type == 1 ? '구독멤버십' : '렌트멤버십' ?>
+										</td>
 										<td>상태</td>
-										<td colspan=3>
+										<td>
 											<? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS'], "0") == "0") { ?>결제완료<? } else { ?>결제취소<? } ?>
 											<? if ($arr_Data[$int_type == 1 ? 'STR_CANCEL1' : 'STR_CANCEL2'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
 										</td>
