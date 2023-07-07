@@ -6,12 +6,12 @@
 <?
 	$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no],"");
 
-	$SQL_QUERY =	" SELECT
-					A.*
-				FROM "
-					.$Tname."comm_member_pay_info AS A
-				WHERE
-					A.INT_SNUMBER='$str_no' ";
+	$SQL_QUERY =	"SELECT
+						A.*
+					FROM 
+						" . $Tname . "comm_member_pay_info AS A
+					WHERE
+						A.INT_SNUMBER='$str_no' ";
 
 	$arr_Rlt_Data=mysql_query($SQL_QUERY);
 	if (!$arr_Rlt_Data) {

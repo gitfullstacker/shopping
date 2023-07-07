@@ -41,13 +41,13 @@ if ($res_cd == "0000") {
     $arr_Rlt_Data = mysql_query($SQL_QUERY);
     $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
+    //카드정보얻기
     $SQL_QUERY =    'SELECT 
                         A.*
                     FROM 
                         `' . $Tname . 'comm_member_pay` AS A
                     WHERE
-                        A.STR_PASS="0" 
-                        AND A.STR_USERID="' . $cart_Data['STR_USERID'] . '"
+                        A.STR_USERID="' . $cart_Data['STR_USERID'] . '"
                     ORDER BY DTM_INDATE DESC
                     LIMIT 1 ';
 

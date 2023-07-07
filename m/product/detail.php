@@ -276,19 +276,22 @@ switch ($arr_Data['INT_TYPE']) {
             <!-- 할인정보 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[15px]">
                 <?php
-                $SQL_QUERY =    'SELECT A.STR_IMAGE1, A.STR_URL1 
-                                FROM ' . $Tname . 'comm_banner A 
-                                WHERE 
-                                    A.INT_GUBUN=13 
-                                    AND A.STR_SERVICE="Y"
-                                LIMIT 1';
-                $arr_Rlt_Data = mysql_query($SQL_QUERY);
-                $discount_banner_Data = mysql_fetch_assoc($arr_Rlt_Data);
+                if ($arr_Data['INT_TYPE'] == 2) {
+                    $SQL_QUERY =    'SELECT A.STR_IMAGE1, A.STR_URL1 
+                                    FROM ' . $Tname . 'comm_banner A 
+                                    WHERE 
+                                        A.INT_GUBUN=13 
+                                        AND A.STR_SERVICE="Y"
+                                    LIMIT 1';
+                    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+                    $discount_banner_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 ?>
-
-                <a href="<?= $discount_banner_Data['STR_URL1'] ?: '#' ?>" class="flex w-full">
-                    <img class="min-w-full" src="/admincenter/files/bann/<?= $discount_banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
-                </a>
+                    <a href="<?= $discount_banner_Data['STR_URL1'] ?: '#' ?>" class="flex w-full">
+                        <img class="min-w-full" src="/admincenter/files/bann/<?= $discount_banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
+                    </a>
+                <?php
+                }
+                ?>
 
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">

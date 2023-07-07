@@ -32,9 +32,8 @@ $SQL_QUERY =    "SELECT
                 FROM 
                     `" . $Tname . "comm_member_pay` AS A
                 WHERE
-                    A.STR_PASS='0' 
-                    AND A.STR_USERID='$arr_Auth[0]'
-                ORDER BY DTM_INDATE
+                    A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE DESC
                 LIMIT 1 ";
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);

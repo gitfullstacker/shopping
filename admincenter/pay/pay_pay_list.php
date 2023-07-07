@@ -17,7 +17,18 @@ $Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
 $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
 
 if ($Txt_ptype != "") {
-	$Str_Query .= " and a.str_ptype = '$Txt_ptype' ";
+	if ($Txt_ptype == "0") {
+		$Str_Query .= " and (c.int_number IS NULL and d.int_number IS NULL) ";
+	}
+	if ($Txt_ptype == "1") {
+		$Str_Query .= " and c.int_number IS NOT NULL ";
+	}
+	if ($Txt_ptype == "2") {
+		$Str_Query .= " and c.int_number IS NOT NULL ";
+	}
+	if ($Txt_ptype == "3") {
+		$Str_Query .= " and (c.int_number IS NOT NULL and d.int_number IS NOT NULL) ";
+	}
 }
 
 if ($Txt_word != "") {
@@ -38,7 +49,18 @@ if ($Txt_word != "") {
 }
 
 if ($Txt_pass != "") {
-	$Str_Query .= " and a.str_pass = '$Txt_pass' ";
+	if ($Txt_pass == "0") {
+		$Str_Query .= " and a.str_pass1 = '0' ";
+	}
+	if ($Txt_pass == "1") {
+		$Str_Query .= " and a.str_pass1 = '1' ";
+	}
+	if ($Txt_pass == "2") {
+		$Str_Query .= " and a.str_pass2 = '0' ";
+	}
+	if ($Txt_pass == "3") {
+		$Str_Query .= " and a.str_pass2 = '1' ";
+	}
 }
 
 if ($Txt_sindate != "") {
@@ -50,7 +72,22 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid where a.int_number is not null ";
+$SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
+$SQL_QUERY .= 	"left join 
+					" . $Tname . "comm_membership c 
+				on
+					a.str_userid = c.str_userid
+					and now() between c.dtm_sdate and c.dtm_edate
+					and c.int_type = 1
+					and c.str_pass = '0'
+				left join 
+					" . $Tname . "comm_membership d 
+				on
+					a.str_userid = d.str_userid
+					and now() between d.dtm_sdate and d.dtm_edate
+					and d.int_type = 2
+					and d.str_pass = '0' ";
+$SQL_QUERY .= "where a.int_number is not null ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -80,9 +117,23 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp, ifnull(c.int_number, 0) as sub_int, ifnull(d.int_number, 0) as ren_int from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_member_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
+$SQL_QUERY .= 	"left join 
+					" . $Tname . "comm_membership c 
+				on
+					a.str_userid = c.str_userid
+					and now() between c.dtm_sdate and c.dtm_edate
+					and c.int_type = 1
+					and c.str_pass = '0'
+				left join 
+					" . $Tname . "comm_membership d 
+				on
+					a.str_userid = d.str_userid
+					and now() between d.dtm_sdate and d.dtm_edate
+					and d.int_type = 2
+					and d.str_pass = '0' ";
 $SQL_QUERY .= "where a.int_number is not null ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.dtm_indate desc ";
@@ -139,8 +190,10 @@ $total_record_limit = mysql_num_rows($result);
 										<td colspan="3">
 											<select name="Txt_ptype">
 												<option value="" selected> 선택 </option>
-												<option value="1" <? if ($Txt_ptype == "1") { ?>selected<? } ?>> 멤버쉽회원 </option>
-												<option value="2" <? if ($Txt_ptype == "2") { ?>selected<? } ?>> 1개월권회원 </option>
+												<option value="0" <? if ($Txt_ptype == "0") { ?>selected<? } ?>> 일반회원 </option>
+												<option value="1" <? if ($Txt_ptype == "1") { ?>selected<? } ?>> 렌트멤버십 </option>
+												<option value="2" <? if ($Txt_ptype == "2") { ?>selected<? } ?>> 구독멤버십 </option>
+												<option value="3" <? if ($Txt_ptype == "3") { ?>selected<? } ?>> 렌트/구독멤버십 </option>
 											</select>
 										</td>
 									</tr>
@@ -158,8 +211,10 @@ $total_record_limit = mysql_num_rows($result);
 										<td>
 											<select name="Txt_pass">
 												<option value="" selected> 선택 </option>
-												<option value="0" <? if ($Txt_pass == "0") { ?>selected<? } ?>> 결제완료 </option>
-												<option value="1" <? if ($Txt_pass == "1") { ?>selected<? } ?>> 결제취소 </option>
+												<option value="0" <? if ($Txt_pass == "0") { ?>selected<? } ?>> 결제완료(구독) </option>
+												<option value="1" <? if ($Txt_pass == "1") { ?>selected<? } ?>> 결제취소(구독) </option>
+												<option value="2" <? if ($Txt_pass == "2") { ?>selected<? } ?>> 결제완료(렌트) </option>
+												<option value="3" <? if ($Txt_pass == "3") { ?>selected<? } ?>> 결제취소(렌트) </option>
 											</select>
 										</td>
 									</tr>
@@ -206,7 +261,7 @@ $total_record_limit = mysql_num_rows($result);
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=11></td>
+										<td class=rnd colspan=13></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
@@ -215,24 +270,28 @@ $total_record_limit = mysql_num_rows($result);
 										<th>핸드폰</th>
 										<th>결제금액</th>
 										<th>카드종류</th>
-										<th>취소신청</th>
-										<th>상태</th>
+										<th>취소신청(구독)</th>
+										<th>상태(구독)</th>
+										<th>취소신청(렌트)</th>
+										<th>상태(렌트)</th>
 										<th>등록일</th>
 										<th>보기</th>
 										<th>선택</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=11></td>
+										<td class=rnd colspan=13></td>
 									</tr>
 									<col width=5% align=center>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=10% align=left>
 									<col width=5% align=left>
-									<col width=15% align=left>
-									<col width=15% align=center>
-									<col width=10% align=center>
-									<col width=10% align=center>
+									<col width=10% align=left>
+									<col width=8% align=center>
+									<col width=8% align=center>
+									<col width=8% align=center>
+									<col width=8% align=center>
+									<col width=8% align=center>
 									<col width=5% align=center>
 									<col width=5% align=center>
 									<? $count = 0; ?>
@@ -245,13 +304,16 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 												<td>
 													<font color=616161>
-														<? switch (mysql_result($result, $i, str_ptype)) {
-															case  "1":
-																echo "멥버쉽회원";
-																break;
-															case  "2":
-																echo "1개월권회원";
-																break;
+														<?php
+														if (mysql_result($result, $i, 'sub_int') == 0 && mysql_result($result, $i, 'ren_int') == 0) {
+															echo "일반회원";
+														} else {
+															if (mysql_result($result, $i, 'sub_int') > 0) {
+																echo "구독멤버십 |";
+															}
+															if (mysql_result($result, $i, 'ren_int') > 0) {
+																echo "| 렌트멤버십";
+															}
 														}
 														?>
 													</font>
@@ -263,7 +325,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td><?= number_format(mysql_result($result, $i, int_price)) ?>원</td>
 												<td><?= fnc_card_kind(mysql_result($result, $i, str_cardcode)) ?></td>
 												<td>
-													<? switch (mysql_result($result, $i, str_cancel1)) {
+													<? switch (mysql_result($result, $i, 'str_cancel1')) {
 														case  "0":
 															echo "-";
 															break;
@@ -275,7 +337,31 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 												<td>
 													<font color=616161>
-														<? switch (mysql_result($result, $i, str_pass)) {
+														<? switch (mysql_result($result, $i, 'str_pass1')) {
+															case  "0":
+																echo "결제완료";
+																break;
+															case  "1":
+																echo "결제취소";
+																break;
+														}
+														?>
+													</font>
+												</td>
+												<td>
+													<? switch (mysql_result($result, $i, 'str_cancel2')) {
+														case  "0":
+															echo "-";
+															break;
+														case  "1":
+															echo "결제취소신청중";
+															break;
+													}
+													?>
+												</td>
+												<td>
+													<font color=616161>
+														<? switch (mysql_result($result, $i, 'str_pass2')) {
 															case  "0":
 																echo "결제완료";
 																break;
@@ -293,26 +379,22 @@ $total_record_limit = mysql_num_rows($result);
 												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=11 class=rndline></td>
+												<td colspan=13 class=rndline></td>
 											</tr>
 											<?
 											$Sql_Query =	" SELECT
-											B.*
-										FROM `"
-												. $Tname . "comm_member_pay` AS A
-											INNER JOIN
-											`" . $Tname . "comm_member_pay_info` AS B
-											ON
-											A.INT_NUMBER=B.INT_NUMBER
-											AND 
-											B.INT_NUMBER='" . mysql_result($result, $i, int_number) . "'
-										ORDER BY
-											B.INT_SNUMBER DESC ";
+																A.*
+															FROM 
+																`" . $Tname . "comm_member_pay_info` A
+															WHERE
+																A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
+															ORDER BY
+																A.INT_SNUMBER DESC ";
 											$arr_Data2 = mysql_query($Sql_Query);
 											$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 											?>
 											<tr>
-												<td colspan="11">
+												<td colspan="13">
 													<table width=100% cellpadding=0 cellspacing=0 border=0>
 														<col width=10% align=center>
 														<col width=10% align=center>
@@ -324,23 +406,25 @@ $total_record_limit = mysql_num_rows($result);
 															<tr height=25 align="left">
 																<td style="padding-left:100px;">
 																	<font class=ver81 color=616161><?= $int_I + 1 ?></font>]
-																	<?= number_format(mysql_result($arr_Data2, $int_I, int_sprice)) ?>원
+																	<?= number_format(mysql_result($arr_Data2, $int_I, 'int_sprice')) ?>원
 																	/
-																	<?= mysql_result($arr_Data2, $int_I, str_sdate) ?> ~ <?= mysql_result($arr_Data2, $int_I, str_edate) ?>
-																	<a href="javascript:popupLayer('pay_date_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, int_snumber) ?>',500,230);"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a>
+																	<?= mysql_result($arr_Data2, $int_I, 'str_sdate') ?> ~ <?= mysql_result($arr_Data2, $int_I, 'str_edate') ?>
+																	<a href="javascript:popupLayer('pay_date_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_snumber') ?>',500,230);"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a>
 																	/
-																	<?= mysql_result($arr_Data2, $int_I, dtm_indate) ?>
+																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
 																	/
-																	<?= mysql_result($arr_Data2, $int_I, str_oidxcode) ?>
-																	<? if ($int_I == 0) {
-																		if (mysql_result($result, $i, str_ptype) == "1" && mysql_result($result, $i, str_pass) == "0") {
-																	?>
-																			<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>',800,500);">
-																				<font color="red">[빌링작업]</font>
-																			</a>
+																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
 																	<?
-																		}
-																	} ?>
+																	// if ($int_I == 0) {
+																	// if (mysql_result($result, $i, str_ptype) == "1" && mysql_result($result, $i, str_pass) == "0") {
+																	?>
+																	<!-- <a href="javascript:popupLayer('pay_bill_edit.php?str_no=',800,500);">
+																				<font color="red">[빌링작업]</font>
+																			</a> -->
+																	<?
+																	// }
+																	// }
+																	?>
 																</td>
 															</tr>
 														<? } ?>
@@ -348,7 +432,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 											</tr>
 											<tr>
-												<td colspan=11 style="padding-top:0px;padding-bottom:5px;">
+												<td colspan=13 style="padding-top:0px;padding-bottom:5px;">
 													<table class=tb>
 														<col class=cellC style="width:10%">
 														<col class=cellL style="width:90%">
@@ -362,7 +446,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 											</tr>
 											<tr>
-												<td colspan=11 class=rndline></td>
+												<td colspan=13 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?

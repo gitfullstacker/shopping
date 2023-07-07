@@ -126,8 +126,6 @@
 								`".$Tname."comm_member_pay_info` AS B
 								ON
 								A.INT_NUMBER=B.INT_NUMBER
-								AND 
-								A.STR_PASS='0' 
 								AND
 								date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
 								AND

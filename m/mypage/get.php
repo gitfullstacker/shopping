@@ -92,7 +92,7 @@
 
 			<?
 			$Sql_Query2 =	" SELECT 
-							B.*,A.STR_PTYPE,A.STR_CANCEL1,A.STR_CARDCODE,A.STR_PASS
+							B.*,A.STR_PTYPE,A.STR_CANCEL1,A.STR_CARDCODE
 						FROM `"
 							.$Tname."comm_member_pay` AS A
 							INNER JOIN
@@ -100,8 +100,6 @@
 							ON
 							A.INT_NUMBER=B.INT_NUMBER
 							AND 
-							A.STR_PASS='0' 
-							AND
 							date_format(B.STR_SDATE, '%Y-%m-%d') <= '".date("Y-m-d")."'
 							AND
 							date_format(B.STR_EDATE, '%Y-%m-%d') >= '".date("Y-m-d")."' 

@@ -11,15 +11,14 @@ $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
 switch ($RetrieveFlag) {
     case "JOIN":
+        //카드정보얻기
         $SQL_QUERY =    "SELECT 
-                            A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE, A.STR_PASS
+                            A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE
                         FROM 
                             `" . $Tname . "comm_member_pay` AS A
                         WHERE
-                            A.STR_PTYPE='1'
-                            AND A.STR_PASS='0' 
-                            AND A.STR_USERID='$arr_Auth[0]'
-                        ORDER BY DTM_INDATE
+                            A.STR_USERID='$arr_Auth[0]'
+                        ORDER BY DTM_INDATE DESC
                         LIMIT 1 ";
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
