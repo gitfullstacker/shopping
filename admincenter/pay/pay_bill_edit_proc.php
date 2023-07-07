@@ -1,7 +1,7 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/Snoopy.class.php"; ?>
-<? include_once $_SERVER['DOCUMENT_ROOT'] . "/payment/linux/auto_pay/mo/payx/site_conf_inc.php"; ?>
-<? include_once $_SERVER['DOCUMENT_ROOT'] . "/payment/linux/auto_pay/mo/payx/pp_cli_hub_lib.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/payment/linux/auto_pay/mo/cfg/site_conf_inc.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/payment/linux/auto_pay/mo/cfg/pp_cli_hub_lib.php"; ?>
 <?
 //	fnc_Login_Chk();
 
