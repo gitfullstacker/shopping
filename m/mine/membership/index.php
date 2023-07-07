@@ -200,7 +200,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     $sub_datetime2 = new DateTime($end_date);
                     $sub_interval = $sub_datetime1->diff($sub_datetime2);
 
-                    $sub_days_left = $sub_interval->format('%d');
+                    $sub_days_left = $sub_interval->format('%a');
             ?>
                     <!-- 장기 이용 -->
                     <div class="w-[280px] h-[165px] flex flex-col justify-center items-center bg-[#F1D58E] border border-solid border-[#DDDDDD] rounded-[10px]">
