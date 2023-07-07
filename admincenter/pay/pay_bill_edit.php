@@ -58,7 +58,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="Obj">
 								<input type="hidden" name="int_type" value="<?= $int_type ?>">
 
-
 								<input type="hidden" name="int_gubun" value="<?= $int_gubun ?>">
 
 								<input type="hidden" name="res_cd" value="<?= $res_cd ?>"> <!-- 결과 코드 -->
@@ -81,9 +80,6 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="currency" value="410" />
 
 								<input type="hidden" name="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" />
-
-
-
 
 								<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 								<table class=tb>
@@ -170,18 +166,14 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<div class="title">결제내역</div>
 								<?
 								$Sql_Query =	"SELECT
-													B.*
+													A.*
 												FROM 
-													`" . $Tname . "comm_member_pay` AS A
-												INNER JOIN
-													`" . $Tname . "comm_member_pay_info` AS B
-												ON
-													A.INT_NUMBER=B.INT_NUMBER
-													AND 
-													B.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
-												WHERE B.INT_TYPE=" . $int_type . "
+													`" . $Tname . "comm_member_pay_info` A
+												WHERE
+													A.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
+													AND A.INT_TYPE=" . $int_type . "
 												ORDER BY
-													B.INT_SNUMBER DESC ";
+													A.INT_SNUMBER DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
 								$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 								?>

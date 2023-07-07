@@ -261,7 +261,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 												<td>
 													<font color=616161>
-														<? switch (mysql_result($result, $i, str_pass)) {
+														<? switch (mysql_result($result, $i, $int_type == 1 ? 'str_pass1' : 'str_pass2')) {
 															case  "0":
 																echo "결제완료";
 																break;
