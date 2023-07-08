@@ -134,11 +134,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                 <p class="font-bold text-xs leading-[14px] text-[#999999]"><?= $current_state ?></p>
                 <p class="font-bold text-xs leading-[14px] text-black underline">
                     <?php
-                    if ($arr_Data['INT_STATE'] == 1) {
-                        echo '우체국택배';
-                    } else if ($arr_Data['INT_STATE'] == 2 || $arr_Data['INT_STATE'] == 3 || $arr_Data['INT_STATE'] == 4 || $arr_Data['INT_STATE'] == 5) {
-                        echo '우체국택배(' . $arr_Data['INT_NUMBER'] . ')';
-                    }
+                    echo '우체국택배(' . $arr_Data['STR_DELICODE'] . ')';
                     ?>
                 </p>
             </div>
