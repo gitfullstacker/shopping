@@ -360,48 +360,51 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
         $return_product_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+        if ($return_product_Data) {
     ?>
-        <!-- 반납정보 -->
-        <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
-            <p class="font-extrabold text-lg leading-5 text-[#333333]">반납정보</p>
-            <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black"><?= $return_product_Data['STR_BRAND'] ?></p>
-            <div class="mt-3 flex gap-[11px]">
-                <div class="w-[120px] h-[120px] flex justify-center items-center bg-[#F9F9F9] p-2.5">
-                    <img class="w-full" src="/admincenter/files/good/<?= $return_product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
-                </div>
-                <div class="flex flex-col justify-start">
-                    <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[#EEAC4C]">
-                        <p class="font-normal text-[10px] leading-[11px] text-center text-white">구독</p>
+            <!-- 반납정보 -->
+            <div class="mt-[15px] px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
+                <p class="font-extrabold text-lg leading-5 text-[#333333]">반납정보</p>
+                <p class="mt-[15px] font-bold text-[15px] leading-[17px] text-black"><?= $return_product_Data['STR_BRAND'] ?></p>
+                <div class="mt-3 flex gap-[11px]">
+                    <div class="w-[120px] h-[120px] flex justify-center items-center bg-[#F9F9F9] p-2.5">
+                        <img class="w-full" src="/admincenter/files/good/<?= $return_product_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="">
                     </div>
-                    <p class="mt-[15px] font-bold text-xs leading-[14px] text-[#666666]"><?= $return_product_Data['STR_GOODNAME'] ?></p>
-                    <p class="mt-[10px] font-bold text-xs leading-[14px] text-[#666666]">월정액 구독 전용</p>
-                    <div class="mt-1.5 flex gap-2 items-center">
-                        <?php
-                        if ($is_subscription_membership) {
-                        ?>
-                            <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
-                        <?php
-                        } else {
-                        ?>
-                            <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
-                        <?php
-                        }
-                        ?>
+                    <div class="flex flex-col justify-start">
+                        <div class="flex justify-center items-center max-w-[42px] px-2 py-1 w-auto bg-[#EEAC4C]">
+                            <p class="font-normal text-[10px] leading-[11px] text-center text-white">구독</p>
+                        </div>
+                        <p class="mt-[15px] font-bold text-xs leading-[14px] text-[#666666]"><?= $return_product_Data['STR_GOODNAME'] ?></p>
+                        <p class="mt-[10px] font-bold text-xs leading-[14px] text-[#666666]">월정액 구독 전용</p>
+                        <div class="mt-1.5 flex gap-2 items-center">
+                            <?php
+                            if ($is_subscription_membership) {
+                            ?>
+                                <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">구독권 사용</span></p>
+                            <?php
+                            } else {
+                            ?>
+                                <p class="font-bold text-xs leading-[14px] text-[#333333]"><span class="text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_PRICE1']) ?>원</p>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 relative flex w-full">
+                    <select name="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
+                        <option value="" selected>반납 날짜를 선택해 주세요</option>
+                    </select>
+                    <div class="absolute top-[15px] right-[15px] pointer-events-none">
+                        <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
+                        </svg>
                     </div>
                 </div>
             </div>
-            <div class="mt-3 relative flex w-full">
-                <select name="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
-                    <option value="" selected>반납 날짜를 선택해 주세요</option>
-                </select>
-                <div class="absolute top-[15px] right-[15px] pointer-events-none">
-                    <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.8219 0.990783L4.83245 4.87327C4.78496 4.91935 4.73351 4.95192 4.6781 4.97097C4.62269 4.99032 4.56332 5 4.5 5C4.43668 5 4.37731 4.99032 4.3219 4.97097C4.26649 4.95192 4.21504 4.91935 4.16755 4.87327L0.166227 0.990784C0.0554087 0.883257 -2.07043e-07 0.748848 -2.14898e-07 0.587558C-2.22753e-07 0.426268 0.0593665 0.288019 0.1781 0.172812C0.296834 0.0576042 0.435356 5.34201e-07 0.593667 5.27991e-07C0.751979 5.2178e-07 0.890501 0.0576042 1.00923 0.172812L4.5 3.55991L7.99076 0.172811C8.10158 0.0652844 8.23805 0.0115208 8.40016 0.0115208C8.56259 0.0115208 8.70317 0.0691245 8.8219 0.184332C8.94063 0.299539 9 0.433948 9 0.587558C9 0.741167 8.94063 0.875576 8.8219 0.990783Z" fill="#666666" />
-                    </svg>
-                </div>
-            </div>
-        </div>
     <?php
+        }
     }
     ?>
 
