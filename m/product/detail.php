@@ -262,8 +262,7 @@ switch ($arr_Data['INT_TYPE']) {
                                     echo 'C CLASS';
                                     break;
                             }
-                            ?>
-                            (하단 상세참조)
+                            ?>(하단 상세참조)
                         </p>
                     </div>
                     <div class="flex gap-5">
