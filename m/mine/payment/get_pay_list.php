@@ -1,4 +1,7 @@
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php"; ?>
+<?
+fnc_MLogin_Chk();
+?>
 
 <?php
 $per_page = 6;
@@ -20,8 +23,12 @@ $SQL_QUERY = 'SELECT
                     COUNT(A.INT_SNUMBER)
                 FROM 
                     `' . $Tname . 'comm_member_pay_info` A
+                LEFT JOIN
+                    `' . $Tname . 'comm_member_pay` B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
                 WHERE 
-                    A.INT_NUMBER=' . $int_card . '
+                    B.STR_USERID="' . $arr_Auth[0] . '"
                     ' . $FILTER_QUERY;
 
 $result = mysql_query($SQL_QUERY);
@@ -40,8 +47,12 @@ $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
                     `' . $Tname . 'comm_member_pay_info` A
+                LEFT JOIN
+                    `' . $Tname . 'comm_member_pay` B
+                ON
+                    A.INT_NUMBER=B.INT_NUMBER
                 WHERE 
-                    A.INT_NUMBER=' . $int_card . '
+                    B.STR_USERID="' . $arr_Auth[0] . '"
                     ' . $FILTER_QUERY . '
                 ORDER BY A.DTM_INDATE DESC
                 LIMIT ' . $per_page . '
@@ -58,13 +69,7 @@ while ($row = mysql_fetch_assoc($pay_list_result)) {
                 <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]">결제완료</p>
                 <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . $row['STR_OIDXCODE'] . '</p>
             </div>
-            <div class="flex flex-col justify-between">
-                <div class="flex items-center gap-[5px]">
-                    <p class="font-normal text-[10px] leading-[11px] text-[#999999]">상세보기</p>
-                    <svg width="5" height="8" viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.990783 7.35158L4.87327 4.02704C4.91936 3.98747 4.95192 3.94459 4.97097 3.89842C4.99032 3.85224 5 3.80277 5 3.75C5 3.69723 4.99032 3.64776 4.97097 3.60158C4.95192 3.55541 4.91936 3.51253 4.87327 3.47295L0.990783 0.138522C0.883256 0.0461741 0.748848 0 0.587558 0C0.426268 0 0.288019 0.0494723 0.172812 0.148417C0.0576043 0.247361 0 0.362797 0 0.494723C0 0.626649 0.0576043 0.742084 0.172812 0.841029L3.55991 3.75L0.172812 6.65897C0.0652847 6.75132 0.0115209 6.86504 0.0115209 7.00013C0.0115209 7.13549 0.0691247 7.25264 0.184332 7.35158C0.299539 7.45053 0.433948 7.5 0.587558 7.5C0.741168 7.5 0.875576 7.45053 0.990783 7.35158Z" fill="#999999" />
-                    </svg>
-                </div>
+            <div class="flex flex-col justify-end">
                 <p class="font-bold text-xs leading-[14px] text-black">' . number_format($row['INT_SPRICE']) . '원</p>
             </div>
         </div>';
