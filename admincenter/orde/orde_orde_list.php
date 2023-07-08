@@ -363,33 +363,6 @@ $total_record_limit = mysql_num_rows($result);
 														<option value="10" <? if (mysql_result($result, $i, int_state) == "10") { ?>selected<? } ?>> 반납완료 </option>
 														<option value="11" <? if (mysql_result($result, $i, int_state) == "11") { ?>selected<? } ?>> 취소 </option>
 													</select>
-
-													<!--
-									<? switch (mysql_result($result, $i, int_state)) {
-												case  "1":
-													echo "접수";
-													break;
-												case  "2":
-													echo "관리자확인";
-													break;
-												case  "3":
-													echo "발송";
-													break;
-												case  "4":
-													echo "배송완료";
-													break;
-												case  "5":
-													echo "반납신청";
-													break;
-												case  "10":
-													echo "반납완료";
-													break;
-												case  "11":
-													echo "취소";
-													break;
-											}
-									?>
-									//-->
 												</td>
 												<td><?= mysql_result($result, $i, 'cnt3') ?>건 <a href="javascript:RowClick2('<?= mysql_result($result, $i, 'str_goodcode') ?>');"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 												<td>

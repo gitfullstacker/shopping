@@ -1,5 +1,5 @@
-	function Save_Click() {
-		if (ValidChk()==false) return;
+	function Save_Click(int_type) {
+		if (int_type != 3 && ValidChk()==false) return;
 
 		if (document.frm.RetrieveFlag.value!="INSERT") {
 			if(!confirm("수정하신 데이터를 저장하시겠습니까?")) return;
