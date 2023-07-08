@@ -1556,7 +1556,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <p class="font-extrabold text-base text-white">
                         < </p>
                 </button>
-                <div id="scrollContainer" class="flex flex-row gap-[5px] overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth">
+                <div id="scrollContainer" class="flex flex-row gap-[5px] overflow-x-auto overflow-y-clip scrollbar-hide snap-x snap-mandatory scroll-smooth h-[503px]">
                     <?php
                     for ($i = 6; $i <= 12; $i++) {
                         if ($arr_Data['STR_IMAGE' . $i]) {
