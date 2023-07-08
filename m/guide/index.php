@@ -19,7 +19,7 @@
             <button onclick="scrollToDiv('menu_div4')">SERVICE</button>
         </div>
     </div>
-    <div id="top_menu_panel" class="menu-section top-menu-section">
+    <div id="top_menu_panel" class="menu-section top-menu-section hidden">
         <div class="item">
             <button onclick="scrollToDiv('menu_div1')">INTRO</button>
         </div>
