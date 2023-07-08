@@ -456,12 +456,13 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <div class="mt-[15px] relative flex w-full">
                 <?php
                 $SQL_QUERY =    'SELECT 
-                                COUNT(A.INT_NUMBER) AS COUPON_COUNT
-                            FROM 
-                                ' . $Tname . 'comm_member_coupon A
-                            WHERE 
-                                A.STR_USERID="' . $arr_Auth[0] . '"
-                                AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
+                                    COUNT(A.INT_NUMBER) AS COUPON_COUNT
+                                FROM 
+                                    ' . $Tname . 'comm_member_coupon A
+                                WHERE 
+                                    A.STR_USED="N"
+                                    AND A.STR_USERID="' . $arr_Auth[0] . '"
+                                    AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
                 $total_coupon_result = mysql_query($SQL_QUERY);
                 $total_coupon_data = mysql_fetch_assoc($total_coupon_result);

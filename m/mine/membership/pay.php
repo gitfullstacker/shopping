@@ -141,7 +141,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             FROM 
                                 ' . $Tname . 'comm_member_coupon A
                             WHERE 
-                                A.STR_USERID="' . $arr_Auth[0] . '"
+                                A.STR_USED="N"
+                                AND A.STR_USERID="' . $arr_Auth[0] . '"
                                 AND NOW() BETWEEN A.DTM_SDATE AND A.DTM_EDATE';
 
             $total_coupon_result = mysql_query($SQL_QUERY);
