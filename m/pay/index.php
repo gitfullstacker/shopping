@@ -395,6 +395,24 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <div class="mt-3 relative flex w-full">
                     <select name="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
                         <option value="" selected>반납 날짜를 선택해 주세요</option>
+                        <?php
+                        // Get the current date
+                        $today = new DateTime();
+
+                        // Calculate tomorrow and the day after tomorrow
+                        $tomorrow = clone $today;
+                        $tomorrow->modify('+1 day');
+
+                        $nextTomorrow = clone $tomorrow;
+                        $nextTomorrow->modify('+1 day');
+
+                        // Format the dates as options
+                        $tomorrowOption = $tomorrow->format('Y-m-d');
+                        $nextTomorrowOption = $nextTomorrow->format('Y-m-d');
+                        ?>
+
+                        <option value="<?php echo $tomorrowOption; ?>"><?php echo $tomorrowOption; ?></option>
+                        <option value="<?php echo $nextTomorrowOption; ?>"><?php echo $nextTomorrowOption; ?></option>
                     </select>
                     <div class="absolute top-[15px] right-[15px] pointer-events-none">
                         <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
