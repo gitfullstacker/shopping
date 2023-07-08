@@ -4,16 +4,17 @@ fnc_MLogin_Chk();
 ?>
 <?php
 
-function isMobileDevice() {
+function isMobileDevice()
+{
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
     $mobileKeywords = array('mobile', 'android', 'iphone', 'ipod', 'blackberry', 'windows phone');
-    
+
     foreach ($mobileKeywords as $keyword) {
         if (stripos($userAgent, $keyword) !== false) {
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -126,6 +127,28 @@ $SQL_QUERY =    "SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 구독인 경우 이미 이용중인 구독상품 검색
+if ($int_type == 1) {
+    $SQL_QUERY =    'SELECT
+                        B.*, C.STR_CODE AS STR_BRAND
+                    FROM 
+                        ' . $Tname . 'comm_goods_cart AS A
+                    LEFT JOIN
+                        ' . $Tname . 'comm_goods_master AS B
+                    ON
+                        A.STR_GOODCODE=B.STR_GOODCODE
+                    LEFT JOIN
+                        ' . $Tname . 'comm_com_code AS C
+                    ON
+                        B.INT_BRAND=C.INT_NUMBER
+                    WHERE
+                        A.INT_STATE=4
+                        AND A.STR_USERID="' . $arr_Auth[0] . '"';
+
+    $arr_Rlt_Data = mysql_query($SQL_QUERY);
+    $return_product_Data = mysql_fetch_assoc($arr_Rlt_Data);
+}
 
 // 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 10: 반납완료, 11: 취소
 $int_state = 1;
