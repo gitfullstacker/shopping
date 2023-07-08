@@ -65,11 +65,24 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode where a.int_number is not null and a.int_state not in ('0') ";
+$SQL_QUERY .= 	"comm_goods_cart a 
+				left join 
+					" . $Tname . "comm_member b 
+				on 
+					a.str_userid=b.str_userid 
+				left join 
+					" . $Tname . "comm_goods_master c 
+				on 
+					a.str_goodcode=c.str_goodcode 
+				left join 
+					" . $Tname . "comm_goods_master_sub e 
+				on 
+					a.str_sgoodcode=e.str_sgoodcode 
+				where a.int_number is not null and a.int_state not in ('0') ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
-if (!result) {
+if (!$result) {
 	error("QUERY_ERROR");
 	exit;
 }
@@ -94,9 +107,23 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3, ifnull(f.int_number, 0) as sub_int, ifnull(g.int_number, 0) as ren_int from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode  ";
+$SQL_QUERY .= 	"LEFT JOIN 
+					" . $Tname . "comm_membership f 
+				ON
+					b.str_userid = f.str_userid
+					AND NOW() BETWEEN f.dtm_sdate AND f.dtm_edate
+					AND f.int_type = 1
+					AND f.str_pass = '0'
+				LEFT JOIN 
+					" . $Tname . "comm_membership g 
+				ON
+					b.str_userid = g.str_userid
+					AND NOW() BETWEEN g.dtm_sdate AND g.dtm_edate
+					AND g.int_type = 2
+					AND g.str_pass = '0'";
 $SQL_QUERY .= "where a.int_number is not null and a.int_state not in ('0') ";
 $SQL_QUERY .= $Str_Query;
 if ($Txt_gbn == "1") {
@@ -293,23 +320,18 @@ $total_record_limit = mysql_num_rows($result);
 													<font color=616161><?= mysql_result($result, $i, str_userid) ?></font>
 												</td>
 												<td><span id="navig" name="navig" m_id="admin" m_no="1">
-														<font color=0074BA><b><?= mysql_result($result, $i, str_name) ?>
-																<?
-																$SQL_QUERY =	" select ifnull(a.str_ptype,0) as mtype,a.str_userid from `" . $Tname . "comm_member_pay` as a inner join `" . $Tname . "comm_member_pay_info` as b on a.int_number=b.int_number and a.str_pass='0' and date_format(b.str_sdate, '%Y-%m-%d') <= '" . date("Y-m-d") . "' and date_format(b.str_edate, '%Y-%m-%d') >= '" . date("Y-m-d") . "' and a.str_userid='" . mysql_result($result, $i, str_userid) . "' ";
-																$arr_Rlt_Data = mysql_query($SQL_QUERY);
-																$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
-																?>
+														<font color=0074BA><b><?= mysql_result($result, $i, 'str_name') ?>
 																(
-																<? switch ($arr_Data['mtype']) {
-																	case  "":
-																		echo "일반회원";
-																		break;
-																	case  "1":
-																		echo "멤버십회원";
-																		break;
-																	case  "2":
-																		echo "1개월권회원";
-																		break;
+																<?php
+																if (mysql_result($result, $i, 'sub_int') == 0 && mysql_result($result, $i, 'ren_int') == 0) {
+																	echo "일반회원";
+																} else {
+																	if (mysql_result($result, $i, 'sub_int') > 0) {
+																		echo "구독멤버십 |";
+																	}
+																	if (mysql_result($result, $i, 'ren_int') > 0) {
+																		echo "| 렌트멤버십";
+																	}
 																}
 																?>
 																)
