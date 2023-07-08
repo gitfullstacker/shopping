@@ -243,7 +243,28 @@ switch ($arr_Data['INT_TYPE']) {
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">상품등급</p>
-                        <p class="font-semibold text-xs text-[#666666]">UNUSED(하단 상세참조)</p>
+                        <p class="font-semibold text-xs text-[#666666]">
+                            <?php
+                            switch ($arr_Data['INT_GRADE']) {
+                                case 1:
+                                    echo 'PRESERVED';
+                                    break;
+                                case 2:
+                                    echo 'S CLASS';
+                                    break;
+                                case 3:
+                                    echo 'A CLASS';
+                                    break;
+                                case 4:
+                                    echo 'B CLASS';
+                                    break;
+                                case 5:
+                                    echo 'C CLASS';
+                                    break;
+                            }
+                            ?>
+                            (하단 상세참조)
+                        </p>
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">예상적립</p>
