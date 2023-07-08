@@ -230,7 +230,7 @@ if ($RetrieveFlag == "UPDATE") {
 								<br>
 
 								<div class=button>
-									<a href="javascript:Save_Click('<?= $arr_Data['INT_TYPE'] ?>');"><img src="/admincenter/img/btn_<? if ($RetrieveFlag == "INSERT") { ?>register<? } else { ?>modify<? } ?>.gif"></a>
+									<a href="javascript:Save_Click(<?= $arr_Data['INT_TYPE'] ?>);"><img src="/admincenter/img/btn_<? if ($RetrieveFlag == "INSERT") { ?>register<? } else { ?>modify<? } ?>.gif"></a>
 								</div>
 							</form>
 						</td>
