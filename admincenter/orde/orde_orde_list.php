@@ -314,7 +314,7 @@ $total_record_limit = mysql_num_rows($result);
 										<? for ($i = 0; $i <= $displayrow - 1; $i++) { ?>
 											<tr height=30 align="center">
 												<td>
-													<font class=ver81 color=616161><?= mysql_result($result, $i, 'int_number') ?></font>
+													<?= mysql_result($result, $i, 'int_number') ?>
 												</td>
 												<td>
 													<font color=616161><?= mysql_result($result, $i, str_userid) ?></font>
