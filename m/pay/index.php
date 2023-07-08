@@ -909,6 +909,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     });
 
     function paySubscription() {
+        if (ValidChk(1) == false) return;
+
         document.frm.action = "sub_process.php";
         document.frm.submit();
     }
@@ -927,8 +929,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function ValidChk(int_type) {
-        console.log($('#return_date').val());
-        console.log(<?= $return_product_Data ? 'true' : 'false' ?>);
         if (int_type == 1) {
             if (<?= $return_product_Data ? 'true' : 'false' ?> && $('#return_date').val() == '') {
                 alert('반납날짜를 선택해주십시요.');
@@ -951,7 +951,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             }
         }
 
-        return false;
+        return true;
     }
 
     function validateMoneyInput(input, max_value = 0) {
