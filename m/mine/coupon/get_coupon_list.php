@@ -38,7 +38,8 @@ $SQL_QUERY =    'SELECT
                 ON
                     A.INT_COUPON=B.INT_NUMBER
                 WHERE 
-                    A.STR_USERID="' . $arr_Auth[0] . '"
+                    A.STR_USED="N"
+                    AND A.STR_USERID="' . $arr_Auth[0] . '"
                     AND A.DTM_SDATE <= "' . date("Y-m-d H:i:s") . '"
                     AND A.DTM_EDATE >= "' . date("Y-m-d H:i:s") . '"
                 ORDER BY A.DTM_INDATE DESC
