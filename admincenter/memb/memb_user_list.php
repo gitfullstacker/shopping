@@ -388,11 +388,11 @@ $total_record_limit = mysql_num_rows($result);
 												<td align=center><?= mysql_result($result, $i, str_grade) == 'B' ? 'BLACK' : 'GREEN' ?></td>
 												<td align=center><?= mysql_result($result, $i, str_email) ?></td>
 												<td align=center><?= mysql_result($result, $i, str_hp) ?></td>
-												<td align=center><?= number_format(mysql_result($result, $i, int_mileage)) ?>원 <a href="javascript:popupLayer('memb_user_stamp_list.php?str_userid=<?= mysql_result($result, $i, str_userid) ?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
+												<td align=center><?= number_format(mysql_result($result, $i, 'int_mileage')) ?>원 <a href="javascript:popupLayer('memb_user_stamp_list.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, int_login) ?></font>
 												</td>
-												<td><?= mysql_result($result, $i, coupon_num) ?></td>
+												<td align=center><?= number_format(mysql_result($result, $i, 'coupon_num')) ?> <a href="javascript:popupLayer('memb_user_coupon_list.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 												<td>
 													<font class=ver81 color=616161><?= substr(mysql_result($result, $i, dtm_indate), 0, 10) ?></font>
 												</td>
