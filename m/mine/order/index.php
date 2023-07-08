@@ -168,7 +168,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                                 FROM 
                                     ' . $Tname . 'comm_goods_cart A
                                 WHERE 
-                                    A.INT_STATE=10
+                                    A.INT_STATE=5
                                     AND A.STR_USERID="' . $arr_Auth[0] . '"';
 
                 $arr_Rlt_Data = mysql_query($SQL_QUERY);

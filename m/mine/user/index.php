@@ -189,7 +189,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 FROM 
                                     ' . $Tname . 'comm_goods_cart A
                                 WHERE 
-                                    A.INT_STATE=10
+                                    A.INT_STATE=5
                                     AND A.STR_USERID="' . $arr_Auth[0] . '"';
 
                 $arr_Rlt_Data = mysql_query($SQL_QUERY);
