@@ -914,37 +914,39 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function payKCP(int_type) {
+        if (ValidChk(int_type) == false) return;
+
         if (int_type == 2 && <?= $payment_Data ? 'false' : 'true' ?>) {
             document.getElementById('payment_alert').style.display = 'flex';
             return;
         }
-
-        if (ValidChk() == false) return;
 
         // document.frm.action = "/kcp_payment/mobile_sample/order_mobile.php";
         document.frm.action = "sub_process.php";
         document.frm.submit();
     }
 
-    function ValidChk() {
-        var checkbox1 = $('#agree_terms').is(':checked');
-        var checkbox2 = $('#agree_payment').is(':checked');
+    function ValidChk(int_type) {
+        if (int_type == 1) {
+            if (<?= $return_product_Data ? 'true' : 'false' ?> && $('#return_date').val() == '') {
+                alert('반납날짜를 선택해주십시요.');
+                return false;
+            }
+        } else {
+            var checkbox1 = $('#agree_terms').is(':checked');
+            var checkbox2 = $('#agree_payment').is(':checked');
 
-        if (<?= $return_product_Data ? 'true' : 'false' ?> && $('#return_date').val() == '') {
-            alert('반납날짜를 선택해주십시요.');
-            return false;
-        }
+            if (!checkbox1 || !checkbox2) {
+                event.preventDefault(); // Prevent the default redirect behavior
+                alert('약관동의에 동의하셔야 합니다.');
+                return false;
+            }
 
-        if (!checkbox1 || !checkbox2) {
-            event.preventDefault(); // Prevent the default redirect behavior
-            alert('약관동의에 동의하셔야 합니다.');
-            return false;
-        }
-
-        var total_price = $('#total_price').val();
-        if (total_price <= 0) {
-            alert('상품가격을 다시 확인해주십시요.');
-            return false;
+            var total_price = $('#total_price').val();
+            if (total_price <= 0) {
+                alert('상품가격을 다시 확인해주십시요.');
+                return false;
+            }
         }
 
         return true;
