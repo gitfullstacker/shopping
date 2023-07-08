@@ -107,7 +107,7 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3, ifnull(f.int_number, 0) as sub_int, ifnull(g.int_number, 0) as ren_int from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from " . $Tname . "comm_member_alarm d where d.int_number is not null and d.str_goodcode=a.str_goodcode) as cnt3, ifnull(f.int_number, 0) as sub_int, ifnull(g.int_number, 0) as ren_int from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_goods_cart a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode left join " . $Tname . "comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode  ";
 $SQL_QUERY .= 	"LEFT JOIN 
@@ -391,7 +391,7 @@ $total_record_limit = mysql_num_rows($result);
 									?>
 									//-->
 												</td>
-												<td><?= mysql_result($result, $i, cnt3) ?>건 <a href="javascript:RowClick2('<?= mysql_result($result, $i, str_goodcode) ?>');"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
+												<td><?= mysql_result($result, $i, 'cnt3') ?>건 <a href="javascript:RowClick2('<?= mysql_result($result, $i, 'str_goodcode') ?>');"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
 												</td>

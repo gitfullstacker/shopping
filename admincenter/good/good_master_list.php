@@ -97,7 +97,7 @@ switch ($displayorder) {
 		break;
 }
 
-$SQL_QUERY = "select a.*,(select count(b.str_sgoodcode) from " . $Tname . "comm_goods_master_link b where b.str_goodcode=a.str_goodcode) as cnt2,(select count(b.str_userid) from " . $Tname . "comm_member_alarm b where b.str_goodcode=a.str_goodcode) as cnt3  ";
+$SQL_QUERY = "select a.*,(select count(b.str_sgoodcode) from " . $Tname . "comm_goods_master_link b where b.str_goodcode=a.str_goodcode) as cnt2,(select count(b.str_userid) from " . $Tname . "comm_member_alarm b where b.int_number is not null and b.str_goodcode=a.str_goodcode) as cnt3  ";
 $SQL_QUERY .= " from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_goods_master a ";
