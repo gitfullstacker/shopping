@@ -363,9 +363,11 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 																		ON 
 																		A.STR_SGOODCODE=B.STR_SGOODCODE 
 																		AND
+																		B.STR_GOODCODE='" . mysql_result($result, $i, 'str_goodcode') . "'
+																		AND
 																		B.INT_STATE IN ('1','2','3','4','5')
 																	WHERE
-																		A.STR_GOODCODE='" . mysql_result($result, $i, str_goodcode) . "'
+																		A.STR_GOODCODE='" . mysql_result($result, $i, 'str_goodcode') . "'
 																	ORDER BY
 																		A.STR_SGOODCODE ASC ";
 
@@ -391,7 +393,7 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 																	}
 																	?>
 																	-
-																	<? switch (mysql_result($arr_Data, $int_I, int_state)) {
+																	<? switch (mysql_result($arr_Data, $int_I, 'int_state')) {
 																		case  "1":
 																			echo "[접수]";
 																			break;
@@ -413,8 +415,8 @@ $str_String = "?int_type=" . $int_type . "&Page=" . $page . "&displayrow=" . url
 															</tr>
 															<tr>
 																<td>
-																	<? if (mysql_result($arr_Data, $int_I, str_usercode) != "") { ?>
-																		[<?= mysql_result($arr_Data, $int_I, str_usercode) ?>]
+																	<? if (mysql_result($arr_Data, $int_I, 'str_usercode') != "") { ?>
+																		[<?= mysql_result($arr_Data, $int_I, 'str_usercode') ?>]
 																	<? } else { ?>
 																		&nbsp;
 																	<? } ?>

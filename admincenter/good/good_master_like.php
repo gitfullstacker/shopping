@@ -27,7 +27,22 @@ if ($Txt_eindate != "") {
 
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_member_alarm a inner join " . $Tname . "comm_member b on a.str_userid=b.str_userid where a.int_number is not null and a.str_goodcode='$str_no' ";
+$SQL_QUERY .= "comm_member_alarm a inner join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
+$SQL_QUERY .= 	"LEFT JOIN 
+					" . $Tname . "comm_membership c 
+				ON
+					b.str_userid = c.str_userid
+					AND NOW() BETWEEN c.dtm_sdate AND c.dtm_edate
+					AND c.int_type = 1
+					AND c.str_pass = '0'
+				LEFT JOIN 
+					" . $Tname . "comm_membership d 
+				ON
+					b.str_userid = d.str_userid
+					AND NOW() BETWEEN d.dtm_sdate AND d.dtm_edate
+					AND d.int_type = 2
+					AND d.str_pass = '0'";
+$SQL_QUERY .= "where a.int_number is not null and a.str_goodcode='$str_no' ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -56,9 +71,23 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp, ifnull(c.int_number, 0) as sub_int, ifnull(d.int_number, 0) as ren_int from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_member_alarm a inner join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
+$SQL_QUERY .= 	"LEFT JOIN 
+					" . $Tname . "comm_membership c 
+				ON
+					b.str_userid = c.str_userid
+					AND NOW() BETWEEN c.dtm_sdate AND c.dtm_edate
+					AND c.int_type = 1
+					AND c.str_pass = '0'
+				LEFT JOIN 
+					" . $Tname . "comm_membership d 
+				ON
+					b.str_userid = d.str_userid
+					AND NOW() BETWEEN d.dtm_sdate AND d.dtm_edate
+					AND d.int_type = 2
+					AND d.str_pass = '0'";
 $SQL_QUERY .= "where a.int_number is not null and a.str_goodcode='$str_no' ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.int_number asc ";
@@ -190,28 +219,16 @@ $total_record_limit = mysql_num_rows($result);
 												<td style="text-align:left;"><?= mysql_result($result, $i, str_userid) ?></td>
 
 												<td style="text-align:left;"><?= mysql_result($result, $i, str_name) ?>
-													<?
-													//구독멤버십가입 여부 확인
-													$is_subscription_membership = fnc_sub_member_info(mysql_result($result, $i, str_userid)) > 0 ? true : false;
-
-													//렌트멤버십가입 여부 확인
-													$is_rent_membership = fnc_ren_member_info(mysql_result($result, $i, str_userid)) > 0 ? true : false;
-
-													$SQL_QUERY =	" select ifnull(a.str_ptype,0) as mtype,a.str_userid from `" . $Tname . "comm_member_pay` as a inner join `" . $Tname . "comm_member_pay_info` as b on a.int_number=b.int_number and a.str_pass='0' and date_format(b.str_sdate, '%Y-%m-%d') <= '" . date("Y-m-d") . "' and date_format(b.str_edate, '%Y-%m-%d') >= '" . date("Y-m-d") . "' and a.str_userid='" . mysql_result($result, $i, str_userid) . "' ";
-													$arr_Rlt_Data = mysql_query($SQL_QUERY);
-													$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
-													?>
 													(
 													<?php
-													if (!$is_subscription_membership && !$is_rent_membership) {
+													if (mysql_result($result, $i, 'sub_int') == 0 && mysql_result($result, $i, 'ren_int') == 0) {
 														echo "일반회원";
 													} else {
-														if ($is_subscription_membership && $is_subscription_membership) {
-															echo "구독 & 블랑렌트";
-														} else if ($is_subscription_membership) {
-															echo "구독";
-														} else if ($is_rent_membership) {
-															echo "블랑렌트";
+														if (mysql_result($result, $i, 'sub_int') > 0) {
+															echo "구독멤버십 |";
+														}
+														if (mysql_result($result, $i, 'ren_int') > 0) {
+															echo "| 렌트멤버십";
 														}
 													}
 													?>
