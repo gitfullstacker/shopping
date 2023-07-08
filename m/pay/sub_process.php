@@ -41,6 +41,7 @@ $coupon = Fnc_Om_Conv_Default($_REQUEST['coupon'], 0);
 $int_coupon = Fnc_Om_Conv_Default($_REQUEST['int_coupon'], null);
 $mileage = Fnc_Om_Conv_Default($_REQUEST['mileage'], 0);
 
+$return_date = Fnc_Om_Conv_Default($_REQUEST['return_date'], '');
 $start_date = Fnc_Om_Conv_Default($_REQUEST['start_date'], '');
 $end_date = Fnc_Om_Conv_Default($_REQUEST['end_date'], '');
 $count = Fnc_Om_Conv_Default($_REQUEST['count'], 1);
@@ -128,26 +129,10 @@ $SQL_QUERY =    "SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-// 구독인 경우 이미 이용중인 구독상품 검색
-if ($int_type == 1) {
-    $SQL_QUERY =    'SELECT
-                        B.*, C.STR_CODE AS STR_BRAND
-                    FROM 
-                        ' . $Tname . 'comm_goods_cart AS A
-                    LEFT JOIN
-                        ' . $Tname . 'comm_goods_master AS B
-                    ON
-                        A.STR_GOODCODE=B.STR_GOODCODE
-                    LEFT JOIN
-                        ' . $Tname . 'comm_com_code AS C
-                    ON
-                        B.INT_BRAND=C.INT_NUMBER
-                    WHERE
-                        A.INT_STATE=4
-                        AND A.STR_USERID="' . $arr_Auth[0] . '"';
-
-    $arr_Rlt_Data = mysql_query($SQL_QUERY);
-    $return_product_Data = mysql_fetch_assoc($arr_Rlt_Data);
+// 구독인 경우 이미 이용중인 구독상품 모두 반납
+if ($int_type == 1 && $return_date) {
+    $Sql_Query = "UPDATE `" . $Tname . "comm_goods_cart` SET INT_STATE=5, STR_RDATE='" . $return_date . "' WHERE STR_USERID='" . $arr_Auth[0] . "' AND INT_STATE=4";
+    mysql_query($Sql_Query);
 }
 
 // 1: 접수, 2: 관리자확인, 3: 발송, 4: 배송완료, 5: 반납접수, 10: 반납완료, 11: 취소
