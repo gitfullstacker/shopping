@@ -53,6 +53,19 @@ switch ($RetrieveFlag) {
 
 		for ($i = 0; $i < count($chkItem1); $i++) {
 
+			$SQL_QUERY =	" SELECT
+								A.*
+							FROM 
+								" . $Tname . "comm_member_pay AS A
+							WHERE
+								A.INT_NUMBER='$chkItem1[$i]' ";
+
+			$arr_Rlt_Data = mysql_query($SQL_QUERY);
+			$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+			$SQL_QUERY =	"DELETE FROM " . $Tname . "comm_membership WHERE STR_USERID='" . $arr_Data['STR_USERID'] . "' ";
+			mysql_query($SQL_QUERY);
+
 			$SQL_QUERY =	"DELETE FROM " . $Tname . "comm_member_pay_info WHERE INT_NUMBER='$chkItem1[$i]' ";
 			mysql_query($SQL_QUERY);
 
