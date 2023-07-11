@@ -13,7 +13,7 @@ $card_mask_no = Fnc_Om_Conv_Default($_REQUEST['card_mask_no'], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], $arr_Auth[0]);
 
 if ($res_cd == "0000") {
-    $SQL_QUERY =    'UPDATE ' . $Tname . 'comm_member_pay SET STR_PASS="1" WHERE STR_USERID="' . $str_userid . '"';
+    $SQL_QUERY =    'UPDATE ' . $Tname . 'comm_member_pay SET STR_PASS1="1", STR_PASS2="1" WHERE STR_USERID="' . $str_userid . '"';
     mysql_query($SQL_QUERY);
 
     $arr_Set_Data = array();
@@ -33,8 +33,10 @@ if ($res_cd == "0000") {
     $arr_Column_Name[11]        = "STR_CARDNAME";
     $arr_Column_Name[12]        = "DTM_INDATE";
     $arr_Column_Name[13]        = "STR_CANCEL1";
-    $arr_Column_Name[14]        = "STR_PASS";
-    $arr_Column_Name[15]        = "STR_CARDNO";
+    $arr_Column_Name[14]        = "STR_PASS1";
+    $arr_Column_Name[15]        = "STR_CANCEL2";
+    $arr_Column_Name[16]        = "STR_PASS2";
+    $arr_Column_Name[17]        = "STR_CARDNO";
 
     $arr_Set_Data[0]        = $str_userid;
     $arr_Set_Data[1]        = "1";
@@ -51,7 +53,9 @@ if ($res_cd == "0000") {
     $arr_Set_Data[12]        = date("Y-m-d H:i:s");
     $arr_Set_Data[13]        = "0";
     $arr_Set_Data[14]        = "0";
-    $arr_Set_Data[15]        = $card_mask_no;
+    $arr_Set_Data[15]        = "0";
+    $arr_Set_Data[16]        = "0";
+    $arr_Set_Data[17]        = $card_mask_no;
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";
