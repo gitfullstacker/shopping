@@ -58,7 +58,7 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
 /* 기타 파라메터 추가 부분 - End -   */
 /* ============================================================================== */
 
-$card_mask_no          = $_POST["card_mask_no"];      // 카드번호
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -100,7 +100,7 @@ $card_mask_no          = $_POST["card_mask_no"];      // 카드번호
   </script>
 </head>
 
-<body onload="">
+<body onload="sendResult();">
   <form name="resultForm" method="post" action="/m/mine/payment/result_proc.php">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
@@ -108,7 +108,6 @@ $card_mask_no          = $_POST["card_mask_no"];      // 카드번호
     <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
     <input type="hidden" name="card_name" value="<?= $card_name ?>">
     <input type="hidden" name="batch_key" value="<?= $batch_key ?>">
-    <input type="hidden" name="card_mask_no" value="<?= $card_mask_no ?>">
     <input type="hidden" name="str_userid" value="<?= $param_opt_1 ?>">
   </form>
 </body>

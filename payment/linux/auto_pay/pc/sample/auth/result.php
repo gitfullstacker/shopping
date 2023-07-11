@@ -32,7 +32,7 @@ $card_cd     = $_POST["card_cd"];                // 카드 코드
 $batch_key   = $_POST["batch_key"];                // 배치 인증키
 /* ============================================================================== */
 
-$card_mask_no          = $_POST["card_mask_no"];      // 카드번호
+
 /* ============================================================================== */
 /* =   02. 결과페이지 폼 구성                                                   = */
 /* ============================================================================== */
@@ -61,7 +61,6 @@ $card_mask_no          = $_POST["card_mask_no"];      // 카드번호
         <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
         <input type="hidden" name="card_name" value="">
         <input type="hidden" name="batch_key" value="<?= $batch_key ?>">
-        <input type="hidden" name="card_mask_no" value="<?= $card_mask_no ?>">
         <input type="hidden" name="str_userid" value="">
     </form>
 </body>
