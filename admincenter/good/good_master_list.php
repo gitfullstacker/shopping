@@ -7,7 +7,7 @@ Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
 
 $page = Fnc_Om_Conv_Default($_REQUEST[page], 1);
-$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow], 20);
+$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow], 50);
 $displaypage = Fnc_Om_Conv_Default($_REQUEST[displaypage], 10);
 $displayorder = Fnc_Om_Conv_Default($_REQUEST[displayorder], '');
 
