@@ -100,7 +100,7 @@ $card_mask_no          = $_POST["card_mask_no"];      // 카드번호
   </script>
 </head>
 
-<body onload="sendResult();">
+<body onload="">
   <form name="resultForm" method="post" action="/m/mine/payment/result_proc.php">
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
