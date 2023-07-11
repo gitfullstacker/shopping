@@ -211,7 +211,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         </div>
                         <p class="mt-[15px] font-extrabold text-sm leading-4 text-center text-black">MEMBERSHIP CARD</p>
                         <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
-                            구독 멤버십 잔여일이 <span class="font-bold underline"><?= $sub_days_left ?>일</span> 남았습니다.<br>
+                            구독 멤버십 잔여일이 <span class="font-bold underline"><?= $sub_days_left + 1 ?>일</span> 남았습니다.<br>
                             *다음달 <span class="font-bold underline"><?= date('d', strtotime($subscription_Data['DTM_EDATE'] . '+1 days')) ?>일</span>에 자동 결제됩니다.
                         </p>
                     </div>

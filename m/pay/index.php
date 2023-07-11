@@ -635,7 +635,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             </div>
                             <p class="mt-[15px] font-extrabold text-[14px] leading-4 text-center text-black">MEMBERSHIP CARD</p>
                             <p class="mt-2 font-medium text-xs leading-[14px] text-center text-black">
-                                프리미엄 구독권 잔여일이 <span class="font-bold underline"><?= $days_left ?></span>일 남았습니다.<br>
+                                프리미엄 구독권 잔여일이 <span class="font-bold underline"><?= $days_left + 1 ?></span>일 남았습니다.<br>
                                 마이페이지에서 구독 연장/취소 신청 가능합니다.
                             </p>
                         </div>
