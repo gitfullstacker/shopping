@@ -9,6 +9,7 @@ $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 $batch_key = Fnc_Om_Conv_Default($_REQUEST['batch_key'], "");
+$card_mask_no = Fnc_Om_Conv_Default($_REQUEST['card_mask_no'], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], $arr_Auth[0]);
 
 if ($res_cd == "0000") {
@@ -33,6 +34,7 @@ if ($res_cd == "0000") {
     $arr_Column_Name[12]        = "DTM_INDATE";
     $arr_Column_Name[13]        = "STR_CANCEL1";
     $arr_Column_Name[14]        = "STR_PASS";
+    $arr_Column_Name[15]        = "STR_CARDNO";
 
     $arr_Set_Data[0]        = $str_userid;
     $arr_Set_Data[1]        = "1";
@@ -49,6 +51,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[12]        = date("Y-m-d H:i:s");
     $arr_Set_Data[13]        = "0";
     $arr_Set_Data[14]        = "0";
+    $arr_Set_Data[15]        = $card_mask_no;
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";

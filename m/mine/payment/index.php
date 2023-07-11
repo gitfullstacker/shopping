@@ -7,16 +7,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
 <?php
-function isMobileDevice() {
+function isMobileDevice()
+{
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
     $mobileKeywords = array('mobile', 'android', 'iphone', 'ipod', 'blackberry', 'windows phone');
-    
+
     foreach ($mobileKeywords as $keyword) {
         if (stripos($userAgent, $keyword) !== false) {
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -128,7 +129,11 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
     ?>
 </div>
 
-<form name="add_card" action="<?= isMobileDevice() ? '/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/pc/sample/auth/request_key.php' ?>" method="post">
+<?php
+$payment_url = isMobileDevice() ? '/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php' : '/payment/linux/auto_pay/pc/sample/auth/request_key.php';
+?>
+
+<form name="add_card" action="/payment/linux/auto_pay/mo/mobile_auth/order_mobile.php" method="post">
     <input type="hidden" name="str_userid" value="<?= $user_Data['STR_USERID'] ?>">
     <input type="hidden" name="ordr_idxx" value="">
     <input type="hidden" name="good_name" value="카드등록">
