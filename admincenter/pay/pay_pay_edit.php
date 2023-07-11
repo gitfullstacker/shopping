@@ -84,10 +84,10 @@ if ($RetrieveFlag == "UPDATE") {
 										</td>
 									</tr>
 									<?php
-									if ($int_type == 0 || $int_type == 1) {
+									if ($int_type == 1) {
 									?>
 										<tr>
-											<td>상태</td>
+											<td>상태(구독)</td>
 											<td colspan=3>
 												<input type="radio" value="0" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "0") { ?>checked<? } ?>> 결제완료
 												<input type="radio" value="1" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "1") { ?>checked<? } ?>> 결제취소
@@ -105,10 +105,10 @@ if ($RetrieveFlag == "UPDATE") {
 									}
 									?>
 									<?php
-									if ($int_type == 0 || $int_type == 2) {
+									if ($int_type == 2) {
 									?>
 										<tr>
-											<td>상태</td>
+											<td>상태(렌트)</td>
 											<td colspan=3>
 												<input type="radio" value="0" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "0") { ?>checked<? } ?>> 결제완료
 												<input type="radio" value="1" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "1") { ?>checked<? } ?>> 결제취소
