@@ -32,13 +32,32 @@ switch ($RetrieveFlag) {
 		mysql_query($SQL_QUERY);
 
 		// 멤버십에 반영
-		$SQL_QUERY = 	"UPDATE 
-							" . $Tname . "comm_membership 
-						SET 
-							STR_PASS='" . ($int_type == 1 ? $str_pass1 : $str_pass2) . "',
-							STR_CANCEL='" . ($int_type == 1 ? $str_cancel1 : $str_cancel2) . "'";
-		$SQL_QUERY .= " WHERE STR_USERID='$str_userid' AND INT_TYPE=" . $int_type;
-		mysql_query($SQL_QUERY);
+		if ($int_type == 0) {
+			$SQL_QUERY = 	"UPDATE 
+								" . $Tname . "comm_membership 
+							SET 
+								STR_PASS='" . $str_pass1 . "',
+								STR_CANCEL='" . $str_cancel1 . "'";
+			$SQL_QUERY .= " WHERE STR_USERID='$str_userid' AND INT_TYPE=1";
+			mysql_query($SQL_QUERY);
+
+			$SQL_QUERY = 	"UPDATE 
+								" . $Tname . "comm_membership 
+							SET 
+								STR_PASS='" . $str_pass2 . "',
+								STR_CANCEL='" . $str_cancel2 . "'";
+			$SQL_QUERY .= " WHERE STR_USERID='$str_userid' AND INT_TYPE=2";
+			mysql_query($SQL_QUERY);
+		} else {
+			$SQL_QUERY = 	"UPDATE 
+								" . $Tname . "comm_membership 
+							SET 
+								STR_PASS='" . ($int_type == 1 ? $str_pass1 : $str_pass2) . "',
+								STR_CANCEL='" . ($int_type == 1 ? $str_cancel1 : $str_cancel2) . "'";
+			$SQL_QUERY .= " WHERE STR_USERID='$str_userid' AND INT_TYPE=" . $int_type;
+			mysql_query($SQL_QUERY);
+		}
+
 ?>
 		<script language="javascript">
 			alert("처리되었습니다.");
