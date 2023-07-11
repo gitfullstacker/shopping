@@ -43,6 +43,7 @@ $buyr_mail       = $_POST["buyr_mail"]; // 주문자 E-mail 주소
 $use_pay_method  = $_POST["use_pay_method"]; // 결제 방법  
 $enc_info        = $_POST["enc_info"]; // 암호화 정보       
 $enc_data        = $_POST["enc_data"]; // 암호화 데이터     
+$card_mask_no    = $_POST["card_mask_no"]; // 카드번호
 
 /* 기타 파라메터 추가 부분 - Start - */
 $param_opt_1    = $_POST["param_opt_1"]; // 기타 파라메터 추가 부분
@@ -155,7 +156,7 @@ function convertEncode($string)
             }
 
             if (pay_form.enc_info.value) {
-                console.log(pay_form);
+                console.log(pay_form.card_mask_no);
                 // pay_form.submit();
                 return;
             }
@@ -287,7 +288,7 @@ function convertEncode($string)
         <input type='hidden' name='batch_cardno_return_yn' value='L'>
 
         <!-- batch_cardno_return_yn 설정시 결제창에서 리턴 -->
-        <input type='hidden' name='card_mask_no' value=''>
+        <input type='hidden' name='card_mask_no' value='<?= $card_mask_no ?>'>
     </form>
 </body>
 
