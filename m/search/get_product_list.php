@@ -119,7 +119,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
                     <p class="font-extrabold text-xs leading-[14px] text-[#EEAC4C] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">월 ' . number_format($site_Data['INT_OPRICE1']) . '원</p>
+                    <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">월</span> ' . number_format($site_Data['INT_OPRICE1']) . '원</p>
                 </div>
             ';
             if ($rent_num == '0') {
@@ -134,7 +134,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
                     <p class="font-extrabold text-xs leading-[14px] text-[#00402F] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">일 ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                    <p class="font-bold text-[13px] leading-[14px] text-black"><span class="font-medium">일</span> ' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
                 </div>
             ';
             if ($rent_num == '0') {
@@ -149,7 +149,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
             $price = '
                 <div class="mt-[8.4px] flex gap-1 items-center">
                     <p class="font-extrabold text-xs leading-[14px] text-[#7E6B5A] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">' . $row['INT_DISCOUNT'] . '%</p>
-                    <p class="font-bold text-xs leading-[14px] text-black">' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
+                    <p class="font-bold text-[13px] leading-[14px] text-black">' . number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) . '원</p>
                 </div>
             ';
             if ($rent_num == '0') {
@@ -176,8 +176,8 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
                 </div>
                 ' . $rented_content . '
             </div>
-            <p class="mt-[5.5px] font-extrabold text-[9px] leading-[10px] text-[#666666]">' . $row['STR_CODE'] . '</p>
-            <p class="mt-[3px] font-bold text-[9px] leading-[10px] text-[#333333]">' . $row['STR_GOODNAME'] . '</p>
+            <p class="mt-[5.5px] font-extrabold text-xs leading-[14px] text-[#666666]">' . $row['STR_CODE'] . '</p>
+            <p class="mt-[3px] font-medium text-xs leading-[14px] text-[#333333]">' . $row['STR_GOODNAME'] . '</p>
             ' . $price . '
             <div class="mt-[10.5px] flex justify-center items-center w-[30px] h-4 bg-[' . ($row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A')) . ']">
                 <p class="font-normal text-[9px] leading-[9px] text-center text-white">' . ($row['INT_TYPE'] == 1 ? '구독' : ($row['INT_TYPE'] == 2 ? '렌트' : '빈티지')) . '</p>
