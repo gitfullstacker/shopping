@@ -22,29 +22,28 @@
     <script src="/m/js/swiper.min.js"></script>
     <script src="/m/js/main.js" defer></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/m/js/jquery.min.js"></script>
 
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="/m/js/jquery-1.12.4.js"></script>
+	<script src="/m/js/jquery-ui.js"></script>
 
     <link rel="styleSheet" href="/pub/css/dhtml_calendar.css">
     <script src="/admincenter/js/common.js"></script>
     <script src="/pub/js/CommScript.js"></script>
     <script src="/pub/js/dhtml_calendar.js"></script>
 
-    <script src="//cdn.tailwindcss.com"></script>
-    <script defer src="//cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/m/js/tailwindcss/tailwindcss.min.js"></script>
+    <script defer src="/m/js/alpine.js/cdn.min.js"></script>
 
-    <!-- Add the slick-theme.css if you want default styling -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <!-- Add the slick-theme.css if you want default styling -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Add slick -->
+    <link rel="stylesheet" type="text/css" href="/m/css/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/slick/slick-theme.css" />
+    <script type="text/javascript" src="/m/js/slick/slick.min.js"></script>
 
     <!-- Add splide -->
-	<script src="//cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-	<link href="//cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    
+	<script src="/m/js/splide/splide.min.js"></script>
+	<link href="/m/css/splide/splide.min.css" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {

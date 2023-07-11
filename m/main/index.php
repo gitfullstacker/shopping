@@ -20,9 +20,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 ?>
 <!-- 슬라이더 -->
-<div class="slider-section splide">
-<div class="splide__track w-full">
-                <div class="splide__list">
+<div class="slider-section">
 	<?php
 	$SQL_QUERY =    'SELECT 
 						A.*
@@ -583,10 +581,14 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 
 <script>
 	$(document).ready(function() {
-		var slider_splide = new Splide('.slider-section', {
-			drag: 'free',
+		$('.slider-section').slick({
+			infinite: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			dots: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
 		});
-		slider_splide.mount();
 
 		var eventzone_splide = new Splide('.eventzone-scroll-list', {
 			drag: 'free',
