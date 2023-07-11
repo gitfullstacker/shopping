@@ -81,7 +81,7 @@ if ($show_footer_hbutton || $show_footer_sbutton) {
 		}
 		if ($show_footer_sbutton) {
 		?>
-			<div id="scroll-top-btn" class="flex justify-center items-center w-[45px] h-[45px] bg-white border border-solid border-[#D9D9D9] rounded-full" style="display: none;">
+			<div id="scroll-top-btn" class="flex justify-center items-center w-[45px] h-[45px] bg-white border border-solid border-[#D9D9D9] rounded-full cursor-pointer" style="display: none;">
 				<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M8.92 16.6134H6.92V4.61344L1.42 10.1134L0 8.69344L7.92 0.773438L15.84 8.69344L14.42 10.1134L8.92 4.61344V16.6134Z" fill="#666666" />
 				</svg>

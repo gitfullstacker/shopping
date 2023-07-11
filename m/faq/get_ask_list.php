@@ -67,7 +67,7 @@ while ($row = mysql_fetch_assoc($ask_list_result)) {
 
     $result .= '
         <div x-data="{ isCollapsed: true }" class="flex flex-col w-full">
-            <div class="flex justify-between py-[15px] border-b-[0.5px] border-[#E0E0E0] pr-[7px]" x-on:click="isCollapsed = !isCollapsed">
+            <div class="flex justify-between py-[15px] border-b-[0.5px] border-[#E0E0E0] pr-[7px] cursor-pointer" x-on:click="isCollapsed = !isCollapsed">
                 <div class="flex flex-row gap-2.5 items-center w-full">
                     <p class="w-[100px] font-bold text-xs leading-[14px] text-black ' . ($int_gubun != 0 ? 'hidden' : '') . '">' . $row['STR_CODE'] . '</p>
                     <p class="flex-1 font-bold text-xs leading-[14px] text-[#666666]">' . $row['STR_QUEST'] . '</p>

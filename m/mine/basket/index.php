@@ -59,10 +59,10 @@ fnc_MLogin_Chk();
                 <p class="font-extrabold text-lg leading-5 text-[#333333]">장바구니</p>
                 <div class="flex justify-between items-center">
                     <div class="flex flex-row gap-10 items-center">
-                        <div class="flex justify-center items-center p-[3px] border-[#6A696C]" x-bind:class="menu == 1 ? 'border-b' : 'border-none'" x-on:click="menu = 1">
+                        <div class="flex justify-center items-center p-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 1 ? 'border-b' : 'border-none'" x-on:click="menu = 1">
                             <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">렌트·구독</p>
                         </div>
-                        <div class="flex justify-center items-center p-[3px] border-[#6A696C]" x-bind:class="menu == 2 ? 'border-b' : 'border-none'" x-on:click="menu = 2">
+                        <div class="flex justify-center items-center p-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 2 ? 'border-b' : 'border-none'" x-on:click="menu = 2">
                             <p class="font-bold text-xs leading-[14px]" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">빈티지</p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ fnc_MLogin_Chk();
                             }" x-show="showProduct" class="flex flex-col w-full">
                             <div class="flex justify-between items-center w-full">
                                 <p class="font-bold text-[15px] leading-[17px] text-black"><?= $row['STR_CODE'] ?></p>
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-on:click="removeBacket('<?= $row['STR_GOODCODE'] ?>')">
+                                <svg class="cursor-pointer" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-on:click="removeBacket('<?= $row['STR_GOODCODE'] ?>')">
                                     <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                                 </svg>
                             </div>
@@ -211,7 +211,7 @@ fnc_MLogin_Chk();
                                     <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="select_product" id="select_<?= $row['STR_GOODCODE'] ?>" value="<?= $row['STR_GOODCODE'] ?>">
                                     <label for="select_<?= $row['STR_GOODCODE'] ?>" class="font-bold text-[15px] leading-[17px] text-black"><?= $row['STR_CODE'] ?></label>
                                 </div>
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-on:click="removeBacket('<?= $row['STR_GOODCODE'] ?>')">
+                                <svg class="cursor-pointer" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" x-on:click="removeBacket('<?= $row['STR_GOODCODE'] ?>')">
                                     <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                                 </svg>
                             </div>

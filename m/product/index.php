@@ -97,7 +97,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                                 break;
                         }
                         ?>
-                        <div class="flex flex-col gap-[9px] items-center justify-start splide__slide" x-on:click="scroll(<?= $index ?>);">
+                        <div class="flex flex-col gap-[9px] items-center justify-start cursor-pointer splide__slide" x-on:click="scroll(<?= $index ?>);">
                             <div class="flex justify-center items-center w-[77px] h-[77px] rounded-full bg-gray-100 <?= $mini_banner ?: 'animate-pulse' ?>" x-bind:class="pick == <?= $index ?> ? 'border border-solid border-black' : 'border-none'">
                                 <img class="w-full h-full rounded-full" src="/admincenter/files/com/<?= $mini_banner ?>" onerror="this.style.display = 'none'" alt="category" />
                             </div>
@@ -270,7 +270,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         filter_subscription = this.filterSubscription;
                         searchProduct();
                     }
-                }" class="discount-view" x-on:click="toogleSubscription()">
+                }" class="discount-view cursor-pointer" x-on:click="toogleSubscription()">
                         <div class="w-[22.87px] h-[13.24px] p-[1px] rounded-[13.24px] flex items-center" x-bind:class="filterSubscription ? 'bg-[#4BCA36] justify-end' : 'bg-[#DDDDDD] justify-start'">
                             <div class="w-[10.97px] h-[10.97px] rounded-full bg-white"></div>
                         </div>
@@ -286,7 +286,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         filter_discount = this.filterDiscount;
                         searchProduct();
                     }
-                }" class="discount-view" x-on:click="toogleDiscount()">
+                }" class="discount-view cursor-pointer" x-on:click="toogleDiscount()">
                         <div class="w-[22.87px] h-[13.24px] p-[1px] rounded-[13.24px] flex items-center" x-bind:class="filterDiscount ? 'bg-[#4BCA36] justify-end' : 'bg-[#DDDDDD] justify-start'">
                             <div class="w-[10.97px] h-[10.97px] rounded-full bg-white"></div>
                         </div>
@@ -330,7 +330,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         order_by = this.selectedValue;
                         searchProduct();
                     }
-                }" class="flex gap-0.5 items-center relative">
+                }" class="flex gap-0.5 items-center cursor-pointer relative">
                     <div class="w-[9px] h-[9px] flex justify-center items-center">
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.48906 1H6.51694L3.99797 4.15L1.48906 1ZM0.106392 0.805001C1.12202 2.1 2.99742 4.5 2.99742 4.5V7.5C2.99742 7.775 3.22368 8 3.50021 8H4.50579C4.78232 8 5.00857 7.775 5.00857 7.5V4.5C5.00857 4.5 6.87895 2.1 7.89458 0.805001C7.9522 0.731187 7.98783 0.642764 7.99739 0.549803C8.00696 0.456842 7.99009 0.363077 7.94869 0.279186C7.9073 0.195294 7.84305 0.124647 7.76326 0.0752883C7.68347 0.0259299 7.59134 -0.000156018 7.49738 7.02021e-07H0.503594C0.0862804 7.02021e-07 -0.15003 0.475001 0.106392 0.805001Z" fill="#999999" />
@@ -658,7 +658,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                                 (date.status == 2 && selectedStatus == 2) ? 'bg-[#E5EAE3] rounded-l-full ml-1.5 pl-0' :
                                 date.status == 3 ? 'bg-[#E5EAE3] rounded-r-full mr-1.5 pr-0' :
                                 date.status == 4 ? 'bg-[#E5EAE3]' : 'bg-white'">
-                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 relative" x-bind:class="
+                                    <div class="flex justify-center items-center rounded-full w-[38px] h-[38px] z-10 cursor-pointer relative" x-bind:class="
                                     date.status == 0 ? 'bg-[#DDDDDD] text-black' : 
                                     date.status == 1 ? 'bg-[#BED2B6] text-black' : 
                                     (date.status == 2 || date.status == 3) ? 'bg-[#00402F] text-white' : 
@@ -894,9 +894,9 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
         }" class="flex flex-col items-center rounded-lg bg-white w-[80%]">
             <div class="flex flex-row pt-3 pb-2.5 px-[27px] justify-between items-center w-full">
                 <div class="flex items-center gap-[13px]">
-                    <p class="text-xs leading-[14px]" x-bind:class="showOption == 1 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 1">브랜드</p>
-                    <p class="text-xs leading-[14px]" x-bind:class="showOption == 2 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 2">사이즈</p>
-                    <p class="text-xs leading-[14px]" x-bind:class="showOption == 3 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 3">스타일</p>
+                    <p class="text-xs leading-[14px] cursor-pointer" x-bind:class="showOption == 1 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 1">브랜드</p>
+                    <p class="text-xs leading-[14px] cursor-pointer" x-bind:class="showOption == 2 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 2">사이즈</p>
+                    <p class="text-xs leading-[14px] cursor-pointer" x-bind:class="showOption == 3 ? 'font-extrabold text-black' : 'font-bold text-[#6A696C]'" x-on:click="showOption = 3">스타일</p>
                 </div>
                 <button class="w-2.5 h-2.5" x-on:click="showOption = 0">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -925,7 +925,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                             <div class="mt-[9px] flex flex-col w-full gap-[11px] px-1.5">
                                 <template x-for="(item, index) in content[showOption].list">
                                     <template x-if="item.title.toLowerCase().includes(content[showOption].searchKey.toLowerCase()) || item.ktitle.toLowerCase().includes(content[showOption].searchKey.toLowerCase())">
-                                        <div class="flex gap-[9.4px] items-center w-full" x-on:click="selectItem(index);">
+                                        <div class="flex gap-[9.4px] items-center w-full cursor-pointer" x-on:click="selectItem(index);">
                                             <div class="w-4 h-4 rounded-full border-[0.4px] border-solid border-[#E0E0E0]" x-bind:class="item.checked ? 'bg-black' : 'bg-[#F8F8F8]'"></div>
                                             <div class="flex flex-col gap-[1.7px]">
                                                 <p class="font-bold text-xs leading-[14px] text-black" x-text="item.title">ACNE STUDIOS</p>

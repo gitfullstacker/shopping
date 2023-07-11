@@ -84,7 +84,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     foreach ($seenData as $seenInfo) {
                     ?>
                         <div class="flex flex-row gap-2.5">
-                            <div class="w-[91px] h-[91px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-[4px]">
+                            <div class="w-[100px] h-[100px] flex justify-center items-center p-2 bg-[#F9F9F9] rounded-[4px]">
                                 <img src="/admincenter/files/good/<?= $seenInfo['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="product">
                             </div>
                             <div class="grow flex justify-between py-1">
@@ -132,7 +132,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                     }
                                     ?>
                                 </div>
-                                <div class="flex justify-center items-center w-[15px] h-[15px]" onclick="setLike('<?= $seenInfo['STR_GOODCODE'] ?>')">
+                                <div class="flex justify-center items-center w-[15px] h-[15px] cursor-pointer" onclick="setLike('<?= $seenInfo['STR_GOODCODE'] ?>')">
                                     <svg id="is_like_no_<?= $seenInfo['STR_GOODCODE'] ?>" style="<?= $seenInfo['IS_LIKE'] > 0 ? 'display:none;' : '' ?>" width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.07838 13.6647L7.07788 13.6642C5.01112 11.7493 3.32341 10.1829 2.14831 8.71393C0.977275 7.25002 0.35 5.92416 0.35 4.49591C0.35 2.15659 2.13596 0.35 4.4 0.35C5.68336 0.35 6.92305 0.962301 7.732 1.92538L8 2.24445L8.268 1.92538C9.07695 0.962301 10.3166 0.35 11.6 0.35C13.864 0.35 15.65 2.15659 15.65 4.49591C15.65 5.92416 15.0227 7.25002 13.8517 8.71393C12.6766 10.1829 10.9889 11.7493 8.92212 13.6642L8.92162 13.6647L8 14.522L7.07838 13.6647Z" stroke="#666666" stroke-width="0.7" />
                                     </svg>

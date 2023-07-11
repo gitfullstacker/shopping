@@ -52,7 +52,7 @@ while ($row = mysql_fetch_assoc($notification_list_result)) {
 
     $result .= '
         <div x-data="{ isCollapsed: true }" class="flex flex-col w-full">
-            <div class="flex justify-between items-center py-[15px] border-b-[0.5px] border-[#E0E0E0]" x-on:click="isCollapsed = !isCollapsed">
+            <div class="flex justify-between items-center py-[15px] border-b-[0.5px] border-[#E0E0E0] cursor-pointer" x-on:click="isCollapsed = !isCollapsed">
                 <div class="flex flex-col gap-[3px]">
                     <p class="font-medium text-xs leading-[14px] text-[#666666]">' . date('Y.m.d', strtotime($row['BD_REG_DATE'])) . '</p>
                     <p class="font-bold text-xs leading-[14px] text-black">[공지] ' . $row['BD_TITLE'] . '</p>

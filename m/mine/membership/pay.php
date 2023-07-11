@@ -260,7 +260,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div x-data="{ isCollapsed: false }" class="mt-[15px] flex flex-col w-full px-[14px] pb-7 border-b-[0.5px] border-solid border-[#E0E0E0]">
         <div class="flex items-center justify-between">
             <p class="font-extrabold text-lg leading-5 text-[#333333]">결제금액</p>
-            <div x-on:click="isCollapsed = !isCollapsed" x-bind:class="isCollapsed ? 'rotate-180' : 'rotate-0'">
+            <div class="cursor-pointer" x-on:click="isCollapsed = !isCollapsed" x-bind:class="isCollapsed ? 'rotate-180' : 'rotate-0'">
                 <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.2576 1.58525L7.81002 7.79723C7.73327 7.87097 7.65012 7.92307 7.56057 7.95355C7.47102 7.98452 7.37507 8 7.27273 8C7.17038 8 7.07444 7.98452 6.98489 7.95355C6.89534 7.92307 6.81218 7.87097 6.73543 7.79724L0.268649 1.58525C0.0895495 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940092C-3.19879e-07 0.682027 0.0959459 0.46083 0.287838 0.276498C0.479731 0.0921659 0.703606 -3.07556e-08 0.959462 -4.19394e-08C1.21532 -5.31233e-08 1.43919 0.0921659 1.63109 0.276498L7.27273 5.69585L12.9144 0.276497C13.0935 0.104454 13.314 0.0184325 13.576 0.0184325C13.8385 0.0184325 14.0657 0.110598 14.2576 0.29493C14.4495 0.479262 14.5455 0.694316 14.5455 0.940091C14.5455 1.18587 14.4495 1.40092 14.2576 1.58525Z" fill="#333333" />
                 </svg>
@@ -293,15 +293,15 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
         <div class="flex justify-between items-center">
             <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
-                <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
+                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">보증금 약관 동의하기</label>
             </div>
             <a href="/m/help/deposit_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
         </div>
         <div class="flex justify-between items-center">
             <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
-                <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
             </div>
             <a href="/m/help/privacy_agree.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
         </div>

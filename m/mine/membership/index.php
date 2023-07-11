@@ -81,10 +81,10 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
             $sub_menu_color = $subscription_Data['STR_CANCEL'] == '0' ? '#EDA02F' : '#6A696C';
             $ren_menu_color = $rent_Data['STR_CANCEL'] == '0' ? '#00402F' : '#6A696C';
             ?>
-            <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
+            <div class="flex pb-[3px] px-[3px] border-solid cursor-pointer border-[<?= $ren_menu_color ?>]" x-bind:class="type == 1 ? 'border-b' : 'border-none'" x-on:click="type = 1">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 1 ? 'text-[<?= $ren_menu_color ?>]' : 'text-[#999999]'">블랑 렌트 멤버십</p>
             </div>
-            <div class="flex pb-[3px] px-[3px] border-solid border-[<?= $sub_menu_color ?>]" x-bind:class="type == 2 ? 'border-b' : 'border-none'" x-on:click="type = 2">
+            <div class="flex pb-[3px] px-[3px] border-solid cursor-pointer border-[<?= $sub_menu_color ?>]" x-bind:class="type == 2 ? 'border-b' : 'border-none'" x-on:click="type = 2">
                 <p class="font-bold text-sm leading-4" x-bind:class="type == 2 ? 'text-[<?= $sub_menu_color ?>]' : 'text-[#999999]'">구독 멤버십</p>
             </div>
         </div>

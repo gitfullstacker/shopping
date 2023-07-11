@@ -121,7 +121,7 @@ $total_record = mysql_result($result, 0, 0);
                         window.order_by = this.selectedValue;
                         searchProduct();
                     }
-                }" class="flex gap-1 items-center relative">
+                }" class="flex gap-1 items-center relative cursor-pointer">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]" x-text="selectedTitle" x-on:click="showOrderBy = true">
                     인기순
                 </p>

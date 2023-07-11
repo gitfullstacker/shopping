@@ -162,6 +162,7 @@
                                 A.BD_REG_DATE,
                                 A.BD_ITEM2,
                                 IFNULL(B.IMG_F_NAME, "") AS IMG_F_NAME,
+                                C.STR_GOODCODE,
                                 C.STR_GOODNAME,
                                 C.STR_IMAGE1,
                                 C.INT_DISCOUNT,
@@ -197,7 +198,7 @@
 
             while ($row = mysql_fetch_assoc($best_review_list_result)) {
             ?>
-                <div class="item">
+                <a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
                     <div class="image flex items-center justify-center bg-gray-100">
                         <img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display='none'" alt="review">
                     </div>
@@ -209,7 +210,7 @@
                         <p class="user"><?= substr($row['MEM_ID'], 0, 3) . '***' ?></p>
                         <p class="review-content line-clamp-2"><?= strip_tags($row['BD_CONT']) ?></p>
                     </div>
-                </div>
+                </a>
             <?php
             }
             ?>
@@ -611,7 +612,7 @@
                 $description = str_replace('font-size:', '', $description);
             ?>
                 <div x-data="{ collapsed: false }" class="item">
-                    <div class="header-section" x-on:click="collapsed = !collapsed">
+                    <div class="header-section cursor-pointer" x-on:click="collapsed = !collapsed">
                         <p class="question line-clamp-1" x-bind:class="collapsed ? 'text-black' : 'text-[#666666]'">Q <?= $row['STR_QUEST'] ?></p>
                         <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />

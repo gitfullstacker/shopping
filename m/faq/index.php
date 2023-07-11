@@ -3,6 +3,8 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 ?>
 
+<link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink" />
+
 <div x-data="{ menu: 0 }" class="mt-[30px] flex flex-col gap-[15px] w-full">
     <?php
     $SQL_QUERY =   'SELECT 
@@ -34,15 +36,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
 
     <!-- 메뉴 -->
     <div class="flex overflow-x-auto px-[14px] py-[13px] border-t-[0.5px] border-b-[0.5px] border-[#E0E0E0]">
-        <div class="flex gap-[35px] items-center">
-            <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == 0 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 0">자주찾는질문</p>
-            <?php
-            while ($row = mysql_fetch_assoc($code_list_result)) {
-            ?>
-                <p class="whitespace-nowrap font-bold text-xs leading-[14px] text-center" x-bind:class="menu == <?= $row['INT_NUMBER'] ?> ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = <?= $row['INT_NUMBER'] ?>"><?= $row['STR_CODE'] ?></p>
-            <?php
-            }
-            ?>
+        <div class="title-scroll-list w-full splide">
+            <div class="splide__track w-full">
+                <div class="splide__list flex gap-[35px] items-center w-full">
+                    <p class="splide__slide whitespace-nowrap font-bold text-xs leading-[14px] text-center cursor-pointer" x-bind:class="menu == 0 ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = 0">자주찾는질문</p>
+                    <?php
+                    while ($row = mysql_fetch_assoc($code_list_result)) {
+                    ?>
+                        <p class="splide__slide whitespace-nowrap font-bold text-xs leading-[14px] text-center cursor-pointer" x-bind:class="menu == <?= $row['INT_NUMBER'] ?> ? 'text-black underline' : 'text-[#999999]'" x-on:click="menu = <?= $row['INT_NUMBER'] ?>"><?= $row['STR_CODE'] ?></p>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -80,6 +86,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         <?php
         }
         ?>
+
+        var title_scroll_list = new Splide('.title-scroll-list', {
+            drag: 'free',
+        });
+        title_scroll_list.mount();
     });
 
     function searchAsk(page = 0, int_gubun = 0) {

@@ -202,16 +202,16 @@ $brand_list_result = mysql_query($query);
 }" class="flex flex-col w-full" style="height: calc(100vh - 56px);">
     <div class="flex flex-row w-full">
         <div class="flex flex-col w-[100px] h-full bg-[#F5F5F5]">
-            <div class="w-full h-[52px] flex justify-center items-center border-b border-white" x-bind:class="showOption == 1 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 1">
+            <div class="w-full h-[52px] flex justify-center items-center border-b border-white cursor-pointer" x-bind:class="showOption == 1 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 1">
                 <p class="font-bold text-base leading-[18px] text-center text-[#666666]">카테고리</p>
             </div>
-            <div class="w-full h-[52px] flex justify-center items-center border-b border-white" x-bind:class="showOption == 2 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 2">
+            <div class="w-full h-[52px] flex justify-center items-center border-b border-white cursor-pointer" x-bind:class="showOption == 2 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 2">
                 <p class="font-bold text-base leading-[18px] text-center text-[#666666]">브랜드</p>
             </div>
-            <div class="w-full h-[52px] flex justify-center items-center border-b border-white" x-bind:class="showOption == 3 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 3">
+            <div class="w-full h-[52px] flex justify-center items-center border-b border-white cursor-pointer" x-bind:class="showOption == 3 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 3">
                 <p class="font-bold text-base leading-[18px] text-center text-[#666666]">사이즈</p>
             </div>
-            <div class="w-full h-[52px] flex justify-center items-center border-b border-white" x-bind:class="showOption == 4 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 4">
+            <div class="w-full h-[52px] flex justify-center items-center border-b border-white cursor-pointer" x-bind:class="showOption == 4 ? 'bg-white' : 'bg-[#F5F5F5]'" x-on:click="showOption = 4">
                 <p class="font-bold text-base leading-[18px] text-center text-[#666666]">스타일</p>
             </div>
         </div>
@@ -232,7 +232,7 @@ $brand_list_result = mysql_query($query);
                 <div class="flex flex-col w-full overflow-auto" style="height: calc(100vh - 170px);">
                     <template x-for="(item, index) in content[showOption].list">
                         <template x-if="item.title.toLowerCase().includes(content[showOption].searchKey.toLowerCase()) || item.ktitle.toLowerCase().includes(content[showOption].searchKey.toLowerCase())">
-                            <div class="w-full h-[52px] flex justify-start gap-[5px] items-center border-b border-[#E0E0E0] flex-none" x-on:click="selectItem(index);">
+                            <div class="w-full h-[52px] flex justify-start gap-[5px] items-center border-b border-[#E0E0E0] flex-none cursor-pointer" x-on:click="selectItem(index);">
                                 <div class="h-[14px] w-[14px] flex justify-center items-center border-[0.7px] border-solid border-[#DDDDDD] bg-white">
                                     <svg x-show="item.checked" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.91111 10.2667L11.3944 4.78333L10.3056 3.69444L5.91111 8.08889L3.69444 5.87222L2.60556 6.96111L5.91111 10.2667ZM0 14V0H14V14H0Z" fill="black" />

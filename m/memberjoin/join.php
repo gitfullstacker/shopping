@@ -213,11 +213,11 @@ if ($enc_data == -1) {
             <p class="font-bold text-xs leading-[14px] text-black">성별</p>
             <div class="flex gap-[15px] items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="2">
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" id="woman" value="2">
                     <label for="woman" class="font-normal text-xs leading-[14px] text-[#666666]">여성</label>
                 </div>
                 <div class="flex gap-[5px] items-center">
-                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" value="1">
+                    <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" id="man" value="1">
                     <label for="man" class="font-normal text-xs leading-[14px] text-[#666666]">남성</label>
                 </div>
             </div>
