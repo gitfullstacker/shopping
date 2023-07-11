@@ -285,7 +285,7 @@ function convertEncode($string)
 
         <!-- 배치키 발급시 카드번호 리턴 여부 설정 -->
         <!-- Y : 1234-4567-****-8910 형식, L : 8910 형식(카드번호 끝 4자리) -->
-        <input type='hidden' name='batch_cardno_return_yn' value='L'>
+        <input type='hidden' name='batch_cardno_return_yn' value='Y'>
 
         <!-- batch_cardno_return_yn 설정시 결제창에서 리턴 -->
         <input type='hidden' name='card_mask_no' value='<?= $card_mask_no ?>'>
