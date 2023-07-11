@@ -148,7 +148,7 @@ function convertEncode($string)
             self.name = "tar_opener";
             var pay_form = document.pay_form;
 
-            if (pay_form.res_cd.value == "3001") {
+            if (pay_form.res_cd.value == "3001" || pay_form.res_cd.value == "999") {
                 alert("사용자가 취소하였습니다.");
                 window.location.href = "/m/mine/payment/index.php";
                 return;
