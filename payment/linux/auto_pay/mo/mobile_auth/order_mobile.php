@@ -53,7 +53,8 @@ $param_opt_3    = $_POST["param_opt_3"]; // 기타 파라메터 추가 부분
 $tablet_size     = "1.0"; // 화면 사이즈 고정
 $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
-function convertEncode($string) {
+function convertEncode($string)
+{
     if (mb_detect_encoding($string, 'UTF-8', true) !== false) {
         return iconv('UTF-8', 'EUC-KR', $string);
     } else {
@@ -149,7 +150,7 @@ function convertEncode($string) {
 
             if (pay_form.res_cd.value == "3001") {
                 alert("사용자가 취소하였습니다.");
-                window.location.href="/m/mine/payment/index.php";
+                window.location.href = "/m/mine/payment/index.php";
                 return;
             }
 
@@ -279,6 +280,13 @@ function convertEncode($string) {
         <input type="hidden" name="param_opt_1" value="<?= $param_opt_1 ?>">
         <input type="hidden" name="param_opt_2" value="<?= $param_opt_2 ?>">
         <input type="hidden" name="param_opt_3" value="<?= $param_opt_3 ?>">
+
+        <!-- 배치키 발급시 카드번호 리턴 여부 설정 -->
+        <!-- Y : 1234-4567-****-8910 형식, L : 8910 형식(카드번호 끝 4자리) -->
+        <input type='hidden' name='batch_cardno_return_yn' value='L'>
+
+        <!-- batch_cardno_return_yn 설정시 결제창에서 리턴 -->
+        <input type='hidden' name='card_mask_no' value=''>
     </form>
 </body>
 
