@@ -84,7 +84,7 @@ if ($RetrieveFlag == "UPDATE") {
 										</td>
 									</tr>
 									<?php
-									if ($int_type == 1) {
+									if ($int_type == 0 || $int_type == 1) {
 									?>
 										<tr>
 											<td>상태(구독)</td>
@@ -105,7 +105,7 @@ if ($RetrieveFlag == "UPDATE") {
 									}
 									?>
 									<?php
-									if ($int_type == 2) {
+									if ($int_type == 0 || $int_type == 2) {
 									?>
 										<tr>
 											<td>상태(렌트)</td>
