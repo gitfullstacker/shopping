@@ -155,7 +155,8 @@ function convertEncode($string)
             }
 
             if (pay_form.enc_info.value) {
-                pay_form.submit();
+                console.log(pay_form);
+                // pay_form.submit();
                 return;
             }
 
