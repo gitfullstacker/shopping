@@ -89,7 +89,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">이용하신 가방에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
                 <input type="hidden" name="int_ustar" x-bind:value="grade">
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 3 ? 'black' : 'white'" />
@@ -97,7 +97,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">만족해요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 2">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 2">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 2 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 2 ? 'black' : 'white'" />
@@ -105,7 +105,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">보통이에요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 1">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 1">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 1 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 1 ? 'black' : 'white'" />
@@ -120,7 +120,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">상품의 포장상태에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
                 <input type="hidden" name="int_pstar" x-bind:value="grade">
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 3 ? 'black' : 'white'" />
@@ -128,7 +128,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">만족해요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 2">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 2">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 2 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 2 ? 'black' : 'white'" />
@@ -136,7 +136,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">보통이에요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 1">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 1">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 1 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 1 ? 'black' : 'white'" />
@@ -151,7 +151,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-bold text-xs leading-[14px] text-black">상품의 배송에 만족하시나요?</p>
             <div x-data="{ grade: 3 }" class="mt-[15px] flex gap-8 items-center justify-center">
                 <input type="hidden" name="int_dstar" x-bind:value="grade">
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 3">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 3">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 3 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 3 ? 'black' : 'white'" />
@@ -159,7 +159,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">만족해요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 2">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 2">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 2 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 2 ? 'black' : 'white'" />
@@ -167,7 +167,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     </div>
                     <p class="font-bold text-xs leading-[14px] text-[#999999]">보통이에요</p>
                 </div>
-                <div class="flex flex-col items-center gap-1.5" x-on:click="grade = 1">
+                <div class="flex flex-col items-center gap-1.5 cursor-pointer" x-on:click="grade = 1">
                     <div class="w-10 h-10 border border-solid flex justify-center items-center rounded-full bg-[#DDDDDD]" x-bind:class="grade == 1 ? 'border-black': 'border-none'">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.33333 12.5333L0 7.2L1.86667 5.33333L5.33333 8.8L14.1333 0L16 1.86667L5.33333 12.5333Z" fill="black" x-bind:fill="grade == 1 ? 'black' : 'white'" />

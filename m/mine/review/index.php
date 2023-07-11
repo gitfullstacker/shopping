@@ -14,10 +14,10 @@ $view_mode = Fnc_Om_Conv_Default($_REQUEST['view_mode'], "cart");
         <p class="font-extrabold text-lg leading-[20px] text-black">나의 리뷰</p>
     </div>
     <div class="mt-[14px] flex justify-center items-center gap-16 w-full">
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1;searchCart();">
+        <div class="px-1 pb-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1;searchCart();">
             <p class="font-bold text-sm leading-4" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">리뷰 작성</p>
         </div>
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2;searchReview();">
+        <div class="px-1 pb-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2;searchReview();">
             <p class="font-bold text-sm leading-4" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">리뷰 내역</p>
         </div>
     </div>
