@@ -364,3 +364,47 @@
     object-position: center;
     background-color: rgb(243 244 246);
 }
+
+.main-product-scroll-list {
+    width: 100%;
+}
+
+.main-product-scroll-list>.splide__track>.splide__list>.splide__slide {
+    width: 25%!important;
+}
+
+.main-product-scroll-list>.splide__arrows {
+    display: none;
+}
+
+.detail-image-scroll-list {
+    width: 100%;
+}
+
+.detail-image-scroll-list>.splide__track>.splide__list>.splide__slide {
+    width: 130px!important;
+}
+
+.detail-image-scroll-list>.splide__arrows {
+    display: none;
+}
+
+.detail-image-scroll-list>.splide__pagination {
+    display: none;
+}
+
+.review-image-scroll-list {
+    width: 100%;
+}
+
+.review-image-scroll-list>.splide__track>.splide__list>.splide__slide {
+    width: 80px!important;
+}
+
+.review-image-scroll-list>.splide__arrows {
+    display: none;
+}
+
+.review-image-scroll-list>.splide__pagination {
+    display: none;
+}

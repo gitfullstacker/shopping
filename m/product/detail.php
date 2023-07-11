@@ -348,18 +348,22 @@ switch ($arr_Data['INT_TYPE']) {
             <!-- 최근상태 -->
             <div class="mt-[15px] px-[14px] flex flex-col gap-[13px] w-full">
                 <p class="font-extrabold text-sm text-[#666666]">최근 상태를 확인해주세요.</p>
-                <div class="scroll-div flex flex-row gap-[5px] overflow-x-auto scrollbar-hide">
-                    <?php
-                    for ($i = 6; $i <= 12; $i++) {
-                        if ($arr_Data['STR_IMAGE' . $i]) {
-                    ?>
-                            <a href="javascript:showRelativeImage(<?= $i - 6 ?>)" class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100">
-                                <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
-                            </a>
-                    <?php
-                        }
-                    }
-                    ?>
+                <div class="detail-image-scroll-list splide">
+                    <div class="splide__track w-full">
+                        <div class="splide__list w-full flex flex-row gap-[5px]">
+                            <?php
+                            for ($i = 6; $i <= 12; $i++) {
+                                if ($arr_Data['STR_IMAGE' . $i]) {
+                            ?>
+                                    <a href="javascript:showRelativeImage(<?= $i - 6 ?>)" class="flex-none flex-grow-0 w-[130px] h-[130px] border border-solid border-[#DDDDDD] bg-gray-100 splide__slide">
+                                        <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                                    </a>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php
@@ -654,16 +658,20 @@ switch ($arr_Data['INT_TYPE']) {
 
                     $review_img_list_result = mysql_query($SQL_QUERY);
                     ?>
-                    <div class="my-7 flex flex-row gap-[5px] w-full overflow-auto <?= mysql_num_rows($review_img_list_result) > 0 ? '' : 'hidden' ?>">
-                        <?php
-                        while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
-                        ?>
-                            <a href="/m/review/detail.php?bd_seq=<?= $image_row['BD_SEQ'] ?>" class="flex-none w-20 h-20 bg-gray-100">
-                                <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
-                            </a>
-                        <?php
-                        }
-                        ?>
+                    <div class="review-image-scroll-list splide my-7 w-full <?= mysql_num_rows($review_img_list_result) > 0 ? '' : 'hidden' ?>">
+                        <div class="splide__track w-full">
+                            <div class="splide__list w-full flex flex-row gap-[5px]">
+                                <?php
+                                while ($image_row = mysql_fetch_assoc($review_img_list_result)) {
+                                ?>
+                                    <a href="/m/review/detail.php?bd_seq=<?= $image_row['BD_SEQ'] ?>" class="flex-none w-20 h-20 bg-gray-100 splide__slide">
+                                        <img class="min-w-full h-full object-cover" src="/admincenter/files/boad/2/<?= $image_row['IMG_F_NAME'] ?>" onerror="this.style.display='none'" alt="">
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="mt-2.5 flex flex-col w-full" id="own_review_list"></div>
                 </div>
@@ -1662,6 +1670,16 @@ switch ($arr_Data['INT_TYPE']) {
             autoplay: true,
             autoplaySpeed: 3000,
         });
+
+        var detail_image_scroll_list = new Splide('.detail-image-scroll-list', {
+            drag: 'free',
+        });
+        detail_image_scroll_list.mount();
+
+        var review_image_scroll_list = new Splide('.review-image-scroll-list', {
+            drag: 'free',
+        });
+        review_image_scroll_list.mount();
     });
     const isTextClamped = elm => elm.scrollHeight > elm.clientHeight
 

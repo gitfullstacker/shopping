@@ -78,9 +78,11 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="scroll-div eventzone-scroll-list">
-		<?php
-		$SQL_QUERY = 	'SELECT 
+	<div class="eventzone-scroll-list splide">
+		<div class="splide__track">
+			<div class="splide__list">
+				<?php
+				$SQL_QUERY = 	'SELECT 
 							A.*
 						FROM 
 							' . $Tname . 'comm_event A
@@ -89,15 +91,17 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 4';
 
-		$event_list_result = mysql_query($SQL_QUERY);
-		while ($row = mysql_fetch_assoc($event_list_result)) {
-		?>
-			<a href="/m/eventzone/detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="item flex-none w-[273.16px] bg-gray-100">
-				<img class="min-w-full object-cover" src="/admincenter/files/event/<?= $row['STR_IMAGE2'] ?>" onerror="this.style.display = 'none'" alt="">
-			</a>
-		<?php
-		}
-		?>
+				$event_list_result = mysql_query($SQL_QUERY);
+				while ($row = mysql_fetch_assoc($event_list_result)) {
+				?>
+					<a href="/m/eventzone/detail.php?int_number=<?= $row['INT_NUMBER'] ?>" class="splide__slide item flex-none w-[273.16px] bg-gray-100">
+						<img class="min-w-full object-cover" src="/admincenter/files/event/<?= $row['STR_IMAGE2'] ?>" onerror="this.style.display = 'none'" alt="">
+					</a>
+				<?php
+				}
+				?>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -115,24 +119,26 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="scroll-div categorypick-scroll-list">
-		<?php
-		for ($i = 0; $i < 3; $i++) {
+	<div class="categorypick-scroll-list splide">
+		<div class="splide__track">
+			<div class="splide__list">
+				<?php
+				for ($i = 0; $i < 3; $i++) {
 
-			switch ($i) {
-				case 0:
-					$int_type = 2;
-					break;
+					switch ($i) {
+						case 0:
+							$int_type = 2;
+							break;
 
-				case 1:
-					$int_type = 1;
-					break;
+						case 1:
+							$int_type = 1;
+							break;
 
-				case 2:
-					$int_type = 3;
-					break;
-			}
-			$SQL_QUERY = 	'SELECT 
+						case 2:
+							$int_type = 3;
+							break;
+					}
+					$SQL_QUERY = 	'SELECT 
 								A.*, B.STR_CODE
 							FROM 
 								' . $Tname . 'comm_goods_master A
@@ -147,13 +153,13 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 							ORDER BY A.INT_VIEW DESC
 							LIMIT 2';
 
-			$category_product_result = mysql_query($SQL_QUERY);
-		?>
-			<div class="section">
-				<a href="/m/product/index.php?product_type=<?= $int_type ?>" class="item relative">
-					<div class="flex w-[247px] h-[369px] bg-gray-500 rounded-xl">
-						<?php
-						$SQL_QUERY = 	'SELECT 
+					$category_product_result = mysql_query($SQL_QUERY);
+				?>
+					<div class="splide__slide section">
+						<a href="/m/product/index.php?product_type=<?= $int_type ?>" class="item relative">
+							<div class="flex w-[247px] h-[369px] bg-gray-500 rounded-xl">
+								<?php
+								$SQL_QUERY = 	'SELECT 
 											A.*
 										FROM 
 											' . $Tname . 'comm_banner A
@@ -163,108 +169,110 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 											AND A.INT_TYPE=' . $int_type . '
 										LIMIT 1';
 
-						$banner_result = mysql_query($SQL_QUERY);
-						$banner_Data = mysql_fetch_assoc($banner_result);
-						?>
-						<img class="w-full object-cover rounded-xl" src="/admincenter/files/bann/<?= $banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="event_zone">
-					</div>
-
-					<div class="absolute flex flex-col gap-2 left-[13px] bottom-4">
-						<?php
-						switch ($i) {
-							case 0:
-						?>
-								<p class="font-extrabold text-[19px] leading-[20px] text-white">RENT BEST</p>
-								<p class="font-bold text-[13px] leading-[14px] text-white">렌트 베스트 상품</p>
-							<?php
-								break;
-							case 1:
-							?>
-								<p class="font-extrabold text-[19px] leading-[20px] text-white">MEMBERSHIP BEST</p>
-								<p class="font-bold text-[13px] leading-[14px] text-white">구독 베스트 상품</p>
-							<?php
-								break;
-							case 2:
-							?>
-								<p class="font-extrabold text-[19px] leading-[20px] text-white">HOT VINTAGE</p>
-								<p class="font-bold text-[13px] leading-[14px] text-white">반응 좋은 빈티지 상품</p>
-						<?php
-								break;
-						}
-						?>
-
-					</div>
-				</a>
-				<div class="bottom-section">
-					<?php
-					while ($row = mysql_fetch_assoc($category_product_result)) {
-					?>
-						<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-							<div class="image-part relative">
-								<div class="flex justify-center items-center absolute top-1 left-2 w-[30px] h-[20px] bg-[<?= $row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A') ?>] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
-									<p class="font-extrabold text-[9px] leading-[9px] text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
-								</div>
-								<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="event_zone">
+								$banner_result = mysql_query($SQL_QUERY);
+								$banner_Data = mysql_fetch_assoc($banner_result);
+								?>
+								<img class="w-full object-cover rounded-xl" src="/admincenter/files/bann/<?= $banner_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="event_zone">
 							</div>
-							<div class="flex flex-col items-start">
-								<p class="font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
-								<p class="mt-[3.36px] font-medium text-xs leading-[14px] text-[#333333] line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
-								<div class="mt-2 price-section">
-									<?php
-									switch ($row['INT_TYPE']) {
-										case 1:
-									?>
-											<div class="flex flex-row gap-1 items-end">
-												<?php
-												if (!$is_sub_membership) {
-												?>
-													<p class="font-bold text-[13px] leading-[14px] text-black">
-														<span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
-													</p>
-												<?php
-												}
-												?>
-											</div>
-										<?php
-											break;
-										case 2:
-										?>
-											<div class="flex flex-row gap-1 items-end">
-												<p class="font-bold text-[13px] leading-[14px] text-black">
-													<span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
-												</p>
-												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
-													<?= number_format($row['INT_PRICE']) ?>원
-												</p>
-											</div>
-										<?php
-											break;
-										case 3:
-										?>
-											<div class="flex flex-row gap-1 items-end">
-												<p class="font-bold text-[13px] leading-[14px] text-black">
-													<?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
-												</p>
-												<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
-													<?= number_format($row['INT_PRICE']) ?>원
-												</p>
-											</div>
-									<?php
-											break;
-									}
-									?>
 
-								</div>
+							<div class="absolute flex flex-col gap-2 left-[13px] bottom-4">
+								<?php
+								switch ($i) {
+									case 0:
+								?>
+										<p class="font-extrabold text-[19px] leading-[20px] text-white">RENT BEST</p>
+										<p class="font-bold text-[13px] leading-[14px] text-white">렌트 베스트 상품</p>
+									<?php
+										break;
+									case 1:
+									?>
+										<p class="font-extrabold text-[19px] leading-[20px] text-white">MEMBERSHIP BEST</p>
+										<p class="font-bold text-[13px] leading-[14px] text-white">구독 베스트 상품</p>
+									<?php
+										break;
+									case 2:
+									?>
+										<p class="font-extrabold text-[19px] leading-[20px] text-white">HOT VINTAGE</p>
+										<p class="font-bold text-[13px] leading-[14px] text-white">반응 좋은 빈티지 상품</p>
+								<?php
+										break;
+								}
+								?>
+
 							</div>
 						</a>
-					<?php
-					}
-					?>
-				</div>
+						<div class="bottom-section">
+							<?php
+							while ($row = mysql_fetch_assoc($category_product_result)) {
+							?>
+								<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
+									<div class="image-part relative">
+										<div class="flex justify-center items-center absolute top-1 left-2 w-[30px] h-[20px] bg-[<?= $row['INT_TYPE'] == 1 ? '#EEAC4C' : ($row['INT_TYPE'] == 2 ? '#00402F' : '#7E6B5A') ?>] <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+											<p class="font-extrabold text-[9px] leading-[9px] text-white"><?= $row['INT_DISCOUNT'] ?>%</p>
+										</div>
+										<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" alt="event_zone">
+									</div>
+									<div class="flex flex-col items-start">
+										<p class="font-extrabold text-xs leading-[14px] text-[#666666]"><?= $row['STR_CODE'] ?></p>
+										<p class="mt-[3.36px] font-medium text-xs leading-[14px] text-[#333333] line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
+										<div class="mt-2 price-section">
+											<?php
+											switch ($row['INT_TYPE']) {
+												case 1:
+											?>
+													<div class="flex flex-row gap-1 items-end">
+														<?php
+														if (!$is_sub_membership) {
+														?>
+															<p class="font-bold text-[13px] leading-[14px] text-black">
+																<span class="font-medium text-[#EEAC4C]">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원
+															</p>
+														<?php
+														}
+														?>
+													</div>
+												<?php
+													break;
+												case 2:
+												?>
+													<div class="flex flex-row gap-1 items-end">
+														<p class="font-bold text-[13px] leading-[14px] text-black">
+															<span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+														</p>
+														<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+															<?= number_format($row['INT_PRICE']) ?>원
+														</p>
+													</div>
+												<?php
+													break;
+												case 3:
+												?>
+													<div class="flex flex-row gap-1 items-end">
+														<p class="font-bold text-[13px] leading-[14px] text-black">
+															<?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원
+														</p>
+														<p class="font-bold text-[11px] leading-[13px] text-[#666666] line-through <?= $row['INT_DISCOUNT'] ? '' : 'hidden' ?>">
+															<?= number_format($row['INT_PRICE']) ?>원
+														</p>
+													</div>
+											<?php
+													break;
+											}
+											?>
+
+										</div>
+									</div>
+								</a>
+							<?php
+							}
+							?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
 			</div>
-		<?php
-		}
-		?>
+		</div>
 	</div>
 </div>
 
@@ -291,20 +299,24 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</div>
 	</div>
-	<div class="scroll-div topbrand-scroll-list">
-		<?
-		while ($row = mysql_fetch_assoc($brand_list_result)) {
-		?>
-			<a href="/m/product/index.php?product_type=2&int_brand=<?= $row['INT_NUMBER'] ?>" class="w-[115px] rounded-[40px] flex flex-col items-center">
-				<div class="flex w-[115px] h-[160px] rounded-[40px] bg-gray-100 <?= $row['STR_BANNER1'] ?: 'animate-pulse' ?>">
-					<img class="min-w-full h-full object-cover rounded-[40px]" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" onerror="this.style.display = 'none'" alt="">
-				</div>
-				<p class="mt-[9.66px] font-extrabold text-sm leading-[14px] text-center text-[#333333]"><?= $row['STR_CODE'] ?></p>
-				<p class="mt-[2.66px] font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_KCODE'] ?></p>
-			</a>
-		<?php
-		}
-		?>
+	<div class="topbrand-scroll-list splide">
+		<div class="splide__track">
+			<div class="splide__list flex flex-row gap-[13px] flex-nowrap">
+				<?
+				while ($row = mysql_fetch_assoc($brand_list_result)) {
+				?>
+					<a href="/m/product/index.php?product_type=2&int_brand=<?= $row['INT_NUMBER'] ?>" class="w-[115px] rounded-[40px] flex flex-col items-center">
+						<div class="flex w-[115px] h-[160px] rounded-[40px] bg-gray-100 <?= $row['STR_BANNER1'] ?: 'animate-pulse' ?>">
+							<img class="min-w-full h-full object-cover rounded-[40px]" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" onerror="this.style.display = 'none'" alt="">
+						</div>
+						<p class="mt-[9.66px] font-extrabold text-sm leading-[14px] text-center text-[#333333]"><?= $row['STR_CODE'] ?></p>
+						<p class="mt-[2.66px] font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_KCODE'] ?></p>
+					</a>
+				<?php
+				}
+				?>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -322,9 +334,11 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			</svg>
 		</a>
 	</div>
-	<div class="scroll-div product-scroll-list">
-		<?php
-		$SQL_QUERY = 	'SELECT 
+	<div class="product-scroll-list rent-product-scroll-list splide">
+		<div class="splide__track">
+			<div class="splide__list">
+				<?php
+				$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
 						FROM 
 							' . $Tname . 'comm_goods_master A
@@ -339,27 +353,29 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 						ORDER BY A.INT_DISCOUNT DESC
 					LIMIT 6';
 
-		$rent_product_result = mysql_query($SQL_QUERY);
-		while ($row = mysql_fetch_assoc($rent_product_result)) {
-		?>
-			<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-				<div class="image">
-					<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
-					<div class="discount">
-						<p class="value"><?= $row['INT_DISCOUNT'] ?>%</p>
-					</div>
-				</div>
-				<p class="brand"><?= $row['STR_CODE'] ?></p>
-				<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
-				<div class="price-section">
-					<p class="current-price"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
-					<p class="origin-price <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
-				</div>
-				<button class="rent-button">렌트</button>
-			</a>
-		<?php
-		}
-		?>
+				$rent_product_result = mysql_query($SQL_QUERY);
+				while ($row = mysql_fetch_assoc($rent_product_result)) {
+				?>
+					<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item splide__slide">
+						<div class="image">
+							<img src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
+							<div class="discount">
+								<p class="value"><?= $row['INT_DISCOUNT'] ?>%</p>
+							</div>
+						</div>
+						<p class="brand"><?= $row['STR_CODE'] ?></p>
+						<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
+						<div class="price-section">
+							<p class="current-price"><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+							<p class="origin-price <?= $row['INT_DISCOUNT'] ? 'flex' : 'hidden' ?>"><?= number_format($row['INT_PRICE']) ?>원</p>
+						</div>
+						<button class="rent-button">렌트</button>
+					</a>
+				<?php
+				}
+				?>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -395,9 +411,11 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 		<img class="min-w-full object-cover" src="/admincenter/files/bann/<?= $rent_b_Data['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rentnew">
 	</div>
 	<div class="mt-[13px] flex px-[14px]">
-		<div class="scroll-div product-scroll-list">
-			<?
-			$SQL_QUERY = 	'SELECT 
+		<div class="product-scroll-list new-product-scroll-list splide">
+			<div class="splide__track">
+				<div class="splide__list">
+					<?
+					$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
 						FROM 
 							' . $Tname . 'comm_goods_master A
@@ -411,23 +429,25 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
-			$rent_new_product_result = mysql_query($SQL_QUERY);
-			while ($row = mysql_fetch_assoc($rent_new_product_result)) {
-			?>
-				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1q'] ?>" onerror="this.style.display = 'none'" alt="rent">
-					</div>
-					<p class="brand"><?= $row['STR_CODE'] ?></p>
-					<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
-					<div class="price-section">
-						<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
-					</div>
-					<button class="rent-button">렌트</button>
-				</a>
-			<?php
-			}
-			?>
+					$rent_new_product_result = mysql_query($SQL_QUERY);
+					while ($row = mysql_fetch_assoc($rent_new_product_result)) {
+					?>
+						<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item splide__slide">
+							<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+								<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1q'] ?>" onerror="this.style.display = 'none'" alt="rent">
+							</div>
+							<p class="brand"><?= $row['STR_CODE'] ?></p>
+							<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
+							<div class="price-section">
+								<p class="current-price"><span class="text-[#00402F]"><?= $row['INT_DISCOUNT'] ? $row['INT_DISCOUNT'] . '%' : '' ?></span><span class="font-medium">일</span> <?= number_format($row['INT_PRICE'] - $row['INT_PRICE'] * $row['INT_DISCOUNT'] / 100) ?>원</p>
+							</div>
+							<button class="rent-button">렌트</button>
+						</a>
+					<?php
+					}
+					?>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -465,9 +485,11 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 	</div>
 
 	<div class="mt-[13px] flex px-[14px]">
-		<div class="scroll-div product-scroll-list">
-			<?
-			$SQL_QUERY = 	'SELECT 
+		<div class="product-scroll-list sub-product-scroll-list splide">
+			<div class="splide__track">
+				<div class="splide__list">
+					<?
+					$SQL_QUERY = 	'SELECT 
 							A.*, B.STR_CODE
 						FROM 
 							' . $Tname . 'comm_goods_master A
@@ -481,29 +503,31 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 						ORDER BY A.DTM_INDATE DESC
 						LIMIT 6';
 
-			$subscription_new_product_result = mysql_query($SQL_QUERY);
-			while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
-			?>
-				<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item">
-					<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-						<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
-					</div>
-					<p class="brand"><?= $row['STR_CODE'] ?></p>
-					<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
-					<?php
-					if (!$subscription_membership_Data) {
+					$subscription_new_product_result = mysql_query($SQL_QUERY);
+					while ($row = mysql_fetch_assoc($subscription_new_product_result)) {
 					?>
-						<div class="price-section">
-							<p class="current-price"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
-						</div>
+						<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item splide__slide">
+							<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
+								<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
+							</div>
+							<p class="brand"><?= $row['STR_CODE'] ?></p>
+							<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
+							<?php
+							if (!$subscription_membership_Data) {
+							?>
+								<div class="price-section">
+									<p class="current-price"><span class="font-medium">월</span> <?= number_format($site_Data['INT_OPRICE1']) ?>원</p>
+								</div>
+							<?php
+							}
+							?>
+							<button class="subscription-button">구독</button>
+						</a>
 					<?php
 					}
 					?>
-					<button class="subscription-button">구독</button>
-				</a>
-			<?php
-			}
-			?>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -565,6 +589,36 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 			autoplay: true,
 			autoplaySpeed: 3000,
 		});
+
+		var eventzone_splide = new Splide('.eventzone-scroll-list', {
+			drag: 'free',
+		});
+		eventzone_splide.mount();
+
+		var categorypick_splide = new Splide('.categorypick-scroll-list', {
+			drag: 'free',
+		});
+		categorypick_splide.mount();
+
+		var topbrand_splide = new Splide('.topbrand-scroll-list', {
+			drag: 'free',
+		});
+		topbrand_splide.mount();
+
+		var rent_product_splide = new Splide('.rent-product-scroll-list', {
+			drag: 'free',
+		});
+		rent_product_splide.mount();
+
+		var new_product_splide = new Splide('.new-product-scroll-list', {
+			drag: 'free',
+		});
+		new_product_splide.mount();
+
+		var sub_product_splide = new Splide('.sub-product-scroll-list', {
+			drag: 'free',
+		});
+		sub_product_splide.mount();
 	});
 </script>
 

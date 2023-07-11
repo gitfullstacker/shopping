@@ -76,35 +76,39 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         AND int_gubun = 2";
         $top_brand_list_result = mysql_query($query);
         ?>
-        <div class="scroll-div flex items-start gap-4 px-[16px] pb-1 overflow-x-auto">
-            <?php
-            $index = 0;
-            while ($row = mysql_fetch_assoc($top_brand_list_result)) {
-            ?>
-                <?php
-                $mini_banner = '';
-                switch ($product_type) {
-                    case 2:
-                        $mini_banner = $row['STR_BANNER2'];
-                        break;
-                    case 1:
-                        $mini_banner = $row['STR_BANNER4'];
-                        break;
-                    case 3:
-                        $mini_banner = $row['STR_BANNER6'];
-                        break;
-                }
-                ?>
-                <div class="flex flex-col gap-[9px] items-center justify-start" x-on:click="scroll(<?= $index ?>);">
-                    <div class="flex justify-center items-center w-[77px] h-[77px] rounded-full bg-gray-100 <?= $mini_banner ?: 'animate-pulse' ?>" x-bind:class="pick == <?= $index ?> ? 'border border-solid border-black' : 'border-none'">
-                        <img class="w-full h-full rounded-full" src="/admincenter/files/com/<?= $mini_banner ?>" onerror="this.style.display = 'none'" alt="category" />
-                    </div>
-                    <p class="font-bold text-[13px] leading-[14px] text-center" x-bind:class="pick == <?= $index ?> ? 'text-black' : 'text-[#444444]'"><?= $row['STR_CODE'] ?></p>
+        <div class="main-product-scroll-list px-[16px] pb-1 splide">
+            <div class="splide__track w-full">
+                <div class="splide__list w-full flex items-start gap-4">
+                    <?php
+                    $index = 0;
+                    while ($row = mysql_fetch_assoc($top_brand_list_result)) {
+                    ?>
+                        <?php
+                        $mini_banner = '';
+                        switch ($product_type) {
+                            case 2:
+                                $mini_banner = $row['STR_BANNER2'];
+                                break;
+                            case 1:
+                                $mini_banner = $row['STR_BANNER4'];
+                                break;
+                            case 3:
+                                $mini_banner = $row['STR_BANNER6'];
+                                break;
+                        }
+                        ?>
+                        <div class="flex flex-col gap-[9px] items-center justify-start splide__slide" x-on:click="scroll(<?= $index ?>);">
+                            <div class="flex justify-center items-center w-[77px] h-[77px] rounded-full bg-gray-100 <?= $mini_banner ?: 'animate-pulse' ?>" x-bind:class="pick == <?= $index ?> ? 'border border-solid border-black' : 'border-none'">
+                                <img class="w-full h-full rounded-full" src="/admincenter/files/com/<?= $mini_banner ?>" onerror="this.style.display = 'none'" alt="category" />
+                            </div>
+                            <p class="font-bold text-[13px] leading-[14px] text-center" x-bind:class="pick == <?= $index ?> ? 'text-black' : 'text-[#444444]'"><?= $row['STR_CODE'] ?></p>
+                        </div>
+                    <?
+                        $index++;
+                    }
+                    ?>
                 </div>
-            <?
-                $index++;
-            }
-            ?>
+            </div>
         </div>
         <div x-ref="scrollPanel" class="snap-mandatory snap-x flex overflow-x-hidden pb-1 scroll-smooth">
             <?php
@@ -981,6 +985,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 
     $(document).ready(function() {
         searchProduct();
+
+        var main_product_scroll_list = new Splide('.main-product-scroll-list', {
+            drag: 'free',
+        });
+        main_product_scroll_list.mount();
     });
 
     function searchProduct(append = false) {

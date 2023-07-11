@@ -728,29 +728,34 @@ body {
 }
 
 .eventzone>.eventzone-scroll-list {
+  width: 100%;
+}
+
+.eventzone>.eventzone-scroll-list>.splide__track>.splide__list {
   display: flex;
   flex-direction: row;
   gap: 13px;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
 }
 
-.eventzone>.eventzone-scroll-list::-webkit-scrollbar {
+.eventzone>.eventzone-scroll-list>.splide__track>.splide__list>.item {
+  width: 220px!important;
+  height: 273px;
+  border-radius: 15px;
+}
+
+.eventzone>.eventzone-scroll-list>.splide__track>.splide__list>.item>img {
+  width: 220px;
+  height: 273px;
+  border-radius: 15px;
+}
+
+.eventzone>.eventzone-scroll-list>.splide__arrows {
   display: none;
 }
 
-.eventzone>.eventzone-scroll-list>.item {
-  width: 220px;
-  height: 273px;
-  border-radius: 15px;
-}
-
-.eventzone>.eventzone-scroll-list>.item>img {
-  width: 220px;
-  height: 273px;
-  border-radius: 15px;
+.eventzone>.eventzone-scroll-list>.splide__pagination {
+  display: none;
 }
 
 .categorypick {
@@ -764,46 +769,43 @@ body {
 }
 
 .categorypick>.categorypick-scroll-list {
+  width: 100%;
+}
+
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list {
   display: flex;
   flex-direction: row;
   gap: 13px;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
 }
 
-.categorypick>.categorypick-scroll-list::-webkit-scrollbar {
-  display: none;
-}
-
-.categorypick>.categorypick-scroll-list>.section {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 247px;
+  width: 247px!important;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.item {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.item {
   width: 100%;
   height: 369px;
   border-radius: 15px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.item>img {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.item>img {
   width: 247px;
   height: 369px;
   border-radius: 15px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section {
   display: flex;
   flex-direction: column;
   gap: 5px;
   width: 100%;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -811,7 +813,7 @@ body {
   width: 100%;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.image-part {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item>.image-part {
   padding: 9px;
   width: 70px;
   height: 70px;
@@ -819,12 +821,12 @@ body {
   border-radius: 10px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.image-part>img {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item>.image-part>img {
   width: 52px;
   height: 49px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item>.text-part>.price-section {
   display: flex;
   flex-direction: row;
   gap: 3px;
@@ -833,7 +835,7 @@ body {
   margin-top: 8px;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section>.regular-price {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item>.text-part>.price-section>.regular-price {
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
@@ -841,13 +843,21 @@ body {
   color: #000000;
 }
 
-.categorypick>.categorypick-scroll-list>.section>.bottom-section>.item>.text-part>.price-section>.origin-price {
+.categorypick>.categorypick-scroll-list>.splide__track>.splide__list>.section>.bottom-section>.item>.text-part>.price-section>.origin-price {
   font-style: normal;
   font-weight: 700;
   font-size: 11px;
   line-height: 13px;
   text-decoration-line: line-through;
   color: #666666;
+}
+
+.categorypick>.categorypick-scroll-list>.splide__arrows {
+  display: none;
+}
+
+.categorypick>.categorypick-scroll-list>.splide__pagination {
+  display: none;
 }
 
 .topbrand {
@@ -860,16 +870,14 @@ body {
 }
 
 .topbrand>.topbrand-scroll-list {
-  display: flex;
-  flex-direction: row;
-  gap: 13px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   width: 100%;
 }
 
-.topbrand>.topbrand-scroll-list::-webkit-scrollbar {
+.topbrand>.topbrand-scroll-list>.splide__arrows {
+  display: none;
+}
+
+.topbrand>.topbrand-scroll-list>.splide__pagination {
   display: none;
 }
 
@@ -883,27 +891,24 @@ body {
 }
 
 .product-scroll-list {
+  width: 100%;
+}
+
+.product-scroll-list>.splide__track>.splide__list {
   display: flex;
   flex-direction: row;
   gap: 13px;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
 }
 
-.product-scroll-list::-webkit-scrollbar {
-  display: none;
-}
-
-.product-scroll-list>.item {
-  width: 126px;
+.product-scroll-list>.splide__track>.splide__list>.item {
+  width: 126px!important;
   display: flex;
   flex-direction: column;
   align-items: start;
 }
 
-.product-scroll-list>.item>.image {
+.product-scroll-list>.splide__track>.splide__list>.item>.image {
   width: 126px;
   height: 126px;
   padding: 8px;
@@ -915,11 +920,11 @@ body {
   position: relative;
 }
 
-.product-scroll-list>.item>.image>img {
+.product-scroll-list>.splide__track>.splide__list>.item>.image>img {
   width: 100%;
 }
 
-.product-scroll-list>.item>.image>.discount {
+.product-scroll-list>.splide__track>.splide__list>.item>.image>.discount {
   position: absolute;
   padding-left: 3px;
   padding-right: 3px;
@@ -932,7 +937,7 @@ body {
   align-items: center;
 }
 
-.product-scroll-list>.item>.image>.discount>.value {
+.product-scroll-list>.splide__track>.splide__list>.item>.image>.discount>.value {
   font-style: normal;
   font-weight: 800;
   font-size: 9px;
@@ -941,7 +946,7 @@ body {
   color: #FFFFFF;
 }
 
-.product-scroll-list>.item>.brand {
+.product-scroll-list>.splide__track>.splide__list>.item>.brand {
   margin-top: 11px;
   font-style: normal;
   font-weight: 800;
@@ -950,7 +955,7 @@ body {
   color: #666666;
 }
 
-.product-scroll-list>.item>.title {
+.product-scroll-list>.splide__track>.splide__list>.item>.title {
   margin-top: 3.15px;
   font-style: normal;
   font-weight: 500;
@@ -959,7 +964,7 @@ body {
   color: #333333;
 }
 
-.product-scroll-list>.item>.price-section {
+.product-scroll-list>.splide__track>.splide__list>.item>.price-section {
   margin-top: 6.7px;
   display: flex;
   flex-direction: row;
@@ -967,7 +972,7 @@ body {
   gap: 3px;
 }
 
-.product-scroll-list>.item>.price-section>.current-price {
+.product-scroll-list>.splide__track>.splide__list>.item>.price-section>.current-price {
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
@@ -975,7 +980,7 @@ body {
   color: #000000;
 }
 
-.product-scroll-list>.item>.price-section>.origin-price {
+.product-scroll-list>.splide__track>.splide__list>.item>.price-section>.origin-price {
   font-style: normal;
   font-weight: 700;
   font-size: 11px;
@@ -984,7 +989,7 @@ body {
   color: #666666;
 }
 
-.product-scroll-list>.item>.rent-button {
+.product-scroll-list>.splide__track>.splide__list>.item>.rent-button {
   margin-top: 11px;
   background: #00402F;
   width: 30px;
@@ -997,7 +1002,7 @@ body {
   color: #FFFFFF;
 }
 
-.product-scroll-list>.item>.subscription-button {
+.product-scroll-list>.splide__track>.splide__list>.item>.subscription-button {
   margin-top: 11px;
   background: #EEAC4C;
   width: 30px;
@@ -1008,6 +1013,14 @@ body {
   line-height: 10px;
   text-align: center;
   color: #FFFFFF;
+}
+
+.product-scroll-list>.splide__arrows {
+  display: none;
+}
+
+.product-scroll-list>.splide__pagination {
+  display: none;
 }
 
 .rentnew {
@@ -3378,4 +3391,8 @@ video {
 
 *::-webkit-scrollbar-thumb {
 	background-color: rgb(197, 197, 197);
+}
+
+.slick-dotted.slick-slider {
+  margin-bottom: 0px!important;
 }
