@@ -89,6 +89,7 @@ if ($RetrieveFlag == "UPDATE") {
 										<tr>
 											<td>상태(구독)</td>
 											<td colspan=3>
+												<input type="hidden" name="str_pass2" value="<?= $arr_Data['STR_PASS2'] ?>">
 												<input type="radio" value="0" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "0") { ?>checked<? } ?>> 결제완료
 												<input type="radio" value="1" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "1") { ?>checked<? } ?>> 결제취소
 												<? if ($arr_Data['STR_CANCEL1'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
@@ -97,6 +98,7 @@ if ($RetrieveFlag == "UPDATE") {
 										<tr>
 											<td>취소신청(구독)</td>
 											<td colspan=3>
+												<input type="hidden" name="str_cancel2" value="<?= $arr_Data['STR_CANCEL2'] ?>">
 												<input type="radio" value="0" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "0") { ?>checked<? } ?>> 정상
 												<input type="radio" value="1" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "1") { ?>checked<? } ?>> 취소요청중
 											</td>
@@ -110,6 +112,7 @@ if ($RetrieveFlag == "UPDATE") {
 										<tr>
 											<td>상태(렌트)</td>
 											<td colspan=3>
+												<input type="hidden" name="str_pass1" value="<?= $arr_Data['STR_PASS1'] ?>">
 												<input type="radio" value="0" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "0") { ?>checked<? } ?>> 결제완료
 												<input type="radio" value="1" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "1") { ?>checked<? } ?>> 결제취소
 												<? if ($arr_Data['STR_CANCEL2'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
@@ -118,6 +121,7 @@ if ($RetrieveFlag == "UPDATE") {
 										<tr>
 											<td>취소신청(렌트)</td>
 											<td colspan=3>
+												<input type="hidden" name="str_cancel1" value="<?= $arr_Data['STR_CANCEL1'] ?>">
 												<input type="radio" value="0" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "0") { ?>checked<? } ?>> 정상
 												<input type="radio" value="1" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "1") { ?>checked<? } ?>> 취소요청중
 											</td>
