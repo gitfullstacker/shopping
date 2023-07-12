@@ -4,15 +4,16 @@ Fnc_Acc_Admin();
 Fnc_Preloading()        // @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <?
-$page = Fnc_Om_Conv_Default($_REQUEST[page], 1);
-$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow], 20);
-$displaypage = Fnc_Om_Conv_Default($_REQUEST[displaypage], 10);
+$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], 1);
+$page = Fnc_Om_Conv_Default($_REQUEST['page'], 1);
+$displayrow = Fnc_Om_Conv_Default($_REQUEST['displayrow'], 20);
+$displaypage = Fnc_Om_Conv_Default($_REQUEST['displaypage'], 10);
 
-$Txt_key = Fnc_Om_Conv_Default($_REQUEST[Txt_key], "all");
-$Txt_word = Fnc_Om_Conv_Default($_REQUEST[Txt_word], "");
+$Txt_key = Fnc_Om_Conv_Default($_REQUEST['Txt_key'], "all");
+$Txt_word = Fnc_Om_Conv_Default($_REQUEST['Txt_word'], "");
 
-$Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
-$Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
+$Txt_sindate = Fnc_Om_Conv_Default($_REQUEST['Txt_sindate'], "");
+$Txt_eindate = Fnc_Om_Conv_Default($_REQUEST['Txt_eindate'], "");
 
 if ($Txt_word != "") {
     switch ($Txt_key) {
@@ -38,9 +39,13 @@ if ($Txt_eindate != "") {
     $Str_Query .= " and date_format(a.dtm_indate, '%Y-%m-%d') <= '$Txt_eindate' ";
 }
 
+$Str_Query .= " and c.int_type=" . $int_type . " ";
+
 $SQL_QUERY = "select count(a.int_number) from ";
 $SQL_QUERY .= $Tname;
-$SQL_QUERY .= "comm_good_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid where a.int_number is not null ";
+$SQL_QUERY .= "comm_good_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
+$SQL_QUERY .= "left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode ";
+$SQL_QUERY .= "where a.int_number is not null and a.str_userid is not null ";
 $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
@@ -74,7 +79,7 @@ $SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_good_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
 $SQL_QUERY .= "left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode ";
-$SQL_QUERY .= "where a.int_number is not null ";
+$SQL_QUERY .= "where a.int_number is not null and a.str_userid is not null ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.dtm_indate desc ";
 $SQL_QUERY .= "limit $f_limit,$l_limit";
@@ -119,6 +124,7 @@ $total_record_limit = mysql_num_rows($result);
                                 <input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
                                 <input type="hidden" name="page" value="<?= $page ?>">
                                 <input type="hidden" name="str_no">
+                                <input type="hidden" name="int_type" value="<?= $int_type ?>">
 
                                 <table class=tb>
                                     <col class=cellC style="width:12%">
