@@ -11,7 +11,7 @@ $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
 //카드정보얻기
 $SQL_QUERY =    "SELECT 
-                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE
+                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_PASS1, A.STR_CANCEL2, A.STR_PASS2, A.STR_CARDCODE
                 FROM 
                     `" . $Tname . "comm_member_pay` AS A
                 WHERE
