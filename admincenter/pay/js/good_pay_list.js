@@ -1,5 +1,5 @@
-	function RowClick(str_no) {
-		popupLayer("good_pay_edit.php?RetrieveFlag=UPDATE&str_no="+str_no,800,500);
+	function RowClick(str_no, int_type) {
+		popupLayer("good_pay_edit.php?RetrieveFlag=UPDATE&str_no="+str_no+"&int_type="+int_type,800,500);
 	}
 	function AddNew() {
 		document.frm.RetrieveFlag.value="INSERT";

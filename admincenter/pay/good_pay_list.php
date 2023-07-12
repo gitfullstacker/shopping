@@ -228,7 +228,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td>
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
                                                 </td>
-                                                <td><a href="javascript:RowClick('<?= mysql_result($result, $i, int_number) ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
+                                                <td><a href="javascript:RowClick('<?= mysql_result($result, $i, 'int_number') ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
                                                 <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
                                             </tr>
                                             <tr>

@@ -13,11 +13,11 @@ if ($RetrieveFlag == "UPDATE") {
 
 	$SQL_QUERY =	" SELECT
 						A.*,B.STR_NAME
-					FROM "
-		. $Tname . "comm_good_pay AS A
-						LEFT JOIN
-						" . $Tname . "comm_member AS B
-						ON
+					FROM 
+						" . $Tname . "comm_good_pay A
+					LEFT JOIN
+						" . $Tname . "comm_member B
+					ON
 						A.STR_USERID=B.STR_USERID
 					WHERE
 						A.INT_NUMBER='$str_no' ";
@@ -102,10 +102,15 @@ if ($RetrieveFlag == "UPDATE") {
 								<?
 								$Sql_Query =	" SELECT
 													A.*
-												FROM `"
-												. $Tname . "comm_good_pay` AS A
+												FROM 
+													`" . $Tname . "comm_good_pay` A
+												LEFT JOIN
+													" . $Tname . "comm_goods_master B
+												ON
+													A.STR_GOODCODE=B.STR_GOODCODE
 												WHERE
 													A.STR_USERID='" . $arr_Data['STR_USERID'] . "'
+													AND B.INT_TYPE=" . $int_type . "
 												ORDER BY
 													A.DTM_INDATE DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
