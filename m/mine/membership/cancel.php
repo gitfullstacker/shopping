@@ -160,8 +160,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                document.getElementById('confirm_dialog').classList.add('hidden');
-                document.getElementById('result_dialog').classList.remove('hidden');
+                if (result == 'successful') {
+                    document.getElementById('confirm_dialog').classList.add('hidden');
+                    document.getElementById('result_dialog').classList.remove('hidden');
+                } else {
+                    alert(result);
+                }
+
             }
         });
     }

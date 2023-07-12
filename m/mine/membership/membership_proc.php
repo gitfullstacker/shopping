@@ -9,20 +9,21 @@ $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], "");
 $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
+//카드정보얻기
+$SQL_QUERY =    "SELECT 
+                    A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
+                WHERE
+                    A.STR_USERID='$arr_Auth[0]'
+                ORDER BY DTM_INDATE DESC
+                LIMIT 1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 switch ($RetrieveFlag) {
     case "JOIN":
-        //카드정보얻기
-        $SQL_QUERY =    "SELECT 
-                            A.INT_NUMBER, A.STR_PTYPE, A.STR_CANCEL1, A.STR_CANCEL2, A.STR_CARDCODE
-                        FROM 
-                            `" . $Tname . "comm_member_pay` AS A
-                        WHERE
-                            A.STR_USERID='$arr_Auth[0]'
-                        ORDER BY DTM_INDATE DESC
-                        LIMIT 1 ";
-
-        $arr_Rlt_Data = mysql_query($SQL_QUERY);
-        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         if (!$card_Data) {
 ?>
@@ -111,16 +112,29 @@ switch ($RetrieveFlag) {
             window.location.href = "index.php?int_type=<?= $int_type ?>";
         </script>
 
-        <?php
+<?php
         exit;
         break;
 
     case "CANCEL":
+
         switch ($int_type) {
             case 1:
+                if ($card_Data['STR_PASS1'] == '1') {
+                    echo '결제가 취소된 멤버십입니다.';
+
+                    exit;
+                    break;
+                }
                 $SET_QUERY = 'STR_CANCEL1 = "1"';
                 break;
             case 2:
+                if ($card_Data['STR_PASS2'] == '1') {
+                    echo '결제가 취소된 멤버십입니다.';
+
+                    exit;
+                    break;
+                }
                 $SET_QUERY = 'STR_CANCEL2 = "1"';
                 break;
         }
@@ -152,25 +166,12 @@ switch ($RetrieveFlag) {
         break;
 
     case "RESTORE":
-        //카드정보얻기
-        $SQL_QUERY =    "SELECT 
-                            A.STR_PASS1, A.STR_PASS2
-                        FROM 
-                            `" . $Tname . "comm_member_pay` AS A
-                        WHERE
-                            A.INT_NUMBER=" . $int_number;
-
-        $arr_Rlt_Data = mysql_query($SQL_QUERY);
-        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
+        
         switch ($int_type) {
             case 1:
                 if ($card_Data['STR_PASS1'] == '1') {
-        ?>
-                    <script language="javascript">
-                        alert('결제가 취소된 멤버십입니다.');
-                    </script>
-                <?php
+                    echo '결제가 취소된 멤버십입니다.';
+
                     exit;
                     break;
                 }
@@ -178,11 +179,8 @@ switch ($RetrieveFlag) {
                 break;
             case 2:
                 if ($card_Data['STR_PASS2'] == '1') {
-                ?>
-                    <script language="javascript">
-                        alert('결제가 취소된 멤버십입니다.');
-                    </script>
-<?php
+                    echo '결제가 취소된 멤버십입니다.';
+
                     exit;
                     break;
                 }
