@@ -111,7 +111,7 @@ switch ($RetrieveFlag) {
             window.location.href = "index.php?int_type=<?= $int_type ?>";
         </script>
 
-<?php
+        <?php
         exit;
         break;
 
@@ -152,11 +152,40 @@ switch ($RetrieveFlag) {
         break;
 
     case "RESTORE":
+        //카드정보얻기
+        $SQL_QUERY =    "SELECT 
+                            A.STR_PASS1, A.STR_PASS2
+                        FROM 
+                            `" . $Tname . "comm_member_pay` AS A
+                        WHERE
+                            A.INT_NUMBER=" . $int_number;
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
         switch ($int_type) {
             case 1:
+                if ($card_Data['STR_PASS1'] == '1') {
+        ?>
+                    <script language="javascript">
+                        alert('결제가 취소된 멤버십입니다.');
+                    </script>
+                <?php
+                    exit;
+                    break;
+                }
                 $SET_QUERY = 'STR_CANCEL1 = "0"';
                 break;
             case 2:
+                if ($card_Data['STR_PASS2'] == '1') {
+                ?>
+                    <script language="javascript">
+                        alert('결제가 취소된 멤버십입니다.');
+                    </script>
+<?php
+                    exit;
+                    break;
+                }
                 $SET_QUERY = 'STR_CANCEL2 = "0"';
                 break;
         }
@@ -168,9 +197,9 @@ switch ($RetrieveFlag) {
                             ' . $SET_QUERY . ' 
                         WHERE 
                             INT_NUMBER=' . $int_number;
-                            
+
         mysql_query($SQL_QUERY);
-        
+
         // 멤버십에 반영
         $SQL_QUERY =    'UPDATE 
                             ' . $Tname . 'comm_membership 

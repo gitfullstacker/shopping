@@ -260,6 +260,10 @@ function convertEncode($string)
             <input type="hidden" name="response_type" value="TEXT" />
             <input type="hidden" name="PayUrl" id="PayUrl" value="" />
             <input type="hidden" name="traceNo" id="traceNo" value="" />
+
+            <!-- 배치키 발급시 카드번호 리턴 여부 설정 -->
+            <!-- Y : 1234-4567-****-8910 형식, L : 8910 형식(카드번호 끝 4자리) -->
+            <input type='hidden' name='batch_cardno_return_yn' value='Y'>
         </form>
     </div>
 
