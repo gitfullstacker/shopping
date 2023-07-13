@@ -32,6 +32,7 @@
     $batch_key   = "";                                       // 배치 인증키
     /* ============================================================================== */
 
+    $card_mask_no   = $_POST[ "card_mask_no"   ];                  // 카드 번호
 
     /* ============================================================================== */
     /* =   03. 인스턴스 생성 및 초기화                                              = */
@@ -101,6 +102,7 @@
         <input type="hidden" name="buyr_name"   value="<?=$buyr_name?>">         <!-- 요청자 이름 -->
         <input type="hidden" name="card_cd"     value="<?=$card_cd?>">           <!-- 카드 코드 -->
         <input type="hidden" name="batch_key"   value="<?=$batch_key?>">         <!-- 배치 인증키 -->
+        <input type="hidden" name="card_mask_no"   value="<?=$card_mask_no?>">         <!-- 카드번호 -->
     </form>
     </body>
     </html>
