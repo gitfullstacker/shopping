@@ -69,7 +69,7 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     $characters = str_split($card_Data['STR_CARDNO']);
                     $card_number_array = array_chunk($characters, 4);
                     ?>
-                    <p class="font-bold text-xs leading-[10px] text-white">**** **** **** <?= $card_number_array[3] ?: '' ?></p>
+                    <p class="font-bold text-xs leading-[10px] text-white">**** **** **** <?= implode('', $card_number_array[3]) ?: '' ?></p>
                 </div>
             </div>
             <!-- 대표 카드 변경 -->
