@@ -50,7 +50,7 @@ $SQL_QUERY .= $Str_Query;
 $result = mysql_query($SQL_QUERY);
 
 
-if (!result) {
+if (!$result) {
     error("QUERY_ERROR");
     exit;
 }

@@ -90,7 +90,7 @@
     <script>
         function goResult()
         {
-            document.pay_info.submit();
+            // document.pay_info.submit();
         }
     </script>
     </head>
