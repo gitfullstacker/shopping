@@ -156,8 +156,8 @@ function convertEncode($string)
             }
 
             if (pay_form.enc_info.value) {
-                console.log(pay_form.card_mask_no);
-                // pay_form.submit();
+                // console.log(pay_form.card_mask_no);
+                pay_form.submit();
                 return;
             }
 
