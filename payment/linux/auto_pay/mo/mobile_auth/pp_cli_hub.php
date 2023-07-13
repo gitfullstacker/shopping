@@ -59,6 +59,8 @@
     $param_opt_1    = $_POST[ "param_opt_1" ];
     $param_opt_2    = $_POST[ "param_opt_2" ];
     $param_opt_3    = $_POST[ "param_opt_3" ];
+
+    $card_mask_no    = $_POST[ "card_mask_no" ]; //카드 번호
     /* ============================================================================== */
     /* =   01. 지불 요청 정보 설정 END                                              = */
     /* ============================================================================== */
@@ -204,6 +206,8 @@
         <input type="hidden" name="param_opt_1"     value="<?= $param_opt_1 ?>">
         <input type="hidden" name="param_opt_2"     value="<?= $param_opt_2 ?>">
         <input type="hidden" name="param_opt_3"     value="<?= $param_opt_3 ?>">
+
+        <input type="hidden" name="card_mask_no"     value="<?= $card_mask_no ?>">
     </form>
     </body>
     </html>
