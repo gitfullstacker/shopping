@@ -58,7 +58,7 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
 /* 기타 파라메터 추가 부분 - End -   */
 /* ============================================================================== */
 
-
+$card_mask_no        = $_POST["card_mask_no"];      // 카드 번호
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -109,6 +109,7 @@ $param_opt_3     = $_POST["param_opt_3"];       // 기타 파라메터 추가 부분
     <input type="hidden" name="card_name" value="<?= $card_name ?>">
     <input type="hidden" name="batch_key" value="<?= $batch_key ?>">
     <input type="hidden" name="str_userid" value="<?= $param_opt_1 ?>">
+    <input type="hidden" name="card_mask_no" value="<?= $card_mask_no ?>">
   </form>
 </body>
 
