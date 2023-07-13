@@ -65,7 +65,10 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 </div>
                 <hr class="border-t-[1px] border-white">
                 <div class="flex-1 flex justify-end items-center px-[15px]">
-                    <p class="font-bold text-xs leading-[10px] text-white">**** **** **** 1234</p>
+                    <?php
+                    $card_number_array = array_chunk($payment_Data['STR_CARDNO'], 4);
+                    ?>
+                    <p class="font-bold text-xs leading-[10px] text-white">**** **** **** <?= $card_number_array[3] ?: '' ?></p>
                 </div>
             </div>
             <!-- 대표 카드 변경 -->
