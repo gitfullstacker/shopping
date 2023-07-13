@@ -66,9 +66,8 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 <hr class="border-t-[1px] border-white">
                 <div class="flex-1 flex justify-end items-center px-[15px]">
                     <?php
-                    $card_number_array = array_chunk($card_Data['STR_CARDNO'], 4);
-                    var_dump($card_Data['STR_CARDNO']);
-                    var_dump($card_number_array);
+                    $characters = str_split($card_Data['STR_CARDNO']);
+                    $card_number_array = array_chunk($characters, 4);
                     ?>
                     <p class="font-bold text-xs leading-[10px] text-white">**** **** **** <?= $card_number_array[3] ?: '' ?></p>
                 </div>
