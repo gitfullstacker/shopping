@@ -90,19 +90,19 @@
     <script>
         function goResult()
         {
-            // document.pay_info.submit();
+            document.pay_info.submit();
         }
     </script>
     </head>
     <body onload="goResult()">
     <form name="pay_info" method="post" action="./result.php">
-        <input type="text" name="res_cd"      value="<?=$res_cd?>">            <!-- 결과 코드 -->
-        <input type="text" name="res_msg"     value="<?=$res_msg?>">           <!-- 결과 메세지 -->
-        <input type="text" name="ordr_idxx"   value="<?=$ordr_idxx?>">         <!-- 주문번호 -->
-        <input type="text" name="buyr_name"   value="<?=$buyr_name?>">         <!-- 요청자 이름 -->
-        <input type="text" name="card_cd"     value="<?=$card_cd?>">           <!-- 카드 코드 -->
-        <input type="text" name="batch_key"   value="<?=$batch_key?>">         <!-- 배치 인증키 -->
-        <input type="text" name="card_mask_no"   value="<?=$card_mask_no?>">         <!-- 카드번호 -->
+        <input type="hidden" name="res_cd"      value="<?=$res_cd?>">            <!-- 결과 코드 -->
+        <input type="hidden" name="res_msg"     value="<?=$res_msg?>">           <!-- 결과 메세지 -->
+        <input type="hidden" name="ordr_idxx"   value="<?=$ordr_idxx?>">         <!-- 주문번호 -->
+        <input type="hidden" name="buyr_name"   value="<?=$buyr_name?>">         <!-- 요청자 이름 -->
+        <input type="hidden" name="card_cd"     value="<?=$card_cd?>">           <!-- 카드 코드 -->
+        <input type="hidden" name="batch_key"   value="<?=$batch_key?>">         <!-- 배치 인증키 -->
+        <input type="hidden" name="card_mask_no"   value="<?=$card_mask_no?>">         <!-- 카드번호 -->
     </form>
     </body>
     </html>
