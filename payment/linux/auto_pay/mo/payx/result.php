@@ -107,7 +107,7 @@ if ($req_tx == "pay") {
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
     <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
-    <input type="hidden" name="amount" value="<?= $good_mny ?>">
+    <input type="hidden" name="good_mny" value="<?= $good_mny ?>">
     <input type="hidden" name="good_name" value="<?= $good_name ?>">
     <input type="hidden" name="buyr_name" value="<?= $buyr_name ?>">
     <input type="hidden" name="buyr_mail" value="<?= $buyr_mail ?>">
