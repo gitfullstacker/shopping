@@ -395,11 +395,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             switch (int_type) {
                 case 1:
                     document.forms.join_membership.good_name.value = '구독멤버십';
-                    document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE1'] ?: 0 ?>;
+                    document.forms.join_membership.good_mny.value = '<?= $site_Data['INT_PRICE1'] ?: 0 ?>';
                     break;
                 case 2:
                     document.forms.join_membership.good_name.value = '렌트멥버십';
-                    document.forms.join_membership.good_mny.value = <?= $site_Data['INT_PRICE2'] ?: 0 ?>;
+                    document.forms.join_membership.good_mny.value = '<?= $site_Data['INT_PRICE2'] ?: 0 ?>';
                     break;
             }
             document.forms.join_membership.int_type.value = int_type;

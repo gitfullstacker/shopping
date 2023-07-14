@@ -95,6 +95,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 }" id="frm" name="frm" action="" method="post" class="mt-[30px] flex flex-col w-full">
     <input type="hidden" name="int_type" value="<?= $int_type ?>">
     <input type="hidden" name="good_name" value="<?= $int_type == 1 ? '구독멤버십' : '렌트멥버십' ?>">
+    <input type="hidden" name="good_mny" value="<?= $int_type == 1 ? $site_Data['INT_PRICE1'] : $site_Data['INT_PRICE2'] ?>">
 
     <input type="hidden" name="total_price" id="total_price" x-bind:value="payAmount.totalPrice">
     <input type="hidden" name="price" x-bind:value="payAmount.price">
