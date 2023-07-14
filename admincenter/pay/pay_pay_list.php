@@ -136,7 +136,7 @@ $SQL_QUERY .= 	"left join
 					and d.str_pass = '0' ";
 $SQL_QUERY .= "where a.int_number is not null ";
 $SQL_QUERY .= $Str_Query;
-$SQL_QUERY .= "order by a.dtm_indate desc ";
+$SQL_QUERY .= "order by a.dtm_last_used desc ";
 $SQL_QUERY .= "limit $f_limit,$l_limit";
 
 $result = mysql_query($SQL_QUERY);

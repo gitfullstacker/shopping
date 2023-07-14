@@ -140,10 +140,10 @@ if ($res_cd == "0000") {
     // 카드 결제완료와 신청취소 기정으로 표시
     switch ($cart_Data['INT_TYPE']) {
         case 1:
-            $SET_QUERY = "STR_PASS1='0', STR_CANCEL1='0'";
+            $SET_QUERY = "STR_PASS1='0', STR_CANCEL1='0', DTM_LAST_USED='" . date("Y-m-d H:i:s") . "'";
             break;
         case 2:
-            $SET_QUERY = "STR_PASS2='0', STR_CANCEL2='0'";
+            $SET_QUERY = "STR_PASS2='0', STR_CANCEL2='0', DTM_LAST_USED='" . date("Y-m-d H:i:s") . "'";
             break;
     }
     $Sql_Query = "UPDATE `" . $Tname . "comm_member_pay` SET " . $SET_QUERY . " WHERE INT_NUMBER=" . $card_Data['INT_NUMBER'];
