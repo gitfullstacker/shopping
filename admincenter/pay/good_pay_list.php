@@ -29,6 +29,9 @@ if ($Txt_word != "") {
         case  "str_hp":
             $Str_Query .= " and replace(b.str_hp,'-','') like '%" . str_replace('-', '', $Txt_word) . "%' ";
             break;
+        case  "str_cart":
+            $Str_Query = " and a.int_cart = '$str_cart' ";
+            break;
     }
 }
 
@@ -138,6 +141,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 <option value="all" <? if ($Txt_key == "all") { ?>selected<? } ?>> 통합검색 </option>
                                                 <option value="str_name" <? if ($Txt_key == "str_name") { ?>selected<? } ?>> 이름 </option>
                                                 <option value="str_userid" <? if ($Txt_key == "str_userid") { ?>selected<? } ?>> 아이디 </option>
+                                                <option value="str_cart" <? if ($Txt_key == "str_cart") { ?>selected<? } ?>> 주문번호 </option>
                                             </select>
                                             <input type="text" NAME="Txt_word" value="<?= $Txt_word ?>" style="width:300px;" onkeydown="javascript: if (event.keyCode == 13) {fnc_search();}">
                                         </td>
@@ -185,7 +189,7 @@ $total_record_limit = mysql_num_rows($result);
 
                                 <table width=100% cellpadding=0 cellspacing=0 border=0>
                                     <tr>
-                                        <td class=rnd colspan=9></td>
+                                        <td class=rnd colspan=11></td>
                                     </tr>
                                     <tr class=rndbg>
                                         <th>번호</th>
@@ -194,19 +198,23 @@ $total_record_limit = mysql_num_rows($result);
                                         <th>상품명</th>
                                         <th>결제금액</th>
                                         <th>카드종류</th>
+                                        <th>주문번호</th>
+                                        <th>환불</th>
                                         <th>등록일</th>
                                         <th>보기</th>
                                         <th>선택</th>
                                     </tr>
                                     <tr>
-                                        <td class=rnd colspan=9></td>
+                                        <td class=rnd colspan=11></td>
                                     </tr>
                                     <col width=5% align=center>
-                                    <col width=30% align=center>
+                                    <col width=15% align=center>
                                     <col width=10% align=left>
                                     <col width=15% align=left>
                                     <col width=5% align=left>
-                                    <col width=15% align=left>
+                                    <col width=10% align=left>
+                                    <col width=10% align=left>
+                                    <col width=10% align=center>
                                     <col width=10% align=center>
                                     <col width=5% align=center>
                                     <col width=5% align=center>
@@ -219,23 +227,28 @@ $total_record_limit = mysql_num_rows($result);
                                                     <font class=ver81 color=616161><?= $article_num ?></font>
                                                 </td>
                                                 <td><span id="navig" name="navig" m_id="admin" m_no="1">
-                                                        <font color=0074BA><b><?= mysql_result($result, $i, str_name) ?></b></font>(<?= mysql_result($result, $i, str_userid) ?>)
+                                                        <font color=0074BA><b><?= mysql_result($result, $i, 'str_name') ?></b></font>(<?= mysql_result($result, $i, str_userid) ?>)
                                                     </span></td>
-                                                <td align="text-align:center"><?= mysql_result($result, $i, str_hp) ?></td>
-                                                <td align="text-align:center"><?= mysql_result($result, $i, str_goodname) ?></td>
-                                                <td><?= number_format(mysql_result($result, $i, int_price)) ?>원</td>
-                                                <td><?= fnc_card_kind(mysql_result($result, $i, str_cardcode)) ?></td>
+                                                <td align="text-align:center"><?= mysql_result($result, $i, 'str_hp') ?></td>
+                                                <td align="text-align:center"><?= mysql_result($result, $i, 'str_goodname') ?></td>
+                                                <td><?= number_format(mysql_result($result, $i, 'int_price')) ?>원</td>
+                                                <td><?= fnc_card_kind(mysql_result($result, $i, 'str_cardcode')) ?></td>
+                                                <td><?= fnc_card_kind(mysql_result($result, $i, 'int_cart')) ?></td>
                                                 <td>
-                                                    <font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
+                                                    <font class=ver81 color=616161><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '환불됨' : '' ?></font>
+                                                    <button type="button" style="height: 20px; font-size: smaller;" onclick="fnc_refund('<?= mysql_result($result, $i, 'int_number') ?>', '<?= mysql_result($result, $i, 'str_refund') == 'Y' ? 'N' : 'Y' ?>')"><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '취소' : '환불' ?></button>
+                                                </td>
+                                                <td>
+                                                    <font class=ver81 color=616161><?= mysql_result($result, $i, 'dtm_indate') ?></font>
                                                 </td>
                                                 <td><a href="javascript:RowClick('<?= mysql_result($result, $i, 'int_number') ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
-                                                <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, int_number) ?>"></td>
+                                                <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, 'int_number') ?>"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan=9 class=rndline></td>
+                                                <td colspan=11 class=rndline></td>
                                             </tr>
                                             <tr>
-                                                <td colspan=9 style="padding-top:0px;padding-bottom:5px;">
+                                                <td colspan=11 style="padding-top:0px;padding-bottom:5px;">
                                                     <table class=tb>
                                                         <col class=cellC style="width:10%">
                                                         <col class=cellL style="width:90%">
@@ -249,7 +262,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan=9 class=rndline></td>
+                                                <td colspan=11 class=rndline></td>
                                             </tr>
                                             <? $count++; ?>
                                             <?

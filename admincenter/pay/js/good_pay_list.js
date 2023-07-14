@@ -107,3 +107,9 @@
 		document.frm.target = "_self";
 		document.frm.submit();
 	}
+
+	function fnc_refund(str_no, str_refund) {
+		fuc_ajax('good_pay_edit_proc.php?RetrieveFlag=REFUND&str_no='+str_no+'&str_refund='+str_refund);
+		alert("수정되었습니다.");
+		document.frm.submit();
+	}
