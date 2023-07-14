@@ -177,7 +177,7 @@ if ($req_tx == "pay") {
         <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
         <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
         <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
-        <input type="hidden" name="amount" value="<?= $amount ?>">
+        <input type="hidden" name="good_mny" value="<?= $amount ?>">
         <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
         <input type="hidden" name="card_name" value="<?= $card_name ?>">
     </form>

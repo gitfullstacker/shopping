@@ -4,7 +4,7 @@
 $res_cd = Fnc_Om_Conv_Default($_REQUEST['res_cd'], "");
 $res_msg = Fnc_Om_Conv_Default($_REQUEST['res_msg'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
-$amount = Fnc_Om_Conv_Default($_REQUEST['amount'], "0");
+$good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "0");
 $card_cd = Fnc_Om_Conv_Default($_REQUEST['card_cd'], "");
 $card_name = Fnc_Om_Conv_Default($_REQUEST['card_name'], "");
 
@@ -56,7 +56,7 @@ if ($res_cd == "0000") {
 
     $arr_Set_Data[0]        = $cart_Data['STR_USERID'];
     $arr_Set_Data[1]        = $cart_Data['STR_GOODCODE'];
-    $arr_Set_Data[2]        = $amount;
+    $arr_Set_Data[2]        = $good_mny;
     $arr_Set_Data[3]        = $res_cd;
     $arr_Set_Data[4]        = $res_msg;
     $arr_Set_Data[5]        = $ordr_idxx;
