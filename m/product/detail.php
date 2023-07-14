@@ -28,11 +28,11 @@ if ($arr_Auth[0]) {
 }
 
 $SQL_QUERY =    'SELECT
-                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like AS C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_basket AS D WHERE A.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_BASKET
+                    A.*, B.STR_CODE AS STR_BRAND, (SELECT COUNT(C.STR_GOODCODE) FROM ' . $Tname . 'comm_member_like C WHERE A.STR_GOODCODE=C.STR_GOODCODE AND C.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_LIKE, (SELECT COUNT(D.STR_GOODCODE) FROM ' . $Tname . 'comm_member_basket D WHERE A.STR_GOODCODE=D.STR_GOODCODE AND D.STR_USERID="' . ($arr_Auth[0] ?: 'NULL') . '") AS IS_BASKET
                 FROM 
-                    ' . $Tname . 'comm_goods_master AS A
+                    ' . $Tname . 'comm_goods_master A
                 LEFT JOIN
-                    ' . $Tname . 'comm_com_code AS B
+                    ' . $Tname . 'comm_com_code B
                 ON
                     A.INT_BRAND=B.INT_NUMBER
                 WHERE
@@ -50,7 +50,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
-                    ' . $Tname . 'comm_site_info AS A
+                    ' . $Tname . 'comm_site_info A
                 WHERE
                     A.INT_NUMBER=1';
 
@@ -59,20 +59,32 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
 switch ($arr_Data['INT_TYPE']) {
     case 1:
-        //구독멤버십가입 여부 확인
+        // 구독멤버십가입 여부 확인
         $is_subscription_membership = fnc_sub_member_info() > 0 ? true : false;
 
         // 입고알림이 되여있는지 확인
         $SQL_QUERY =    'SELECT 
                             COUNT(A.STR_GOODCODE) AS COUNT 
                         FROM 
-                            ' . $Tname . 'comm_member_alarm AS A
+                            ' . $Tname . 'comm_member_alarm A
                         WHERE
                             A.STR_USERID="' . $arr_Auth[0] . '"
                             AND A.STR_GOODCODE=' . $str_goodcode;
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
         $alarm_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+        // 다른 상품을 구독중인지 확인
+        $SQL_QUERY =    'SELECT 
+                            COUNT(A.STR_GOODCODE) AS COUNT 
+                        FROM 
+                            ' . $Tname . 'comm_goods_cart A
+                        WHERE
+                            A.STR_USERID="' . $arr_Auth[0] . '"
+                            AND A.INT_STATE IN (1, 2, 3)';
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $other_Sub_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         // 렌트가능한 상품정보 얻기
         $rent_number = fnc_cart_info($str_goodcode);
@@ -91,10 +103,17 @@ switch ($arr_Data['INT_TYPE']) {
         vintageMoney: 0,
         showCalendar: false,
         showSubscriptionAlert: false,
+        customAlert: {
+            show: false,
+            text: ''
+        },
         showVintagePanel: false,
         goSubscription() {
             if (<?= $is_subscription_membership ? 'false' : 'true' ?>) {
                 this.showSubscriptionAlert = true;
+            } else if (<?= $other_Sub_Data['COUNT'] > 0 ? 'true' : 'false' ?>) {
+                this.customAlert.show = true;
+                this.customAlert.text = '현재 접수중인 상품이 있습니다. 배송완료 후 교환신청이 가능합니다.';
             } else {
                 window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
             }
@@ -1513,6 +1532,17 @@ switch ($arr_Data['INT_TYPE']) {
                 구독권 가입 후 해당 상품 이용이 가능합니다.<br>
                 해당 페이지 상단에 있는 프리미엄 멤버십을 가입해주세요.
             </p>
+        </div>
+    </div>
+
+    <div x-show="customAlert.show" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px]" style="display: none;height: calc(100vh - 66px);">
+        <div class="mb-5 flex flex-col gap-[11px] items-center justify-center rounded-lg bg-white w-[80%] relative px-4 py-10">
+            <button class="absolute top-[15px] right-[21px]" x-on:click="customAlert.show = false">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
+                </svg>
+            </button>
+            <p class="font-bold text-xs leading-[18px] text-[#666666] text-center" x-text="customAlert.text"></p>
         </div>
     </div>
 

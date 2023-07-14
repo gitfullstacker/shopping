@@ -11,10 +11,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <p class="font-extrabold text-lg leading-[20px] text-black">쿠폰 현황</p>
     </div>
     <div class="mt-[14px] flex justify-center items-center gap-16 w-full">
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1">
+        <div class="px-1 pb-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 1 ? 'border-b' : ''" x-on:click="menu = 1">
             <p class="font-bold text-sm leading-4" x-bind:class="menu == 1 ? 'text-[#6A696C]' : 'text-[#999999]'">나의 쿠폰</p>
         </div>
-        <div class="px-1 pb-[3px] border-[#6A696C]" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2">
+        <div class="px-1 pb-[3px] border-[#6A696C] cursor-pointer" x-bind:class="menu == 2 ? 'border-b' : ''" x-on:click="menu = 2">
             <p class="font-bold text-sm leading-4" x-bind:class="menu == 2 ? 'text-[#6A696C]' : 'text-[#999999]'">쿠폰 등록</p>
         </div>
     </div>
