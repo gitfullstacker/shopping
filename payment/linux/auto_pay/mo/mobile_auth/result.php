@@ -105,6 +105,7 @@ $card_mask_no        = $_POST["card_mask_no"];      // 카드 번호
     <input type="hidden" name="res_cd" value="<?= $res_cd ?>">
     <input type="hidden" name="res_msg" value="<?= $res_msg ?>">
     <input type="hidden" name="ordr_idxx" value="<?= $ordr_idxx ?>">
+    <input type="hidden" name="good_mny" value="<?= $good_mny ?>">
     <input type="hidden" name="card_cd" value="<?= $card_cd ?>">
     <input type="hidden" name="card_name" value="<?= $card_name ?>">
     <input type="hidden" name="batch_key" value="<?= $batch_key ?>">
