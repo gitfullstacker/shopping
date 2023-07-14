@@ -165,18 +165,30 @@ if ($RetrieveFlag == "UPDATE") {
 
 								<div class="title">결제내역</div>
 								<?
+								switch ($int_type) {
+									case 0:
+										$WHERE_QUERY = "";
+										break;
+									case 1:
+										$WHERE_QUERY = "AND B.INT_TYPE=1";
+										break;
+									case 2:
+										$WHERE_QUERY = "AND B.INT_TYPE=2";
+										break;
+								}
 								$Sql_Query =	" SELECT
-										B.*
-									FROM `"
-									. $Tname . "comm_member_pay` AS A
-										INNER JOIN
-										`" . $Tname . "comm_member_pay_info` AS B
-										ON
-										A.INT_NUMBER=B.INT_NUMBER
-										AND 
-										B.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
-									ORDER BY
-										B.INT_SNUMBER DESC ";
+													B.*
+												FROM 
+													`" . $Tname . "comm_member_pay` AS A
+												INNER JOIN
+													`" . $Tname . "comm_member_pay_info` AS B
+												ON
+													A.INT_NUMBER=B.INT_NUMBER
+													AND 
+													B.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
+													" . $WHERE_QUERY . "
+												ORDER BY
+													B.INT_SNUMBER DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
 								$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 								?>

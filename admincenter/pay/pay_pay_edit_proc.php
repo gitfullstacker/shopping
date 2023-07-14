@@ -19,8 +19,9 @@ $chkItem1 = Fnc_Om_Conv_Default($_REQUEST['chkItem1'], "");
 
 switch ($RetrieveFlag) {
 	case "UPDATE":
-
-		$SQL_QUERY = 	"UPDATE 
+		if ($int_type == 0) {
+			// 카드에 반영
+			$SQL_QUERY = 	"UPDATE 
 							" . $Tname . "comm_member_pay 
 							SET 
 								STR_PASS1='$str_pass1',
@@ -28,11 +29,10 @@ switch ($RetrieveFlag) {
 								STR_PASS2='$str_pass2',
 								STR_CANCEL2='$str_cancel2',
 								STR_AMEMO='" . addslashes($str_amemo) . "' ";
-		$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
-		mysql_query($SQL_QUERY);
+			$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
+			mysql_query($SQL_QUERY);
 
-		// 멤버십에 반영
-		if ($int_type == 0) {
+			// 멤버십에 반영
 			$SQL_QUERY = 	"UPDATE 
 								" . $Tname . "comm_membership 
 							SET 
@@ -49,6 +49,25 @@ switch ($RetrieveFlag) {
 			$SQL_QUERY .= " WHERE STR_USERID='$str_userid' AND INT_TYPE=2";
 			mysql_query($SQL_QUERY);
 		} else {
+			switch ($int_type) {
+				case 1:
+					$SET_QUERY = "STR_PASS1='$str_pass1', STR_CANCEL1='$str_cancel1'";
+					break;
+				case 2:
+					$SET_QUERY = "STR_PASS2='$str_pass2', STR_CANCEL2='$str_cancel2'";
+					break;
+			}
+
+			// 카드에 반영
+			$SQL_QUERY = 	"UPDATE 
+							" . $Tname . "comm_member_pay 
+							SET 
+								" . $SET_QUERY . ",
+								STR_AMEMO='" . addslashes($str_amemo) . "' ";
+			$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
+			mysql_query($SQL_QUERY);
+
+			// 멤버십에 반영
 			$SQL_QUERY = 	"UPDATE 
 								" . $Tname . "comm_membership 
 							SET 

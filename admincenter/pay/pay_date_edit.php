@@ -4,7 +4,7 @@
 //	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <?
-	$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no],"");
+	$str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'],"");
 
 	$SQL_QUERY =	"SELECT
 						A.*
