@@ -137,6 +137,18 @@ if ($res_cd == "0000") {
     $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
     mysql_query($Sql_Query);
 
+    // 카드 결제완료와 신청취소 기정으로 표시
+    switch ($cart_Data['INT_TYPE']) {
+        case 1:
+            $SET_QUERY = "STR_PASS1='0', STR_CANCEL1='0'";
+            break;
+        case 2:
+            $SET_QUERY = "STR_PASS2='0', STR_CANCEL2='0'";
+            break;
+    }
+    $Sql_Query = "UPDATE `" . $Tname . "comm_member_pay` SET " . $SET_QUERY . " WHERE INT_NUMBER=" . $card_Data['INT_NUMBER'];
+    mysql_query($Sql_Query);
+
     // 마일리지 사용한 경우
     if ($cart_Data['INT_MILEAGE']) {
         // 마일리지 제거
