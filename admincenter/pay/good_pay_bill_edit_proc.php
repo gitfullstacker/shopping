@@ -12,6 +12,8 @@ $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 $str_sdate = Fnc_Om_Conv_Default($_REQUEST['str_sdate'], "");
 $str_edate = Fnc_Om_Conv_Default($_REQUEST['str_edate'], "");
 $str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
+$str_goodcode = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], "");
+$int_cart = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
 
 /* ============================================================================== */
 /* =   01. 지불 요청 정보 설정                                                  = */
@@ -250,21 +252,27 @@ if ($req_tx == "pay") {
         $arr_Set_Data = array();
         $arr_Column_Name = array();
 
-        $arr_Column_Name[0]        = "INT_NUMBER";
-        $arr_Column_Name[1]        = "INT_SPRICE";
-        $arr_Column_Name[2]        = "STR_SDATE";
-        $arr_Column_Name[3]        = "STR_EDATE";
-        $arr_Column_Name[4]        = "STR_OIDXCODE";
-        $arr_Column_Name[5]        = "DTM_INDATE";
-        $arr_Column_Name[6]        = "INT_TYPE";
+        $arr_Column_Name[0]        = "STR_USERID";
+        $arr_Column_Name[1]        = "STR_GOODCODE";
+        $arr_Column_Name[2]        = "INT_PRICE";
+        $arr_Column_Name[3]        = "STR_RESCD";
+        $arr_Column_Name[4]        = "STR_RESMEG";
+        $arr_Column_Name[5]        = "STR_ORDERIDX";
+        $arr_Column_Name[6]        = "STR_CARDCODE";
+        $arr_Column_Name[7]        = "STR_CARDNAME";
+        $arr_Column_Name[8]        = "DTM_INDATE";
+        $arr_Column_Name[9]        = "INT_CART";
 
-        $arr_Set_Data[0]        = $str_no;
-        $arr_Set_Data[1]        = $good_mny;
-        $arr_Set_Data[2]        = $str_sdate;
-        $arr_Set_Data[3]        = $str_edate;
-        $arr_Set_Data[4]        = $ordr_idxx;
-        $arr_Set_Data[5]        = date("Y-m-d H:i:s");
-        $arr_Set_Data[6]        = $int_type;
+        $arr_Set_Data[0]        = $str_userid;
+        $arr_Set_Data[1]        = $str_goodcode;
+        $arr_Set_Data[2]        = $good_mny;
+        $arr_Set_Data[3]        = $res_cd;
+        $arr_Set_Data[4]        = $res_msg;
+        $arr_Set_Data[5]        = $ordr_idxx;
+        $arr_Set_Data[6]        = $card_cd;
+        $arr_Set_Data[7]        = $card_name;
+        $arr_Set_Data[8]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[9]        = $ordr_idxx;
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
@@ -279,28 +287,93 @@ if ($req_tx == "pay") {
             $arr_Sub2 .=  "'" . $arr_Set_Data[$int_I] . "'";
         }
 
-        $Sql_Query = "INSERT INTO `" . $Tname . "comm_member_pay_info` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        $Sql_Query = "INSERT INTO `" . $Tname . "comm_good_pay` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
 
-        // 이전 멤버십 삭제
-        $Sql_Query = "DELETE FROM  `" . $Tname . "comm_membership` WHERE STR_USERID = '" . $str_userid . "' AND INT_TYPE=" . $int_type;
-        mysql_query($Sql_Query);
+        // 이전 상품주문정보 얻기
+        $Sql_Query = "SELECT A.* FROM `" . $Tname . "comm_goods_cart` A WHERE A.INT_NUMBER = " . $int_cart;
+        $arr_Rlt_Data = mysql_query($Sql_Query);
+        $cart_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-        // 멤버십 등록
+        // 결제상태 반영
         $arr_Set_Data = array();
         $arr_Column_Name = array();
 
-        $arr_Column_Name[0] = "STR_USERID";
-        $arr_Column_Name[1] = "DTM_SDATE";
-        $arr_Column_Name[2] = "DTM_EDATE";
-        $arr_Column_Name[3] = "INT_TYPE";
-        $arr_Column_Name[4] = "DTM_INDATE";
+        $arr_Column_Name[0]        = "INT_NUMBER";
+        $arr_Column_Name[1]        = "STR_USERID";
+        $arr_Column_Name[2]        = "STR_NAME";
+        $arr_Column_Name[3]        = "STR_POST";
+        $arr_Column_Name[4]        = "STR_ADDR1";
+        $arr_Column_Name[5]        = "STR_ADDR2";
+        $arr_Column_Name[6]        = "STR_PLACE1";
+        $arr_Column_Name[7]        = "STR_PLACE2";
+        $arr_Column_Name[8]        = "STR_MEMO";
+        $arr_Column_Name[9]        = "STR_GOODCODE";
+        $arr_Column_Name[10]        = "STR_SGOODCODE";
+        $arr_Column_Name[11]        = "STR_SDATE";
+        $arr_Column_Name[12]        = "STR_EDATE";
+        $arr_Column_Name[13]        = "STR_REDATE";
+        $arr_Column_Name[14]        = "DTM_INDATE";
+        $arr_Column_Name[15]        = "INT_STATE";
+        $arr_Column_Name[16]        = "STR_RPOST";
+        $arr_Column_Name[17]        = "STR_RADDR1";
+        $arr_Column_Name[18]        = "STR_RADDR2";
+        $arr_Column_Name[19]        = "STR_METHOD";
+        $arr_Column_Name[20]        = "STR_RDATE";
+        $arr_Column_Name[21]        = "STR_RMEMO";
+        $arr_Column_Name[22]        = "INT_DELICODE";
+        $arr_Column_Name[23]        = "STR_DELICODE";
+        $arr_Column_Name[24]        = "STR_AMEMO";
+        $arr_Column_Name[25]        = "DTM_EDIT_DATE";
+        $arr_Column_Name[26]        = "STR_TELEP";
+        $arr_Column_Name[27]        = "STR_HP";
+        $arr_Column_Name[28]        = "INT_COUNT";
+        $arr_Column_Name[29]        = "INT_TPRICE";
+        $arr_Column_Name[30]        = "INT_PRICE";
+        $arr_Column_Name[31]        = "INT_PDISCOUNT";
+        $arr_Column_Name[32]        = "INT_ADISCOUNT";
+        $arr_Column_Name[33]        = "INT_MDISCOUNT";
+        $arr_Column_Name[34]        = "INT_COUPON";
+        $arr_Column_Name[35]        = "INT_CDISCOUNT";
+        $arr_Column_Name[36]        = "INT_MILEAGE";
 
-        $arr_Set_Data[0] = $str_userid;
-        $arr_Set_Data[1] = $str_sdate;
-        $arr_Set_Data[2] = $str_edate;
-        $arr_Set_Data[3] = $int_type;
-        $arr_Set_Data[4] = date("Y-m-d H:i:s");
+        $arr_Set_Data[0]        = $ordr_idxx;
+        $arr_Set_Data[1]        = $cart_Data['STR_USERID'];
+        $arr_Set_Data[2]        = $cart_Data['STR_NAME'];
+        $arr_Set_Data[3]        = $cart_Data['STR_POST'];
+        $arr_Set_Data[4]        = $cart_Data['STR_ADDR1'];
+        $arr_Set_Data[5]        = $cart_Data['STR_ADDR2'];
+        $arr_Set_Data[6]        = '';
+        $arr_Set_Data[7]        = '';
+        $arr_Set_Data[8]        = $cart_Data['STR_MEMO'];
+        $arr_Set_Data[9]        = $cart_Data['STR_GOODCODE'];
+        $arr_Set_Data[10]        = $cart_Data['STR_SGOODCODE'];
+        $arr_Set_Data[11]        = $str_sdate;
+        $arr_Set_Data[12]        = $str_edate;
+        $arr_Set_Data[13]        = '';
+        $arr_Set_Data[14]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[15]        = "1";
+        $arr_Set_Data[16]        = '';
+        $arr_Set_Data[17]        = '';
+        $arr_Set_Data[18]        = '';
+        $arr_Set_Data[19]        = '';
+        $arr_Set_Data[20]        = '';
+        $arr_Set_Data[21]        = '';
+        $arr_Set_Data[22]        = 0;
+        $arr_Set_Data[23]        = '';
+        $arr_Set_Data[24]        = '';
+        $arr_Set_Data[25]        = date("Y-m-d H:i:s");
+        $arr_Set_Data[26]        = $cart_Data['STR_TELEP'];
+        $arr_Set_Data[27]        = $cart_Data['STR_HP'];
+        $arr_Set_Data[28]        = $cart_Data['INT_COUNT'];
+        $arr_Set_Data[29]        = $good_mny;
+        $arr_Set_Data[30]        = $good_mny;
+        $arr_Set_Data[31]        = 0;
+        $arr_Set_Data[32]        = 0;
+        $arr_Set_Data[33]        = 0;
+        $arr_Set_Data[34]        = 0;
+        $arr_Set_Data[35]        = 0;
+        $arr_Set_Data[36]        = 0;
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
@@ -312,21 +385,11 @@ if ($req_tx == "pay") {
                 $arr_Sub2 .=  ",";
             }
             $arr_Sub1 .=  $arr_Column_Name[$int_I];
-            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : 'null ';
+            $arr_Sub2 .=  $arr_Set_Data[$int_I] == null ? "NULL" : "'" . $arr_Set_Data[$int_I] . "'";
         }
 
-        $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-        mysql_query($Sql_Query);
-
-        if (Fnc_Om_Store_Info(13) > 0) {
-            Fnc_Om_Stamp_In($str_userid, "4", Fnc_Om_Store_Info(13), "");
-        }
-
-        $snoopy = new snoopy;
-        $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing01.html?str_ocode=" . urlencode($lastnumber2));
-        $body = $snoopy->results;
-
-        Fnc_Om_Sendmail("신청하신 가방의 결제정보입니다.", $body, Fnc_Om_Store_Info(2), $buyr_mail);
+        $SQL_QUERY = "INSERT INTO `" . $Tname . "comm_goods_cart` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+        mysql_query($SQL_QUERY);
     }
 }
 
