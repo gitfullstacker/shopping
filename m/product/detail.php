@@ -1056,8 +1056,8 @@ switch ($arr_Data['INT_TYPE']) {
                             for (var i = 0; i < this.rentDates.length; i++) {
                                 const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
                                 const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
-                                // 반납일(1일)과 출고일(2일)제외
-                                rentEndDate.setDate(rentEndDate.getDate() + 3);
+                                // 반납일(1일)과 출고일(3일)제외
+                                rentEndDate.setDate(rentEndDate.getDate() + 4);
 
                                 if (date.getTime() >= rentStartDate.getTime() && date.getTime() <= rentEndDate.getTime()) {
                                     isDateBetween = true;
@@ -1083,8 +1083,9 @@ switch ($arr_Data['INT_TYPE']) {
                                 }
                             }
                         } else if (this.selectedStatus == 1) {
+                            // 최소 4일을 마감선택불가일로 설정
                             const disableEndDay = new Date(this.startDate);
-                            disableEndDay.setDate(disableEndDay.getDate() + 2);
+                            disableEndDay.setDate(disableEndDay.getDate() + 3);
 
                             const finalEndday = new Date(this.startDate);
                             finalEndday.setDate(finalEndday.getDate() + 14);

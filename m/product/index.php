@@ -478,8 +478,9 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         status = 0;
                     }
                 } else if (this.selectedStatus == 1) {
+                    // 최소 4일을 마감선택불가일로 설정
                     const disableEndDay = new Date(this.startDate);
-                    disableEndDay.setDate(disableEndDay.getDate() + 2);
+                    disableEndDay.setDate(disableEndDay.getDate() + 3);
 
                     const finalEndday = new Date(this.startDate);
                     finalEndday.setDate(finalEndday.getDate() + 14);
