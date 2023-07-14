@@ -1426,11 +1426,12 @@ function getSpentMoney($str_userid)
                     WHERE
 						A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
 						AND A.DTM_INDATE <= CURDATE()
+						AND A.STR_REFUND = "N"
                         AND A.STR_USERID="' . $str_userid . '"';
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$good_money_Data = mysql_fetch_assoc($arr_To_Data);
-
+	
 	// 멤버십구매 1년 총결제액
 	$Sql_Query =    'SELECT 
                         IFNULL(SUM(A.INT_SPRICE), 0) AS SUM_MONEY
@@ -1447,7 +1448,8 @@ function getSpentMoney($str_userid)
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$membership_money_Data = mysql_fetch_assoc($arr_To_Data);
-
+	var_dump($membership_money_Data['SUM_MONEY']);
+	exit;
 	return ($good_money_Data['SUM_MONEY'] ?: 0) + ($membership_money_Data['SUM_MONEY'] ?: 0);
 }
 
