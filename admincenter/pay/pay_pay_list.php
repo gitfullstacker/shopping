@@ -381,30 +381,36 @@ $total_record_limit = mysql_num_rows($result);
 											<tr>
 												<td colspan=13 class=rndline></td>
 											</tr>
-											<?
-											$Sql_Query =	" SELECT
-																A.*
-															FROM 
-																`" . $Tname . "comm_member_pay_info` A
-															WHERE
-																A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
-															ORDER BY
-																A.INT_SNUMBER DESC ";
-											$arr_Data2 = mysql_query($Sql_Query);
-											$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
-											?>
 											<tr>
-												<td colspan="13">
+												<td colspan="6" style="vertical-align: top;">
+													<?
+													$Sql_Query =	" SELECT
+																		A.*
+																	FROM 
+																		`" . $Tname . "comm_member_pay_info` A
+																	WHERE
+																		A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
+																		AND A.INT_TYPE=1
+																	ORDER BY
+																		A.INT_SNUMBER DESC ";
+													$arr_Data2 = mysql_query($Sql_Query);
+													$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
+													?>
 													<table width=100% cellpadding=0 cellspacing=0 border=0>
 														<col width=10% align=center>
 														<col width=10% align=center>
 														<col width=10% align=center>
 														<col width=20% align=center>
+														<tr height=25 align="left">
+															<td style="padding-left:100px;width:100%;">
+																<font style="background-color: #e5e5e5;">구독멤버십결제정보</font>
+															</td>
+														</tr>
 														<?
 														for ($int_I = 0; $int_I < $arr_Data2_Cnt; $int_I++) {
 														?>
 															<tr height=25 align="left">
-																<td style="padding-left:100px;">
+																<td style="padding-left:100px;width:100%;">
 																	<font class=ver81 color=616161><?= $int_I + 1 ?></font>]
 																	<?= number_format(mysql_result($arr_Data2, $int_I, 'int_sprice')) ?>원
 																	/
@@ -416,7 +422,61 @@ $total_record_limit = mysql_num_rows($result);
 																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
 																	<?
 																	if ($int_I == 0) {
-																		if (mysql_result($result, $i, (mysql_result($arr_Data2, $int_I, 'int_type') == 1 ? 'str_pass1' : 'str_pass2')) == "0") {
+																		if (mysql_result($result, $i, 'str_pass1') == "0") {
+																	?>
+																			<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_number') ?>&int_type=<?= mysql_result($arr_Data2, $int_I, 'int_type') ?>',800,500);">
+																				<font color="red">[빌링작업]</font>
+																			</a>
+																	<?
+																		}
+																	}
+																	?>
+																</td>
+															</tr>
+														<? } ?>
+													</table>
+												</td>
+												<td colspan="7" style="vertical-align: top;">
+													<?
+													$Sql_Query =	" SELECT
+																		A.*
+																	FROM 
+																		`" . $Tname . "comm_member_pay_info` A
+																	WHERE
+																		A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
+																		AND A.INT_TYPE=2
+																	ORDER BY
+																		A.INT_SNUMBER DESC ";
+													$arr_Data2 = mysql_query($Sql_Query);
+													$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
+													?>
+													<table width=100% cellpadding=0 cellspacing=0 border=0>
+														<col width=10% align=center>
+														<col width=10% align=center>
+														<col width=10% align=center>
+														<col width=20% align=center>
+														<tr height=25 align="left">
+															<td style="padding-left:100px;width:100%;">
+																<font style="background-color: #e5e5e5;">렌트멤버십결제정보</font>
+															</td>
+														</tr>
+														<?
+														for ($int_I = 0; $int_I < $arr_Data2_Cnt; $int_I++) {
+														?>
+															<tr height=25 align="left">
+																<td style="padding-left:100px;width:100%;">
+																	<font class=ver81 color=616161><?= $int_I + 1 ?></font>]
+																	<?= number_format(mysql_result($arr_Data2, $int_I, 'int_sprice')) ?>원
+																	/
+																	<?= mysql_result($arr_Data2, $int_I, 'str_sdate') ?> ~ <?= mysql_result($arr_Data2, $int_I, 'str_edate') ?>
+																	<a href="javascript:popupLayer('pay_date_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_snumber') ?>',500,230);"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a>
+																	/
+																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
+																	/
+																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
+																	<?
+																	if ($int_I == 0) {
+																		if (mysql_result($result, $i, 'str_pass2') == "0") {
 																	?>
 																			<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_number') ?>&int_type=<?= mysql_result($arr_Data2, $int_I, 'int_type') ?>',800,500);">
 																				<font color="red">[빌링작업]</font>
