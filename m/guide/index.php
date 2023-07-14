@@ -7,30 +7,30 @@
     <img class="main-image min-w-full" src="images/top.png" alt="top">
     <div id="menu_panel" class="menu-section">
         <div class="item">
-            <button onclick="scrollToDiv('menu_div1')">INTRO</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div1')">INTRO</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div2')">REVIEW</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div2')">REVIEW</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div3')">CHOICE</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div3')">CHOICE</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div4')">SERVICE</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div4')">SERVICE</p>
         </div>
     </div>
     <div id="top_menu_panel" class="menu-section top-menu-section hidden">
         <div class="item">
-            <button onclick="scrollToDiv('menu_div1')">INTRO</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div1')">INTRO</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div2')">REVIEW</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div2')">REVIEW</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div3')">CHOICE</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div3')">CHOICE</p>
         </div>
         <div class="item">
-            <button onclick="scrollToDiv('menu_div4')">SERVICE</button>
+            <p class="cursor-pointer" onclick="scrollToDiv('menu_div4')">SERVICE</p>
         </div>
     </div>
     <img id="menu_div1" class="main-image min-w-full" src="images/bottom.png" alt="bottom">
