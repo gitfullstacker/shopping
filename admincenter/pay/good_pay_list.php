@@ -18,7 +18,7 @@ $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST['Txt_eindate'], "");
 if ($Txt_word != "") {
     switch ($Txt_key) {
         case  "all":
-            $Str_Query = " and (b.str_name like '%$Txt_word%' or b.str_userid like '%$Txt_word%' or replace(b.str_hp,'-','') like '%" . str_replace('-', '', $Txt_word) . "%' ) ";
+            $Str_Query = " and (b.str_name like '%$Txt_word%' or b.str_userid like '%$Txt_word%' or replace(b.str_hp,'-','') like '%" . str_replace('-', '', $Txt_word) . "%' or a.int_cart = '$Txt_word' ) ";
             break;
         case  "str_name":
             $Str_Query = " and b.str_name like '%$Txt_word%' ";
@@ -30,7 +30,7 @@ if ($Txt_word != "") {
             $Str_Query .= " and replace(b.str_hp,'-','') like '%" . str_replace('-', '', $Txt_word) . "%' ";
             break;
         case  "str_cart":
-            $Str_Query = " and a.int_cart = '$str_cart' ";
+            $Str_Query = " and a.int_cart = '$Txt_word' ";
             break;
     }
 }
