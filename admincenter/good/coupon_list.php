@@ -176,7 +176,7 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=9></td>
+										<td class=rnd colspan=10></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
@@ -188,17 +188,19 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 										<th>적용상품</th>
 										<th>출력유무</th>
 										<th>수정</th>
+										<th>선택</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=9></td>
+										<td class=rnd colspan=10></td>
 									</tr>
 									<col width=5% align=center>
-									<col width=35% align=left>
+									<col width=30% align=left>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=10% align=center>
 									<col width=10% align=center>
+									<col width=5% align=center>
 									<col width=5% align=center>
 									<col width=5% align=center>
 									<? $count = 0; ?>
@@ -253,9 +255,10 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 													</font>
 												</td>
 												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, "int_number") ?>');"><img src="/admincenter/img/i_edit.gif"></a></td>
+												<td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, 'int_number') ?>"></td>
 											</tr>
 											<tr>
-												<td colspan=9 class=rndline></td>
+												<td colspan=10 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?
@@ -322,6 +325,12 @@ $str_String = "?Page=" . $page . "&displayrow=" . urlencode($displayrow) . "&Txt
 										▶▶
 									<? }
 									?>
+								</div>
+
+								<div style="float:left;">
+									<img src="/admincenter/img/btn_allselect_s.gif" alt="전체선택" border="0" align='absmiddle' style="cursor:hand" onclick="javascript:selectItem('1');">
+									<img src="/admincenter/img/btn_alldeselect_s.gif" alt="선택해제" border="0" align='absmiddle' style="cursor:hand" onclick="javascript:selectItem('2');">
+									<img src="/admincenter/img/btn_alldelet_s.gif" alt="선택삭제" border="0" align='absmiddle' style="cursor:hand" onclick="javaScript:Adelete_Click();">
 								</div>
 
 								<div style="float:right;">
