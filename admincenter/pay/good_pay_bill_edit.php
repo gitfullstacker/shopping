@@ -168,15 +168,16 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 												FROM 
 													`" . $Tname . "comm_good_pay` A
 												LEFT JOIN
-													" . $Tname . "comm_goods_master AS B
+													" . $Tname . "comm_goods_master B
 												ON
 													A.STR_GOODCODE=B.STR_GOODCODE
 												LEFT JOIN
-													" . $Tname . "comm_goods_cart AS C
+													" . $Tname . "comm_goods_cart C
 												ON
-													A.INT_CART=C.INT_CART
+													A.INT_CART=C.INT_NUMBER
 												WHERE
-													B.INT_TYPE=" . $int_type . "
+													A.STR_USERID='" . $arr_Data['STR_USERID'] . "'
+													AND B.INT_TYPE=" . $int_type . "
 												ORDER BY
 													A.DTM_INDATE DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
