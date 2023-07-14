@@ -1584,7 +1584,7 @@ switch ($arr_Data['INT_TYPE']) {
 
     <div id="relative_image_panel" class="w-full bg-black bg-opacity-60 fixed bottom-[66px] z-50 flex justify-center items-end max-w-[410px] hidden" style="height: calc(100vh - 66px);">
         <div class="flex flex-col items-center justify-center bg-white w-full h-full relative">
-            <button class="absolute top-[15px] right-[21px]" onclick="document.getElementById('relative_image_panel').classList.add('hidden');">
+            <button class="absolute top-[15px] right-[21px] z-10" onclick="document.getElementById('relative_image_panel').classList.add('hidden');">
                 <svg width="20" height="20" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                 </svg>
