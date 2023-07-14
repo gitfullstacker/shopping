@@ -189,7 +189,7 @@ $total_record_limit = mysql_num_rows($result);
 
                                 <table width=100% cellpadding=0 cellspacing=0 border=0>
                                     <tr>
-                                        <td class=rnd colspan=11></td>
+                                        <td class=rnd colspan="<?= $int_type == 2 ? 12 : 11 ?>"></td>
                                     </tr>
                                     <tr class=rndbg>
                                         <th>번호</th>
@@ -200,21 +200,35 @@ $total_record_limit = mysql_num_rows($result);
                                         <th>카드종류</th>
                                         <th>주문번호</th>
                                         <th>환불</th>
+                                        <?php
+                                        if ($int_type == 2) {
+                                        ?>
+                                            <th>빌링작업</th>
+                                        <?php
+                                        }
+                                        ?>
                                         <th>등록일</th>
                                         <th>보기</th>
                                         <th>선택</th>
                                     </tr>
                                     <tr>
-                                        <td class=rnd colspan=11></td>
+                                        <td class=rnd colspan="<?= $int_type == 2 ? 12 : 11 ?>"></td>
                                     </tr>
                                     <col width=5% align=center>
                                     <col width=15% align=center>
                                     <col width=10% align=left>
-                                    <col width=15% align=left>
+                                    <col width=10% align=left>
                                     <col width=5% align=left>
                                     <col width=10% align=left>
                                     <col width=10% align=left>
                                     <col width=10% align=center>
+                                    <?php
+                                    if ($int_type == 2) {
+                                    ?>
+                                        <col width=5% align=center>
+                                    <?php
+                                    }
+                                    ?>
                                     <col width=10% align=center>
                                     <col width=5% align=center>
                                     <col width=5% align=center>
@@ -238,6 +252,17 @@ $total_record_limit = mysql_num_rows($result);
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '환불됨' : '' ?></font>
                                                     <button type="button" style="height: 20px; font-size: smaller;" onclick="fnc_refund('<?= mysql_result($result, $i, 'int_number') ?>', '<?= mysql_result($result, $i, 'str_refund') == 'Y' ? 'N' : 'Y' ?>')"><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '취소' : '환불' ?></button>
                                                 </td>
+                                                <?php
+                                                if ($int_type == 2) {
+                                                ?>
+                                                    <td>
+                                                        <a href="javascript:popupLayer('good_pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
+                                                            <font color="red">[빌링작업]</font>
+                                                        </a>
+                                                    </td>
+                                                <?php
+                                                }
+                                                ?>
                                                 <td>
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, 'dtm_indate') ?></font>
                                                 </td>
@@ -245,10 +270,10 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, 'int_number') ?>"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan=11 class=rndline></td>
+                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" class=rndline></td>
                                             </tr>
                                             <tr>
-                                                <td colspan=11 style="padding-top:0px;padding-bottom:5px;">
+                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" style="padding-top:0px;padding-bottom:5px;">
                                                     <table class=tb>
                                                         <col class=cellC style="width:10%">
                                                         <col class=cellL style="width:90%">
@@ -262,7 +287,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan=11 class=rndline></td>
+                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" class=rndline></td>
                                             </tr>
                                             <? $count++; ?>
                                             <?
