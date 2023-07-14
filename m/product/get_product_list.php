@@ -136,7 +136,7 @@ $SQL_QUERY =    'SELECT
                     ' . $ORDERBY_QUERY . '
                 LIMIT ' . $per_page . '
                 OFFSET ' . $offset;
-var_dump($SQL_QUERY);
+
 $product_list_result = mysql_query($SQL_QUERY);
 
 $see_more = mysql_num_rows($product_list_result) == $per_page ? true : false;
