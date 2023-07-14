@@ -41,7 +41,7 @@ $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 $SQL_QUERY =    'SELECT
                     A.*
                 FROM 
-                    ' . $Tname . 'comm_site_info AS A
+                    ' . $Tname . 'comm_site_info A
                 WHERE
                     A.INT_NUMBER=1';
 
