@@ -37,28 +37,6 @@ $SQL_QUERY =    'SELECT
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $rent_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-// 금액정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_site_info A
-                WHERE
-                    A.INT_NUMBER=1';
-
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
-// 사용자정보 얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_member AS A
-                WHERE
-                    A.STR_USERID="' . $arr_Auth[0] . '"';
-
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$user_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
 //카드정보얻기
 $SQL_QUERY =    "SELECT 
                     A.STR_BILLCODE, A.INT_NUMBER
@@ -348,18 +326,6 @@ if (intval($date) < 10) {
 $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 ?>
 
-<form name="join_membership" action="sub_process.php" method="post">
-    <input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>">
-    <input type="hidden" name="good_name" value="">
-    <input type="hidden" name="good_mny" value="0">
-    <input type="hidden" name="buyr_name" value="<?= $user_Data['STR_NAME'] ?>">
-    <input type="hidden" name="buyr_mail" value="<?= $user_Data['STR_EMAIL'] ?>">
-    <input type="hidden" name="buyr_tel1" value="<?= $user_Data['STR_TELEP'] ?>">
-    <input type="hidden" name="buyr_tel2" value="<?= $user_Data['STR_HP'] ?>">
-    <input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>">
-    <input type="hidden" name="quotaopt" value="00">
-</form>
-
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 ?>
@@ -388,24 +354,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                 }                
             }
         });
-    }
-
-    function joinMembership(int_type) {
-        if (<?= $card_Data ? 'true' : 'false' ?>) {
-            switch (int_type) {
-                case 1:
-                    document.forms.join_membership.good_name.value = '구독멤버십';
-                    document.forms.join_membership.good_mny.value = '<?= $site_Data['INT_PRICE1'] ?: 0 ?>';
-                    break;
-                case 2:
-                    document.forms.join_membership.good_name.value = '렌트멥버십';
-                    document.forms.join_membership.good_mny.value = '<?= $site_Data['INT_PRICE2'] ?: 0 ?>';
-                    break;
-            }
-            document.forms.join_membership.int_type.value = int_type;
-            document.forms.join_membership.submit();
-        } else {
-            window.location.href = '/m/mine/payment/index.php';
-        }
     }
 </script>
