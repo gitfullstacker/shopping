@@ -1424,8 +1424,8 @@ function getSpentMoney($str_userid)
                     FROM 
                         `' . $Tname . 'comm_good_pay` AS A
                     WHERE
-						A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
-						AND A.DTM_INDATE <= CURDATE()
+						A.DTM_INDATE >= "' . date("Y-m-d H:i:s", strtotime("-1 year")) . '"
+						AND A.DTM_INDATE <= "' . date("Y-m-d H:i:s") . '"
 						AND A.STR_REFUND = "N"
                         AND A.STR_USERID="' . $str_userid . '"';
 
@@ -1442,8 +1442,8 @@ function getSpentMoney($str_userid)
 					ON
 						A.INT_NUMBER = B.INT_NUMBER
                     WHERE
-						A.DTM_INDATE >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
-						AND A.DTM_INDATE <= CURDATE()
+						A.DTM_INDATE >= "' . date("Y-m-d H:i:s", strtotime("-1 year")) . '"
+						AND A.DTM_INDATE <= "' . date("Y-m-d H:i:s") . '"
                         AND B.STR_USERID="' . $str_userid . '"';
 
 	$arr_To_Data = mysql_query($Sql_Query);
