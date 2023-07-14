@@ -5,7 +5,7 @@
 		document.frm.RetrieveFlag.value="INSERT";
 
 		document.frm.target = "_self";
-		document.frm.action = "pay_bill_edit_proc.php";
+		document.frm.action = "good_pay_bill_edit_proc.php";
 		document.frm.submit();
 	}
 	function ValidChk()	{
