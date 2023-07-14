@@ -623,7 +623,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     $datetime2 = new DateTime($sub_end_date);
                     $interval = $datetime1->diff($datetime2);
 
-                    $days_left = $interval->format('%d');
+                    $days_left = $interval->format('%a');
                 ?>
                     <!-- 가입자 -->
                     <div class="mt-3 flex flex-col gap-[25px] items-center w-full">
