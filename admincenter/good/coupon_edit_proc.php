@@ -3,7 +3,7 @@
 Fnc_Acc_Admin();
 ?>
 <?
-$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag], "INSERT");
+$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
 $str_String = Fnc_Om_Conv_Default($_REQUEST['str_String'], "");
@@ -59,6 +59,10 @@ switch ($RetrieveFlag) {
 
 		$Sql_Query = "INSERT INTO `" . $Tname . "comm_coupon` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
 		mysql_query($Sql_Query);
+
+		$SQL_QUERY = "SELECT ifnull(max(INT_NUMBER),0) AS lastnumber FROM " . $Tname . "comm_coupon";
+		$last_Data = mysql_query($SQL_QUERY);
+		$lastnumber = mysql_result($last_Data, 0, 'lastnumber');
 ?>
 		<script language="javascript">
 			window.location.href = "coupon_edit.php<?= $str_String ?>&RetrieveFlag=UPDATE&str_no=<?= $lastnumber ?>";

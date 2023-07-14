@@ -21,8 +21,8 @@ if ($RetrieveFlag == "UPDATE") {
 
 	$SQL_QUERY =	" SELECT
 						A.*
-					FROM "
-		. $Tname . "comm_coupon AS A
+					FROM 
+						" . $Tname . "comm_coupon A
 					WHERE
 						A.INT_NUMBER='$str_no' ";
 

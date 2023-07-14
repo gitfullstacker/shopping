@@ -158,6 +158,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
     },
     calTotalPrice() {
         this.payAmount.totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.mileage - this.payAmount.discount.area;
+        this.payAmount.totalPrice = this.payAmount.totalPrice >= 0 ? this.payAmount.totalPrice : 0;
     },
     changeCoupon(selectElement) {
         const selectedOption = selectElement.options[selectElement.selectedIndex];
