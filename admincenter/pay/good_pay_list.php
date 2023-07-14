@@ -78,10 +78,11 @@ $total_page = ceil($total_record / $displayrow);
 $f_limit = $first;
 $l_limit = $last + 1;
 
-$SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname from ";
+$SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname,d.str_sdate,d.str_edate from ";
 $SQL_QUERY .= $Tname;
 $SQL_QUERY .= "comm_good_pay a left join " . $Tname . "comm_member b on a.str_userid=b.str_userid ";
 $SQL_QUERY .= "left join " . $Tname . "comm_goods_master c on a.str_goodcode=c.str_goodcode ";
+$SQL_QUERY .= "left join " . $Tname . "comm_goods_cart d on a.int_cart=d.int_number ";
 $SQL_QUERY .= "where a.int_number is not null and a.str_userid is not null ";
 $SQL_QUERY .= $Str_Query;
 $SQL_QUERY .= "order by a.dtm_indate desc ";
@@ -189,7 +190,7 @@ $total_record_limit = mysql_num_rows($result);
 
                                 <table width=100% cellpadding=0 cellspacing=0 border=0>
                                     <tr>
-                                        <td class=rnd colspan="<?= $int_type == 2 ? 12 : 11 ?>"></td>
+                                        <td class=rnd colspan="<?= $int_type == 2 ? 13 : 11 ?>"></td>
                                     </tr>
                                     <tr class=rndbg>
                                         <th>번호</th>
@@ -203,6 +204,7 @@ $total_record_limit = mysql_num_rows($result);
                                         <?php
                                         if ($int_type == 2) {
                                         ?>
+                                            <th>기간</th>
                                             <th>빌링작업</th>
                                         <?php
                                         }
@@ -212,19 +214,20 @@ $total_record_limit = mysql_num_rows($result);
                                         <th>선택</th>
                                     </tr>
                                     <tr>
-                                        <td class=rnd colspan="<?= $int_type == 2 ? 12 : 11 ?>"></td>
+                                        <td class=rnd colspan="<?= $int_type == 2 ? 13 : 11 ?>"></td>
                                     </tr>
                                     <col width=5% align=center>
                                     <col width=15% align=center>
-                                    <col width=10% align=left>
-                                    <col width=10% align=left>
+                                    <col width=8% align=left>
+                                    <col width=8% align=left>
                                     <col width=5% align=left>
-                                    <col width=10% align=left>
-                                    <col width=10% align=left>
-                                    <col width=10% align=center>
+                                    <col width=8% align=left>
+                                    <col width=8% align=left>
+                                    <col width=8% align=center>
                                     <?php
                                     if ($int_type == 2) {
                                     ?>
+                                        <col width=10% align=center>
                                         <col width=5% align=center>
                                     <?php
                                     }
@@ -255,6 +258,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 <?php
                                                 if ($int_type == 2) {
                                                 ?>
+                                                    <td align="text-align:center"><?= mysql_result($result, $i, 'str_sdate') . ' ~ ' . mysql_result($result, $i, 'str_edate') ?></td>
                                                     <td>
                                                         <a href="javascript:popupLayer('good_pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
                                                             <font color="red">[빌링작업]</font>
@@ -270,10 +274,10 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td class="noline"><input type=checkbox name="chkItem1[]" id="chkItem1" value="<?= mysql_result($result, $i, 'int_number') ?>"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" class=rndline></td>
+                                                <td colspan="<?= $int_type == 2 ? 13 : 11 ?>" class=rndline></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" style="padding-top:0px;padding-bottom:5px;">
+                                                <td colspan="<?= $int_type == 2 ? 13 : 11 ?>" style="padding-top:0px;padding-bottom:5px;">
                                                     <table class=tb>
                                                         <col class=cellC style="width:10%">
                                                         <col class=cellL style="width:90%">
@@ -287,7 +291,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="<?= $int_type == 2 ? 12 : 11 ?>" class=rndline></td>
+                                                <td colspan="<?= $int_type == 2 ? 13 : 11 ?>" class=rndline></td>
                                             </tr>
                                             <? $count++; ?>
                                             <?
