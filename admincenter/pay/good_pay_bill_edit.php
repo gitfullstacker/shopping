@@ -7,25 +7,22 @@ Fnc_Acc_Admin();
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 
-// 금액정보얻기
-$SQL_QUERY =    'SELECT
-                    A.*
-                FROM 
-                    ' . $Tname . 'comm_site_info AS A
-                WHERE
-                    A.INT_NUMBER=1';
-
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$site_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
 $SQL_QUERY =	" SELECT
-					A.*,B.STR_NAME,B.STR_EMAIL,B.STR_HP,B.STR_TELEP
+					A.*, B.STR_NAME, B.STR_EMAIL, B.STR_HP, B.STR_TELEP, C.STR_SDATE, C.STR_EDATE, D.STR_GOODNAME
 				FROM 
-					" . $Tname . "comm_member_pay AS A
-					LEFT JOIN
+					" . $Tname . "comm_good_pay AS A
+				LEFT JOIN
 					" . $Tname . "comm_member AS B
-					ON
+				ON
 					A.STR_USERID=B.STR_USERID
+				LEFT JOIN
+					" . $Tname . "comm_goods_cart AS C
+				ON
+					A.INT_CART=C.INT_NUMBER
+				LEFT JOIN
+					" . $Tname . "comm_goods_master AS D
+				ON
+					A.STR_GOODCODE=D.STR_GOODCODE
 				WHERE
 					A.INT_NUMBER='$str_no' ";
 
@@ -35,12 +32,25 @@ if (!$arr_Rlt_Data) {
 	exit;
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+//카드정보얻기
+$SQL_QUERY =    "SELECT 
+                    A.*
+                FROM 
+                    `" . $Tname . "comm_member_pay` AS A
+                WHERE
+                    A.STR_USERID='" . $arr_Data['STR_USERID'] . "'
+                ORDER BY DTM_INDATE DESC
+                LIMIT 1 ";
+
+$arr_Rlt_Data = mysql_query($SQL_QUERY);
+$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 <html>
 
 <head>
 	<? include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php"; ?>
-	<script language="javascript" src="js/pay_bill_edit.js"></script>
+	<script language="javascript" src="js/good_pay_bill_edit.js"></script>
 </head>
 
 <body class=scroll onload="init_orderid()">
@@ -51,7 +61,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 					<tr>
 						<td style="padding:10px">
 
-							<form id="frm" name="frm" target="_self" method="POST" action="pay_bill_edit.php" enctype="multipart/form-data">
+							<form id="frm" name="frm" target="_self" method="POST" action="good_pay_bill_edit.php" enctype="multipart/form-data">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
 								<input type="hidden" name="str_no" value="<?= $str_no ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
@@ -64,7 +74,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="res_msg" value="<?= $res_msg ?>"> <!-- 결과 메세지 -->
 								<input type="hidden" name="buyr_name" value="<?= $arr_Data['STR_NAME'] ?>"> <!-- 요청자 이름 -->
 								<input type="hidden" name="card_cd" value="<?= $card_cd ?>"> <!-- 카드 코드 -->
-								<input type="hidden" name="bt_batch_key" value="<?= $arr_Data['STR_BILLCODE'] ?>"> <!-- 배치 인증키 -->
+								<input type="hidden" name="bt_batch_key" value="<?= $card_Data['STR_BILLCODE'] ?>"> <!-- 배치 인증키 -->
 
 								<input type="hidden" name="pay_method" value="CARD" />
 								<input type="hidden" name="ordr_idxx" value=""> <!-- 주문번호 -->
@@ -80,6 +90,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="currency" value="410" />
 
 								<input type="hidden" name="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" />
+								<input type="hidden" name="str_goodcode" value="<?= $arr_Data['STR_GOODCODE'] ?>" />
+								<input type="hidden" name="int_cart" value="<?= $arr_Data['INT_CART'] ?>" />
 
 								<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 								<table class=tb>
@@ -100,42 +112,24 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 									<tr>
 										<td>결제금액</td>
 										<td>
-											<font class=def><?= number_format($site_Data[$int_type == 1 ? 'INT_PRICE1' : 'INT_PRICE2']) ?>원
+											<font class=def><?= number_format($arr_Data['INT_PRICE']) ?>원
 										</td>
 										<td>결제일</td>
 										<td>
-											<font class=def><?= $arr_Data['STR_PDATE'] ?>
+											<font class=def><?= $arr_Data['DTM_INDATE'] ?>
 										</td>
 									</tr>
 									<tr>
-										<td>결제명</td>
-										<td>
-											<font class=def><?= $int_type == 1 ? '구독멤버십' : '렌트멤버십' ?>
-										</td>
-										<td>상태</td>
-										<td>
-											<? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS'], "0") == "0") { ?>결제완료<? } else { ?>결제취소<? } ?>
-											<? if ($arr_Data[$int_type == 1 ? 'STR_CANCEL1' : 'STR_CANCEL2'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
+										<td>상품명</td>
+										<td colspan="3">
+											<font class=def><?= $arr_Data['STR_GOODNAME'] ?></font>
 										</td>
 									</tr>
-									<? if ($RetrieveFlag == "UPDATE") { ?>
-										<tr>
-											<td>등록일자</td>
-											<td colspan=3 class=noline>
-												<font class=def>
-													<?= $arr_Data['DTM_INDATE'] ?>
-											</td>
-										</tr>
-									<? } ?>
 								</table>
 								<br>
 
-								<?
-								$SQL_QUERY = "select max(str_edate) as lastnumber from " . $Tname . "comm_member_pay_info where int_number='" . $str_no . "' ";
-								$arr_max_Data = mysql_query($SQL_QUERY);
-								$lastnumber = mysql_result($arr_max_Data, 0, lastnumber);
-
-								$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber)) . "1day"));
+								<?php
+								$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($arr_Data['STR_EDATE'])) . "1day"));
 								$lastnumber2 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber1)) . "1month"));
 								$lastnumber3 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber2)) . "-1day"));
 								?>
@@ -158,7 +152,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 									<tr>
 										<td>결제금액</td>
 										<td colspan="3">
-											<font class=def><input type="text" name="good_mny" value="<?= $site_Data[$int_type == 1 ? 'INT_PRICE1' : 'INT_PRICE2'] ?>">원
+											<font class=def><input type="text" name="good_mny" value="<?= $arr_Data['INT_PRICE'] ?>">원
 										</td>
 									</tr>
 								</table>
@@ -170,14 +164,21 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<div class="title">결제내역</div>
 								<?
 								$Sql_Query =	"SELECT
-													A.*
+													A.*, C.STR_SDATE, C.STR_EDATE
 												FROM 
-													`" . $Tname . "comm_member_pay_info` A
+													`" . $Tname . "comm_good_pay` A
+												LEFT JOIN
+													" . $Tname . "comm_goods_master AS B
+												ON
+													A.STR_GOODCODE=B.STR_GOODCODE
+												LEFT JOIN
+													" . $Tname . "comm_goods_cart AS C
+												ON
+													A.INT_CART=C.INT_CART
 												WHERE
-													A.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
-													AND A.INT_TYPE=" . $int_type . "
+													B.INT_TYPE=" . $int_type . "
 												ORDER BY
-													A.INT_SNUMBER DESC ";
+													A.DTM_INDATE DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
 								$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 								?>
@@ -207,10 +208,10 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 											<td>
 												<font class=ver81 color=616161><?= $int_I + 1 ?></font>
 											</td>
-											<td><?= mysql_result($arr_Data2, $int_I, str_oidxcode) ?></td>
-											<td><?= number_format(mysql_result($arr_Data2, $int_I, int_sprice)) ?>원</td>
-											<td><?= mysql_result($arr_Data2, $int_I, str_sdate) ?> ~ <?= mysql_result($arr_Data2, $int_I, str_edate) ?></td>
-											<td><?= mysql_result($arr_Data2, $int_I, dtm_indate) ?></td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'INT_CART') ?></td>
+											<td><?= number_format(mysql_result($arr_Data2, $int_I, 'INT_PRICE')) ?>원</td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'STR_SDATE') ?> ~ <?= mysql_result($arr_Data2, $int_I, 'STR_EDATE') ?></td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'DTM_INDATE') ?></td>
 										</tr>
 										<tr>
 											<td colspan=5 class=rndline></td>
