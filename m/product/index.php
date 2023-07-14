@@ -1041,8 +1041,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function seeMoreClick() {
-        current_page++;
-
         searchProduct(true);
     }
 </script>
