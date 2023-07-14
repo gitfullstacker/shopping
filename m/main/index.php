@@ -574,7 +574,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 		}
 		?>
 	</div>
-	<a href="/m/review/index.php" class="mt-[21px] w-[225px] h-[38px] flex justify-center items-center bg-white border-[0.5px] border-solid border-[#DDDDDD]">
+	<a href="/m/review/index.php" class="mt-[21px] w-[225px] h-[38px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD]">
 		<p class="font-bold text-[11px] leading-[12px]">더 많은 리뷰 보러가기</p>
 	</a>
 </div>

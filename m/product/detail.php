@@ -1599,7 +1599,7 @@ switch ($arr_Data['INT_TYPE']) {
                     for ($i = 6; $i <= 12; $i++) {
                         if ($arr_Data['STR_IMAGE' . $i]) {
                     ?>
-                            <div class="snap-always snap-center flex-none flex-grow-0 w-full h-[500px] border border-solid border-[#DDDDDD] bg-gray-100">
+                            <div class="snap-always snap-center flex-none flex-grow-0 w-full max-h-[500px] border border-solid border-[#DDDDDD] bg-gray-100">
                                 <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
                             </div>
                     <?php
