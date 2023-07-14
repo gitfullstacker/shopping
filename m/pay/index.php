@@ -515,7 +515,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
             ?>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
-                <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= ($int_type == 1 && $is_subscription_membership) ? '무료배송(잔여혜택 1회)' : '무료배송' ?></p>
+                <p class="font-medium text-xs leading-[14px] text-[#666666]">무료배송</p>
             </div>
             <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
