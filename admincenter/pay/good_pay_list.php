@@ -233,7 +233,7 @@ $total_record_limit = mysql_num_rows($result);
                                                 <td align="text-align:center"><?= mysql_result($result, $i, 'str_goodname') ?></td>
                                                 <td><?= number_format(mysql_result($result, $i, 'int_price')) ?>원</td>
                                                 <td><?= fnc_card_kind(mysql_result($result, $i, 'str_cardcode')) ?></td>
-                                                <td><?= fnc_card_kind(mysql_result($result, $i, 'int_cart')) ?></td>
+                                                <td><?= mysql_result($result, $i, 'int_cart') ?></td>
                                                 <td>
                                                     <font class=ver81 color=616161><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '환불됨' : '' ?></font>
                                                     <button type="button" style="height: 20px; font-size: smaller;" onclick="fnc_refund('<?= mysql_result($result, $i, 'int_number') ?>', '<?= mysql_result($result, $i, 'str_refund') == 'Y' ? 'N' : 'Y' ?>')"><?= mysql_result($result, $i, 'str_refund') == 'Y' ? '취소' : '환불' ?></button>
