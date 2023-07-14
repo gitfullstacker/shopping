@@ -177,7 +177,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 													A.INT_CART=C.INT_NUMBER
 												WHERE
 													B.INT_TYPE=2
-													AND A.STRGOOD_CODE='" . $arr_Data['STRGOOD_CODE'] . "'
+													AND A.STR_GOODCODE='" . $arr_Data['STR_GOODCODE'] . "'
 													AND A.STR_USERID='" . $arr_Data['STR_USERID'] . "'
 												ORDER BY
 													A.DTM_INDATE DESC ";
