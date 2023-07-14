@@ -305,7 +305,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 				<?
 				while ($row = mysql_fetch_assoc($brand_list_result)) {
 				?>
-					<a href="/m/product/index.php?product_type=2&int_brand=<?= $row['INT_NUMBER'] ?>" class="w-[115px] rounded-[40px] flex flex-col items-center">
+					<a href="/m/product/index.php?product_type=2&int_brand=<?= $row['INT_NUMBER'] ?>" class="w-[115px] rounded-[40px] flex flex-col items-center splide__slide">
 						<div class="flex w-[115px] h-[160px] rounded-[40px] bg-gray-100 <?= $row['STR_BANNER1'] ?: 'animate-pulse' ?>">
 							<img class="min-w-full h-full object-cover rounded-[40px]" src="/admincenter/files/com/<?= $row['STR_BANNER1'] ?>" onerror="this.style.display = 'none'" alt="">
 						</div>
