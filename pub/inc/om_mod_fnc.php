@@ -1448,8 +1448,7 @@ function getSpentMoney($str_userid)
 
 	$arr_To_Data = mysql_query($Sql_Query);
 	$membership_money_Data = mysql_fetch_assoc($arr_To_Data);
-	var_dump($membership_money_Data['SUM_MONEY']);
-	exit;
+
 	return ($good_money_Data['SUM_MONEY'] ?: 0) + ($membership_money_Data['SUM_MONEY'] ?: 0);
 }
 
