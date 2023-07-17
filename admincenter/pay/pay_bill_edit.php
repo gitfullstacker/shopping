@@ -22,9 +22,9 @@ $SQL_QUERY =	" SELECT
 					A.*,B.STR_NAME,B.STR_EMAIL,B.STR_HP,B.STR_TELEP
 				FROM 
 					" . $Tname . "comm_member_pay AS A
-					LEFT JOIN
+				LEFT JOIN
 					" . $Tname . "comm_member AS B
-					ON
+				ON
 					A.STR_USERID=B.STR_USERID
 				WHERE
 					A.INT_NUMBER='$str_no' ";
@@ -130,10 +130,10 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								</table>
 								<br>
 
-								<?
-								$SQL_QUERY = "select max(str_edate) as lastnumber from " . $Tname . "comm_member_pay_info where int_number='" . $str_no . "' ";
+								<?php
+								$SQL_QUERY = "select max(a.str_edate) as lastnumber from " . $Tname . "comm_member_pay_info a left join " . $Tname . "comm_member_pay b on a.int_number=b.int_number where b.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
 								$arr_max_Data = mysql_query($SQL_QUERY);
-								$lastnumber = mysql_result($arr_max_Data, 0, lastnumber);
+								$lastnumber = mysql_result($arr_max_Data, 0, 'lastnumber');
 
 								$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber)) . "1day"));
 								$lastnumber2 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber1)) . "1month"));

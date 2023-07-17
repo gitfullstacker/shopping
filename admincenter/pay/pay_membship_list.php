@@ -272,8 +272,8 @@ $total_record_limit = mysql_num_rows($result);
 														?>
 													</font>
 												</td>
-												<td><?= mysql_result($result, $i, str_sdate) ?>~<?= mysql_result($result, $i, str_edate) ?>
-													<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, int_number) ?>&int_type=<?= $int_type ?>',800,500);">
+												<td><?= mysql_result($result, $i, 'str_sdate') ?>~<?= mysql_result($result, $i, 'str_edate') ?>
+													<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
 														<font color="red">[빌링작업]</font>
 													</a>
 												</td>
