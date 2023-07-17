@@ -36,12 +36,30 @@ switch ($RetrieveFlag) {
 
 	case "REFUND":
 
+		//카드정보얻기
+		$SQL_QUERY =    'SELECT 
+							A.*
+						FROM 
+							`' . $Tname . 'comm_good_pay` AS A
+						WHERE
+							A.INT_NUMBER=' . $str_no;
+
+		$arr_Rlt_Data = mysql_query($SQL_QUERY);
+		$pay_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
 		$SQL_QUERY = 	"UPDATE 
 							" . $Tname . "comm_good_pay 
 						SET STR_REFUND='" . addslashes($str_refund) . "' ";
 		$SQL_QUERY .= " WHERE INT_NUMBER='$str_no' ";
 
 		$result = mysql_query($SQL_QUERY);
+
+		// 사용한 금액체크
+		$total_spent_money = getSpentMoney($pay_Data['STR_USERID']);
+
+		if ($total_spent_money >= 2000000) {
+			addBlackCoupons($pay_Data['STR_USERID']);
+		}
 	?>
 		<script language="javascript">
 			alert("처리되었습니다.");
