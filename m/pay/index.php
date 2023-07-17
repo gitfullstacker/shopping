@@ -356,6 +356,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                             B.INT_BRAND=C.INT_NUMBER
                         WHERE
                             A.INT_STATE=4
+                            AND B.INT_TYPE=1
                             AND A.STR_USERID="' . $arr_Auth[0] . '"
                         LIMIT 1';
 
