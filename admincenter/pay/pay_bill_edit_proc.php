@@ -295,12 +295,14 @@ if ($req_tx == "pay") {
         $arr_Column_Name[2] = "DTM_EDATE";
         $arr_Column_Name[3] = "INT_TYPE";
         $arr_Column_Name[4] = "DTM_INDATE";
+        $arr_Column_Name[5] = "STR_ORDERIDX";
 
         $arr_Set_Data[0] = $str_userid;
         $arr_Set_Data[1] = $str_sdate;
         $arr_Set_Data[2] = $str_edate;
         $arr_Set_Data[3] = $int_type;
         $arr_Set_Data[4] = date("Y-m-d H:i:s");
+        $arr_Set_Data[5] = $ordr_idxx;
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
