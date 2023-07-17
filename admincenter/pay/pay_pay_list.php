@@ -268,7 +268,7 @@ $total_record_limit = mysql_num_rows($result);
 										<th>구분</th>
 										<th>이름</th>
 										<th>핸드폰</th>
-										<th>결제금액</th>
+										<th>유효상태</th>
 										<th>카드종류</th>
 										<th>취소신청(구독)</th>
 										<th>상태(구독)</th>
@@ -322,8 +322,8 @@ $total_record_limit = mysql_num_rows($result);
 														<font color=0074BA><b><?= mysql_result($result, $i, str_name) ?></b></font>(<?= mysql_result($result, $i, str_userid) ?>)
 													</span></td>
 												<td align="text-align:center"><?= mysql_result($result, $i, str_hp) ?></td>
-												<td><?= number_format(mysql_result($result, $i, int_price)) ?>원</td>
-												<td><?= fnc_card_kind(mysql_result($result, $i, str_cardcode)) ?></td>
+												<td><?= mysql_result($result, $i, 'str_using') == 'Y' ? '유효함' : '만료됨' ?></td>
+												<td><?= fnc_card_kind(mysql_result($result, $i, 'str_cardcode')) ?></td>
 												<td>
 													<? switch (mysql_result($result, $i, 'str_cancel1')) {
 														case  "0":
