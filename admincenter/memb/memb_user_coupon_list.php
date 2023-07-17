@@ -73,6 +73,9 @@ $total_record_limit = mysql_num_rows($result);
 <head>
 	<? include $_SERVER['DOCUMENT_ROOT'] . "/admincenter/inc/inc_header_info.php"; ?>
 	<script language="javascript" src="js/memb_user_coupon_list.js"></script>
+	<script language="javascript">
+		parent.document.getElementById("idView_Link<?= $str_userid ?>").innerHTML = "<?= $total_record ?>";
+	</script>
 </head>
 
 <body class=scroll>
@@ -126,21 +129,23 @@ $total_record_limit = mysql_num_rows($result);
 
 								<table width=100% cellpadding=0 cellspacing=0 border=0>
 									<tr>
-										<td class=rnd colspan=4></td>
+										<td class=rnd colspan=5></td>
 									</tr>
 									<tr class=rndbg>
 										<th>번호</th>
 										<th>쿠폰명</th>
 										<th>사용여부</th>
 										<th>등록일</th>
+										<th>삭제</th>
 									</tr>
 									<tr>
-										<td class=rnd colspan=4></td>
+										<td class=rnd colspan=5></td>
 									</tr>
 									<col width=8% align=center>
 									<col width=39% align=left>
-									<col width=38% align=center>
+									<col width=28% align=center>
 									<col width=15% align=center>
+									<col width=10% align=center>
 									<? $count = 0; ?>
 									<? if ($total_record_limit != 0) { ?>
 										<? $article_num = $total_record - $displayrow * ($page - 1); ?>
@@ -154,9 +159,20 @@ $total_record_limit = mysql_num_rows($result);
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, 'dtm_indate') ?></font>
 												</td>
+												<td>
+													<?php
+													if (mysql_result($result, $i, 'str_used') == 'N') {
+													?>
+														<a href="javascript:deleteItem('<?= mysql_result($result, $i, 'int_number') ?>');">
+															<img src="/admincenter/img/btn_s_del.gif">
+														</a>
+													<?php
+													}
+													?>
+												</td>
 											</tr>
 											<tr>
-												<td colspan=4 class=rndline></td>
+												<td colspan=5 class=rndline></td>
 											</tr>
 											<? $count++; ?>
 											<?

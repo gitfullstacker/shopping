@@ -209,7 +209,8 @@ $total_record_limit = mysql_num_rows($result);
 												<option value="str_usercode" <? if ($Txt_key == "str_usercode") { ?>selected<? } ?>> 서브상품코드 </option>
 											</select>
 											<input type="text" NAME="Txt_word" value="<?= $Txt_word ?>" style="width:300px;" onkeydown="javascript: if (event.keyCode == 13) {fnc_search();}">
-										</td </tr>
+										</td>
+									</tr>
 									<tr>
 										<td>등록일</td>
 										<td colspan="3">

@@ -392,7 +392,7 @@ $total_record_limit = mysql_num_rows($result);
 												<td>
 													<font class=ver81 color=616161><?= mysql_result($result, $i, int_login) ?></font>
 												</td>
-												<td align=center><?= number_format(mysql_result($result, $i, 'coupon_num')) ?> <a href="javascript:popupLayer('memb_user_coupon_list.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
+												<td align=center><span id="idView_Link<?= mysql_result($result, $i, 'str_userid') ?>"><?= number_format(mysql_result($result, $i, 'coupon_num')) ?></span> <a href="javascript:popupLayer('memb_user_coupon_list.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>',800,500)"><img src="/admincenter/img/btn_viewbbs.gif" align="absmiddle"></a></td>
 												<td>
 													<font class=ver81 color=616161><?= substr(mysql_result($result, $i, dtm_indate), 0, 10) ?></font>
 												</td>
