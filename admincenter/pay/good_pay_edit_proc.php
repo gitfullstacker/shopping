@@ -36,7 +36,6 @@ switch ($RetrieveFlag) {
 
 	case "REFUND":
 
-		//카드정보얻기
 		$SQL_QUERY =    'SELECT 
 							A.*
 						FROM 

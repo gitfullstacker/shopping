@@ -48,6 +48,7 @@ if ($res_cd == "0000") {
                         `' . $Tname . 'comm_member_pay` AS A
                     WHERE
                         A.STR_USERID="' . $cart_Data['STR_USERID'] . '"
+                        AND A.STR_USING="Y"
                     ORDER BY DTM_INDATE DESC
                     LIMIT 1 ';
 
