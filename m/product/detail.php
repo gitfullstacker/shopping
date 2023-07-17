@@ -79,8 +79,13 @@ switch ($arr_Data['INT_TYPE']) {
                             COUNT(A.STR_GOODCODE) AS COUNT 
                         FROM 
                             ' . $Tname . 'comm_goods_cart A
+                        LEFT JOIN
+                            ' . $Tname . 'comm_goods_master AS B
+                        ON
+                            A.STR_GOODCODE=B.STR_GOODCODE
                         WHERE
                             A.STR_USERID="' . $arr_Auth[0] . '"
+                            AND B.INT_TYPE=1
                             AND A.INT_STATE IN (1, 2, 3)';
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
