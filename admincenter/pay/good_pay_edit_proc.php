@@ -60,13 +60,15 @@ switch ($RetrieveFlag) {
 		if ($total_spent_money < 2000000) {
 			$SQL_QUERY = 	"UPDATE 
 								" . $Tname . "comm_member 
-							SET STR_GRADE='G' ";
-			$SQL_QUERY .= " WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
+							SET STR_GRADE='G' 
+							WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
+			mysql_query($SQL_QUERY);
 		} else {
 			$SQL_QUERY = 	"UPDATE 
 								" . $Tname . "comm_member 
-							SET STR_GRADE='B' ";
-			$SQL_QUERY .= " WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
+							SET STR_GRADE='B' 
+							WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
+			mysql_query($SQL_QUERY);
 		}
 	?>
 		<script language="javascript">
