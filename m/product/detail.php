@@ -118,7 +118,7 @@ switch ($arr_Data['INT_TYPE']) {
                 this.showSubscriptionAlert = true;
             } else if (<?= $other_Sub_Data['COUNT'] > 0 ? 'true' : 'false' ?>) {
                 this.customAlert.show = true;
-                this.customAlert.text = '현재 접수중인 상품이 있습니다. 배송완료 후 교환신청이 가능합니다.';
+                this.customAlert.text = '현재 접수중인 상품이 있습니다. <br>배송완료 후 교환신청이 가능합니다.';
             } else {
                 window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
             }
