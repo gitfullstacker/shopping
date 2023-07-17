@@ -464,7 +464,7 @@
 		$arr_Column_Name[2]		= "INT_SPRICE";
 		$arr_Column_Name[3]		= "STR_SDATE";
 		$arr_Column_Name[4]		= "STR_EDATE";
-		$arr_Column_Name[5]		= "STR_OIDXCODE";
+		$arr_Column_Name[5]		= "STR_ORDERIDX";
 		$arr_Column_Name[6]		= "DTM_INDATE";
 
 		$SQL_QUERY = "select ifnull(max(int_snumber),0)+1 as lastnumber from ".$Tname."comm_member_pay_info " ;

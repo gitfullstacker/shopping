@@ -242,8 +242,6 @@
         {
             if ( $res_cd == "0000" )
             {
-          
-          
 				$arr_Set_Data= Array();
 				$arr_Column_Name = Array();
 				
@@ -252,7 +250,7 @@
 				$arr_Column_Name[2]		= "INT_SPRICE";
 				$arr_Column_Name[3]		= "STR_SDATE";
 				$arr_Column_Name[4]		= "STR_EDATE";
-				$arr_Column_Name[5]		= "STR_OIDXCODE";
+				$arr_Column_Name[5]		= "STR_ORDERIDX";
 				$arr_Column_Name[6]		= "DTM_INDATE";
 				
 				$SQL_QUERY = "select ifnull(max(a.str_edate),'') as lastnumber from ".$Tname."comm_member_pay_info a inner join ".$Tname."comm_member_pay b on a.int_number=b.int_number where b.str_pass='0' and b.str_userid='$arr_Auth[0]' " ;

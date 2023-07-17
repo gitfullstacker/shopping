@@ -253,7 +253,7 @@ if ($str_exceltype == "1") {
 				<td align="center" <?= $rowspan ?> style='mso-number-format:"\@";'><?= mysql_result($arr_ex_Data, $int_I, dtm_indate) ?></td>
 				<? if ($arr_Data2_Cnt) { ?>
 					<? for ($int_J = 0; $int_J < 1; $int_J++) { ?>
-						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_oidxcode) ?></td>
+						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_orderidx) ?></td>
 						<td align="center" style='mso-number-format:"\@";'><?= number_format(mysql_result($arr_Data2, $int_J, int_sprice)) ?>원</td>
 						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_sdate) ?>~<?= mysql_result($arr_Data2, $int_J, str_edate) ?></td>
 						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, dtm_indate) ?></td>
@@ -268,7 +268,7 @@ if ($str_exceltype == "1") {
 			<? if ($arr_Data2_Cnt) { ?>
 				<? for ($int_J = 1; $int_J < $arr_Data2_Cnt; $int_J++) { ?>
 					<tr>
-						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_oidxcode) ?></td>
+						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_orderidx) ?></td>
 						<td align="center" style='mso-number-format:"\@";'><?= number_format(mysql_result($arr_Data2, $int_J, int_sprice)) ?>원</td>
 						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, str_sdate) ?>~<?= mysql_result($arr_Data2, $int_J, str_edate) ?></td>
 						<td align="center" style='mso-number-format:"\@";'><?= mysql_result($arr_Data2, $int_J, dtm_indate) ?></td>

@@ -207,10 +207,10 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 											<td>
 												<font class=ver81 color=616161><?= $int_I + 1 ?></font>
 											</td>
-											<td><?= mysql_result($arr_Data2, $int_I, str_oidxcode) ?></td>
-											<td><?= number_format(mysql_result($arr_Data2, $int_I, int_sprice)) ?>원</td>
-											<td><?= mysql_result($arr_Data2, $int_I, str_sdate) ?> ~ <?= mysql_result($arr_Data2, $int_I, str_edate) ?></td>
-											<td><?= mysql_result($arr_Data2, $int_I, dtm_indate) ?></td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'str_orderidx') ?></td>
+											<td><?= number_format(mysql_result($arr_Data2, $int_I, 'int_sprice')) ?>원</td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'str_sdate') ?> ~ <?= mysql_result($arr_Data2, $int_I, 'str_edate') ?></td>
+											<td><?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?></td>
 										</tr>
 										<tr>
 											<td colspan=5 class=rndline></td>

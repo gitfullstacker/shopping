@@ -428,7 +428,7 @@ $total_record_limit = mysql_num_rows($result);
 																	/
 																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
 																	/
-																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
+																	<?= mysql_result($arr_Data2, $int_I, 'str_orderidx') ?>
 																</td>
 															</tr>
 														<? } ?>
@@ -480,7 +480,7 @@ $total_record_limit = mysql_num_rows($result);
 																	/
 																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
 																	/
-																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
+																	<?= mysql_result($arr_Data2, $int_I, 'str_orderidx') ?>
 																</td>
 															</tr>
 														<? } ?>

@@ -45,7 +45,7 @@ switch ($RetrieveFlag) {
         $arr_Column_Name[1] = "INT_SPRICE";
         $arr_Column_Name[2] = "STR_SDATE";
         $arr_Column_Name[3] = "STR_EDATE";
-        $arr_Column_Name[4] = "STR_OIDXCODE";
+        $arr_Column_Name[4] = "STR_ORDERIDX";
         $arr_Column_Name[5] = "DTM_INDATE";
         $arr_Column_Name[6] = "INT_TYPE";
 

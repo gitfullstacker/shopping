@@ -67,7 +67,7 @@ while ($row = mysql_fetch_assoc($pay_list_result)) {
             <div class="flex flex-col">
                 <p class="font-normal text-[10px] leading-[11px] text-[#999999]">' . date('Y.m.d', strtotime($row['DTM_INDATE'])) . '</p>
                 <p class="mt-1.5 font-bold text-xs leading-[14px] text-[#666666]">결제완료</p>
-                <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . $row['STR_OIDXCODE'] . '</p>
+                <p class="mt-[5px] font-bold text-xs leading-[14px] text-[#999999]">주문번호: ' . $row['STR_ORDERIDX'] . '</p>
             </div>
             <div class="flex flex-col justify-end">
                 <p class="font-bold text-xs leading-[14px] text-black">' . number_format($row['INT_SPRICE']) . '원</p>
