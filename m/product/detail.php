@@ -1060,6 +1060,9 @@ switch ($arr_Data['INT_TYPE']) {
                             var isDateBetween = false;
                             for (var i = 0; i < this.rentDates.length; i++) {
                                 const rentStartDate = new Date(this.rentDates[i].start + ' 00:00:00');
+                                // 반납일(1일)과 출고일(3일)제외
+                                rentStartDate.setDate(rentStartDate.getDate() + 4);
+
                                 const rentEndDate = new Date(this.rentDates[i].end + ' 00:00:00');
                                 // 반납일(1일)과 출고일(3일)제외
                                 rentEndDate.setDate(rentEndDate.getDate() + 4);

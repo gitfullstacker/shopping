@@ -37,6 +37,7 @@ if ($res_cd == "0000") {
     $arr_Column_Name[15]        = "STR_CANCEL2";
     $arr_Column_Name[16]        = "STR_PASS2";
     $arr_Column_Name[17]        = "STR_CARDNO";
+    $arr_Column_Name[18]        = "DTM_LAST_USED";
 
     $arr_Set_Data[0]        = $str_userid;
     $arr_Set_Data[1]        = "1";
@@ -56,6 +57,7 @@ if ($res_cd == "0000") {
     $arr_Set_Data[15]        = "0";
     $arr_Set_Data[16]        = "0";
     $arr_Set_Data[17]        = $card_mask_no;
+    $arr_Set_Data[18]        = date("Y-m-d H:i:s");
 
     $arr_Sub1 = "";
     $arr_Sub2 = "";
