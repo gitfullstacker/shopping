@@ -46,7 +46,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 			</div>
 		</div>
 		<div class="flex px-[14px] py-[15px] border-b border-[#E0E0E0]">
-			<p class="font-semibold text-xs leading-[14px] text-[#666666]"><?= $arr_Auth[10] == 'B' ? '[BLACK]: 블랙 등급 혜택 제공' : '[GREEN]: 그린 등급 혜택 제공' ?></p>
+			<p class="font-semibold text-xs leading-[14px] text-[#666666]"><?= $arr_Data['STR_GRADE'] == 'B' ? '[BLACK]: 블랙 등급 혜택 제공' : '[GREEN]: 그린 등급 혜택 제공' ?></p>
 		</div>
 		<div class="grid grid-cols-2 divide-x divide-[#E0E0E0] border-b border-[#E0E0E0]">
 			<div class="flex flex-col gap-[5px] px-[14px] py-[19px]">
