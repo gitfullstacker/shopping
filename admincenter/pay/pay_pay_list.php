@@ -404,6 +404,15 @@ $total_record_limit = mysql_num_rows($result);
 														<tr height=25 align="left">
 															<td style="padding-left:100px;width:100%;">
 																<font style="background-color: #e5e5e5;">구독멤버십결제정보</font>
+																<?php
+																if (mysql_result($result, $i, 'str_using') == "Y" && mysql_result($result, $i, 'str_pass1') == "0") {
+																?>
+																	<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=1',800,500);">
+																		<font color="red">[빌링작업]</font>
+																	</a>
+																<?php
+																}
+																?>
 															</td>
 														</tr>
 														<?
@@ -420,17 +429,6 @@ $total_record_limit = mysql_num_rows($result);
 																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
 																	/
 																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
-																	<?
-																	if ($int_I == 0) {
-																		if (mysql_result($result, $i, 'str_pass1') == "0") {
-																	?>
-																			<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_number') ?>&int_type=<?= mysql_result($arr_Data2, $int_I, 'int_type') ?>',800,500);">
-																				<font color="red">[빌링작업]</font>
-																			</a>
-																	<?
-																		}
-																	}
-																	?>
 																</td>
 															</tr>
 														<? } ?>
@@ -458,6 +456,15 @@ $total_record_limit = mysql_num_rows($result);
 														<tr height=25 align="left">
 															<td style="padding-left:100px;width:100%;">
 																<font style="background-color: #e5e5e5;">렌트멤버십결제정보</font>
+																<?php
+																if (mysql_result($result, $i, 'str_using') == "Y" && mysql_result($result, $i, 'str_pass2') == "0") {
+																?>
+																	<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=2',800,500);">
+																		<font color="red">[빌링작업]</font>
+																	</a>
+																<?php
+																}
+																?>
 															</td>
 														</tr>
 														<?
@@ -474,17 +481,6 @@ $total_record_limit = mysql_num_rows($result);
 																	<?= mysql_result($arr_Data2, $int_I, 'dtm_indate') ?>
 																	/
 																	<?= mysql_result($arr_Data2, $int_I, 'str_oidxcode') ?>
-																	<?
-																	if ($int_I == 0) {
-																		if (mysql_result($result, $i, 'str_pass2') == "0") {
-																	?>
-																			<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($arr_Data2, $int_I, 'int_number') ?>&int_type=<?= mysql_result($arr_Data2, $int_I, 'int_type') ?>',800,500);">
-																				<font color="red">[빌링작업]</font>
-																			</a>
-																	<?
-																		}
-																	}
-																	?>
 																</td>
 															</tr>
 														<? } ?>
