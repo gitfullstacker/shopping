@@ -62,6 +62,11 @@ switch ($RetrieveFlag) {
 								" . $Tname . "comm_member 
 							SET STR_GRADE='G' ";
 			$SQL_QUERY .= " WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
+		} else {
+			$SQL_QUERY = 	"UPDATE 
+								" . $Tname . "comm_member 
+							SET STR_GRADE='B' ";
+			$SQL_QUERY .= " WHERE STR_USERID='" . $pay_Data['STR_USERID'] . "' ";
 		}
 	?>
 		<script language="javascript">
