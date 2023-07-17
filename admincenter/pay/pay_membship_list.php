@@ -103,8 +103,7 @@ $SQL_QUERY	= 	"SELECT
 					" . $Tname . "comm_member d ON a.str_userid = d.str_userid
 				WHERE
 					a.int_number IS NOT NULL
-					AND a.str_ptype = '1'
-					AND " . ($int_type == 1 ? 'a.str_pass1' : 'a.str_pass2') . " = '0'
+					AND a.str_using = 'Y'
 					AND b.int_type = " . $int_type . "
 					" . $Str_Query . "
 				ORDER BY str_edate ASC
