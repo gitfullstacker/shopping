@@ -118,7 +118,7 @@ switch ($arr_Data['INT_TYPE']) {
                 this.showSubscriptionAlert = true;
             } else if (<?= $other_Sub_Data['COUNT'] > 0 ? 'true' : 'false' ?>) {
                 this.customAlert.show = true;
-                this.customAlert.text = '현재 접수중인 상품이 있습니다. \n배송완료 후 교환신청이 가능합니다.';
+                this.customAlert.text = '현재 접수중인 상품이 있습니다. <br>배송완료 후 교환신청이 가능합니다.';
             } else {
                 window.location.href = '/m/pay/index.php?int_type=1&str_goodcode=<?= $arr_Data['STR_GOODCODE'] ?>';
             }
@@ -1548,7 +1548,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                 </svg>
             </button>
-            <p class="font-bold text-xs leading-[18px] text-[#666666] text-center" x-text="customAlert.text"></p>
+            <p class="font-bold text-xs leading-[18px] text-[#666666] text-center" x-html="customAlert.text"></p>
         </div>
     </div>
 
