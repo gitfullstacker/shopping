@@ -351,7 +351,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                     window.location.href = 'index.php?int_type=' + restore_int_type;
                 } else {
                     alert(result);
-                }                
+                }
             }
         });
     }

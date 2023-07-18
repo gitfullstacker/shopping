@@ -276,9 +276,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         </div>
         <!-- 기본 배송지 -->
         <div x-show="type == 1 || customCompleted" class="mt-[15px] flex flex-col w-full">
-            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="customCompleted ? deliveryInfo.new.name : deliveryInfo.main.name">에이블랑</p>
-            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="customCompleted ? ('(' + deliveryInfo.new.postal + ') ' + deliveryInfo.new.address1 + ' ' + deliveryInfo.new.address2) : ('(' + deliveryInfo.main.postal + ') ' + deliveryInfo.main.address1 + ' ' + deliveryInfo.main.address2)">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
-            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="customCompleted ? (deliveryInfo.new.telep + ' / ' + deliveryInfo.new.hp) : (deliveryInfo.main.telep + ' / ' + deliveryInfo.main.hp)">010-9556-6439 / 031-572-6439</p>
+            <p class="font-bold text-[15px] leading-[17px] text-black" x-text="(customCompleted && type == 2) ? deliveryInfo.new.name : deliveryInfo.main.name">에이블랑</p>
+            <p class="mt-[9px] font-medium text-xs leading-[14px] text-black" x-text="(customCompleted && type == 2) ? ('(' + deliveryInfo.new.postal + ') ' + deliveryInfo.new.address1 + ' ' + deliveryInfo.new.address2) : ('(' + deliveryInfo.main.postal + ') ' + deliveryInfo.main.address1 + ' ' + deliveryInfo.main.address2)">(03697) 서울특별시 서대문구 연희로27길 16 (연희동) 2층</p>
+            <p class="mt-1.5 font-medium text-xs leading-[14px] text-[#666666]" x-text="(customCompleted && type == 2) ? (deliveryInfo.new.telep + ' / ' + deliveryInfo.new.hp) : (deliveryInfo.main.telep + ' / ' + deliveryInfo.main.hp)">010-9556-6439 / 031-572-6439</p>
             <div class="mt-3 relative flex w-full">
                 <select name="delivery_memo_type" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-xs leading-[15px] text-[#666666]" x-model="messageType">
                     <option value="" selected>배송시 요청사항을 선택해 주세요</option>
