@@ -1888,7 +1888,7 @@ switch ($arr_Data['INT_TYPE']) {
         document.getElementById('scrollContainer').scrollLeft = 410 * index;
 
         // Disable html scroll
-        document.html.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
     }
 
     function closeRelativeImage(index) {
@@ -1896,7 +1896,7 @@ switch ($arr_Data['INT_TYPE']) {
         imagePanel.classList.add('hidden');
 
         // Disable html scroll
-        document.html.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
     }
 
     function showAlarmConfirmPanel() {
