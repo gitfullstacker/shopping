@@ -1614,7 +1614,7 @@ switch ($arr_Data['INT_TYPE']) {
                         if ($arr_Data['STR_IMAGE' . $i]) {
                     ?>
                             <div class="snap-always snap-center flex-none flex-grow-0 w-full max-h-[500px] border border-solid border-[#DDDDDD] bg-gray-100">
-                                <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="">
+                                <img class="min-w-full h-full object-cover" src="/admincenter/files/good/<?= $arr_Data['STR_IMAGE' . $i] ?>" onerror="this.style.display='none'" alt="" style="transform: translateZ(0);">
                             </div>
                     <?php
                         }
