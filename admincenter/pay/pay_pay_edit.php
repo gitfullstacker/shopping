@@ -7,7 +7,6 @@ Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "INSERT");
 $page = Fnc_Om_Conv_Default($_REQUEST['page'], 1);
 $str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
-$int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 
 if ($RetrieveFlag == "UPDATE") {
 
@@ -54,7 +53,6 @@ if ($RetrieveFlag == "UPDATE") {
 								<input type="hidden" name="str_no" value="<?= $str_no ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
 								<input type="hidden" name="Obj">
-								<input type="hidden" name="int_type" value="<?= $int_type ?>">
 								<input type="hidden" name="str_userid" value="<?= $arr_Data['STR_USERID'] ?>">
 
 								<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
@@ -83,66 +81,42 @@ if ($RetrieveFlag == "UPDATE") {
 											<font class=def><?= $arr_Data['STR_PDATE'] ?>
 										</td>
 									</tr>
-									<?php
-									if ($int_type == 0 || $int_type == 1) {
-										if ($int_type != 0) {
-									?>
-											<input type="hidden" name="str_pass2" value="<?= $arr_Data['STR_PASS2'] ?>">
-											<input type="hidden" name="str_cancel2" value="<?= $arr_Data['STR_CANCEL2'] ?>">
-										<?php
-										}
-										?>
-										<tr>
-											<td>상태(구독)</td>
-											<td colspan=3>
-												<input type="radio" value="0" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "0") { ?>checked<? } ?>> 결제완료
-												<input type="radio" value="1" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "1") { ?>checked<? } ?>> 결제취소
-												<? if ($arr_Data['STR_CANCEL1'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
-											</td>
-										</tr>
-										<tr>
-											<td>취소신청(구독)</td>
-											<td colspan=3>
-												<input type="radio" value="0" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "0") { ?>checked<? } ?>> 정상
-												<input type="radio" value="1" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "1") { ?>checked<? } ?>> 취소요청중
-											</td>
-										</tr>
-									<?php
-									}
-									?>
-									<?php
-									if ($int_type == 0 || $int_type == 2) {
-										if ($int_type != 0) {
-									?>
-											<input type="hidden" name="str_pass1" value="<?= $arr_Data['STR_PASS1'] ?>">
-											<input type="hidden" name="str_cancel1" value="<?= $arr_Data['STR_CANCEL1'] ?>">
-										<?php
-										}
-										?>
-										<tr>
-											<td>상태(렌트)</td>
-											<td colspan=3>
-												<input type="radio" value="0" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "0") { ?>checked<? } ?>> 결제완료
-												<input type="radio" value="1" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "1") { ?>checked<? } ?>> 결제취소
-												<? if ($arr_Data['STR_CANCEL2'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
-											</td>
-										</tr>
-										<tr>
-											<td>취소신청(렌트)</td>
-											<td colspan=3>
-												<input type="radio" value="0" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "0") { ?>checked<? } ?>> 정상
-												<input type="radio" value="1" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "1") { ?>checked<? } ?>> 취소요청중
-											</td>
-										</tr>
-									<?php
-									}
-									?>
-									<? if (Fnc_Om_Conv_Default($arr_Data[$int_type == 1 ? 'STR_CANCEL1' : 'STR_CANCEL2'], "0") == "1") { ?>
-										<tr>
-											<td>취소사유</td>
-											<td colspan=3><?= $arr_Data['STR_CODE'] ?><br><?= $arr_Data['STR_ESCONT'] ?></td>
-										</tr>
-									<? } ?>
+									<tr>
+										<td>상태(구독)</td>
+										<td>
+											<input type="radio" value="0" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "0") { ?>checked<? } ?>> 결제완료
+											<input type="radio" value="1" name="str_pass1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS1'], "0") == "1") { ?>checked<? } ?>> 결제취소
+											<? if ($arr_Data['STR_CANCEL1'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
+										</td>
+										<td>상태(결제카드)</td>
+										<td>
+											<input type="radio" value="Y" name="str_using" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_USING'], "Y") == "Y") { ?>checked<? } ?>> 결제완료
+											<input type="radio" value="R" name="str_using" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_USING'], "Y") == "R") { ?>checked<? } ?>> 취소요청중
+											<input type="radio" value="N" name="str_using" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_USING'], "Y") == "N") { ?>checked<? } ?>> 결제취소
+										</td>
+									</tr>
+									<tr>
+										<td>취소신청(구독)</td>
+										<td colspan=3>
+											<input type="radio" value="0" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "0") { ?>checked<? } ?>> 정상
+											<input type="radio" value="1" name="str_cancel1" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL1'], "0") == "1") { ?>checked<? } ?>> 취소요청중
+										</td>
+									</tr>
+									<tr>
+										<td>상태(렌트)</td>
+										<td colspan=3>
+											<input type="radio" value="0" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "0") { ?>checked<? } ?>> 결제완료
+											<input type="radio" value="1" name="str_pass2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_PASS2'], "0") == "1") { ?>checked<? } ?>> 결제취소
+											<? if ($arr_Data['STR_CANCEL2'] == "1") { ?> <font color="red">(취소요청중)</font><? } ?>
+										</td>
+									</tr>
+									<tr>
+										<td>취소신청(렌트)</td>
+										<td colspan=3>
+											<input type="radio" value="0" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "0") { ?>checked<? } ?>> 정상
+											<input type="radio" value="1" name="str_cancel2" class=null <? if (Fnc_Om_Conv_Default($arr_Data['STR_CANCEL2'], "0") == "1") { ?>checked<? } ?>> 취소요청중
+										</td>
+									</tr>
 									<tr>
 										<td>관리자메모</td>
 										<td colspan="3" style="height:50px;" valign="top"><textarea name="str_amemo" style="width:100%;height:80px;"><?= stripslashes(Fnc_Om_Conv_Default($arr_Data['STR_AMEMO'], "")) ?></textarea></td>
@@ -165,17 +139,6 @@ if ($RetrieveFlag == "UPDATE") {
 
 								<div class="title">결제내역</div>
 								<?
-								switch ($int_type) {
-									case 0:
-										$WHERE_QUERY = "";
-										break;
-									case 1:
-										$WHERE_QUERY = "AND B.INT_TYPE=1";
-										break;
-									case 2:
-										$WHERE_QUERY = "AND B.INT_TYPE=2";
-										break;
-								}
 								$Sql_Query =	" SELECT
 													B.*
 												FROM 
@@ -184,9 +147,7 @@ if ($RetrieveFlag == "UPDATE") {
 													`" . $Tname . "comm_member_pay_info` AS B
 												ON
 													A.INT_NUMBER=B.INT_NUMBER
-													AND 
-													B.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
-													" . $WHERE_QUERY . "
+													AND B.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
 												ORDER BY
 													B.INT_SNUMBER DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
