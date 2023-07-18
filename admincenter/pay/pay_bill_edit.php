@@ -148,7 +148,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 								<br>
 
 								<?php
-								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership where b.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
+								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership a where a.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
 								$arr_max_Data = mysql_query($SQL_QUERY);
 								$lastnumber = mysql_result($arr_max_Data, 0, 'dtm_edate') ? mysql_result($arr_max_Data, 0, 'dtm_edate') : date('Y-m-d');
 
