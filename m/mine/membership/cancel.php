@@ -156,7 +156,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         url = "membership_proc.php";
         url += "?RetrieveFlag=CANCEL";
         url += "&int_type=<?= $int_type ?>";
-        url += "&int_number=<?= $card_Data['INT_NUMBER'] ?>";
 
         $.ajax({
             url: url,

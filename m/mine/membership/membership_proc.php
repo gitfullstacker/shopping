@@ -6,7 +6,6 @@ fnc_MLogin_Chk();
 $RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "");
 $ordr_idxx = Fnc_Om_Conv_Default($_REQUEST['ordr_idxx'], "");
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
-$int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], "");
 $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
 switch ($RetrieveFlag) {
@@ -121,7 +120,7 @@ switch ($RetrieveFlag) {
 
         //해당 멤버십의 카드정보얻기
         $SQL_QUERY =    "SELECT 
-                            C.*
+                            C.*, A.INT_NUMBER AS MEMBERSHIP_INT_NUMBER
                         FROM 
                             `" . $Tname . "comm_membership` AS A
                         LEFT JOIN
@@ -134,9 +133,7 @@ switch ($RetrieveFlag) {
                             B.INT_NUMBER=C.INT_NUMBER
                         WHERE
                             A.STR_USERID='$arr_Auth[0]'
-                            AND A.INT_TYPE=" . $int_type . "
-                        ORDER BY A.DTM_INDATE DESC
-                        LIMIT 1 ";
+                            AND A.INT_TYPE=" . $int_type;
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
         $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -149,7 +146,6 @@ switch ($RetrieveFlag) {
                     exit;
                     break;
                 }
-                $SET_QUERY = 'STR_CANCEL1 = "1"';
                 break;
             case 2:
                 if ($card_Data['STR_PASS2'] == '1') {
@@ -158,7 +154,6 @@ switch ($RetrieveFlag) {
                     exit;
                     break;
                 }
-                $SET_QUERY = 'STR_CANCEL2 = "1"';
                 break;
         }
 
@@ -166,7 +161,7 @@ switch ($RetrieveFlag) {
         $SQL_QUERY =    'UPDATE 
                             ' . $Tname . 'comm_member_pay 
                         SET 
-                            ' . $SET_QUERY . ' 
+                            ' . ($int_type == 1 ? 'STR_CANCEL1 = "1"' : 'STR_CANCEL2 = "1"') . ' 
                         WHERE 
                             INT_NUMBER=' . $card_Data['INT_NUMBER'];
 
@@ -178,8 +173,7 @@ switch ($RetrieveFlag) {
                         SET 
                             STR_CANCEL = "1"
                         WHERE 
-                            STR_USERID = "' . $arr_Auth[0] . '"
-                            AND INT_TYPE=' . $int_type;
+                            INT_NUMBER = ' . $card_Data['MEMBERSHIP_INT_NUMBER'];
 
         mysql_query($SQL_QUERY);
 
@@ -192,7 +186,7 @@ switch ($RetrieveFlag) {
 
         //해당 멤버십의 카드정보얻기
         $SQL_QUERY =    "SELECT 
-                            C.*
+                            C.*, A.INT_NUMBER AS MEMBERSHIP_INT_NUMBER
                         FROM 
                             `" . $Tname . "comm_membership` AS A
                         LEFT JOIN
@@ -205,9 +199,7 @@ switch ($RetrieveFlag) {
                             B.INT_NUMBER=C.INT_NUMBER
                         WHERE
                             A.STR_USERID='$arr_Auth[0]'
-                            AND A.INT_TYPE=" . $int_type . "
-                        ORDER BY A.DTM_INDATE DESC
-                        LIMIT 1 ";
+                            AND A.INT_TYPE=" . $int_type;
 
         $arr_Rlt_Data = mysql_query($SQL_QUERY);
         $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -220,7 +212,6 @@ switch ($RetrieveFlag) {
                     exit;
                     break;
                 }
-                $SET_QUERY = 'STR_CANCEL1 = "0"';
                 break;
             case 2:
                 if ($card_Data['STR_PASS2'] == '1') {
@@ -229,7 +220,6 @@ switch ($RetrieveFlag) {
                     exit;
                     break;
                 }
-                $SET_QUERY = 'STR_CANCEL2 = "0"';
                 break;
         }
 
@@ -237,7 +227,7 @@ switch ($RetrieveFlag) {
         $SQL_QUERY =    'UPDATE 
                             ' . $Tname . 'comm_member_pay 
                         SET 
-                            ' . $SET_QUERY . ' 
+                            ' . ($int_type == 1 ? 'STR_CANCEL1 = "0"' : 'STR_CANCEL2 = "0"') . ' 
                         WHERE 
                             INT_NUMBER=' . $card_Data['INT_NUMBER'];
 
@@ -249,8 +239,7 @@ switch ($RetrieveFlag) {
                         SET 
                             STR_CANCEL = "0"
                         WHERE 
-                            STR_USERID = "' . $arr_Auth[0] . '"
-                            AND INT_TYPE = ' . $int_type;
+                            INT_NUMBER = ' . $card_Data['MEMBERSHIP_INT_NUMBER'];
 
         mysql_query($SQL_QUERY);
 
