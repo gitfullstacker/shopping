@@ -1309,6 +1309,11 @@ switch ($arr_Data['INT_TYPE']) {
                 roundNumber(number) {
                     return Math.round(number / 100) * 100;
                 },
+                closeCalendar() {
+                    showCalendar = false;
+                    initDate();
+                    init();
+                },
                 init() {
                     today = new Date();
                     this.generateDates(today.getMonth() + 1, today.getFullYear());
@@ -1317,7 +1322,7 @@ switch ($arr_Data['INT_TYPE']) {
             <div class="flex flex-col items-center rounded-t-lg bg-white w-full h-full relative">
                 <div class="flex flex-row pt-3 pb-2.5 px-[26px] justify-between items-center w-full">
                     <p class="font-extrabold text-xs leading-[14px] text-black">예약</p>
-                    <button class="w-2.5 h-2.5" x-on:click="showCalendar = false;initDate();">
+                    <button class="w-2.5 h-2.5" x-on:click="closeCalendar();">
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.86555 5L0 1.06855L1.13445 0L5 3.93145L8.86555 0L10 1.06855L6.13445 5L10 8.93145L8.86555 10L5 6.06855L1.13445 10L0 8.93145L3.86555 5Z" fill="#6A696C" />
                         </svg>
