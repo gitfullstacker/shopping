@@ -84,8 +84,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 while ($row = mysql_fetch_assoc($arr_Rlt_Data)) {
                 ?>
                     <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
-                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">5,000원 할인쿠폰</p>
-                        <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">신규 가입 쿠폰 1회 지급</p>
+                        <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_TITLE'] ?></p>
+                        <p class="font-medium text-[10px] leading-3 text-center text-[#999999]"><?= $row['STR_DESC'] ?></p>
                     </div>
                 <?php
                 }
