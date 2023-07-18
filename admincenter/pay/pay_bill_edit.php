@@ -35,6 +35,23 @@ if (!$arr_Rlt_Data) {
 	exit;
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 주문번호 생성
+$today = new DateTime();
+$year = $today->format('Y');
+$month = $today->format('m');
+$date = $today->format('d');
+$time = $today->getTimestamp();
+
+if (intval($month) < 10) {
+	$month = $month;
+}
+
+if (intval($date) < 10) {
+	$date = $date;
+}
+
+$order_idxx = $year . "" . $month . "" . $date . "" . $time;
 ?>
 <html>
 
@@ -43,7 +60,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 	<script language="javascript" src="js/pay_bill_edit.js"></script>
 </head>
 
-<body class=scroll onload="init_orderid()">
+<body class=scroll>
 	<table width=100% height=100% cellpadding=0 cellspacing=0 border=0>
 		<tr>
 			<td colspan=2 valign=top height=100%>
@@ -67,7 +84,7 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="bt_batch_key" value="<?= $arr_Data['STR_BILLCODE'] ?>"> <!-- 배치 인증키 -->
 
 								<input type="hidden" name="pay_method" value="CARD" />
-								<input type="hidden" name="ordr_idxx" value=""> <!-- 주문번호 -->
+								<input type="hidden" name="ordr_idxx" value="<?= $order_idxx ?>"> <!-- 주문번호 -->
 								<input type="hidden" name="good_name" value="<?= $int_type == 1 ? '구독멤버십' : '렌트멥버십' ?>" />
 								<input type="hidden" name="buyr_mail" value="<?= $arr_Data['STR_EMAIL'] ?>" />
 								<input type="hidden" name="buyr_tel1" value="<?= $arr_Data['STR_HP'] ?>" />
@@ -131,9 +148,9 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<br>
 
 								<?php
-								$SQL_QUERY = "select max(a.str_edate) as lastnumber from " . $Tname . "comm_member_pay_info a left join " . $Tname . "comm_member_pay b on a.int_number=b.int_number where b.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
+								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership where b.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
 								$arr_max_Data = mysql_query($SQL_QUERY);
-								$lastnumber = mysql_result($arr_max_Data, 0, 'lastnumber');
+								$lastnumber = mysql_result($arr_max_Data, 0, 'dtm_edate') ? mysql_result($arr_max_Data, 0, 'dtm_edate') : date('Y-m-d');
 
 								$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber)) . "1day"));
 								$lastnumber2 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber1)) . "1month"));
@@ -148,11 +165,12 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 											<font class=def>
 												<input type=text name=str_sdate value="<?= $lastnumber1 ?>" id="str_sdate" onclick="displayCalendar(document.frm.str_sdate ,'yyyy-mm-dd',this)">
 												<img src="/pub/img/icons/calendar_add.gif" align="absmiddle" style="cursor:hand" onclick="displayCalendar(document.frm.str_sdate ,'yyyy-mm-dd',document.frm.str_sdate)">
-												<img src="/pub/img/icons/calendar_delete.gif" align="absmiddle" style="cursor:hand" onclick="document.frm.str_sdate.value=''" ;>
+												<img src="/pub/img/icons/calendar_delete.gif" align="absmiddle" style="cursor:hand" onclick="document.frm.str_sdate.value=''">
 												-
 												<input type=text name=str_edate value="<?= $lastnumber3 ?>" id="str_edate" onclick="displayCalendar(document.frm.str_edate ,'yyyy-mm-dd',this)">
 												<img src="/pub/img/icons/calendar_add.gif" align="absmiddle" style="cursor:hand" onclick="displayCalendar(document.frm.str_edate ,'yyyy-mm-dd',document.frm.str_edate)">
-												<img src="/pub/img/icons/calendar_delete.gif" align="absmiddle" style="cursor:hand" onclick="document.frm.str_edate.value=''" ;>
+												<img src="/pub/img/icons/calendar_delete.gif" align="absmiddle" style="cursor:hand" onclick="document.frm.str_edate.value=''">
+											</font>
 										</td>
 									</tr>
 									<tr>
