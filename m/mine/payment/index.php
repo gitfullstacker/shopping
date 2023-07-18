@@ -25,10 +25,10 @@ function isMobileDevice()
 $SQL_QUERY =    "SELECT 
                     A.*
                 FROM 
-                    `" . $Tname . "comm_member_pay` AS A
+                    `" . $Tname . "comm_member_pay` A
                 WHERE
                     A.STR_USERID='$arr_Auth[0]'
-                    AND A.STR_USING NOT 'N'
+                    AND A.STR_USING <> 'N'
                 ORDER BY DTM_INDATE DESC
                 LIMIT 1 ";
 
