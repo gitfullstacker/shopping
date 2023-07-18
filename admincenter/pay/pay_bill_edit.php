@@ -27,7 +27,7 @@ $SQL_QUERY =	" SELECT
 				ON
 					A.STR_USERID=B.STR_USERID
 				WHERE
-					A.STR_USING='Y'
+					A.STR_USING <> 'N'
 					AND A.STR_USERID='$str_userid'";
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);

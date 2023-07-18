@@ -40,7 +40,7 @@ $SQL_QUERY =    "SELECT
                     `" . $Tname . "comm_member_pay` AS A
                 WHERE
                     A.STR_USERID='" . $arr_Data['STR_USERID'] . "'
-					AND A.STR_USING='Y'
+					AND A.STR_USING <> 'N'
                 ORDER BY DTM_INDATE DESC
                 LIMIT 1 ";
 
