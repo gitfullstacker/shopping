@@ -319,16 +319,6 @@ if ($req_tx == "pay") {
 
         $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
-
-        if (Fnc_Om_Store_Info(13) > 0) {
-            Fnc_Om_Stamp_In($str_userid, "4", Fnc_Om_Store_Info(13), "");
-        }
-
-        $snoopy = new snoopy;
-        $snoopy->fetch("http://" . $loc_I_Pg_Domain . "/mailing/mailing01.html?str_ocode=" . urlencode($lastnumber2));
-        $body = $snoopy->results;
-
-        Fnc_Om_Sendmail("신청하신 가방의 결제정보입니다.", $body, Fnc_Om_Store_Info(2), $buyr_mail);
     }
 }
 

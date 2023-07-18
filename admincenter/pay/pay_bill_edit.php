@@ -4,8 +4,8 @@ Fnc_Acc_Admin();
 //	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <?
-$str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
 $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
+$str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], "");
 
 // 금액정보얻기
 $SQL_QUERY =    'SELECT
@@ -27,7 +27,8 @@ $SQL_QUERY =	" SELECT
 				ON
 					A.STR_USERID=B.STR_USERID
 				WHERE
-					A.INT_NUMBER='$str_no' ";
+					A.STR_USING='Y'
+					AND A.STR_USERID='$str_userid'";
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 if (!$arr_Rlt_Data) {
@@ -70,7 +71,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 
 							<form id="frm" name="frm" target="_self" method="POST" action="pay_bill_edit.php" enctype="multipart/form-data">
 								<input type="hidden" name="RetrieveFlag" value="<?= $RetrieveFlag ?>">
-								<input type="hidden" name="str_no" value="<?= $str_no ?>">
+								<input type="hidden" name="str_no" value="<?= $arr_Data['INT_NUMBER'] ?>">
 								<input type="hidden" name="page" value="<?= $page ?>">
 								<input type="hidden" name="Obj">
 								<input type="hidden" name="int_type" value="<?= $int_type ?>">
@@ -96,7 +97,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 								<input type="hidden" name="card_pay_method" value="Batch" />
 								<input type="hidden" name="currency" value="410" />
 
-								<input type="hidden" name="str_userid" value="<?= $arr_Data['STR_USERID'] ?>" />
+								<input type="hidden" name="str_userid" value="<?= $str_userid ?>" />
 
 								<div class="title title_top"><?= Fnc_Om_Loc_Name("01" . $arr_Auth[7]); ?></div>
 								<table class=tb>
@@ -107,7 +108,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 									<tr>
 										<td>아이디</td>
 										<td>
-											<font class=def><?= $arr_Data['STR_USERID'] ?>
+											<font class=def><?= $str_userid ?>
 										</td>
 										<td>이름</td>
 										<td>
@@ -148,7 +149,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 								<br>
 
 								<?php
-								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership a where a.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
+								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership a where a.str_userid='" . $str_userid . "' and a.int_type=" . $int_type;
 								$arr_max_Data = mysql_query($SQL_QUERY);
 								$lastnumber = mysql_result($arr_max_Data, 0, 'dtm_edate') ? mysql_result($arr_max_Data, 0, 'dtm_edate') : date('Y-m-d', strtotime(date('Y-m-d') . '-1day'));
 
@@ -195,7 +196,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 													A.INT_NUMBER='" . $arr_Data['INT_NUMBER'] . "'
 													AND A.INT_TYPE=" . $int_type . "
 												ORDER BY
-													A.INT_SNUMBER DESC ";
+													A.DTM_INDATE DESC ";
 								$arr_Data2 = mysql_query($Sql_Query);
 								$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 								?>

@@ -4,17 +4,17 @@ Fnc_Acc_Admin();
 Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
 ?>
 <?
-$page = Fnc_Om_Conv_Default($_REQUEST[page], 1);
-$displayrow = Fnc_Om_Conv_Default($_REQUEST[displayrow], 20);
-$displaypage = Fnc_Om_Conv_Default($_REQUEST[displaypage], 10);
-$Txt_ptype = Fnc_Om_Conv_Default($_REQUEST[Txt_ptype], "");
+$page = Fnc_Om_Conv_Default($_REQUEST['page'], 1);
+$displayrow = Fnc_Om_Conv_Default($_REQUEST['displayrow'], 20);
+$displaypage = Fnc_Om_Conv_Default($_REQUEST['displaypage'], 10);
+$Txt_ptype = Fnc_Om_Conv_Default($_REQUEST['Txt_ptype'], "");
 
-$Txt_key = Fnc_Om_Conv_Default($_REQUEST[Txt_key], "all");
-$Txt_word = Fnc_Om_Conv_Default($_REQUEST[Txt_word], "");
-$Txt_pass = Fnc_Om_Conv_Default($_REQUEST[Txt_pass], "");
+$Txt_key = Fnc_Om_Conv_Default($_REQUEST['Txt_key'], "all");
+$Txt_word = Fnc_Om_Conv_Default($_REQUEST['Txt_word'], "");
+$Txt_pass = Fnc_Om_Conv_Default($_REQUEST['Txt_pass'], "");
 
-$Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
-$Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
+$Txt_sindate = Fnc_Om_Conv_Default($_REQUEST['Txt_sindate'], "");
+$Txt_eindate = Fnc_Om_Conv_Default($_REQUEST['Txt_eindate'], "");
 
 if ($Txt_ptype != "") {
 	if ($Txt_ptype == "0") {
@@ -407,7 +407,7 @@ $total_record_limit = mysql_num_rows($result);
 																<?php
 																if (mysql_result($result, $i, 'str_using') == "Y" && mysql_result($result, $i, 'str_pass1') == "0") {
 																?>
-																	<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=1',800,500);">
+																	<a href="javascript:popupLayer('pay_bill_edit.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>&int_type=1',800,500);">
 																		<font color="red">[빌링작업]</font>
 																	</a>
 																<?php
@@ -459,7 +459,7 @@ $total_record_limit = mysql_num_rows($result);
 																<?php
 																if (mysql_result($result, $i, 'str_using') == "Y" && mysql_result($result, $i, 'str_pass2') == "0") {
 																?>
-																	<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=2',800,500);">
+																	<a href="javascript:popupLayer('pay_bill_edit.php?str_userid=<?= mysql_result($result, $i, 'str_userid') ?>&int_type=2',800,500);">
 																		<font color="red">[빌링작업]</font>
 																	</a>
 																<?php

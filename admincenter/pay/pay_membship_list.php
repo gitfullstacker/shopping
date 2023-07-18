@@ -15,38 +15,28 @@ $Txt_sindate = Fnc_Om_Conv_Default($_REQUEST[Txt_sindate], "");
 $Txt_eindate = Fnc_Om_Conv_Default($_REQUEST[Txt_eindate], "");
 
 if ($Txt_name != "") {
-	$Str_Query .= " and d.str_name like '%$Txt_name%' ";
+	$Str_Query .= " AND B.STR_NAME LIKE '%$Txt_name%' ";
 }
 
 if ($Txt_sindate != "") {
-	$Str_Query .= " and date_format(a.dtm_indate, '%Y-%m-%d') >= '$Txt_sindate' ";
+	$Str_Query .= " AND date_format(A.DTM_INDATE, '%Y-%m-%d') >= '$Txt_sindate' ";
 }
 if ($Txt_eindate != "") {
-	$Str_Query .= " and date_format(a.dtm_indate, '%Y-%m-%d') <= '$Txt_eindate' ";
+	$Str_Query .= " AND date_format(A.DTM_INDATE, '%Y-%m-%d') <= '$Txt_eindate' ";
 }
 
 $SQL_QUERY	= 	"SELECT 
-					COUNT(a.int_number)
+					COUNT(A.INT_NUMBER)
 				FROM
-					" . $Tname . "comm_member_pay a
+					" . $Tname . "comm_membership A
 				LEFT JOIN
-					(
-					SELECT 
-						c.int_number, MAX(c.int_snumber) AS max_snumber
-					FROM
-						" . $Tname . "comm_member_pay_info c
-					WHERE
-						c.int_type = " . $int_type . "
-					GROUP BY c.int_number
-					) sub ON a.int_number = sub.int_number
-				LEFT JOIN
-					" . $Tname . "comm_member_pay_info b ON b.int_snumber = sub.max_snumber
-				LEFT JOIN
-					" . $Tname . "comm_member d ON a.str_userid = d.str_userid
+					" . $Tname . "comm_member B
+				ON
+					A.STR_USERID=B.STR_USERID
 				WHERE
-					a.int_number IS NOT NULL
-					AND a.str_using = 'Y'
-					AND b.int_type = " . $int_type . "
+					A.INT_NUMBER IS NOT NULL
+					AND A.STR_PASS = '0'
+					AND A.INT_TYPE = " . $int_type . "
 					" . $Str_Query;
 
 $result = mysql_query($SQL_QUERY);
@@ -77,33 +67,25 @@ $f_limit = $first;
 $l_limit = $last + 1;
 
 $SQL_QUERY	= 	"SELECT 
-					DATE_ADD(b.str_edate, INTERVAL 1 DAY) AS str_sdate,
-					DATE_ADD(b.str_edate, INTERVAL 1 MONTH) AS str_edate,
-					a.*,
-					d.str_name,
-					d.str_hp,
-					b.int_snumber,
-					b.int_sprice
+					A.INT_NUMBER, A.STR_CANCEL, A.STR_PASS, A.DTM_SDATE, A.DTM_EDATE, A.STR_USERID, A.DTM_INDATE, B.STR_NAME, B.STR_HP, C.INT_SPRICE, D.STR_CARDCODE, D.STR_AMEMO
 				FROM
-					" . $Tname . "comm_member_pay a
+					" . $Tname . "comm_membership A
 				LEFT JOIN
-					(
-					SELECT 
-						c.int_number, MAX(c.int_snumber) AS max_snumber
-					FROM
-						" . $Tname . "comm_member_pay_info c
-					WHERE
-						c.int_type = " . $int_type . "
-					GROUP BY c.int_number
-					) sub ON a.int_number = sub.int_number
+					" . $Tname . "comm_member B
+				ON
+					A.STR_USERID=B.STR_USERID
 				LEFT JOIN
-					" . $Tname . "comm_member_pay_info b ON b.int_snumber = sub.max_snumber
+					" . $Tname . "comm_member_pay_info C
+				ON
+					A.STR_ORDERIDX=C.STR_ORDERIDX
 				LEFT JOIN
-					" . $Tname . "comm_member d ON a.str_userid = d.str_userid
+					" . $Tname . "comm_member_pay D
+				ON
+					C.INT_NUMBER=D.INT_NUMBER
 				WHERE
-					a.int_number IS NOT NULL
-					AND a.str_using = 'Y'
-					AND b.int_type = " . $int_type . "
+					A.INT_NUMBER IS NOT NULL
+					AND A.STR_PASS = '0'
+					AND A.INT_TYPE = " . $int_type . "
 					" . $Str_Query . "
 				ORDER BY str_edate ASC
 				LIMIT " . $f_limit . "," . $l_limit;
@@ -184,7 +166,7 @@ $total_record_limit = mysql_num_rows($result);
 									<tr>
 										<td class=pageInfo>총 <b><?= $total_record ?></b>건, <b><?= $page ?></b> of <?= $total_page ?> Pages</td>
 										<td align=right>
-											<button type="button" onclick="popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
+											<button type="button" onclick="popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'INT_NUMBER') ?>&int_type=<?= $int_type ?>',800,500);">
 												빌링작업
 											</button>
 											<select name=displayrow onchange="fnc_search()">
@@ -235,19 +217,19 @@ $total_record_limit = mysql_num_rows($result);
 										<? for ($i = 0; $i <= $displayrow - 1; $i++) { ?>
 											<tr height=30 align="center">
 												<td align="center">
-													<input type="checkbox" name="int_number[]" value="<?= mysql_result($result, $i, int_number) ?>" style="border:0px;">
+													<input type="checkbox" name="int_number[]" value="<?= mysql_result($result, $i, 'INT_NUMBER') ?>" style="border:0px;">
 												</td>
 												<td>
 													<font class=ver81 color=616161><?= $article_num ?></font>
 												</td>
 												<td><span id="navig" name="navig" m_id="admin" m_no="1">
-														<font color=0074BA><b><?= mysql_result($result, $i, str_name) ?></b></font>(<?= mysql_result($result, $i, str_userid) ?>)
+														<font color=0074BA><b><?= mysql_result($result, $i, 'STR_NAME') ?></b></font>(<?= mysql_result($result, $i, 'STR_USERID') ?>)
 													</span></td>
-												<td><?= mysql_result($result, $i, str_hp) ?></td>
-												<td><?= number_format(mysql_result($result, $i, int_sprice)) ?>원</td>
-												<td><?= mysql_result($result, $i, str_cardcode) ?></td>
+												<td><?= mysql_result($result, $i, 'STR_HP') ?></td>
+												<td><?= number_format(mysql_result($result, $i, 'INT_SPRICE')) ?>원</td>
+												<td><?= mysql_result($result, $i, 'STR_CARDCODE') ?></td>
 												<td>
-													<? switch (mysql_result($result, $i, ($int_type == 1 ? 'str_cancel1' : 'str_cancel2'))) {
+													<? switch (mysql_result($result, $i, 'STR_CANCEL')) {
 														case  "0":
 															echo "-";
 															break;
@@ -259,7 +241,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 												<td>
 													<font color=616161>
-														<? switch (mysql_result($result, $i, $int_type == 1 ? 'str_pass1' : 'str_pass2')) {
+														<? switch (mysql_result($result, $i, 'STR_PASS')) {
 															case  "0":
 																echo "결제완료";
 																break;
@@ -270,15 +252,21 @@ $total_record_limit = mysql_num_rows($result);
 														?>
 													</font>
 												</td>
-												<td><?= mysql_result($result, $i, 'str_sdate') ?>~<?= mysql_result($result, $i, 'str_edate') ?>
-													<a href="javascript:popupLayer('pay_bill_edit.php?str_no=<?= mysql_result($result, $i, 'int_number') ?>&int_type=<?= $int_type ?>',800,500);">
+												<td>
+													<?php
+													$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime(mysql_result($result, $i, 'DTM_EDATE'))) . "1day"));
+													$lastnumber2 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber1)) . "1month"));
+													$lastnumber3 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber2)) . "-1day"));
+													?>
+													<?= $lastnumber1 ?>~<?= $lastnumber3 ?>
+													<a href="javascript:popupLayer('pay_bill_edit.php?str_userid=<?= mysql_result($result, $i, 'STR_USERID') ?>&int_type=<?= $int_type ?>',800,500);">
 														<font color="red">[빌링작업]</font>
 													</a>
 												</td>
 												<td>
-													<font class=ver81 color=616161><?= mysql_result($result, $i, dtm_indate) ?></font>
+													<font class=ver81 color=616161><?= mysql_result($result, $i, 'DTM_INDATE') ?></font>
 												</td>
-												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, 'int_number') ?>', '<?= $int_type ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
+												<td><a href="javascript:RowClick('<?= mysql_result($result, $i, 'INT_NUMBER') ?>');"><img src="/admincenter/img/btn_viewbbs.gif"></a></td>
 											</tr>
 											<tr>
 												<td colspan=11 style="padding-top:0px;padding-bottom:5px;">
@@ -288,7 +276,7 @@ $total_record_limit = mysql_num_rows($result);
 														<tr>
 															<td>관리자메모</td>
 															<td style="height:20px;" valign="top">
-																<font class=def><?= str_replace(chr(13), "<br>", Fnc_Om_Conv_Default(mysql_result($result, $i, str_amemo), "")) ?>
+																<font class=def><?= str_replace(chr(13), "<br>", Fnc_Om_Conv_Default(mysql_result($result, $i, 'STR_AMEMO'), "")) ?>
 															</td>
 														</tr>
 													</table>
