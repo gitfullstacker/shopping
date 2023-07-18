@@ -392,7 +392,7 @@ $total_record_limit = mysql_num_rows($result);
 																		A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
 																		AND A.INT_TYPE=1
 																	ORDER BY
-																		A.INT_SNUMBER DESC ";
+																		A.DTM_INDATE DESC ";
 													$arr_Data2 = mysql_query($Sql_Query);
 													$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 													?>
@@ -444,7 +444,7 @@ $total_record_limit = mysql_num_rows($result);
 																		A.INT_NUMBER='" . mysql_result($result, $i, 'int_number') . "'
 																		AND A.INT_TYPE=2
 																	ORDER BY
-																		A.INT_SNUMBER DESC ";
+																		A.DTM_INDATE DESC ";
 													$arr_Data2 = mysql_query($Sql_Query);
 													$arr_Data2_Cnt = mysql_num_rows($arr_Data2);
 													?>
