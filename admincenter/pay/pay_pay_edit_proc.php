@@ -26,7 +26,9 @@ switch ($RetrieveFlag) {
                             `" . $Tname . "comm_member_pay_info` A
                         WHERE
 							A.INT_TYPE=1
-                            AND A.INT_NUMBER=" . $str_no;
+                            AND A.INT_NUMBER=" . $str_no . "
+						ORDER BY A.DTM_INDATE DESC
+                        LIMIT 1 ";
 
 		$arr_Rlt_Data = mysql_query($SQL_QUERY);
 		$sub_pay_Data = mysql_fetch_assoc($arr_Rlt_Data);
@@ -38,7 +40,9 @@ switch ($RetrieveFlag) {
                             `" . $Tname . "comm_member_pay_info` A
                         WHERE
 							A.INT_TYPE=2
-                            AND A.INT_NUMBER=" . $str_no;
+                            AND A.INT_NUMBER=" . $str_no . "
+						ORDER BY A.DTM_INDATE DESC
+                        LIMIT 1 ";
 
 		$arr_Rlt_Data = mysql_query($SQL_QUERY);
 		$rent_pay_Data = mysql_fetch_assoc($arr_Rlt_Data);
