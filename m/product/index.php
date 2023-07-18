@@ -478,12 +478,13 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                         status = 0;
                     }
                 } else if (this.selectedStatus == 1) {
-                    // 최소 4일을 마감선택불가일로 설정
+                    // 최소 3일을 마감선택불가일로 설정
                     const disableEndDay = new Date(this.startDate);
-                    disableEndDay.setDate(disableEndDay.getDate() + 3);
+                    disableEndDay.setDate(disableEndDay.getDate() + 2);
 
+                    // 최대 14일을 마감선택일로 설정
                     const finalEndday = new Date(this.startDate);
-                    finalEndday.setDate(finalEndday.getDate() + 14);
+                    finalEndday.setDate(finalEndday.getDate() + 13);
 
                     if (date.getFullYear() == this.startDate.getFullYear() && date.getMonth() == this.startDate.getMonth() && date.getDate() == this.startDate.getDate()) {
                         status = 2;

@@ -1091,12 +1091,13 @@ switch ($arr_Data['INT_TYPE']) {
                                 }
                             }
                         } else if (this.selectedStatus == 1) {
-                            // 최소 4일을 마감선택불가일로 설정
+                            // 최소 3일을 마감선택불가일로 설정
                             const disableEndDay = new Date(this.startDate);
-                            disableEndDay.setDate(disableEndDay.getDate() + 3);
+                            disableEndDay.setDate(disableEndDay.getDate() + 2);
 
+                            // 최대 14일을 마감선택일로 설정
                             const finalEndday = new Date(this.startDate);
-                            finalEndday.setDate(finalEndday.getDate() + 14);
+                            finalEndday.setDate(finalEndday.getDate() + 13);
                             
                             // 다음 예약한 렌트 날짜 제외
                             var isDateBetween = false;
