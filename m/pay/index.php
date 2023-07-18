@@ -246,7 +246,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 this.deliveryInfo.main.postal = document.getElementById('new_delivery_postal_code').value;
 
                 this.type = 1;
-                
+
                 updateMainAddress(this.deliveryInfo.main.hp, this.deliveryInfo.main.address1, this.deliveryInfo.main.address2, this.deliveryInfo.main.postal);
             } else {
                 this.deliveryInfo.new.name = document.getElementById('new_delivery_name').value;
@@ -972,7 +972,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     }
 
     function updateMainAddress(str_shp, str_saddr1, str_saddr2, str_spost) {
-        url = "edit_address_proc.php";
+        url = "/m/memberjoin/edit_address_proc.php";
         url += "?str_spost=" + str_spost;
         url += "&str_saddr1=" + str_saddr1;
         url += "&str_saddr2=" + str_saddr2;
