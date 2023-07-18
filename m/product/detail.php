@@ -1887,16 +1887,18 @@ switch ($arr_Data['INT_TYPE']) {
         imagePanel.classList.remove('hidden');
         document.getElementById('scrollContainer').scrollLeft = 410 * index;
 
-        // Disable html scroll
-        document.documentElement.style.overflow = 'hidden';
+        // Disable body scroll
+        document.body.style.height = '100px';
+        document.body.style.overflow = 'hidden';
     }
 
     function closeRelativeImage(index) {
         var imagePanel = document.getElementById('relative_image_panel');
         imagePanel.classList.add('hidden');
 
-        // Disable html scroll
-        document.documentElement.style.overflow = 'auto';
+        // Disable body scroll
+        document.body.style.height = 'auto';
+        document.body.style.overflow = 'auto';
     }
 
     function showAlarmConfirmPanel() {
