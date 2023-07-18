@@ -9,22 +9,22 @@ $int_type = Fnc_Om_Conv_Default($_REQUEST['int_type'], "");
 $int_number = Fnc_Om_Conv_Default($_REQUEST['int_number'], "");
 $good_mny = Fnc_Om_Conv_Default($_REQUEST['good_mny'], "");
 
-//카드정보얻기
-$SQL_QUERY =    "SELECT 
-                    A.*
-                FROM 
-                    `" . $Tname . "comm_member_pay` AS A
-                WHERE
-                    A.STR_USERID='$arr_Auth[0]'
-                    AND A.STR_USING='Y'
-                ORDER BY DTM_INDATE DESC
-                LIMIT 1 ";
-
-$arr_Rlt_Data = mysql_query($SQL_QUERY);
-$card_Data = mysql_fetch_assoc($arr_Rlt_Data);
-
 switch ($RetrieveFlag) {
     case "JOIN":
+
+        //카드정보얻기
+        $SQL_QUERY =    "SELECT 
+                            A.*
+                        FROM 
+                            `" . $Tname . "comm_member_pay` AS A
+                        WHERE
+                            A.STR_USERID='$arr_Auth[0]'
+                            AND A.STR_USING='Y'
+                        ORDER BY DTM_INDATE DESC
+                        LIMIT 1 ";
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
         if (!$card_Data) {
 ?>
@@ -119,6 +119,28 @@ switch ($RetrieveFlag) {
 
     case "CANCEL":
 
+        //해당 멤버십의 카드정보얻기
+        $SQL_QUERY =    "SELECT 
+                            C.*
+                        FROM 
+                            `" . $Tname . "comm_membership` AS A
+                        LEFT JOIN
+                            `" . $Tname . "comm_member_pay_info` AS B
+                        ON
+                            A.STR_ORDERIDX=B.STR_ORDERIDX
+                        LEFT JOIN
+                            `" . $Tname . "comm_member_pay` AS C
+                        ON
+                            B.INT_NUMBER=C.INT_NUMBER
+                        WHERE
+                            A.STR_USERID='$arr_Auth[0]'
+                            AND A.INT_TYPE=" . $int_type . "
+                        ORDER BY A.DTM_INDATE DESC
+                        LIMIT 1 ";
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
         switch ($int_type) {
             case 1:
                 if ($card_Data['STR_PASS1'] == '1') {
@@ -146,7 +168,7 @@ switch ($RetrieveFlag) {
                         SET 
                             ' . $SET_QUERY . ' 
                         WHERE 
-                            INT_NUMBER=' . $int_number;
+                            INT_NUMBER=' . $card_Data['INT_NUMBER'];
 
         mysql_query($SQL_QUERY);
 
@@ -167,6 +189,28 @@ switch ($RetrieveFlag) {
         break;
 
     case "RESTORE":
+
+        //해당 멤버십의 카드정보얻기
+        $SQL_QUERY =    "SELECT 
+                            C.*
+                        FROM 
+                            `" . $Tname . "comm_membership` AS A
+                        LEFT JOIN
+                            `" . $Tname . "comm_member_pay_info` AS B
+                        ON
+                            A.STR_ORDERIDX=B.STR_ORDERIDX
+                        LEFT JOIN
+                            `" . $Tname . "comm_member_pay` AS C
+                        ON
+                            B.INT_NUMBER=C.INT_NUMBER
+                        WHERE
+                            A.STR_USERID='$arr_Auth[0]'
+                            AND A.INT_TYPE=" . $int_type . "
+                        ORDER BY A.DTM_INDATE DESC
+                        LIMIT 1 ";
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
         
         switch ($int_type) {
             case 1:
@@ -195,7 +239,7 @@ switch ($RetrieveFlag) {
                         SET 
                             ' . $SET_QUERY . ' 
                         WHERE 
-                            INT_NUMBER=' . $int_number;
+                            INT_NUMBER=' . $card_Data['INT_NUMBER'];
 
         mysql_query($SQL_QUERY);
 

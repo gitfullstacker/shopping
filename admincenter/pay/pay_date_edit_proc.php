@@ -4,12 +4,12 @@
 Fnc_Acc_Admin();
 ?>
 <?
-$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST[RetrieveFlag], "");
-$str_no = Fnc_Om_Conv_Default($_REQUEST[str_no], "");
-$str_sdate = Fnc_Om_Conv_Default($_REQUEST[str_sdate], "");
-$str_edate = Fnc_Om_Conv_Default($_REQUEST[str_edate], "");
+$RetrieveFlag = Fnc_Om_Conv_Default($_REQUEST['RetrieveFlag'], "");
+$str_no = Fnc_Om_Conv_Default($_REQUEST['str_no'], "");
+$str_sdate = Fnc_Om_Conv_Default($_REQUEST['str_sdate'], "");
+$str_edate = Fnc_Om_Conv_Default($_REQUEST['str_edate'], "");
 
-$chkItem1 = Fnc_Om_Conv_Default($_REQUEST[chkItem1], "");
+$chkItem1 = Fnc_Om_Conv_Default($_REQUEST['chkItem1'], "");
 
 switch ($RetrieveFlag) {
 	case "UPDATE":
@@ -41,7 +41,7 @@ switch ($RetrieveFlag) {
 						SET 
 							DTM_SDATE='$str_sdate',
 							DTM_EDATE='$str_edate'
-						WHERE STR_USERID='" . $arr_Data['STR_USERID'] . "' AND INT_TYPE=" . $arr_Data['INT_TYPE'];
+						WHERE STR_USERID='" . $arr_Data['STR_USERID'] . "' AND INT_TYPE=" . $arr_Data['INT_TYPE'] . " AND  STR_ORDERIDX='" . $arr_Data['STR_ORDERIDX'] . "'";
 		mysql_query($SQL_QUERY);
 ?>
 		<script language="javascript">
