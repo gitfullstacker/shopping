@@ -1311,8 +1311,8 @@ switch ($arr_Data['INT_TYPE']) {
                 },
                 closeCalendar() {
                     showCalendar = false;
-                    initDate();
-                    init();
+                    this.initDate();
+                    this.init();
                 },
                 init() {
                     today = new Date();

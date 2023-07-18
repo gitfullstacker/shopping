@@ -593,7 +593,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
         },
         closeCalendar() {
             showCalendar = false;
-            init();
+            this.init();
         },
         init() {
             today = new Date();
