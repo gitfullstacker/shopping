@@ -220,8 +220,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         deliveryInfo: {
             main: {
                 name: '<?= $user_Data['STR_NAME'] ?>',
-                telep: '<?= $user_Data['STR_TELEP'] ?>',
-                hp: '<?= $user_Data['STR_HP'] ?>',
+                telep: '<?= $user_Data['STR_HP'] ?>',
+                hp: '<?= $user_Data['STR_SHP'] ?>',
                 address1: '<?= $user_Data['STR_SADDR1'] ?>',
                 address2: '<?= $user_Data['STR_SADDR2'] ?>',
                 postal: '<?= $user_Data['STR_SPOST'] ?>'
@@ -246,6 +246,8 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 this.deliveryInfo.main.postal = document.getElementById('new_delivery_postal_code').value;
 
                 this.type = 1;
+                
+                updateMainAddress(this.deliveryInfo.main.hp, this.deliveryInfo.main.address1, this.deliveryInfo.main.address2, this.deliveryInfo.main.postal);
             } else {
                 this.deliveryInfo.new.name = document.getElementById('new_delivery_name').value;
                 this.deliveryInfo.new.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
@@ -967,5 +969,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             // Clear the input value
             input.value = '';
         }
+    }
+
+    function updateMainAddress(str_shp, str_saddr1, str_saddr2, str_spost) {
+        url = "edit_address_proc.php";
+        url += "?str_spost=" + str_spost;
+        url += "&str_saddr1=" + str_saddr1;
+        url += "&str_saddr2=" + str_saddr2;
+        url += "&str_shp=" + str_shp;
+
+        $.ajax({
+            url: url,
+            success: function(result) {
+                
+            }
+        });
     }
 </script>
