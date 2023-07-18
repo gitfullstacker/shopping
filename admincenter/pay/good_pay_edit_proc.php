@@ -56,7 +56,7 @@ switch ($RetrieveFlag) {
 		// 사용한 금액체크
 		$total_spent_money = getSpentMoney($pay_Data['STR_USERID']);
 
-		if ($total_spent_money < 840400) {
+		if ($total_spent_money < 830400) {
 			$SQL_QUERY = 	"UPDATE 
 								" . $Tname . "comm_member 
 							SET STR_GRADE='G' 
