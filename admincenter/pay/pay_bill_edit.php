@@ -150,7 +150,7 @@ $order_idxx = $year . "" . $month . "" . $date . "" . $time;
 								<?php
 								$SQL_QUERY = "select a.dtm_edate from " . $Tname . "comm_membership a where a.str_userid='" . $arr_Data['STR_USERID'] . "' and a.int_type=" . $int_type;
 								$arr_max_Data = mysql_query($SQL_QUERY);
-								$lastnumber = mysql_result($arr_max_Data, 0, 'dtm_edate') ? mysql_result($arr_max_Data, 0, 'dtm_edate') : date('Y-m-d', '-1day');
+								$lastnumber = mysql_result($arr_max_Data, 0, 'dtm_edate') ? mysql_result($arr_max_Data, 0, 'dtm_edate') : date('Y-m-d', strtotime(date('Y-m-d') . '-1day'));
 
 								$lastnumber1 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber)) . "1day"));
 								$lastnumber2 = date("Y-m-d", strtotime(date("Y-m-d", strtotime($lastnumber1)) . "1month"));
