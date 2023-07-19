@@ -92,17 +92,23 @@ switch ($RetrieveFlag) {
 		for ($i = 0; $i < count($chkItem1); $i++) {
 
 			$SQL_QUERY =	" SELECT
-								A.*
+								B.INT_NUMBER
 							FROM 
-								" . $Tname . "comm_member_pay AS A
+								" . $Tname . "comm_member_pay_info A
+							LEFT JOIN
+								" . $Tname . "comm_membership B
+							ON
+								A.STR_ORDERIDX=B.STR_ORDERIDX
 							WHERE
-								A.INT_NUMBER='$chkItem1[$i]' ";
+								B.INT_NUMBER IS NOT NULL
+								AND A.INT_NUMBER='$chkItem1[$i]' ";
 
 			$arr_Rlt_Data = mysql_query($SQL_QUERY);
-			$arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-			$SQL_QUERY =	"DELETE FROM " . $Tname . "comm_membership WHERE STR_USERID='" . $arr_Data['STR_USERID'] . "' ";
-			mysql_query($SQL_QUERY);
+			while ($row = mysql_fetch_assoc($arr_Rlt_Data)) {
+				$SQL_QUERY =	"DELETE FROM " . $Tname . "comm_membership WHERE INT_NUMBER=" . $row['INT_NUMBER'];
+				mysql_query($SQL_QUERY);
+			}
 
 			$SQL_QUERY =	"DELETE FROM " . $Tname . "comm_member_pay_info WHERE INT_NUMBER='$chkItem1[$i]' ";
 			mysql_query($SQL_QUERY);
