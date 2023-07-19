@@ -306,14 +306,21 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div x-show="type == 2 && !customCompleted" class="mt-[15px] flex flex-col gap-[15px] w-full" style="display: none;">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_name" placeholder="이름을 입력해 주세요" readonly>
+                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_name" value="<?= $user_Data['STR_NAME'] ?>" placeholder="이름을 입력해 주세요" readonly>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
+                <?php
+                $str_shp = explode('-', $user_Data['STR_SHP']);
+
+                $str_shp1 = $str_shp[0] ?: '010';
+                $str_shp2 = $str_shp[1] ?: '';
+                $str_shp3 = $str_shp[2] ?: '';
+                ?>
                 <div class="grid grid-cols-3 gap-[5px] w-full">
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" maxlength="3" placeholder="010" readonly>
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" maxlength="4" placeholder="1234" readonly>
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" maxlength="4" placeholder="5678" readonly>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" value="<?= $str_shp1 ?>" maxlength="3" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" value="<?= $str_shp2 ?>" maxlength="4" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" value="<?= $str_shp3 ?>" maxlength="4" placeholder="5678" readonly>
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
