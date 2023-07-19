@@ -223,7 +223,7 @@ if ($res_cd == "0000") {
     mysql_query($Sql_Query);
 ?>
     <script language="javascript">
-        alert('멤버십결제가 실패하였습니다. <?= $res_cd ?>');
+        alert('멤버십결제가 실패하였습니다. <?= $res_cd ?>: <?= $res_msg ?>');
         window.location.href = "index.php";
     </script>
 <?php
