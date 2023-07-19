@@ -371,7 +371,7 @@ $total_record_limit = mysql_num_rows($result);
 												</td>
 												<td>
 													<? if ($Txt_gbn != "1") { ?>
-														<? if (trim(mysql_result($result, $i, str_addr1)) == trim(mysql_result($result, $i, str_raddr1)) && trim(mysql_result($result, $i, str_addr2)) == trim(mysql_result($result, $i, str_raddr2))) { ?>
+														<? if (trim(mysql_result($result, $i, 'str_addr1')) == trim(mysql_result($result, $i, 'str_raddr1')) && trim(mysql_result($result, $i, 'str_addr2')) == trim(mysql_result($result, $i, 'str_raddr2'))) { ?>
 															<img src="/pub/img/icons/lightbulb_off.gif" align="absmiddle">
 														<? } else { ?>
 															<img src="/pub/img/icons/lightbulb.gif" align="absmiddle">
