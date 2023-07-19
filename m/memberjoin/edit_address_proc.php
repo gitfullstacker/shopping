@@ -6,7 +6,6 @@ fnc_MLogin_Chk();
 $str_spost = Fnc_Om_Conv_Default($_REQUEST['str_spost'], "");
 $str_saddr1 = Fnc_Om_Conv_Default($_REQUEST['str_saddr1'], "");
 $str_saddr2 = Fnc_Om_Conv_Default($_REQUEST['str_saddr2'], "");
-$str_shp = Fnc_Om_Conv_Default($_REQUEST['str_shp'], "");
 
 $arr_Set_Data = array();
 $arr_Column_Name = array();
@@ -14,12 +13,10 @@ $arr_Column_Name = array();
 $arr_Column_Name[0]	= "STR_SPOST";
 $arr_Column_Name[1]	= "STR_SADDR1";
 $arr_Column_Name[2]	= "STR_SADDR2";
-$arr_Column_Name[3]	= "STR_SHP";
 
 $arr_Set_Data[0]		= $str_spost;
 $arr_Set_Data[1]		= $str_saddr1;
 $arr_Set_Data[2]		= $str_saddr2;
-$arr_Set_Data[3]		= $str_shp;
 
 $arr_Sub = "";
 

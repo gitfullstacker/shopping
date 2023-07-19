@@ -227,9 +227,9 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                 postal: '<?= $user_Data['STR_SPOST'] ?>'
             },
             new: {
-                name: '',
-                telep: '',
-                hp: '',
+                name: '<?= $user_Data['STR_NAME'] ?>',
+                telep: '<?= $user_Data['STR_HP'] ?>',
+                hp: '<?= $user_Data['STR_SHP'] ?>',
                 address1: '',
                 address2: '',
                 postal: ''
@@ -247,7 +247,7 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
                 this.type = 1;
 
-                updateMainAddress(this.deliveryInfo.main.hp, this.deliveryInfo.main.address1, this.deliveryInfo.main.address2, this.deliveryInfo.main.postal);
+                updateMainAddress(this.deliveryInfo.main.address1, this.deliveryInfo.main.address2, this.deliveryInfo.main.postal);
             } else {
                 this.deliveryInfo.new.name = document.getElementById('new_delivery_name').value;
                 this.deliveryInfo.new.hp = document.getElementById('new_delivery_phone1').value + '-' + document.getElementById('new_delivery_phone2').value + '-' + document.getElementById('new_delivery_phone3').value;
@@ -306,14 +306,14 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
         <div x-show="type == 2 && !customCompleted" class="mt-[15px] flex flex-col gap-[15px] w-full" style="display: none;">
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
-                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_name" placeholder="이름을 입력해 주세요">
+                <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_name" placeholder="이름을 입력해 주세요" readonly>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
                 <div class="grid grid-cols-3 gap-[5px] w-full">
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" maxlength="3" placeholder="010">
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" maxlength="4" placeholder="1234">
-                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" maxlength="4" placeholder="5678">
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone1" maxlength="3" placeholder="010" readonly>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone2" maxlength="4" placeholder="1234" readonly>
+                    <input type="text" class="w-full h-[45px] bg-white border border-solid border-[#DDDDDD] px-[15px] placeholder-gray-[#999999] font-normal text-xs leading-[14px] text-black" name="" id="new_delivery_phone3" maxlength="4" placeholder="5678" readonly>
                 </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
@@ -971,12 +971,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         }
     }
 
-    function updateMainAddress(str_shp, str_saddr1, str_saddr2, str_spost) {
+    function updateMainAddress(str_saddr1, str_saddr2, str_spost) {
         url = "/m/memberjoin/edit_address_proc.php";
         url += "?str_spost=" + str_spost;
         url += "&str_saddr1=" + str_saddr1;
         url += "&str_saddr2=" + str_saddr2;
-        url += "&str_shp=" + str_shp;
 
         $.ajax({
             url: url,
