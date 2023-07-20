@@ -247,6 +247,17 @@ if ($req_tx == "pay") {
 
 if ($req_tx == "pay") {
     if ($res_cd == "0000") {
+        // 사용자정보 얻기
+        $SQL_QUERY =    'SELECT
+                            A.*
+                        FROM 
+                            ' . $Tname . 'comm_member AS A
+                        WHERE
+                            A.STR_USERID="' . $str_userid . '"';
+
+        $arr_Rlt_Data = mysql_query($SQL_QUERY);
+        $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
         $arr_Set_Data = array();
         $arr_Column_Name = array();
 
@@ -319,6 +330,15 @@ if ($req_tx == "pay") {
 
         $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
+
+        // 사용한 금액체크
+        if ($user_Data['STR_GRADE'] != 'B') {
+            $total_spent_money = getSpentMoney($str_userid);
+
+            if ($total_spent_money >= 2000000) {
+                addBlackCoupons($str_userid);
+            }
+        }
     }
 }
 
