@@ -69,7 +69,7 @@ $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SER
 $end_days_result = mysql_query($SQL_QUERY);
 $end_days_array = array();
 while ($row = mysql_fetch_assoc($end_days_result)) {
-    $end_days_array[] = $row['STR_DAY'];
+    // $end_days_array[] = $row['STR_DAY'];
 
     // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
     $end_days_array[] = strval(intval($row['STR_DAY']) + 1);
@@ -79,7 +79,7 @@ $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SE
 $end_dates_result = mysql_query($SQL_QUERY);
 $end_dates_array = array();
 while ($row = mysql_fetch_assoc($end_dates_result)) {
-    $end_dates_array[] = $row['STR_DATE'];
+    // $end_dates_array[] = $row['STR_DATE'];
 
     // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
     $end_dates_array[] = date('Y-m-d', strtotime($row['STR_DATE'] . ' +1 day'));
@@ -89,7 +89,7 @@ $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SE
 $end_weeks_result = mysql_query($SQL_QUERY);
 $end_weeks_array = array();
 while ($row = mysql_fetch_assoc($end_weeks_result)) {
-    $end_weeks_array[] = $row['STR_WEEK'];
+    // $end_weeks_array[] = $row['STR_WEEK'];
 
     // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
     $end_weeks_array[] = strval((intval($row['STR_WEEK']) + 1) < 7 ? (intval($row['STR_WEEK']) + 1) : 0);
