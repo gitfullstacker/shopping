@@ -148,6 +148,9 @@ $end_days_result = mysql_query($SQL_QUERY);
 $end_days_array = array();
 while ($row = mysql_fetch_assoc($end_days_result)) {
     $end_days_array[] = $row['STR_DAY'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_days_array[] = strval(intval($row['STR_DAY']) + 1);
 }
 
 $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
@@ -155,6 +158,9 @@ $end_dates_result = mysql_query($SQL_QUERY);
 $end_dates_array = array();
 while ($row = mysql_fetch_assoc($end_dates_result)) {
     $end_dates_array[] = $row['STR_DATE'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_dates_array[] = date('Y-m-d', strtotime($row['STR_DATE'] . ' +1 day'));
 }
 
 $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
@@ -162,6 +168,9 @@ $end_weeks_result = mysql_query($SQL_QUERY);
 $end_weeks_array = array();
 while ($row = mysql_fetch_assoc($end_weeks_result)) {
     $end_weeks_array[] = $row['STR_WEEK'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_weeks_array[] = strval((intval($row['STR_WEEK']) + 1) < 7 ? (intval($row['STR_WEEK']) + 1) : 0);
 }
 ?>
 
@@ -432,32 +441,25 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <option value="" selected>반납 날짜를 선택해 주세요</option>
                         <?php
                         $temp_date = new DateTime();
-                        // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-                        $temp_before_date = new DateTime();
-                        $temp_before_date->modify('-1 day');
-
                         $start_date = null;
                         $end_date = null;
 
                         // Check if the current time is before 5 PM
                         if (intval($temp_date->format('H')) < 17) {
                             $temp_date->modify('+1 day');
-                            $temp_before_date->modify('+1 day');
                         } else {
                             $temp_date->modify('+2 days');
-                            $temp_before_date->modify('+2 day');
                         }
 
                         do {
                             $setted = true;
                             $dateString = $temp_date->format('Y-m-d');
-                            $beforeDateString = $temp_before_date->format('Y-m-d');
 
-                            if (in_array($temp_date->format('d'), $end_days_array) || in_array($temp_before_date->format('d'), $end_days_array)) {
+                            if (in_array($temp_date->format('d'), $end_days_array)) {
                                 $setted = false;
-                            } else if (in_array($temp_date->format('w'), $end_weeks_array) || in_array($temp_before_date->format('w'), $end_weeks_array)) {
+                            } else if (in_array($temp_date->format('w'), $end_weeks_array)) {
                                 $setted = false;
-                            } else if (in_array($dateString, $end_dates_array) || in_array($beforeDateString, $end_dates_array)) {
+                            } else if (in_array($dateString, $end_dates_array)) {
                                 $setted = false;
                             }
 

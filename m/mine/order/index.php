@@ -36,6 +36,9 @@ $end_days_result = mysql_query($SQL_QUERY);
 $end_days_array = array();
 while ($row = mysql_fetch_assoc($end_days_result)) {
     $end_days_array[] = $row['STR_DAY'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_days_array[] = strval(intval($row['STR_DAY']) + 1);
 }
 
 $SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
@@ -43,6 +46,9 @@ $end_dates_result = mysql_query($SQL_QUERY);
 $end_dates_array = array();
 while ($row = mysql_fetch_assoc($end_dates_result)) {
     $end_dates_array[] = $row['STR_DATE'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_dates_array[] = date('Y-m-d', strtotime($row['STR_DATE'] . ' +1 day'));
 }
 
 $SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
@@ -50,6 +56,9 @@ $end_weeks_result = mysql_query($SQL_QUERY);
 $end_weeks_array = array();
 while ($row = mysql_fetch_assoc($end_weeks_result)) {
     $end_weeks_array[] = $row['STR_WEEK'];
+
+    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+    $end_weeks_array[] = strval((intval($row['STR_WEEK']) + 1) < 7 ? (intval($row['STR_WEEK']) + 1) : 0);
 }
 ?>
 
@@ -326,19 +335,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         var selectElement = document.getElementById("return_dates");
 
         var temp_date = new Date();
-        // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-        var temp_before_date = new Date();
-        temp_before_date.setDate(temp_date.getDate() - 1);
-
         var start_date = null;
         var end_date = null;
 
         if (new Date().getHours() < 17) {
             temp_date.setDate(temp_date.getDate() + 1);
-            temp_before_date.setDate(temp_before_date.getDate() + 1);
         } else {
             temp_date.setDate(temp_date.getDate() + 2);
-            temp_before_date.setDate(temp_before_date.getDate() + 2);
         }
 
         // 불가일 검사
@@ -349,13 +352,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         do {
             var setted = true;
             const dateString = temp_date.getFullYear().toString() + '-' + (temp_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_date.getDate().toString().padStart(2, '0');
-            const beforeDateString = temp_before_date.getFullYear().toString() + '-' + (temp_before_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_before_date.getDate().toString().padStart(2, '0');
 
-            if (endDDays.includes(temp_date.getDate().toString()) || endDDays.includes(beforeDateString.getDate().toString())) {
+            if (endDDays.includes(temp_date.getDate().toString())) {
                 setted = false;
-            } else if (endDWeeks.includes(temp_date.getDay().toString()) || endDWeeks.includes(beforeDateString.getDay().toString())) {
+            } else if (endDWeeks.includes(temp_date.getDay().toString())) {
                 setted = false;
-            } else if (endDDates.includes(dateString) || endDDates.includes(beforeDateString)) {
+            } else if (endDDates.includes(dateString)) {
                 setted = false;
             }
 
