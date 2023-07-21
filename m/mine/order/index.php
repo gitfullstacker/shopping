@@ -328,7 +328,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         var temp_date = new Date();
         var start_date = null;
         var end_date = null;
-        console.log(new Date().getHours());
+
         if (new Date().getHours() < 17) {
             temp_date.setDate(temp_date.getDate() + 1);
         } else {
