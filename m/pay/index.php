@@ -141,6 +141,28 @@ $SQL_QUERY =    "SELECT
 
 $arr_Rlt_Data = mysql_query($SQL_QUERY);
 $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+// 반납불가일 얻기
+$SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
+$end_days_result = mysql_query($SQL_QUERY);
+$end_days_array = array();
+while ($row = mysql_fetch_assoc($end_days_result)) {
+    $end_days_array[] = $row['STR_DAY'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_DATE FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=2 AND A.INT_DTYPE=2';
+$end_dates_result = mysql_query($SQL_QUERY);
+$end_dates_array = array();
+while ($row = mysql_fetch_assoc($end_dates_result)) {
+    $end_dates_array[] = $row['STR_DATE'];
+}
+
+$SQL_QUERY =    'SELECT A.STR_WEEK FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=3 AND A.INT_DTYPE=2';
+$end_weeks_result = mysql_query($SQL_QUERY);
+$end_weeks_array = array();
+while ($row = mysql_fetch_assoc($end_weeks_result)) {
+    $end_weeks_array[] = $row['STR_WEEK'];
+}
 ?>
 
 <form x-data="{
@@ -409,19 +431,47 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                     <select name="return_date" id="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
                         <option value="" selected>반납 날짜를 선택해 주세요</option>
                         <?php
-                        // Get the current date
-                        $today = new DateTime();
+                        $temp_date = new DateTime();
+                        $start_date = null;
+                        $end_date = null;
 
-                        // Calculate tomorrow and the day after tomorrow
-                        $tomorrow = clone $today;
-                        $tomorrow->modify('+1 day');
+                        // Check if the current time is before 5 PM
+                        if (intval($temp_date->format('H')) < 17) {
+                            $temp_date->modify('+1 day');
+                        } else {
+                            $temp_date->modify('+2 days');
+                        }
 
-                        $nextTomorrow = clone $tomorrow;
-                        $nextTomorrow->modify('+1 day');
+                        do {
+                            $setted = true;
+                            $dateString = $temp_date->format('Y-m-d');
+
+                            if (in_array($temp_date->format('d'), $end_days_array)) {
+                                $setted = false;
+                            } else if (in_array($temp_date->format('w'), $end_weeks_array)) {
+                                $setted = false;
+                            } else if (in_array($dateString, $end_dates_array)) {
+                                $setted = false;
+                            }
+
+                            if ($setted) {
+                                if ($start_date === null) {
+                                    $start_date = clone $temp_date;
+                                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+                                    $start_date->modify('+1 day');
+                                } else {
+                                    $end_date = clone $temp_date;
+                                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+                                    $end_date->modify('+1 day');
+                                }
+                            }
+
+                            $temp_date->modify('+1 day');
+                        } while ($start_date === null || $end_date === null);
 
                         // Format the dates as options
-                        $tomorrowOption = $tomorrow->format('Y-m-d');
-                        $nextTomorrowOption = $nextTomorrow->format('Y-m-d');
+                        $tomorrowOption = $start_date->format('Y-m-d');
+                        $nextTomorrowOption = $end_date->format('Y-m-d');
                         ?>
 
                         <option value="<?php echo $tomorrowOption; ?>"><?php echo $tomorrowOption; ?></option>
@@ -987,7 +1037,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         $.ajax({
             url: url,
             success: function(result) {
-                
+
             }
         });
     }

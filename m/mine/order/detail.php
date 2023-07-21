@@ -64,6 +64,7 @@ switch ($arr_Data['INT_STATE']) {
         break;
 }
 
+// 반납불가일 얻기
 $SQL_QUERY =    'SELECT A.STR_DAY FROM  ' . $Tname . 'comm_cal A WHERE A.STR_SERVICE="Y" AND A.INT_TYPE=1 AND A.INT_DTYPE=2';
 $end_days_result = mysql_query($SQL_QUERY);
 $end_days_array = array();
@@ -521,8 +522,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             if (setted) {
                 if (start_date == null) {
                     start_date = new Date(temp_date);
+                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+                    start_date.setDate(start_date.getDate() + 1);
                 } else {
                     end_date = new Date(temp_date);
+                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+                    end_date.setDate(end_date.getDate() + 1);
                 }
             }
 
