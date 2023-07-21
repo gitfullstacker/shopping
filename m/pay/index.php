@@ -428,11 +428,6 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                 </div>
                 <div class="mt-3 relative flex w-full">
                     <input type="hidden" name="return_product" value="<?= $return_product_Data['STR_GOODCODE'] ?>">
-                    <?php
-                    $temp_date = new DateTime();
-                    var_dump($temp_date);
-                    exit;
-                    ?>
                     <select name="return_date" id="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
                         <option value="" selected>반납 날짜를 선택해 주세요</option>
                         <?php
@@ -441,7 +436,6 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         $end_date = null;
 
                         // Check if the current time is before 5 PM
-                        
                         if (intval($temp_date->format('H')) < 17) {
                             $temp_date->modify('+1 day');
                         } else {
