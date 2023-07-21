@@ -430,7 +430,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                     <input type="hidden" name="return_product" value="<?= $return_product_Data['STR_GOODCODE'] ?>">
                     <?php
                     $temp_date = new DateTime();
-                    echo(intval($temp_date->format('h')));
+                    echo($temp_date);
                     exit;
                     ?>
                     <select name="return_date" id="return_date" class="bg-white border-[0.72px] border-[#DDDDDD] rounded-[3px] px-2.5 w-full h-[35px] font-normal text-[11px] leading-3 text-[#666666]">
