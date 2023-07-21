@@ -432,37 +432,40 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <option value="" selected>반납 날짜를 선택해 주세요</option>
                         <?php
                         $temp_date = new DateTime();
+                        // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+                        $temp_before_date = new DateTime();
+                        $temp_before_date->modify('-1 day');
+
                         $start_date = null;
                         $end_date = null;
 
                         // Check if the current time is before 5 PM
                         if (intval($temp_date->format('H')) < 17) {
                             $temp_date->modify('+1 day');
+                            $temp_before_date->modify('+1 day');
                         } else {
                             $temp_date->modify('+2 days');
+                            $temp_before_date->modify('+2 day');
                         }
 
                         do {
                             $setted = true;
                             $dateString = $temp_date->format('Y-m-d');
+                            $beforeDateString = $temp_before_date->format('Y-m-d');
 
-                            if (in_array($temp_date->format('d'), $end_days_array)) {
+                            if (in_array($temp_date->format('d'), $end_days_array) || in_array($temp_before_date->format('d'), $end_days_array)) {
                                 $setted = false;
-                            } else if (in_array($temp_date->format('w'), $end_weeks_array)) {
+                            } else if (in_array($temp_date->format('w'), $end_weeks_array) || in_array($temp_before_date->format('w'), $end_weeks_array)) {
                                 $setted = false;
-                            } else if (in_array($dateString, $end_dates_array)) {
+                            } else if (in_array($dateString, $end_dates_array) || in_array($beforeDateString, $end_dates_array)) {
                                 $setted = false;
                             }
 
                             if ($setted) {
                                 if ($start_date === null) {
                                     $start_date = clone $temp_date;
-                                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-                                    $start_date->modify('+1 day');
                                 } else {
                                     $end_date = clone $temp_date;
-                                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-                                    $end_date->modify('+1 day');
                                 }
                             }
 

@@ -326,13 +326,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         var selectElement = document.getElementById("return_dates");
 
         var temp_date = new Date();
+        // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
+        var temp_before_date = new Date();
+        temp_before_date.setDate(temp_date.getDate() - 1);
+
         var start_date = null;
         var end_date = null;
 
         if (new Date().getHours() < 17) {
             temp_date.setDate(temp_date.getDate() + 1);
+            temp_before_date.setDate(temp_before_date.getDate() + 1);
         } else {
             temp_date.setDate(temp_date.getDate() + 2);
+            temp_before_date.setDate(temp_before_date.getDate() + 2);
         }
 
         // 불가일 검사
@@ -343,24 +349,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         do {
             var setted = true;
             const dateString = temp_date.getFullYear().toString() + '-' + (temp_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_date.getDate().toString().padStart(2, '0');
+            const beforeDateString = temp_before_date.getFullYear().toString() + '-' + (temp_before_date.getMonth() + 1).toString().padStart(2, '0') + '-' + temp_before_date.getDate().toString().padStart(2, '0');
 
-            if (endDDays.includes(temp_date.getDate().toString())) {
+            if (endDDays.includes(temp_date.getDate().toString()) || endDDays.includes(beforeDateString.getDate().toString())) {
                 setted = false;
-            } else if (endDWeeks.includes(temp_date.getDay().toString())) {
+            } else if (endDWeeks.includes(temp_date.getDay().toString()) || endDWeeks.includes(beforeDateString.getDay().toString())) {
                 setted = false;
-            } else if (endDDates.includes(dateString)) {
+            } else if (endDDates.includes(dateString) || endDDates.includes(beforeDateString)) {
                 setted = false;
             }
 
             if (setted) {
                 if (start_date == null) {
                     start_date = new Date(temp_date);
-                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-                    start_date.setDate(start_date.getDate() + 1);
                 } else {
                     end_date = new Date(temp_date);
-                    // 구독상품인 경우 당일에 기사님이 가므로 1일 연장
-                    end_date.setDate(end_date.getDate() + 1);
                 }
             }
 
