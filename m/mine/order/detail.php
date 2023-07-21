@@ -424,8 +424,8 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                     this.showSelectPanel = false;
                     doReturnOrder(value);
                 }
-            }" class="w-[144px] h-[30px] flex justify-center items-center bg-white border-[0.72px] border-solid border-[#DDDDDD] relative">
-            <div class="flex gap-[18px] items-center cursor-pointer" x-on:click="showSelectPanel = true" x-on:click.outside="showSelectPanel = false">
+            }" class="w-[144px] h-[30px] flex justify-center items-center bg-white border-[0.72px] border-solid border-[#DDDDDD] relative" x-on:click="showSelectPanel = true" x-on:click.outside="showSelectPanel = false">
+            <div class="flex gap-[18px] items-center cursor-pointer">
                 <p value="font-bold text-[10px] leading-3 text-[#666666]" x-text="selectedValue == '' ? '반납 날짜' : selectedValue">반납 날짜</p>
                 <svg class="absolute top-3 right-[25px]" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.7228 1.67005L5.87374 5.86313C5.81602 5.9129 5.75348 5.94807 5.68613 5.96865C5.61878 5.98955 5.54662 6 5.46965 6C5.39268 6 5.32053 5.98955 5.25318 5.96865C5.18583 5.94807 5.12329 5.9129 5.06556 5.86313L0.202045 1.67005C0.0673482 1.55392 -2.23606e-07 1.40876 -2.3209e-07 1.23456C-2.40574e-07 1.06037 0.0721588 0.91106 0.216477 0.786636C0.360795 0.662212 0.529166 0.6 0.72159 0.6C0.914014 0.6 1.08239 0.662212 1.2267 0.786636L5.46965 4.4447L9.71261 0.786635C9.8473 0.670507 10.0132 0.612442 10.2102 0.612442C10.4076 0.612442 10.5785 0.674654 10.7228 0.799078C10.8672 0.923502 10.9393 1.06866 10.9393 1.23456C10.9393 1.40046 10.8672 1.54562 10.7228 1.67005Z" fill="#333333" />
