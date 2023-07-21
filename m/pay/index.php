@@ -436,9 +436,9 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         $end_date = null;
 
                         // Check if the current time is before 5 PM
-                        var_dump($temp_date->format('H'));
+                        var_dump($temp_date->format('h'));
                         exit;
-                        if (intval($temp_date->format('H')) < 17) {
+                        if (intval($temp_date->format('h')) < 17) {
                             $temp_date->modify('+1 day');
                         } else {
                             $temp_date->modify('+2 days');
