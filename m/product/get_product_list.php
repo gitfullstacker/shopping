@@ -212,7 +212,7 @@ while ($row = mysql_fetch_assoc($product_list_result)) {
     $result .= '
         <a href="detail.php?str_goodcode=' . $row['STR_GOODCODE'] . '" class="global-product-item">
             <div class="relative flex justify-center items-center w-[176px] h-[176px] p-2.5 bg-[#F9F9F9] rounded-md">
-                <img class="w-full" src="/admincenter/files/good/' . urlencode($row['STR_IMAGE1']) . '" onerror="this.style.display = \'none\'" alt="">
+                <img class="w-full" src="/admincenter/files/good/' . $row['STR_IMAGE1'] . '" onerror="this.style.display = \'none\'" alt="">
                 <div class="absolute top-2 left-2 w-[30px] h-[30px] flex justify-center items-center bg-[' . $color . '] ' . ($row['INT_DISCOUNT'] ? '' : 'hidden') . '">
                     <p class="font-extrabold text-[9px] leading-[10px] text-white">' . $row['INT_DISCOUNT'] . '%</p>
                 </div>
