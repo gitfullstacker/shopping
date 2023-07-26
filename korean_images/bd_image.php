@@ -62,19 +62,17 @@ $SQL_QUERY =    'SELECT
 $image_list_result = mysql_query($SQL_QUERY);
 
 while ($row = mysql_fetch_assoc($image_list_result)) {
-    for ($i = 1; $i <= 12; $i++) {
-        if (hasKoreanCharacters($row['STR_IMAGE' . $i])) {
-            $imageFileName = $row['STR_IMAGE' . $i];
+    if (hasKoreanCharacters($row['IMG_F_NAME'])) {
+        $imageFileName = $row['IMG_F_NAME'];
 
-            $result = downloadFile($url . $imageFileName, $destinationPath);
+        $result = downloadFile($url . $imageFileName, $destinationPath);
 
-            if ($result) {
-                $SQL_QUERY = 'UPDATE `' . $Tname . 'b_img_data@01` SET IMG_F_NAME="' . $result . '", IMG_F_NICK="' . $result . '" WHERE IMG_SEQ=' . $row['IMG_SEQ'];
-                mysql_query($SQL_QUERY);
-                echo "Image downloaded and saved successfully! - " . $result;
-            } else {
-                echo "Failed to download or save the image.";
-            }
+        if ($result) {
+            $SQL_QUERY = 'UPDATE `' . $Tname . 'b_img_data@01` SET IMG_F_NAME="' . $result . '", IMG_F_NICK="' . $result . '" WHERE IMG_SEQ=' . $row['IMG_SEQ'];
+            mysql_query($SQL_QUERY);
+            echo "Image downloaded and saved successfully! - " . $result;
+        } else {
+            echo "Failed to download or save the image.";
         }
     }
 }
