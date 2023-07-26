@@ -62,19 +62,17 @@ $SQL_QUERY =    'SELECT
 $image_list_result = mysql_query($SQL_QUERY);
 
 while ($row = mysql_fetch_assoc($image_list_result)) {
-    for ($i = 1; $i <= 12; $i++) {
-        if (hasKoreanCharacters($row['STR_IMAGE' . $i])) {
-            $imageFileName = $row['STR_IMAGE' . $i];
+    if (hasKoreanCharacters($row['STR_IMAGE1'])) {
+        $imageFileName = $row['STR_IMAGE1'];
 
-            $result = downloadFile($url . $imageFileName, $destinationPath);
+        $result = downloadFile($url . $imageFileName, $destinationPath);
 
-            if ($result) {
-                $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_banner SET STR_IMAGE1="' . $result . '" WHERE INT_NUMBER=' . $row['INT_NUMBER'];
-                mysql_query($SQL_QUERY);
-                echo "Image downloaded and saved successfully! - " . $result;
-            } else {
-                echo "Failed to download or save the image.";
-            }
+        if ($result) {
+            $SQL_QUERY = 'UPDATE ' . $Tname . 'comm_banner SET STR_IMAGE1="' . $result . '" WHERE INT_NUMBER=' . $row['INT_NUMBER'];
+            mysql_query($SQL_QUERY);
+            echo "Image downloaded and saved successfully! - " . $result;
+        } else {
+            echo "Failed to download or save the image.";
         }
     }
 }
