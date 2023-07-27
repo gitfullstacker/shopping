@@ -543,16 +543,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             selectElement.removeChild(selectElement.firstChild);
         }
 
-        var dateRange = getDateRange(start_date, end_date);
+        var dateArray = [];
+        dateArray.push(start_date.toLocaleDateString('en-US', {
+            year: 'numeric'
+        }) + '-' + start_date.toLocaleDateString('en-US', {
+            month: '2-digit'
+        }) + '-' + start_date.toLocaleDateString('en-US', {
+            day: '2-digit'
+        }));
+        dateArray.push(end_date.toLocaleDateString('en-US', {
+            year: 'numeric'
+        }) + '-' + end_date.toLocaleDateString('en-US', {
+            month: '2-digit'
+        }) + '-' + end_date.toLocaleDateString('en-US', {
+            day: '2-digit'
+        }));
 
-        for (var i = 0; i < dateRange.length; i++) {
+        for (var i = 0; i < dateArray.length; i++) {
             var button = document.createElement("button");
             button.className = "py-[17px] flex justify-center items-center hover:bg-gray-100";
-            button.setAttribute("x-on:click", "selectItem('" + dateRange[i] + "')");
+            button.setAttribute("x-on:click", "selectItem('" + dateArray[i] + "')");
 
             var p = document.createElement("p");
             p.className = "font-bold text-[10px] leading-3 text-[#666666]";
-            p.textContent = dateRange[i];
+            p.textContent = dateArray[i];
 
             button.appendChild(p);
             selectElement.appendChild(button);
