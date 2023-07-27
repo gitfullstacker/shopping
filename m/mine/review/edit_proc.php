@@ -79,6 +79,9 @@ switch ($RetrieveFlag) {
         $str_images = array();
         $img_align = 1;
 
+        // 이미지등록상태 확인
+        $is_uploaded_img = false;
+
         for ($i = 0; $i < count($_FILES['str_image']['tmp_name']); $i++) {
             $obj_File = $_FILES['str_image']['tmp_name'][$i];
             $obj_File_name = $_FILES['str_image']['name'][$i];
@@ -134,6 +137,8 @@ switch ($RetrieveFlag) {
                 $Sql_Query = "INSERT INTO `" . $Tname . "b_img_data@01` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
                 mysql_query($Sql_Query);
 
+                $is_uploaded_img = true;
+
                 $img_align++;
             }
         }
@@ -152,7 +157,7 @@ switch ($RetrieveFlag) {
         // 적립금 지급
         $mileage = 0;
         $str_gubun = '1';
-        if (count($str_images) > 0) {
+        if ($is_uploaded_img) {
             // 포토 마일리지
             $mileage = $site_Data['INT_STAMP2'];
             $str_gubun = '1';
@@ -162,7 +167,7 @@ switch ($RetrieveFlag) {
             $str_gubun = '2';
         }
 
-        if ($mileage) {
+        if ($mileage > 0) {
             $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
             $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
