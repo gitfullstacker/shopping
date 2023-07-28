@@ -7,8 +7,8 @@ if (!$hide_footer) {
 		<div class="footer-section <?= $hide_footer_content ? 'hidden' : '' ?>">
 			<div class="menu-list">
 				<a class="item" href="#">COMPANY</a>
-				<a class="item" href="#">AGREEMENT</a>
-				<a class="item" href="#">PRIVACY POLICY</a>
+				<a class="item" href="/m/memberjoin/use.php">AGREEMENT</a>
+				<a class="item" href="/m/memberjoin/privaty.php">PRIVACY POLICY</a>
 				<a class="item" href="#">HELP</a>
 				<a class="item" href="#">PARTNERSHIP</a>
 			</div>
