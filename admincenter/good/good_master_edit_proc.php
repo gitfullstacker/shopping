@@ -946,13 +946,13 @@ switch ($RetrieveFlag) {
 			?>
 				<tr>
 					<td>
-						<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>]
-						사용자 코드 : <input type="text" name="str_usercode<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>" id="str_usercode<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>" style="width:200px;" value="<?= mysql_result($arr_Data2, $int_I, str_usercode) ?>"> <img src="/admincenter/img/i_edit.gif" align="absmiddle" onclick="fnc_usercode('<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>','str_usercode<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>')">
-						<select name="str_sservice" onchange="fnc_sservice('<?= $str_no ?>','<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>',this.value);">
-							<option value="Y" <? if (mysql_result($arr_Data2, $int_I, str_service) == "Y") { ?> selected<? } ?>>출력
-							<option value="N" <? if (mysql_result($arr_Data2, $int_I, str_service) == "N") { ?> selected<? } ?>>미출력
+						<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>]
+						사용자 코드 : <input type="text" name="str_usercode<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>" id="str_usercode<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>" style="width:200px;" value="<?= mysql_result($arr_Data2, $int_I, 'str_usercode') ?>"> <img src="/admincenter/img/i_edit.gif" align="absmiddle" onclick="fnc_usercode('<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>','str_usercode<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>')">
+						<select name="str_sservice" onchange="fnc_sservice('<?= $str_no ?>','<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>',this.value);">
+							<option value="Y" <? if (mysql_result($arr_Data2, $int_I, 'str_service') == "Y") { ?> selected<? } ?>>출력
+							<option value="N" <? if (mysql_result($arr_Data2, $int_I, 'str_service') == "N") { ?> selected<? } ?>>미출력
 						</select>
-						<? if ($int_I != 0) { ?><a href="javascript:fnc_delprod('<?= $str_no ?>','<?= mysql_result($arr_Data2, $int_I, str_sgoodcode) ?>');"><img src="/admincenter/img/btn_s_del.gif" align="absmiddle"></a><? } ?>
+						<? if ($int_I != 0) { ?><a href="javascript:fnc_delprod('<?= $str_no ?>','<?= mysql_result($arr_Data2, $int_I, 'str_sgoodcode') ?>');"><img src="/admincenter/img/btn_s_del.gif" align="absmiddle"></a><? } ?>
 					</td>
 				</tr>
 			<?
@@ -974,7 +974,7 @@ switch ($RetrieveFlag) {
 
 		$SQL_QUERY = "select ifnull(max(str_sgoodcode),0)+1 as lastnumber from " . $Tname . "comm_goods_master_sub where str_goodcode = '" . $str_no . "' ";
 		$arr_max_Data = mysql_query($SQL_QUERY);
-		$lastnumber = mysql_result($arr_max_Data, 0, lastnumber);
+		$lastnumber = mysql_result($arr_max_Data, 0, 'lastnumber') == 1 ? $str_no . '001' : mysql_result($arr_max_Data, 0, 'lastnumber');
 
 		$arr_Set_Data2[0]		= $lastnumber;
 		$arr_Set_Data2[1]		= $str_no;
@@ -998,7 +998,7 @@ switch ($RetrieveFlag) {
 
 		$SQL_QUERY = "select ifnull(count(str_sgoodcode),0) as lastnumber from " . $Tname . "comm_goods_master_sub where str_goodcode = '" . $str_no . "' ";
 		$arr_max_Data = mysql_query($SQL_QUERY);
-		$cnt = mysql_result($arr_max_Data, 0, lastnumber);
+		$cnt = mysql_result($arr_max_Data, 0, 'lastnumber');
 
 		$SQL_QUERY = "UPDATE " . $Tname . "comm_goods_master SET INT_BSU='" . $cnt . "' WHERE STR_GOODCODE='$str_no' ";
 		mysql_query($SQL_QUERY);
