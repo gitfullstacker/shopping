@@ -38,7 +38,7 @@ if ($arr_Rlt_Data) {
     if ($bd_best == 1) {
         // 적립금 지급
         $mileage = $site_Data['INT_STAMP3'];
-        $str_gubun = '1';
+        $str_gubun = '3';
 
         if ($mileage > 0) {
             $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
@@ -80,22 +80,22 @@ if ($arr_Rlt_Data) {
             }
         }
     } else {
-        // 적립금 삭제
-        if ($arr_Data['INT_CART']) {
-            $Sql_Query = 'SELECT * FROM `' . $Tname . 'comm_mileage_history` WHERE STR_INCOME="Y" AND STR_USERID="' . $arr_Data['MEM_ID'] . '" AND INT_CART=' . $arr_Data['INT_CART'];
-            $arr_Rlt_Data = mysql_query($Sql_Query);
-            $hitory_Data = mysql_fetch_assoc($arr_Rlt_Data);
+        // // 적립금 삭제
+        // if ($arr_Data['INT_CART']) {
+        //     $Sql_Query = 'SELECT * FROM `' . $Tname . 'comm_mileage_history` WHERE STR_INCOME="Y" AND STR_USERID="' . $arr_Data['MEM_ID'] . '" AND INT_CART=' . $arr_Data['INT_CART'];
+        //     $arr_Rlt_Data = mysql_query($Sql_Query);
+        //     $hitory_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
-            if ($hitory_Data['INT_VALUE']) {
-                if ($hitory_Data['INT_NUMBER']) {
-                    $SQL_QUERY =  'DELETE FROM `' . $Tname . 'comm_mileage_history` WHERE INT_NUMBER=' . $hitory_Data['INT_NUMBER'];
-                    mysql_query($SQL_QUERY);
-                }
-            }
-        }
+        //     if ($hitory_Data['INT_VALUE']) {
+        //         if ($hitory_Data['INT_NUMBER']) {
+        //             $SQL_QUERY =  'DELETE FROM `' . $Tname . 'comm_mileage_history` WHERE INT_NUMBER=' . $hitory_Data['INT_NUMBER'];
+        //             mysql_query($SQL_QUERY);
+        //         }
+        //     }
+        // }
 
-        $SQL_QUERY =  'UPDATE `' . $Tname . 'comm_member` SET INT_MILEAGE = INT_MILEAGE-' . $site_Data['INT_STAMP3'] . ' WHERE STR_USERID="' . $arr_Data['MEM_ID'] . '"';
-        mysql_query($SQL_QUERY);
+        // $SQL_QUERY =  'UPDATE `' . $Tname . 'comm_member` SET INT_MILEAGE = INT_MILEAGE-' . $site_Data['INT_STAMP3'] . ' WHERE STR_USERID="' . $arr_Data['MEM_ID'] . '"';
+        // mysql_query($SQL_QUERY);
     }
 
     $result["status"] = 200;

@@ -160,11 +160,11 @@ switch ($RetrieveFlag) {
         if ($is_uploaded_img) {
             // 포토 마일리지
             $mileage = $site_Data['INT_STAMP2'];
-            $str_gubun = '1';
+            $str_gubun = '2';
         } else {
             // 텍스트 마일리지
             $mileage = $site_Data['INT_STAMP1'];
-            $str_gubun = '2';
+            $str_gubun = '1';
         }
 
         if ($mileage > 0) {
