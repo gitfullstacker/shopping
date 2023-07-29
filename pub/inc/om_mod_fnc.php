@@ -165,52 +165,52 @@ function Fnc_Om_Store_Info($str_gubun)
 	if ($rcd_cnt) {
 		switch ($str_gubun) {
 			case "1":
-				return mysql_result($rel, 0, str_sitename);
+				return mysql_result($rel, 0, 'str_sitename');
 				break;
 			case "2":
-				return mysql_result($rel, 0, str_memail);
+				return mysql_result($rel, 0, 'str_memail');
 				break;
 			case "3":
-				return mysql_result($rel, 0, str_siteurl);
+				return mysql_result($rel, 0, 'str_siteurl');
 				break;
 			case "4":
-				return mysql_result($rel, 0, str_company);
+				return mysql_result($rel, 0, 'str_company');
 				break;
 			case "5":
-				return mysql_result($rel, 0, str_telep);
+				return mysql_result($rel, 0, 'str_telep');
 				break;
 			case "6":
-				return mysql_result($rel, 0, str_toptitle);
+				return mysql_result($rel, 0, 'str_toptitle');
 				break;
 			case "7":
-				return mysql_result($rel, 0, str_copyright);
+				return mysql_result($rel, 0, 'str_copyright');
 				break;
 			case "8":
-				return mysql_result($rel, 0, str_logo);
+				return mysql_result($rel, 0, 'str_logo');
 				break;
 			case "9":
-				return mysql_result($rel, 0, str_level1);
+				return mysql_result($rel, 0, 'str_level1');
 				break;
 			case "10":
-				return mysql_result($rel, 0, int_stamp1);
+				return mysql_result($rel, 0, 'int_stamp1');
 				break;
 			case "11":
-				return mysql_result($rel, 0, int_stamp2);
+				return mysql_result($rel, 0, 'int_stamp2');
 				break;
 			case "12":
-				return mysql_result($rel, 0, int_stamp3);
+				return mysql_result($rel, 0, 'int_stamp3');
 				break;
 			case "13":
-				return mysql_result($rel, 0, int_stamp4);
+				return mysql_result($rel, 0, 'int_stamp4');
 				break;
 			case "14":
-				return mysql_result($rel, 0, int_payyn);
+				return mysql_result($rel, 0, 'int_payyn');
 				break;
 			case "15":
-				return mysql_result($rel, 0, str_url1);
+				return mysql_result($rel, 0, 'str_url1');
 				break;
 			case "16":
-				return mysql_result($rel, 0, str_url2);
+				return mysql_result($rel, 0, 'str_url2');
 				break;
 			default:
 				return "";

@@ -166,7 +166,8 @@ $Sql_Query =	" SELECT
 					IFNULL(C.IMG_F_HEIGHT, 0) AS IMG_F_HEIGHT,
 					IFNULL(D.FILE_SEQ, 0) AS FILE_SEQ,
 					E.STR_GOODNAME,
-					A.BD_ITEM2
+					A.BD_ITEM2,
+					A.INT_CART
 				FROM `"
 	. $Tname . "b_bd_data" . $str_Ini_Group_Table . "` AS A
 					LEFT JOIN `"
@@ -294,7 +295,6 @@ $str_Url = "egolist.php" . $str_String;
 	-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript">
-	<!--
 	var obj_Blank = new Function("x", "return fncCheckBlank(x)");
 	var obj_Alert = new Function("x", "y", "z", "return fncFocusAlert(x, y, z)");
 
@@ -371,14 +371,12 @@ $str_Url = "egolist.php" . $str_String;
 		} catch (e) {}
 	}
 
-	function fnc_stamp(str_userid) {
-		if (!confirm("스탬프를 지급하시겠습니까?")) return;
+	function fnc_stamp(str_userid, int_cart) {
+		if (!confirm("적립금을 지급하시겠습니까?")) return;
 
-		fuc_ajax('egostamp.php?str_userid=' + str_userid);
+		fuc_ajax('egostamp.php?str_userid=' + str_userid + '&int_cart=' + int_cart);
 		alert("지급되었습니다.")
 	}
-	//
-	-->
 </SCRIPT>
 <? include "inc/inc_mid.php"; ?>
 <table border="0" cellpadding="0" cellspacing="0" width="<?= $int_Ini_Table_Width ?>">
@@ -629,7 +627,7 @@ $str_Url = "egolist.php" . $str_String;
 				<? if (Trim(mysql_result($arr_Get_Data, $int_I, bd_w_email)) != "") { ?>
 					</a>
 				<? } ?>
-				<a href="javascript:fnc_stamp('<?= mysql_result($arr_Get_Data, $int_I, mem_id) ?>');">[스탬프지급]</a>
+				<a href="javascript:fnc_stamp('<?= mysql_result($arr_Get_Data, $int_I, 'mem_id') ?>', '<?= mysql_result($arr_Get_Data, $int_I, 'int_cart') ?>');">[적립금지급]</a>
 			</td>
 			<td align="center" nowrap>
 				<?= str_replace("-", ".", substr(mysql_result($arr_Get_Data, $int_I, bd_reg_date), 0, 10)) ?>
