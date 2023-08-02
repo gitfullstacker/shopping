@@ -1,4 +1,5 @@
 <?include_once $_SERVER['DOCUMENT_ROOT'] . "/pub/inc/comm.php";?>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <?
 	Fnc_Acc_Admin();
 	Fnc_Preloading()		// @@@@@@ 페이지 호출 시 프리로딩 이미지 출력
@@ -151,7 +152,6 @@
 									<table border=0 cellpadding=0 cellspacing=0 class="mytable2">
 										<tr>
 											<td style="border:0px;padding:0px;height:25px;"><font class=def>
-											<script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 											<script>
 											    function execDaumPostcode() {
 											        new daum.Postcode({
@@ -249,7 +249,7 @@
 									<table border=0 cellpadding=0 cellspacing=0 class="mytable2">
 										<tr>
 											<td style="border:0px;padding:0px;height:25px;"><font class=def>
-											<script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+											<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 											<script>
 											    function execDaumPostcode2() {
 											        new daum.Postcode({
