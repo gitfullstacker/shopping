@@ -17,6 +17,9 @@ $SQL_QUERY =    'SELECT
 
 $pay_list_result = mysql_query($SQL_QUERY);
 
+var_dump($SQL_QUERY);
+exit;
+
 while ($row = mysql_fetch_assoc($pay_list_result)) {
     // 카드등록
     $arr_Set_Data = array();

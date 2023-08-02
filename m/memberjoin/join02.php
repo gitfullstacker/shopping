@@ -153,7 +153,7 @@
 								<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1;width:20px;height:20px;" onclick="closeDaumPostcode()" alt="닫기 버튼">
 								</div>
 								
-								<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+								<script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 								<script>
 								    // 우편번호 찾기 화면을 넣을 element
 								    var element_layer = document.getElementById('layer');

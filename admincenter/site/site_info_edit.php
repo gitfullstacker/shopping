@@ -85,7 +85,7 @@
 									<table border=0 cellpadding=0 cellspacing=0 class="mytable2">
 										<tr>
 											<td><font class=def>
-											<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+											<script src="//dmaps.daum.net/map_js_init/postcode.js"></script>
 											<script>
 											    function openDaumPostcode() {
 											        new daum.Postcode({

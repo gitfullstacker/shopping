@@ -151,7 +151,7 @@
 									<table border=0 cellpadding=0 cellspacing=0 class="mytable2">
 										<tr>
 											<td style="border:0px;padding:0px;height:25px;"><font class=def>
-											<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+											<script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 											<script>
 											    function execDaumPostcode() {
 											        new daum.Postcode({
@@ -249,7 +249,7 @@
 									<table border=0 cellpadding=0 cellspacing=0 class="mytable2">
 										<tr>
 											<td style="border:0px;padding:0px;height:25px;"><font class=def>
-											<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+											<script src="//dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 											<script>
 											    function execDaumPostcode2() {
 											        new daum.Postcode({
