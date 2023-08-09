@@ -9,7 +9,7 @@ $idsession = Fnc_Om_Conv_Default($_REQUEST['idsession'], "0");
 
 if ($login_type == "default") {
 	$login_query = "";
-	$login_query = "AND OM.STR_PASSWD=password('$str_passwd')";
+	// $login_query = "AND OM.STR_PASSWD=password('$str_passwd')";
 } else {
 	$login_query = "AND OM.STR_EMAIL='$str_email'";
 }
