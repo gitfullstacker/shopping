@@ -244,7 +244,9 @@ fnc_MLogin_Chk();
             </div>
         </div>
         <!-- 신규회원 가입혜택 -->
-        <img class="welcome-image min-w-full" src="images/welcome.png" alt="">
+        <a href="/m/benefits/">
+            <img class="welcome-image min-w-full" src="images/welcome.png" alt="">
+        </a>
 
         <!-- Buy it with -->
         <div class="mt-5 flex flex-col gap-5 px-[14px]">

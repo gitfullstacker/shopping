@@ -6,24 +6,26 @@ if (!$hide_footer) {
 	<div class="flex flex-col mt-[57.5px] mb-[65px]">
 		<div class="footer-section <?= $hide_footer_content ? 'hidden' : '' ?>">
 			<div class="menu-list">
-				<a class="item" href="#">COMPANY</a>
+				<a class="item" href="/m/guide">COMPANY</a>
 				<a class="item" href="/m/memberjoin/use.php">AGREEMENT</a>
 				<a class="item" href="/m/memberjoin/privaty.php">PRIVACY POLICY</a>
-				<a class="item" href="#">HELP</a>
-				<a class="item" href="#">PARTNERSHIP</a>
+				<a class="item" href="/m/faq/index.php">HELP</a>
+                <a class="item" href="mailto:ablancpm@gmail.com">PARTNERSHIP</a>
+
 			</div>
 			<div class="content">
 				<p class="logo-title font-medium text-[17px] leading-6 text-black">ABLANC</p>
 				<p class="mt-[1px] font-medium text-[11px] leading-3 text-black">(주)에이블랑</p>
-				<div class="mt-[11px] flex flex-col gap-[6.71px]">
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">주소: 박용훈, 김율희</p>
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">소재지: 서울특별시 서대문구 연희로 27길 16, (연희동) 2층</p>
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">사업자등록번호: 698-86-00719</p>
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">통신판매업신고번호: 2017-서울서초0205</p>
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">개인정보관리책임자: 박용훈</p>
-					<p class="font-bold text-[11px] leading-3 text-[#686868] tracking-wider">ablancpm@gmail.com | 02-6013-6733</p>
-				</div>
-				<p class="mt-[42.34px] font-bold text-[7px] leading-[8px] text-[#686868]">Copyrightⓒablanc.com <span class="text-[9px] font-normal">All Rights Reserved.</span></p>
+                <div class="mt-[11px] flex flex-col gap-[6.71px]">
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">주소: 박용훈, 김율희</p>
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">소재지: 서울특별시 서대문구 연희로 27길 16, (연희동) 2층</p>
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">사업자등록번호: 698-86-00719</p>
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">통신판매업신고번호: 2017-서울서초0205</p>
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">개인정보관리책임자: 박용훈</p>
+                    <p class="text-[11px] leading-3 text-[#686868] tracking-wider">ablancpm@gmail.com | 02-6013-6733</p>
+                </div>
+                <p class="mt-[42.34px] text-[7px] leading-[8px] text-[#686868]">Copyrightⓒablanc.com <span class="text-[9px] font-normal">All Rights Reserved.</span></p>
+
 			</div>
 		</div>
 	</div>

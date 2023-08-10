@@ -260,9 +260,9 @@ switch ($arr_Data['INT_TYPE']) {
                         <svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.3 0C0.955218 0 0.624558 0.144866 0.380761 0.402728C0.136964 0.660591 0 1.01033 0 1.375V4.125C0.344781 4.125 0.675442 4.26987 0.919239 4.52773C1.16304 4.78559 1.3 5.13533 1.3 5.5C1.3 5.86467 1.16304 6.21441 0.919239 6.47227C0.675442 6.73013 0.344781 6.875 0 6.875V9.625C0 9.98967 0.136964 10.3394 0.380761 10.5973C0.624558 10.8551 0.955218 11 1.3 11H11.7C12.0448 11 12.3754 10.8551 12.6192 10.5973C12.863 10.3394 13 9.98967 13 9.625V6.875C12.6552 6.875 12.3246 6.73013 12.0808 6.47227C11.837 6.21441 11.7 5.86467 11.7 5.5C11.7 5.13533 11.837 4.78559 12.0808 4.52773C12.3246 4.26987 12.6552 4.125 13 4.125V1.375C13 1.01033 12.863 0.660591 12.6192 0.402728C12.3754 0.144866 12.0448 0 11.7 0H1.3ZM8.775 2.0625L9.75 3.09375L4.225 8.9375L3.25 7.90625L8.775 2.0625ZM4.4265 2.09C5.0635 2.09 5.577 2.63313 5.577 3.30688C5.577 3.62961 5.45579 3.93913 5.24003 4.16734C5.02427 4.39554 4.73163 4.52375 4.4265 4.52375C3.7895 4.52375 3.276 3.98063 3.276 3.30688C3.276 2.98414 3.39721 2.67462 3.61297 2.44641C3.82873 2.21821 4.12137 2.09 4.4265 2.09ZM8.5735 6.47625C9.2105 6.47625 9.724 7.01937 9.724 7.69312C9.724 8.01586 9.60279 8.32538 9.38703 8.55359C9.17127 8.78179 8.87863 8.91 8.5735 8.91C7.9365 8.91 7.423 8.36687 7.423 7.69312C7.423 7.37039 7.54421 7.06087 7.75997 6.83266C7.97573 6.60446 8.26837 6.47625 8.5735 6.47625Z" fill="white" />
                         </svg>
-                        <span class="font-bold text-[11px] leading-[12px] text-center text-white">기간 한정 추가 할인 쿠폰</span>
+                        <span class="font-bold text-[11px] leading-[12px] text-center text-white">빈티지 제품 전용 할인 코드 2583849</span>
                     </span>
-                    <span class="font-bold text-[8px] leading-[9px] text-center text-white">(2023. 02. 30 23:59까지)</span>
+                    <span class="font-bold text-[8px] leading-[9px] text-center text-white">(2023. 07. 31 까지)</span>
                 </button>
                 <div class="w-full flex flex-col gap-[9px]">
                     <div class="flex gap-5">
@@ -291,11 +291,11 @@ switch ($arr_Data['INT_TYPE']) {
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">예상적립</p>
-                        <p class="font-semibold text-xs text-[#666666]">최대 13,000원 적립(실 결제금액에 한함)</p>
+                        <!-- <p class="font-semibold text-xs text-[#666666]">최대 13,000원 적립(실 결제금액에 한함)</p> -->
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">카드혜택</p>
-                        <p class="font-semibold text-xs text-[#666666]">무이자 할부(최대 12개월)</p>
+                        <p class="font-semibold text-xs text-[#666666]">무이자 할부(최대 3개월)</p>
                     </div>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs text-[#999999]">배송정보</p>
@@ -737,13 +737,16 @@ switch ($arr_Data['INT_TYPE']) {
             </div>
             <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -렌트잇 이용내역과 상품에 따라, 주문 후 별도의 보증금과 고객님의 개인정보를 요청드릴 수 있습니다.
+                    -이용내역과 상품에 따라, 주문 후 별도의 보증금과 고객님의 개인정보를 요청드릴 수 있습니다.
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -예약일 전에 상품이 도착한 경우, 해당 기간 만큼 무료로 더 사용 가능합니다.
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -반납일로부터 3일(주말/공휴일 제외) 이내 미반납 시 연체료가 발생합니다.
+                    -반납일에 미반납 시 연체료가 발생합니다
+                </p>
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
+                    -수령 직후 주문한 상품과 다를 경우 라벨을 제거하기 전에 문의부탁드립니다. 
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
                     -[렌트내역] > [상세보기] > [렌트 상품 사용감 확인] 페이지에서 보이는 상품 사진과 수령 직후 상품 상태가 다른 경우, 사용 전 에이블랑 고객센터로 알려주시길 바랍니다.
@@ -769,7 +772,10 @@ switch ($arr_Data['INT_TYPE']) {
                     -배송비는 무료입니다.
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -예약일 2일 전(영업일 기준)
+                    -렌트 상품의 경우 예약일 2일 전 출고됩니다.
+                </p>
+                <p class="font-normal text-xs leading-[14px] text-[#666666]">
+                    -구독 상품의 경우 반납이 완료되는 날 출고됩니다.
                 </p>
             </div>
         </div>

@@ -779,7 +779,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                                 <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                                     <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 혜택 안내</p>
                                     <p class="font-normal text-[10px] leading-3 text-[#666666]">
-                                        블랑 렌트 멤버십으로 30% 추가할인 되셨습니다.<br>
+                                        <!-- 블랑 렌트 멤버십으로 30% 추가할인 되셨습니다.<br> -->
                                         블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!
                                     </p>
                                 </div>
@@ -887,22 +887,127 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
     <?php
     if ($int_type != 1) {
     ?>
-        <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+        <!-- <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
             <div class="flex justify-between items-center">
                 <div class="flex gap-[5px] items-center">
                     <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
-                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">보증금 약관 동의하기</label>
+                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">렌트 서비스 약관 및 개인정보취급방침 동의</label>
                 </div>
                 <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex gap-[5px] items-center">
-                    <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black cursor-pointer">
-                    <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+                    <input type="checkbox" name="agree_payment1" id="agree_payment1" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                    <label for="agree_payment1" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 수집 이용 동의</label>
                 </div>
-                <a href="/m/memberjoin/privaty.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                <a href="/m/memberjoin/kcb1.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_payment2" id="agree_payment2" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                    <label for="agree_payment2" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 조회 동의</label>
+                </div>
+                <a href="/m/memberjoin/kcb2.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_payment3" id="agree_payment3" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                    <label for="agree_payment3" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 제공 동의</label>
+                </div>
+                <a href="/m/memberjoin/kcb3.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+            <div class="flex gap-[5px] items-center">
+                <input type="checkbox" name="agree_all" id="agree_all" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                <label for="agree_all" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">전체동의하기</label>
+            </div>
+    </div>
+
         </div>
+        <script>
+            document.getElementById('agree_all').addEventListener('change', function() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#agree_all)');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = this.checked;
+                }, this);
+            });
+        </script> -->
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Agreement Form</title>
+            <style>
+                .hidden {
+                    display: none;
+                }
+            </style>
+            <script>
+                function toggleAgreements() {
+                    event.preventDefault(); // 페이지 리로딩 방지
+                    var agreementItems = document.getElementsByClassName('individual-agreement');
+                    var displayStatus = agreementItems[0].style.display === 'none' ? 'flex' : 'none';
+
+                    for (var item of agreementItems) {
+                        item.style.display = displayStatus;
+                    }
+                }
+
+                function checkAll() {
+                    var checkboxes = document.querySelectorAll('.individual-checkbox');
+                    var agreeAllCheckbox = document.getElementById('agree_all');
+                    
+                    checkboxes.forEach(function(checkbox) {
+                        checkbox.checked = agreeAllCheckbox.checked;
+                    });
+                }
+            </script>
+        </head>
+        <body>
+            <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+                <div class="flex justify-between items-center individual-agreement hidden">
+                    <!-- The Individual Agreements Here -->
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-[5px] items-center">
+                            <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                            <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">렌트 서비스 약관 및 개인정보취급방침 동의</label>
+                        </div>
+                        <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                    </div>
+                    <div class="flex justify-between items-center individual-agreement hidden">
+                        <div class="flex gap-[5px] items-center">
+                            <input type="checkbox" name="agree_payment1" id="agree_payment1" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                            <label for="agree_payment1" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 수집 이용 동의</label>
+                        </div>
+                        <a href="/m/memberjoin/kcb1.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                    </div>
+                    <div class="flex justify-between items-center individual-agreement hidden">
+                        <div class="flex gap-[5px] items-center">
+                            <input type="checkbox" name="agree_payment2" id="agree_payment2" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                            <label for="agree_payment2" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 조회 동의</label>
+                        </div>
+                        <a href="/m/memberjoin/kcb2.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                    </div>
+                    <div class="flex justify-between items-center individual-agreement hidden">
+                        <div class="flex gap-[5px] items-center">
+                            <input type="checkbox" name="agree_payment3" id="agree_payment3" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                            <label for="agree_payment3" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 제공 동의</label>
+                        </div>
+                        <a href="/m/memberjoin/kcb3.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_all" id="agree_all" class="w-[14px] h-[14px] accent-black cursor-pointer" onclick="checkAll()">
+                        <label for="agree_all" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">전체동의하기</label>
+                    </div>
+                    <a href="#" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]" onclick="toggleAgreements()">약관보기</a>
+                </div>
+                <!-- Add Other Content Here -->
+            </div>
+        </body>
+        
     <?php
     }
     ?>
@@ -1004,7 +1109,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
             }
         } else {
             var checkbox1 = $('#agree_terms').is(':checked');
-            var checkbox2 = $('#agree_payment').is(':checked');
+            var checkbox2 = $('#agree_payment1').is(':checked');
+            var checkbox2 = $('#agree_payment2').is(':checked');
+            var checkbox2 = $('#agree_payment3').is(':checked');
+
 
             if (!checkbox1 || !checkbox2) {
                 event.preventDefault(); // Prevent the default redirect behavior

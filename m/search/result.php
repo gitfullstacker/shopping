@@ -89,8 +89,8 @@ $total_record = mysql_result($result, 0, 0);
         <div class="flex gap-[15px]">
             <div x-data="{ 
                     showOrderBy: false,
-                    selectedValue: 'favorite',
-                    selectedTitle: '인기순',
+                    selectedValue: 'new',
+                    selectedTitle: '신상품순',
                     orderList: [
                         {
                             value: 'favorite',
@@ -277,7 +277,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     window.filter_brands = <?= stripslashes($_GET['filter_brands']) ?: '[]' ?>;
     window.filter_sizes = <?= stripslashes($_GET['filter_sizes']) ?: '[]' ?>;
     window.filter_styles = <?= stripslashes($_GET['filter_styles']) ?: '[]' ?>;
-    order_by = '<?= $_GET['order_by'] ?: 'favorite' ?>';
+    order_by = '<?= $_GET['order_by'] ?: 'new' ?>';
     search_key = '<?= $_GET['search_key'] ?: '' ?>';
 
     $(document).ready(function() {
