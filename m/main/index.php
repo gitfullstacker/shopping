@@ -436,7 +436,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 					?>
 						<a href="/m/product/detail.php?str_goodcode=<?= $row['STR_GOODCODE'] ?>" class="item splide__slide">
 							<div class="flex justify-center items-center w-[126px] h-[126px] p-2.5 bg-[#F9F9F9] rounded">
-								<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1q'] ?>" onerror="this.style.display = 'none'" alt="rent">
+								<img class="w-full" src="/admincenter/files/good/<?= $row['STR_IMAGE1'] ?>" onerror="this.style.display = 'none'" alt="rent">
 							</div>
 							<p class="brand"><?= $row['STR_CODE'] ?></p>
 							<p class="title line-clamp-1"><?= $row['STR_GOODNAME'] ?></p>
