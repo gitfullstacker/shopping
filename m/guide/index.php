@@ -621,7 +621,7 @@
                         </svg>
                     </div>
                     <div x-show="collapsed" class="body-section">
-                        <p class="answer">
+                        <p class="answer-panel">
                             <?= $description ?>
                         </p>
                     </div>
