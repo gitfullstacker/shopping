@@ -20,13 +20,14 @@ if(bSuccessUpload) {
 			mkdir($uploadDir, 0777);
 		}
 		
-		$newPath = $uploadDir.urlencode($_FILES['Filedata']['name']);
+		$randomFileName = getRandomFileName($name);
+        $newPath = $uploadDir . urlencode($randomFileName);
 		
 		@move_uploaded_file($tmp_name, $newPath);
 		
 		$url .= "&bNewLine=true";
-		$url .= "&sFileName=".urlencode(urlencode($name));
-		$url .= "&sFileURL=".$gbl_Om_Url."/admincenter/files/upload/".urlencode(urlencode($name));
+		$url .= "&sFileName=".urlencode(urlencode($randomFileName));
+		$url .= "&sFileURL=".$gbl_Om_Url."/admincenter/files/upload/".urlencode(urlencode($randomFileName));
 	}
 }
 // FAILED
