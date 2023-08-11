@@ -152,7 +152,7 @@ $int_state = 1;
 
 if ($int_type == 1) {
     $start_date = date("Y-m-d");
-    $end_date = date("Y-m-d", strtotime("+1 month"));
+    $end_date = date("Y-m-d", strtotime("+1 month -1 day"));
     $int_state = 1;
 } else {
     $int_state = 0;
