@@ -707,12 +707,25 @@ switch ($arr_Data['INT_TYPE']) {
         } else {
         ?>
             <div class="mt-[25px] flex flex-col px-[14px]" id="menu_div2">
-                <p class="font-extrabold text-lg leading-5 text-[#333333]">1:1문의</p>
+                <p class="font-bold text-lg leading-5 text-[#333333]">1:1문의</p>
                 <div class="mt-[15px] flex flex-col bg-[#F5F5F5] px-[15px] py-[17px]">
-                    <p class="font-extrabold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
-                    <p class="mt-[13px] font-bold text-xs leading-[14px] text-black">CS NUMBER : 02-6013-0616</p>
-                    <p class="mt-[5px] font-bold text-xs leading-[14px] text-black">채널톡톡 : @빈느</p>
-                    <p class="mt-[15px] font-bold text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
+                    <a href="/m/mine/question/index.php">
+                    <p class="font-bold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
+                    </a>
+                    <p class="mt-[13px] font-medium text-xs leading-[14px] text-black">CS NUMBER : 02-6013-6733</p>
+                    <a href="https://pf.kakao.com/_eZdId">
+                    <p class="mt-[5px] font-medium text-xs leading-[14px] text-black">카카오톡 : @에이블랑컴퍼니</p>
+                    </a>
+                    <p class="mt-[15px] font-medium text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
+                </div>
+                <div class="flex mt-[15px] mb-[5px]" style="width: 100%;">
+                    <a href="https://pf.kakao.com/_eZdId" style="display: flex; width: calc((100% - 14px) * 45 / (312 + 45));">
+                        <img src="images/kakao2.png" alt="Kakao 2" style="width: 100%;">
+                    </a>
+                    <div style="width: 12px;"></div> <!-- 14px 간격 -->
+                    <a href="/m/mine/question/index.php" style="display: flex; width: calc((100% - 14px) * 312 / (312 + 45)); background-color: black; color: white; align-items: center; justify-content: center;">
+                        1:1문의 신청하기
+                    </a>
                 </div>
             </div>
         <?php
@@ -735,29 +748,30 @@ switch ($arr_Data['INT_TYPE']) {
                     </svg>
                 </span>
             </div>
-            <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
-                <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -이용내역과 상품에 따라, 주문 후 별도의 보증금과 고객님의 개인정보를 요청드릴 수 있습니다.
+            <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]" >
+                <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
+                    [명품 렌트] </br>
+                    - 상품에 따라 주문 후 별도의 보증금을 요청드릴 수 있습니다.</br>
+                    - 반납일에 상품회수가 되지 않을 경우 연체료가 발생합니다.</br>
+                    - 수령 직후 주문한 상품이 아닌 경우 라벨을 제거하기 전 문의바랍니다.
+
                 </p>
-                <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -예약일 전에 상품이 도착한 경우, 해당 기간 만큼 무료로 더 사용 가능합니다.
+                <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
+                    [명품 구독] </br>
+                    - 월 89,000원으로 명품 구독 상품을 무제한으로 이용할 수 있습니다.</br>
+                    - 상품에 따라 주문 후 별도의 보증금을 요청드릴 수 있습니다.</br>
+                    - 멤버십 종료일, 반납일에 상품 회수가 지연될 경우 연체료가 발생합니다.</br>
+                    - 상품 변경 및 취소는 주문 접수 상태일 때만 가능합니다.</br>
+                    - 수령 직후 주문한 상품이 아닌 경우 라벨을 제거하기 전 문의바랍니다.
                 </p>
-                <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -반납일에 미반납 시 연체료가 발생합니다
-                </p>
-                <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -수령 직후 주문한 상품과 다를 경우 라벨을 제거하기 전에 문의부탁드립니다. 
-                </p>
-                <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -[렌트내역] > [상세보기] > [렌트 상품 사용감 확인] 페이지에서 보이는 상품 사진과 수령 직후 상품 상태가 다른 경우, 사용 전 에이블랑 고객센터로 알려주시길 바랍니다.
-                </p>
+        
             </div>
         </div>
 
         <!-- 배송 및 교환 -->
         <div x-data="{ collapse: false }" class="mt-5 flex flex-col gap-[15px] px-[14px]">
             <div class="flex items-center justify-between">
-                <p class="font-extrabold text-lg leading-5 text-[#333333]">배송 및 교환</p>
+                <p class="font-bold text-lg leading-5 text-[#333333]">배송 안내</p>
                 <span class="cursor-pointer" x-on:click="collapse = !collapse">
                     <svg x-show="collapse" width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.2576 1.58525L7.81002 7.79723C7.73327 7.87097 7.65012 7.92307 7.56057 7.95355C7.47102 7.98452 7.37507 8 7.27273 8C7.17038 8 7.07444 7.98452 6.98489 7.95355C6.89534 7.92307 6.81218 7.87097 6.73543 7.79724L0.268649 1.58525C0.0895495 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940092C-3.19879e-07 0.682027 0.0959459 0.46083 0.287838 0.276498C0.479731 0.0921659 0.703606 -3.07556e-08 0.959462 -4.19394e-08C1.21532 -5.31233e-08 1.43919 0.0921659 1.63109 0.276498L7.27273 5.69585L12.9144 0.276497C13.0935 0.104454 13.314 0.0184325 13.576 0.0184325C13.8385 0.0184325 14.0657 0.110598 14.2576 0.29493C14.4495 0.479262 14.5455 0.694316 14.5455 0.940091C14.5455 1.18587 14.4495 1.40092 14.2576 1.58525Z" fill="#333333" />
@@ -767,25 +781,61 @@ switch ($arr_Data['INT_TYPE']) {
                     </svg>
                 </span>
             </div>
-            <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
+            <div x-show="!collapse" class="flex flex-col gap-[4px] p-3 bg-[#F5F5F5]">
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -배송비는 무료입니다.
+                    - 배송은 우체국택배로 진행되며, 배송비는 무료입니다.
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -렌트 상품의 경우 예약일 2일 전 출고됩니다.
+                    - [명품렌트] 상품의 경우 예약일 2일 전 출고됩니다. (영업일 기준)
                 </p>
                 <p class="font-normal text-xs leading-[14px] text-[#666666]">
-                    -구독 상품의 경우 반납이 완료되는 날 출고됩니다.
+                    - [명품 구독],[빈티지] 상품의 경우 오후 12시 이전 주문 시 당일 출고됩니다.
                 </p>
+
             </div>
         </div>
+        <div x-data="{ collapse: false }" class="mt-5 flex flex-col gap-[15px] px-[14px]">
+            <div class="flex items-center justify-between">
+                <p class="font-bold text-lg leading-5 text-[#333333]">반납 및 교환</p>
+                <span class="cursor-pointer" x-on:click="collapse = !collapse">
+                    <svg x-show="collapse" width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.2576 1.58525L7.81002 7.79723C7.73327 7.87097 7.65012 7.92307 7.56057 7.95355C7.47102 7.98452 7.37507 8 7.27273 8C7.17038 8 7.07444 7.98452 6.98489 7.95355C6.89534 7.92307 6.81218 7.87097 6.73543 7.79724L0.268649 1.58525C0.0895495 1.41321 -2.97318e-07 1.19816 -3.08598e-07 0.940092C-3.19879e-07 0.682027 0.0959459 0.46083 0.287838 0.276498C0.479731 0.0921659 0.703606 -3.07556e-08 0.959462 -4.19394e-08C1.21532 -5.31233e-08 1.43919 0.0921659 1.63109 0.276498L7.27273 5.69585L12.9144 0.276497C13.0935 0.104454 13.314 0.0184325 13.576 0.0184325C13.8385 0.0184325 14.0657 0.110598 14.2576 0.29493C14.4495 0.479262 14.5455 0.694316 14.5455 0.940091C14.5455 1.18587 14.4495 1.40092 14.2576 1.58525Z" fill="#333333" />
+                    </svg>
+                    <svg x-show="!collapse" width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.742365 6.41475L7.18998 0.202768C7.26673 0.129028 7.34988 0.0769254 7.43943 0.0464487C7.52898 0.0154817 7.62493 0 7.72727 0C7.82962 0 7.92556 0.0154817 8.01511 0.0464487C8.10466 0.0769254 8.18782 0.129028 8.26457 0.20276L14.7314 6.41475C14.9105 6.58679 15 6.80184 15 7.05991C15 7.31797 14.9041 7.53917 14.7122 7.7235C14.5203 7.90783 14.2964 8 14.0405 8C13.7847 8 13.5608 7.90783 13.3689 7.7235L7.72727 2.30415L2.08556 7.7235C1.9065 7.89555 1.686 7.98157 1.424 7.98157C1.16154 7.98157 0.934344 7.88941 0.742445 7.70507C0.550552 7.52074 0.454545 7.30569 0.454545 7.05991C0.454545 6.81413 0.550552 6.59908 0.742365 6.41475Z" fill="#333333" />
+                    </svg>
+                </span>
+            </div>
+            <div x-show="!collapse" class="flex flex-col gap-[4px] p-3 bg-[#F5F5F5]">
+            
+                <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
+                    [명품 렌트] </br>
+                    - 가방 이용기간을 확인해주시고 반납일에 맞추어 가방을 반납해 주세요.</br>
+                    - 반납일에 제품 회수가 되지 않을 경우 연체료가 발생합니다.</br>
+                </p>
 
+                <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
+                    [명품 구독] </br>
+                    - 교환은 가방 선택 후 사용중인 가방의 반납 일자를 지정하면 됩니다.</br>
+                    - 교환은 횟수 제한 없이 무료 배송으로 이용할 수 있습니다.</br>
+                    - 반납 신청은 [마이페이지-렌트/구매 내역]에서 신청 가능합니다.</br>
+                </p>
+
+                <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
+                    [공통] </br>
+                    - 단순 변심으로 인한 반품 요청 시 반품배송비 6,000원이 발생합니다.</br>
+                    - 반품 상품의 택(사용 방지택 포함) 훼손 및 제거되지 않고, </br>
+                    - 구성품과 가방 모두 미사용 상태일 경우에 반품이 가능합니다. </br>
+                    - 가방의 안전을 위해, 기사님의 연락을 받으실 경우에만 회수가 진행됩니다.</br>
+                </p>
+            </div>
+        </div>    
         <!-- 구분선 -->
         <hr class="mt-7 border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
         <!-- 관련 상품 -->
         <div class="mt-5 flex flex-col gap-5 px-[14px]" id="menu_div4">
-            <p class="font-extrabold text-lg leading-5 text-[#333333]">관련 상품</p>
+            <p class="font-bold text-lg leading-5 text-[#333333]">관련 상품</p>
             <div class="grid grid-cols-2 gap-x-[13.5px] gap-y-[30.45px] w-full">
                 <?php
                 $SQL_QUERY =    'SELECT 

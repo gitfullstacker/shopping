@@ -806,10 +806,9 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                             </div>
                         </div>
                         <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
-                            <p class="font-bold text-xs leading-[14px] text-black">무이자/부분 무이자 할부 혜택 안내</p>
-                            <p class="font-normal text-[10px] leading-3 text-[#666666]">
-                                -공통: 2~5개월 (별도 신청 없이 적용)<br />
-                                -삼성/국민카드: 2~12개월(별도 신청 없이 적용)
+                            <p class="font-bold text-xs leading-[14px] text-black" >무이자/부분 무이자 할부 혜택 안내</p>
+                            <p class="font-normal text-[10px] leading-3 text-[#666666]" style="line-height: 1.5;">
+                                -공통: 1,2,3개월~ (카드사별 상이)<br />
                             </p>
                         </div>
                     </div>
@@ -887,7 +886,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
     <?php
     if ($int_type != 1) {
     ?>
-        <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+        <!-- <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
             <div class="flex justify-between items-center mt-2" style="padding-bottom: 10px;" >
                 <div class="flex gap-[5px] items-center">
                     <input type="checkbox" name="agree_all" id="agree_all" class="w-[14px] h-[14px] accent-black cursor-pointer">
@@ -931,7 +930,81 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                     checkbox.checked = this.checked;
                 }, this);
             });
+        </script> -->
+        <div class="mt-[15px] flex flex-col w-full" style = "padding-left:14px; padding-right:14px;">
+            <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
+                            <p class="font-bold text-xs leading-[14px] text-black">
+                                <img src="images/point.png" alt="Icon" style="display:inline; width: 15px; height: 15px; vertical-align: bottom;"> &nbsp;예약 전 주의사항</p>
+                            <p class="font-normal text-[10px] leading-3 text-[#666666]" style="line-height: 1.5;">
+                             1. 취소 시점에 따라 취소 수수료가 발생할 수 있습니다.<br />
+                             2. 주문자와 수령인 정보가 불일치 하거나, 타인 계정 이용 시 주문이 취소될 수 있습니다.<br />
+                             3. 이용 상품과 내역에 따라 보증금이 발생할 수 있습니다.<br />
+                             4. 추가적인 정보 확인을 위해 문자 또는 유선 연락을 드릴 수 있습니다.<br />
+                             5. 결제 후 예약 변경은 불가하며, 취소 후 예약 부탁드립니다.<br />
+                            </p>
+            </div>
+        </div>        
+
+        <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
+            <div class="flex justify-between items-center mt-2" style="padding-bottom: 10px;">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_all" id="agree_all" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                    <label for="agree_all" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">렌트 내역 확인 및 모든 약관에 동의합니다</label>
+                </div>
+                <a href="#" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]" onclick="toggleAgreements(event)">약관보기</a> 
+
+            </div>
+            <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[9px]" style="margin-top:0px;">
+                            <p class="font-normal text-[10px] leading-3 text-[#666666]" style="line-height: 1.5;">
+                             명품 렌트 서비스 약관, 개인정보 취급방침 동의, 결제 대행 서비스 자동 승인, 개인신용정보 수집 이용 동의, 개인신용정보 조회 동의, 개인신용정보 제공 동의 등</div>
+
+            <div class="individual-agreement hidden mt-4 flex flex-col gap-2.5 px-[14px]" > <!-- 숨김 클래스 추가 -->
+                <div class="flex justify-between items-center" >
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer" >렌트 서비스 약관 및 개인정보취급방침 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment1" id="agree_payment1" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment1" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 수집 이용 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb1.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment2" id="agree_payment2" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment2" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 조회 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb2.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment3" id="agree_payment3" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment3" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 제공 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb3.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('agree_all').addEventListener('change', function() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#agree_all)');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = this.checked;
+                }, this);
+            });
         </script>
+        <script>
+           function toggleAgreements(event) {
+                event.preventDefault(); // 기본 동작 막기
+                var agreementItems = document.getElementsByClassName('individual-agreement')[0];
+                agreementItems.classList.toggle('hidden'); // 'hidden' 클래스 토글
+            }
+        </script>
+
 
         
     <?php
