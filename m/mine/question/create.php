@@ -132,7 +132,7 @@ if ($int_cart) {
             </div>
         </div>
         <div class="flex flex-col gap-[5px]">
-            <p class="font-bold text-sm leading-4 text-black">문의내용</p>
+            <p class="font-bold text-sm leading-4 text-black">문의 내용</p>
             <textarea class="w-full h-[300px] border border-solid border-[#DDDDDD] px-4 py-5 font-normal text-xs leading-[19px] placeholder:text-[#999999]" name="str_cont" id="str_cont">
             </textarea>
         </div>
@@ -182,12 +182,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
     initDescription();
 
     function initDescription() {
-        var initText = "안녕하세요 고객님. 아래 양식에 맞게 문의글 작성 부탁드립니다.\n\n" +
-            "폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며,\n" +
-            "사전 안내없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.\n\n" +
-            "-주문번호: \n" +
-            "-휴대폰: \n" +
-            "-불량/AS 문의일 경우 반드시 사진첨부를 부탁드립니다.";
+        var initText = "* 모든 문의글은 순차적으로 답변드리고 있습니다.\n" +
+            "* 아래 양식에 맞게 문의글 작성 부탁드립니다.\n\n" +
+            "- 성함 : \n" +
+            "- 휴대폰 : \n" +
+            "- 문의내용 : \n\n" +
+            "*산업안전 보건법에 따라 폭언/욕설/비속어 등이 포함될 경우 답변이 제한되며, 사전 안내 없이 무통보 삭제되오니 작성 시 유의 부탁드립니다.";
 
         document.getElementById("str_cont").value = initText;
     }

@@ -101,7 +101,7 @@ if ($enc_data == -1) {
 
     <!-- 배송지 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
-        <p class="font-extrabold text-sm leading-4 text-black">배송지 정보</p>
+        <p class="font-extrabold text-sm leading-4 text-black">배송지 정보<span class="text-[#DA2727]">*</span></p>
         <div class="flex flex-col gap-[15px] w-full">
             <div x-data="{ checked: false }" class="flex gap-[5px] items-center">
                 <input type="checkbox" class="w-[14px] h-[14px] accent-black" name="same_account" id="same_account" value="1" onchange="setSameDeliveryInfo()">
@@ -111,6 +111,19 @@ if ($enc_data == -1) {
                 <p class="font-bold text-xs leading-[14px] text-black">이름</p>
                 <input type="text" class="w-full h-[45px] border border-solid border-[#DDDDDD] pl-4 font-normal text-xs leading-[14px] placeholder:text-[#999999]" name="str_name" id="str_name" placeholder="에이블랑">
                 <span class="font-bold text-xs leading-[14px] text-[#DA2727]" id="alert_name"></span>
+            </div>
+            <div class="flex flex-col gap-[5px] w-full" style="padding-bottom:10px;">
+                <p class="font-bold text-xs leading-[20px] text-black">성별</p>
+                <div class="flex gap-[15px] items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" id="woman" value="2">
+                        <label for="woman" class="font-normal text-xs leading-[14px] text-[#666666]">여성</label>
+                    </div>
+                    <div class="flex gap-[5px] items-center">
+                        <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" id="man" value="1">
+                        <label for="man" class="font-normal text-xs leading-[14px] text-[#666666]">남성</label>
+                    </div>
+                </div>
             </div>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-bold text-xs leading-[14px] text-black">연락처</p>
@@ -209,8 +222,8 @@ if ($enc_data == -1) {
     <!-- 추가 정보 -->
     <div class="flex flex-col gap-[19px] w-full">
         <p class="font-extrabold text-sm leading-4 text-black">추가 정보</p>
-        <div class="flex flex-col gap-[5px] w-full">
-            <p class="font-bold text-xs leading-[14px] text-black">성별</p>
+        <!-- <div class="flex flex-col gap-[5px] w-full">
+            <p class="font-bold text-xs leading-[14px] text-black">성별<span class="text-[#DA2727]">*</span></p>
             <div class="flex gap-[15px] items-center">
                 <div class="flex gap-[5px] items-center">
                     <input type="radio" class="w-[14px] h-[14px] accent-black" name="str_sex" id="woman" value="2">
@@ -221,7 +234,7 @@ if ($enc_data == -1) {
                     <label for="man" class="font-normal text-xs leading-[14px] text-[#666666]">남성</label>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="flex flex-col gap-[5px] w-full">
             <p class="font-bold text-xs leading-[14px] text-black">생년월일</p>
             <div class="grid grid-cols-3 gap-[5px] items-center">

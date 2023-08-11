@@ -53,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
     </div>
 
     <!-- 자주찾는질문 -->
-    <div x-show="menu == 0" class="flex flex-col px-[14px] w-full" id="ask_list_0">
+    <div x-show="menu == 0" class="flex flex-col px-[14px] w-full " id="ask_list_0">
     </div>
 
     <?php
