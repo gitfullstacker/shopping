@@ -329,8 +329,8 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
 	<!-- CUSTOMER CENTER -->
 	<div class="mt-[30px] flex flex-col w-full px-[14px] py-[30px] bg-[#F5F5F5]">
 		<p class="font-extrabold text-lg leading-5 text-black">CUSTOMER CENTER</p>
-		<p class="mt-[14px] font-bold text-xs leading-[14px] text-black">CS NUMBER : 02-6013-0616</p>
-		<p class="mt-[5px] font-bold text-xs leading-[14px] text-black">톡톡문의 : @빈느</p>
+		<p class="mt-[14px] font-bold text-xs leading-[14px] text-black">CS NUMBER : 02-6013-6733</p>
+		<p class="mt-[5px] font-bold text-xs leading-[14px] text-black">KAKAO TALK : @에이블랑컴퍼니</p>
 		<p class="mt-[15px] font-medium text-[10px] leading-[11px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
 	</div>
 </div>

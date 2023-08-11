@@ -178,9 +178,15 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
                                 <p class="font-bold text-xs leading-[14px] text-center text-[#666666]"><?= $row['STR_TITLE'] ?></p>
                                 <p class="font-medium text-[10px] leading-3 text-center text-[#999999]"><?= $row['STR_DESC'] ?></p>
                             </div>
+                            
                         <?php
                         }
                         ?>
+                        <div class="flex flex-col justify-center items-center gap-[5px] h-[50px] bg-white border border-solid border-[#DDDDDD]">
+                            <p class="font-bold text-xs leading-[14px] text-center text-[#666666]">패밀리세일 프리오픈</p>
+                            <p class="font-medium text-[10px] leading-3 text-center text-[#999999]">시즌오프 상품 선공개 및 알림</p>
+                        </div>
+
                     </div>
                 </div>
             </template>
