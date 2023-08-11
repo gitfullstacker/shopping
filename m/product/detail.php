@@ -347,7 +347,7 @@ switch ($arr_Data['INT_TYPE']) {
                         <?php
                         } else {
                         ?>
-                            <p class="font-semibold text-xs text-[#666666]">최소 3일 ~ 최대 14일</p>
+                            <p class="font-semibold text-xs text-[#666666]">최소 4일 ~ 최대 14일</p>
                         <?php
                         }
                         ?>
@@ -719,12 +719,12 @@ switch ($arr_Data['INT_TYPE']) {
                     <p class="mt-[15px] font-medium text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
                 </div>
                 <div class="flex mt-[15px] mb-[5px]" style="width: 100%;">
-                    <a href="https://pf.kakao.com/_eZdId" style="display: flex; width: calc((100% - 14px) * 45 / (312 + 45));">
+                    <a href="https://pf.kakao.com/_eZdId" style="display: flex; width: calc((100% - 7px) * 45 / (312 + 45));">
                         <img src="images/kakao2.png" alt="Kakao 2" style="width: 100%;">
                     </a>
-                    <div style="width: 12px;"></div> <!-- 14px 간격 -->
-                    <a href="/m/mine/question/index.php" style="display: flex; width: calc((100% - 14px) * 312 / (312 + 45)); background-color: black; color: white; align-items: center; justify-content: center;">
-                        1:1문의 신청하기
+                    <div style="width: 7px;"></div> <!-- 14px 간격 -->
+                    <a href="/m/mine/question/index.php" class="font-medium" style="display: flex; width: calc((100% - 7px) * 312 / (312 + 45)); background-color: black; color: white; align-items: center; justify-content: center; font-size: 12px;">
+                        1:1문의 작성하기
                     </a>
                 </div>
             </div>

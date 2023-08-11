@@ -58,7 +58,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 		<img src="../images/menu_item3.png" alt="menu_item3" />
 		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">리뷰</p>
 	</a>
-	<a href="#" class="flex flex-col items-center gap-[9px]">
+	<a href="/m/eventzone/detail.php?int_number=3" class="flex flex-col items-center gap-[9px]">
 		<img src="../images/menu_item4.png" alt="menu_item4" />
 		<p class="font-bold text-[13px] leading-[14px] text-center text-[#444444]">기획전</p>
 	</a>

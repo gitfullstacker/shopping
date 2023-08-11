@@ -242,14 +242,14 @@ if ($enc_data == -1) {
             <div class="flex justify-between items-center">
                 <div class="flex gap-[5px] items-center">
                     <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black">
-                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">보증금 약관 동의하기</label>
+                    <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666]">약관 동의하기</label>
                 </div>
                 <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>
             <div class="flex justify-between items-center">
                 <div class="flex gap-[5px] items-center">
                     <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black">
-                    <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+                    <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666]">개인정보 제 3자 제공사항 동의하기</label>
                 </div>
                 <a href="/m/memberjoin/privaty.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
             </div>

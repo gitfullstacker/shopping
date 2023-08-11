@@ -16,7 +16,7 @@ if (!$hide_footer) {
 			<div class="content">
 				<p class="logo-title font-medium text-[17px] leading-6 text-black">ABLANC</p>
 				<p class="mt-[1px] font-medium text-[11px] leading-3 text-black">(주)에이블랑</p>
-                <div class="mt-[11px] flex flex-col gap-[6.71px]">
+                <div class="mt-[11px] flex flex-col gap-[3.71px]">
                     <p class="text-[11px] leading-3 text-[#686868] tracking-wider">주소: 박용훈, 김율희</p>
                     <p class="text-[11px] leading-3 text-[#686868] tracking-wider">소재지: 서울특별시 서대문구 연희로 27길 16, (연희동) 2층</p>
                     <p class="text-[11px] leading-3 text-[#686868] tracking-wider">사업자등록번호: 698-86-00719</p>
