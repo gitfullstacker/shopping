@@ -1075,7 +1075,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
                     // 선택한 주소의 우편번호와 주소 입력하기
                     $('#new_delivery_postal_code').val(data.zonecode);
                     $('#new_delivery_address').val(data.address);
-                }
+                },
+                height: 500
             }).open();
         });
     });
