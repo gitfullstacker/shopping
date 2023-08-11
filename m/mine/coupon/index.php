@@ -35,10 +35,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/header_detail.php";
         <div class="mt-[15px] flex flex-col gap-[7px] px-[9px] py-[15px] bg-[#F5F5F5]">
             <p class="font-bold text-xs leading-[14px] text-black">쿠폰 발급 안내</p>
             <p class="font-normal text-[10px] leading-[14px] text-[#999999]">
-                -에이블랑의 회원이어야 발급 받을 수 있습니다.<br />
-                -쿠폰의 발급 기간 및 유효 기간을 꼭 확인해주세요.<br />
-                -쿠폰 사용시 최소 구매금액이 있으며, 일부 상품은 사용에 제한이 있을 수 있습니다.<br />
-                -등록한 쿠폰은 ‘MY PAGE > 쿠폰 현황 > 나의 쿠폰’ 에서 확인하실 수 있습니다.
+                - 쿠폰은 유효기간 동안만 등록 및 사용이 가능합니다.<br />
+                - 쿠폰 종류에 따라 일부 상품은 사용에 제한이 있을 수 있습니다.<br />
+                - 등록한 쿠폰은 [MY PAGE > 쿠폰 현황 > 나의 쿠폰] 에서 확인하실 수 있습니다.
             </p>
         </div>
     </div>

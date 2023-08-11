@@ -559,7 +559,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
             ?>
                     <div class="flex gap-5">
                         <p class="font-bold text-xs leading-[14px] text-[#999999]">이용날짜</p>
-                        <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?></p>
+                        <p class="font-medium text-xs leading-[14px] text-[#666666]"><?= date('Y. m. d', time()) ?> ~ </p>
                     </div>
                 <?php
                     break;
@@ -583,7 +583,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">배송분류</p>
                 <p class="font-medium text-xs leading-[14px] text-[#666666]">무료배송</p>
             </div>
-            <div class="flex gap-5">
+            <!-- <div class="flex gap-5">
                 <p class="font-bold text-xs leading-[14px] text-[#999999]">등급할인</p>
                 <p class="font-medium text-xs leading-[14px] text-[#666666]">
                     <?php
@@ -600,7 +600,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                     }
                     ?>
                 </p>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -709,8 +709,8 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                         <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                             <p class="font-bold text-xs leading-[14px] text-black">멤버십 결제 안내</p>
                             <p class="font-medium text-[10px] leading-[14px] text-[#666666]">
-                                -멤버십 결제는 구독권이 갱신되는 매월 1일에 등록하신 카드로 자동결제 됩니다.<br>
-                                (마이페이지 > 쇼핑정보 > 에이블랑 결제관리에서 카드 삭제 및 변경가능합니다.)
+                                - 멤버십은 최초 구독을 시작하신 결제일에 자동결제 됩니다.<br>
+                                &nbsp;(마이페이지 > 쇼핑정보 > 결제관리에서 멤버십 해지 및 카드 변경가능합니다.)
                             </p>
                         </div>
                     </div>

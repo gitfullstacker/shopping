@@ -96,10 +96,10 @@ $user_Data = mysql_fetch_assoc($arr_Rlt_Data);
     <div class="mt-[15px] flex flex-col gap-[7px] w-full px-[9px] py-[15px] bg-[#F5F5F5]">
         <p class="font-bold text-xs leading-[14px] text-black">자동 결제 수단 등록 안내</p>
         <p class="font-normal text-[10px] leading-4 text-[#999999]">
-            -본인 명의의 카드만 등록 가능합니다.<br>
-            -만 19세 이상 성인에게만 제공되는 서비스입니다.<br>
-            -무이자 및 할부 혜택은 카드 일반 결제에서만 가능합니다.<br>
-            -구독권 정기 결제는 무이자 및 할부 혜택을 받을 수 없습니다.<br>
+            - 본인 명의의 카드만 등록 가능합니다.<br>
+            - 만 19세 이상 성인에게만 제공되는 서비스입니다.<br>
+            - 무이자 및 할부 혜택은 카드 일반 결제에서만 가능합니다.<br>
+            - 핸드폰 인증시 기입한 성명과 카드 명의가 동일해야 이용이 가능합니다.<br>
         </p>
     </div>
 
