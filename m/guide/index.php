@@ -607,6 +607,9 @@
             $ask_list_result = mysql_query($SQL_QUERY);
 
             while ($row = mysql_fetch_assoc($ask_list_result)) {
+                $description = str_replace('\"', '', $row['STR_ANSWER']);
+                $description = str_replace('font-family:', '', $description);
+                $description = str_replace('font-size:', '', $description);
             ?>
                 <div x-data="{ collapsed: false }" class="item">
                     <div class="header-section cursor-pointer" x-on:click="collapsed = !collapsed">
@@ -617,7 +620,7 @@
                     </div>
                     <div x-show="collapsed" class="body-section">
                         <p class="answer">
-                            <?= $row['STR_ANSWER'] ?>
+                            <?= $description ?>
                         </p>
                     </div>
                 </div>
