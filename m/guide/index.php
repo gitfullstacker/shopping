@@ -604,8 +604,7 @@
                                 A.INT_GUBUN=B.INT_NUMBER
                             WHERE 
                                 A.STR_MSERVICE="Y"
-                            ORDER BY A.DTM_INDATE DESC
-                            LIMIT 6';
+                            ORDER BY A.DTM_INDATE DESC';
 
             $ask_list_result = mysql_query($SQL_QUERY);
 
