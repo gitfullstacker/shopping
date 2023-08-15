@@ -622,7 +622,9 @@
                         </svg>
                     </div>
                     <div x-show="collapsed" class="body-section">
-                        <?= $description ?>
+                        <div class="answer-panel">
+                            <?= $description ?>
+                        </div>
                     </div>
                 </div>
             <?php
@@ -635,16 +637,16 @@
 
 <script>
     $(document).ready(function() {
-        $('.scroll-section').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            dots: true,
+		$('.scroll-section').slick({
+			infinite: true,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			dots: true,
             centerMode: true,
             variableWidth: true
-        });
-    });
-
+		});
+	});
+    
     window.addEventListener('scroll', function() {
         var staticMenu = document.getElementById('menu_panel');
         var topMenu = document.getElementById('top_menu_panel');
