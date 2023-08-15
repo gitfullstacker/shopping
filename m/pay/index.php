@@ -710,7 +710,7 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
                             <p class="font-bold text-xs leading-[14px] text-black">멤버십 결제 안내</p>
                             <p class="font-medium text-[10px] leading-[14px] text-[#666666]">
                                 - 멤버십은 최초 구독을 시작하신 결제일에 자동결제 됩니다.<br>
-                                &nbsp;(마이페이지 > 쇼핑정보 > 결제관리에서 멤버십 해지 및 카드 변경가능합니다.)
+                                &nbsp;('마이페이지 > 멤버십관리 > 구독 멤버십'에서 카드 변경 및 해지 가능합니다.)
                             </p>
                         </div>
                     </div>

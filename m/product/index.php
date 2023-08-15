@@ -264,7 +264,7 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
                 if ($product_type == 1) {
                 ?>
                     <div x-data="{ 
-                    filterSubscription: false,
+                    filterSubscription: true,
                     toogleSubscription() {
                         this.filterSubscription = !this.filterSubscription;
                         filter_subscription = this.filterSubscription;
@@ -298,8 +298,8 @@ $is_sub_membership = fnc_sub_member_info() > 0 ? true : false;
 
                 <div x-data="{ 
                     showOrderBy: false,
-                    selectedValue: 'favorite',
-                    selectedTitle: '인기순',
+                    selectedValue: 'price_high',
+                    selectedTitle: '높은가격순',
                     orderList: [
                         {
                             value: 'favorite',
@@ -981,13 +981,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 <script>
     current_page = 1;
     window.filter_discount = false;
-    window.filter_subscription = false;
+    window.filter_subscription = true;
     window.filter_brands = [<?= $int_brand ?: '' ?>];
     window.filter_sizes = [];
     window.filter_styles = [];
     window.start_date = null;
     window.end_date = null;
-    order_by = 'favorite';
+    order_by = 'price_high';
 
     $(document).ready(function() {
         searchProduct();

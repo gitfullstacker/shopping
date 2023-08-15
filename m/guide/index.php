@@ -377,7 +377,7 @@
                     </div>
                     <p class="title">기간선택 및 배송</p>
                     <p class="description">
-                        원하는 날짜 에약 후 <br>
+                        원하는 날짜 예약 후 <br>
                         배송 온 가방 이용
                     </p>
                 </div>
@@ -404,8 +404,8 @@
             <div class="guid-section">
                 <p class="title">&nbsp;렌트 배송 안내</p>
                 <p class="description">
-                    - 렌트 연장은 자동 결제 수단으로 등록된 카드로 자동 결제됩니다.<br>
-                    &nbsp; &nbsp; (홈 > 마이페이지 > 에이블랑 결제관리 페이지 참조)<br>
+                    - 렌트 기간 연장을 신청할 경우 자동 결제 수단으로 결제됩니다.<br>
+                    &nbsp;(렌트 기간 연장은 고객센터 혹은 카카오톡(@에이블랑컴퍼니)로 문의 바랍니다.)<br>
                     - 렌트 취소 관련 조항은 상품 상세페이지 확인 부탁드립니다.<br>
                     - 반납이 지연될 경우 해당 기간에 대한 연체료가 요청됩니다.<br>
                     - 카드 등록이 안될 시 각 카드사에 문의 부탁드립니다.<br>
@@ -503,14 +503,14 @@
                 </div>
                 <div class="item">
                     <div class="image">
-                        <img class="min-w-full" src="images/export-icon.png" alt="">
+                        <img class="min-w-full" src="images/export-icon2.png" alt="">
                     </div>
                     <div class="content-section">
-                        <p class="title">1시 이전 당일 출고</p>
+                        <p class="title">블랑 렌트 멤버십</p>
                         <p class="description">
-                            오후 1시 이전 주문건은 당일 출고되는<br>
-                            에이블랑만의 더 빠른 배송 서비스를 만나보실 수 있어요<br>
-                            (출고 전 상품 검수 등의 이슈가 있을 경우 제외)<br>
+                            에이블랑의 RENT 상품 이용 고객님을 위한 ‘블랑 렌트 멤버십’<br>
+                            모든 렌트 상품 30% 할인<br>
+                            쿠폰/기간할인 등과 중복할인 가능!<br>
                         </p>
                     </div>
                 </div>
@@ -551,9 +551,9 @@
                         <img class="min-w-full" src="images/notification-icon.png" alt="">
                     </div>
                     <div class="content-section">
-                        <p class="title">상품 현재 상태 확인 알림</p>
+                        <p class="title">상품 배송 상태 확인 알림</p>
                         <p class="description">
-                            모든 상품의 현재 상태는 알림톡으로 발송되어<br>
+                            모든 상품의 배송 상태는 카카오톡으로 발송되어<br>
                             수령 전에 확인 할 수 있어요<br>
                             (마케팅 수신 미동의여도 알림은 수신됩니다)<br>
                         </p>
@@ -564,10 +564,11 @@
                         <img class="min-w-full" src="images/export-icon.png" alt="">
                     </div>
                     <div class="content-section">
-                        <p class="title">1시 이전 당일 출고</p>
+                        <p class="title">12시 이전 당일 출고</p>
                         <p class="description">
-                            오후 1시 이전 주문건은 모두 당일 출고되는<br>
+                            오후 12시 이전 주문건은 당일 출고되는<br>
                             에이블랑만의 더 빠른 배송 서비스를 만나보실 수 있어요<br>
+                            (출고 전 상품 검수 등의 이슈가 있을 경우 제외)<br>
                         </p>
                     </div>
                 </div>
@@ -578,8 +579,8 @@
                     <div class="content-section">
                         <p class="title">프리미엄 패키지</p>
                         <p class="description">
-                            렌트 상품도 선물처럼! 에이블랑만의 고급 포장 서비스로<br>
-                            상품을 안전하게 받아보실 수 있어요<br>
+                            렌트 상품도 선물처럼! 에이블랑만의 안전한 포장 서비스로<br>
+                            상품을 깔끔하게 받아보실 수 있어요<br>
                         </p>
                     </div>
                 </div>
