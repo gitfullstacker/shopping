@@ -26,9 +26,9 @@ $SQL_QUERY =    'SELECT
                 WHERE 
                     (CURDATE() BETWEEN B.STR_SDATE AND B.STR_EDATE)
                     OR
-                    (STR_PTYPE="1" AND STR_PASS="0")';
+                    (A.STR_PTYPE="1" AND A.STR_PASS="0")';
 
-$pay_list_result = mysql_query($SQL_QUERY);
+// $pay_list_result = mysql_query($SQL_QUERY);
 
 var_dump($SQL_QUERY);
 exit;
