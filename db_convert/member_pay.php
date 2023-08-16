@@ -24,14 +24,12 @@ $SQL_QUERY =    'SELECT
                 ON
                     A.INT_NUMBER = B.INT_NUMBER
                 WHERE 
-                    (CURDATE() BETWEEN B.STR_SDATE AND B.STR_EDATE)
-                    OR
-                    (A.STR_PTYPE="1" AND A.STR_PASS="0")';
+                    A.STR_PASS="0"';
 
-// $pay_list_result = mysql_query($SQL_QUERY);
+$pay_list_result = mysql_query($SQL_QUERY);
 
-var_dump($SQL_QUERY);
-exit;
+// var_dump($SQL_QUERY);
+// exit;
 
 while ($row = mysql_fetch_assoc($pay_list_result)) {
     // 카드등록
