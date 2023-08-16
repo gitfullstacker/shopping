@@ -2,7 +2,7 @@
 
 <?php
 // Set a higher maximum execution time (e.g., 600 seconds)
-set_time_limit(600);
+set_time_limit(60000);
 
 // $SQL_QUERY =    'SELECT 
 //                     A.*, B.*
