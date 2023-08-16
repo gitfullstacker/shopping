@@ -19,7 +19,7 @@
     /* =    /(root) 디렉토리에서 bin 디렉토리 전까지의 절대경로로 설정합니다.       = */
     /* = -------------------------------------------------------------------------- = */
 
-    $g_conf_gw_url    = "testpaygw.kcp.co.kr";
+    $g_conf_gw_url    = "paygw.kcp.co.kr";
     $g_conf_home_dir  = $_SERVER['DOCUMENT_ROOT']."/payment/linux/auto_pay/pc";
     
     /* ============================================================================== */
@@ -39,7 +39,7 @@
     /* = 실결제 시 : src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"             = */
     /* ============================================================================== */
 
-    $g_conf_js_url    = "https://testpay.kcp.co.kr/plugin/payplus_web.jsp";
+    $g_conf_js_url    = "https://pay.kcp.co.kr/plugin/payplus_web.jsp";
 
     /* = -------------------------------------------------------------------------- = */
     /* =  이 부분은 수정하지 마십시오.                                              = */
@@ -75,9 +75,9 @@
     /* =                                                                            = */
     /* = -------------------------------------------------------------------------- = */
 
-    $g_conf_site_cd   = "BA001";
-    $g_conf_site_key  = "2T5.LgLrH--wbufUOvCqSNT__";
-    $g_conf_site_name = "TEST MALL";
+    $g_conf_site_cd   = "A7EPQ";
+    $g_conf_site_key  = "2fGn7R3DOqE1oyTsI-8dQNf__";
+    $g_conf_site_name = "ABLANC";
 
     /* ============================================================================== */
 ?>
