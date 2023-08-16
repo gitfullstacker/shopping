@@ -4,6 +4,17 @@
 // Set a higher maximum execution time (e.g., 600 seconds)
 set_time_limit(600);
 
+// $SQL_QUERY =    'SELECT 
+//                     A.*, B.*
+//                 FROM 
+//                     `' . $Tname . 'comm_member_pay1` A
+//                 LEFT JOIN
+//                     `' . $Tname . 'comm_member_pay_info1` B
+//                 ON
+//                     A.INT_NUMBER = B.INT_NUMBER
+//                 WHERE 
+//                     CURDATE() BETWEEN B.STR_SDATE AND B.STR_EDATE';
+
 $SQL_QUERY =    'SELECT 
                     A.*, B.*
                 FROM 
@@ -11,9 +22,7 @@ $SQL_QUERY =    'SELECT
                 LEFT JOIN
                     `' . $Tname . 'comm_member_pay_info1` B
                 ON
-                    A.INT_NUMBER = B.INT_NUMBER
-                WHERE 
-                    CURDATE() BETWEEN B.STR_SDATE AND B.STR_EDATE';
+                    A.INT_NUMBER = B.INT_NUMBER';
 
 $pay_list_result = mysql_query($SQL_QUERY);
 
@@ -123,39 +132,45 @@ while ($row = mysql_fetch_assoc($pay_list_result)) {
         $Sql_Query = "INSERT INTO `" . $Tname . "comm_member_pay_info` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
         mysql_query($Sql_Query);
 
-        // 멤버십 등록
-        $arr_Set_Data = array();
-        $arr_Column_Name = array();
+        $startDateTimestamp = strtotime($row['STR_SDATE']);
+        $endDateTimestamp = strtotime($row['STR_EDATE']);
+        $currentTimestamp = time();
 
-        $arr_Column_Name[0] = "STR_USERID";
-        $arr_Column_Name[1] = "DTM_SDATE";
-        $arr_Column_Name[2] = "DTM_EDATE";
-        $arr_Column_Name[3] = "INT_TYPE";
-        $arr_Column_Name[4] = "DTM_INDATE";
-        $arr_Column_Name[5] = "STR_ORDERIDX";
+        if ($currentTimestamp >= $startDateTimestamp && $currentTimestamp <= $endDateTimestamp) {
+            // 멤버십 등록
+            $arr_Set_Data = array();
+            $arr_Column_Name = array();
 
-        $arr_Set_Data[0] = $row['STR_USERID'];
-        $arr_Set_Data[1] = $row['STR_SDATE'];
-        $arr_Set_Data[2] = $row['STR_EDATE'];
-        $arr_Set_Data[3] = "1";
-        $arr_Set_Data[4] = $row['DTM_INDATE'];
-        $arr_Set_Data[5] = $row['STR_OIDXCODE'];
+            $arr_Column_Name[0] = "STR_USERID";
+            $arr_Column_Name[1] = "DTM_SDATE";
+            $arr_Column_Name[2] = "DTM_EDATE";
+            $arr_Column_Name[3] = "INT_TYPE";
+            $arr_Column_Name[4] = "DTM_INDATE";
+            $arr_Column_Name[5] = "STR_ORDERIDX";
 
-        $arr_Sub1 = "";
-        $arr_Sub2 = "";
+            $arr_Set_Data[0] = $row['STR_USERID'];
+            $arr_Set_Data[1] = $row['STR_SDATE'];
+            $arr_Set_Data[2] = $row['STR_EDATE'];
+            $arr_Set_Data[3] = "1";
+            $arr_Set_Data[4] = $row['DTM_INDATE'];
+            $arr_Set_Data[5] = $row['STR_OIDXCODE'];
 
-        for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+            $arr_Sub1 = "";
+            $arr_Sub2 = "";
 
-            if ($int_I != 0) {
-                $arr_Sub1 .=  ",";
-                $arr_Sub2 .=  ",";
+            for ($int_I = 0; $int_I < count($arr_Column_Name); $int_I++) {
+
+                if ($int_I != 0) {
+                    $arr_Sub1 .=  ",";
+                    $arr_Sub2 .=  ",";
+                }
+                $arr_Sub1 .=  $arr_Column_Name[$int_I];
+                $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : 'null ';
             }
-            $arr_Sub1 .=  $arr_Column_Name[$int_I];
-            $arr_Sub2 .=  $arr_Set_Data[$int_I] ? "'" . $arr_Set_Data[$int_I] . "'" : 'null ';
-        }
 
-        $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
-        mysql_query($Sql_Query);
+            $Sql_Query = "INSERT INTO `" . $Tname . "comm_membership` (" . $arr_Sub1 . ") VALUES (" . $arr_Sub2 . ") ";
+            mysql_query($Sql_Query);
+        }
     }
 }
 ?>
