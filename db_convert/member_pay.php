@@ -22,7 +22,11 @@ $SQL_QUERY =    'SELECT
                 LEFT JOIN
                     `' . $Tname . 'comm_member_pay_info1` B
                 ON
-                    A.INT_NUMBER = B.INT_NUMBER';
+                    A.INT_NUMBER = B.INT_NUMBER
+                WHERE 
+                    (CURDATE() BETWEEN B.STR_SDATE AND B.STR_EDATE)
+                    OR
+                    (STR_PTYPE="1" AND STR_PASS="0")';
 
 $pay_list_result = mysql_query($SQL_QUERY);
 
