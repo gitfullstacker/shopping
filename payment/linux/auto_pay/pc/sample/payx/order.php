@@ -140,7 +140,7 @@
                     <!-- 그룹ID BA0011000348 -->
                     <tr>
                         <th>그룹ID</th>
-                        <td><input type="text" name="bt_group_id" value="BA0011000348" class="w100" /></td>
+                        <td><input type="text" name="bt_group_id" value="A7EPQ1001835" class="w100" /></td>
                     </tr>
                     <!-- 할부개월 -->
                     <tr>

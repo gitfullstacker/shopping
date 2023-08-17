@@ -159,7 +159,7 @@ function convertEncode($string)
                     <!-- 그룹아이디 : 테스트 결제시 설정 값 으로 설정, 리얼 결제시 관리자 생성 그룹아이디 입력 -->
                     <tr>
                         <th>그룹 아이디</th>
-                        <td><input type="text" name="kcpgroup_id" value="BA0011000348" class="w100" /></td>
+                        <td><input type="text" name="kcpgroup_id" value="A7EPQ1001835" class="w100" /></td>
                     </tr>
                 </table>
 
