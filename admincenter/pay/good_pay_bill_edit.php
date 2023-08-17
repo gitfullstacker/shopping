@@ -83,7 +83,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 								<input type="hidden" name="buyr_mail" value="<?= $arr_Data['STR_EMAIL'] ?>" />
 								<input type="hidden" name="buyr_tel1" value="<?= $arr_Data['STR_HP'] ?>" />
 								<input type="hidden" name="buyr_tel2" value="<?= $arr_Data['STR_TELEP'] ?>" />
-								<input type="hidden" name="bt_group_id" value="A52Q71000489" />
+								<input type="hidden" name="bt_group_id" value="A7EPQ1001835" />
 								<input type="hidden" name="quotaopt" value="00" />
 
 								<input type="hidden" name="req_tx" value="pay" />

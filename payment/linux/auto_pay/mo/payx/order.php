@@ -140,7 +140,7 @@ function convertEncode($string)
                     <!-- 그룹ID S61861000449 -->
                     <tr>
                         <th>그룹ID</th>
-                        <td><input type="text" name="bt_group_id" value="A52Q71000489" class="w100" /></td>
+                        <td><input type="text" name="bt_group_id" value="A7EPQ1001835" class="w100" /></td>
                     </tr>
                     <!-- 할부개월 -->
                     <tr>

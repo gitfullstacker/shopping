@@ -210,7 +210,7 @@ function convertEncode($string) {
                     <!-- 배치 인증키생성 그룹아이디(리얼테스트시 실제 업체의 그룹아이디 입력) -->
                     <tr>
                         <th>그룹아이디</th>
-                        <td><input type="text" name="kcp_group_id" class="w100" value="A52Q71000489"></td>
+                        <td><input type="text" name="kcp_group_id" class="w100" value="A7EPQ1001835"></td>
                     </tr>
                 </table>
 
