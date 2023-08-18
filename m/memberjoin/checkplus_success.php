@@ -43,7 +43,6 @@
 
         $plaindata = `$cb_encode_path DEC $sitecode $sitepasswd $enc_data`;        // 암호화된 결과 데이터의 복호화
         echo "[plaindata]  " . $plaindata . "<br>";
-        exit;
 
         if ($plaindata == -1) {
             $returnMsg  = "암/복호화 시스템 오류";
@@ -73,7 +72,8 @@
             $conninfo = GetValue($plaindata, "CI");
             $mobileno = GetValue($plaindata, "MOBILE_NO");
             $mobileco = GetValue($plaindata, "MOBILE_CO");
-
+var_dump($mobileno);
+exit;
             $str_result = "1";
 
             if (strcmp($_SESSION["REQ_SEQ"], $requestnumber) != 0) {
