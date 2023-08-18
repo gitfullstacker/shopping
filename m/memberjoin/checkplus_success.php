@@ -149,8 +149,8 @@
         ?>
 
         <script language="javascript">
+            alert('<?= $mobileno ?>');
             window.close();
-            alert('<?= addHyphen($mobileno) ?>');
             window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
         </script>
     <?
