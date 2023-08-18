@@ -191,8 +191,8 @@
                                 A.CONF_SEQ=2
                                 AND A.BD_ID_KEY IS NOT NULL
                                 AND (A.BD_HIDE=0 OR A.MEM_ID="' . $arr_Auth[0] . '")
-                            LIMIT 10
-                            ORDER BY A.BD_ITEM2 DESC, A.BD_REG_DATE DESC';
+                            ORDER BY A.BD_ITEM2 DESC, A.BD_REG_DATE DESC
+                            LIMIT 10';
 
             $best_review_list_result = mysql_query($SQL_QUERY);
 
