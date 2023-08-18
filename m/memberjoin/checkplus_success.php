@@ -43,6 +43,7 @@
 
         $plaindata = `$cb_encode_path DEC $sitecode $sitepasswd $enc_data`;        // 암호화된 결과 데이터의 복호화
         echo "[plaindata]  " . $plaindata . "<br>";
+        exit;
 
         if ($plaindata == -1) {
             $returnMsg  = "암/복호화 시스템 오류";
@@ -149,7 +150,7 @@
         ?>
 
         <script language="javascript">
-            alert('<?= $mobileno ?>');
+            alert('<?= $plaindata ?>');
             window.close();
             window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
         </script>
