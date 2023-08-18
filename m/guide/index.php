@@ -190,7 +190,6 @@
                             WHERE 
                                 A.CONF_SEQ=2
                                 AND A.BD_ID_KEY IS NOT NULL
-                                AND A.BD_BEST=1
                                 AND (A.BD_HIDE=0 OR A.MEM_ID="' . $arr_Auth[0] . '")
                             ORDER BY A.BD_ITEM2 DESC, A.BD_REG_DATE DESC';
 
@@ -638,7 +637,7 @@
     $(document).ready(function() {
 		$('.scroll-section').slick({
 			infinite: true,
-			slidesToShow: 2,
+			slidesToShow: 3,
 			slidesToScroll: 1,
 			dots: true,
             centerMode: true,
