@@ -149,7 +149,6 @@
         ?>
 
         <script language="javascript">
-            alert('<?= $plaindata ?>');
             window.close();
             window.opener.setVerifyPhoneNumber('<?= addHyphen($mobileno) ?>', '<?= $birthdate ?>');
         </script>
