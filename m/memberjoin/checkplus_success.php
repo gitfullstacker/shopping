@@ -72,24 +72,23 @@
             $conninfo = GetValue($plaindata, "CI");
             $mobileno = GetValue($plaindata, "MOBILE_NO");
             $mobileco = GetValue($plaindata, "MOBILE_CO");
-var_dump($mobileno);
-exit;
+
             $str_result = "1";
 
-            if (strcmp($_SESSION["REQ_SEQ"], $requestnumber) != 0) {
-                echo "세션값이 다릅니다. 올바른 경로로 접근하시기 바랍니다.<br>";
-                $requestnumber = "";
-                $responsenumber = "";
-                $authtype = "";
-                $name = "";
-                $birthdate = "";
-                $gender = "";
-                $nationalinfo = "";
-                $dupinfo = "";
-                $conninfo = "";
-                $mobileno = "";
-                $mobileco = "";
-            }
+            // if (strcmp($_SESSION["REQ_SEQ"], $requestnumber) != 0) {
+            //     echo "세션값이 다릅니다. 올바른 경로로 접근하시기 바랍니다.<br>";
+            //     $requestnumber = "";
+            //     $responsenumber = "";
+            //     $authtype = "";
+            //     $name = "";
+            //     $birthdate = "";
+            //     $gender = "";
+            //     $nationalinfo = "";
+            //     $dupinfo = "";
+            //     $conninfo = "";
+            //     $mobileno = "";
+            //     $mobileco = "";
+            // }
         }
     }
     ?>
