@@ -42,7 +42,7 @@ $loc = Fnc_Om_Conv_Default($_REQUEST['loc'], "");
 	<hr class="mt-[15px] mb-[15px] border-t border-[#E0E0E0]" />
 
 	<!-- SNS 계정으로 로그인하기 -->
-	<div class="flex flex-col gap-2.5 items-center w-full">
+	<!-- <div class="flex flex-col gap-2.5 items-center w-full">
 		<p class="font-extrabold text-[15px] leading-[17px] text-center text-black">SNS 계정으로 로그인하기</p>
 		<div class="flex justify-center items-center gap-2.5">
 			<a href="login_naver.php" class="flex justify-center items-center w-[75px] h-10 bg-[#06BE34] rounded-full">
@@ -52,7 +52,7 @@ $loc = Fnc_Om_Conv_Default($_REQUEST['loc'], "");
 				<img src="images/kakao_icon.png" alt="">
 			</a>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- 회원가입 -->
 	<div class="mt-10 flex flex-col gap-[15px] items-center">

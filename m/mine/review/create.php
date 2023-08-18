@@ -211,7 +211,7 @@ $site_Data = mysql_fetch_assoc($arr_Rlt_Data);
             <p class="font-normal text-[10px] leading-[16px] text-[#999999]">
                 - 사진 후기 <?= number_format($site_Data['INT_STAMP2']) ?>원, 글 후기 <?= number_format($site_Data['INT_STAMP1']) ?>원 적립금이 지급됩니다.<br />
                 - 작성 시 기준에 맞는 적립금이 자동으로 지급됩니다.<br />
-                - 주간 베스트 후기로 선정 시 <?= number_format($site_Data['INT_STAMP3']) ?>원이 추가로 적립됩니다.<br />
+                - 월간 베스트 후기로 선정 시 <?= number_format($site_Data['INT_STAMP3']) ?>원이 추가로 적립됩니다.<br />
                 - 후기 작성은 배송완료일로부터 30일 이내 가능합니다.<br />
             </p>
         </div>

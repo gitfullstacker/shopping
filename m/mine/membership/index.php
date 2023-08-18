@@ -53,7 +53,7 @@ $card_Data = mysql_fetch_assoc($arr_Rlt_Data);
 ?>
 
 <div class="mt-[30px] flex flex-col items-center w-full px-[14px]">
-    <div x-data="{ type: <?= $int_type == 2 ? '1' : '2' ?> }" class="flex flex-col items-center w-full">
+    <div x-data="{ type: <?= $int_type == 1 ? '1' : '2' ?> }" class="flex flex-col items-center w-full">
         <p class="font-extrabold text-lg leading-5 text-black">멤버십 관리</p>
         <div class="mt-[14px] flex flex-row gap-10">
             <?php
