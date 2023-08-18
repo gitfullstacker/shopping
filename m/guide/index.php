@@ -638,7 +638,7 @@
     $(document).ready(function() {
 		$('.scroll-section').slick({
 			infinite: true,
-			slidesToShow: 3,
+			slidesToShow: 2,
 			slidesToScroll: 1,
 			dots: true,
             centerMode: true,
