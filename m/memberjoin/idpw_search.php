@@ -10,6 +10,9 @@ $menu = Fnc_Om_Conv_Default($_REQUEST['menu'], 1);
 $id_step = Fnc_Om_Conv_Default($_REQUEST['id_step'], 1);
 $pwd_step = Fnc_Om_Conv_Default($_REQUEST['pwd_step'], 1);
 $user_id = Fnc_Om_Conv_Default($_REQUEST['user_id'], '');
+$str_userid = Fnc_Om_Conv_Default($_REQUEST['str_userid'], '');
+$str_rname = Fnc_Om_Conv_Default($_REQUEST['str_rname'], '');
+$str_hp = Fnc_Om_Conv_Default($_REQUEST['str_hp'], '');
 
 $authtype = "M";          // 없으면 기본 선택화면, X: 공인인증서, M: 핸드폰, C: 카드
 
@@ -90,8 +93,8 @@ if ($enc_data == -1) {
 		<!-- 비밀번호 찾기 -->
 		<div x-show="menu == 2" class="mt-7 flex flex-col w-full">
 			<div x-show="pwdStep == 1" class="flex flex-col gap-2.5 w-full">
-				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_userid" id="str_userid" placeholder="아이디">
-				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_rname" id="str_rname" placeholder="이름">
+				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_userid" id="str_userid" value="<?= $str_userid ?>" placeholder="아이디">
+				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_rname" id="str_rname" value="<?= $str_rname ?>" placeholder="이름">
 				<button type="button" class="mt-[5px] flex justify-center items-center w-full h-[50px] bg-black border-[0.72px] border-[#DDDDDD]" onclick="verifyPhone('2')">
 					<p class="font-bold text-xs leading-[14px] text-white">휴대폰 인증</p>
 				</button>
