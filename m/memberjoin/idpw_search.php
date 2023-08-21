@@ -91,7 +91,7 @@ if ($enc_data == -1) {
 		<div x-show="menu == 2" class="mt-7 flex flex-col w-full">
 			<div x-show="pwdStep == 1" class="flex flex-col gap-2.5 w-full">
 				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_userid" id="str_userid" placeholder="아이디">
-				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_rname" placeholder="이름">
+				<input type="text" class="w-full h-[50px] px-[15px] bg-white border-[0.72px] border-[#DDDDDD] font-normal text-xs leading-[14px] text-black placeholder-[#999999]" name="str_rname" id="str_rname" placeholder="이름">
 				<button type="button" class="mt-[5px] flex justify-center items-center w-full h-[50px] bg-black border-[0.72px] border-[#DDDDDD]" onclick="verifyPhone('2')">
 					<p class="font-bold text-xs leading-[14px] text-white">휴대폰 인증</p>
 				</button>
