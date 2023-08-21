@@ -79,33 +79,11 @@ switch ($RetrieveFlag) {
 		exit;
 		break;
 	case "PWSET":
+		
+		$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_hp'";
+		mysql_query($Sql_Query);
 
-		$SQL_QUERY = "select * from ";
-		$SQL_QUERY .= $Tname;
-		$SQL_QUERY .= "comm_member
-						where
-							STR_USERID='$str_userid'
-							AND 
-							STR_NAME='$str_rname'
-							AND 
-							STR_HP='$str_hp' ";
-
-		$arr_sub_Data = mysql_query($SQL_QUERY);
-		$rcd_cnt = mysql_num_rows($arr_sub_Data);
-
-		if (!($rcd_cnt)) {
-		?>
-			<script language="javascript">
-				alert("회원정보가 일치하지 않습니다.");
-				window.location.href = "idpw_search.php?menu=2&id_step=1";
-			</script>
-<?
-		} else {
-			$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_hp'";
-			mysql_query($Sql_Query);
-var_dump($Sql_Query);
-			echo 'successful';
-		}
+		echo 'successful';
 		exit;
 		break;
 }

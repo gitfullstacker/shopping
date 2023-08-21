@@ -151,7 +151,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
 			alert('비밀번호가 맞지 않습니다.');
 		} else {
 			$.ajax({
-				url: 'idpw_search_proc.php?RetrieveFlag=PWSET&str_password=' + document.getElementById('str_password').value,
+				url: 'idpw_search_proc.php?RetrieveFlag=PWSET&str_userid=' + document.getElementById('str_userid').value + '&str_password=' + document.getElementById('str_password').value,
 				success: function(result) {
 					document.getElementById('pwd_dialog').classList.remove('hidden');
 				}
