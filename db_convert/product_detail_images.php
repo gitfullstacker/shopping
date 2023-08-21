@@ -5,7 +5,7 @@
 set_time_limit(60000);
 
 $SQL_QUERY =    'SELECT 
-                    A.*, B.*
+                    A.*
                 FROM 
                     `' . $Tname . 'comm_goods_master` A
                 WHERE 
