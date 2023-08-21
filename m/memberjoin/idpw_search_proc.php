@@ -103,7 +103,7 @@ switch ($RetrieveFlag) {
 		} else {
 			$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_hp'";
 			mysql_query($Sql_Query);
-
+var_dump($Sql_Query);
 			echo 'successful';
 		}
 		exit;
