@@ -68,7 +68,7 @@
 			}
 		}
 		
-		$SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from ".$Tname."comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
+		$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from ".$Tname."comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
 		$SQL_QUERY.=$Tname;
 		$SQL_QUERY.="comm_goods_cart a left join ".$Tname."comm_member b on a.str_userid=b.str_userid left join ".$Tname."comm_goods_master c on a.str_goodcode=c.str_goodcode left join ".$Tname."comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode where a.int_number is not null and a.int_state not in ('0') ";
 		$SQL_QUERY.=" and a.int_number in (".$sTemp.") ";
@@ -78,7 +78,7 @@
 	$arr_ex_Data_Cnt=mysql_num_rows($arr_ex_Data);
 	} else {
 
-		$SQL_QUERY = "select a.*,b.str_name,b.str_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from ".$Tname."comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
+		$SQL_QUERY = "select a.*,b.str_name,b.str_hp as member_hp,c.str_goodname,e.str_usercode,(select count(d.str_userid) from ".$Tname."comm_member_alarm d where d.str_goodcode=a.str_goodcode) as cnt3 from ";
 		$SQL_QUERY.=$Tname;
 		$SQL_QUERY.="comm_goods_cart a left join ".$Tname."comm_member b on a.str_userid=b.str_userid left join ".$Tname."comm_goods_master c on a.str_goodcode=c.str_goodcode left join ".$Tname."comm_goods_master_sub e on a.str_sgoodcode=e.str_sgoodcode where a.int_number is not null and a.int_state not in ('0') ";
 		$SQL_QUERY.=$Str_Query;
@@ -147,7 +147,7 @@ br{mso-data-placement:same-cell;}
 		</td>
 		<td align="center" style='mso-number-format:"\@";'>[<?=mysql_result($arr_ex_Data,$int_I,str_usercode)?>] <?=mysql_result($arr_ex_Data,$int_I,str_goodname)?></td>
 		<td align="center" style='mso-number-format:"\@";'><?=mysql_result($arr_ex_Data,$int_I,str_sdate)?>~<?=mysql_result($arr_ex_Data,$int_I,str_edate)?></td>
-		<td align="center" style='mso-number-format:"\@";'><?=mysql_result($arr_ex_Data,$int_I,str_hp)?></td>
+		<td align="center" style='mso-number-format:"\@";'><?=mysql_result($arr_ex_Data,$int_I,member_hp)?></td>
 		<td align="center" style='mso-number-format:"\@";'><?=mysql_result($arr_ex_Data,$int_I,str_rdate)?></td>
 		<td align="center" style='mso-number-format:"\@";'>
 			<?switch (mysql_result($arr_ex_Data,$int_I,int_state)) {
