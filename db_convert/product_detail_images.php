@@ -13,7 +13,7 @@ $SQL_QUERY =    'SELECT
 
 $good_list_result = mysql_query($SQL_QUERY);
 
-var_dump ($good_list_result);
+var_dump ($SQL_QUERY);
 exit;
 
 while ($row = mysql_fetch_assoc($good_list_result)) {
