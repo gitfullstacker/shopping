@@ -79,8 +79,8 @@ switch ($RetrieveFlag) {
 		exit;
 		break;
 	case "PWSET":
-		
-		$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid' AND STR_NAME='$str_rname' AND STR_HP='$str_hp'";
+
+		$Sql_Query = "UPDATE `" . $Tname . "comm_member` SET STR_PASSWD=password('$str_password') WHERE STR_USERID='$str_userid'";
 		mysql_query($Sql_Query);
 
 		echo 'successful';
