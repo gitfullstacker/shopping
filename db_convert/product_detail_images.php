@@ -9,7 +9,7 @@ $SQL_QUERY =    'SELECT
                 FROM 
                     `' . $Tname . 'comm_goods_master` A
                 WHERE 
-                    A.STR_CONTENTS="%http://ablanccompany.cafe24.com%"';
+                    A.STR_CONTENTS LIKE "%http://ablanccompany.cafe24.com%"';
 
 $good_list_result = mysql_query($SQL_QUERY);
 
