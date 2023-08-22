@@ -616,7 +616,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <?= str_replace('\"', '', $arr_Data['STR_CONTENTS']) ?>
                 </div>
                 <!-- 더보기 버튼 -->
-                <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent">
+                <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent" style="<?= $arr_Data['STR_CONTENTS'] == '' ? 'display: none' : '' ?>">
                     <span class="font-bold text-[11px] text-black" x-text="showFullContent ? '접기' : '더보기'">더보기</span>
                     <div class="flex items-center" x-bind:style="showFullContent ? 'rotate: 180deg;' : ''">
                         <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
