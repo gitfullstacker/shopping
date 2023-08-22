@@ -616,7 +616,7 @@ switch ($arr_Data['INT_TYPE']) {
                     <?= str_replace('\"', '', $arr_Data['STR_CONTENTS']) ?>
                 </div>
                 <!-- 더보기 버튼 -->
-                <button class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent" style="<?= $arr_Data['STR_CONTENTS'] == '' ? 'display: none' : '' ?>">
+                <button x-show="contentOverflow()" class="flex justify-center items-center gap-[3px] h-[39px] rounded-[5px] border-[0.72222px] border-solid border-[#DDDDDD] bg-white" x-on:click="showFullContent = !showFullContent">
                     <span class="font-bold text-[11px] text-black" x-text="showFullContent ? '접기' : '더보기'">더보기</span>
                     <div class="flex items-center" x-bind:style="showFullContent ? 'rotate: 180deg;' : ''">
                         <svg width="9" height="5" viewBox="0 0 9 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -710,11 +710,11 @@ switch ($arr_Data['INT_TYPE']) {
                 <p class="font-bold text-lg leading-5 text-[#333333]">1:1문의</p>
                 <div class="mt-[15px] flex flex-col bg-[#F5F5F5] px-[15px] py-[17px]">
                     <a href="/m/mine/question/index.php">
-                    <p class="font-bold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
+                        <p class="font-bold text-[13px] leading-[15px] text-black">CUSTOMER CENTER</p>
                     </a>
                     <p class="mt-[13px] font-medium text-xs leading-[14px] text-black">CS NUMBER : 02-6013-6733</p>
                     <a href="https://pf.kakao.com/_eZdId">
-                    <p class="mt-[5px] font-medium text-xs leading-[14px] text-black">카카오톡 : @에이블랑컴퍼니</p>
+                        <p class="mt-[5px] font-medium text-xs leading-[14px] text-black">카카오톡 : @에이블랑컴퍼니</p>
                     </a>
                     <p class="mt-[15px] font-medium text-[9px] leading-[10px] text-[#999999]">※ 운영시간: 평일 09:00 ~ 17:30 (점심시간 12:00~13:00) / 주말 및 공휴일 휴무</p>
                 </div>
@@ -748,7 +748,7 @@ switch ($arr_Data['INT_TYPE']) {
                     </svg>
                 </span>
             </div>
-            <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]" >
+            <div x-show="!collapse" class="flex flex-col gap-[9px] p-3 bg-[#F5F5F5]">
                 <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
                     [명품 렌트] </br>
                     - 상품에 따라 주문 후 별도의 보증금을 요청드릴 수 있습니다.</br>
@@ -764,7 +764,7 @@ switch ($arr_Data['INT_TYPE']) {
                     - 상품 변경 및 취소는 주문 접수 상태일 때만 가능합니다.</br>
                     - 수령 직후 주문한 상품이 아닌 경우 라벨을 제거하기 전 문의바랍니다.
                 </p>
-        
+
             </div>
         </div>
 
@@ -807,7 +807,7 @@ switch ($arr_Data['INT_TYPE']) {
                 </span>
             </div>
             <div x-show="!collapse" class="flex flex-col gap-[4px] p-3 bg-[#F5F5F5]">
-            
+
                 <p class="font-normal text-xs leading-[14px] text-[#666666]" style="line-height: 1.5;">
                     [명품 렌트] </br>
                     - 가방 이용기간을 확인해주시고 반납일에 맞추어 가방을 반납해 주세요.</br>
@@ -829,7 +829,7 @@ switch ($arr_Data['INT_TYPE']) {
                     - 가방의 안전을 위해, 기사님의 연락을 받으실 경우에만 회수가 진행됩니다.</br>
                 </p>
             </div>
-        </div>    
+        </div>
         <!-- 구분선 -->
         <hr class="mt-7 border-t-[0.5px] border-solid border-[#E0E0E0]" />
 
@@ -1993,6 +1993,11 @@ switch ($arr_Data['INT_TYPE']) {
                 }
             }
         });
+    }
+
+    function contentOverflow() {
+        const contentElement = $refs.content;
+        return contentElement.scrollHeight > contentElement.clientHeight;
     }
 </script>
 
