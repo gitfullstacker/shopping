@@ -612,7 +612,7 @@ switch ($arr_Data['INT_TYPE']) {
             </div>
             <!-- 상품이미지 -->
             <div x-data="{ showFullContent: false }" class="mt-7 flex flex-col gap-7 w-full">
-                <div class="flex flex-col w-full" x-ref="content" x-bind:style="showFullContent ? 'max-height: none' : 'max-height: 300px; overflow: hidden'">
+                <div class="flex flex-col w-full" id="content_panel" x-ref="content" x-bind:style="showFullContent ? 'max-height: none' : 'max-height: 300px; overflow: hidden'">
                     <?= str_replace('\"', '', $arr_Data['STR_CONTENTS']) ?>
                 </div>
                 <!-- 더보기 버튼 -->
@@ -1996,7 +1996,9 @@ switch ($arr_Data['INT_TYPE']) {
     }
 
     function contentOverflow() {
-        const contentElement = $refs.content;
+        const contentElement = document.getElementById('content_panel');
+        console.log(contentElement.clientHeight);
+        console.log(contentElement.scrollHeight);
         return contentElement.scrollHeight > contentElement.clientHeight;
     }
 </script>
