@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>에이블랑_ABLANC</title>
-<meta name="description" content="구찌, 샤넬, 생로랑 등 21개 브랜드, 700개 명품을 무제한 이용하는 명품 구독 서비스">
-<meta name="Keywords" content="명품대여, 에이블랑, 가방렌탈, 명품가방대여, 명품가방렌탈, 가방대여, 율럽, 명품렌탈, 명품백대여, 명품백렌탈, ABLANC, 명품가방렌트, 에이블랑후기, 명품구독, 명품가방구독">
+<meta name="description" content="샤넬, 디올, 셀린느, 구찌 등 명품 브랜드, 1000개 이상의 명품 구독 서비스">
+<meta name="Keywords" content="명품대여, 명품렌트, 에이블랑, 가방렌탈, 명품가방대여, 명품가방렌탈, 가방대여, 율럽, 명품렌탈, 명품백대여, 명품백렌탈, ABLANC, 명품가방렌트, 에이블랑후기, 명품구독, 명품가방구독">
 <meta property="og:type" content="website">
-<meta property="og:title" content="에이블랑_명품구독서비스">
-<meta property="og:description" content="구찌, 샤넬, 생로랑 등 21개 브랜드, 700개 명품을 무제한 이용하는 명품 구독 서비스">
+<meta property="og:title" content="에이블랑_명품렌트서비스">
+<meta property="og:description" content="샤넬, 디올, 셀린느, 구찌 등 명품 브랜드, 1000개 이상의 명품 구독 서비스">
 <meta name="naver-site-verification" content="56446fd32b606721bf9fdd9ede276db36e2e9ef3"/>
-<meta property="og:url" content="http://www.ablanc.co.kr">
+<meta property="og:url" content="https://www.ablanc.co.kr">
  
 <link rel="shortcut icon" type="image/x-icon" href="/images/common/favicon.png" />
 <link type="text/css" rel="stylesheet" href="/css/style.css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script language="javascript" src="/js/common_gnb.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 

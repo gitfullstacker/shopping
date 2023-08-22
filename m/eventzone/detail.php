@@ -18,6 +18,14 @@ if (!$arr_Rlt_Data) {
     exit;
 }
 $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
+
+$product_type = 1;
+if($int_number == 3) {
+    $product_type = 2;
+} elseif($int_number == 2) {
+    $product_type = 3;
+}
+
 ?>
 
 <!-- Header -->
@@ -126,6 +134,19 @@ $arr_Data = mysql_fetch_assoc($arr_Rlt_Data);
             }
             ?>
         </div>
+        <style>
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        </style>
+        <div class="center-container">
+            <a href="/m/product/index.php?product_type=<?= $product_type ?>" class="mt-[21px] w-[225px] h-[38px] flex justify-center items-center bg-white border border-solid border-[#DDDDDD]">
+                <p class="font-bold text-[11px] leading-[12px]">더 많은 상품 보러가기</p>
+            </a>
+        </div>
+	</a>
     </div>
 </div>
 
