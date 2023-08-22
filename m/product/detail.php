@@ -1997,8 +1997,6 @@ switch ($arr_Data['INT_TYPE']) {
 
     function contentOverflow() {
         const contentElement = document.getElementById('content_panel');
-        console.log(contentElement.clientHeight);
-        console.log(contentElement.scrollHeight);
         return contentElement.scrollHeight > contentElement.clientHeight;
     }
 </script>
