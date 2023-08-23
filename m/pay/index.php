@@ -210,6 +210,13 @@ while ($row = mysql_fetch_assoc($end_weeks_result)) {
         this.calTotalPrice();
     },
     changeMileage(mileage) {
+        // Get Total Price except mileage
+        const totalPrice = this.payAmount.price - this.payAmount.discount.product - this.payAmount.discount.membership - this.payAmount.coupon - this.payAmount.discount.area;
+
+        if ((totalPrice - mileage) < 0) {
+            mileage = totalPrice;
+        }
+
         this.payAmount.mileage = mileage;
         this.calTotalPrice();
     },
