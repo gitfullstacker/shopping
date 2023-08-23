@@ -213,7 +213,7 @@ if ($res_cd == "0000") {
     }
     ?>
     <script language="javascript">
-        alert('멤버십결제가 성공하였습니다.');
+        alert('멤버십 결제가 완료되었습니다.');
         window.location.href = "index.php?int_type=<?= $cart_Data['INT_TYPE'] ?>";
     </script>
 <?php

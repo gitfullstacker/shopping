@@ -247,7 +247,6 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
                         <div class="flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[15px]">
                             <p class="font-bold text-xs leading-[14px] text-black">블랑 렌트 멤버십 혜택 안내</p>
                             <p class="font-normal text-[10px] leading-3 text-[#666666]">
-                                블랑 렌트 멤버십으로 30% 추가할인 되셨습니다.<br>
                                 블랑 렌트 멤버십을 가입하시면 30% 추가할인 받을 수 있어요!
                             </p>
                         </div>
@@ -294,21 +293,64 @@ $payment_Data = mysql_fetch_assoc($arr_Rlt_Data);
 
     <!-- 약관동의 -->
     <div class="mt-4 flex flex-col gap-2.5 px-[14px]">
-        <div class="flex justify-between items-center">
-            <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
-                <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">보증금 약관 동의하기</label>
+            <div class="flex justify-between items-center mt-2" style="padding-bottom: 10px;">
+                <div class="flex gap-[5px] items-center">
+                    <input type="checkbox" name="agree_all" id="agree_all" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                    <label for="agree_all" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">렌트 내역 확인 및 모든 약관에 동의합니다</label>
+                </div>
+                <a href="#" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]" onclick="toggleAgreements(event)">약관보기</a> 
+
             </div>
-            <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
-        </div>
-        <div class="flex justify-between items-center">
-            <div class="flex gap-[5px] items-center">
-                <input type="checkbox" name="agree_payment" id="agree_payment" class="w-[14px] h-[14px] accent-black cursor-pointer">
-                <label for="agree_payment" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">약관 및 개인정보 제 3자 제공사항 결제 동의하기</label>
+            <div class="mt-4 flex flex-col gap-[7px] w-full bg-[#F5F5F5] px-[9px] py-[9px]" style="margin-top:0px;">
+                            <p class="font-normal text-[10px] leading-3 text-[#666666]" style="line-height: 1.5;">
+                             명품 렌트 서비스 약관, 개인정보 취급방침 동의, 결제 대행 서비스 자동 승인, 개인신용정보 수집 이용 동의, 개인신용정보 조회 동의, 개인신용정보 제공 동의 등</div>
+
+            <div class="individual-agreement hidden mt-4 flex flex-col gap-2.5 px-[14px]" > <!-- 숨김 클래스 추가 -->
+                <div class="flex justify-between items-center" >
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_terms" id="agree_terms" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_terms" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer" >렌트 서비스 약관 및 개인정보취급방침 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/use.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment1" id="agree_payment1" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment1" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 수집 이용 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb1.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment2" id="agree_payment2" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment2" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 조회 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb2.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-[5px] items-center">
+                        <input type="checkbox" name="agree_payment3" id="agree_payment3" class="w-[14px] h-[14px] accent-black cursor-pointer">
+                        <label for="agree_payment3" class="font-bold text-xs leading-[14px] text-[#666666] cursor-pointer">개인(신용)정보 제공 동의</label>
+                    </div>
+                    <a href="/m/memberjoin/kcb3.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
+                </div>
             </div>
-            <a href="/m/memberjoin/privaty.php" class="font-medium text-[10px] leading-3 text-right underline text-[#666666]">약관보기</a>
         </div>
-    </div>
+        <script>
+            document.getElementById('agree_all').addEventListener('change', function() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#agree_all)');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = this.checked;
+                }, this);
+            });
+        </script>
+        <script>
+           function toggleAgreements(event) {
+                event.preventDefault(); // 기본 동작 막기
+                var agreementItems = document.getElementsByClassName('individual-agreement')[0];
+                agreementItems.classList.toggle('hidden'); // 'hidden' 클래스 토글
+            }
+        </script>   
 
     <!-- 하단 메뉴 -->
     <div class="fixed bottom-0 w-full flex h-[66px] max-w-[410px]">
@@ -359,20 +401,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/m/inc/footer.php";
         document.frm.submit();
     }
 
-    function ValidChk() {
-        var checkbox1 = $('#agree_terms').is(':checked');
-        var checkbox2 = $('#agree_payment').is(':checked');
+    function ValidChk(int_type) {
+        if (int_type == 1) {
+            if (<?= $return_product_Data ? 'true' : 'false' ?> && $('#return_date').val() == '') {
+                alert('반납날짜를 선택해주십시요.');
+                return false;
+            }
+        } else {
+            var checkbox1 = $('#agree_terms').is(':checked');
+            var checkbox2 = $('#agree_payment1').is(':checked');
+            var checkbox2 = $('#agree_payment2').is(':checked');
+            var checkbox2 = $('#agree_payment3').is(':checked');
 
-        if (!checkbox1 || !checkbox2) {
-            event.preventDefault(); // Prevent the default redirect behavior
-            alert('약관동의에 동의하셔야 합니다.');
-            return false;
-        }
 
-        var total_price = $('#total_price').val();
-        if (total_price <= 0) {
-            alert('상품가격을 다시 확인해주십시요.');
-            return false;
+            if (!checkbox1 || !checkbox2) {
+                event.preventDefault(); // Prevent the default redirect behavior
+                alert('약관동의에 동의하셔야 합니다.');
+                return false;
+            }
+
+            var total_price = $('#total_price').val();
+            if (total_price <= 0) {
+                alert('상품가격을 다시 확인해주십시요.');
+                return false;
+            }
         }
 
         return true;
