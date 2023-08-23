@@ -41,9 +41,7 @@ if ($arr_Rlt_Data) {
         $str_gubun = '3';
 
         if ($mileage > 0) {
-            $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Auth[0] . "'";
-            var_dump($SQL_QUERY);
-            exit;
+            $SQL_QUERY =    "UPDATE `" . $Tname . "comm_member` SET INT_MILEAGE = INT_MILEAGE+" . $mileage . " WHERE STR_USERID='" . $arr_Data['MEM_ID'] . "'";
             $arr_Rlt_Data = mysql_query($SQL_QUERY);
 
             if ($arr_Data['INT_CART']) {
