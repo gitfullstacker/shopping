@@ -627,7 +627,7 @@ $str_Url = "egolist.php" . $str_String;
 				<? if (Trim(mysql_result($arr_Get_Data, $int_I, bd_w_email)) != "") { ?>
 					</a>
 				<? } ?>
-				<a href="javascript:fnc_stamp('<?= mysql_result($arr_Get_Data, $int_I, 'mem_id') ?>', '<?= mysql_result($arr_Get_Data, $int_I, 'int_cart') ?>');">[적립금지급]</a>
+				<a href="javascript:fnc_stamp('<?= mysql_result($arr_Get_Data, $int_I, 'MEM_ID') ?>', '<?= mysql_result($arr_Get_Data, $int_I, 'int_cart') ?>');">[적립금지급]</a>
 			</td>
 			<td align="center" nowrap>
 				<?= str_replace("-", ".", substr(mysql_result($arr_Get_Data, $int_I, bd_reg_date), 0, 10)) ?>
