@@ -44,6 +44,7 @@ switch ($RetrieveFlag) {
         $arr_Column_Name[12]    =     "BD_ITEM1";
         $arr_Column_Name[13]    =     "BD_ITEM2";
         $arr_Column_Name[14]    =     "INT_CART";
+        $arr_Column_Name[15]    =     "BD_W_NAME";
 
         $arr_Set_Data[0]        = $new_id;
         $arr_Set_Data[1]        = 2;
@@ -60,6 +61,7 @@ switch ($RetrieveFlag) {
         $arr_Set_Data[12]       = Fnc_Om_Conv_Default($_REQUEST['str_goodcode'], "");
         $arr_Set_Data[13]       = Fnc_Om_Conv_Default($_REQUEST['int_star'], "5");
         $arr_Set_Data[14]       = Fnc_Om_Conv_Default($_REQUEST['int_cart'], "");
+        $arr_Set_Data[15]       = $arr_Auth[2];
 
         $arr_Sub1 = "";
         $arr_Sub2 = "";
